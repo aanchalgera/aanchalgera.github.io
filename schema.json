@@ -31,7 +31,8 @@
 		      		"background-image": ""
 	        	},
 	        	"table": {
-	        		"columns": ""
+	        		"columns": "",
+                    "rows": ""
 	        	},
 	        ]
 		},
