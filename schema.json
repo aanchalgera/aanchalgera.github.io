@@ -32,9 +32,9 @@ schema: {
             "image",
             "slideshow"
           ],
-          "default": "video"
-        },
+          "default": "text"
+        }
       }
-    },
-  },
+    }
+  }
 }
