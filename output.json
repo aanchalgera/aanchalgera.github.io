@@ -1,0 +1,111 @@
+{
+  "title": "A title",
+  "alternate_title" : [
+    "Alternate Title1",
+    "Alternate Title2"
+  ],
+  "page_title" : "Page Title",
+  "page_description" : "Page Description",
+  "sections": [
+    {
+      "type" : "image",
+      "url" : "abc",
+      "alt" : "abc",
+      "extension" : "jpg",
+      "layout" : "normal"
+    },
+    {
+      "type" : "content",
+      "columns" : 1,
+      "text" : "aadkdklad",
+      "background-image" : ""
+    },
+    { 
+      "type" : "video",
+      "provider" : "youtube",
+      "url" : ""
+    },
+    {
+      "type" : "content",
+      "columns" : 2,
+      "sections" : [
+        {
+          "type" : "image",
+          "url" : "abc",
+          "alt" : "abc",
+          "extension" : "jpg",
+          "layout" : "normal",
+          "alignment" : "left",
+          "width" : 100,
+          "height" : 100
+        },
+        {
+          "type" : "content",
+          "columns" : 1,
+          "text" : "column 2 text",
+          "background-image" : ""
+        }
+      ]
+    },
+    {
+      "type" : "image",
+      "url" : "abc",
+      "class" : "abc"
+    },
+    {
+      "slideshow_pages" : [
+        {
+          "url" : "abc",
+          "alt" : "abc",
+          "extension" : "jpg",
+          "layout" : "normal",
+          "title": "test title"
+        },
+        {
+          "url" : "abc",
+          "alt" : "abc",
+          "extension" : "jpg",
+          "layout" : "normal",
+          "title": "test title"
+        },
+        {
+          "url" : "abc",
+          "alt" : "abc",
+          "extension" : "jpg",
+          "layout" : "normal",
+          "title": "test title"
+        }
+      ]
+    },
+    {
+      "gallery": "iphone"
+    },
+    {
+      "shopping_guide_products": [
+        {
+          "title":"first_image_name",
+          "imagePath":"http://i.blogs.es/6cf7c7/waqt-nahi/650_1200.jpg",
+          "order":"1",
+          "description":"first image description",
+          "storeLink":"http://www.anc.com",
+          "linkText":"link text",
+          "price":100,
+          "currency" : "Euro",
+          "category":"test category"          
+        }, 
+        {
+          "title":"first_image_name",
+          "imagePath":"http://i.blogs.es/95181a/428840_200297050098951_1912800679_n/650_1200.jpg",              "order":"2",
+          "description":"first image description",
+          "storeLink":"http://www.qqaas.com",
+          "linkText":"link text",
+          "price":200,
+          "currency" : "USD",
+          "category":"2test category"
+        }        
+      ]
+    }
+  ],
+  "create_date" : "2015-04-21 19:01:42",
+  "author" : "Javier"
+}
