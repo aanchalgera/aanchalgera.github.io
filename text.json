@@ -1,0 +1,11 @@
+{
+  "title": "Text",
+  "type": "object",
+  "id": "text",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Post Content"
+    }
+  }
+}

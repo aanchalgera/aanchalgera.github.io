@@ -1,0 +1,16 @@
+{
+  "title": "Slideshow",
+  "type": "object",
+  "id": "slideshow",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Video Url",
+      "minLength": 20
+    },
+    "class": {
+      "type": "string",
+      "description": "class"
+    }
+  }
+}

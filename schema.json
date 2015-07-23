@@ -19,21 +19,32 @@ schema: {
         "title": "Alternate Title"
     },
     "post_content": {
-      "type": "object",
+      "type": "array",
       "title": "Post Content",
-      "properties": {
-        "type": {
-          "type": "string",
-          "title": "Widgets",
-          "enum": [
-            "video",
-            "text",
-            "table",
-            "image",
-            "slideshow"
-          ],
-          "default": "text"
-        }
+      "items": {
+        "title": "Widget",
+        "oneOf": [
+          {
+            "$ref": "text.json",
+            "title": "Text"
+          },
+          {
+            "$ref": "video.json",
+            "title": "Video"
+          },
+          {
+            "$ref": "table.json",
+            "title": "Table"
+          },
+          {
+            "$ref": "image.json",
+            "title": "Image"
+          },
+          {
+            "$ref": "slideshow.json",
+            "title": "Slideshow"
+          }
+        ]
       }
     }
   }

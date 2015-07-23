@@ -1,0 +1,16 @@
+{
+  "title": "Table",
+  "type": "object",
+  "id": "table",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Table Url",
+      "minLength": 20
+    },
+    "class": {
+      "type": "string",
+      "description": "class"
+    }
+  }
+}
