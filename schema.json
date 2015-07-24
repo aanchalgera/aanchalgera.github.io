@@ -152,7 +152,7 @@
                 {
                     "type": "object",
                     "properties": {
-                        "slideshowPages": {
+                        "slideshow_pages": {
                             "type": "array",
                             "items": [
                                 {
