@@ -3,19 +3,19 @@
     "description": "JSON schema for New post",
     "type": "object",
     "properties": {
-        "postTitle": {
+        "title": {
             "type": "string"
         },
-        "alternateTitle": {
+        "alternate_title": {
             "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "pageTitle": {
+        "page_title": {
             "type": "string"
         },
-        "pageDescription": {
+        "page_description": {
             "type": "string"
         },
         "sections": {
@@ -230,7 +230,7 @@
                 {
                     "type": "object",
                     "properties": {
-                        "shoppingGuideProducts": {
+                        "shopping_guide_products": {
                             "type": "array",
                             "items": [
                                 {
@@ -303,7 +303,7 @@
                 }
             ]
         },
-        "createDate": {
+        "create_date": {
             "type": "string"
         },
         "author": {
@@ -311,12 +311,12 @@
         }
     },
     "required": [
-        "postTitle",
-        "alternateTitle",
-        "pageTitle",
-        "pageDescription",
+        "title",
+        "alternate_title",
+        "page_title",
+        "page_description",
         "sections",
-        "createDate",
+        "create_date",
         "author"
     ]
 }
