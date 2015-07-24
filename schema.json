@@ -1,415 +1,322 @@
-schema: {
-  "id": "/",
-  "type": "object",
-  "properties": {
-    "title": {
-      "id": "title",
-      "type": "string"
-    },
-    "alternate_title": {
-      "id": "alternate_title",
-      "type": "array",
-      "items": [
-        {
-          "id": "0",
-          "type": "string"
+{
+    "title": "Post Schema",
+    "description": "JSON schema for New post",
+    "type": "object",
+    "properties": {
+        "postTitle": {
+            "type": "string"
         },
-        {
-          "id": "1",
-          "type": "string"
+        "alternateTitle": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "pageTitle": {
+            "type": "string"
+        },
+        "pageDescription": {
+            "type": "string"
+        },
+        "sections": {
+            "type": "array",
+            "minItems": 1,
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "alt": {
+                            "type": "string"
+                        },
+                        "extension": {
+                            "type": "string"
+                        },
+                        "layout": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "columns": {
+                            "type": "integer"
+                        },
+                        "text": {
+                            "type": "string"
+                        },
+                        "background-image": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "columns": {
+                            "type": "integer"
+                        },
+                        "sections": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "alignment": {
+                                            "type": "string"
+                                        },
+                                        "width": {
+                                            "type": "integer"
+                                        },
+                                        "height": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "columns": {
+                                            "type": "integer"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        },
+                                        "background-image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "class": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "slideshowPages": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "gallery": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "shoppingGuideProducts": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "imagePath": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "storeLink": {
+                                            "type": "string"
+                                        },
+                                        "linkText": {
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "imagePath": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "storeLink": {
+                                            "type": "string"
+                                        },
+                                        "linkText": {
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "create_date": {
+            "type": "string"
+        },
+        "author": {
+            "type": "string"
         }
-      ]
     },
-    "page_title": {
-      "id": "page_title",
-      "type": "string"
-    },
-    "page_description": {
-      "id": "page_description",
-      "type": "string"
-    },
-    "sections": {
-      "id": "sections",
-      "type": "array",
-      "items": [
-        {
-          "id": "0",
-          "type": "object",
-          "properties": {
-            "type": {
-              "id": "type",
-              "type": "string"
-            },
-            "url": {
-              "id": "url",
-              "type": "string"
-            },
-            "alt": {
-              "id": "alt",
-              "type": "string"
-            },
-            "extension": {
-              "id": "extension",
-              "type": "string"
-            },
-            "layout": {
-              "id": "layout",
-              "type": "string"
-            }
-          }
-        },
-        {
-          "id": "1",
-          "type": "object",
-          "properties": {
-            "type": {
-              "id": "type",
-              "type": "string"
-            },
-            "columns": {
-              "id": "columns",
-              "type": "integer"
-            },
-            "text": {
-              "id": "text",
-              "type": "string"
-            },
-            "background-image": {
-              "id": "background-image",
-              "type": "string"
-            }
-          }
-        },
-        {
-          "id": "2",
-          "type": "object",
-          "properties": {
-            "type": {
-              "id": "type",
-              "type": "string"
-            },
-            "provider": {
-              "id": "provider",
-              "type": "string"
-            },
-            "url": {
-              "id": "url",
-              "type": "string"
-            }
-          }
-        },
-        {
-          "id": "3",
-          "type": "object",
-          "properties": {
-            "type": {
-              "id": "type",
-              "type": "string"
-            },
-            "columns": {
-              "id": "columns",
-              "type": "integer"
-            },
-            "sections": {
-              "id": "sections",
-              "type": "array",
-              "items": [
-                {
-                  "id": "0",
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "id": "type",
-                      "type": "string"
-                    },
-                    "url": {
-                      "id": "url",
-                      "type": "string"
-                    },
-                    "alt": {
-                      "id": "alt",
-                      "type": "string"
-                    },
-                    "extension": {
-                      "id": "extension",
-                      "type": "string"
-                    },
-                    "layout": {
-                      "id": "layout",
-                      "type": "string"
-                    },
-                    "alignment": {
-                      "id": "alignment",
-                      "type": "string"
-                    },
-                    "width": {
-                      "id": "width",
-                      "type": "integer"
-                    },
-                    "height": {
-                      "id": "height",
-                      "type": "integer"
-                    }
-                  }
-                },
-                {
-                  "id": "1",
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "id": "type",
-                      "type": "string"
-                    },
-                    "columns": {
-                      "id": "columns",
-                      "type": "integer"
-                    },
-                    "text": {
-                      "id": "text",
-                      "type": "string"
-                    },
-                    "background-image": {
-                      "id": "background-image",
-                      "type": "string"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "4",
-          "type": "object",
-          "properties": {
-            "type": {
-              "id": "type",
-              "type": "string"
-            },
-            "url": {
-              "id": "url",
-              "type": "string"
-            },
-            "class": {
-              "id": "class",
-              "type": "string"
-            }
-          }
-        },
-        {
-          "id": "5",
-          "type": "object",
-          "properties": {
-            "slideshow_pages": {
-              "id": "slideshow_pages",
-              "type": "array",
-              "items": [
-                {
-                  "id": "0",
-                  "type": "object",
-                  "properties": {
-                    "url": {
-                      "id": "url",
-                      "type": "string"
-                    },
-                    "alt": {
-                      "id": "alt",
-                      "type": "string"
-                    },
-                    "extension": {
-                      "id": "extension",
-                      "type": "string"
-                    },
-                    "layout": {
-                      "id": "layout",
-                      "type": "string"
-                    },
-                    "title": {
-                      "id": "title",
-                      "type": "string"
-                    }
-                  }
-                },
-                {
-                  "id": "1",
-                  "type": "object",
-                  "properties": {
-                    "url": {
-                      "id": "url",
-                      "type": "string"
-                    },
-                    "alt": {
-                      "id": "alt",
-                      "type": "string"
-                    },
-                    "extension": {
-                      "id": "extension",
-                      "type": "string"
-                    },
-                    "layout": {
-                      "id": "layout",
-                      "type": "string"
-                    },
-                    "title": {
-                      "id": "title",
-                      "type": "string"
-                    }
-                  }
-                },
-                {
-                  "id": "2",
-                  "type": "object",
-                  "properties": {
-                    "url": {
-                      "id": "url",
-                      "type": "string"
-                    },
-                    "alt": {
-                      "id": "alt",
-                      "type": "string"
-                    },
-                    "extension": {
-                      "id": "extension",
-                      "type": "string"
-                    },
-                    "layout": {
-                      "id": "layout",
-                      "type": "string"
-                    },
-                    "title": {
-                      "id": "title",
-                      "type": "string"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "6",
-          "type": "object",
-          "properties": {
-            "gallery": {
-              "id": "gallery",
-              "type": "string"
-            }
-          }
-        },
-        {
-          "id": "7",
-          "type": "object",
-          "properties": {
-            "shopping_guide_products": {
-              "id": "shopping_guide_products",
-              "type": "array",
-              "items": [
-                {
-                  "id": "0",
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "id": "title",
-                      "type": "string"
-                    },
-                    "imagePath": {
-                      "id": "imagePath",
-                      "type": "string"
-                    },
-                    "order": {
-                      "id": "order",
-                      "type": "string"
-                    },
-                    "description": {
-                      "id": "description",
-                      "type": "string"
-                    },
-                    "storeLink": {
-                      "id": "storeLink",
-                      "type": "string"
-                    },
-                    "linkText": {
-                      "id": "linkText",
-                      "type": "string"
-                    },
-                    "price": {
-                      "id": "price",
-                      "type": "integer"
-                    },
-                    "currency": {
-                      "id": "currency",
-                      "type": "string"
-                    },
-                    "category": {
-                      "id": "category",
-                      "type": "string"
-                    }
-                  }
-                },
-                {
-                  "id": "1",
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "id": "title",
-                      "type": "string"
-                    },
-                    "imagePath": {
-                      "id": "imagePath",
-                      "type": "string"
-                    },
-                    "order": {
-                      "id": "order",
-                      "type": "string"
-                    },
-                    "description": {
-                      "id": "description",
-                      "type": "string"
-                    },
-                    "storeLink": {
-                      "id": "storeLink",
-                      "type": "string"
-                    },
-                    "linkText": {
-                      "id": "linkText",
-                      "type": "string"
-                    },
-                    "price": {
-                      "id": "price",
-                      "type": "integer"
-                    },
-                    "currency": {
-                      "id": "currency",
-                      "type": "string"
-                    },
-                    "category": {
-                      "id": "category",
-                      "type": "string"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    "create_date": {
-      "id": "create_date",
-      "type": "string"
-    },
-    "author": {
-      "id": "author",
-      "type": "string"
-    }
-  },
-  "required": [
-    "title",
-    "alternate_title",
-    "page_title",
-    "page_description",
-    "sections",
-    "create_date",
-    "author"
-  ]
+    "required": [
+        "title",
+        "alternate_title",
+        "page_title",
+        "page_description",
+        "sections",
+        "create_date",
+        "author"
+    ]
 }
