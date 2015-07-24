@@ -303,7 +303,7 @@
                 }
             ]
         },
-        "create_date": {
+        "createDate": {
             "type": "string"
         },
         "author": {
@@ -311,12 +311,12 @@
         }
     },
     "required": [
-        "title",
-        "alternate_title",
-        "page_title",
-        "page_description",
+        "postTitle",
+        "alternateTitle",
+        "pageTitle",
+        "pageDescription",
         "sections",
-        "create_date",
+        "createDate",
         "author"
     ]
 }
