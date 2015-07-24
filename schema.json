@@ -1,4 +1,4 @@
-schema: {
+{
     "title": "Post Schema",
     "description": "JSON schema for New post",
     "type": "object",
