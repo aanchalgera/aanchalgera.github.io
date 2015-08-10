@@ -8,7 +8,7 @@
   "page_description" : "Page Description",
   "sections": [
     {
-      "type" : "content",
+      "type" : "banner",
       "text" : "<h1 style=\"text-align: center;\">Cómo hemos jugado a videojuegos desde 1980 y cómo lo haremos en 2016</h1>",
       "background-image" : "http://i.imgur.com/50mpN2W.gif"
     }
@@ -16,13 +16,14 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "Jugar a videojuegos <strong>es ser un DJ de vidas paralelas</strong>, que remezcla con cada botÃ³n las decisiones de una comandante espacial, el temor de un cazador de monstruos victoriano, la montaÃ±a rusa de una huida en motocicleta, el instinto de supervivencia de Mad Max o el impulso de construir bloque. a bloque en los legos virtuales de Minecraft. \n     Un remix de una melodÃ­a de mundos, un ritmo de cosas imposibles, una fiesta eterna del conÃ³cete a ti mismo a travÃ©s de todo aquello que sÃ³lo puedes vivir en el videojuego. \n Jugar es crear belleza. TambiÃ©n es una forma de autobiografÃ­a que trasciende la carne y los lÃ­mites del mundo. Es explorar universos, cartografiar lo que no existe, establecer mapas de otras realidades. <strong>Es caminar hacia lo desconocido y disfrazarte de hÃ©roe.</strong> Y despuÃ©s, soltar el mando y seguir con tu vida, mientras todos los que te rodean ignoran tu viaje. QuÃ© digo: las posibilidades de ese viaje.        <strong>Toru Iwatani inventÃ³ Pac-Man hace 35 aÃ±os, y con Ã©l todo un lenguaje del videojuego.</strong> Su visiÃ³n Ãºnica del videojuego es la mejor manera de entender esa vida mejor que propone. Iwatani, leyenda viva, resume mejor que nadie estos cambios y el futuro que nos espera.",
-      "background-image" : ""
-    },
+      "text" : "Jugar a videojuegos <strong>es ser un DJ de vidas paralelas</strong>, que remezcla con cada botÃ³n las decisiones de una comandante espacial, el temor de un cazador de monstruos victoriano, la montaÃ±a rusa de una huida en motocicleta, el instinto de supervivencia de Mad Max o el impulso de construir bloque. a bloque en los legos virtuales de Minecraft. \n     Un remix de una melodÃ­a de mundos, un ritmo de cosas imposibles, una fiesta eterna del conÃ³cete a ti mismo a travÃ©s de todo aquello que sÃ³lo puedes vivir en el videojuego. \n Jugar es crear belleza. TambiÃ©n es una forma de autobiografÃ­a que trasciende la carne y los lÃ­mites del mundo. Es explorar universos, cartografiar lo que no existe, establecer mapas de otras realidades. <strong>Es caminar hacia lo desconocido y disfrazarte de hÃ©roe.</strong> Y despuÃ©s, soltar el mando y seguir con tu vida, mientras todos los que te rodean ignoran tu viaje. QuÃ© digo: las posibilidades de ese viaje.        <strong>Toru Iwatani inventÃ³ Pac-Man hace 35 aÃ±os, y con Ã©l todo un lenguaje del videojuego.</strong> Su visiÃ³n Ãºnica del videojuego es la mejor manera de entender esa vida mejor que propone. Iwatani, leyenda viva, resume mejor que nadie estos cambios y el futuro que nos espera."
+    }
+    ,
     { 
       "type" : "video",
       "provider" : "youtube",
-      "url" : "https://www.youtube.com/embed/jlQX_g9zCs8?rel=0"
+      "url" : "https://www.youtube.com/embed/jlQX_g9zCs8?rel=0",
+      "background-color" : "#000000"
     },
 
     {
@@ -32,14 +33,9 @@
     },
 
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/batman.jpg",
-      "extension" : "jpg",
-      "alt" : "",
-      "alignment" : "",
-      "width" : "",
-      "height" : "",
-      "class" : ""
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/batman.jpg",
+      "text": ""
     },
 
     {
@@ -54,7 +50,7 @@
           "alignment" : "left",
           "width" : 172,
           "height" : 300,
-          "class" : ""
+          "class" : "alignleft size-medium wp-image-186"
         },
 
         {
@@ -82,13 +78,8 @@
     },
 
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/arcade1.jpg",
-      "extension" : "jpg",
-      "alt" : "",
-      "alignment" : "",
-      "width" : "",
-      "height" : ""
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/arcade1.jpg"
     },
 
     {
@@ -109,7 +100,8 @@
           "extension" : "png",
           "alignment" : "left",
           "width" : 224,
-          "height" : 288
+          "height" : 288,
+          "class" : "alignleft size-full wp-image-325"
         },
 
         {
@@ -125,7 +117,7 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "Canibalizar, evolucionar, repetir",
+      "text" : "<h3>Canibalizar, evolucionar, repetir</h3>",
       "background-image" : ""
     },
 
@@ -141,7 +133,7 @@
           "alignment" : "",
           "width" : 500,
           "height" : 341,
-          "class" : ""
+          "class" : "alignleft attachment-large"
         },
 
         {
@@ -172,7 +164,7 @@
           "alignment" : "left",
           "width" : 300,
           "height" : 300,
-          "class" : ""
+          "class" : "alignleft size-medium wp-image-331"
         },
 
         {
@@ -199,7 +191,7 @@
       "alignment" : "center",
       "width" : 1000,
       "height" : 360,
-      "class" : ""
+      "class" : "aligncenter wp-image-234 size-full"
     },
 
     {
@@ -218,15 +210,8 @@
 
 
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/street-fighter-2.jpg",
-      "extension" : "jpg",
-      "alt" : "",
-      "alignment" : "",
-      "width" : "",
-      "height" : "",
-      "class" : ""
-
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/street-fighter-2.jpg"
     },
 
     {
@@ -247,7 +232,8 @@
           "extension" : "jpg",
           "alignment" : "left",
           "width" : 300,
-          "height" : 169
+          "height" : 169,
+          "class" : "alignleft wp-image-251 size-medium"
         },
 
         {
@@ -260,28 +246,23 @@
     },
 
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/gif80.gif",
-      "alt" : "gif80",
-      "extension" : "gif",
-      "alignment" : "center",
-      "width" : 1280,
-      "height" : 435,
-      "class" : ""
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/gif80.gif"
     },
 
 
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "PlayStation: ya no hay que poner excusas para jugar<p><strong>En 1995 aparece PlayStation. La segunda mitad de los 90 se ha convertido en una década de muerte del rock</strong> -literalmente, en el caso de Kurt Cobain- y auge de la electrónica. El DJ es más importante que el cantante, porque ha cambiado la liturgia de la música: es un tipo que te ve bailar y trata de ponerte música para que sigas bailando (no sólo a ti, pero ésa es la magia). Mientras el que da conciertos sólo quiere que escuches lo que él tiene que decir.</p><p>PlayStation entiende el zeitgeist de la época como nadie. Coge el laberinto de Pac-Man y le otorga <strong>una nueva dimensión: ahora todo es tridimensional, hay una nueva libertad</strong>, y una máquina -unas cuántas- que quiere que vivas eso que el videojuego lleva una década y pico prometiéndote: la doble vida, los mundos virtuales. Sin excusas infantiles, sin decir “son sólo juegos”.</p><p>Todo en PlayStation, desde el diseño hasta el catálogo hasta sus increíbles campañas de publicidad (realizadas casi siempre por los directores de videoclips más avanzados de la época), da la bienvenida a la edad adulta del jugador. Es un momento increíble, que recaptura la magia del día que apareció Pac-Man: cuando no <strong>sabes qué juego aparecerá al día siguiente, qué vivirás mañana, que mundo será tuyo.</strong></p>",
+      "text" : "<h3>PlayStation: ya no hay que poner excusas para jugar</h3><p><strong>En 1995 aparece PlayStation. La segunda mitad de los 90 se ha convertido en una década de muerte del rock</strong> -literalmente, en el caso de Kurt Cobain- y auge de la electrónica. El DJ es más importante que el cantante, porque ha cambiado la liturgia de la música: es un tipo que te ve bailar y trata de ponerte música para que sigas bailando (no sólo a ti, pero ésa es la magia). Mientras el que da conciertos sólo quiere que escuches lo que él tiene que decir.</p><p>PlayStation entiende el zeitgeist de la época como nadie. Coge el laberinto de Pac-Man y le otorga <strong>una nueva dimensión: ahora todo es tridimensional, hay una nueva libertad</strong>, y una máquina -unas cuántas- que quiere que vivas eso que el videojuego lleva una década y pico prometiéndote: la doble vida, los mundos virtuales. Sin excusas infantiles, sin decir “son sólo juegos”.</p><p>Todo en PlayStation, desde el diseño hasta el catálogo hasta sus increíbles campañas de publicidad (realizadas casi siempre por los directores de videoclips más avanzados de la época), da la bienvenida a la edad adulta del jugador. Es un momento increíble, que recaptura la magia del día que apareció Pac-Man: cuando no <strong>sabes qué juego aparecerá al día siguiente, qué vivirás mañana, que mundo será tuyo.</strong></p>",
       "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg_2.jpg"
     },
 
     { 
       "type" : "video",
       "provider" : "youtube",
-      "url" : "https://www.youtube.com/embed/Z4Nh5rnIckE?rel=0&amp;showinfo=0"
+      "url" : "https://www.youtube.com/embed/Z4Nh5rnIckE?rel=0&amp;showinfo=0",
+      "background-color" : "#000000"
     },
 
     {
@@ -298,7 +279,7 @@
         {
           "type" : "content",
           "columns" : 1,
-          "text" : "<p>¿cuántas veces puedes matar a tu mejor amigo en una sola tarde? Las que hagan falta. Sin dejar de sonreír.</p>",
+          "text" : "<blockquote><p>¿cuántas veces puedes matar a tu mejor amigo en una sola tarde? Las que hagan falta. Sin dejar de sonreír.</p></blockquote>",
           "background-image" : ""
         }
       ]
@@ -314,7 +295,7 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "La libertad de hacer lo que nos de la gana<p>La llegada de Internet de banda ancha a los hogares, poco después, matará a los cibercafés -con el tiempo- como PlayStation mató a los recreativos. Las siguientes máquinas serán derivados de la propuesta de Play, con un sólo objetivo: Hacer Más. El correcto, recordemos. <strong>El videojuego es el único medio en el que cada obra depende de la máquina que la ejecute</strong>. Perdón: en el que la obra sólo es posible si la máquina <em>puede </em>ejecutarla.</p><p>No hablamos del aspecto, no sólo, sino de las acciones. PlayStation 2 lo dejará bien claro el día que debute Grand Theft Auto III, la única pieza que faltaba en este <strong>engranaje de aventuras, laberintos, realismo y libertad moral.</strong></p>",
+      "text" : "<h3>La libertad de hacer lo que nos de la gana</h3><p>La llegada de Internet de banda ancha a los hogares, poco después, matará a los cibercafés -con el tiempo- como PlayStation mató a los recreativos. Las siguientes máquinas serán derivados de la propuesta de Play, con un sólo objetivo: Hacer Más. El correcto, recordemos. <strong>El videojuego es el único medio en el que cada obra depende de la máquina que la ejecute</strong>. Perdón: en el que la obra sólo es posible si la máquina <em>puede </em>ejecutarla.</p><p>No hablamos del aspecto, no sólo, sino de las acciones. PlayStation 2 lo dejará bien claro el día que debute Grand Theft Auto III, la única pieza que faltaba en este <strong>engranaje de aventuras, laberintos, realismo y libertad moral.</strong></p>",
       "background-image" : ""
     },
 
@@ -323,6 +304,7 @@
     {
       "type" : "gallery",
       "columns" : 3,
+      "background-color" : "#000000",
       "sections" : [
         {
           "type" : "figure",
@@ -359,7 +341,7 @@
       "alignment" : "center",
       "width" : 620,
       "height" : 453,
-      "class" : ""
+      "class" : "aligncenter wp-image-375 size-large"
     },
 
     {
@@ -384,7 +366,7 @@
       "alignment" : "center",
       "width" : 1920,
       "height" : 1080,
-      "class" : ""
+      "class" : "aligncenter size-full wp-image-389"
     },
 
     {
@@ -402,14 +384,8 @@
     },
 
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/WOW.jpg",
-      "extension" : "jpg",
-      "alt" : "",
-      "alignment" : "",
-      "width" : "",
-      "height" : "",
-      "class" : ""
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/WOW.jpg"
     },
 
     {
@@ -430,32 +406,25 @@
       "type" : "content",
       "columns" : 1,
       "text" : "<iframe scrolling='no' style='border: 0; width: 100%; height: 700px; ' src='http://img.weblogssl.com/g/timeline_games/test/embed_laracroft.html?v20' width='300' height='150'></iframe>",
-      "background-image" : ""
+      "background-color" : "#000000"
     },
 
 
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "Conquistar la vida real, el último paso<p>“No se trata del contenido en sí, sino de conseguir un formato que sea accesible para todo el mundo”. Ese deseo que señala Iwatani aparece con el cambio de siglo. Es más, las redes generan sus propias formas de juego: títulos para toda la familia que abandonan los mandos tradicionales; no-juegos para Facebook y posteriormente para móvil que consiguen convencer a los ajenos a la virtualidad;<b> juegos de fiesta, de baile, de ser una estrella del rock</b>. A mediados de la década pasada hay un videojuego y un juguete asociado para cada tipo de persona, desde karaokes caseros hasta monopatines para hacer skate en el salón.</p><p>Algo que se explica porque el videojuego abandona por fin su ombligo de botones y mandos complicados y se abre<b> a su función original: alfabetización digital. Si sabes manejar un videojuego, sabes manejar un móvil. </b>Si sabes jugar a Farmville, sabes interactuar con la gente en Facebook, aunque sea para pedirles ayuda ahí o en Candy Crush o en cualquier otra propuesta.</p><p>Es lo mismo que los jugadores de los 80 llevaban tiempo intentando explicar: las interfaces, las herramientas que nos permiten interactuar con las máquinas, se aprenden mejor jugando. Un nuevo auge que se expande al mundo exterior: <b>la sociedad se gamifica, se ponen normas y logros a todo</b>. Las redes sociales se manejan con lógica de videojuego clásico: tus seguidores son tu puntuación, utilizar las apps desbloquea logros, el día a día adquiere colores y formas de videojuego.</p><p>En un mundo conectado, los jugadores juegan con ventaja: usar Google Maps para orientarte es algo que se lleva años haciendo en los videojuegos con otro nombre, el minimapa. Si<b> la vida fuera de las pantallas ahora es otro laberinto</b>, ya sabemos cómo manejarlos en él.</p>",
+      "text" : "<h3>Conquistar la vida real, el último paso</h3>“No se trata del contenido en sí, sino de conseguir un formato que sea accesible para todo el mundo”. Ese deseo que señala Iwatani aparece con el cambio de siglo. Es más, las redes generan sus propias formas de juego: títulos para toda la familia que abandonan los mandos tradicionales; no-juegos para Facebook y posteriormente para móvil que consiguen convencer a los ajenos a la virtualidad;<b> juegos de fiesta, de baile, de ser una estrella del rock</b>. A mediados de la década pasada hay un videojuego y un juguete asociado para cada tipo de persona, desde karaokes caseros hasta monopatines para hacer skate en el salón.</p><p>Algo que se explica porque el videojuego abandona por fin su ombligo de botones y mandos complicados y se abre<b> a su función original: alfabetización digital. Si sabes manejar un videojuego, sabes manejar un móvil. </b>Si sabes jugar a Farmville, sabes interactuar con la gente en Facebook, aunque sea para pedirles ayuda ahí o en Candy Crush o en cualquier otra propuesta.</p><p>Es lo mismo que los jugadores de los 80 llevaban tiempo intentando explicar: las interfaces, las herramientas que nos permiten interactuar con las máquinas, se aprenden mejor jugando. Un nuevo auge que se expande al mundo exterior: <b>la sociedad se gamifica, se ponen normas y logros a todo</b>. Las redes sociales se manejan con lógica de videojuego clásico: tus seguidores son tu puntuación, utilizar las apps desbloquea logros, el día a día adquiere colores y formas de videojuego.</p><p>En un mundo conectado, los jugadores juegan con ventaja: usar Google Maps para orientarte es algo que se lleva años haciendo en los videojuegos con otro nombre, el minimapa. Si<b> la vida fuera de las pantallas ahora es otro laberinto</b>, ya sabemos cómo manejarlos en él.</p>",
       "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg33.jpg"
     },
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "Deportistas profesionales de magos y soldados<p>La primera década del siglo XXI culmina con una transformación total: e<b>l juego online convierte a títulos como Call of Duty en superéxitos con los que el cine o la música no pueden competir</b>.</p><p>Los campeonatos de videojuegos empiezan a generar dinero y audiencias inconcebibles: las finales de League of Legends reúnen a <a href='http://www.theesa.com/wp-content/uploads/2015/04/ESA-Essential-Facts-2015.pdf' target='_blank'>32 millones de espectadores</a> en la plataforma online <a href='http://www.twitch.tv/' target='_blank'>Twitch</a>.</p><p>Son todavía la cuarta parte de lo que consiguen los grandes eventos deportivos. Pero el fútbol americano y el europeo cuentan con décadas de ventaja: <b>League of Legends nació en 2009</b>. Y ese juego competitivo al que juegan más de 60 millones de personas también encierra el por qué de su crecimiento.</p>",
+      "text" : "<h3>Deportistas profesionales de magos y soldados</h3><p>La primera década del siglo XXI culmina con una transformación total: e<b>l juego online convierte a títulos como Call of Duty en superéxitos con los que el cine o la música no pueden competir</b>.</p><p>Los campeonatos de videojuegos empiezan a generar dinero y audiencias inconcebibles: las finales de League of Legends reúnen a <a href='http://www.theesa.com/wp-content/uploads/2015/04/ESA-Essential-Facts-2015.pdf' target='_blank'>32 millones de espectadores</a> en la plataforma online <a href='http://www.twitch.tv/' target='_blank'>Twitch</a>.</p><p>Son todavía la cuarta parte de lo que consiguen los grandes eventos deportivos. Pero el fútbol americano y el europeo cuentan con décadas de ventaja: <b>League of Legends nació en 2009</b>. Y ese juego competitivo al que juegan más de 60 millones de personas también encierra el por qué de su crecimiento.</p>",
       "background-image" : ""
     },
     {
-      "type" : "image",
-      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/lol.jpg",
-      "extension" : "jpg",
-      "alt" : "",
-      "alignment" : "",
-      "width" : "",
-      "height" : "",
-      "class" : ""
-      
+      "type" : "banner",
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/lol.jpg"
     },
     {
       "type" : "content",
@@ -465,25 +434,9 @@
     },
     {
       "type" : "content",
-      "columns" : 2,
-      "sections" : [
-        {
-          "type" : "image",
-          "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/angry-birds-300x189.png",
-          "alt" : "angry-birds",
-          "extension" : "png",
-          "alignment" : "left",
-          "width" : 300,
-          "height" : 189,
-          "class" : ""
-        },
-        {
-          "type" : "content",
-          "columns" : 1,
-          "text" : "El hoy y el mañana: jugar a todo, en cualquier parte, con cualquier cosa<p>Porque <b>el cambio de década ha traído consigo una rebelión</b> contra esa calma creativa. Ya no hacen falta consolas para jugar, los smartphones son el centro del universo. “Con ellos se puede jugar en cualquier sitio, en cualquier momento: son cambios enormes para el mundo del videojuego”. Y muchísimos creadores se han tirado a diseñar sueños para esas nuevas máquinas y los ordenadores que las complementan.</p><p>Los juegos independientes cambian el modelo para los creadores, que pueden desarrollar juegos distintos sin formar parte de un engranaje decidido por ejecutivos de marketing. Y llevar más allá el lenguaje. </p><p>Braid (2008), una de sus primeras joyas, en realidad es una revisión de Mario años después. Algo parecido hace The Binding of Isaac en 2011: utilizar Zelda para reflexionar sobre la religión, el aborto, el fanatismo, y <strong>tantos temas que Nintendo jamás permitiría publicar bajo su sello </strong>. O Fez, Super Meat Boy y Hotline Miami, que marcan el camino del retrofuturismo: juegos con estética clásica pero ideas y tecnología actual.</p><p>Los indis no se limitan sólo al apartado estético: también generan títulos “infinitos”, aleatorios, donde <strong>el peso del diseñador desaparece y el jugador puede olvidarse de niveles y misiones</strong> para explorar universos enteros: lo hizo en los 80 con ElitE y volverá a hacerlo con No Man’s Sky, un juego independiente que tiene al público tan entusiasmado como la última gran superproducción.</p>Se ha cerrado el círculo: ahora tres tipos con una buena idea y habilidad pueden crear un juego que conquiste el mundo: <b>Angry Birds o Candy Crush no necesitan 90 millones de dólares para existir.</b> Ni el permiso de los fabricantes de consolas.</p><p>Tanto los nuevos como los viejos jugadores asisten a una explosión creativa en la que la consola se reserva la espectacularidad y el taquillazo, sí. Pero nunca ha habido tanto juego como ahora, en tantos formatos. <b>El móvil, la fiebre de la Wii, las consecuencias de esa conquista de la vida real </b>que se gestaba en paralelo al jugador tradicional, han conseguido el triunfo total de los juegos.</p><p>Ya nadie tiene que amoldarse a un estilo, aprender a manejar unos botones, o conformarse con un puñado de títulos. <b>Es, en parte, un regreso a la época del salón recreativo</b>, donde una moneda o el “déjame una vida y te lo paso” te permitía elegir entre decenas de experiencias. Con la salvedad de que ahora son decenas de miles de juegos.</p><p>Que han aprendido de todo lo que les precedió: de los juguetes como pistolas de luz y robots de mentira que hacía Nintendo en los 80; de los micrófonos de Singstar, de las guitarras de plástico con las que todos jugamos a ser estrellas del rock en Guitar Hero; de Nintendo otra vez proponiéndote jugar a los bolos con tu brazo real. Ir más allá de los mandos tradicionales <b>abrió las puertas al gran público. Que ahora puede jugar con un dedo en un móvil</b>.</p>",
-          "background-image" : ""
-        }
-      ]
+      "columns" : 1,
+      "text" : "<h3>El hoy y el mañana: jugar a todo, en cualquier parte, con cualquier cosa</h3><p>Porque <b>el cambio de década ha traído consigo una rebelión</b> contra esa calma creativa. Ya no hacen falta consolas para jugar, los smartphones son el centro del universo. “Con ellos se puede jugar en cualquier sitio, en cualquier momento: son cambios enormes para el mundo del videojuego”. Y muchísimos creadores se han tirado a diseñar sueños para esas nuevas máquinas y los ordenadores que las complementan.</p><p>Los juegos independientes cambian el modelo para los creadores, que pueden desarrollar juegos distintos sin formar parte de un engranaje decidido por ejecutivos de marketing. Y llevar más allá el lenguaje. </p><p>Braid (2008), una de sus primeras joyas, en realidad es una revisión de Mario años después. Algo parecido hace The Binding of Isaac en 2011: utilizar Zelda para reflexionar sobre la religión, el aborto, el fanatismo, y <strong>tantos temas que Nintendo jamás permitiría publicar bajo su sello </strong>. O Fez, Super Meat Boy y Hotline Miami, que marcan el camino del retrofuturismo: juegos con estética clásica pero ideas y tecnología actual.</p><p>Los indis no se limitan sólo al apartado estético: también generan títulos “infinitos”, aleatorios, donde <strong>el peso del diseñador desaparece y el jugador puede olvidarse de niveles y misiones</strong> para explorar universos enteros: lo hizo en los 80 con ElitE y volverá a hacerlo con No Man’s Sky, un juego independiente que tiene al público tan entusiasmado como la última gran superproducción.</p> <img class='alignleft wp-image-374 size-medium' src='http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/angry-birds-300x189.png' alt='angry-birds' width='300' height='189'> Se ha cerrado el círculo: ahora tres tipos con una buena idea y habilidad pueden crear un juego que conquiste el mundo: <b>Angry Birds o Candy Crush no necesitan 90 millones de dólares para existir.</b> Ni el permiso de los fabricantes de consolas.</p><p>Tanto los nuevos como los viejos jugadores asisten a una explosión creativa en la que la consola se reserva la espectacularidad y el taquillazo, sí. Pero nunca ha habido tanto juego como ahora, en tantos formatos. <b>El móvil, la fiebre de la Wii, las consecuencias de esa conquista de la vida real </b>que se gestaba en paralelo al jugador tradicional, han conseguido el triunfo total de los juegos.</p><p>Ya nadie tiene que amoldarse a un estilo, aprender a manejar unos botones, o conformarse con un puñado de títulos. <b>Es, en parte, un regreso a la época del salón recreativo</b>, donde una moneda o el “déjame una vida y te lo paso” te permitía elegir entre decenas de experiencias. Con la salvedad de que ahora son decenas de miles de juegos.</p><p>Que han aprendido de todo lo que les precedió: de los juguetes como pistolas de luz y robots de mentira que hacía Nintendo en los 80; de los micrófonos de Singstar, de las guitarras de plástico con las que todos jugamos a ser estrellas del rock en Guitar Hero; de Nintendo otra vez proponiéndote jugar a los bolos con tu brazo real. Ir más allá de los mandos tradicionales <b>abrió las puertas al gran público. Que ahora puede jugar con un dedo en un móvil</b>.</p>",
+      "background-image" : ""
     },
 
 
@@ -495,7 +448,7 @@
       "alignment" : "center",
       "width" : 620,
       "height" : 443,
-      "class" : ""
+      "class" : "aligncenter wp-image-384 size-large"
     },
 
     {
@@ -504,29 +457,21 @@
       "text" : "<p>Que no se hace a la idea de la extensión de ese triunfo. <b>La máquina de Pac-Man pesaba 64 kilos, medía 1,5 metros y tenía un monitor de 13 pulgadas</b> con tan pocos píxeles que necesitarías más de 250 monitores iguales para tener la misma resolución que en la pantalla de tu smartphone. Que es dos millones de veces más potente que esa máquina original. Todo eso es lo que está ahora al servicio del dedo del jugador. Pero sigue siendo como “ver un jardín bonsai dentro de una caja”.</p><p>Y el año que viene estaremos hablando del <strong>salto al otro lado de la pantalla, tanto del videojuego como el jugador: hologramas, realidad virtual, reconocimiento del cuerpo&#8230;</strong> Son ideas que llevan años coqueteando con el videojuego, pero que se acercan a la realidad. Aquellos nombres de Vectrex, Odissey y Atari, ahora son Oculus Rift, Hololens, Morpheus. La magia nominal que esconde una idea: entrar dentro del videojuego. Convertir el salón en la pantalla de realidad aumentada, usar un visor para penetrar en los mundos virtuales y convivir físicamente con píxeles y polígonos. </p><p>Ciencia-ficción a la que le quedan meses para ser comercial. Con poderosos aliados: Microsoft, Facebook, Sony… Viejos y nuevos actores que creen que ha llegado el momento de que demos el salto. Son casi 40 años de palancas y botones y pantallas: hay que llegar más allá. Ir a los caminos que abrió Kinect, un dispositivo que leía tu cuerpo y lo traducía en tu avatar en la tele. Ser más libres. Ser más que manos que aprietan cosas: Hacer Más.</p>",
       "background-image" : ""
     },
-
-
+    {
+      "type" : "image",
+      "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/Minecraft-HoloLens-1024x565.jpg",
+      "extension" : "jpg",
+      "alt" : "Minecraft-HoloLens",
+      "alignment" : "center",
+      "width" : 1024,
+      "height" : 565,
+      "class" : "attachment-large"
+    },
     {
       "type" : "content",
-      "columns" : 2,
-      "sections" : [
-        {
-          "type" : "image",
-          "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/Minecraft-HoloLens-1024x565.jpg",
-          "extension" : "jpg",
-          "alt" : "Minecraft-HoloLens",
-          "alignment" : "center",
-          "width" : 1024,
-          "height" : 565,
-          "class" : ""
-        },
-        {
-          "type" : "content",
-          "columns" : 1,
-          "text" : "<p><b>La próxima conquista del videojuego será romper el concepto de pantalla. La siguiente, desterrar los mandos.</b> Dos creencias que resume bien Iwatani al hablar del futuro: “siempre jugamos dentro de un marco, y creo que eso nos limita”. La próxima sólo podemos soñarla y se parece mucho a Matrix. El videojuego, mientras, seguirá manteniendo el laberinto y la acción, la mitología y la diversión, el espíritu infinito y mutable que devore todo lo que se le ponga por delante para darnos una doble vida.</p>",
-          "background-image" : ""
-        }
-      ]
+      "columns" : 1,
+      "text" : "<p><b>La próxima conquista del videojuego será romper el concepto de pantalla. La siguiente, desterrar los mandos.</b> Dos creencias que resume bien Iwatani al hablar del futuro: “siempre jugamos dentro de un marco, y creo que eso nos limita”. La próxima sólo podemos soñarla y se parece mucho a Matrix. El videojuego, mientras, seguirá manteniendo el laberinto y la acción, la mitología y la diversión, el espíritu infinito y mutable que devore todo lo que se le ponga por delante para darnos una doble vida.</p>",
+      "background-image" : ""
     },
     {
       "type" : "content",
@@ -538,9 +483,8 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "<iframe scrolling='no' src='http://img.weblogssl.com/g/longform/vodafone-170715/generaciones_games.html' style='border:0'></iframe>",
-      "background-image" : ""
+      "text" : "<p><code style=\"display:none;\"><br /><style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe scrolling=\"no\" src='http://img.weblogssl.com/g/longform/vodafone-170715/generaciones_games.html' style='border:0'></iframe></div><p></code></p>",
+      "background-color" : "#000000"
     }
  ]
 }
-

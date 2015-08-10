@@ -53,6 +53,24 @@
              #builder-section-1437044790742 .builder-banner-slide{padding-bottom:62.5%;}
              #builder-section-1437042675049 .builder-banner-slide{padding-bottom:30%;}
              @media screen and (min-width: 600px) and (max-width: 960px){#builder-section-1437037310445 .builder-banner-slide{padding-bottom:78.125%;}}
+
+            @media only screen {
+                .builder-banner-slide-500_750{
+                    padding-bottom: 500px;
+                  }
+            }
+
+            .builder-section60rem {
+                height: 60rem;   
+            }
+
+            @media only screen and (min-width: 768px) {
+              .builder-banner-slide-500_750 {
+                padding-bottom: 750px;
+              }
+            }
+
+
         </style>
         <!-- End Make Custom CSS -->
         <style id="style-1-cropbar-clipper">
@@ -82,7 +100,7 @@
                         // If it's more than or equal to 0, show the toTop button.
                         // console.log("is more")
                         $("#toTop").fadeIn("slow")
-                    } else 
+                    } else {
                         // If it's less than 0 (at the top), hide the toTop button
                         // console.log("is less")
                         $("#toTop").fadeOut("slow");
@@ -390,4 +408,4 @@
             })();
         </script>
     </body>
-</html>                                
+</html>
