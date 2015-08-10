@@ -20,7 +20,7 @@
     }
     ,
     { 
-      "type" : "video",
+      "type" : "video_banner",
       "provider" : "youtube",
       "url" : "https://www.youtube.com/embed/jlQX_g9zCs8?rel=0",
       "background-color" : "#000000"
@@ -35,39 +35,23 @@
     {
       "type" : "banner",
       "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/batman.jpg",
-      "text": ""
+      "text": "",
+      "parallax": true
     },
 
     {
       "type" : "content",
-      "columns" : 2,
-      "sections" : [
-        {
-          "type" : "image",
-          "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/1980-midway-pacman-172x300.jpg",
-          "alt" : "1980-midway-pacman",
-          "extension" : "jpg",
-          "alignment" : "left",
-          "width" : 172,
-          "height" : 300,
-          "class" : "alignleft size-medium wp-image-186"
-        },
-
-        {
-          "type" : "content",
-          "columns" : 1,
-          "text" : "Lo interesante es que la propuesta de Arkham Knight, <strong>el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham</strong>, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento&#8230; no es nuevo: Batman rima con Pac-Man.  <br /> Pero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 años después.",
-          "background-image" : ""
-        }
-      ]
+      "columns" : 1,
+      "text" : "<img class=\"alignleft size-medium wp-image-186\" src=\"http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/1980-midway-pacman-172x300.jpg\" alt=\"1980-midway-pacman\" width=\"172\" height=\"300\" />Lo interesante es que la propuesta de Arkham Knight, <strong>el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham</strong>, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento&#8230; no es nuevo: Batman rima con Pac-Man.  <br /> Pero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 años después.",
+      "background-image" : ""
     },
-    
 
     {
       "type" : "content",
       "columns" : 1,
       "text" : "<h3>El nacimiento de una cultura inédita</h3><p>Porque los videojuegos nacieron con un origen más humilde. Ocho años antes de Pac-Man, en 1972, Nolan Bushnell crea Atari y lanza Pong, un artefacto electrónico en blanco y negro pensado para competir con los pinballs, los futbolines y air hockey y los cazapeluches. Se trata del mismo principio que el resto de atracciones, mete una moneda y juega un rato. Pero la propuesta de Pong transcurría detrás de una pantalla: dos palitos y un punto abstraen hasta el máximo la idea de jugar al tenis de mesa.</p><p>Los arcades son una diversión de tarde de domingo. Otra más. Añaden títulos: carreras, deportes, etcétera. Pero con una diferencia: cada juego es <em>diferente</em>. Cada título representa algo distinto, algo nuevo, no son simples variantes más o menos complicadas, como los pinballs. Cada una de esas pantallas encierra un mundo. Tosco, limitadísimo, compuesto por cuadrados de chirridos estridentes. Mundos de síntesis, <strong>realidades que no existen</strong> y cesan al apagar la máquina o terminar la partida.</p><p>Pronto, los llamados videojuegos dejan de imitar a otros entretenimientos para buscar algo nuevo y propio. Breakout (1976, Atari) es un ladrillo flotante rompiendo otros ladrillos rebotando una pelota. Es como Pong, en parte, pero… ¿Por qué el ladrillo flota? ¿Dónde van las piezas que rompes? <strong>¿Qué está pasando? </strong></p>",
-      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg11.jpg"
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg11.jpg",
+      "parallax": true
     },
 
     {
@@ -91,26 +75,9 @@
 
     {
       "type" : "content",
-      "columns" : 2,
-      "sections" : [
-        {
-          "type" : "image",
-          "url" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/pacman-screen.png",
-          "alt" : "pacman-screen",
-          "extension" : "png",
-          "alignment" : "left",
-          "width" : 224,
-          "height" : 288,
-          "class" : "alignleft size-full wp-image-325"
-        },
-
-        {
-          "type" : "content",
-          "columns" : 1,
-          "text" : "Pac-Man no es la abstracción de nada: no es una nave espacial ni un vaquero, no es un hombre ni está basado en nada previo. Se desliza por un laberinto escapando de (o comiendo) fantasmas, rompe el espacio al salir por un lado de la pantalla y entrar por el opuesto. <strong>También es el elegido, junto a otros cuantos títulos, para establecer competiciones que duran hasta nuestros días</strong>. Los mejores jugadores se miden entre ellos, sacan fotos de sus récords, crean estrategias que los diseñadores de este nuevo mundo ni siquiera habían pensado.<br/><p><strong>Las máquinas estaban diseñadas para que el jugador aguantase unos minutos</strong> antes de meter otra moneda o dar paso al siguiente. Pero los primeros jugadores dedicados no quieren pensar en eso: quieren romper los límites, llegar más lejos, matar al padre (de cada videojuego). Pac-Man se convierte en leyenda con el nivel 256, una pantalla que supera los límites de la tecnología que lo sustenta y donde todo se rompe: el laberinto se deshace, el protagonista desaparece, todo se llena de código arcano y algo que <em>no debería estar ahí</em>.</p><p>Porque nadie debería haber llegado hasta ahí. <strong>El nivel 256 es la primera obra de arte del videojuego, emergente e inesperada</strong>. Y plantea la frontera entre diseñador y jugador: queremos sumergirnos en mundos que no existen, jugar con las sombras de la caverna, proyectarnos nosotros en ella hasta que se deshaga. La <a href='http://errors.wikia.com/wiki/Pac_Man_-_Infamous_Kill_Screen_Bug' target='_blank'>pantalla de la muerte</a> también es un aviso a los creadores de videojuegos: existe un tipo de jugador que va a llegar más lejos de lo que tu pretendes.</p><p>Mientras, hace años que las consolas han llegado a los hogares. Máquinas ambiciosas de nombres evocativos: Oddissey, Vectrex, la triunfadora Atari 2600... <strong>Adaptan en calidad ínfima lo que se ve en los recreativos</strong> -no podían competir con máquinas profesionales-, pero llevan al salón la experiencia. Por primera vez, no hace falta desplazarse hasta la máquina o esperar el turno. La televisión encuentra su primer enemigo, y está dentro del mismo aparato.</p><p>El videojuego avanza. Es lo único que puede hacer, y que ha hecho durante estas tres décadas. Si Pac-Man era movimiento vertiginoso, Donkey Kong presenta a Mario y le añade una acción extra: saltar. Otros plantean disparos, más libertad de movimiento. La carrera no es sólo tecnológica, sino narrativa. <strong>Y la narrativa del videojuego es Hacer Más, dejando mitologías por el camino</strong>: el nuevo Aquiles es un fontanero rechoncho y saltarín. El nuevo Teseo es una bola amarilla que recorre laberintos. El nuevo héroe es el jugador cada vez que coge el mando.</p><p>Porque <strong>el videojuego no existe si no lo juega nadie</strong>. Los personajes se quedan quietos, nada avanza ni sucede: las recreativas sin jugadores son sirenas, que cantan con luces y música un <em>attract mode</em> diseñador para que los jugadores se acerquen, metan la moneda y le den sentido a lo que hay detrás de la pantalla.</p><p>Un libro es un libro, abierto y cerrado. Una película se reproduce si le das a play y sales de la habitación. Las canciones suenan aunque nadie las escuche. Son obras finitas. Pero cada partida al mismo videojuego es una obra diferente, con múltiples autores. No hay dos jugadores iguales, no hay dos partidas iguales. <strong>Éste es el secreto de los videojuegos: son infinitos e irrepetibles</strong> para el que los juega.</p><p>Aunque los 80 tratan de establecer una forma “correcta” de jugar. Su negocio, mejor dicho. Sólo los mejores pueden superar la dificultad de los creadores que quieren más monedas. Y las partidas de los mejores cada vez se parecen más entre sí: memorizar patrones, enemigos, recorridos perfectos. Un vicio que no desaparecerá hasta una década más tarde, y <strong>que marcará a esos jugadores de por vida</strong>.</p><p>Un vicio que heredan las consolas domésticas: <strong>no saben qué hacer, excepto imitar al recreativo</strong>. El jugador de casa no se plantea por qué sufre la misma dificultad brutal que en las máquinas de monedas -¡si ya ha pagado el juego!-, lo asume como norma.</p>",
-          "background-image" : ""
-        }
-      ]
+      "columns" : 1,
+      "text" : "<img class=\"alignleft size-full wp-image-325\" src=\"http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/pacman-screen.png\" alt=\"pacman-screen\" width=\"224\" height=\"288\" />Pac-Man no es la abstracción de nada: no es una nave espacial ni un vaquero, no es un hombre ni está basado en nada previo. Se desliza por un laberinto escapando de (o comiendo) fantasmas, rompe el espacio al salir por un lado de la pantalla y entrar por el opuesto. <strong>También es el elegido, junto a otros cuantos títulos, para establecer competiciones que duran hasta nuestros días</strong>. Los mejores jugadores se miden entre ellos, sacan fotos de sus récords, crean estrategias que los diseñadores de este nuevo mundo ni siquiera habían pensado.<br/><p><strong>Las máquinas estaban diseñadas para que el jugador aguantase unos minutos</strong> antes de meter otra moneda o dar paso al siguiente. Pero los primeros jugadores dedicados no quieren pensar en eso: quieren romper los límites, llegar más lejos, matar al padre (de cada videojuego). Pac-Man se convierte en leyenda con el nivel 256, una pantalla que supera los límites de la tecnología que lo sustenta y donde todo se rompe: el laberinto se deshace, el protagonista desaparece, todo se llena de código arcano y algo que <em>no debería estar ahí</em>.</p><p>Porque nadie debería haber llegado hasta ahí. <strong>El nivel 256 es la primera obra de arte del videojuego, emergente e inesperada</strong>. Y plantea la frontera entre diseñador y jugador: queremos sumergirnos en mundos que no existen, jugar con las sombras de la caverna, proyectarnos nosotros en ella hasta que se deshaga. La <a href='http://errors.wikia.com/wiki/Pac_Man_-_Infamous_Kill_Screen_Bug' target='_blank'>pantalla de la muerte</a> también es un aviso a los creadores de videojuegos: existe un tipo de jugador que va a llegar más lejos de lo que tu pretendes.</p><p>Mientras, hace años que las consolas han llegado a los hogares. Máquinas ambiciosas de nombres evocativos: Oddissey, Vectrex, la triunfadora Atari 2600... <strong>Adaptan en calidad ínfima lo que se ve en los recreativos</strong> -no podían competir con máquinas profesionales-, pero llevan al salón la experiencia. Por primera vez, no hace falta desplazarse hasta la máquina o esperar el turno. La televisión encuentra su primer enemigo, y está dentro del mismo aparato.</p><p>El videojuego avanza. Es lo único que puede hacer, y que ha hecho durante estas tres décadas. Si Pac-Man era movimiento vertiginoso, Donkey Kong presenta a Mario y le añade una acción extra: saltar. Otros plantean disparos, más libertad de movimiento. La carrera no es sólo tecnológica, sino narrativa. <strong>Y la narrativa del videojuego es Hacer Más, dejando mitologías por el camino</strong>: el nuevo Aquiles es un fontanero rechoncho y saltarín. El nuevo Teseo es una bola amarilla que recorre laberintos. El nuevo héroe es el jugador cada vez que coge el mando.</p><p>Porque <strong>el videojuego no existe si no lo juega nadie</strong>. Los personajes se quedan quietos, nada avanza ni sucede: las recreativas sin jugadores son sirenas, que cantan con luces y música un <em>attract mode</em> diseñador para que los jugadores se acerquen, metan la moneda y le den sentido a lo que hay detrás de la pantalla.</p><p>Un libro es un libro, abierto y cerrado. Una película se reproduce si le das a play y sales de la habitación. Las canciones suenan aunque nadie las escuche. Son obras finitas. Pero cada partida al mismo videojuego es una obra diferente, con múltiples autores. No hay dos jugadores iguales, no hay dos partidas iguales. <strong>Éste es el secreto de los videojuegos: son infinitos e irrepetibles</strong> para el que los juega.</p><p>Aunque los 80 tratan de establecer una forma “correcta” de jugar. Su negocio, mejor dicho. Sólo los mejores pueden superar la dificultad de los creadores que quieren más monedas. Y las partidas de los mejores cada vez se parecen más entre sí: memorizar patrones, enemigos, recorridos perfectos. Un vicio que no desaparecerá hasta una década más tarde, y <strong>que marcará a esos jugadores de por vida</strong>.</p><p>Un vicio que heredan las consolas domésticas: <strong>no saben qué hacer, excepto imitar al recreativo</strong>. El jugador de casa no se plantea por qué sufre la misma dificultad brutal que en las máquinas de monedas -¡si ya ha pagado el juego!-, lo asume como norma.</p>",
+      "background-image" : ""
     },
 
 
@@ -255,11 +222,12 @@
       "type" : "content",
       "columns" : 1,
       "text" : "<h3>PlayStation: ya no hay que poner excusas para jugar</h3><p><strong>En 1995 aparece PlayStation. La segunda mitad de los 90 se ha convertido en una década de muerte del rock</strong> -literalmente, en el caso de Kurt Cobain- y auge de la electrónica. El DJ es más importante que el cantante, porque ha cambiado la liturgia de la música: es un tipo que te ve bailar y trata de ponerte música para que sigas bailando (no sólo a ti, pero ésa es la magia). Mientras el que da conciertos sólo quiere que escuches lo que él tiene que decir.</p><p>PlayStation entiende el zeitgeist de la época como nadie. Coge el laberinto de Pac-Man y le otorga <strong>una nueva dimensión: ahora todo es tridimensional, hay una nueva libertad</strong>, y una máquina -unas cuántas- que quiere que vivas eso que el videojuego lleva una década y pico prometiéndote: la doble vida, los mundos virtuales. Sin excusas infantiles, sin decir “son sólo juegos”.</p><p>Todo en PlayStation, desde el diseño hasta el catálogo hasta sus increíbles campañas de publicidad (realizadas casi siempre por los directores de videoclips más avanzados de la época), da la bienvenida a la edad adulta del jugador. Es un momento increíble, que recaptura la magia del día que apareció Pac-Man: cuando no <strong>sabes qué juego aparecerá al día siguiente, qué vivirás mañana, que mundo será tuyo.</strong></p>",
-      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg_2.jpg"
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg_2.jpg",
+      "parallax": true
     },
 
     { 
-      "type" : "video",
+      "type" : "video_banner",
       "provider" : "youtube",
       "url" : "https://www.youtube.com/embed/Z4Nh5rnIckE?rel=0&amp;showinfo=0",
       "background-color" : "#000000"
@@ -354,7 +322,7 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "<p>Los avances técnicos buscan un realismo esquizofrénico: ¿no habíamos quedado en que el videojuego era para vivir cosas imposibles? Empieza así una loca carrera técnica que supone un reto para los creadores. Los jugadores demandan mejores gráficos, mundos más enormes y fidedignos, aparcar la incredulidad y la imaginación y recibirlo todo masticado. Pero, al mismo tiempo, que la acción, que el Hacer Más sea cada vez más intenso.</p><p>La tecnología se convierte en un corsé otra vez: el videojuego, a principios del siglo XXI, se esfuerza más por avanzar en lo que representa visualmente que en ofrecer algo nuevo a los mandos. Es algo que beneficia a los competidores de fórmula: Call of Duty, FIFA, los juegos de coches… Todos los títulos que imitan el mundo real salen ganando mientras las ideas locas previas se desvanecen poco a poco.</p>",
+      "text" : "<h3>El desierto de lo real</h3><p>Los avances técnicos buscan un realismo esquizofrénico: ¿no habíamos quedado en que el videojuego era para vivir cosas imposibles? Empieza así una loca carrera técnica que supone un reto para los creadores. Los jugadores demandan mejores gráficos, mundos más enormes y fidedignos, aparcar la incredulidad y la imaginación y recibirlo todo masticado. Pero, al mismo tiempo, que la acción, que el Hacer Más sea cada vez más intenso.</p><p>La tecnología se convierte en un corsé otra vez: el videojuego, a principios del siglo XXI, se esfuerza más por avanzar en lo que representa visualmente que en ofrecer algo nuevo a los mandos. Es algo que beneficia a los competidores de fórmula: Call of Duty, FIFA, los juegos de coches… Todos los títulos que imitan el mundo real salen ganando mientras las ideas locas previas se desvanecen poco a poco.</p>",
       "background-image" : ""
     },
 
@@ -379,7 +347,7 @@
     {
       "type" : "content",
       "columns" : 1,
-      "text" : "Quédate a vivir en un videojuego<p>Falta todavía una última propuesta del videojuego clásico. Por supuesto, es otra derivación de lo ya existente, porque el videojuego vive de reciclarse y aprovecharse de lo anterior: la secuela y el título derivativo casi siempre son superiores al antecesor. La repetición y el remix son esenciales para poder mirar hacia delante. <strong>El autocanibalismo es la única filosofía posible. No sólo entre los desarrolladores, sino también entre los jugadores</strong>: vender los juegos viejos para comprar los nuevos es casi una norma.</p> <p>Y la idea de que tengan fecha de caducidad otra: los juegos deportivos duran un año, por ejemplo. <strong>Todo es fugaz, todo es transitorio y sólo se mira hacia delante</strong>. Por supuesto, existe un grupo que se revela contra la idea. Y pronto reciben una etiqueta: retro.</p><p>Jugadores que no aceptan un videojuego más próximo al cine, más interesado en entrar por los ojos que en seducir por las mecánicas, un videojuego que se parece tanto a sus ancestros como Jurassic World a una obra de teatro. Defensores de la pureza o simplemente nostálgicos, denuncian la pérdida de la historia. Y la industria les responde: reediciones, revisitaciones, licencias que resucitan cada cierto tiempo. El jugador retro es el único que es consciente de que el medio se da la espalda a sí mismo y olvida su historia si el público se despista.</p><p>Pero hablábamos de ese derivado: los juegos onlines masivos. World of Warcraft no es el primero ni el último, pero consigue atraer a 12 millones de personas.<b> Uno de los 100 países más poblados del planeta es un mundo virtual, Azeroth, </b>donde las personas se rebautizan y ya no son ellas, sino sus avatares. Personajes donde se proyectan, con los que viven vidas enteras en un mundo de fantasía, magia y espadas. Matrimonios, casas, sociedades…</p>",
+      "text" : "<h3>Quédate a vivir en un videojuego</h3><p>Falta todavía una última propuesta del videojuego clásico. Por supuesto, es otra derivación de lo ya existente, porque el videojuego vive de reciclarse y aprovecharse de lo anterior: la secuela y el título derivativo casi siempre son superiores al antecesor. La repetición y el remix son esenciales para poder mirar hacia delante. <strong>El autocanibalismo es la única filosofía posible. No sólo entre los desarrolladores, sino también entre los jugadores</strong>: vender los juegos viejos para comprar los nuevos es casi una norma.</p> <p>Y la idea de que tengan fecha de caducidad otra: los juegos deportivos duran un año, por ejemplo. <strong>Todo es fugaz, todo es transitorio y sólo se mira hacia delante</strong>. Por supuesto, existe un grupo que se revela contra la idea. Y pronto reciben una etiqueta: retro.</p><p>Jugadores que no aceptan un videojuego más próximo al cine, más interesado en entrar por los ojos que en seducir por las mecánicas, un videojuego que se parece tanto a sus ancestros como Jurassic World a una obra de teatro. Defensores de la pureza o simplemente nostálgicos, denuncian la pérdida de la historia. Y la industria les responde: reediciones, revisitaciones, licencias que resucitan cada cierto tiempo. El jugador retro es el único que es consciente de que el medio se da la espalda a sí mismo y olvida su historia si el público se despista.</p><p>Pero hablábamos de ese derivado: los juegos onlines masivos. World of Warcraft no es el primero ni el último, pero consigue atraer a 12 millones de personas.<b> Uno de los 100 países más poblados del planeta es un mundo virtual, Azeroth, </b>donde las personas se rebautizan y ya no son ellas, sino sus avatares. Personajes donde se proyectan, con los que viven vidas enteras en un mundo de fantasía, magia y espadas. Matrimonios, casas, sociedades…</p>",
       "background-image" : ""
     },
 
@@ -414,7 +382,8 @@
       "type" : "content",
       "columns" : 1,
       "text" : "<h3>Conquistar la vida real, el último paso</h3>“No se trata del contenido en sí, sino de conseguir un formato que sea accesible para todo el mundo”. Ese deseo que señala Iwatani aparece con el cambio de siglo. Es más, las redes generan sus propias formas de juego: títulos para toda la familia que abandonan los mandos tradicionales; no-juegos para Facebook y posteriormente para móvil que consiguen convencer a los ajenos a la virtualidad;<b> juegos de fiesta, de baile, de ser una estrella del rock</b>. A mediados de la década pasada hay un videojuego y un juguete asociado para cada tipo de persona, desde karaokes caseros hasta monopatines para hacer skate en el salón.</p><p>Algo que se explica porque el videojuego abandona por fin su ombligo de botones y mandos complicados y se abre<b> a su función original: alfabetización digital. Si sabes manejar un videojuego, sabes manejar un móvil. </b>Si sabes jugar a Farmville, sabes interactuar con la gente en Facebook, aunque sea para pedirles ayuda ahí o en Candy Crush o en cualquier otra propuesta.</p><p>Es lo mismo que los jugadores de los 80 llevaban tiempo intentando explicar: las interfaces, las herramientas que nos permiten interactuar con las máquinas, se aprenden mejor jugando. Un nuevo auge que se expande al mundo exterior: <b>la sociedad se gamifica, se ponen normas y logros a todo</b>. Las redes sociales se manejan con lógica de videojuego clásico: tus seguidores son tu puntuación, utilizar las apps desbloquea logros, el día a día adquiere colores y formas de videojuego.</p><p>En un mundo conectado, los jugadores juegan con ventaja: usar Google Maps para orientarte es algo que se lleva años haciendo en los videojuegos con otro nombre, el minimapa. Si<b> la vida fuera de las pantallas ahora es otro laberinto</b>, ya sabemos cómo manejarlos en él.</p>",
-      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg33.jpg"
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg33.jpg",
+      "parallax": true
     },
     {
       "type" : "content",
@@ -424,7 +393,8 @@
     },
     {
       "type" : "banner",
-      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/lol.jpg"
+      "background-image" : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/lol.jpg",
+      "parallax": true
     },
     {
       "type" : "content",

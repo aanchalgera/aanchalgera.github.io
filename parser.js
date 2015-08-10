@@ -39,6 +39,9 @@ function handleSection(section)
         case 'banner':
             html += getBannerSection(section);
             break;
+        case 'video_banner':
+            html += getVideoBannerSection(section);
+            break;
         case 'image':
             html += getImageSection(section);
             break;
@@ -130,22 +133,27 @@ function getMutiColumnSection(section)
     var contentSections = section.sections;
     sectionHtml += '<div class="builder-section-content">';
     sectionText = '';
+    var contentSectionCounter = 0;
     contentSections.forEach(
         function(contentSection) {
-            sectionHtml += '<div class="builder-text-column">';
-            sectionHtml += '<div class="builder-text-content">';
+            contentSectionCounter++;
+            sectionHtml += '<div class="builder-text-column builder-text-column-'+contentSectionCounter+'">';
             if ('image' === contentSection.type) {
+                sectionHtml += '<figure class="builder-text-image">';
                 var imageTag = getImageTag(contentSection);
                 sectionHtml += imageTag;
+                sectionHtml += '</figure>';
             } else if ('content' === contentSection.type) {
+                sectionHtml += '<div class="builder-text-content">';
                 if ('' != contentSection["background-image"]) {
                     sectionHtml += getBackgroundImage(contentSection["background-image"]);
                 }
                 if ('' != contentSection.text) {
-                    sectionHtml += getText(contentSection.text);
+                    sectionHtml += contentSection.text;
                 }
+                sectionHtml += "</div>";
             }
-            sectionHtml += "</div></div>";
+            sectionHtml += "</div>";
         }
     );
 
@@ -183,7 +191,34 @@ function getVideoSection(section)
     
     return sectionHtml;
 }
+
+function getVideoBanner(videoUrl)
+{
+    var bannerHtml = '<div class="builder-section-content">';
+    bannerHtml += '<div class="builder-banner-slide builder-banner-slide-62 content-position-none" style="">';
+    bannerHtml += '<div class="builder-banner-content">';
+    bannerHtml += '<div class="builder-banner-inner-content" style="text-align:center;">';
+    bannerHtml += '<iframe width="1280" height="720" src="'+videoUrl+'" frameborder=\"0\" allowfullscreen></iframe>';
+    bannerHtml += '</div>';
+    bannerHtml += '</div>';
+    bannerHtml += '</div>';
+    bannerHtml += '</div>';
+
+    return bannerHtml;
+}
+
+
+function getVideoBannerSection(section)
+{
+    var sectionHtml = startSection(section);
     
+    sectionHtml += getVideoBanner(section.url);
+    sectionHtml += "</section>";
+
+    return sectionHtml;
+}
+    
+
 function getBackgroundImage(imageUrl)
 {
     var imageHtml = '<div class="builder-section-content">';
@@ -212,7 +247,6 @@ function getBanner(imageUrl, bannerText)
     bannerHtml += '</div>';
 
     return bannerHtml;
-
 }
 
 function getSectionClasses(section)
@@ -222,7 +256,7 @@ function getSectionClasses(section)
     if (0 === sectionsCovered) {
         sectionClasses.push("builder-section-first");
     }
-    if ('banner' == section.type) {
+    if ('banner' == section.type || 'video_banner' == section.type) {
         sectionClasses.push("builder-section-banner");
     } else if ('image' == section.type) {
         sectionClasses.push("builder-section-text");
@@ -240,8 +274,6 @@ function getSectionClasses(section)
         sectionClasses.push("has-background");
     }
 
-
-
     if ('gallery' == section.type) {
         sectionClasses.push("builder-section-gallery");
         if (undefined !== section["columns"] && '' != section["columns"]) {
@@ -255,6 +287,10 @@ function getSectionClasses(section)
         if (undefined !== section["columns"] && '' != section["columns"]) {
             sectionClasses.push("builder-text-columns-"+section["columns"]);
         }
+    }
+
+    if (undefined !== section["parallax"] && '' != section["parallax"]) {
+        sectionClasses.push("parallax");
     }
 
     return sectionClasses.join(' ');
