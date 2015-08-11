@@ -1,0 +1,78 @@
+{
+  "name": "alloyeditor",
+  "version": "0.4.0-alpha.1",
+  "description": "AlloyEditor, a modern WYSIWYG editor, build on top of CKEditor",
+  "devDependencies": {
+    "bourbon": "https://github.com/thoughtbot/bourbon/tarball/master",
+    "chai": "^3.2.0",
+    "del": "^1.2.0",
+    "dir-compare": "0.0.2",
+    "event-stream": "^3.3.1",
+    "gulp": "~3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-consolidate": "^0.1.2",
+    "gulp-empty": "^0.1.1",
+    "gulp-iconfont": "^3.0.3",
+    "gulp-karma": "0.0.4",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
+    "gulp-sass": "~2.0.4",
+    "gulp-template": "^3.0.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-yuidoc-relative": "^0.1.2",
+    "gulp-zip": "^3.0.2",
+    "karma": "^0.13.3",
+    "karma-babel-preprocessor": "^5.2.1",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.4.2",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-fixture": "^0.2.5",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-ievms": "0.0.4",
+    "karma-junit-reporter": "^0.3.3",
+    "karma-mocha": "^0.2.0",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sauce-launcher": "^0.2.14",
+    "karma-sinon": "^1.0.4",
+    "lodash": "^3.10.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^2.2.5",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.2",
+    "sinon": "^1.15.4",
+    "walk": "^2.3.9",
+    "yargs": "^3.15.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liferay/alloy-editor.git"
+  },
+  "keywords": [
+    "editor",
+    "wysiwyg"
+  ],
+  "author": {
+    "name": "Iliyan Peychev"
+  },
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/liferay/alloy-editor/issues"
+  },
+  "homepage": "http://alloyeditor.com",
+  "readme": "Alloy Editor\n==================\n\nAlloy Editor is a modern WYSIWYG editor built on top of CKEditor, designed to create modern and gorgeous web content.\n\nWorks on IE9+, Chrome, Firefox and Safari.\n\n## Demo\n\n* [All-in-one self-guided demo](http://alloyeditor.com/demo/)\n* [Screencasts and code samples for specific features](http://alloyeditor.com/features/)\n\n## Features\n\n* Smart toolbars appear right near the selected text and offer different functionality based on context\n* Easily add your own buttons (see the \"marquee\" example in [the demo](http://alloyeditor.com/demo/))\n* Paste images from clipboard, or Drag&Drop them from another application\n* Insert images from the device's camera!\n* Paste rich text from any web page and preserve its formatting\n* The full styling power of CKEditor...\n* ...with a much more modern UI\n* The core is fully separated from the UI\n* The example UI is built with React\n* Plugin architecture\n\n## Documentation\n\nLook for documentation and examples on [http://alloyeditor.com/](http://alloyeditor.com/)\n\n### License\n[LGPL License](LICENSE.md)\n\n[![Build Status](https://travis-ci.org/liferay/alloy-editor.svg)](https://travis-ci.org/liferay/alloy-editor)\n\n[![Sauce Test Status](https://saucelabs.com/browser-matrix/alloyui.svg)](https://saucelabs.com/u/alloyui)\n",
+  "readmeFilename": "README.md",
+  "_id": "alloyeditor@0.4.0-alpha.1",
+  "dist": {
+    "shasum": "59526fd43ba5c0b5729dce0b7732f615f155de99"
+  },
+  "_from": "alloyeditor@",
+  "_resolved": "https://registry.npmjs.org/alloyeditor/-/alloyeditor-0.4.0-alpha.1.tgz"
+}
