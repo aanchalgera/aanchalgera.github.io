@@ -1,7 +1,6 @@
 var fs = require('fs');
 var html = '';
 var commonClass = 'builder-section';
-var totalSections = 0;
 var sectionsCovered = 0;
 
 module.exports = {
@@ -14,7 +13,6 @@ function parse(request, response)
     var staticHTML = fs.readFileSync('./staticpage.html', 'utf8');
     var obj = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
 
-    totalSections = obj.sections.length;
     obj.sections.forEach(handleSection);
 
     html += getSocialSharingSection(true);
