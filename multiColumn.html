@@ -1,0 +1,15 @@
+<section class="<%=sectionClasses%>" style="<%=sectionStyles%>">
+    <div class="builder-section-content">
+        <%_.forEach(contentSections, function (contentSection, index) {%>
+            <div class="builder-text-column builder-text-column-<%= index + 1%>">
+                <% if ('image' == contentSection.type) { %>
+                    <figure class="builder-text-image">
+                        <img width="<%=contentSection.width%>" height="<%=contentSection.height%>" src="<%=contentSection.url%>" class="<%=contentSection.class%>">
+                    </figure>
+                <% } else if('content' == contentSection.type) { %>
+                    <div class="builder-text-content"><%=contentSection.text%></div>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+</section>

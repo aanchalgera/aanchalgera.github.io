@@ -1,4 +1,5 @@
 var fs = require('fs');
+var _ = require("underscore");
 var html = '';
 var commonClass = 'builder-section';
 var sectionsCovered = 0;
@@ -15,31 +16,28 @@ function parse(request, response)
 
     obj.sections.forEach(handleSection);
 
-    html += getSocialSharingSection(true);
-    staticHTML = staticHTML.replace('##SECTIONS_CONTENT##', html);
+    html += getSocialSharingSection('builder-section-last');
 
-    response.write(staticHTML);
+    var pageTemplate = _.template(staticHTML);
+
+    var finalHTML = pageTemplate(
+        { 
+          sectionsHTML: html
+        }
+    );
+
+    response.write(finalHTML);
     response.end(); 
-
-}
-
-function startSection(section)
-{
-    var sectionClasses = getSectionClasses(section);
-    var sectionStyles = getSectionStyles(section);
-    var sectionHtml = "<section class=\""+sectionClasses + "\" style=\""+sectionStyles + "\">";
-
-    return sectionHtml;
 }
 
 function handleSection(section)
 {
     sectionType = section.type;
-    html += "\n\n";
+    html += "\n";
 
     if (1 == sectionsCovered) {
-        html += getSocialSharingSection(false);
-        html += "\n\n";
+        html += getSocialSharingSection('');
+        html += "\n";
     }
 
     switch(section.type) {
@@ -68,182 +66,118 @@ function handleSection(section)
 
 function getBannerSection(section)
 {
-    return  startSection(section)
-                + startSectionContent()
-                    + startBanner(section["background-image"])
-                        + startBannerContent()
-                            + startBannerInnerContent()
-                                + getBannerText(section["text"])
-                            + end()
-                        + end()
-                    + end()
-                + end()
-            + endSection()
-    ;
+    var bannerSection = fs.readFileSync('./banner.html', 'utf8');
+    var bannerTemplate = _.template(bannerSection);
+
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
+
+    var sectionHtml = bannerTemplate(
+        { sectionClasses: sectionClasses, 
+          sectionStyles:  sectionStyles,
+          imageUrl: section["background-image"],
+          bannerText: section["text"]
+        }
+    );
+
+    return sectionHtml;
 }
 
 function getVideoBannerSection(section)
 {
-    return  startSection(section)
-                + startSectionContent()
-                    + startBanner()
-                        + startBannerContent()
-                            + startBannerInnerContent()
-                                + getBannerVideo(section["url"])
-                            + end()
-                        + end()
-                    + end()
-                + end()
-            + endSection()
-    ;
+    var bannerSection = fs.readFileSync('./videoBanner.html', 'utf8');
+    var bannerTemplate = _.template(bannerSection);
+
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
+
+    var sectionHtml = bannerTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles:  sectionStyles,
+            videoUrl: section["url"]
+        }
+    );
+
+    return sectionHtml;
 }
 
 function getSingleColumnSection(section)
 {
-    var columnNo = 1;
-    return  startSection(section)
-                + startSectionContent()
-                    + startTextColumn(columnNo)
-                        + startTextContent()
-                            + section["text"]
-                        + end()
-                    + end()
-                + end()
-            + endSection()
-    ;
+    var contentSection = fs.readFileSync('./singleColumn.html', 'utf8');
+    var contentTemplate = _.template(contentSection);
+
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
+
+    var sectionHtml = contentTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles:  sectionStyles,
+            text: section["text"]
+        }
+    );
+
+    return sectionHtml;
 }
 
 function getMutiColumnSection(section)
 {
-    var columnCounter = 0;
-    var contentSections = section.sections;
-    var sectionHtml = '';
+    var contentSection = fs.readFileSync('./multiColumn.html', 'utf8');
+    var contentTemplate = _.template(contentSection);
 
-    sectionHtml = startSection(section) + startSectionContent();
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
 
-    contentSections.forEach(
-        function(contentSection) {
-            columnCounter++;
-            sectionHtml += startTextColumn(columnCounter);
-            if ('image' === contentSection.type) {
-                sectionHtml += startFigure() + getImageTag(contentSection) +  endFigure();
-            } else if ('content' === contentSection.type) {
-                sectionHtml += startTextContent();
-                if ('' != contentSection.text) {
-                    sectionHtml += contentSection.text;
-                }
-                sectionHtml += end(); //end of text content
-            }
-            sectionHtml += end(); //end of text column
+    var sectionHtml = contentTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles:  sectionStyles,
+            contentSections: section.sections
         }
     );
-
-    sectionHtml += end(); //end of section content
-    sectionHtml += endSection();
 
     return sectionHtml;
 }
 
 function getImageSection(section)
 {
-    var columnNo = 1;
-    return  startSection(section)
-                + startSectionContent()
-                    + startTextColumn(columnNo)
-                        + startTextContent()
-                            + getImageTag(section)
-                        + end()
-                    + end()
-                + end()
-            + endSection()
-    ;
-}
+    var imageSection = fs.readFileSync('./image.html', 'utf8');
+    var imageTemplate = _.template(imageSection);
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
 
-function getGallerySection(section)
-{
-    var sectionHtml = startSection(section) + startSectionContent();
-
-    var gallerySections = section.sections;
-
-    gallerySections.forEach(
-        function(gallerySection) {
-            if ('figure' === gallerySection.type) {
-                sectionHtml += 
-                    startGalleryItem()
-                        + startGalleryFigure(gallerySection["background-image"])
-                        + endFigure()
-                        + startGalleryContent()
-                            + startGalleryContentInner()
-                                + startGalleryDescription()
-                                    + gallerySection.description
-                                + end()
-                            + end()
-                        + end()
-                    + end;
-            }
+    var sectionHtml = imageTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles:  sectionStyles,
+            columnNo: 1,
+            width: section.width,
+            height: section.height,
+            src: section.url,
+            classes: section.class
         }
     );
-    sectionHtml += endSection();
 
     return sectionHtml;
 }
 
-////////////////////// HTML FUNCTIONS //////////////////////
-
-function startGalleryItem()
+function getGallerySection(section)
 {
-    return '<div class="builder-gallery-item" onclick="return false;">';
-}
+    var gallerySection = fs.readFileSync('./gallery.html', 'utf8');
+    var galleryTemplate = _.template(gallerySection);
+    var sectionClasses = getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
 
-function startGalleryFigure(backgroundImage)
-{
-    return '<figure class="builder-gallery-image" style="background-image: url(&#039;'+backgroundImage+'&#039;);"></figure>';
-}
+    var sectionHtml = galleryTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles:  sectionStyles,
+            gallerySections: section.sections
+        }
+    );
 
-function startGalleryContent()
-{
-   return '<div class="builder-gallery-content">'; 
-}
-
-function startGalleryContentInner()
-{
-   return '<div class="builder-gallery-content-inner">'; 
-}
-
-function startGalleryDescription()
-{
-   return '<div class="builder-gallery-content-description">'; 
-}
-
-function getImageTag(section)
-{
-    return '<img width="'+section.width+'" height="'+section.height+'" src="'+section.url+'" class="'+section.class+'">';
-}
-
-
-function end()
-{
-    return '</div>';
-}
-
-function startFigure()
-{
-    return '<figure class="builder-text-image">';
-}
-
-function endFigure()
-{
-    return '</figure>';
-}
-
-function startTextColumn(columnNo)
-{
-    return '<div class="builder-text-column builder-text-column-'+columnNo+'">';
-}
-
-function startTextContent()
-{
-    return '<div class="builder-text-content">';
+    return sectionHtml;
 }
 
 function getSectionClasses(section)
@@ -309,64 +243,14 @@ function getSectionStyles(section)
 
 function getSocialSharingSection(lastSection)
 {
-    var socialSharingHtml = '<section id="builder-section-1437038488821" class="builder-section builder-section-prev-banner builder-section-text builder-section-next-text builder-text-columns-1"';
-    if (true === lastSection) {
-        socialSharingHtml += ' builder-section-last';
-    }
+    var socialSharingSection = fs.readFileSync('./socialSharing.html', 'utf8');
+    var socialSharingTemplate = _.template(socialSharingSection);
 
-    socialSharingHtml += 'style=""> \
-                <div class="builder-section-content"> \
-                    <div class="builder-text-column builder-text-column-1" id="builder-section-1437038488821-column-1"> \
-                        <div class="builder-text-content"> \
-                            <p>Comparte <span class="ttfmake-icon mceNonEditable fa"><a class="socialmedia" href="http://facebook.com/sharer/sharer.php?locale=es_ES&amp;app_id=257021759969&amp;redirect_uri=hhttp://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis&amp;u=http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis" target="_blank"></a></span> <span class="ttfmake-icon mceNonEditable fa"><a class="socialmedia" href="https://twitter.com/intent/tweet?url=http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis&amp;text=Jugar%20a%20videojuegos%20en%20los%2080%20vs.%20jugar%20en%202016&amp;via=xataka" target="_blank"></a></span> <span class="ttfmake-icon mceNonEditable fa"><a class="socialmedia" href="https://plus.google.com/share?url=http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis" target="_blank"></a></span> <span class="ttfmake-icon mceNonEditable fa"><a class="socialmedia" href="mailto:?to=&amp;subject=Jugar a videojuegos en los 80 vs. jugar en 2016 por Xataka&amp;body=http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis" target="_blank"></a></span></p> \
-                            <hr class="ttfmake-hr" style="border-style: solid; border-top-width: 1px;" /> \
-                        </div> \
-                    </div> \
-                </div> \
-            </section>';
+    var sectionHtml = socialSharingTemplate(
+        { 
+            lastSection: lastSection
+        }
+    );
 
-    return socialSharingHtml;
-}
-
-function startSectionContent()
-{
-    return '<div class="builder-section-content">';
-}
-
-function startBanner(imageUrl)
-{
-    if (undefined === imageUrl || '' === imageUrl) {
-        return "<div class=\"builder-banner-slide builder-banner-slide-62 content-position-none\" style=''>";
-    }
-
-    return "<div class=\"builder-banner-slide builder-banner-slide-500_750 content-position-none\" style=\"background-image: url(&#039;"+imageUrl+"&#039;);\">";
-}
-
-function startBannerContent()
-{
-    return '<div class="builder-banner-content">';
-}
-
-function startBannerInnerContent()
-{
-    return '<div class="builder-banner-inner-content" style="text-align:center;">';
-}
-
-function endSection()
-{
-    return '</section>';
-}
-
-function getBannerText(bannerText)
-{
-    if (undefined === bannerText || '' === bannerText) {
-        return '';
-    }
-
-    return bannerText;
-}
-
-function getBannerVideo(videoUrl)
-{
-    return '<iframe width="1280" height="720" src="'+videoUrl+'" frameborder=\"0\" allowfullscreen></iframe>';
+    return sectionHtml;
 }
