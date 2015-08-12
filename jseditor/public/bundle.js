@@ -23623,7 +23623,11 @@
 	        _react2['default'].createElement(
 	          'nav',
 	          { className: 'navbar navbar-default', role: 'navigation' },
-	          _react2['default'].createElement('div', { className: 'col-sm-7 col-sm-offset-2', style: { marginTop: 15 } })
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'col-sm-7 col-sm-offset-2', style: { marginTop: 15 } },
+	            'New Post'
+	          )
 	        ),
 	        _react2['default'].createElement(_EditorEditor2['default'], null)
 	      );
@@ -23666,6 +23670,14 @@
 
 	var _Content2 = _interopRequireDefault(_Content);
 
+	var _PropertyButton = __webpack_require__(200);
+
+	var _PropertyButton2 = _interopRequireDefault(_PropertyButton);
+
+	var _PostTitle = __webpack_require__(201);
+
+	var _PostTitle2 = _interopRequireDefault(_PostTitle);
+
 	var Editor = (function (_React$Component) {
 	  _inherits(Editor, _React$Component);
 
@@ -23686,106 +23698,21 @@
 	          { className: 'form-group' },
 	          _react2['default'].createElement(
 	            'label',
-	            null,
+	            { className: 'col-sm-2 control-label' },
+	            'Title'
+	          ),
+	          _react2['default'].createElement(_PostTitle2['default'], null),
+	          _react2['default'].createElement(
+	            'label',
+	            { className: 'col-sm-1 control-label' },
 	            'Content:'
 	          ),
-	          _react2['default'].createElement(_Content2['default'], null)
-	        ),
-	        _react2['default'].createElement(
-	          'ul',
-	          { className: 'nav nav-pills' },
+	          _react2['default'].createElement(_Content2['default'], null),
+	          _react2['default'].createElement(_PropertyButton2['default'], null),
 	          _react2['default'].createElement(
-	            'li',
-	            { className: 'dropdown' },
-	            _react2['default'].createElement(
-	              'a',
-	              { href: '#', 'data-toggle': 'dropdown', className: 'dropdown-toggle active' },
-	              'Dropdown ',
-	              _react2['default'].createElement('b', { className: 'caret' })
-	            ),
-	            _react2['default'].createElement(
-	              'ul',
-	              { className: 'dropdown-menu', id: 'menu1' },
-	              _react2['default'].createElement(
-	                'li',
-	                null,
-	                _react2['default'].createElement(
-	                  'a',
-	                  { href: '#' },
-	                  'Background Image'
-	                ),
-	                _react2['default'].createElement(
-	                  'ul',
-	                  { className: 'dropdown-menu sub-menu' },
-	                  _react2['default'].createElement(
-	                    'li',
-	                    null,
-	                    _react2['default'].createElement('input', { type: 'url' })
-	                  )
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                'li',
-	                null,
-	                _react2['default'].createElement(
-	                  'a',
-	                  { href: '#' },
-	                  'Align'
-	                ),
-	                _react2['default'].createElement(
-	                  'ul',
-	                  { className: 'dropdown-menu sub-menu' },
-	                  _react2['default'].createElement(
-	                    'li',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'label',
-	                      { className: 'radio-inline' },
-	                      _react2['default'].createElement('input', { type: 'radio', value: '' }),
-	                      'Left'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'li',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'label',
-	                      { className: 'radio-inline' },
-	                      _react2['default'].createElement('input', { type: 'radio', value: '' }),
-	                      'Centre'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'li',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'label',
-	                      { className: 'radio-inline' },
-	                      _react2['default'].createElement('input', { type: 'radio', value: '' }),
-	                      'Right'
-	                    )
-	                  )
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                'li',
-	                null,
-	                _react2['default'].createElement(
-	                  'a',
-	                  { href: '#' },
-	                  'Columns'
-	                ),
-	                _react2['default'].createElement(
-	                  'ul',
-	                  { className: 'dropdown-menu sub-menu' },
-	                  _react2['default'].createElement(
-	                    'li',
-	                    null,
-	                    _react2['default'].createElement('input', { type: 'number' })
-	                  )
-	                )
-	              )
-	            )
+	            'button',
+	            { type: 'submit', className: 'btn btn-default' },
+	            'Submit'
 	          )
 	        )
 	      );
@@ -23802,6 +23729,117 @@
 
 /***/ },
 /* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var map = [];
+
+	var Content = (function (_React$Component) {
+	  _inherits(Content, _React$Component);
+
+	  function Content() {
+	    _classCallCheck(this, Content);
+
+	    _get(Object.getPrototypeOf(Content.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(Content, [{
+	    key: 'init',
+	    value: function init() {
+	      this.ref = {
+	        threshold: 500,
+	        lastKeypressTime: 0,
+	        counter: 0
+	      };
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.init();
+	      this.intializeEditor('text-area');
+	    }
+	  }, {
+	    key: 'intializeEditor',
+	    value: function intializeEditor(editArea) {
+	      AlloyEditor.editable(editArea, {
+	        toolbars: {
+	          add: {
+	            buttons: ['table', 'tableColumn', 'quote', 'strike']
+	          },
+	          styles: {
+	            selections: [{
+	              name: 'text',
+	              buttons: ['styles', 'bold', 'italic', 'underline', 'link', 'ul', 'ol', 'color'],
+	              test: AlloyEditor.SelectionTest.text
+	            }]
+	          }
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'createNewTextArea',
+	    value: function createNewTextArea(event) {
+	      map[event.keyCode] = event.type == 'keydown';
+	      if (map[91] && map[13]) {
+	        this.ref.counter++;
+	        var editArea = 'text-area' + this.ref.counter;
+	        var p = _react2['default'].createFactory('div');
+	        var parentDiv = document.getElementById('main-container');
+	        var nodeToInsertAfter = document.getElementById('text-area');
+	        var nodeToInsert = document.createElement('p');
+	        nodeToInsert.setAttribute('className', 'form-control-static');
+	        nodeToInsert.setAttribute('id', editArea);
+	        nodeToInsert.textContent = 'Editable content. Editable content. Editable content';
+	        parentDiv.insertBefore(nodeToInsert, nodeToInsertAfter.nextSibling);
+	        this.intializeEditor(editArea);
+	        map = [];
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'col-sm-4 content-area', id: 'main-container' },
+	        _react2['default'].createElement(
+	          'p',
+	          { id: 'text-area', className: 'form-control-static', onKeyDown: this.createNewTextArea.bind(this) },
+	          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+	        ),
+	        _react2['default'].createElement('div', { id: 'new-textarea' })
+	      );
+	    }
+	  }]);
+
+	  return Content;
+	})(_react2['default'].Component);
+
+	;
+
+	exports['default'] = Content;
+	module.exports = exports['default'];
+
+/***/ },
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23824,37 +23862,169 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var Content = (function (_React$Component) {
-	  _inherits(Content, _React$Component);
+	var PropertyButton = (function (_React$Component) {
+	  _inherits(PropertyButton, _React$Component);
 
-	  function Content() {
-	    _classCallCheck(this, Content);
+	  function PropertyButton() {
+	    _classCallCheck(this, PropertyButton);
 
-	    _get(Object.getPrototypeOf(Content.prototype), "constructor", this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(PropertyButton.prototype), "constructor", this).apply(this, arguments);
 	  }
 
-	  _createClass(Content, [{
-	    key: "handleDoubleClick",
-	    value: function handleDoubleClick(e) {
-	      var keyCount = 0;
-	      console.log(e.keyCode);
-	      if (e.keyCode == 13) {
-	        debugger;
-	      }
-	    }
-	  }, {
+	  _createClass(PropertyButton, [{
 	    key: "render",
 	    value: function render() {
-	      return _react2["default"].createElement("textarea", { className: "form-control", rows: "3", onKeyDown: this.handleDoubleClick });
+	      return _react2["default"].createElement(
+	        "ul",
+	        { className: "nav nav-pills" },
+	        _react2["default"].createElement(
+	          "li",
+	          { className: "dropdown" },
+	          _react2["default"].createElement(
+	            "a",
+	            { href: "#", "data-toggle": "dropdown", className: "dropdown-toggle active" },
+	            "Properties ",
+	            _react2["default"].createElement("b", { className: "caret" })
+	          ),
+	          _react2["default"].createElement(
+	            "ul",
+	            { className: "dropdown-menu", id: "menu1" },
+	            _react2["default"].createElement(
+	              "li",
+	              null,
+	              _react2["default"].createElement(
+	                "a",
+	                { href: "#" },
+	                "Background Image"
+	              ),
+	              _react2["default"].createElement(
+	                "ul",
+	                { className: "dropdown-menu sub-menu" },
+	                _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement("input", { type: "url" })
+	                )
+	              )
+	            ),
+	            _react2["default"].createElement(
+	              "li",
+	              null,
+	              _react2["default"].createElement(
+	                "a",
+	                { href: "#" },
+	                "Align"
+	              ),
+	              _react2["default"].createElement(
+	                "ul",
+	                { className: "dropdown-menu sub-menu" },
+	                _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement(
+	                    "a",
+	                    { href: "#" },
+	                    "Left"
+	                  )
+	                ),
+	                _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement(
+	                    "a",
+	                    { href: "#" },
+	                    "Centre"
+	                  )
+	                ),
+	                _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement(
+	                    "a",
+	                    { href: "#" },
+	                    "Right"
+	                  )
+	                )
+	              )
+	            ),
+	            _react2["default"].createElement(
+	              "li",
+	              null,
+	              _react2["default"].createElement(
+	                "a",
+	                { href: "#" },
+	                "Columns"
+	              ),
+	              _react2["default"].createElement(
+	                "ul",
+	                { className: "dropdown-menu sub-menu" },
+	                _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement("input", { type: "number" })
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
 	    }
 	  }]);
 
-	  return Content;
+	  return PropertyButton;
 	})(_react2["default"].Component);
 
-	;
+	exports["default"] = PropertyButton;
+	module.exports = exports["default"];
 
-	exports["default"] = Content;
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var PostTitle = (function (_React$Component) {
+	  _inherits(PostTitle, _React$Component);
+
+	  function PostTitle() {
+	    _classCallCheck(this, PostTitle);
+
+	    _get(Object.getPrototypeOf(PostTitle.prototype), "constructor", this).apply(this, arguments);
+	  }
+
+	  _createClass(PostTitle, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: "col-sm-10" },
+	        _react2["default"].createElement("input", { type: "text", className: "form-control" })
+	      );
+	    }
+	  }]);
+
+	  return PostTitle;
+	})(_react2["default"].Component);
+
+	exports["default"] = PostTitle;
 	module.exports = exports["default"];
 
 /***/ }
