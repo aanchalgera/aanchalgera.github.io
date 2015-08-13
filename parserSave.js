@@ -1,9 +1,9 @@
 var fs = require('fs');
 var _ = require("underscore");
 
-var html = '';
+var html;
 var commonClass = 'builder-section';
-var sectionsCovered = 0;
+var sectionsCovered;
 var pageTemplate;
 var sectionObjects;
 
@@ -38,23 +38,34 @@ function setup()
 
 function parse(request, response)
 {
+    html = '';
+    sectionsCovered = 0;
     response.setHeader('content-type', 'text/html');
     var pageTemplate = getTemplate('./staticpage.html');
-    var sectionObjects = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
 
-    setup(); //initialize all templates to prevent multiple times file i/o
-    sectionObjects.sections.forEach(handleSection);
+    var requestData = '';
+    request.on('data', function (data) {
+        requestData = data;
+    });
 
-    html += getSocialSharingSection('builder-section-last');
+    request.on('end', function () {
+        response.writeHead(200);
+        var sectionObjects = JSON.parse(requestData);
+        setup(); //initialize all templates to prevent multiple times file i/o
+        sectionObjects.sections.forEach(handleSection);
 
-    var finalHTML = pageTemplate(
-        { 
-          sectionsHTML: html
-        }
-    );
+        html += getSocialSharingSection('builder-section-last');
 
-    response.write(finalHTML);
-    response.end();
+        var finalHTML = pageTemplate(
+            { 
+              sectionsHTML: html
+            }
+        );
+
+        fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
+        response.write('');
+        response.end();
+      });
 }
 
 function handleSection(section)
