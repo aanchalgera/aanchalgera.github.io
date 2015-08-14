@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import PropertyButton from './PropertyButton';
 
 class Content extends React.Component{
-  handleDoubleClick(e) {
-    var keyCount = 0;
-    if (e.keyCode == 13) {
-    }
+  componentDidMount() {
+    this.intializeEditor(this.props.index);
+    var currentRef = 'myInput' + this.props.dataId;
+    this.refs[currentRef].getDOMNode().focus();
   }
-  render(){
+  intializeEditor(editArea) {
+    AlloyEditor.editable(editArea,{
+     toolbars : {
+       add: {
+         buttons: ['quote', 'strike']
+       },
+       styles : {
+         selections: [{
+           name: 'text',
+           buttons: ['styles', 'bold', 'italic', 'underline', 'link'],
+           test: AlloyEditor.SelectionTest.text
+         }]
+       }
+     }
+    });
+  }
+  render () {
     return (
-        <textarea className="form-control" rows="3" onKeyDown={this.handleDoubleClick} />
+      <div>
+        <p id={this.props.index} ref={'myInput' + Number(this.props.dataId)} data-id={this.props.dataId} className="form-control-static" onKeyDown={this.props.addNewTextArea.bind(this)}>
+          {this.props.text}
+        </p>
+        <PropertyButton />
+      </div>
     )
   }
-};
+}
 
-export default Content;
+Content.propTypes = { text: React.PropTypes.string.isRequired };
+
+export default Content
