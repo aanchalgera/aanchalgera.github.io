@@ -50,14 +50,15 @@ function parse(request, response)
 
     request.on('end', function () {
         response.writeHead(200);
-        var sectionObjects = JSON.parse(requestData);
+        var jsonObjects = JSON.parse(requestData);
         setup(); //initialize all templates to prevent multiple times file i/o
-        sectionObjects.sections.forEach(handleSection);
+        jsonObjects.sections.forEach(handleSection);
 
         html += getSocialSharingSection('builder-section-last');
 
         var finalHTML = pageTemplate(
             { 
+              pageTitle: jsonObjects.page_title,
               sectionsHTML: html
             }
         );
