@@ -25,12 +25,12 @@ class Content extends React.Component{
   }
   render () {
     return (
-      <div>
+      <span>
         <p id={this.props.index} ref={'myInput' + Number(this.props.dataId)} data-id={this.props.dataId} className="form-control-static" onKeyDown={this.props.addNewTextArea.bind(this)}>
           {this.props.text}
         </p>
         <PropertyButton />
-      </div>
+      </span>
     )
   }
 }
