@@ -9,7 +9,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      fields: [""]
+      fields: ["a","b","c"]
     };
   }
   addNewTextArea(event) {
@@ -28,7 +28,7 @@ class Editor extends React.Component{
           <label className="col-sm-2 control-label">Title</label>
           <PostTitle />
           <label className="col-sm-2 control-label">Content:</label>
-          <ContentList fields={this.state.fields} addNewTextArea={this.addNewTextArea.bind(this)} />
+	  <ContentList fields={this.state.fields} addNewTextArea={this.addNewTextArea.bind(this)} />
         </div>
         <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
       </form>
