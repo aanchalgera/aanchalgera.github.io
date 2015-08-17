@@ -41,6 +41,7 @@ class ContentList extends React.Component{
 	 return;
     this.over = e.target;
     var parentDiv = this.parentDiv(e.target);
+    if (parentDiv.parentNode.id != 'myList') return;
     parentDiv.parentNode.insertBefore(placeholder, parentDiv);
   }
   parentDiv(el) {

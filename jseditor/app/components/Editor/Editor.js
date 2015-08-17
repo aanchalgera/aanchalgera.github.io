@@ -9,7 +9,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      fields: [""]
+      fields: ["a","b","c"]
     };
   }
   addNewTextArea(event) {
