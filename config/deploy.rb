@@ -30,7 +30,6 @@ set :revision, ENV['BUILD_NUMBER']
 # TASKS
 # =============================================================================
 namespace :deploy do
-  after "deploy:update_code", :create_symlinks
   after "deploy:restart", "deploy:cleanup"
 
   task :finalize_update do
@@ -39,8 +38,4 @@ namespace :deploy do
   task :cleanup do
     run "cd #{releases_path} && ls -1t | grep -e '^[0-9]' | tail -n +5 | sudo xargs rm -rf"
   end
-end
-
-task :create_symlinks do
-  run "ln -s /var/www/cms-prototype #{release_path}"
 end
