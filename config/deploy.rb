@@ -2,8 +2,8 @@
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
 # (among other things) the deployment of your application.
 
-require 'capistrano/recipes/deploy/strategy/s3_bucket'
-require 'capistrano/ec2group'
+# require 'capistrano/recipes/deploy/strategy/s3_bucket'
+# require 'capistrano/ec2group'
 require 'capistrano/ext/multistage'
 
 set :stage, 'testing'
@@ -40,7 +40,7 @@ set :revision, ENV['BUILD_NUMBER']
 namespace :deploy do
   before "deploy:update_code", :build_namespace
   after "deploy:update_code", :create_symlinks
-  after "deploy:restart", deploy:cleanup
+  after "deploy:restart", "deploy:cleanup"
 
   task :finalize_update do
   end
