@@ -2,8 +2,6 @@
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
 # (among other things) the deployment of your application.
 
-# require 'capistrano/recipes/deploy/strategy/s3_bucket'
-# require 'capistrano/ec2group'
 require 'capistrano/ext/multistage'
 
 set :stage, 'testing'
@@ -20,16 +18,16 @@ set :scm, :none
 set :repository, "."
 set :copy_exclude, "**/.git"
 set :use_sudo, false
-set :deploy_via, :s3_bucket
+set :deploy_via, :copy
 set :copy_compression, :gz
 set :keep_releases, 2
 set :admin_runner, 'root'
 
-s3_config = YAML::load(ERB.new(IO.read("/etc/s3.yml")).result)
-set :s3_config, s3_config
-set :aws_access_key_id, s3_config['access_key_id']
-set :aws_secret_access_key, s3_config['secret_access_key']
-set :tmpdir, '/tmp'
+# s3_config = YAML::load(ERB.new(IO.read("/etc/s3.yml")).result)
+# set :s3_config, s3_config
+# set :aws_access_key_id, s3_config['access_key_id']
+# set :aws_secret_access_key, s3_config['secret_access_key']
+# set :tmpdir, '/tmp'
 
 ssh_options[:keys] = ENV['ssh_keys'] ? ENV['ssh_keys'] : %w(~/.ec2/agile_new.pem)
 set :revision, ENV['BUILD_NUMBER']
