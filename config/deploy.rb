@@ -6,7 +6,7 @@ require 'capistrano/recipes/deploy/strategy/s3_bucket'
 require 'capistrano/ec2group'
 require 'capistrano/ext/multistage'
 
-set :stages, %w(single)
+set :stages, 'testing'
 set :application, 'cms-prototype'
 set :current_dir, 'cms-prototype'
 set :version_dir, 'cms-prototype_releases'
