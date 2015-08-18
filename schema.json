@@ -223,7 +223,31 @@
                     "type": "object",
                     "properties": {
                         "gallery": {
-                            "type": "string"
+                            "type": "array",
+                            "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "background-image": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "background-image": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                            ]
                         }
                     }
                 },

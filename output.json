@@ -25,6 +25,11 @@
       "provider" : "youtube",
       "url" : ""
     },
+    { 
+      "type" : "video_banner",
+      "provider" : "youtube",
+      "url" : ""
+    },
     {
       "type" : "content",
       "columns" : 2,
@@ -78,7 +83,16 @@
       ]
     },
     {
-      "gallery": "iphone"
+      "gallery": [
+        {
+          "background-image" : "xxxxxxx",
+          "description" : "test description"
+        },
+        {
+          "background-image" : "xxxxxxx",
+          "description" : "test description"
+        }
+      ]
     },
     {
       "shopping_guide_products": [
