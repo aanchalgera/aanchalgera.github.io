@@ -38,35 +38,41 @@ function setup()
 
 function parse(request, response)
 {
-    html = '';
-    sectionsCovered = 0;
-    response.setHeader('content-type', 'text/html');
-    var pageTemplate = getTemplate('./staticpage.html');
+    if('/output' == request.url) {
+        fs.readFile('./output.html',function(err,data) {
+            response.end(data);
+        });
+    } else if('/parse' == request.url) {
+        html = '';
+        sectionsCovered = 0;
+        response.setHeader('content-type', 'text/html');
+        var pageTemplate = getTemplate('./staticpage.html');
 
-    var requestData = '';
-    request.on('data', function (data) {
-        requestData = data;
-    });
+        var requestData = '';
+        request.on('data', function (data) {
+            requestData = data;
+        });
+        request.on('end', function () {
+            response.writeHead(200);
+            var jsonObjects = JSON.parse(requestData);
+            setup(); //initialize all templates to prevent multiple times file i/o
+            jsonObjects.sections.forEach(handleSection);
 
-    request.on('end', function () {
-        response.writeHead(200);
-        var jsonObjects = JSON.parse(requestData);
-        setup(); //initialize all templates to prevent multiple times file i/o
-        jsonObjects.sections.forEach(handleSection);
+            html += getSocialSharingSection('builder-section-last');
 
-        html += getSocialSharingSection('builder-section-last');
+            var finalHTML = pageTemplate(
+                { 
+                  pageTitle: jsonObjects.page_title,
+                  sectionsHTML: html
+                }
+            );
 
-        var finalHTML = pageTemplate(
-            { 
-              pageTitle: jsonObjects.page_title,
-              sectionsHTML: html
-            }
-        );
-
-        fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
-        response.write('');
-        response.end();
-      });
+            fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
+                response.write('');
+                response.end();
+            
+          });
+    }
 }
 
 function handleSection(section)

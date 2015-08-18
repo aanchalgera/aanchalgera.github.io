@@ -4,7 +4,7 @@ var fs = require('fs');
 var testJson = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
 
 request({
-  uri: "http://localhost:8888",
+  uri: "http://localhost:8888/parse",
   method: "POST",
   json: testJson
 }, function(error, response, body) {
