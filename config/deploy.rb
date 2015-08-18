@@ -43,5 +43,5 @@ end
 
 task :restart_nodeserver do
   # if nodejs file exists, stop the nodejs server and start it
-  run "[ -e /usr/bin/nodeserver ] && sudo pkill -f node -u root && nodejs /usr/bin/nodeserver.js"
+  run "[ -e /usr/bin/nodeserver ] && sudo pkill -f node -u root && nodejs /var/www/cms-prototype/server.js &"
 end
