@@ -30,6 +30,7 @@ set :revision, ENV['BUILD_NUMBER']
 # TASKS
 # =============================================================================
 namespace :deploy do
+  before "deploy:restart", :restart_nodeserver
   after "deploy:restart", "deploy:cleanup"
 
   task :finalize_update do
@@ -38,4 +39,9 @@ namespace :deploy do
   task :cleanup do
     run "cd #{releases_path} && ls -1t | grep -e '^[0-9]' | tail -n +5 | sudo xargs rm -rf"
   end
+end
+
+task :restart_nodeserver do
+  # if nodejs file exists, stop the nodejs server and start it
+  run "[ -e /usr/bin/nodeserver ] && sudo pkill -f node -u root && nodejs /usr/bin/nodeserver.js"
 end
