@@ -65,6 +65,20 @@
                         "type": {
                             "type": "string"
                         },
+                        "text": {
+                            "type": "string"
+                        },
+                        "background-image": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
                         "provider": {
                             "type": "string"
                         },

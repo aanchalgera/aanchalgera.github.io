@@ -15,6 +15,11 @@
       "layout" : "normal"
     },
     {
+      "type": "banner",
+      "text" : "aadkdklad",
+      "background-image" : ""
+    }
+    {
       "type" : "content",
       "columns" : 1,
       "text" : "aadkdklad",
@@ -109,7 +114,8 @@
         }, 
         {
           "title":"first_image_name",
-          "imagePath":"http://i.blogs.es/95181a/428840_200297050098951_1912800679_n/650_1200.jpg",              "order":"2",
+          "imagePath":"http://i.blogs.es/95181a/428840_200297050098951_1912800679_n/650_1200.jpg",
+          "order":"2",
           "description":"first image description",
           "storeLink":"http://www.qqaas.com",
           "linkText":"link text",
