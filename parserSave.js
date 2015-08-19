@@ -63,6 +63,7 @@ function parse(request, response)
             var finalHTML = pageTemplate(
                 { 
                   pageTitle: jsonObjects.page_title,
+                  pageDescription: jsonObjects.page_description,
                   sectionsHTML: html
                 }
             );
