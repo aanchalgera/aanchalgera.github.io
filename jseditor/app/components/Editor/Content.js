@@ -3,9 +3,11 @@ import PropertyButton from './PropertyButton';
 
 class Content extends React.Component{
   componentDidMount() {
-    this.intializeEditor(this.props.index);
-    var currentRef = 'myInput' + this.props.dataId;
-    this.refs[currentRef].getDOMNode().focus();
+    if ('content' == this.props.type) {
+      this.intializeEditor(this.props.index);
+      var currentRef = 'myInput' + this.props.dataId;
+      this.refs[currentRef].getDOMNode().focus();
+    }
   }
   intializeEditor(editArea) {
     AlloyEditor.editable(editArea,{
@@ -24,17 +26,36 @@ class Content extends React.Component{
     });
   }
   render () {
+    var showBackgroundImageField = true;
+    if('content' == this.props.type) {
+      var field = <p
+        id={this.props.index}
+        ref={'myInput' + Number(this.props.dataId)}
+        data-id={this.props.dataId} className="form-control-static"
+        onKeyDown={this.props.addNewTextArea.bind(this)}>
+        {this.props.data.text}
+      </p>;
+    } else if('image' == this.props.type) {
+      var field = <p 
+        ref={'myInput' + Number(this.props.dataId)}
+        data-id={this.props.dataId}>
+          <img src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
+        </p>;
+      showBackgroundImageField = false;
+    }
     return (
-      <span>
-        <p id={this.props.index} ref={'myInput' + Number(this.props.dataId)} data-id={this.props.dataId} className="form-control-static" onKeyDown={this.props.addNewTextArea.bind(this)}>
-          {this.props.text}
-        </p>
-        <PropertyButton />
-      </span>
+      <div className="container-ul-iiner" 
+	   data-id={this.props.id} 
+	   draggable="true" 
+	   onDragEnd={this.props.dragEnd.bind(this)}
+           onDragStart={this.props.dragStart.bind(this)}>
+        {field}
+        <PropertyButton fieldClass={showBackgroundImageField ? '' : '.hidden'} />
+      </div>
     )
   }
 }
 
-Content.propTypes = { text: React.PropTypes.string.isRequired };
+Content.propTypes = { type: React.PropTypes.string.isRequired };
 
 export default Content

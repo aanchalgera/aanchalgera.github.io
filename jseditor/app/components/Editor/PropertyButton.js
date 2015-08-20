@@ -7,7 +7,7 @@ class PropertyButton extends React.Component {
         <li className="dropdown">
           <a href="#" data-toggle="dropdown" className="dropdown-toggle active dd1">Properties <b className="caret"></b></a>
           <ul className="dropdown-menu" id="menu1">
-            <li>
+            <li className={this.props.fieldClass}>
               <a href="#">Background Image</a>
               <ul className="dropdown-menu sub-menu">
                 <li><input type="url" /></li>
