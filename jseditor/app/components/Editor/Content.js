@@ -26,7 +26,6 @@ class Content extends React.Component{
     });
   }
   render () {
-    var propertyButton = '';
     var showBackgroundImageField = true;
     if('content' == this.props.type) {
       var field = <p
@@ -45,10 +44,14 @@ class Content extends React.Component{
       showBackgroundImageField = false;
     }
     return (
-      <span>
+      <div className="container-ul-iiner" 
+	   data-id={this.props.id} 
+	   draggable="true" 
+	   onDragEnd={this.props.dragEnd.bind(this)}
+           onDragStart={this.props.dragStart.bind(this)}>
         {field}
         <PropertyButton fieldClass={showBackgroundImageField ? '' : '.hidden'} />
-      </span>
+      </div>
     )
   }
 }

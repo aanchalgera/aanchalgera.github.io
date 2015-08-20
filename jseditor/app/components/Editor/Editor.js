@@ -15,12 +15,7 @@ class Editor extends React.Component{
         {
           id: 1,
           type: "content",
-          text: "Some content"
-        },
-        {
-          id : 3,
-          type : "content",
-          text : "Some more content"
+          text: "<b>Some content</b>"
         },
 	{
           id: 2,
@@ -33,6 +28,11 @@ class Editor extends React.Component{
           height : 341,
           class : "alignleft attachment-large"
         },
+        {
+          id : 3,
+          type : "content",
+          text : "Some more content"
+        }
       ]
     };
   }
