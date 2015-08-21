@@ -1,6 +1,5 @@
 import React from 'react';
 import Thumbnail from './Thumbnail';
-import CloudinaryLib from './CloudinaryLib';
 
 var CloudinaryUploader = React.createClass({
 	propTypes:{
@@ -189,7 +188,6 @@ var CloudinaryUploader = React.createClass({
 					className={this.props.buttonClass}
 					onClick={this.handleClick}>{this.props.buttonCaption}</a>
 				<p>{this.state.errorMessage}</p>
-				<CloudinaryLib cloudName='realarpit' />
 			</section>
 		);
 	}
