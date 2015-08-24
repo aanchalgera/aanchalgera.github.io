@@ -4,11 +4,11 @@ import Content from './Content';
 class ContentList extends React.Component{
   render(){
     var fields = this.props.fields.map((field, i) => {
-      var index = "text-area" + i;
+      var index = "text-area" + field.id;
       return (
           <Content
             key={index}
-            id={i}
+            dataId={i}
             type={field.type}
             data={field}
             index={index}

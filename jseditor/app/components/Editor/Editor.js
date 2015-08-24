@@ -26,11 +26,9 @@ class Editor extends React.Component{
           url : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/primerordenador.jpg",
           alt : "primer juego ordenador",
           extension : "jpg",
-          alignment : "",
+          alignment : "right",
           width : 500,
           height : 341,
-          class : "alignleft attachment-large"
-	  alignment: "right"
         },
         {
           id : 3,

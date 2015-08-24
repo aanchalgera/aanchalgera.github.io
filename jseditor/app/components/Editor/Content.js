@@ -6,7 +6,7 @@ class Content extends React.Component{
   componentDidMount() {
     if ('content' == this.props.type) {
       this.initializeEditor(this.props.index);
-      var currentRef = 'myInput' + this.props.id;
+      var currentRef = 'myInput' + this.props.dataId;
       this.refs[currentRef].getDOMNode().focus();
     }
   }
@@ -23,19 +23,24 @@ class Content extends React.Component{
     if('content' == this.props.type) {
       var field = <p
         id={this.props.index}
-        ref={'myInput' + Number(this.props.id)}
+	data-id={this.props.dataId} 
+        ref={'myInput' + Number(this.props.dataId)}
          className="form-control-static"
 	dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)} 
         onKeyDown={this.props.addNewTextArea.bind(this)}>
       </p>;
     } else if('image' == this.props.type) {
-      var field = <img src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
+      var field = <img 
+	   data-id={this.props.dataId} 
+	   src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
+
       showBackgroundImageField = false;
     }
     return (
       <div className="container-ul-iiner" 
 	   draggable="true" 
-	   data-id={this.props.id} 
+	   data-id={this.props.dataId} 
+	   key={this.props.data.key}
 	   onDragEnd={this.props.dragEnd.bind(this)}
            onDragStart={this.props.dragStart.bind(this)}>
         {field}
