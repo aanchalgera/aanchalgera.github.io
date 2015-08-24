@@ -53,7 +53,7 @@ var CloudinaryUploader = React.createClass({
       cloudName: this.props.cloudName,
       uploadPreset: this.props.uploadPreset,
       images : [{
-        id: 1,
+        public_id: 1,
         url: '',
         height: '',
         width: '',
@@ -169,7 +169,7 @@ var CloudinaryUploader = React.createClass({
     var images = this.state.images.map((data, i) => {
       return (
         <Thumbnail
-          key={data.id}
+          key={data.public_id}
           data={data}
           dragImageStart={this.props.dragImageStart.bind(this)}
           dragImageEnd={this.props.dragImageEnd.bind(this)}

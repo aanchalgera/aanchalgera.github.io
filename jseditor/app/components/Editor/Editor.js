@@ -15,15 +15,15 @@ class Editor extends React.Component{
     this.state = {
       fields: [
         {
-          id: 1,
+          id: 11,
           type: "content",
           text: "<b>Some content</b>",
 	  alignment: "left"
         },
 	{
-          id: 2,
+          id: 21,
           type : "image",
-          url : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/primerordenador.jpg",
+          url : "http://res.cloudinary.com/realarpit/image/upload/v1440415441/fyegazb5kb0edsfm3rkn.jpg",
           alt : "primer juego ordenador",
           extension : "jpg",
           alignment : "right",
@@ -31,7 +31,7 @@ class Editor extends React.Component{
           height : 341,
         },
         {
-          id : 3,
+          id : 33,
           type : "content",
           text : "Some more content"
         }
@@ -77,10 +77,10 @@ class Editor extends React.Component{
     // Update state
     var currentIndex = Number(this.over.dataset.id);
     this.state.fields.splice(
-      currentIndex+1,0, {
+      currentIndex,0, {
         id: Math.ceil((Math.random())*100),
         type: "image",
-        src: this.imageSrc,
+        url: this.imageSrc,
         height: this.imageHeight,
         width: this.imageWidth
       }
