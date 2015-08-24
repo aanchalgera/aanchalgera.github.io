@@ -2,6 +2,7 @@ import React from 'react';
 import ContentList from './ContentList';
 import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
+import CloudinaryUploader from './CloudinaryUploader';
 
 var map = [];
 var placeholder = document.createElement("div");
@@ -17,19 +18,8 @@ class Editor extends React.Component{
           type: "content",
           text: "<b>Some content</b>"
         },
-	{
-          id: 2,
-          type : "image",
-          url : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/primerordenador.jpg",
-          alt : "primer juego ordenador",
-          extension : "jpg",
-          alignment : "",
-          width : 500,
-          height : 341,
-          class : "alignleft attachment-large"
-        },
         {
-          id : 3,
+          id : 2,
           type : "content",
           text : "Some more content"
         }
@@ -54,12 +44,35 @@ class Editor extends React.Component{
   dragOver(e) {
     e.preventDefault();
     this.dragged.style.display = "none";
-    if(e.target.className == "placeholder")
-	 return;
+    if(e.target.className == "placeholder") return;
     this.over = e.target;
     var parentDiv = this.parentDiv(e.target);
     if (parentDiv.parentNode.id != 'myList') return;
     parentDiv.parentNode.insertBefore(placeholder, parentDiv);
+  }
+  dragImageStart(e) {
+    this.dragged = e.currentTarget;
+    this.imageSrc = this.dragged.dataset.src;
+    this.imageHeight = this.dragged.dataset.height;
+    this.imageWidth = this.dragged.dataset.width;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("text/html", e.currentTarget);
+  }
+  dragImageEnd(e) {
+    this.dragged.style.display = "block";
+    document.getElementById("myList").removeChild(placeholder);
+    // Update state
+    var currentIndex = Number(this.over.dataset.id);
+    this.state.fields.splice(
+      currentIndex+1,0, {
+        id: Math.ceil((Math.random())*100),
+        type: "image",
+        src: this.imageSrc,
+        height: this.imageHeight,
+        width: this.imageWidth
+      }
+    );
+    this.setState({fields: this.state.fields});
   }
   parentDiv(el) {
     while (el && el.parentNode) {
@@ -86,20 +99,29 @@ class Editor extends React.Component{
   }
   render(){
     return (
-      <form id="editor-form">
-        <div className="form-group">
-          <label className="col-sm-2 control-label">Title</label>
-          <PostTitle />
-          <label className="col-sm-2 control-label">Content:</label>
-          <ContentList
-            fields={this.state.fields}
-            addNewTextArea={this.addNewTextArea.bind(this)}
-            dragStart={this.dragStart.bind(this)}
-            dragEnd={this.dragEnd.bind(this)}
-            dragOver={this.dragOver.bind(this)} />
-        </div>
-        <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
-      </form>
+      <div>
+        <form id="editor-form">
+          <div className="form-group">
+            <label className="col-sm-2 control-label">Title</label>
+            <PostTitle />
+            <label className="col-sm-2 control-label">Content:</label>
+            <ContentList
+              fields={this.state.fields}
+              addNewTextArea={this.addNewTextArea.bind(this)}
+              dragStart={this.dragStart.bind(this)}
+              dragEnd={this.dragEnd.bind(this)}
+              dragOver={this.dragOver.bind(this)}
+            />
+          </div>
+          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
+        </form>
+        <CloudinaryUploader
+          cloudName='realarpit'
+          uploadPreset='h2sbmprz'
+          dragImageStart={this.dragImageStart.bind(this)}
+          dragImageEnd={this.dragImageEnd.bind(this)}
+        />
+      </div>
     )
   }
 };
