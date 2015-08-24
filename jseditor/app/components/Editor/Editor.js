@@ -4,9 +4,10 @@ import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 
-var map = [];
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
+var delta = 500;
+var lastKeypressTime = 0;
 
 class Editor extends React.Component{
   constructor(props){
@@ -16,10 +17,23 @@ class Editor extends React.Component{
         {
           id: 1,
           type: "content",
-          text: "<b>Some content</b>"
+          text: "<b>Some content</b>",
+	  alignment: "left"
+        },
+	{
+          id: 2,
+          type : "image",
+          url : "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/primerordenador.jpg",
+          alt : "primer juego ordenador",
+          extension : "jpg",
+          alignment : "",
+          width : 500,
+          height : 341,
+          class : "alignleft attachment-large"
+	  alignment: "right"
         },
         {
-          id : 2,
+          id : 3,
           type : "content",
           text : "Some more content"
         }
@@ -38,7 +52,8 @@ class Editor extends React.Component{
     var from = Number(this.dragged.dataset.id);
     var to = Number(this.over.dataset.id);
     if(from < to) to--;
-    this.state.fields.splice(to, 0, this.state.fields.splice(from, 1)[0]);
+    var temp = this.state.fields.splice(from, 1)[0];
+    this.state.fields.splice(to, 0, temp);
     this.setState({fields: this.state.fields});
   }
   dragOver(e) {
@@ -82,10 +97,23 @@ class Editor extends React.Component{
       }
     }
   }
-  addNewTextArea(event) {
-    map[event.keyCode] = event.type == 'keydown';
-    if (map[91] && map[13]) {
-      var currentIndex = Number(event.target.dataset.id);
+  keyHandler(event)
+  {
+    if (event.keyCode == 13 )
+    {
+      var thisKeypressTime = new Date();
+      if ( thisKeypressTime - lastKeypressTime <= delta )
+      {
+    	var parentDiv = this.parentDiv(event.target);
+        this.addNewTextArea(Number(parentDiv.dataset.id));
+        // optional - if we'd rather not detect a triple-press
+        // as a second double-press, reset the timestamp
+        //thisKeypressTime = 0;
+      }
+      lastKeypressTime = thisKeypressTime;
+    }
+  }
+  addNewTextArea(currentIndex ) {
       this.state.fields.splice(
         currentIndex+1,0, {
           id: Math.ceil((Math.random())*100),
@@ -94,8 +122,6 @@ class Editor extends React.Component{
         }
       );
       this.setState({fields: this.state.fields});
-      map = [];
-    }
   }
   render(){
     return (
@@ -107,7 +133,7 @@ class Editor extends React.Component{
             <label className="col-sm-2 control-label">Content:</label>
             <ContentList
               fields={this.state.fields}
-              addNewTextArea={this.addNewTextArea.bind(this)}
+              addNewTextArea={this.keyHandler.bind(this)}
               dragStart={this.dragStart.bind(this)}
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
