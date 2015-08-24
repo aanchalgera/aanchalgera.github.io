@@ -6,18 +6,16 @@ class ContentList extends React.Component{
     var fields = this.props.fields.map((field, i) => {
       var index = "text-area" + i;
       return (
-        <div className="container-ul-iiner" data-id={i}
-            draggable="true"
-            onDragEnd={this.props.dragEnd.bind(this)}
-            onDragStart={this.props.dragStart.bind(this)}>
-          <Content
-            key={index}
-            dataId={i}
-            type={field.type}
-            data={field}
-            index={index}
-            addNewTextArea={this.props.addNewTextArea.bind(this)} />
-        </div>
+        <Content
+          key={index}
+          dataId={i}
+          type={field.type}
+          data={field}
+          index={index}
+          addNewTextArea={this.props.addNewTextArea.bind(this)}
+          dragEnd={this.props.dragEnd.bind(this)}
+          dragStart={this.props.dragStart.bind(this)}
+        />
       )
     });
     return (

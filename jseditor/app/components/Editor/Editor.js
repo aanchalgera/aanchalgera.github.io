@@ -117,7 +117,7 @@ class Editor extends React.Component{
         </form>
         <CloudinaryUploader
           cloudName='realarpit'
-          uploadPreset='gpcxny1v'
+          uploadPreset='h2sbmprz'
           dragImageStart={this.dragImageStart.bind(this)}
           dragImageEnd={this.dragImageEnd.bind(this)}
         />
