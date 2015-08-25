@@ -32,7 +32,7 @@ var CloudinaryUploader = React.createClass({
       defaultSource: 'local',
       multiple: true,
       maxFiles: null,
-      cropping: 'server',
+      cropping: null,
       croppingAspectRation: null,
       publicId: null,
       folder: null,
@@ -52,13 +52,7 @@ var CloudinaryUploader = React.createClass({
     var initialState =  {
       cloudName: this.props.cloudName,
       uploadPreset: this.props.uploadPreset,
-      images : [{
-        public_id: 1,
-        url: '',
-        height: '',
-        width: '',
-        thumbnail_url: 'https://cdn0.iconfinder.com/data/icons/super-mono-reflection/blue/hard-drive-upload_blue.png'
-      }],
+      images : [],
       isError: false,
       errorMessage: null,
       showPoweredBy: false,
@@ -166,20 +160,25 @@ var CloudinaryUploader = React.createClass({
   },
   render: function(){
     var uploader_id = "uploader_" + this.state.uuid;
-    var images = this.state.images.map((data, i) => {
-      return (
-        <Thumbnail
-          key={data.public_id}
-          data={data}
-          dragImageStart={this.props.dragImageStart.bind(this)}
-          dragImageEnd={this.props.dragImageEnd.bind(this)}
-        />
-      )
-    });
+    var images = [];
+    if (this.state.images.length != 0) {
+      var images = this.state.images.map((data, i) => {
+        return (
+          <Thumbnail
+            key={data.public_id}
+            data={data}
+            dragImageStart={this.props.dragImageStart.bind(this)}
+            dragImageEnd={this.props.dragImageEnd.bind(this)}
+          />
+        )
+      });
+    }
     return (
       <section>
-        <p>{images}</p>
-        <a ref='uploader'
+        <p><img alt="upload image" src="./upload_thumb.png" draggable="false" /></p>
+        <ul className="resources-area list-inline">{images}</ul>
+        <a
+          ref='uploader'
           id={uploader_id}
           href="#"
           className={this.props.buttonClass}

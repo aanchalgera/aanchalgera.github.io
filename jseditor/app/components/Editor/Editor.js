@@ -23,12 +23,12 @@ class Editor extends React.Component{
 	{
           id: 21,
           type : "image",
-          url : "http://res.cloudinary.com/realarpit/image/upload/v1440415441/fyegazb5kb0edsfm3rkn.jpg",
+          url : "http://res.cloudinary.com/realarpit/image/upload/v1440420623/quf8pgbjsj1hojwhomkk.jpg",
           alt : "primer juego ordenador",
           extension : "jpg",
           alignment : "right",
           width : 500,
-          height : 341,
+          height : 622,
         },
         {
           id : 33,
