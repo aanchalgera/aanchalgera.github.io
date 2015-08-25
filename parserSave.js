@@ -142,7 +142,7 @@ function getSliderBannerSection(section)
             images: section['images']
         }
     );
-
+    // return sliderTemplate({});
 }
 
 function getBannerSection(section)
