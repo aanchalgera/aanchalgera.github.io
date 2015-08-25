@@ -12,10 +12,12 @@ var videoBannerTemplate;
 var singleColumnTemplate;
 var multiColumnTemplate;
 var imageColumnTemplate;
-var galleryColumnTemplate;
+var sliderTemplate;
 
 var sectionClasses;
 var sectionStyles;
+
+var skipSections = 0;
 
 module.exports = {
     parse: parse
@@ -33,7 +35,7 @@ function setup()
     singleColumnTemplate = getTemplate('./singleColumn.html');
     multiColumnTemplate = getTemplate('./multiColumn.html');
     imageTemplate = getTemplate('./image.html');
-    galleryTemplate = getTemplate('./gallery.html');
+    sliderTemplate = getTemplate('./slider.html');
 }
 
 function parse(request, response)
@@ -69,22 +71,35 @@ function parse(request, response)
             );
 
             fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
-                response.write('');
-                response.end();
+            response.write('');
+            response.end();
             
           });
+    } else if ('/' == request.url) {
+        html = '';
+        var jsonObjects = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
+        setup(); //initialize all templates to prevent multiple times file i/o
+        jsonObjects.sections.forEach(handleSection);
+        var pageTemplate = getTemplate('./staticpage.html');
+
+        var finalHTML = pageTemplate(
+            { 
+              sectionsHTML: html
+            }
+        );
+        response.write(finalHTML);
+        response.end();
     }
 }
 
-function handleSection(section)
+function handleSection(section, index, allSections)
 {
+    while (skipSections > 0) {
+        skipSections--;
+        return;
+    }
     sectionType = section.type;
     html += "\n";
-
-    if (1 == sectionsCovered) {
-        html += getSocialSharingSection('');
-        html += "\n";
-    }
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
@@ -96,21 +111,38 @@ function handleSection(section)
         case 'video_banner':
             html += getVideoBannerSection(section);
             break;
-        case 'image':
-            html += getImageSection(section);
+        case 'slider':
+            html += getSliderBannerSection(section);
             break;
-        case 'gallery':
-            html += getGallerySection(section);
+        case 'image':
+            if (true == section.banner) {
+                html += getBannerSection(section);
+            } else {
+                html += getImageSection(section);
+            }
             break;
         case 'content':
-            if (1 == section.columns) {
+            if (undefined == section["align"]) {
                 html += getSingleColumnSection(section);
-            } else if (section.columns > 1) { 
-                html += getMutiColumnSection(section);
+            } else {
+                html += getMutiColumnSection(section, index, allSections);
             }
             break;
     }
     sectionsCovered++;
+}
+
+function getSliderBannerSection(section)
+{
+    return sliderTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            title: section['title'],
+            images: section['images']
+        }
+    );
+
 }
 
 function getBannerSection(section)
@@ -119,8 +151,9 @@ function getBannerSection(section)
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            imageUrl: section["background-image"],
-            bannerText: section["text"]
+            imageUrl: section["url"],
+            bannerText: section["text"],
+            height: section["height"]
         }
     );
 }
@@ -142,18 +175,46 @@ function getSingleColumnSection(section)
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            text: section["text"]
+            text: section["text"],
+            title: section["title"]
         }
     );
 }
 
-function getMutiColumnSection(section)
+function getMutiColumnSection(section, index, allSections)
 {
+    var totalColumns = 1;
+    var columns = [];
+    columns.push(section);
+    skipSections = 0;
+
+    var nextIndex = index + 1;
+    var nextToNextIndex = index + 2;
+
+    if ('left' === section.align) {
+        if ('center' == allSections[nextIndex]["align"]) {
+            skipSections++;
+            totalColumns++;
+            columns.push(allSections[nextIndex]);
+            if ('right' == allSections[nextToNextIndex]["align"]) {
+                skipSections++;
+                totalColumns++;
+                columns.push(allSections[nextToNextIndex]);
+            }
+        } else if ('right' == allSections[nextIndex]["align"]) {
+            skipSections++;
+            totalColumns++;
+            columns.push(allSections[nextIndex]);
+        }
+    }
+
+    sectionClasses += ' builder-text-columns-'+totalColumns;
+
     return multiColumnTemplate(
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            contentSections: section.sections
+            contentSections: columns
         }
     );
 }
@@ -173,17 +234,6 @@ function getImageSection(section)
     );
 }
 
-function getGallerySection(section)
-{
-    return galleryTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            gallerySections: section.sections
-        }
-    );
-}
-
 function getSectionClasses(section)
 {
     var sectionClasses = [];
@@ -191,12 +241,14 @@ function getSectionClasses(section)
     if (0 === sectionsCovered) {
         sectionClasses.push("builder-section-first");
     }
-    if ('banner' == section.type || 'video_banner' == section.type) {
+    if (true == section.banner) {
         sectionClasses.push("builder-section-banner");
-    } else if ('image' == section.type) {
+    } else if ('image' == section.type && false == section.banner) {
         sectionClasses.push("builder-section-text");
     } else if ('content' == section.type) {
         sectionClasses.push("builder-section-text");
+    } else if ('slider' == section.type) {
+        sectionClasses.push("builder-section-banner");
     }
 
     if ('banner' != section.type 
@@ -209,19 +261,9 @@ function getSectionClasses(section)
         sectionClasses.push("has-background");
     }
 
-    if ('gallery' == section.type) {
-        sectionClasses.push("builder-section-gallery");
-        if (undefined !== section["columns"] && '' != section["columns"]) {
-            sectionClasses.push("builder-gallery-columns-"+section["columns"]);
-        }
-        sectionClasses.push("builder-gallery-captions-reveal");
-        sectionClasses.push("builder-gallery-captions-dark");
-        sectionClasses.push("builder-gallery-aspect-landscape");
-          
-    } else {
-        if (undefined !== section["columns"] && '' != section["columns"]) {
-            sectionClasses.push("builder-text-columns-"+section["columns"]);
-        }
+
+    if (undefined !== section["columns"] && '' != section["columns"]) {
+        sectionClasses.push("builder-text-columns-"+section["columns"]);
     }
 
     if (undefined !== section["parallax"] && '' != section["parallax"]) {
@@ -240,6 +282,10 @@ function getSectionStyles(section)
         if (undefined !==  section["background-image"] && '' != section["background-image"]) {
             return "background-image: url('"+section["background-image"]+"');";
         }
+    }
+
+    if ('slider' === section.type) {
+        return 'background-size: cover;'
     }
 
     return '';
