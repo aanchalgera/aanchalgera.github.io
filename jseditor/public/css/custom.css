@@ -41,7 +41,7 @@
 }
 
 .marbot20 { margin-bottom:20px;}
-.form-control-static { padding:8px; width:300px;border-radius: 5px 0 5px 5px; border: 1px solid #ddd; height:105px; margin-bottom:20px;overflow: hidden}
+.form-control-static { padding:8px; width:600px;border-radius: 5px 0 5px 5px; border: 1px solid #ddd; height:305px; margin-bottom:20px;overflow: hidden}
 .form-control-static:hover { background:#f5f5f5;}
 .nav-pills2 { position:absolute; right:-290px; top:0;}
 
