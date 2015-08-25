@@ -21,7 +21,7 @@ class Content extends React.Component{
       });
   }
   createMarkup(text) {
-	  return {__html: text};
+    return {__html: text};
   }
   render () {
     var propertyButton = '';
@@ -29,28 +29,27 @@ class Content extends React.Component{
     if('content' == this.props.type) {
       var field = <p
         id={this.props.index}
-	data-id={this.props.dataId}
+        data-id={this.props.dataId}
         ref={'myInput' + Number(this.props.dataId)}
-         className="form-control-static"
-	dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)}
+        className="form-control-static"
+        dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)}
         onKeyDown={this.props.addNewTextArea.bind(this)}>
       </p>;
     } else if('image' == this.props.type) {
       var field = <img
-	   data-id={this.props.dataId}
-	   src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
-
+        data-id={this.props.dataId}
+        src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
       showBackgroundImageField = false;
     }
     return (
       <div className="container-ul-iiner"
-	     draggable="true"
-	     data-id={this.props.dataId}
-	     key={this.props.data.key}
-	     onDragEnd={this.props.dragEnd.bind(this)}
+       draggable="true"
+       data-id={this.props.dataId}
+       key={this.props.data.key}
+       onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
          {field}
-          <PropertyButton alignment={this.props.data.alignment} fieldClass={showBackgroundImageField ? '' : '.hidden'} />
+         <PropertyButton alignment={this.props.data.alignment} fieldClass={showBackgroundImageField ? '' : '.hidden'} />
       </div>
     )
   }
