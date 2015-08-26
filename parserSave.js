@@ -73,9 +73,7 @@ function parse(request, response)
             );
 
             fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
-            response.write('');
-            response.end();
-            
+            response.end(finalHTML);
           });
     } else if ('/' == request.url) {
         html = '';
