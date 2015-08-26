@@ -1,27 +1,18 @@
 {
   "title": "A title",
-  "alternate_title" : [
-    "Alternate Title1",
-    "Alternate Title2"
-  ],
-  "page_title" : "Page Title",
-  "page_description" : "Page Description",
   "sections": [
     {
       "type" : "image",
       "url" : "abc",
       "alt" : "abc",
-      "extension" : "jpg",
-      "layout" : "normal"
+      "width" : 100,
+      "height" : 100,
+      "parallax": false,
+      "banner": false
     },
     {
-      "type": "banner",
-      "text" : "aadkdklad",
-      "background-image" : ""
-    }
-    {
       "type" : "content",
-      "columns" : 1,
+      "alignment": "left/center/right",
       "text" : "aadkdklad",
       "background-image" : ""
     },
@@ -30,37 +21,10 @@
       "provider" : "youtube",
       "url" : ""
     },
-    { 
+    {
       "type" : "video_banner",
       "provider" : "youtube",
       "url" : ""
-    },
-    {
-      "type" : "content",
-      "columns" : 2,
-      "sections" : [
-        {
-          "type" : "image",
-          "url" : "abc",
-          "alt" : "abc",
-          "extension" : "jpg",
-          "layout" : "normal",
-          "alignment" : "left",
-          "width" : 100,
-          "height" : 100
-        },
-        {
-          "type" : "content",
-          "columns" : 1,
-          "text" : "column 2 text",
-          "background-image" : ""
-        }
-      ]
-    },
-    {
-      "type" : "image",
-      "url" : "abc",
-      "class" : "abc"
     },
     {
       "slideshow_pages" : [
