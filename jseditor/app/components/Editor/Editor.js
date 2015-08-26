@@ -91,6 +91,7 @@ class Editor extends React.Component{
         alt: this.imageAlt,
         banner : false,
         parallax : false,
+	alignment: ""
       }
     );
     this.setState({fields: this.state.fields});
@@ -124,7 +125,8 @@ class Editor extends React.Component{
       currentIndex+1,0, {
       id: Math.ceil((Math.random())*100),
       type: "content",
-      text: ""
+      text: "",
+      alignment: ""
     });
     this.setState({fields: this.state.fields});
   }
@@ -164,21 +166,31 @@ class Editor extends React.Component{
       errorMessage: errorMessage
     });
   }
+  addClassToResource(event)
+  {
+     var currentIndex = this.parentDiv(event.target).dataset.id;
+     var value = event.target.dataset.alignment;
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.alignment = (obj.alignment == value) ? "" : value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields});
+  }
   render(){
     var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
     return (
       <div>
         <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
-            <label className="col-sm-2 control-label">Title</label>
+            <label className="col-sm-12 control-label">Title</label>
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
-            <label className="col-sm-2 control-label">Content:</label>
+            <label className="col-sm-12 control-label">Content:</label>
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}
               dragStart={this.dragStart.bind(this)}
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
+	      addClassToResource={this.addClassToResource.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>

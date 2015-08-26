@@ -24,8 +24,6 @@ class Content extends React.Component{
     return {__html: text};
   }
   render () {
-    var propertyButton = '';
-    var showBackgroundImageField = true;
     if('content' == this.props.type) {
       var field = <p
         id={this.props.index}
@@ -44,6 +42,7 @@ class Content extends React.Component{
       />
       showBackgroundImageField = false;
     }
+    var classes = 'container-ul-iiner '+ this.props.data.alignment
     return (
       <div className="container-ul-iiner"
        draggable="true"
@@ -52,7 +51,10 @@ class Content extends React.Component{
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
          {field}
-         <PropertyButton alignment={this.props.data.alignment} fieldClass={showBackgroundImageField ? '' : '.hidden'} />
+        <PropertyButton 
+	alignment={this.props.data.alignment} 
+	addClassToResource={this.props.addClassToResource.bind(this)}
+	/>
       </div>
     )
   }
