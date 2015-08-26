@@ -22,9 +22,9 @@ class Editor extends React.Component{
           id: 11,
           type: "content",
           text: "<b>Some content</b>",
-	        alignment: "left"
+          alignment: "left"
         },
-	      {
+        {
           id: 21,
           type : "image",
           url : "http://res.cloudinary.com/realarpit/image/upload/v1440420623/quf8pgbjsj1hojwhomkk.jpg",
@@ -110,7 +110,7 @@ class Editor extends React.Component{
       var thisKeypressTime = new Date();
       if ( thisKeypressTime - lastKeypressTime <= delta )
       {
-    	var parentDiv = this.parentDiv(event.target);
+        var parentDiv = this.parentDiv(event.target);
         this.addNewTextArea(Number(parentDiv.dataset.id));
         // optional - if we'd rather not detect a triple-press
         // as a second double-press, reset the timestamp
@@ -120,18 +120,17 @@ class Editor extends React.Component{
     }
   }
   addNewTextArea(currentIndex ) {
-      this.state.fields.splice(
-        currentIndex+1,0, {
-          id: Math.ceil((Math.random())*100),
-          type: "content",
-          text: ""
-        }
-      );
-      this.setState({fields: this.state.fields});
+    this.state.fields.splice(
+      currentIndex+1,0, {
+      id: Math.ceil((Math.random())*100),
+      type: "content",
+      text: ""
+    });
+    this.setState({fields: this.state.fields});
   }
   handleChange (ev) {
     this.setState({
-        value : ev.currentTarget.value
+      value : ev.currentTarget.value
     });
   }
   submitForm (ev) {
