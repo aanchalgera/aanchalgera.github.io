@@ -10,12 +10,12 @@ class Thumbnail extends React.Component {
       <li>
         <a href="#" className="glyphicon glyphicon-remove" onClick={this.removeImage.bind(this)} />
         <img
-          alt={this.props.data.original_filename}
           src={this.props.data.thumbnail_url}
           draggable="true"
           data-src={this.props.data.url}
           data-height={this.props.data.height}
           data-width={this.props.data.width}
+          data-alt={this.props.data.original_filename}
           onDragStart={this.props.dragImageStart.bind(this)}
           onDragEnd={this.props.dragImageEnd.bind(this)}
         />

@@ -38,7 +38,10 @@ class Content extends React.Component{
     } else if('image' == this.props.type) {
       var field = <img
         data-id={this.props.dataId}
-        src={this.props.data.url} height={this.props.data.height} width={this.props.data.width} />
+        src={this.props.data.url}
+        height={this.props.data.height}
+        width={this.props.data.width}
+      />
       showBackgroundImageField = false;
     }
     return (

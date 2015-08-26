@@ -3,6 +3,7 @@ import ContentList from './ContentList';
 import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
+import axios from 'axios';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -13,20 +14,23 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      value: null,
+      isError: false,
+      errorMessage: null,
       fields: [
         {
           id: 11,
           type: "content",
           text: "<b>Some content</b>",
-	  alignment: "left"
+	        alignment: "left"
         },
-	{
+	      {
           id: 21,
           type : "image",
           url : "http://res.cloudinary.com/realarpit/image/upload/v1440420623/quf8pgbjsj1hojwhomkk.jpg",
           alt : "primer juego ordenador",
-          extension : "jpg",
-          alignment : "right",
+          banner : false,
+          parallax : false,
           width : 500,
           height : 622,
         },
@@ -65,6 +69,7 @@ class Editor extends React.Component{
   }
   dragImageStart(e) {
     this.dragged = e.currentTarget;
+    this.imageAlt = this.dragged.dataset.alt;
     this.imageSrc = this.dragged.dataset.src;
     this.imageHeight = this.dragged.dataset.height;
     this.imageWidth = this.dragged.dataset.width;
@@ -82,7 +87,10 @@ class Editor extends React.Component{
         type: "image",
         url: this.imageSrc,
         height: this.imageHeight,
-        width: this.imageWidth
+        width: this.imageWidth,
+        alt: this.imageAlt,
+        banner : false,
+        parallax : false,
       }
     );
     this.setState({fields: this.state.fields});
@@ -121,13 +129,50 @@ class Editor extends React.Component{
       );
       this.setState({fields: this.state.fields});
   }
+  handleChange (ev) {
+    this.setState({
+        value : ev.currentTarget.value
+    });
+  }
+  submitForm (ev) {
+    ev.preventDefault();
+    if (undefined == this.state.value) {
+      this.setError(true,'Title should not be empty');
+      return
+    } else {
+      this.setError({isError: false, errorMessage: null});
+    }
+    var data = {
+      title : this.state.value,
+      sections : this.state.fields
+    };
+    data = JSON.stringify(data);
+    axios({
+      url : '/submit',
+      method: 'POST',
+      data : data
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (response) {
+      console.log(response);
+    });
+  }
+  setError (isError, errorMessage){
+    this.setState({
+      isError: isError,
+      errorMessage: errorMessage
+    });
+  }
   render(){
+    var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
     return (
       <div>
-        <form id="editor-form">
+        <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
             <label className="col-sm-2 control-label">Title</label>
-            <PostTitle />
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
             <label className="col-sm-2 control-label">Content:</label>
             <ContentList
               fields={this.state.fields}
@@ -139,6 +184,7 @@ class Editor extends React.Component{
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
         </form>
+        {errorField}
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
