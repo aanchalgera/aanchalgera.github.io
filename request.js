@@ -8,7 +8,9 @@ request({
   method: "POST",
   json: testJson
 }, function(error, response, body) {
-	if (null !== error) {
-  		console.log(error);
+	if (null === error) {
+  		console.log(body);
+	} else {
+		console.log(error);
 	}
 });
