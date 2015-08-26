@@ -40,11 +40,9 @@ class Content extends React.Component{
         height={this.props.data.height}
         width={this.props.data.width}
       />
-      showBackgroundImageField = false;
     }
-    var classes = 'container-ul-iiner '+ this.props.data.alignment
     return (
-      <div className="container-ul-iiner"
+      <div className={"container-ul-inner " + this.props.data.alignment}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
