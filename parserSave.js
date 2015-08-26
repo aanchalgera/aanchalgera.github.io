@@ -9,6 +9,7 @@ var sectionObjects;
 
 var bannerTemplate;
 var videoBannerTemplate;
+var videoTemplate;
 var singleColumnTemplate;
 var multiColumnTemplate;
 var imageColumnTemplate;
@@ -32,6 +33,7 @@ function setup()
 {
     bannerTemplate = getTemplate('./banner.html');
     videoBannerTemplate = getTemplate('./videoBanner.html');
+    videoTemplate = getTemplate('./video.html');
     singleColumnTemplate = getTemplate('./singleColumn.html');
     multiColumnTemplate = getTemplate('./multiColumn.html');
     imageTemplate = getTemplate('./image.html');
@@ -108,6 +110,9 @@ function handleSection(section, index, allSections)
         case 'banner':
             html += getBannerSection(section);
             break;
+        case 'video':
+            html += getVideoSection(section);
+            break;
         case 'video_banner':
             html += getVideoBannerSection(section);
             break;
@@ -132,6 +137,19 @@ function handleSection(section, index, allSections)
     sectionsCovered++;
 }
 
+function getVideoSection(section)
+{
+    return videoTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            videoUrl: section['url'],
+            height: section["height"],
+            width: section["width"]
+        }
+    );
+}
+
 function getSliderBannerSection(section)
 {
     return sliderTemplate(
@@ -142,7 +160,6 @@ function getSliderBannerSection(section)
             images: section['images']
         }
     );
-    // return sliderTemplate({});
 }
 
 function getBannerSection(section)
@@ -164,7 +181,10 @@ function getVideoBannerSection(section)
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            videoUrl: section["url"]
+            videoUrl: section["url"],
+            height: section["height"],
+            width: section["width"],
+            bannerHeight: section["banner-height"]
         }
     );
 }
@@ -225,11 +245,11 @@ function getImageSection(section)
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            columnNo: 1,
             width: section.width,
             height: section.height,
             src: section.url,
-            classes: section.class
+            classes: section.class,
+            alt: section
         }
     );
 }
@@ -275,20 +295,21 @@ function getSectionClasses(section)
 
 function getSectionStyles(section)
 {
+    var sectionStyles = [];
     if ('banner' != section.type) {
         if (undefined !==  section["background-color"] && '' != section["background-color"]) {
-            return "background-color:" + section["background-color"];
+            sectionStyles.push("background-color:" + section["background-color"]);
         }
         if (undefined !==  section["background-image"] && '' != section["background-image"]) {
-            return "background-image: url('"+section["background-image"]+"');";
+            sectionStyles.push("background-image: url('"+section["background-image"]+"');background-size: cover;");
         }
     }
 
     if ('slider' === section.type) {
-        return 'background-size: cover;'
+        sectionStyles.push('background-size: cover;');
     }
 
-    return '';
+    return sectionStyles.join(' ');
 }
 
 function getSocialSharingSection(lastSection)
