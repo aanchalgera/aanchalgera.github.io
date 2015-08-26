@@ -22,7 +22,7 @@ class Editor extends React.Component{
           id: 11,
           type: "content",
           text: "<b>Some content</b>",
-          alignment: "left"
+          alignment: "section-left-align"
         },
         {
           id: 21,
@@ -91,7 +91,7 @@ class Editor extends React.Component{
         alt: this.imageAlt,
         banner : false,
         parallax : false,
-	alignment: ""
+	 alignment: ""
       }
     );
     this.setState({fields: this.state.fields});

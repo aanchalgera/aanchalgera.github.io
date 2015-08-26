@@ -49,10 +49,10 @@ class Content extends React.Component{
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
          {field}
-        <PropertyButton 
-	alignment={this.props.data.alignment} 
-	addClassToResource={this.props.addClassToResource.bind(this)}
-	/>
+         <PropertyButton 
+	  alignment={this.props.data.alignment} 
+	  addClassToResource={this.props.addClassToResource.bind(this)}
+	 />
       </div>
     )
   }
