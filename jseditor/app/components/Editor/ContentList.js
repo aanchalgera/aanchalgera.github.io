@@ -13,9 +13,10 @@ class ContentList extends React.Component{
             data={field}
             index={index}
             addNewTextArea={this.props.addNewTextArea.bind(this)}
-	     addClassToResource={this.props.addClassToResource.bind(this)}
+            addClassToResource={this.props.addClassToResource.bind(this)}
             dragEnd={this.props.dragEnd.bind(this)}
-            dragStart={this.props.dragStart.bind(this)} />
+            dragStart={this.props.dragStart.bind(this)}
+            updateText={this.props.updateText.bind(this)} />
       )
     });
     return (
