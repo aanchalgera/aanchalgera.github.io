@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require("underscore");
+var markdown = require("markdown").markdown;
 
 var html;
 var commonClass = 'builder-section';
@@ -111,6 +112,9 @@ function parse(request, response)
 
 function handleSection(section, index, allSections)
 {
+    if (undefined !== section['text'] && '' != section['text']) {
+        section['text'] = markdown.toHTML(section['text']);
+    }
     while (skipSections > 0) {
         skipSections--;
         return;
