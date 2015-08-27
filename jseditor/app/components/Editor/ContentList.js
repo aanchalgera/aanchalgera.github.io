@@ -7,7 +7,7 @@ class ContentList extends React.Component{
     var fields = this.props.fields.map((field, i) => {
       var index = "text-area" + field.id;
       if (previousAlign == 'section-align-left' && field.alignment != 'section-align-right') alignmentError = true; 
-      else if (field.alignment == 'section-align-right' && previousAlign != 'section-align-left') alignmentError = true; 
+      else if (previousAlign != 'section-align-left' && field.alignment == 'section-align-right') alignmentError = true; 
       previousAlign = field.alignment;
       return (
           <Content
