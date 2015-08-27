@@ -19,6 +19,8 @@ var sectionClasses;
 var sectionStyles;
 
 var skipSections = 0;
+var outputFilePath = 'jseditor/public/posts';
+var relativeFilePath = 'posts';
 
 module.exports = {
     parse: parse
@@ -57,6 +59,7 @@ function parse(request, response)
             requestData = data;
         });
         request.on('end', function () {
+            response.setHeader('Access-Control-Allow-Origin', '*');
             response.writeHead(200);
             var jsonObjects = JSON.parse(requestData);
             setup(); //initialize all templates to prevent multiple times file i/o
@@ -72,8 +75,15 @@ function parse(request, response)
                 }
             );
 
-            fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
-            response.end(finalHTML);
+            var outputFileName = '';
+            if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
+                outputFileName = jsonObjects.id + '.html';
+            } else {
+                outputFileName = new Date().getTime()+ '.html';
+            }
+            fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
+            response.write(finalHTML);
+            response.end();
           });
     } else if ('/' == request.url) {
         html = '';
@@ -87,6 +97,13 @@ function parse(request, response)
               sectionsHTML: html
             }
         );
+       var fileName = '';
+        if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
+            fileName = jsonObjects.id + '.html';
+        } else {
+            fileName = new Date().getTime()+ '.html';
+        }
+        fs.writeFileSync(fileName, finalHTML, "UTF-8", {'flags': 'w+'});
         response.write(finalHTML);
         response.end();
     }
