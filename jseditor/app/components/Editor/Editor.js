@@ -14,18 +14,19 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      maxLength: 3,
       value: null,
       isError: false,
       errorMessage: null,
       fields: [
         {
-          id: 11,
+          id: 1,
           type: "content",
           text: "<b>Some content</b>",
           alignment: "section-left-align"
         },
         {
-          id: 21,
+          id: 2,
           type : "image",
           url : "http://res.cloudinary.com/realarpit/image/upload/v1440420623/quf8pgbjsj1hojwhomkk.jpg",
           alt : "primer juego ordenador",
@@ -35,7 +36,7 @@ class Editor extends React.Component{
           height : 622,
         },
         {
-          id : 33,
+          id : 3,
           type : "content",
           text : "Some more content"
         }
@@ -77,13 +78,14 @@ class Editor extends React.Component{
     e.dataTransfer.setData("text/html", e.currentTarget);
   }
   dragImageEnd(e) {
+    this.state.maxLength++;
     this.dragged.style.display = "block";
     document.getElementById("myList").removeChild(placeholder);
     // Update state
     var currentIndex = Number(this.over.dataset.id);
     this.state.fields.splice(
       currentIndex,0, {
-        id: Math.ceil((Math.random())*100),
+        id: this.state.maxLength,
         type: "image",
         url: this.imageSrc,
         height: this.imageHeight,
@@ -91,10 +93,13 @@ class Editor extends React.Component{
         alt: this.imageAlt,
         banner : false,
         parallax : false,
-	 alignment: ""
+        alignment: ""
       }
     );
-    this.setState({fields: this.state.fields});
+    this.setState({
+      fields: this.state.fields,
+      maxLength: this.state.maxLength
+    });
   }
   parentDiv(el) {
     while (el && el.parentNode) {
@@ -121,14 +126,18 @@ class Editor extends React.Component{
     }
   }
   addNewTextArea(currentIndex ) {
+    this.state.maxLength++;
     this.state.fields.splice(
       currentIndex+1,0, {
-      id: Math.ceil((Math.random())*100),
+      id: this.state.maxLength,
       type: "content",
       text: "",
       alignment: ""
     });
-    this.setState({fields: this.state.fields});
+    this.setState({
+      fields: this.state.fields,
+      maxLength: this.state.maxLength
+    });
   }
   handleChange (ev) {
     this.setState({
