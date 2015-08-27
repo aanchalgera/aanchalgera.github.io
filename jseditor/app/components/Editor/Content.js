@@ -16,7 +16,11 @@ class Content extends React.Component{
         imageDragging: false,
         autoLink: true,
         toolbar: {
-          buttons: ['bold', 'italic', 'underline','h1','h2','unorderedlist','orderedlist','anchor','removeFormat', 'justifyLeft','justifyCenter', 'justifyRight']
+          buttons: [
+            'bold', 'italic', 'underline', 'h1', 'h2'
+            , 'unorderedlist', 'orderedlist', 'anchor', 'removeFormat'
+            , 'justifyLeft', 'justifyCenter', 'justifyRight'
+          ]
         }
       });
   }
@@ -31,7 +35,8 @@ class Content extends React.Component{
         ref={'myInput' + Number(this.props.dataId)}
         className="form-control-static"
         dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)}
-        onKeyDown={this.props.addNewTextArea.bind(this)}>
+        onKeyDown={this.props.addNewTextArea.bind(this)}
+        onBlur={this.props.updateText.bind(this)}>
       </p>;
     } else if('image' == this.props.type) {
       var field = <img
@@ -49,10 +54,10 @@ class Content extends React.Component{
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
          {field}
-         <PropertyButton 
-	  alignment={this.props.data.alignment} 
-	  addClassToResource={this.props.addClassToResource.bind(this)}
-	 />
+         <PropertyButton
+           alignment={this.props.data.alignment}
+           addClassToResource={this.props.addClassToResource.bind(this)}
+         />
       </div>
     )
   }

@@ -175,6 +175,15 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
+  updateText(event)
+  {
+     var currentIndex = this.parentDiv(event.target).dataset.id;
+     var value = event.target.innerHTML;
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.text = value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields});
+  }
   render(){
     var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
     return (
@@ -190,7 +199,8 @@ class Editor extends React.Component{
               dragStart={this.dragStart.bind(this)}
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
-	      addClassToResource={this.addClassToResource.bind(this)}
+              addClassToResource={this.addClassToResource.bind(this)}
+              updateText={this.updateText.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
