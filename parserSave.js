@@ -76,13 +76,10 @@ function parse(request, response)
                 }
             );
 
-            var outputFileName = '';
             if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
-                outputFileName = jsonObjects.id + '.html';
-            } else {
-                outputFileName = new Date().getTime()+ '.html';
+                var outputFileName = jsonObjects.id + '.html';
+                fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
             }
-            fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
             response.write(finalHTML);
             response.end();
           });
@@ -109,7 +106,7 @@ function parse(request, response)
         response.end();
     } else if ('/process' == request.url) {
         var testForm = getTemplate('./testForm.html');
-        var testJson = fs.readFileSync('./test.json', 'utf8');
+        var testJson = fs.readFileSync('./testing.json', 'utf8');
 
         var testHTML = testForm(
             {
