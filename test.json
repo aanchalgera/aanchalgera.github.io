@@ -9,7 +9,7 @@
   "sections": [
     {
       "type" : "image",
-      "text" : "<blockquote><h1 style=\"text-align: center;\"><span style=\"color: #ffffff;\"><big><strong>Gif o Video con texto&nbsp;</strong></big></span></h1> </blockquote>",
+      "text" : "# Gif o Video con texto #",
       "url" : "http://jamiemason.github.io/ImageOptim-CLI/images/jpegmini-and-imageoptim/jpeg_wolk.jpg",
       "banner" : true,
       "parallax" : false,
