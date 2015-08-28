@@ -22,7 +22,7 @@ class Editor extends React.Component{
           id: 11,
           type: "content",
           text: "<b>Some content</b>",
-          alignment: "section-left-align"
+          alignment: "section-align-left"
         },
         {
           id: 21,
@@ -33,6 +33,7 @@ class Editor extends React.Component{
           parallax : false,
           width : 500,
           height : 622,
+          alignment: "section-align-right"
         },
         {
           id : 33,

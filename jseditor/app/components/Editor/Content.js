@@ -46,6 +46,11 @@ class Content extends React.Component{
         width={this.props.data.width}
       />
     }
+    if (this.props.alignmentError == true) {
+      var alignmentError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
+    } else {
+      var alignmentError = '';
+    }
     return (
       <div className={"container-ul-inner " + this.props.data.alignment}
        draggable="true"
@@ -53,6 +58,7 @@ class Content extends React.Component{
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
+	 {alignmentError}
          {field}
          <PropertyButton
            alignment={this.props.data.alignment}
