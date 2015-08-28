@@ -20,9 +20,10 @@ var sectionClasses;
 var sectionStyles;
 
 var skipSections = 0;
-var outputFilePath = 'jseditor/public/posts';
+var outputFilePath = './jseditor/public/posts';
 var relativeFilePath = 'posts';
 var totalSections;
+var jsonObjects;
 
 module.exports = {
     parse: parse
@@ -59,7 +60,13 @@ function parse(request, response)
         request.on('end', function () {
             response.setHeader('Access-Control-Allow-Origin', '*');
             response.writeHead(200);
-            var jsonObjects = JSON.parse(requestData);
+            try {
+                jsonObjects = JSON.parse(requestData);
+            } catch (e) {
+                response.write('{"status": "failure", "data": "invalid JSON"}');
+                response.end();
+                return false;
+            }
             setup(); //initialize all templates to prevent multiple times file i/o
             totalSections = jsonObjects.sections.length;
             jsonObjects.sections.forEach(handleSection);
@@ -76,6 +83,7 @@ function parse(request, response)
                 var outputFileName = jsonObjects.id + '.html';
                 fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
             }
+            response.write('{"status": "success", "data": '+finalHTML+'}');
             response.write(finalHTML);
             response.end();
           });
@@ -106,7 +114,8 @@ function parse(request, response)
 
         var testHTML = testForm(
             {
-              testData: testJson
+              testData: testJson,
+              host: request.headers.host
             }
         );
 

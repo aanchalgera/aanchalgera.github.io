@@ -2,6 +2,7 @@
     <body>
         <textarea rows="50" cols="100" id="data"><%= testData %></textarea>
         <input type="button" value="save" id="save" onClick="save()" />
+        <span id="myDiv"></span>
     </body>
     <script type="text/javascript">
         var xmlhttp;
@@ -11,8 +12,13 @@
           xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         function save () {
-            xmlhttp.open("POST","http://localhost:8888/parse",true);
+            document.getElementById("myDiv").innerHTML = '';
+            xmlhttp.open("POST","http://<%= host %>/parse",false);
             xmlhttp.send(document.getElementById("data").value);
+            a = eval('(' + xmlhttp.responseText + ')');
+            if ('failure' == a["status"]) {
+                document.getElementById("myDiv").innerHTML = a['data'];
+            }
         }
     </script>
 </html>
