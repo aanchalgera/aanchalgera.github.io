@@ -1,0 +1,25 @@
+{
+  "title": "A title",
+  "id" : "testing",
+  "alternate_title" : [
+    "Alternate Title1",
+    "Alternate Title2"
+  ],
+  "page_title" : "Page Title",
+  "page_description" : "Page Description",
+  "sections": [
+    {
+      "type" : "image",
+      "text" : "# Gif o Video con texto #",
+      "url" : "http://jamiemason.github.io/ImageOptim-CLI/images/jpegmini-and-imageoptim/jpeg_wolk.jpg",
+      "banner" : true,
+      "parallax" : false,
+      "width" : 400, 
+      "height" : 600
+    },
+    {
+      "type" : "content",
+      "text" : "hello with ajinder"
+    }
+  ]
+}

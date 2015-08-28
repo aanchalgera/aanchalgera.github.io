@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require("underscore");
+var markdown = require("markdown").markdown;
 
 var html;
 var commonClass = 'builder-section';
@@ -19,6 +20,8 @@ var sectionClasses;
 var sectionStyles;
 
 var skipSections = 0;
+var outputFilePath = 'jseditor/public/posts';
+var relativeFilePath = 'posts';
 
 module.exports = {
     parse: parse
@@ -57,6 +60,7 @@ function parse(request, response)
             requestData = data;
         });
         request.on('end', function () {
+            response.setHeader('Access-Control-Allow-Origin', '*');
             response.writeHead(200);
             var jsonObjects = JSON.parse(requestData);
             setup(); //initialize all templates to prevent multiple times file i/o
@@ -72,8 +76,12 @@ function parse(request, response)
                 }
             );
 
-            fs.writeFileSync('./output.html', finalHTML, "UTF-8", {'flags': 'w+'});
-            response.end(finalHTML);
+            if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
+                var outputFileName = jsonObjects.id + '.html';
+                fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
+            }
+            response.write(finalHTML);
+            response.end();
           });
     } else if ('/' == request.url) {
         html = '';
@@ -87,13 +95,35 @@ function parse(request, response)
               sectionsHTML: html
             }
         );
+       var fileName = '';
+        if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
+            fileName = jsonObjects.id + '.html';
+        } else {
+            fileName = new Date().getTime()+ '.html';
+        }
+        fs.writeFileSync(fileName, finalHTML, "UTF-8", {'flags': 'w+'});
         response.write(finalHTML);
+        response.end();
+    } else if ('/process' == request.url) {
+        var testForm = getTemplate('./testForm.html');
+        var testJson = fs.readFileSync('./testing.json', 'utf8');
+
+        var testHTML = testForm(
+            {
+              testData: testJson
+            }
+        );
+
+        response.write(testHTML);
         response.end();
     }
 }
 
 function handleSection(section, index, allSections)
 {
+    if (undefined !== section['text'] && '' != section['text']) {
+        section['text'] = markdown.toHTML(section['text']);
+    }
     while (skipSections > 0) {
         skipSections--;
         return;
