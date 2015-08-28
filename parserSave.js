@@ -22,6 +22,7 @@ var sectionStyles;
 var skipSections = 0;
 var outputFilePath = 'jseditor/public/posts';
 var relativeFilePath = 'posts';
+var totalSections;
 
 module.exports = {
     parse: parse
@@ -45,11 +46,7 @@ function setup()
 
 function parse(request, response)
 {
-    if('/output' == request.url) {
-        fs.readFile('./output.html',function(err,data) {
-            response.end(data);
-        });
-    } else if('/parse' == request.url) {
+    if('/parse' == request.url) {
         html = '';
         sectionsCovered = 0;
         response.setHeader('content-type', 'text/html');
@@ -64,9 +61,8 @@ function parse(request, response)
             response.writeHead(200);
             var jsonObjects = JSON.parse(requestData);
             setup(); //initialize all templates to prevent multiple times file i/o
+            totalSections = jsonObjects.sections.length;
             jsonObjects.sections.forEach(handleSection);
-
-            html += getSocialSharingSection('builder-section-last');
 
             var finalHTML = pageTemplate(
                 { 
@@ -288,6 +284,8 @@ function getSectionClasses(section)
     sectionClasses.push('builder-section');
     if (0 === sectionsCovered) {
         sectionClasses.push("builder-section-first");
+    } else if (sectionsCovered === totalSections - 1) {
+        sectionClasses.push("builder-section-last");
     }
     if (true == section.banner) {
         sectionClasses.push("builder-section-banner");
@@ -338,10 +336,4 @@ function getSectionStyles(section)
     }
 
     return sectionStyles.join(' ');
-}
-
-function getSocialSharingSection(lastSection)
-{
-    var socialSharingTemplate = getTemplate('./socialSharing.html');
-    return socialSharingTemplate({ lastSection: lastSection });
 }
