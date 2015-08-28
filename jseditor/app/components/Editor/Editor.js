@@ -14,7 +14,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      maxLength: 3,
+      nextId: 3,
       value: null,
       isError: false,
       errorMessage: null,
@@ -78,14 +78,14 @@ class Editor extends React.Component{
     e.dataTransfer.setData("text/html", e.currentTarget);
   }
   dragImageEnd(e) {
-    this.state.maxLength++;
+    this.state.nextId++;
     this.dragged.style.display = "block";
     document.getElementById("myList").removeChild(placeholder);
     // Update state
     var currentIndex = Number(this.over.dataset.id);
     this.state.fields.splice(
       currentIndex,0, {
-        id: this.state.maxLength,
+        id: this.state.nextId,
         type: "image",
         url: this.imageSrc,
         height: this.imageHeight,
@@ -98,7 +98,7 @@ class Editor extends React.Component{
     );
     this.setState({
       fields: this.state.fields,
-      maxLength: this.state.maxLength
+      maxLength: this.state.nextId
     });
   }
   parentDiv(el) {
@@ -126,17 +126,17 @@ class Editor extends React.Component{
     }
   }
   addNewTextArea(currentIndex ) {
-    this.state.maxLength++;
+    this.state.nextId++;
     this.state.fields.splice(
       currentIndex+1,0, {
-      id: this.state.maxLength,
+      id: this.state.nextId,
       type: "content",
       text: "",
       alignment: ""
     });
     this.setState({
       fields: this.state.fields,
-      maxLength: this.state.maxLength
+      maxLength: this.state.nextId
     });
   }
   handleChange (ev) {
