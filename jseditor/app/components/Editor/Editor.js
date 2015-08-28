@@ -98,7 +98,7 @@ class Editor extends React.Component{
     );
     this.setState({
       fields: this.state.fields,
-      maxLength: this.state.nextId
+      nextId: this.state.nextId
     });
   }
   parentDiv(el) {
@@ -136,7 +136,7 @@ class Editor extends React.Component{
     });
     this.setState({
       fields: this.state.fields,
-      maxLength: this.state.nextId
+      nextId: this.state.nextId
     });
   }
   handleChange (ev) {
