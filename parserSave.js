@@ -107,6 +107,18 @@ function parse(request, response)
         fs.writeFileSync(fileName, finalHTML, "UTF-8", {'flags': 'w+'});
         response.write(finalHTML);
         response.end();
+    } else if ('/process' == request.url) {
+        var testForm = getTemplate('./testForm.html');
+        var testJson = fs.readFileSync('./test.json', 'utf8');
+
+        var testHTML = testForm(
+            {
+              testData: testJson
+            }
+        );
+
+        response.write(testHTML);
+        response.end();
     }
 }
 
