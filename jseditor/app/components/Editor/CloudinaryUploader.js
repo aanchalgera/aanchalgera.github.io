@@ -110,7 +110,7 @@ var CloudinaryUploader = React.createClass({
     }
 
     if(this.props.allowedFormats){
-      options.allowed_formats = this.props.allowedFormats
+      options.client_allowed_formats = this.props.allowedFormats
     }
 
     var context = {};
