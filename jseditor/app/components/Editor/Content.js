@@ -40,6 +40,7 @@ class Content extends React.Component{
       </p>;
     } else if('image' == this.props.type) {
       var field = <img
+        id={'img' + this.props.data.id}
         data-id={this.props.dataId}
         src={this.props.data.url}
         height={this.props.data.height}
