@@ -28,9 +28,17 @@ class Content extends React.Component{
     return {__html: text};
   }
   render () {
+    var backgroundColor = '', backgroundImage = '';
     if('content' == this.props.type) {
+      if (this.props.data.align == '' && this.props.data.backgroundColor != '') {
+        backgroundColor = this.props.data.backgroundColor;	
+      }
+      var style =  {
+  	backgroundColor:backgroundColor 
+      }
       var field = <p
         id={this.props.index}
+        style={style}
         data-id={this.props.dataId}
         ref={'myInput' + Number(this.props.dataId)}
         className="form-control-static"
@@ -47,23 +55,24 @@ class Content extends React.Component{
         width={this.props.data.width}
       />
     }
-    if (this.props.alignmentError == true) {
-      var alignmentError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
+    if (this.props.alignError == true) {
+      var alignError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
     } else {
-      var alignmentError = '';
+      var alignError = '';
     }
     return (
-      <div className={"container-ul-inner " + this.props.data.alignment}
+      <div className={"container-ul-inner " + this.props.data.align}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
-	 {alignmentError}
+	 {alignError}
          {field}
          <PropertyButton
-           alignment={this.props.data.alignment}
+           align={this.props.data.align}
            addClassToResource={this.props.addClassToResource.bind(this)}
+           addBackgroundColorToResource={this.props.addBackgroundColorToResource.bind(this)}
          />
       </div>
     )
