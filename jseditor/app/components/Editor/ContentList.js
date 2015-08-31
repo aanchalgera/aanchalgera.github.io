@@ -3,12 +3,12 @@ import Content from './Content';
 
 class ContentList extends React.Component{
   render(){
-    var previousAlign = '', alignmentError = '';
+    var previousAlign = '', alignError = '';
     var fields = this.props.fields.map((field, i) => {
       var index = "text-area" + field.id;
-      if (previousAlign == 'section-align-left' && field.alignment != 'section-align-right') alignmentError = true; 
-      else if (previousAlign != 'section-align-left' && field.alignment == 'section-align-right') alignmentError = true; 
-      previousAlign = field.alignment;
+      if (previousAlign == 'section-align-left' && field.align != 'section-align-right') alignError = true; 
+      else if (previousAlign != 'section-align-left' && field.align == 'section-align-right') alignError = true; 
+      previousAlign = field.align;
       return (
           <Content
             key={index}
@@ -16,9 +16,10 @@ class ContentList extends React.Component{
             type={field.type}
             data={field}
             index={index}
-	    alignmentError={alignmentError} 
+	    alignError={alignError} 
             addNewTextArea={this.props.addNewTextArea.bind(this)}
             addClassToResource={this.props.addClassToResource.bind(this)}
+            addBackgroundColorToResource={this.props.addBackgroundColorToResource.bind(this)}
             dragEnd={this.props.dragEnd.bind(this)}
             dragStart={this.props.dragStart.bind(this)}
             updateText={this.props.updateText.bind(this)} />

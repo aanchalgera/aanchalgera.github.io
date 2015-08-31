@@ -23,7 +23,8 @@ class Editor extends React.Component{
           id: 1,
           type: "content",
           text: "<b>Some content</b>",
-          alignment: "section-align-left"
+          align: "section-align-left",
+	  backgroundColor : ""
         },
         {
           id: 2,
@@ -34,12 +35,15 @@ class Editor extends React.Component{
           parallax : false,
           width : 500,
           height : 622,
-          alignment: "section-align-right"
+          align: "section-align-right",
+	  backgroundColor : ""
         },
         {
           id : 3,
           type : "content",
-          text : "Some more content"
+          text : "Some more content",
+	  align : "",
+	  backgroundColor : ""
         }
       ]
     };
@@ -94,7 +98,8 @@ class Editor extends React.Component{
         alt: this.imageAlt,
         banner : false,
         parallax : false,
-        alignment: ""
+	 align: "",
+        backgroundColor: "",
       }
     );
     this.setState({
@@ -133,7 +138,9 @@ class Editor extends React.Component{
       id: this.state.nextId,
       type: "content",
       text: "",
-      alignment: ""
+      align: "",
+      backgroundColor: "",
+      backgroundImage: ""
     });
     this.setState({
       fields: this.state.fields,
@@ -179,9 +186,18 @@ class Editor extends React.Component{
   addClassToResource(event)
   {
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     var value = event.target.dataset.alignment;
+     var value = event.target.dataset.align;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
-     obj.alignment = (obj.alignment == value) ? "" : value;
+     obj.align = (obj.align == value) ? "" : value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields});
+  }
+  addBackgroundColorToResource(event)
+  {
+     var currentIndex = this.parentDiv(event.target).dataset.id;
+     var value = event.target.dataset.color;
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.backgroundColor = (obj.color == value) ? "" : value;
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
@@ -210,6 +226,7 @@ class Editor extends React.Component{
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
               addClassToResource={this.addClassToResource.bind(this)}
+              addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
             />
           </div>
