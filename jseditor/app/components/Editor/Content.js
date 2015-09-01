@@ -71,8 +71,9 @@ class Content extends React.Component{
          {field}
          <PropertyButton
            align={this.props.data.align}
+	   type={this.props.type}
            addClassToResource={this.props.addClassToResource.bind(this)}
-           addBackgroundColorToResource={this.props.addBackgroundColorToResource.bind(this)}
+           addBackgroundColorToResource={this.props.addBackgroundColorToResource}
          />
       </div>
     )
