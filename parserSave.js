@@ -1,6 +1,7 @@
 var fs = require('fs');
 var _ = require("underscore");
 var markdown = require("markdown").markdown;
+var axios = require('axios');
 
 var html;
 var commonClass = 'builder-section';
@@ -20,8 +21,10 @@ var sectionClasses;
 var sectionStyles;
 
 var skipSections = 0;
-var outputFilePath = 'jseditor/public/posts';
+var outputFilePath = './jseditor/public/posts';
 var relativeFilePath = 'posts';
+var totalSections;
+var jsonObjects;
 
 module.exports = {
     parse: parse
@@ -45,11 +48,7 @@ function setup()
 
 function parse(request, response)
 {
-    if('/output' == request.url) {
-        fs.readFile('./output.html',function(err,data) {
-            response.end(data);
-        });
-    } else if('/parse' == request.url) {
+    if('/parse' == request.url) {
         html = '';
         sectionsCovered = 0;
         response.setHeader('content-type', 'text/html');
@@ -62,11 +61,16 @@ function parse(request, response)
         request.on('end', function () {
             response.setHeader('Access-Control-Allow-Origin', '*');
             response.writeHead(200);
-            var jsonObjects = JSON.parse(requestData);
+            try {
+                jsonObjects = requestData;//JSON.parse(requestData);
+            } catch (e) {
+                response.write('{"status": "failure", "data": "invalid JSON"}');
+                response.end();
+                return false;
+            }
             setup(); //initialize all templates to prevent multiple times file i/o
+            totalSections = jsonObjects.sections.length;
             jsonObjects.sections.forEach(handleSection);
-
-            html += getSocialSharingSection('builder-section-last');
 
             var finalHTML = pageTemplate(
                 { 
@@ -80,6 +84,7 @@ function parse(request, response)
                 var outputFileName = jsonObjects.id + '.html';
                 fs.writeFileSync(outputFilePath + '/' + outputFileName, finalHTML, "UTF-8", {'flags': 'w+'});
             }
+            response.write('{"status": "success", "data": '+finalHTML+'}');
             response.write(finalHTML);
             response.end();
           });
@@ -110,7 +115,8 @@ function parse(request, response)
 
         var testHTML = testForm(
             {
-              testData: testJson
+              testData: testJson,
+              host: request.headers.host
             }
         );
 
@@ -288,6 +294,8 @@ function getSectionClasses(section)
     sectionClasses.push('builder-section');
     if (0 === sectionsCovered) {
         sectionClasses.push("builder-section-first");
+    } else if (sectionsCovered === totalSections - 1) {
+        sectionClasses.push("builder-section-last");
     }
     if (true == section.banner) {
         sectionClasses.push("builder-section-banner");
@@ -338,10 +346,4 @@ function getSectionStyles(section)
     }
 
     return sectionStyles.join(' ');
-}
-
-function getSocialSharingSection(lastSection)
-{
-    var socialSharingTemplate = getTemplate('./socialSharing.html');
-    return socialSharingTemplate({ lastSection: lastSection });
 }

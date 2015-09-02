@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/agilemedialab/cms-prototype",
   "dependencies": {
+    "axios": "^0.5.4",
     "fs": "0.0.2",
     "http": "0.0.0",
     "markdown": "^0.5.0",

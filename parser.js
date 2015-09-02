@@ -1,168 +1,124 @@
-var fs = require('fs');
-var _ = require("underscore");
+'use strict';
+var markdown = require("markdown").markdown;
+var templating = require('./templating.js');
 
-var html = '';
+var html;
 var commonClass = 'builder-section';
-var sectionsCovered = 0;
-var pageTemplate;
-var sectionObjects;
-
-var bannerTemplate;
-var videoBannerTemplate;
-var singleColumnTemplate;
-var multiColumnTemplate;
-var imageColumnTemplate;
-var galleryColumnTemplate;
-
+var sectionsCovered;
 var sectionClasses;
 var sectionStyles;
+var skipSections = 0;
+var outputFilePath = './jseditor/public/posts';
+var relativeFilePath = 'posts';
+var totalSections;
+var jsonObjects;
+var templating;
 
-module.exports = {
-    parse: parse
+function parse(requestUrl, requestData)
+{
+    jsonObjects = JSON.parse(requestData);
+    templating.loadTemplates();
+    return parseData(jsonObjects);
 }
 
-function getTemplate(filePath)
+function processRequest(host)
 {
-    return _.template(fs.readFileSync(filePath, 'utf8'));
+    return templating.processData(host);
 }
 
-function setup()
+function parseData(jsonObjects)
 {
-    bannerTemplate = getTemplate('./banner.html');
-    videoBannerTemplate = getTemplate('./videoBanner.html');
-    singleColumnTemplate = getTemplate('./singleColumn.html');
-    multiColumnTemplate = getTemplate('./multiColumn.html');
-    imageTemplate = getTemplate('./image.html');
-    galleryTemplate = getTemplate('./gallery.html');
-}
+    html = '';
+    sectionsCovered = 0;
 
-function parse(request, response)
-{
-    response.setHeader('content-type', 'text/html');
-    var pageTemplate = getTemplate('./staticpage.html');
-    var sectionObjects = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
+    totalSections = jsonObjects.sections.length;
+    jsonObjects.sections.forEach(handleSection);
 
-    setup(); //initialize all templates to prevent multiple times file i/o
-    sectionObjects.sections.forEach(handleSection);
+    var finalHTML = templating.getPageTemplate(jsonObjects.page_title, jsonObjects.page_description, html);
 
-    html += getSocialSharingSection('builder-section-last');
-
-    var finalHTML = pageTemplate(
-        { 
-          sectionsHTML: html
-        }
-    );
-
-    response.write(finalHTML);
-    response.end();
-}
-
-function handleSection(section)
-{
-    sectionType = section.type;
-    html += "\n";
-
-    if (1 == sectionsCovered) {
-        html += getSocialSharingSection('');
-        html += "\n";
+    if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
+        var outputFileName = jsonObjects.id + '.html';
+        templating.writeFile(outputFilePath + '/' + outputFileName, finalHTML);
     }
+    return finalHTML;
+}
+
+function handleSection(section, index, allSections)
+{
+    if (undefined !== section['text'] && '' != section['text']) {
+        section['text'] = markdown.toHTML(section['text']);
+    }
+    while (skipSections > 0) {
+        skipSections--;
+        return;
+    }
+    html += "\n";
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
 
     switch(section.type) {
         case 'banner':
-            html += getBannerSection(section);
+            html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
+            break;
+        case 'video':
+            html += templating.getVideoTemplate(sectionClasses, sectionStyles, section);
             break;
         case 'video_banner':
-            html += getVideoBannerSection(section);
+            html += templating.getVideoBannerTemplate(sectionClasses, sectionStyles, section);
+            break;
+        case 'slider':
+            html += templating.getSliderTemplate(sectionClasses, sectionStyles, section);
             break;
         case 'image':
-            html += getImageSection(section);
-            break;
-        case 'gallery':
-            html += getGallerySection(section);
+            if (true == section.banner) {
+                html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
+            } else {
+                html += templating.getImageTemplate(sectionClasses, sectionStyles, section);
+            }
             break;
         case 'content':
-            if (1 == section.columns) {
-                html += getSingleColumnSection(section);
-            } else if (section.columns > 1) { 
-                html += getMutiColumnSection(section);
+            if (undefined == section["align"]) {
+                html += templating.getSingleColumnTemplate(sectionClasses, sectionStyles, section);
+            } else {
+                html += getMutiColumnSection(section, index, allSections);
             }
             break;
     }
     sectionsCovered++;
 }
 
-function getBannerSection(section)
-{
-    return bannerTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            imageUrl: section["background-image"],
-            bannerText: section["text"]
-        }
-    );
-}
 
-function getVideoBannerSection(section)
+function getMutiColumnSection(section, index, allSections)
 {
-    return videoBannerTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            videoUrl: section["url"]
-        }
-    );
-}
+    var totalColumns = 1;
+    var columns = [];
+    columns.push(section);
+    skipSections = 0;
 
-function getSingleColumnSection(section)
-{
-    return singleColumnTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            text: section["text"]
-        }
-    );
-}
+    var nextIndex = index + 1;
+    var nextToNextIndex = index + 2;
 
-function getMutiColumnSection(section)
-{
-    return multiColumnTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            contentSections: section.sections
+    if ('left' === section.align) {
+        if ('center' == allSections[nextIndex]["align"]) {
+            skipSections++;
+            totalColumns++;
+            columns.push(allSections[nextIndex]);
+            if ('right' == allSections[nextToNextIndex]["align"]) {
+                skipSections++;
+                totalColumns++;
+                columns.push(allSections[nextToNextIndex]);
+            }
+        } else if ('right' == allSections[nextIndex]["align"]) {
+            skipSections++;
+            totalColumns++;
+            columns.push(allSections[nextIndex]);
         }
-    );
-}
+    }
 
-function getImageSection(section)
-{
-    return imageTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            columnNo: 1,
-            width: section.width,
-            height: section.height,
-            src: section.url,
-            classes: section.class
-        }
-    );
-}
+    sectionClasses += ' builder-text-columns-'+totalColumns;
 
-function getGallerySection(section)
-{
-    return galleryTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            gallerySections: section.sections
-        }
-    );
+    return templating.getMultiColumnTemplate(sectionClasses, sectionStyles, columns);
 }
 
 function getSectionClasses(section)
@@ -171,38 +127,31 @@ function getSectionClasses(section)
     sectionClasses.push('builder-section');
     if (0 === sectionsCovered) {
         sectionClasses.push("builder-section-first");
+    } else if (sectionsCovered === totalSections - 1) {
+        sectionClasses.push("builder-section-last");
     }
-    if ('banner' == section.type || 'video_banner' == section.type) {
+    if (true == section.banner) {
         sectionClasses.push("builder-section-banner");
-    } else if ('image' == section.type) {
+    } else if ('image' == section.type && false == section.banner) {
         sectionClasses.push("builder-section-text");
     } else if ('content' == section.type) {
         sectionClasses.push("builder-section-text");
+    } else if ('slider' == section.type) {
+        sectionClasses.push("builder-section-banner");
     }
 
     if ('banner' != section.type 
         && (
-               (undefined !== section["background-image"] && '' != section["background-image"])
-            || (undefined !==  section["background-color"] && '' != section["background-color"])
+               (undefined !== section["backgroundImage"] && '' != section["backgroundImage"])
+            || (undefined !==  section["backgroundColor"] && '' != section["backgroundColor"])
          )
         )
     {
         sectionClasses.push("has-background");
     }
 
-    if ('gallery' == section.type) {
-        sectionClasses.push("builder-section-gallery");
-        if (undefined !== section["columns"] && '' != section["columns"]) {
-            sectionClasses.push("builder-gallery-columns-"+section["columns"]);
-        }
-        sectionClasses.push("builder-gallery-captions-reveal");
-        sectionClasses.push("builder-gallery-captions-dark");
-        sectionClasses.push("builder-gallery-aspect-landscape");
-          
-    } else {
-        if (undefined !== section["columns"] && '' != section["columns"]) {
-            sectionClasses.push("builder-text-columns-"+section["columns"]);
-        }
+    if (undefined !== section["columns"] && '' != section["columns"]) {
+        sectionClasses.push("builder-text-columns-"+section["columns"]);
     }
 
     if (undefined !== section["parallax"] && '' != section["parallax"]) {
@@ -214,20 +163,24 @@ function getSectionClasses(section)
 
 function getSectionStyles(section)
 {
+    var sectionStyles = [];
     if ('banner' != section.type) {
-        if (undefined !==  section["background-color"] && '' != section["background-color"]) {
-            return "background-color:" + section["background-color"];
+        if (undefined !==  section["backgroundColor"] && '' != section["backgroundColor"]) {
+            sectionStyles.push("background-color:" + section["backgroundColor"]);
         }
-        if (undefined !==  section["background-image"] && '' != section["background-image"]) {
-            return "background-image: url('"+section["background-image"]+"');";
+        if (undefined !==  section["backgroundImage"] && '' != section["backgroundImage"]) {
+            sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');background-size: cover;");
         }
     }
 
-    return '';
+    if ('slider' === section.type) {
+        sectionStyles.push('background-size: cover;');
+    }
+
+    return sectionStyles.join(' ');
 }
 
-function getSocialSharingSection(lastSection)
-{
-    var socialSharingTemplate = getTemplate('./socialSharing.html');
-    return socialSharingTemplate({ lastSection: lastSection });
+module.exports = {
+    parse: parse,
+    processRequest: processRequest
 }

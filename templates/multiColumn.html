@@ -8,6 +8,8 @@
                     </figure>
                 <% } else if('content' == contentSection.type) { %>
                     <div class="builder-text-content"><%=contentSection.title%><%=contentSection.text%></div>
+                <% } else if('video' == contentSection.type) { %>
+                    <div class="builder-text-content"><iframe width="<%= width%>" height="<%= height%>" src="<%=videoUrl%>" frameborder="0" allowfullscreen></iframe></div>
                 <% } %>
             </div>
         <% }) %>
