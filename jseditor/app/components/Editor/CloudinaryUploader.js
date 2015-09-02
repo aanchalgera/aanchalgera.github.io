@@ -173,7 +173,6 @@ var CloudinaryUploader = React.createClass({
           <button
             ref='uploader'
             id={uploader_id}
-            href="#"
             className={this.props.buttonClass}
             onClick={this.handleClick}>{this.props.buttonCaption}</button>
           <p>{this.state.errorMessage}</p>
