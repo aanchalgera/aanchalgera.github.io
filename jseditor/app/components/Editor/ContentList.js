@@ -17,7 +17,7 @@ class ContentList extends React.Component{
             type={field.type}
             data={field}
             index={index}
-	          alignError={alignError}
+            alignError={alignError}
             {...other}
           />
       )

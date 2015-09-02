@@ -44,8 +44,8 @@ class Editor extends React.Component{
           id : 3,
           type : "content",
           text : "Some more content",
-	        align : "",
-	        backgroundColor : "",
+          align : "",
+          backgroundColor : "",
           backgroundImage: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
         }
       ]

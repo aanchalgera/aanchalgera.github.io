@@ -18,7 +18,7 @@ class Content extends React.Component{
         toolbar: {
           buttons: [
             'bold', 'italic', 'underline', 'h1', 'h2'
-            , 'unorderedlist', 'orderedlist', 'anchor', 'removeFormat'
+            , 'unorderedlist', 'orderedlist', 'anchor'
             , 'justifyLeft', 'justifyCenter', 'justifyRight'
           ]
         }
