@@ -6,7 +6,7 @@ class PropertyButton extends React.Component {
     super(props);
     this.state = {box : 'close'};
   }
- 
+
   expandBox() {
     this.setState({box:'open'});
   }
@@ -26,13 +26,16 @@ class PropertyButton extends React.Component {
     if (this.state.box == 'open') {
       closeStyle = {display : 'none'}
       expandStyle = {display : 'block'}
-    } else { 
+    } else {
       closeStyle = {display : 'block'}
       expandStyle = {display : 'none'}
     }
     switch (this.props.type) {
       case 'content' :
-        moreProperties = <PropertyButtonContent addBackgroundColorToResource={this.props.addBackgroundColorToResource} />	
+        moreProperties = <PropertyButtonContent
+        addBackgroundColorToResource={this.props.addBackgroundColorToResource}
+        openResourcePanel={this.props.openResourcePanel}
+        />	
     }
     return (
       <ul>
@@ -44,7 +47,7 @@ class PropertyButton extends React.Component {
             <span className="btn-group" role="group" aria-label="...">
 	      {moreProperties}
   	      <button data-align="section-align-left" onClick={this.props.addClassToResource} type="button" className={"btn btn-default "+leftAlignActive}>Column Left</button>
-  	      <button data-align="section-align-right" onClick={this.props.addClassToResource} type="button" className={"btn btn-default " + rightAlignActive}>Column Right</button> 
+  	      <button data-align="section-align-right" onClick={this.props.addClassToResource} type="button" className={"btn btn-default " + rightAlignActive}>Column Right</button>
   	      <button type="button" className="btn btn-default">Delete</button>
   	      <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
 	    </span>
