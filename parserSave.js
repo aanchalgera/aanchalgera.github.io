@@ -1,6 +1,7 @@
 var fs = require('fs');
 var _ = require("underscore");
 var markdown = require("markdown").markdown;
+var axios = require('axios');
 
 var html;
 var commonClass = 'builder-section';
@@ -61,7 +62,7 @@ function parse(request, response)
             response.setHeader('Access-Control-Allow-Origin', '*');
             response.writeHead(200);
             try {
-                jsonObjects = JSON.parse(requestData);
+                jsonObjects = requestData;//JSON.parse(requestData);
             } catch (e) {
                 response.write('{"status": "failure", "data": "invalid JSON"}');
                 response.end();

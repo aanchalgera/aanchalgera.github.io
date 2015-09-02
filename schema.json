@@ -54,7 +54,7 @@
                         "text": {
                             "type": "string"
                         },
-                        "background-image": {
+                        "backgroundImage": {
                             "type": "string"
                         }
                     }
@@ -68,7 +68,7 @@
                         "text": {
                             "type": "string"
                         },
-                        "background-image": {
+                        "backgroundImage": {
                             "type": "string"
                         }
                     }
@@ -140,7 +140,7 @@
                                         "text": {
                                             "type": "string"
                                         },
-                                        "background-image": {
+                                        "backgroundImage": {
                                             "type": "string"
                                         }
                                     }
@@ -242,7 +242,7 @@
                                 {
                                   "type": "object",
                                   "properties": {
-                                    "background-image": {
+                                    "backgroundImage": {
                                       "type": "string"
                                     },
                                     "description": {
@@ -253,7 +253,7 @@
                                 {
                                   "type": "object",
                                   "properties": {
-                                    "background-image": {
+                                    "backgroundImage": {
                                       "type": "string"
                                     },
                                     "description": {
