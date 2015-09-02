@@ -31,10 +31,10 @@ class Content extends React.Component{
     var backgroundColor = '', backgroundImage = '';
     if('content' == this.props.type) {
       if (this.props.data.align == '' && this.props.data.backgroundColor != '') {
-        backgroundColor = this.props.data.backgroundColor;	
+        backgroundColor = this.props.data.backgroundColor;
       }
       var style =  {
-  	backgroundColor:backgroundColor 
+  	backgroundColor:backgroundColor
       }
       var field = <p
         id={this.props.index}

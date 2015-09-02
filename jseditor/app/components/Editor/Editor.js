@@ -24,7 +24,7 @@ class Editor extends React.Component{
           type: "content",
           text: "<b>Some content</b>",
           align: "section-align-left",
-	  backgroundColor : ""
+          backgroundColor : ""
         },
         {
           id: 2,
@@ -36,7 +36,7 @@ class Editor extends React.Component{
           width : 500,
           height : 622,
           align: "section-align-right",
-	  backgroundColor : ""
+          backgroundColor : ""
         },
         {
           id : 3,
@@ -213,7 +213,7 @@ class Editor extends React.Component{
   render(){
     var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
     return (
-      <div>
+      <div className="col-sm-12 main">
         <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
