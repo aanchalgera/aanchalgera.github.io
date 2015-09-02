@@ -1,5 +1,6 @@
 import React from 'react';
 import Thumbnail from './Thumbnail';
+import ResourcePanel from './ResourcePanel';
 
 var CloudinaryUploader = React.createClass({
   propTypes:{
@@ -28,7 +29,7 @@ var CloudinaryUploader = React.createClass({
   getDefaultProps: function(){
     return {
       showPoweredBy: false,
-      sources: ['local', 'url'],
+      sources: ['local'],
       defaultSource: 'local',
       multiple: true,
       maxFiles: null,
@@ -44,8 +45,8 @@ var CloudinaryUploader = React.createClass({
       maxFileSize: null,
       maxImageWidth: null,
       maxImageHeight: null,
-      buttonClass: 'cloudinary-button',
-      buttonCaption: 'Upload image'
+      buttonClass: 'btn btn-primary',
+      buttonCaption: 'Upload Images'
     }
   },
   getInitialState: function(){
@@ -134,6 +135,10 @@ var CloudinaryUploader = React.createClass({
       errorMessage: errorMessage
     });
   },
+  openResourcePanel: function () {
+    document.getElementById('resourcePanel').style.display = 'block'
+    document.getElementById('resourcePanel').classList.add('in')
+  },
   handleClick: function(ev){
     var self = this;
     try{
@@ -143,48 +148,37 @@ var CloudinaryUploader = React.createClass({
         function(error, result) {
           if (error){
             self.setError(true, error)
-            return false;
+            ev.preventDefault();
           }
           if (!result || result.length === 0){
             self.setError(true, 'No result from Cloudinary');
-            return false;
+            ev.preventDefault();
           }
           self.setState({images : result});
+          self.openResourcePanel();
           return true;
         }
       );
     }catch(e){
       self.setError(true, e);
-      return false;
+      ev.preventDefault();
     }
   },
   render: function(){
     var uploader_id = "uploader_" + this.state.uuid;
-    var images = [];
-    if (this.state.images.length != 0) {
-      var images = this.state.images.map((data, i) => {
-        return (
-          <Thumbnail
-            key={data.public_id}
-            data={data}
-            dragImageStart={this.props.dragImageStart.bind(this)}
-            dragImageEnd={this.props.dragImageEnd.bind(this)}
-          />
-        )
-      });
-    }
+    var style = {position:'fixed', top:0, right:'20px', zIndex:2000};
     return (
-      <section>
-        <p><img alt="upload image" src="./upload_thumb.png" draggable="false" /></p>
-        <ul className="resources-area list-inline">{images}</ul>
-        <a
-          ref='uploader'
-          id={uploader_id}
-          href="#"
-          className={this.props.buttonClass}
-          onClick={this.handleClick}>{this.props.buttonCaption}</a>
-        <p>{this.state.errorMessage}</p>
-      </section>
+      <div>
+        <div className="nav-btns-top" style={style}>
+          <button
+            ref='uploader'
+            id={uploader_id}
+            className={this.props.buttonClass}
+            onClick={this.handleClick}>{this.props.buttonCaption}</button>
+          <p>{this.state.errorMessage}</p>
+        </div>
+        <ResourcePanel data={this.state.images.length ? this.state.images : []} />
+      </div>
     );
   }
 });
