@@ -18,9 +18,9 @@ class PropertyButton extends React.Component {
     var leftAlignActive = "", rightAlignActive = "";
     var closeStyle = '',expandStyle='';
     var moreProperties = '';
-    if (this.props.align == 'section-align-left') {
+    if (this.props.align == 'left') {
 	     leftAlignActive = 'active';
-    } else if (this.props.align == 'section-align-right') {
+    } else if (this.props.align == 'right') {
         rightAlignActive = 'active';
     }
     if (this.state.box == 'open') {
@@ -46,8 +46,8 @@ class PropertyButton extends React.Component {
           <li>
             <span className="btn-group" role="group" aria-label="...">
 	      {moreProperties}
-  	      <button data-align="section-align-left" onClick={this.props.addClassToResource} type="button" className={"btn btn-default "+leftAlignActive}>Column Left</button>
-  	      <button data-align="section-align-right" onClick={this.props.addClassToResource} type="button" className={"btn btn-default " + rightAlignActive}>Column Right</button>
+  	      <button data-align="left" onClick={this.props.addClassToResource} type="button" className={"btn btn-default "+leftAlignActive}>Column Left</button>
+  	      <button data-align="right" onClick={this.props.addClassToResource} type="button" className={"btn btn-default " + rightAlignActive}>Column Right</button>
   	      <button type="button" className="btn btn-default">Delete</button>
   	      <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
 	    </span>

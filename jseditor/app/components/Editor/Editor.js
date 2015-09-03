@@ -26,7 +26,7 @@ class Editor extends React.Component{
           id: 1,
           type: "content",
           text: "<b>Some content</b>",
-          align: "section-align-left",
+          align: "left",
           backgroundColor : ""
         },
         {
@@ -38,7 +38,7 @@ class Editor extends React.Component{
           parallax : false,
           width : 500,
           height : 622,
-          align: "section-align-right",
+          align: "right",
           backgroundColor : ""
         },
         {
@@ -149,7 +149,7 @@ class Editor extends React.Component{
       this.setError({isError: false, errorMessage: null});
     }
     var data = {
-      pageId : "abc.html",
+      id : "abc",
       title : this.state.value,
       sections : this.state.fields
     };
@@ -161,7 +161,8 @@ class Editor extends React.Component{
     })
     .then(function (response) {
       console.log(response);
-      React.render(<PreviewPanel src="abc.html" />, document.getElementById('preview'));
+      var random  = Math.round(Math.random() * 10000000);
+      React.render(<PreviewPanel src={"abc.html?" + random} />, document.getElementById('preview'));
       document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
