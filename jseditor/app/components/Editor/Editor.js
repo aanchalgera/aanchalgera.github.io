@@ -18,6 +18,8 @@ class Editor extends React.Component{
       value: null,
       isError: false,
       errorMessage: null,
+      resourcePanelOpenedBy : null,
+      imageFunction : null,
       fields: [
         {
           id: 1,
@@ -42,11 +44,30 @@ class Editor extends React.Component{
           id : 3,
           type : "content",
           text : "Some more content",
-	  align : "",
-	  backgroundColor : ""
+          align : "",
+          backgroundColor : "",
+          backgroundImage: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
         }
       ]
     };
+  }
+  openResourcePanel(index) {
+    var currentIndex = this.parentDiv(event.target).dataset.id;
+    var value = event.target.dataset.align;
+    this.setState({
+      resourcePanelOpenedBy: currentIndex,
+      imageFunction: 'backgroundImage'
+    });
+    document.getElementById('resourcePanel').style.display = 'block'
+    document.getElementById('resourcePanel').classList.add('in')
+  }
+  addImage(image) {
+    var currentIndex = this.state.resourcePanelOpenedBy;
+    var obj = this.state.fields.splice(currentIndex, 1)[0];
+    obj.backgroundImage = image;
+    this.state.fields.splice(currentIndex, 0, obj);
+    this.setState({fields: this.state.fields});
+    document.getElementById('resourcePanel').style.display = 'none'
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -98,7 +119,7 @@ class Editor extends React.Component{
         alt: this.imageAlt,
         banner : false,
         parallax : false,
-	 align: "",
+	      align: "",
         backgroundColor: "",
       }
     );
@@ -228,6 +249,7 @@ class Editor extends React.Component{
               addClassToResource={this.addClassToResource.bind(this)}
               addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
+              openResourcePanel={this.openResourcePanel.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
@@ -236,6 +258,7 @@ class Editor extends React.Component{
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
+          addImage={this.addImage.bind(this)}
           dragImageStart={this.dragImageStart.bind(this)}
           dragImageEnd={this.dragImageEnd.bind(this)}
         />
