@@ -39,6 +39,9 @@ function sendResponse(response, output)
     response.setHeader('content-type', 'text/html');
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
+    response.setHeader('content-type', 'text/html');
+    response.setHeader('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
     response.writeHead(200);
     response.write(output);
     response.end();
