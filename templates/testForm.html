@@ -15,7 +15,7 @@
             document.getElementById("myDiv").innerHTML = '';
             xmlhttp.open("POST","http://<%= host %>/parse",false);
             xmlhttp.setRequestHeader("Content-type","application/json");
-            xmlhttp.send(document.getElementById("data").value);
+            xmlhttp.send(JSON.stringify(document.getElementById("data").value));
             a = eval('(' + xmlhttp.responseText + ')');
             if ('failure' == a["status"]) {
                 document.getElementById("myDiv").innerHTML = a['data'];

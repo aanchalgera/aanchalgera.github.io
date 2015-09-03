@@ -3,7 +3,7 @@ var parser = require('./parser.js');
 var http = require("http");
 var result;
 
-http.createServer(processRequest).listen(8888);
+http.createServer(processRequest).listen(81);
 
 function processRequest(request, response)
 {
@@ -15,6 +15,10 @@ function processRequest(request, response)
         switch(request.url) {
             case '/process':
                 result = parser.processRequest(request.headers.host);
+                sendResponse(response, result);
+                break;
+            case '/test':
+                result = parser.testRead();
                 sendResponse(response, result);
                 break;
             case '/parse':
@@ -34,6 +38,7 @@ function sendResponse(response, output)
 {
     response.setHeader('content-type', 'text/html');
     response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
     response.writeHead(200);
     response.write(output);
     response.end();

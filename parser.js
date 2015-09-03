@@ -1,5 +1,5 @@
 'use strict';
-var markdown = require("markdown").markdown;
+var marked = require('marked');
 var templating = require('./templating.js');
 
 var html;
@@ -17,6 +17,14 @@ var templating;
 function parse(requestUrl, requestData)
 {
     jsonObjects = JSON.parse(requestData);
+    templating.loadTemplates();
+    return parseData(jsonObjects);
+}
+
+function testRead()
+{
+    var testJson = templating.loadFile('test.json');
+    jsonObjects = JSON.parse(testJson);
     templating.loadTemplates();
     return parseData(jsonObjects);
 }
@@ -46,7 +54,7 @@ function parseData(jsonObjects)
 function handleSection(section, index, allSections)
 {
     if (undefined !== section['text'] && '' != section['text']) {
-        section['text'] = markdown.toHTML(section['text']);
+        section['text'] = marked(section['text']);
     }
     while (skipSections > 0) {
         skipSections--;
@@ -182,5 +190,6 @@ function getSectionStyles(section)
 
 module.exports = {
     parse: parse,
-    processRequest: processRequest
+    processRequest: processRequest,
+    testRead: testRead
 }
