@@ -52,23 +52,46 @@ class Editor extends React.Component{
       ]
     };
   }
-  openResourcePanel(index) {
+  openResourcePanel(imageFunction) {
     var currentIndex = this.parentDiv(event.target).dataset.id;
     var value = event.target.dataset.align;
     this.setState({
       resourcePanelOpenedBy: currentIndex,
-      imageFunction: 'backgroundImage'
+      imageFunction: imageFunction
     });
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
   }
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
-    var obj = this.state.fields.splice(currentIndex, 1)[0];
-    obj.backgroundImage = image;
-    this.state.fields.splice(currentIndex, 0, obj);
-    this.setState({fields: this.state.fields});
-    document.getElementById('resourcePanel').style.display = 'none'
+    if (this.state.imageFunction == 'backgroundImage') {
+      var obj = this.state.fields.splice(currentIndex, 1)[0];
+      obj.backgroundImage = image.url;
+      this.state.fields.splice(currentIndex, 0, obj);
+    } else if (this.state.imageFunction == 'image') {
+      this.state.nextId++;
+      this.state.fields.splice(
+      currentIndex,0, {
+        id: this.state.nextId,
+        type: "image",
+        url: image.url,
+        height: image.imageHeight,
+        width: image.imageWidth,
+        alt: image.imageAlt,
+        banner : false,
+        parallax : false,
+	      align: ""
+      });
+      this.setState({
+        fields: this.state.fields,
+        nextId: this.state.nextId
+      });
+      document.getElementById('resourcePanel').style.display = 'none'
+    }
+  }
+  addTextArea() {
+    var currentIndex = this.parentDiv(event.target).dataset.id;
+    this.createNewTextArea(currentIndex);
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -111,7 +134,7 @@ class Editor extends React.Component{
       if ( thisKeypressTime - lastKeypressTime <= delta )
       {
         var parentDiv = this.parentDiv(event.target);
-        this.addNewTextArea(Number(parentDiv.dataset.id));
+        this.createNewTextArea(Number(parentDiv.dataset.id) + 1);
         // optional - if we'd rather not detect a triple-press
         // as a second double-press, reset the timestamp
         //thisKeypressTime = 0;
@@ -119,10 +142,10 @@ class Editor extends React.Component{
       lastKeypressTime = thisKeypressTime;
     }
   }
-  addNewTextArea(currentIndex ) {
+   createNewTextArea(currentIndex ) {
     this.state.nextId++;
     this.state.fields.splice(
-      currentIndex+1,0, {
+      currentIndex,0, {
       id: this.state.nextId,
       type: "content",
       text: "",
@@ -228,6 +251,7 @@ class Editor extends React.Component{
               addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
+              addTextArea={this.addTextArea.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
