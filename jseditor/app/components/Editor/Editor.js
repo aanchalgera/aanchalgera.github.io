@@ -4,6 +4,7 @@ import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
+import PreviewPanel from './PreviewPanel';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -94,40 +95,6 @@ class Editor extends React.Component{
     if (parentDiv.parentNode.id != 'myList') return;
     parentDiv.parentNode.insertBefore(placeholder, parentDiv);
   }
-  dragImageStart(e) {
-    this.dragged = e.currentTarget;
-    this.imageAlt = this.dragged.dataset.alt;
-    this.imageSrc = this.dragged.dataset.src;
-    this.imageHeight = this.dragged.dataset.height;
-    this.imageWidth = this.dragged.dataset.width;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-  dragImageEnd(e) {
-    this.state.nextId++;
-    this.dragged.style.display = "block";
-    document.getElementById("myList").removeChild(placeholder);
-    // Update state
-    var currentIndex = Number(this.over.dataset.id);
-    this.state.fields.splice(
-      currentIndex,0, {
-        id: this.state.nextId,
-        type: "image",
-        url: this.imageSrc,
-        height: this.imageHeight,
-        width: this.imageWidth,
-        alt: this.imageAlt,
-        banner : false,
-        parallax : false,
-	      align: "",
-        backgroundColor: "",
-      }
-    );
-    this.setState({
-      fields: this.state.fields,
-      nextId: this.state.nextId
-    });
-  }
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -182,17 +149,27 @@ class Editor extends React.Component{
       this.setError({isError: false, errorMessage: null});
     }
     var data = {
+      pageId : "abc.html",
       title : this.state.value,
       sections : this.state.fields
     };
     data = JSON.stringify(data);
     axios({
-      url : '/submit',
+      url : 'http://52.19.39.251:81/parse',
       method: 'POST',
       data : data
     })
     .then(function (response) {
       console.log(response);
+      React.render(<PreviewPanel src="abc.html" />, document.getElementById('preview'));
+      document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+          document.getElementById('previewPanel').style.display = 'none';
+        }
+      };
+      document.getElementById('previewPanel').style.display = 'block';
+      document.getElementById('previewPanel').classList.add("in");
     })
     .catch(function (response) {
       console.log(response);
@@ -259,9 +236,8 @@ class Editor extends React.Component{
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
-          dragImageStart={this.dragImageStart.bind(this)}
-          dragImageEnd={this.dragImageEnd.bind(this)}
         />
+        <div id="preview"></div>
       </div>
     )
   }
