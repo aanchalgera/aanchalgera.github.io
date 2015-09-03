@@ -1,6 +1,8 @@
-import React from 'react';
+import React from 'react/addons';
 
-class Thumbnail extends React.Component {
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+export default class Thumbnail extends React.Component {
   render () {
     return (
       <li>
@@ -13,5 +15,3 @@ class Thumbnail extends React.Component {
     )
   }
 }
-
-export default Thumbnail;

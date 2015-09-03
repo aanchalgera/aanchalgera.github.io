@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
   entry: "./App.js",
   output: {
@@ -11,5 +13,12 @@ module.exports = {
         loader: 'babel'
       },
     ]
-  }
+  },
+  plugins: [
+    new uglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
 };
