@@ -19,7 +19,7 @@ class PropertyButton extends React.Component {
     var closeStyle = '',expandStyle='';
     var moreProperties = '';
     if (this.props.align == 'section-align-left') {
-	leftAlignActive = 'active';
+	     leftAlignActive = 'active';
     } else if (this.props.align == 'section-align-right') {
         rightAlignActive = 'active';
     }
@@ -35,7 +35,7 @@ class PropertyButton extends React.Component {
         moreProperties = <PropertyButtonContent
         addBackgroundColorToResource={this.props.addBackgroundColorToResource}
         openResourcePanel={this.props.openResourcePanel}
-        />	
+        />
     }
     return (
       <ul>
