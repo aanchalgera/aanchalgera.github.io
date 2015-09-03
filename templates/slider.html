@@ -7,7 +7,7 @@
             <div class="builder-banner-slide content-position-none" style="padding-bottom:<%= image['height']%>px ; background-image: url(&#039;<%= image['url'] %>&#039;);">
                 <div class="builder-banner-content">
                     <div class="builder-banner-inner-content">
-                        <%= image['text'] %>
+                        <%= _.unescape(image['text']) %>
                     </div>
                 </div>
             </div>

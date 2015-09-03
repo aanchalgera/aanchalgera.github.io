@@ -160,7 +160,7 @@ function processData(host)
 
     var testHTML = testForm(
         {
-          testData: '',
+          testData: testJson,
           host: host
         }
     );

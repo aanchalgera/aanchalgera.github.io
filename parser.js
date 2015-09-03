@@ -21,6 +21,16 @@ function parse(requestUrl, requestData)
     return parseData(jsonObjects);
 }
 
+function testRead()
+{
+    console.log('----++++');
+    var testJson = templating.loadFile('test.json');
+    console.log(testJson);
+    jsonObjects = JSON.parse(testJson);
+    templating.loadTemplates();
+    return parseData(jsonObjects);
+}
+
 function processRequest(host)
 {
     return templating.processData(host);
@@ -182,5 +192,6 @@ function getSectionStyles(section)
 
 module.exports = {
     parse: parse,
-    processRequest: processRequest
+    processRequest: processRequest,
+    testRead: testRead
 }
