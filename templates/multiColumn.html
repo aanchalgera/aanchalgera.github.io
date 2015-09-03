@@ -7,7 +7,7 @@
                         <img width="<%=contentSection.width%>" height="<%=contentSection.height%>" src="<%=contentSection.url%>" class="<%=contentSection.class%>">
                     </figure>
                 <% } else if('content' == contentSection.type) { %>
-                    <div class="builder-text-content"><%= _.unescape(contentSection.title) %><%= _.unescape(contentSection.text)%></div>
+                    <div class="builder-text-content"><%= contentSection.title %><%= contentSection.text %></div>
                 <% } else if('video' == contentSection.type) { %>
                     <div class="builder-text-content"><iframe width="<%= width%>" height="<%= height%>" src="<%=videoUrl%>" frameborder="0" allowfullscreen></iframe></div>
                 <% } %>
