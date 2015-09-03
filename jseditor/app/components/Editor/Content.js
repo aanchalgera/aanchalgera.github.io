@@ -18,7 +18,7 @@ class Content extends React.Component{
         toolbar: {
           buttons: [
             'bold', 'italic', 'underline', 'h1', 'h2'
-            , 'unorderedlist', 'orderedlist', 'anchor', 'removeFormat'
+            , 'unorderedlist', 'orderedlist', 'anchor'
             , 'justifyLeft', 'justifyCenter', 'justifyRight'
           ]
         }
@@ -30,11 +30,17 @@ class Content extends React.Component{
   render () {
     var backgroundColor = '', backgroundImage = '';
     if('content' == this.props.type) {
-      if (this.props.data.align == '' && this.props.data.backgroundColor != '') {
-        backgroundColor = this.props.data.backgroundColor;
+      if (this.props.data.align == '') {
+        if (this.props.data.backgroundColor != '') {
+          backgroundColor = this.props.data.backgroundColor;
+        }
+        if (this.props.data.backgroundImage != null) {
+          backgroundImage = "url('"+this.props.data.backgroundImage+"')";
+        }
       }
       var style =  {
-  	backgroundColor:backgroundColor
+  	     backgroundColor:backgroundColor,
+         backgroundImage:backgroundImage
       }
       var field = <p
         id={this.props.index}
@@ -67,13 +73,14 @@ class Content extends React.Component{
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
-	 {alignError}
+	       {alignError}
          {field}
          <PropertyButton
            align={this.props.data.align}
-	   type={this.props.type}
-           addClassToResource={this.props.addClassToResource.bind(this)}
+	         type={this.props.type}
+           addClassToResource={this.props.addClassToResource}
            addBackgroundColorToResource={this.props.addBackgroundColorToResource}
+           openResourcePanel={this.props.openResourcePanel}
          />
       </div>
     )

@@ -9,14 +9,17 @@ class ResourcePanel extends React.Component {
         {
           public_id: 1,
           thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
+          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
         },
         {
           public_id: 2,
           thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
+          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png',
         },
         {
           public_id: 3,
           thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
+          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png',
         }
       ]
     };
@@ -42,6 +45,7 @@ class ResourcePanel extends React.Component {
         <Thumbnail
           key={data.public_id}
           data={data}
+          addImage={this.props.addImage}
         />
       )
     });

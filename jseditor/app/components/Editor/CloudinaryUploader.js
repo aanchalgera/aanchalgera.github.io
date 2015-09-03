@@ -177,7 +177,10 @@ var CloudinaryUploader = React.createClass({
             onClick={this.handleClick}>{this.props.buttonCaption}</button>
           <p>{this.state.errorMessage}</p>
         </div>
-        <ResourcePanel data={this.state.images.length ? this.state.images : []} />
+        <ResourcePanel
+        data={this.state.images.length ? this.state.images : []}
+        addImage={this.props.addImage}
+        />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
+import PreviewPanel from './PreviewPanel';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -18,6 +19,8 @@ class Editor extends React.Component{
       value: null,
       isError: false,
       errorMessage: null,
+      resourcePanelOpenedBy : null,
+      imageFunction : null,
       fields: [
         {
           id: 1,
@@ -42,11 +45,30 @@ class Editor extends React.Component{
           id : 3,
           type : "content",
           text : "Some more content",
-	  align : "",
-	  backgroundColor : ""
+          align : "",
+          backgroundColor : "",
+          backgroundImage: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
         }
       ]
     };
+  }
+  openResourcePanel(index) {
+    var currentIndex = this.parentDiv(event.target).dataset.id;
+    var value = event.target.dataset.align;
+    this.setState({
+      resourcePanelOpenedBy: currentIndex,
+      imageFunction: 'backgroundImage'
+    });
+    document.getElementById('resourcePanel').style.display = 'block'
+    document.getElementById('resourcePanel').classList.add('in')
+  }
+  addImage(image) {
+    var currentIndex = this.state.resourcePanelOpenedBy;
+    var obj = this.state.fields.splice(currentIndex, 1)[0];
+    obj.backgroundImage = image;
+    this.state.fields.splice(currentIndex, 0, obj);
+    this.setState({fields: this.state.fields});
+    document.getElementById('resourcePanel').style.display = 'none'
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -72,40 +94,6 @@ class Editor extends React.Component{
     var parentDiv = this.parentDiv(e.target);
     if (parentDiv.parentNode.id != 'myList') return;
     parentDiv.parentNode.insertBefore(placeholder, parentDiv);
-  }
-  dragImageStart(e) {
-    this.dragged = e.currentTarget;
-    this.imageAlt = this.dragged.dataset.alt;
-    this.imageSrc = this.dragged.dataset.src;
-    this.imageHeight = this.dragged.dataset.height;
-    this.imageWidth = this.dragged.dataset.width;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-  dragImageEnd(e) {
-    this.state.nextId++;
-    this.dragged.style.display = "block";
-    document.getElementById("myList").removeChild(placeholder);
-    // Update state
-    var currentIndex = Number(this.over.dataset.id);
-    this.state.fields.splice(
-      currentIndex,0, {
-        id: this.state.nextId,
-        type: "image",
-        url: this.imageSrc,
-        height: this.imageHeight,
-        width: this.imageWidth,
-        alt: this.imageAlt,
-        banner : false,
-        parallax : false,
-	 align: "",
-        backgroundColor: "",
-      }
-    );
-    this.setState({
-      fields: this.state.fields,
-      nextId: this.state.nextId
-    });
   }
   parentDiv(el) {
     while (el && el.parentNode) {
@@ -161,17 +149,27 @@ class Editor extends React.Component{
       this.setError({isError: false, errorMessage: null});
     }
     var data = {
+      pageId : "abc.html",
       title : this.state.value,
       sections : this.state.fields
     };
     data = JSON.stringify(data);
     axios({
-      url : '/submit',
+      url : 'http://52.19.39.251:81/parse',
       method: 'POST',
       data : data
     })
     .then(function (response) {
       console.log(response);
+      React.render(<PreviewPanel src="abc.html" />, document.getElementById('preview'));
+      document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+          document.getElementById('previewPanel').style.display = 'none';
+        }
+      };
+      document.getElementById('previewPanel').style.display = 'block';
+      document.getElementById('previewPanel').classList.add("in");
     })
     .catch(function (response) {
       console.log(response);
@@ -228,6 +226,7 @@ class Editor extends React.Component{
               addClassToResource={this.addClassToResource.bind(this)}
               addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
+              openResourcePanel={this.openResourcePanel.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
@@ -236,9 +235,9 @@ class Editor extends React.Component{
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
-          dragImageStart={this.dragImageStart.bind(this)}
-          dragImageEnd={this.dragImageEnd.bind(this)}
+          addImage={this.addImage.bind(this)}
         />
+        <div id="preview"></div>
       </div>
     )
   }

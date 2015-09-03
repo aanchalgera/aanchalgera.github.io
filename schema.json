@@ -134,13 +134,13 @@
                                         "type": {
                                             "type": "string"
                                         },
-                                        "columns": {
-                                            "type": "integer"
-                                        },
                                         "text": {
                                             "type": "string"
                                         },
                                         "backgroundImage": {
+                                            "type": "string"
+                                        }
+                                        "backgroundColor": {
                                             "type": "string"
                                         }
                                     }
