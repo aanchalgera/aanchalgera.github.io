@@ -12,7 +12,6 @@ function processRequest(request, response)
         requestData = data;
     });
     request.on('end', function () {
-        console.log(request.url);
         switch(request.url) {
             case '/process':
                 result = parser.processRequest(request.headers.host);
