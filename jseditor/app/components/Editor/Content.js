@@ -86,13 +86,14 @@ class Content extends React.Component{
         alignClass = '';
     }
     return (
+      <div className="container-data">
+        {moreOptions}
       <div className={"container-ul-inner " + alignClass}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
-         {moreOptions}
 	       {alignError}
          {field}
          <PropertyButton
@@ -101,7 +102,9 @@ class Content extends React.Component{
            addClassToResource={this.props.addClassToResource}
            addBackgroundColorToResource={this.props.addBackgroundColorToResource}
            openResourcePanel={this.props.openResourcePanel}
+           deleteResource={this.props.deleteResource}
          />
+      </div>
       </div>
     )
   }

@@ -14,11 +14,4 @@ module.exports = {
       },
     ]
   },
-  plugins: [
-    new uglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
-  ]
 };

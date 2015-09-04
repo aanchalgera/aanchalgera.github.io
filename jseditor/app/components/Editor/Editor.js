@@ -223,6 +223,15 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
+  deleteResource()
+  {
+    var confirmation = confirm("Are you sure you want to delete this?");
+    if (confirmation == true) {
+      var currentIndex = this.parentDiv(event.target).dataset.id;
+      this.state.fields.splice(currentIndex, 1);
+      this.setState({fields: this.state.fields});
+    }
+  }
   updateText(event)
   {
      var currentIndex = this.parentDiv(event.target).dataset.id;
@@ -252,6 +261,7 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.addTextArea.bind(this)}
+              deleteResource={this.deleteResource.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
