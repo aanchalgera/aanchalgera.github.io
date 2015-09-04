@@ -12,9 +12,10 @@
     },
     {
       "type" : "content",
-      "alignment": "left/center/right",
+      "align": "section-align-left/section-align-center/section-align-right",
       "text" : "aadkdklad",
-      "background-image" : ""
+      "backgroundImage" : "",
+      "backgroundColor" : ""
     },
     { 
       "type" : "video",
@@ -24,7 +25,10 @@
     {
       "type" : "video_banner",
       "provider" : "youtube",
-      "url" : ""
+      "url" : "",
+      "width" : "",
+      "height" : "",
+      "bannerHeight" : ""
     },
     {
       "slideshow_pages" : [
@@ -54,11 +58,11 @@
     {
       "gallery": [
         {
-          "background-image" : "xxxxxxx",
+          "backgroundImage" : "xxxxxxx",
           "description" : "test description"
         },
         {
-          "background-image" : "xxxxxxx",
+          "backgroundImage" : "xxxxxxx",
           "description" : "test description"
         }
       ]

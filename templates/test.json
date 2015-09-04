@@ -32,25 +32,25 @@
     },
     {
       "type" : "content",
-      "align" : "left",
+      "align" : "section-align-left",
       "title": "<h2>Pokémon ipsum</h2>",
       "text" : "dolor sit amet Pupitar Lanturn Raichu Forretress Donphan Charmeleon Nidoran Bellossom pomdepik, Scizor Cubone Horsea Alakazam Togepi Meganium Primeape Wobbuffet Electabuzz Abra fouinar amonita Lamantine. Gligar Skarmory Kingdra demolosse Exeggcute Squirtle Chikorita maraiste metamórfica Geodude rhinocorne pomdepik Hitmontop: Elekid lippoutou Wobbuffet kabuto grolem Hypno Magcargo Celebi Sudowoodo Entei Tentacool Chansey mimitoss Tangela Machoke natu amonita, m.mime Teddiursa Pupitar Excelangue grolem Azumarill Chikorita Caterpie Celebi &nbsp;Larvitar Electabuzz Dragonite Tyrogue, rondoudou Misdreavus Blastoise Ponyta Poliwhirl Raikou: draco Horsea Scizor Togetic."
     },
     {
       "type" : "content",
-      "align" : "right",
+      "align" : "section-align-right",
       "title": "<h2>Galopo Ursaring</h2>",
       "text" : "Grimer Stantler adoizo Zubat Kadabra Ledian Clefairy queulorior. Weepinbell Geodude Marowak queulorior Parasect Exeggcute corayon Moltres? Charmeleon Bayleef Donphan Crobat Politoed Steelix Lapras Exeggcute … Magneton Togepi kabuto Forretress rhinocorne Electabuzz Marowak Kangaskhan Arbok Magneti Magmar caratroc Larvitar Ursaring.Machop Girafarig grolem! Arbok Gloom Suicune Slowbro Mew Doduo Ariados Dratini Electabuzz Octillery capumain Clefairy Raikou, rhinocorne Slugma Nidoking Golbat Ursaring Alakazam Wartortle ectoplasma Qwilfish draco? Leviator metamórfica Mareep Squirtle Blissey Tauros Murkrow Gastly Feraligatr, persa Marowak fouinar Primeape Alakazam."
     },
     {
       "type" : "content",
-      "align" : "left",
+      "align" : "section-align-left",
       "title": "<h2>Pidgeot Hitmonlee</h2>",
       "text" : "Caratroc Rafflesia Cloyster Kingdra draco roigada Crobat, Psyduck Hypno Pharamp Beedrill Geodude espectro Raikou hericendre Misdreavus Bellsprout lainergie axoloto IVYSAUR, Exeggcute Loupio Porygon noadkoko cochignon Loupio lainergie! Pichu hypocean Skarmory Lamantine Mew ónix axoloto Arbok Voltorb ónix Dragonite Skarmory leviator Hitmonlee Feraligatr, Lanturn Politoed roigada Larvitar marcacrin Hitmonchan noadkoko hypocean hypocean Electabuzz Electabuzz Grimer, Victreebel Machamp Sudowoodo Gastly Koffing Gloom Oddish akwakwak. Ecremeuh Ninetales xatu taupikeur Fearow Porygon Charizard crocrodil Oddish Larvitar Rattata."
     },
     {
       "type" : "content",
-      "align" : "right",
+      "align" : "section-align-right",
       "title": "<h2>Ariados Larvitar</h2>",
       "text" : "Bellsprout Magcargo Lanturn Venusaur stari Primeape Nidoking Clefable mimitoss Horsea Machop Rafflesia Ursaring Ninetales lippoutou amonita Raro Voltorb: rondoudou Horsea Granbull Ninetales Wigglytuff Noctowl, Lamantine Scyther Raikou Poliwag Cubone Oddish Zapdos caratroc Slugma pomdepik Nidorina Cubone lippoutou Chansey? Hitmontop Ariados corayon Magneti, noctali adoizo Porygon Larvitar Muk Bayleef Mew Geodude Wartortle Ponyta Lamantine Blastoise, Lamantine NIDORAN paracaidistas axoloto Kabutops Pinsir, Lamantine Meowth Nidorina amonita! Poliwrath Chansey Magikarp Magikarp Marill kabuto lippouti Raro roigada. Granbull Kadabra Alakazam Goupix Meowth."
     },
@@ -87,7 +87,7 @@
     },
     {
       "type" : "content",
-      "align" : "left",
+      "align" : "section-align-left",
       "text" : "Pinsir Amonistar demolosse Weedle Moltres Sunflora Qwilfish snubull! Magicarpe Porygon2 Octillery Charmander Ptera Ariados Otaria Lamantine. Sandslash persa Teddiursa Entei Entei Venomoth Ptera mimitoss Sandslash, Sentret Shellder Bayleef Dratini Togetic espectro adoizo Mew <strong>Chikorita</strong> Donphan. Gligar Slowbro Porygon ecremeuh crocrodil melo Mew Skarmory queulorior Wigglytuff Bellsprout Charmander Remoraid caratroc Sudowoodo Machoke Pinsir Hitmontop rondoudou! Raikou Magmar Mantine? Parasect Remoraid Goupix Venomoth Slowpoke Heracross coxy Butterfree Mewtwo!Articuno canina evoli insolourdo Grimer metamórfica Raichu Porygon2 Larvitar Zubat ho-oh Marowak Magcargo Kingler."
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "type" : "content",
-      "align" : "right",
+      "align" : "section-align-right",
       "text" : "Crobat Lapras rondoudou Moltres krabby Blastoise Venusaur Togepi evoli Dratini Slowbro, Sunflora Scizor tournegrain Azumarill Zapdos Poliwag Bellossom … Mimitoss Venusaur canina rattatac: Machamp Alakazam, Hypno Tentacruel Phanpy Ponyta Doduo Dratini Poliwrath Meowth, Wigglytuff Gloom ferosinge Blissey. Teddiursa Lugia Magneti Ledian Beedrill Totodile Heracross rattatac Doduo Charmander Zapdos Feraligatr Misdreavus! Electrodo Nidorino Farfetch’d Feraligatr <em>Kadabra Parasect Ptera Mewtwo</em>… Gyarados Skiploom Meowth Sandshrew cochignon Charizard, Snorlax piafabec Suicune draco Kadabra piafabec Wobbuffet! Tangela Blissey Gastly Machoke Politoed … Adoizo Slugma Dratini Marill cotovol."
     },
     { 
@@ -109,12 +109,12 @@
     },
     {
       "type" : "content",
-      "align" : "left",
+      "align" : "section-align-left",
       "text" : "Gastly Mew Blissey Raro! Lanturn Cubone Lugia Psyduck Fearow Cubone Marowak Primeape Otaria canina Gastly Sudowoodo Phanpy Ninetales, natu. Persa Lanturn noctali Exeggcute pichu mentali electrodo lippouti Excelangue Porygon2 m.mime Slugma Donphan ecremeuh. Abo Krabby Ledian? Granivol Teddiursa Phanpy pichu Dugtrio Weedle Azumarill Nidoqueen Tauros Venusaur. Charmander ho-oh Entei Nidoking: Porygon Chikorita taupikeur abo Venomoth Lugia rhinocorne Slowbro Slowbro, Scyther Electabuzz rattatac Tauros Lamantine, m.mime Kabutops ecremeuh Magicarpe Primeape abo Bellsprout IVYSAUR farfuret Starmie! Voltorb Weezing piafabec Arcanine Bulbasaur abo."
     },
     {
       "type" : "content",
-      "align" : "right",
+      "align" : "section-align-right",
       "text" : "<blockquote><p><span style=\"color: #0000ff;\">Tournegrain Otaria Victreebel Girafarig. <span class=\"goog-text-highlight\">Ariados IVYSAUR Misdreavus Gligar Ninetales rondoudou.</span></span></p></blockquote>"
     },
     { 

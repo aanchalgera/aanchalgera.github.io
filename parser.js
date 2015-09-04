@@ -107,17 +107,17 @@ function getMutiColumnSection(section, index, allSections)
     var nextIndex = index + 1;
     var nextToNextIndex = index + 2;
 
-    if ('left' === section.align) {
+    if ('section-align-left' === section.align) {
         if ('center' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
             columns.push(allSections[nextIndex]);
-            if ('right' == allSections[nextToNextIndex]["align"]) {
+            if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
                 skipSections++;
                 totalColumns++;
                 columns.push(allSections[nextToNextIndex]);
             }
-        } else if ('right' == allSections[nextIndex]["align"]) {
+        } else if ('section-align-right' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
             columns.push(allSections[nextIndex]);
