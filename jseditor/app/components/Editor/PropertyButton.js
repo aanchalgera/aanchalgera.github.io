@@ -39,7 +39,7 @@ class PropertyButton extends React.Component {
     }
     return (
       <ul>
-        <ul className="nav-pills2"><li>
+        <ul className="nav-pills2 js-nav-properties"><li>
           <button type="button" onClick={this.expandBox.bind(this)} className="btn btn-default btn-properties" style={closeStyle}>Properties</button>
         </li></ul>
         <ul className="nav nav-pills nav-pills2 js-properties-container" style={expandStyle}>
