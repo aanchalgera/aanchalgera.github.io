@@ -18,9 +18,9 @@ class PropertyButton extends React.Component {
     var leftAlignActive = "", rightAlignActive = "";
     var closeStyle = '',expandStyle='';
     var moreProperties = '';
-    if (this.props.align == 'left') {
+    if (this.props.align == 'section-align-left') {
 	     leftAlignActive = 'active';
-    } else if (this.props.align == 'right') {
+    } else if (this.props.align == 'section-align-right') {
         rightAlignActive = 'active';
     }
     if (this.state.box == 'open') {
@@ -39,7 +39,7 @@ class PropertyButton extends React.Component {
     }
     return (
       <ul>
-        <ul className="nav-pills2"><li>
+        <ul className="nav-pills2 js-nav-properties"><li>
           <button type="button" onClick={this.expandBox.bind(this)} className="btn btn-default btn-properties" style={closeStyle}>Properties</button>
         </li></ul>
         <ul className="nav nav-pills nav-pills2 js-properties-container" style={expandStyle}>
@@ -52,8 +52,8 @@ class PropertyButton extends React.Component {
                   <span className="caret" />
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a data-align="left" onClick={this.props.addClassToResource} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
-                  <li><a data-align="right" onClick={this.props.addClassToResource} href="#" className={rightAlignActive}>Column right</a></li>
+                  <li><a data-align="section-align-left" onClick={this.props.addClassToResource} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
+                  <li><a data-align="section-align-right" onClick={this.props.addClassToResource} href="#" className={rightAlignActive}>Column right</a></li>
                 </ul>
               </span>
               <button type="button" onClick={this.props.deleteResource} className="btn btn-default">Delete</button>
