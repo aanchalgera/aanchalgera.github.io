@@ -41,16 +41,24 @@ class PropertyButton extends React.Component {
       <ul>
         <ul className="nav-pills2"><li>
           <button type="button" onClick={this.expandBox.bind(this)} className="btn btn-default btn-properties" style={closeStyle}>Properties</button>
-       	</li></ul>
-	<ul className="nav nav-pills nav-pills2 js-properties-container" style={expandStyle}>
+        </li></ul>
+        <ul className="nav nav-pills nav-pills2 js-properties-container" style={expandStyle}>
           <li>
             <span className="btn-group" role="group" aria-label="...">
-	      {moreProperties}
-  	      <button data-align="left" onClick={this.props.addClassToResource} type="button" className={"btn btn-default "+leftAlignActive}>Column Left</button>
-  	      <button data-align="right" onClick={this.props.addClassToResource} type="button" className={"btn btn-default " + rightAlignActive}>Column Right</button>
-  	      <button type="button" className="btn btn-default">Delete</button>
-  	      <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
-	    </span>
+              {moreProperties}
+              <span className="btn-group dropdown" role="group">
+                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  One Column
+                  <span className="caret" />
+                </button>
+                <ul className="dropdown-menu">
+                  <li><a data-align="left" onClick={this.props.addClassToResource} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
+                  <li><a data-align="right" onClick={this.props.addClassToResource} href="#" className={rightAlignActive}>Column right</a></li>
+                </ul>
+              </span>
+              <button type="button" onClick={this.props.deleteResource} className="btn btn-default">Delete</button>
+              <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
+            </span>
           </li>
         </ul>
       </ul>
