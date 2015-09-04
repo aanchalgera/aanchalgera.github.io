@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
 import MediumEditor from 'medium-editor';
+import MoreOptions from './MoreOptions';
 
 class Content extends React.Component{
   componentDidMount() {
@@ -66,13 +67,32 @@ class Content extends React.Component{
     } else {
       var alignError = '';
     }
+    var moreOptions = ''
+    if (this.props.data.align != 'right') {
+      moreOptions = <MoreOptions
+        openResourcePanel={this.props.openResourcePanel}
+        addTextArea={this.props.addTextArea}
+      />;
+    }
+    var alignClass = "";
+    switch (this.props.data.align) {
+      case 'left':
+        alignClass = 'section-align-left';
+        break;
+        case 'right':
+          alignClass = 'section-align-right';
+          break;
+      default:
+        alignClass = '';
+    }
     return (
-      <div className={"container-ul-inner " + this.props.data.align}
+      <div className={"container-ul-inner " + alignClass}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
+         {moreOptions}
 	       {alignError}
          {field}
          <PropertyButton

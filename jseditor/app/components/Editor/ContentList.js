@@ -10,6 +10,7 @@ class ContentList extends React.Component{
       if (previousAlign == 'left' && field.align != 'right') alignError = true;
       else if (previousAlign != 'left' && field.align == 'right') alignError = true;
       previousAlign = field.align;
+
       return (
           <Content
             key={index}

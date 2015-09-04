@@ -9,7 +9,7 @@ class PropertyButtonContent extends React.Component {
       		<span className="caret"></span>
     		</button>
     		<ul className="dropdown-menu">
-      		  <li onClick={this.props.openResourcePanel}>Background Image</li>
+      		  <li onClick={this.props.openResourcePanel.bind(this,'backgroundImage')}>Background Image</li>
             <li className="divider" role="separator"></li>
       		  <li>Background Colour</li>
       		  <li data-color="#000" onClick={this.props.addBackgroundColorToResource} className="background-black">color</li>
