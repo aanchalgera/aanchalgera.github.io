@@ -7,8 +7,8 @@ class ContentList extends React.Component{
     var {dragOver,fields,...other} = this.props;
     var fields = this.props.fields.map((field, i) => {
       var index = "text-area" + field.id;
-      if (previousAlign == 'left' && field.align != 'right') alignError = true;
-      else if (previousAlign != 'left' && field.align == 'right') alignError = true;
+      if (previousAlign == 'section-align-left' && field.align != 'section-align-right') alignError = true;
+      else if (previousAlign != 'section-align-left' && field.align == 'section-align-right') alignError = true;
       previousAlign = field.align;
 
       return (
