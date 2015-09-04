@@ -12,7 +12,7 @@ export default class Thumbnail extends React.Component {
             draggable="false"
             onClick={this.props.addImage.bind(this, this.props.data)}
           />
-        <ReactCSSTransitionGroup />
+        </ReactCSSTransitionGroup>
       </li>
     )
   }
