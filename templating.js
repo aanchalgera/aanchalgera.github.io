@@ -146,7 +146,7 @@ function getPageTemplate(pageTitle, pageDescription, html)
 {
     return pageTemplate(
         { 
-          pageTitle: pageTitle,
+          title: pageTitle,
           pageDescription: pageDescription,
           sectionsHTML: html
         }

@@ -42,7 +42,7 @@ function parseData(jsonObjects)
     totalSections = jsonObjects.sections.length;
     jsonObjects.sections.forEach(handleSection);
 
-    var finalHTML = templating.getPageTemplate(jsonObjects.page_title, jsonObjects.page_description, html);
+    var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, html);
 
     if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
         var outputFileName = jsonObjects.id + '.html';
