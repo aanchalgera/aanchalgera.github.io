@@ -5,6 +5,7 @@ import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
+import MoreOptions from './MoreOptions';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -15,7 +16,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      nextId: 1,
+      nextId: 3,
       value: null,
       isError: false,
       errorMessage: null,
@@ -25,9 +26,29 @@ class Editor extends React.Component{
         {
           id: 1,
           type: "content",
-          text: "",
-          align: "",
+          text: "<b>Some content</b>",
+          align: "left",
           backgroundColor : ""
+        },
+        {
+          id: 2,
+          type : "image",
+          url : "http://res.cloudinary.com/realarpit/image/upload/v1440420623/quf8pgbjsj1hojwhomkk.jpg",
+          alt : "primer juego ordenador",
+          banner : false,
+          parallax : false,
+          width : 500,
+          height : 622,
+          align: "right",
+          backgroundColor : ""
+        },
+        {
+          id : 3,
+          type : "content",
+          text : "Some more content",
+          align : "",
+          backgroundColor : "",
+          backgroundImage: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
         }
       ]
     };
@@ -69,8 +90,7 @@ class Editor extends React.Component{
       document.getElementById('resourcePanel').style.display = 'none'
     }
   }
-  addTextArea() {
-    var currentIndex = this.parentDiv(event.target).dataset.id;
+  addTextArea(currentIndex) {
     this.createNewTextArea(currentIndex);
   }
   dragStart(e) {
@@ -225,37 +245,34 @@ class Editor extends React.Component{
     var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
     return (
       <div className="col-sm-12 main">
-        <div className="container-fluid">
-          <div className="row">
-            <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
-              <div className="form-group">
-                <label className="col-sm-12 control-label">Title</label>
-                <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
-                <ContentList
-                  fields={this.state.fields}
-                  addNewTextArea={this.keyHandler.bind(this)}
-                  dragStart={this.dragStart.bind(this)}
-                  dragEnd={this.dragEnd.bind(this)}
-                  dragOver={this.dragOver.bind(this)}
-                  addClassToResource={this.addClassToResource.bind(this)}
-                  addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
-                  updateText={this.updateText.bind(this)}
-                  openResourcePanel={this.openResourcePanel.bind(this)}
-                  addTextArea={this.addTextArea.bind(this)}
-                  deleteResource={this.deleteResource.bind(this)}
-                />
-              </div>
-              <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
-            </form>
-            {errorField}
-            <CloudinaryUploader
-              cloudName='realarpit'
-              uploadPreset='h2sbmprz'
-              addImage={this.addImage.bind(this)}
+        <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
+          <div className="form-group">
+            <label className="col-sm-12 control-label">Title</label>
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
+            <label className="col-sm-12 control-label">Content:</label>
+            <ContentList
+              fields={this.state.fields}
+              addNewTextArea={this.keyHandler.bind(this)}
+              dragStart={this.dragStart.bind(this)}
+              dragEnd={this.dragEnd.bind(this)}
+              dragOver={this.dragOver.bind(this)}
+              addClassToResource={this.addClassToResource.bind(this)}
+              addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
+              updateText={this.updateText.bind(this)}
+              openResourcePanel={this.openResourcePanel.bind(this)}
+              addTextArea={this.addTextArea.bind(this)}
+              deleteResource={this.deleteResource.bind(this)}
             />
-            <div id="preview"></div>
           </div>
-        </div>
+          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
+        </form>
+        {errorField}
+        <CloudinaryUploader
+          cloudName='realarpit'
+          uploadPreset='h2sbmprz'
+          addImage={this.addImage.bind(this)}
+        />
+        <div id="preview"></div>
       </div>
     )
   }
