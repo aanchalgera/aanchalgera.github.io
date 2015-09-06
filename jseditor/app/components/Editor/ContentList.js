@@ -42,7 +42,6 @@ class ContentList extends React.Component{
             openResourcePanel={this.props.openResourcePanel}
             addTextArea={this.props.addTextArea}
             dataId={fields.length}
-            key={'options-'+fields.length}
           />
       </div>
     )
