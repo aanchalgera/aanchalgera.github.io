@@ -1,15 +1,15 @@
 var request = require("request");
 var fs = require('fs');
 
-var testJson = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
+var testJson = fs.readFileSync('./templates/test.json', 'utf8');
 
 request({
-  uri: "http://localhost:8888/process",
+  uri: "http://localhost:81/parse2",
   method: "POST",
   json: testJson
 }, function(error, response, body) {
 	if (null === error) {
-  		console.log(body);
+  		// console.log(body);
 	} else {
 		console.log(error);
 	}
