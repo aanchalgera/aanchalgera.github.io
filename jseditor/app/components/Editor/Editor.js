@@ -21,15 +21,7 @@ class Editor extends React.Component{
       errorMessage: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
-      fields: [
-        {
-          id: 1,
-          type: "content",
-          text: "",
-          align: "",
-          backgroundColor : ""
-        }
-      ]
+      fields: []
     };
   }
   openResourcePanel(imageFunction) {
@@ -68,10 +60,6 @@ class Editor extends React.Component{
       });
       document.getElementById('resourcePanel').style.display = 'none'
     }
-  }
-  addTextArea() {
-    var currentIndex = this.parentDiv(event.target).dataset.id;
-    this.createNewTextArea(currentIndex);
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -241,7 +229,7 @@ class Editor extends React.Component{
                   addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
                   updateText={this.updateText.bind(this)}
                   openResourcePanel={this.openResourcePanel.bind(this)}
-                  addTextArea={this.addTextArea.bind(this)}
+                  addTextArea={this.createNewTextArea.bind(this)}
                   deleteResource={this.deleteResource.bind(this)}
                 />
               </div>
