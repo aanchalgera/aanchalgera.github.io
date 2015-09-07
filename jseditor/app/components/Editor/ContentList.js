@@ -1,5 +1,6 @@
 import React from 'react';
 import Content from './Content';
+import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component{
   render(){
@@ -11,9 +12,19 @@ class ContentList extends React.Component{
       else if (previousAlign != 'section-align-left' && field.align == 'section-align-right') alignError = true;
       previousAlign = field.align;
 
+      var moreOptions = ''
+      if (field.align != 'right') {
+        moreOptions = <MoreOptions
+          openResourcePanel={this.props.openResourcePanel}
+          addTextArea={this.props.addTextArea}
+          dataId={i}
+        />;
+      }
+
       return (
+        <div key={index} className="container-data">
+          {moreOptions}
           <Content
-            key={index}
             dataId={i}
             type={field.type}
             data={field}
@@ -21,11 +32,17 @@ class ContentList extends React.Component{
             alignError={alignError}
             {...other}
           />
+      </div>
       )
     });
     return (
       <div className="col-sm-12 content-area container-ul" id="main-container">
         <ul id ="myList" onDragOver={this.props.dragOver.bind(this)} >{fields}</ul>
+          <MoreOptions
+            openResourcePanel={this.props.openResourcePanel}
+            addTextArea={this.props.addTextArea}
+            dataId={fields.length}
+          />
       </div>
     )
   }
