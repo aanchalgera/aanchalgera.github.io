@@ -15,7 +15,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      nextId: 1,
+      nextId: 0,
       value: null,
       isError: false,
       errorMessage: null,
@@ -101,6 +101,7 @@ class Editor extends React.Component{
       var thisKeypressTime = new Date();
       if ( thisKeypressTime - lastKeypressTime <= delta )
       {
+        event.preventDefault();
         var parentDiv = this.parentDiv(event.target);
         this.createNewTextArea(Number(parentDiv.dataset.id) + 1);
         // optional - if we'd rather not detect a triple-press
