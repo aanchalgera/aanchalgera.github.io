@@ -54,12 +54,12 @@ class Editor extends React.Component{
         parallax : false,
 	      align: ""
       });
-      this.setState({
-        fields: this.state.fields,
-        nextId: this.state.nextId
-      });
-      document.getElementById('resourcePanel').style.display = 'none'
     }
+    this.setState({
+      fields: this.state.fields,
+      nextId: this.state.nextId
+    });
+    document.getElementById('resourcePanel').style.display = 'none'
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
