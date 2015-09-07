@@ -9,7 +9,7 @@ function processRequest(request, response)
 {
     var requestData = '';
     request.on('data', function (data) {
-        requestData = data;
+        requestData += data;
     });
     request.on('end', function () {
         switch(request.url) {
@@ -20,6 +20,9 @@ function processRequest(request, response)
             case '/test':
                 result = parser.testRead();
                 sendResponse(response, result);
+                break;
+            case '/parse2':
+                sendResponse(response, requestData);
                 break;
             case '/parse':
                 try {
