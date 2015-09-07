@@ -15,6 +15,7 @@ class PropertyButtonContent extends React.Component {
       		  <li data-color="#000" onClick={this.props.addBackgroundColorToResource} className="background-black">color</li>
       		  <li data-color="#4b8a20" onClick={this.props.addBackgroundColorToResource} className="background-green">color</li>
       		  <li data-color="#d8022a" onClick={this.props.addBackgroundColorToResource} className="background-red">color</li>
+            <li data-color="#FFF" onClick={this.props.addBackgroundColorToResource} className="background-white">White</li>
     		</ul>
   	</span>
 	)
