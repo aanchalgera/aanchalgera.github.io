@@ -174,7 +174,20 @@ function getSectionStyles(section)
     var sectionStyles = [];
     if ('banner' != section.type) {
         if (undefined !==  section["backgroundImage"] && '' != section["backgroundImage"]) {
-            sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');background-size: cover;");
+            sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
+            if (undefined !==  section["backgroundCover"] && true === section["backgroundCover"]) {
+                sectionStyles.push("background-size: cover;");
+            } else {
+                if (undefined !==  section["backgroundRepeat"]) {
+                    if (true ===  section["backgroundRepeat"]) {
+                        sectionStyles.push("background-repeat:repeat;");
+                    } else {
+                        sectionStyles.push("background-repeat:no-repeat;");
+                    }
+                } else { //temp code
+                    sectionStyles.push("background-repeat:repeat;");
+                }
+            }
         }
         if (undefined !==  section["backgroundColor"] && '' != section["backgroundColor"]) {
             sectionStyles.push("background-color:" + section["backgroundColor"]);
