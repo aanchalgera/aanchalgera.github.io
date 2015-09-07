@@ -66,19 +66,9 @@ class Content extends React.Component{
     } else {
       var alignError = '';
     }
-    var alignClass = "";
-    switch (this.props.data.align) {
-      case 'left':
-        alignClass = 'section-align-left';
-        break;
-        case 'right':
-          alignClass = 'section-align-right';
-          break;
-      default:
-        alignClass = '';
-    }
+
     return (
-      <div className={"container-ul-inner " + alignClass}
+      <div className="container-ul-inner"
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
@@ -93,6 +83,7 @@ class Content extends React.Component{
            addBackgroundColorToResource={this.props.addBackgroundColorToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
+           backgroundColor={this.props.data.backgroundColor}
          />
       </div>
     )
