@@ -173,11 +173,11 @@ function getSectionStyles(section)
 {
     var sectionStyles = [];
     if ('banner' != section.type) {
-        if (undefined !==  section["backgroundColor"] && '' != section["backgroundColor"]) {
-            sectionStyles.push("background-color:" + section["backgroundColor"]);
-        }
         if (undefined !==  section["backgroundImage"] && '' != section["backgroundImage"]) {
             sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');background-size: cover;");
+        }
+        if (undefined !==  section["backgroundColor"] && '' != section["backgroundColor"]) {
+            sectionStyles.push("background-color:" + section["backgroundColor"]);
         }
     }
 
