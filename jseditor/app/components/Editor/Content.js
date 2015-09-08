@@ -84,6 +84,7 @@ class Content extends React.Component{
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
            backgroundColor={this.props.data.backgroundColor}
+           dataId={this.props.dataId}
          />
       </div>
     )

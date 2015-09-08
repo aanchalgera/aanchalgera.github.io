@@ -24,9 +24,7 @@ class Editor extends React.Component{
       fields: []
     };
   }
-  openResourcePanel(imageFunction) {
-    var currentIndex = this.parentDiv(event.target).dataset.id;
-    var value = event.target.dataset.align;
+  openResourcePanel(imageFunction, currentIndex) {
     this.setState({
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction
