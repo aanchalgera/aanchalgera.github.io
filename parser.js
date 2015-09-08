@@ -54,13 +54,13 @@ function parseData(jsonObjects)
 function handleSection(section, index, allSections)
 {
     if (undefined !== section['text'] && '' != section['text']) {
-        section['text'] = marked(section['text']);
+        section['text'] = section['text'].replace(/<p><br><\/p>/g, '');
+        section['text'] = marked(section['text'].trim());
     }
     while (skipSections > 0) {
         skipSections--;
         return;
     }
-    html += "\n";
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
@@ -70,7 +70,11 @@ function handleSection(section, index, allSections)
             html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
             break;
         case 'video':
-            html += templating.getVideoTemplate(sectionClasses, sectionStyles, section);
+            if (undefined == section["align"] || "" == section["align"]) {
+                html += templating.getVideoTemplate(sectionClasses, sectionStyles, section);
+            } else {
+                html += getMutiColumnSection(section, index, allSections);
+            }
             break;
         case 'video_banner':
             html += templating.getVideoBannerTemplate(sectionClasses, sectionStyles, section);
@@ -82,11 +86,15 @@ function handleSection(section, index, allSections)
             if (true == section.banner) {
                 html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
             } else {
-                html += templating.getImageTemplate(sectionClasses, sectionStyles, section);
+                if (undefined == section["align"] || "" == section["align"]) {
+                    html += templating.getImageTemplate(sectionClasses, sectionStyles, section);
+                } else {
+                    html += getMutiColumnSection(section, index, allSections);
+                }
             }
             break;
         case 'content':
-            if (undefined == section["align"]) {
+            if (undefined == section["align"] || "" == section["align"]) {
                 html += templating.getSingleColumnTemplate(sectionClasses, sectionStyles, section);
             } else {
                 html += getMutiColumnSection(section, index, allSections);
