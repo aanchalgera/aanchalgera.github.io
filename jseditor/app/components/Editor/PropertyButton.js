@@ -36,6 +36,7 @@ class PropertyButton extends React.Component {
         addBackgroundColorToResource={this.props.addBackgroundColorToResource}
         backgroundColor={this.props.backgroundColor}
         openResourcePanel={this.props.openResourcePanel}
+        dataId={this.props.dataId}
         />
     }
     return (
