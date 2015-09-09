@@ -41,7 +41,7 @@ var CloudinaryUploader = React.createClass({
       resourceType: 'auto',
       contextAlt: null,
       contextCaption: null,
-      allowedFormats: ['png', 'gif', 'jpeg'],
+      allowedFormats: ['png', 'gif', 'jpeg', 'mp4'],
       maxFileSize: null,
       maxImageWidth: null,
       maxImageHeight: null,
