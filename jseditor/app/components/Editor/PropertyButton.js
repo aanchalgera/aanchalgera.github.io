@@ -33,10 +33,10 @@ class PropertyButton extends React.Component {
     switch (this.props.type) {
       case 'content' :
         moreProperties = <PropertyButtonContent
-        addBackgroundColorToResource={this.props.addBackgroundColorToResource}
-        backgroundColor={this.props.backgroundColor}
-        openResourcePanel={this.props.openResourcePanel}
-        dataId={this.props.dataId}
+          addBackgroundColorToResource={this.props.addBackgroundColorToResource}
+          backgroundColor={this.props.backgroundColor}
+          openResourcePanel={this.props.openResourcePanel}
+          dataId={this.props.dataId}
         />
     }
     return (
@@ -54,8 +54,8 @@ class PropertyButton extends React.Component {
                   <span className="caret" />
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a data-align="section-align-left" onClick={this.props.addClassToResource} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
-                  <li><a data-align="section-align-right" onClick={this.props.addClassToResource} href="#" className={rightAlignActive}>Column right</a></li>
+                  <li><a data-align="section-align-left" onClick={this.props.addClassToResource.bind(this)} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
+                  <li><a data-align="section-align-right" onClick={this.props.addClassToResource.bind(this)} href="#" className={rightAlignActive}>Column right</a></li>
                 </ul>
               </span>
               <button type="button" onClick={this.props.deleteResource} className="btn btn-default">Delete</button>
