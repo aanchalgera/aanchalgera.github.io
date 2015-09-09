@@ -13,7 +13,7 @@ class ContentList extends React.Component{
       previousAlign = field.align;
 
       var moreOptions = ''
-      if (field.align != 'section-align-right') {
+      if (field.align != 'right') {
         moreOptions = <MoreOptions
           openResourcePanel={this.props.openResourcePanel}
           addTextArea={this.props.addTextArea}
@@ -22,7 +22,7 @@ class ContentList extends React.Component{
       }
 
       return (
-        <div key={index} className={"container-data " + field.align}>
+        <div key={index} className="container-data">
           {moreOptions}
           <Content
             dataId={i}
@@ -42,7 +42,6 @@ class ContentList extends React.Component{
             openResourcePanel={this.props.openResourcePanel}
             addTextArea={this.props.addTextArea}
             dataId={fields.length}
-            key={fields.length}
           />
       </div>
     )

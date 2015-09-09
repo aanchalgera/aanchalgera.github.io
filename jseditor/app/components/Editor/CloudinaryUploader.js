@@ -41,7 +41,7 @@ var CloudinaryUploader = React.createClass({
       resourceType: 'auto',
       contextAlt: null,
       contextCaption: null,
-      allowedFormats: ['png', 'gif', 'jpeg','mp4'],
+      allowedFormats: ['png', 'gif', 'jpeg'],
       maxFileSize: null,
       maxImageWidth: null,
       maxImageHeight: null,
@@ -166,16 +166,15 @@ var CloudinaryUploader = React.createClass({
   },
   render: function(){
     var uploader_id = "uploader_" + this.state.uuid;
-    var style = {position:'fixed', top:0, right:'20px', zIndex:2000};
     return (
       <div>
-        <div className="nav-btns-top" style={style}>
+        <div className="nav-btns-top">
           <button
             ref='uploader'
             id={uploader_id}
             className={this.props.buttonClass}
             onClick={this.handleClick}>{this.props.buttonCaption}</button>
-          <p>{console.log(this.state.errorMessage)}</p>
+          <p>{this.state.errorMessage}</p>
         </div>
         <ResourcePanel
         data={this.state.images.length ? this.state.images : []}
