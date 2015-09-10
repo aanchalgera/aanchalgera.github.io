@@ -73,7 +73,7 @@ function isFalse(section, attribute)
 
 function handleSection(section, index, allSections)
 {
-    if (undefined !== section['text'] && '' != section['text']) {
+    if (!isEmpty(section, 'text')) {
         section['text'] = section['text'].replace(/<p><br><\/p>/g, '');
         section['text'] = marked(section['text'].trim());
     }
@@ -85,39 +85,32 @@ function handleSection(section, index, allSections)
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
 
-    switch(section.type) {
-        case 'video':
-            if (isEmpty(section, 'align')) {
+    if (isEmpty(section, 'align')) {
+        switch(section.type) {
+            case 'video':
                 html += templating.getVideoTemplate(sectionClasses, sectionStyles, section);
-            } else {
-                html += getMutiColumnSection(section, index, allSections);
-            }
-            break;
-        case 'video_banner':
-            html += templating.getVideoBannerTemplate(sectionClasses, sectionStyles, section);
-            break;
-        case 'slider':
-            html += templating.getSliderTemplate(sectionClasses, sectionStyles, section);
-            break;
-        case 'image':
-            if (true == section.banner) {
-                html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
-            } else {
-                if (isEmpty(section, 'align')) {
-                    html += templating.getImageTemplate(sectionClasses, sectionStyles, section);
+                break;
+            case 'video_banner':
+                html += templating.getVideoBannerTemplate(sectionClasses, sectionStyles, section);
+                break;
+            case 'slider':
+                html += templating.getSliderTemplate(sectionClasses, sectionStyles, section);
+                break;
+            case 'image':
+                if (true == section.banner) {
+                    html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
                 } else {
-                    html += getMutiColumnSection(section, index, allSections);
+                    html += templating.getImageTemplate(sectionClasses, sectionStyles, section);
                 }
-            }
-            break;
-        case 'content':
-            if (isEmpty(section, 'align')) {
+                break;
+            case 'content':
                 html += templating.getSingleColumnTemplate(sectionClasses, sectionStyles, section);
-            } else {
-                html += getMutiColumnSection(section, index, allSections);
-            }
-            break;
+                break;
+        }
+    } else {
+        html += getMutiColumnSection(section, index, allSections);
     }
+
     sectionsCovered++;
 }
 
@@ -229,7 +222,9 @@ function getSectionStyles(section)
 {
     var sectionStyles = [];
     if (!isEmpty(section, "backgroundImage")) {
+
         sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
+
         if (isTrue(section, "backgroundCover")) {
             sectionStyles.push("background-size: cover;");
         } else {
