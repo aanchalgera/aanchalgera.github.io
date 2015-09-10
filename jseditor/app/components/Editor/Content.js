@@ -42,7 +42,7 @@ class Content extends React.Component{
   	     backgroundColor:backgroundColor,
          backgroundImage:backgroundImage
       }
-      var field = <p
+      var field = <div
         id={this.props.index}
         style={style}
         data-id={this.props.dataId}
@@ -51,7 +51,7 @@ class Content extends React.Component{
         dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)}
         onKeyDown={this.props.addNewTextArea.bind(this)}
         onBlur={this.props.updateText.bind(this)}>
-      </p>;
+      </div>;
     } else if('image' == this.props.type) {
       var field = <img
         id={'img' + this.props.data.id}

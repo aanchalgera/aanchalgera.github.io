@@ -17,7 +17,7 @@ class Editor extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      nextId: 0,
+      maxId: 0,
       value: null,
       isError: false,
       errorMessage: null,
@@ -37,7 +37,8 @@ class Editor extends React.Component{
             this.setState({
               id : data.id,
               fields: data.sections,
-              value: data.title
+              value: data.title,
+              maxId: data.maxId
             });
           }
         }
@@ -68,15 +69,15 @@ class Editor extends React.Component{
       obj.backgroundImage = image.url;
       this.state.fields.splice(currentIndex, 0, obj);
     } else if (this.state.imageFunction == 'image') {
-      this.state.nextId++;
+      this.state.maxId++;
       this.state.fields.splice(
       currentIndex,0, {
-        id: this.state.nextId,
+        id: this.state.maxId,
         type: "image",
         url: image.url,
-        height: image.imageHeight,
-        width: image.imageWidth,
-        alt: image.imageAlt,
+        height: image.imageHeight != undefined ? image.imageHeight : '',
+        width: image.imageWidth != undefined ? image.imageWidth : '',
+        alt: image.imageAlt != undefined ? image.imageAlt : '',
         banner : false,
         parallax : false,
 	      align: ""
@@ -84,7 +85,7 @@ class Editor extends React.Component{
     }
     this.setState({
       fields: this.state.fields,
-      nextId: this.state.nextId
+      maxId: this.state.maxId
     });
     document.getElementById('resourcePanel').style.display = 'none'
   }
@@ -142,10 +143,10 @@ class Editor extends React.Component{
     if (undefined != event) {
       event.preventDefault();
     }
-    this.state.nextId++;
+    this.state.maxId++;
     this.state.fields.splice(
       currentIndex,0, {
-      id: this.state.nextId,
+      id: this.state.maxId,
       type: "content",
       text: "",
       align: "",
@@ -154,7 +155,7 @@ class Editor extends React.Component{
     });
     this.setState({
       fields: this.state.fields,
-      nextId: this.state.nextId
+      maxId: this.state.maxId
     });
   }
   handleChange (ev) {
@@ -174,7 +175,8 @@ class Editor extends React.Component{
     var data = {
       "id" : postSlug,
       "title" : this.state.value,
-      "sections" : this.state.fields
+      "sections" : this.state.fields,
+      "maxId" : this.state.maxId
     };
     this.props.base.post(
       'posts/' + postSlug, {
@@ -195,6 +197,7 @@ class Editor extends React.Component{
   }
   addClassToResource(event)
   {
+     event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.align;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
@@ -204,6 +207,7 @@ class Editor extends React.Component{
   }
   addBackgroundColorToResource(event)
   {
+     event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.color;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
