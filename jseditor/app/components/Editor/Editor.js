@@ -5,7 +5,7 @@ import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
-import ReactRouter from 'react-router';
+import {Link} from 'react-router';
 import slug from 'slug';
 
 var placeholder = document.createElement("div");
@@ -27,9 +27,9 @@ class Editor extends React.Component{
     };
   }
   init(){
-    var postname = "posts/" + this.router.getCurrentParams().postname;
+    var postname = this.router.getCurrentParams().postname;
     if (undefined != postname) {
-      this.props.base.fetch(postname, {
+      this.props.base.fetch("posts/" + postname, {
         context: this,
         then(data){
           console.log(data);
@@ -177,7 +177,7 @@ class Editor extends React.Component{
       "sections" : this.state.fields
     };
     this.props.base.post(
-      'posts/'+ postSlug, {
+      'posts/' + postSlug, {
       data: data
     });
   }
@@ -237,8 +237,9 @@ class Editor extends React.Component{
     } else {
       this.setError({isError: false, errorMessage: null});
     }
+    var postSlug = slug(this.state.value, {lower: true});
     var data = {
-      id : slug(this.state.value, {lower: true}),
+      id : postSlug,
       title : this.state.value,
       sections : this.state.fields
     };
@@ -251,7 +252,7 @@ class Editor extends React.Component{
     .then(function (response) {
       console.log(response);
       var random  = Math.round(Math.random() * 10000000);
-      React.render(<PreviewPanel src={"abc.html?" + random} />, document.getElementById('preview'));
+      React.render(<PreviewPanel src={postSlug + ".html?" + random} />, document.getElementById('preview'));
       document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -270,7 +271,7 @@ class Editor extends React.Component{
     return (
       <div>
         <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-        <a className="btn btn-primary" href="/">List Page</a>
+        <Link className="btn btn-primary" to="/">List Page</Link>
         <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
@@ -296,6 +297,7 @@ class Editor extends React.Component{
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
+          base={this.props.base}
         />
         <div id="preview"></div>
       </div>

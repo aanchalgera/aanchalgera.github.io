@@ -5,33 +5,16 @@ class ResourcePanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      imageList: [
-        {
-          public_id: 1,
-          thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
-          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png'
-        },
-        {
-          public_id: 2,
-          thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
-          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png',
-        },
-        {
-          public_id: 3,
-          thumbnail_url: 'http://res.cloudinary.com/realarpit/image/upload/c_limit,h_60,w_90/v1441111242/csu1meovl9wjvy9zsxwq.png',
-          url: 'http://res.cloudinary.com/realarpit/image/upload/v1441111242/csu1meovl9wjvy9zsxwq.png',
-        }
-      ]
+      imageList: []
     };
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data.length > 0) {
-      nextProps.data.forEach((value, index) => {
-        this.state.imageList.push(value);
-      });
-      this.setState({
-        imageList : this.state.imageList
-      });
+  componentWillReceiveProps(nextProps){
+    if (this.props.images.length > 0) {
+      if (nextProps.images.length > 0) {
+        this.setState({imageList: nextProps.images})
+      } else {
+        this.setState({imageList: this.props.images})
+      }
     }
   }
   closePanel(event) {
