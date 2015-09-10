@@ -278,7 +278,7 @@ class Editor extends React.Component{
     if (this.state.isError) {
       errorField = <div className="alert alert-danger" role="alert">
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span className="sr-only">Error:</span> {this.state.message}</div>;
+        <span className="sr-only">Error:</span>{this.state.message}</div>;
     } else if (this.state.isSubmit) {
       errorField = <div className="alert alert-success">
           <strong>{this.state.message}</strong>
