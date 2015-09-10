@@ -9,12 +9,8 @@ class ResourcePanel extends React.Component {
     };
   }
   componentWillReceiveProps(nextProps){
-    if (this.props.images.length > 0) {
-      if (nextProps.images.length > 0) {
+    if (nextProps.images.length > 0) {
         this.setState({imageList: nextProps.images})
-      } else {
-        this.setState({imageList: this.props.images})
-      }
     }
   }
   closePanel(event) {
