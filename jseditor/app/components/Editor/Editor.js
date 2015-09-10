@@ -238,11 +238,14 @@ class Editor extends React.Component{
   }
   openPreviewPanel(event) {
     event.preventDefault();
-    if (undefined == this.state.value) {
+    if (undefined == this.state.value || '' == this.state.value) {
       this.setMessage(true,'Title should not be empty');
       return
+    } else if(0 == this.state.fields.length){
+      this.setMessage(true,'Please add some content');
+      return
     } else {
-      this.setMessage({isError: false, message: null});
+      this.setMessage(false);
     }
     var postSlug = slug(this.state.value, {lower: true});
     var data = {
@@ -288,6 +291,8 @@ class Editor extends React.Component{
       <div>
         <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
         <Link className="btn btn-primary" to="/">List Page</Link>
+        <br /><br />
+        {errorField}
         <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
@@ -307,8 +312,7 @@ class Editor extends React.Component{
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
-        </form><br />
-        {errorField}
+        </form>
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
