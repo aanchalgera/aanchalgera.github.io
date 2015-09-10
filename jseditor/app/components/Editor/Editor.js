@@ -195,6 +195,7 @@ class Editor extends React.Component{
   }
   addClassToResource(event)
   {
+     event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.align;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
@@ -204,6 +205,7 @@ class Editor extends React.Component{
   }
   addBackgroundColorToResource(event)
   {
+     event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.color;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
