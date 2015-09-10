@@ -20,7 +20,8 @@ class Editor extends React.Component{
       maxId: 0,
       value: null,
       isError: false,
-      errorMessage: null,
+      isSubmit: false,
+      message: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
       fields: []
@@ -36,7 +37,7 @@ class Editor extends React.Component{
           if (null != data) {
             this.setState({
               id : data.id,
-              fields: data.sections,
+              fields: data.sections != undefined ? data.sections : [],
               value: data.title,
               maxId: data.maxId
             });
@@ -165,11 +166,14 @@ class Editor extends React.Component{
   }
   submitForm (ev) {
     ev.preventDefault();
-    if (undefined == this.state.value) {
-      this.setError(true,'Title should not be empty');
+    if (undefined == this.state.value || '' == this.state.value) {
+      this.setMessage(true,'Title should not be empty');
+      return
+    } else if(0 == this.state.fields.length){
+      this.setMessage(true,'Please add some content');
       return
     } else {
-      this.setError({isError: false, errorMessage: null});
+      this.setMessage(false);
     }
     var postSlug = slug(this.state.value, {lower: true});
     var data = {
@@ -178,21 +182,20 @@ class Editor extends React.Component{
       "sections" : this.state.fields,
       "maxId" : this.state.maxId
     };
+    self = this;
     this.props.base.post(
       'posts/' + postSlug, {
-      data: data
+      data: data,
+      then(data) {
+        self.setMessage(false,'Post Successfully Submitted', true);
+      }
     });
   }
-  setError (isError, errorMessage){
+  setMessage(isError = false, message, isSubmit = false) {
     this.setState({
       isError: isError,
-      errorMessage: errorMessage
-    });
-  }
-  setError (isError, errorMessage){
-    this.setState({
-      isError: isError,
-      errorMessage: errorMessage
+      message: message,
+      isSubmit: isSubmit
     });
   }
   addClassToResource(event)
@@ -236,10 +239,10 @@ class Editor extends React.Component{
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value) {
-      this.setError(true,'Title should not be empty');
+      this.setMessage(true,'Title should not be empty');
       return
     } else {
-      this.setError({isError: false, errorMessage: null});
+      this.setMessage({isError: false, message: null});
     }
     var postSlug = slug(this.state.value, {lower: true});
     var data = {
@@ -271,7 +274,16 @@ class Editor extends React.Component{
       });
   }
   render(){
-    var errorField = this.state.isError ? <p>{this.state.errorMessage}</p> : null;
+    var errorField = '';
+    if (this.state.isError) {
+      errorField = <div className="alert alert-danger" role="alert">
+        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span className="sr-only">Error:</span>{this.state.message}</div>;
+    } else if (this.state.isSubmit) {
+      errorField = <div className="alert alert-success">
+          <strong>{this.state.message}</strong>
+        </div>;
+    }
     return (
       <div>
         <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
@@ -295,7 +307,7 @@ class Editor extends React.Component{
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
-        </form>
+        </form><br />
         {errorField}
         <CloudinaryUploader
           cloudName='realarpit'
