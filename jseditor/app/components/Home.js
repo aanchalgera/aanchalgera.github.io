@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 class Home extends React.Component {
   constructor(props){
@@ -27,13 +28,15 @@ class Home extends React.Component {
     var postList = [];
     var postList = this.state.posts.map((post, i) => {
       return (
-        <li key={i} className="list-group-item"><a href={"#/edit/post/" + post.id}>{post.title}</a></li>
+        <li key={i} className="list-group-item">{post.title}  <Link className="btn btn-primary" to={"/edit/post/" + post.id}>Edit</Link></li>
       )
     });
     return (
       <div>
       <h2>List Page</h2>
-      <a className="btn btn-primary" href="#/post/new">New Post</a>
+      <Link to="/post/new" className="btn btn-primary">New Post</Link>
+      <br />
+      <br />
       <ul className="list-group">
         {postList}
       </ul>

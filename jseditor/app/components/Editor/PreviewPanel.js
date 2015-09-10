@@ -19,7 +19,7 @@ export default class PreviewPanel extends React.Component {
                   src={"http://52.19.39.251/posts/" + this.props.src}
                   allowFullScreen="true"
                   width="1080"
-                  height="1000"
+                  height="500"
                   frameBorder="0"
                   allowTransparency="true">
                 </iframe>

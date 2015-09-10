@@ -53,14 +53,31 @@ var CloudinaryUploader = React.createClass({
     var initialState =  {
       cloudName: this.props.cloudName,
       uploadPreset: this.props.uploadPreset,
-      images : [],
       isError: false,
       errorMessage: null,
       showPoweredBy: false,
       allowedFormats: null,
-      uuid: this.uuid()
+      uuid: this.uuid(),
+      imageList: []
     };
     return initialState;
+  },
+  init: function(){
+    this.props.base.fetch('images', {
+      context: this,
+      asArray: true,
+      then(data){
+        console.log('fetch :',data);
+        if (null != data) {
+          this.setState({
+            imageList : data
+          });
+        }
+      }
+    });
+  },
+  componentDidMount: function(){
+    this.init();
   },
   uuid: function(){
     function guid() {
@@ -154,8 +171,13 @@ var CloudinaryUploader = React.createClass({
             self.setError(true, 'No result from Cloudinary');
             ev.preventDefault();
           }
-          self.setState({images : result});
-          self.openResourcePanel();
+          self.props.base.post('images', {
+            data: self.state.imageList.concat(result),
+            then(){
+              self.init();
+              self.openResourcePanel();
+            }
+          });
           return true;
         }
       );
@@ -177,8 +199,9 @@ var CloudinaryUploader = React.createClass({
           <p>{this.state.errorMessage}</p>
         </div>
         <ResourcePanel
-        data={this.state.images.length ? this.state.images : []}
-        addImage={this.props.addImage}
+          addImage={this.props.addImage}
+          base={this.props.base}
+          images={this.state.imageList}
         />
       </div>
     );
