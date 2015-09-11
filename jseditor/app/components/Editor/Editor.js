@@ -6,7 +6,7 @@ import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
 import {Link} from 'react-router';
-import slug from 'slug';
+import slug from 'speakingurl';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -174,7 +174,7 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
-    var postSlug = slug(this.state.value, {lower: true});
+    var postSlug = slug(this.state.value);
     if (this.state.id != undefined || this.state.id == '') {
       if (this.state.id != postSlug) {
         postSlug = this.state.id;
@@ -251,7 +251,7 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
-    var postSlug = slug(this.state.value, {lower: true});
+    var postSlug = slug(this.state.value);
     var data = {
       id : postSlug,
       title : this.state.value,
