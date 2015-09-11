@@ -11,7 +11,6 @@
   "dependencies": {
     "axios": "^0.5.4",
     "firebase": "~2.2.9",
-    "medium-editor": "~5.6.3",
     "react": "~0.13.3",
     "react-router": "~0.13.3",
     "re-base": "~1.1.2",
