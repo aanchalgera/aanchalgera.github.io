@@ -222,7 +222,7 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
-  deleteResource()
+  deleteResource(event)
   {
     var confirmation = confirm("Are you sure you want to delete this?");
     if (confirmation == true) {

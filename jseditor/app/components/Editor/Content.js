@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
-import MediumEditor from 'medium-editor';
 
 class Content extends React.Component{
   componentDidMount() {
@@ -8,50 +7,36 @@ class Content extends React.Component{
       this.initializeEditor(this.props.index);
       var currentRef = 'myInput' + this.props.dataId;
       this.refs[currentRef].getDOMNode().focus();
+      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
-  initializeEditor(editArea) {
-    var editor = new MediumEditor('#' + editArea,
-      {
-        imageDragging: false,
-        autoLink: true,
-        toolbar: {
-          buttons: [
-            'bold', 'italic', 'underline', 'h1', 'h2'
-            , 'unorderedlist', 'orderedlist', 'anchor'
-            , 'justifyLeft', 'justifyCenter', 'justifyRight'
-          ]
-        }
-      });
+  componentDidUpdate() {
+    document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
   }
-  createMarkup(text) {
-    return {__html: text};
+  initializeEditor(editArea) {
+    var editor = new SimpleMDE({ element: document.getElementById(editArea)});
+    editor.render();
+  }
+  getStyleText(data) {
+    var backgroundColor = '', backgroundImage = '';
+    if (data.align == '') {
+      backgroundColor = data.backgroundColor;
+      backgroundImage = "url('"+data.backgroundImage+"')";
+    }
+
+    return 'background-color:'+backgroundColor+';background-image:'+backgroundImage;
   }
   render () {
-    var backgroundColor = '', backgroundImage = '';
     if('content' == this.props.type) {
-      if (this.props.data.align == '') {
-        if (this.props.data.backgroundColor != '') {
-          backgroundColor = this.props.data.backgroundColor;
-        }
-        if (this.props.data.backgroundImage != null) {
-          backgroundImage = "url('"+this.props.data.backgroundImage+"')";
-        }
-      }
-      var style =  {
-  	     backgroundColor:backgroundColor,
-         backgroundImage:backgroundImage
-      }
-      var field = <div
+      var field = <textarea
         id={this.props.index}
-        style={style}
         data-id={this.props.dataId}
         ref={'myInput' + Number(this.props.dataId)}
         className="form-control-static"
-        dangerouslySetInnerHTML= {this.createMarkup(this.props.data.text)}
+        value= {this.props.data.text}
         onKeyDown={this.props.addNewTextArea.bind(this)}
         onBlur={this.props.updateText.bind(this)}>
-      </div>;
+      </textarea>;
     } else if('image' == this.props.type) {
       var field = <img
         id={'img' + this.props.data.id}
@@ -69,6 +54,7 @@ class Content extends React.Component{
 
     return (
       <div className="container-ul-inner"
+       id={"div-"+this.props.index}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
