@@ -49,7 +49,14 @@ class Editor extends React.Component{
     this.router = this.context.router;
   }
   componentDidMount(){
+    var self = this;
+    this.timerId = setInterval(function() {
+      self.submitForm();
+    }, 10000);
     this.init();
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
   openResourcePanel(imageFunction, currentIndex, event) {
     if (undefined != event) {
@@ -160,8 +167,28 @@ class Editor extends React.Component{
       value : ev.currentTarget.value
     });
   }
+  handleBlur (ev) {
+    var title = ev.currentTarget.value.trim();
+    if (undefined == title || '' == title) {
+      this.setMessage(true,'Title should not be empty');
+      return
+    } else {
+      this.setMessage(false);
+    }
+    var postSlug = slug(title);
+    if (this.state.id != undefined && this.state.id != '') {
+      if (this.state.id != slug(title)) {
+        var postSlug = this.state.id;
+      }
+    }
+    this.setState({
+      id: postSlug
+    });
+  }
   submitForm (ev) {
-    ev.preventDefault();
+    if (ev != undefined) {
+      ev.preventDefault();
+    }
     if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
@@ -181,14 +208,14 @@ class Editor extends React.Component{
       "id" : postSlug,
       "title" : this.state.value,
       "sections" : this.state.fields,
-      "maxId" : this.state.maxId
+      "maxId" : this.state.maxId,
     };
     self = this;
     this.props.base.post(
       'posts/' + postSlug, {
       data: data,
       then(data) {
-        self.setMessage(false,'Post Successfully Submitted', true);
+        console.log('autosaved');
       }
     });
   }
@@ -234,6 +261,7 @@ class Editor extends React.Component{
      obj.text = value;
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
+     this.submitForm();
   }
   openPreviewPanel(event) {
     event.preventDefault();
@@ -292,10 +320,10 @@ class Editor extends React.Component{
         <Link className="btn btn-primary" to="/">List Page</Link>
         <br /><br />
         {errorField}
-        <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
+        <form id="editor-form">
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
-            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)} />
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}
@@ -317,6 +345,7 @@ class Editor extends React.Component{
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
           base={this.props.base}
+          slug={this.state.id}
         />
         <div id="preview"></div>
       </div>

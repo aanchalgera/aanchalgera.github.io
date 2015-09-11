@@ -63,18 +63,22 @@ var CloudinaryUploader = React.createClass({
     return initialState;
   },
   init: function(){
-    this.props.base.fetch('images', {
-      context: this,
-      asArray: true,
-      then(data){
-        console.log('fetch :',data);
-        if (null != data) {
-          this.setState({
-            imageList : data
-          });
+    if (this.props.slug != undefined && this.props.slug != '') {
+      this.props.base.fetch('images/' + this.props.slug, {
+        context: this,
+        asArray: true,
+        then(data){
+          if (null != data) {
+            this.setState({
+              imageList : data
+            });
+          }
         }
-      }
-    });
+      });
+    }
+  },
+  componentWillReceiveProps: function() {
+    this.init();
   },
   componentDidMount: function(){
     this.init();
@@ -160,6 +164,10 @@ var CloudinaryUploader = React.createClass({
     var self = this;
     try{
       var options = this.getUploadOptions();
+      if(this.props.slug == undefined || this.props.slug == '') {
+        this.setError(true, "Title not set");
+        ev.preventDefault();
+      }
       cloudinary.openUploadWidget(
         options,
         function(error, result) {
@@ -171,7 +179,7 @@ var CloudinaryUploader = React.createClass({
             self.setError(true, 'No result from Cloudinary');
             ev.preventDefault();
           }
-          self.props.base.post('images', {
+          self.props.base.post('images/' + self.props.slug, {
             data: self.state.imageList.concat(result),
             then(){
               self.init();
@@ -194,6 +202,7 @@ var CloudinaryUploader = React.createClass({
           <button
             ref='uploader'
             id={uploader_id}
+            disabled={!this.props.slug}
             className={this.props.buttonClass}
             onClick={this.handleClick}>{this.props.buttonCaption}</button>
           <p>{this.state.errorMessage}</p>
@@ -207,6 +216,5 @@ var CloudinaryUploader = React.createClass({
     );
   }
 });
-
 
 export default CloudinaryUploader;
