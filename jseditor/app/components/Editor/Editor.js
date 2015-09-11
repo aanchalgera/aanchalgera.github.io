@@ -33,7 +33,6 @@ class Editor extends React.Component{
       this.props.base.fetch("posts/" + postname, {
         context: this,
         then(data){
-          console.log(data);
           if (null != data) {
             this.setState({
               id : data.id,
@@ -166,7 +165,7 @@ class Editor extends React.Component{
   }
   submitForm (ev) {
     ev.preventDefault();
-    if (undefined == this.state.value || '' == this.state.value) {
+    if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
     } else if(0 == this.state.fields.length){
@@ -176,6 +175,11 @@ class Editor extends React.Component{
       this.setMessage(false);
     }
     var postSlug = slug(this.state.value, {lower: true});
+    if (this.state.id != undefined || this.state.id == '') {
+      if (this.state.id != postSlug) {
+        postSlug = this.state.id;
+      }
+    }
     var data = {
       "id" : postSlug,
       "title" : this.state.value,
@@ -238,7 +242,7 @@ class Editor extends React.Component{
   }
   openPreviewPanel(event) {
     event.preventDefault();
-    if (undefined == this.state.value || '' == this.state.value) {
+    if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
     } else if(0 == this.state.fields.length){
