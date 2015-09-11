@@ -59,8 +59,10 @@ class Editor extends React.Component{
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction
     });
+
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
+
   }
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
