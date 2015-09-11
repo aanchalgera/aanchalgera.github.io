@@ -122,7 +122,7 @@ class Editor extends React.Component{
       }
     }
   }
-  keyHandler(event)
+  keyHandler(event, currentId)
   {
     if (event.keyCode == 13 )
     {
@@ -131,10 +131,7 @@ class Editor extends React.Component{
       {
         event.preventDefault();
         var parentDiv = this.parentDiv(event.target);
-        this.createNewTextArea(Number(parentDiv.dataset.id) + 1);
-        // optional - if we'd rather not detect a triple-press
-        // as a second double-press, reset the timestamp
-        //thisKeypressTime = 0;
+        this.createNewTextArea(Number(currentId) + 1);
       }
       lastKeypressTime = thisKeypressTime;
     }
@@ -231,10 +228,8 @@ class Editor extends React.Component{
       this.setState({fields: this.state.fields});
     }
   }
-  updateText(event)
+  updateText(currentIndex, value)
   {
-     var currentIndex = this.parentDiv(event.target).dataset.id;
-     var value = event.target.innerHTML;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      obj.text = value;
      this.state.fields.splice(currentIndex, 0, obj);
