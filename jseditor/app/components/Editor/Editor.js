@@ -33,7 +33,6 @@ class Editor extends React.Component{
       this.props.base.fetch("posts/" + postname, {
         context: this,
         then(data){
-          console.log(data);
           if (null != data) {
             this.setState({
               id : data.id,
@@ -166,7 +165,7 @@ class Editor extends React.Component{
   }
   submitForm (ev) {
     ev.preventDefault();
-    if (undefined == this.state.value || '' == this.state.value) {
+    if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
     } else if(0 == this.state.fields.length){
@@ -176,6 +175,11 @@ class Editor extends React.Component{
       this.setMessage(false);
     }
     var postSlug = slug(this.state.value, {lower: true});
+    if (this.state.id != undefined || this.state.id == '') {
+      if (this.state.id != postSlug) {
+        postSlug = this.state.id;
+      }
+    }
     var data = {
       "id" : postSlug,
       "title" : this.state.value,
@@ -238,11 +242,14 @@ class Editor extends React.Component{
   }
   openPreviewPanel(event) {
     event.preventDefault();
-    if (undefined == this.state.value) {
+    if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
+    } else if(0 == this.state.fields.length){
+      this.setMessage(true,'Please add some content');
+      return
     } else {
-      this.setMessage({isError: false, message: null});
+      this.setMessage(false);
     }
     var postSlug = slug(this.state.value, {lower: true});
     var data = {
@@ -288,6 +295,8 @@ class Editor extends React.Component{
       <div>
         <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
         <Link className="btn btn-primary" to="/">List Page</Link>
+        <br /><br />
+        {errorField}
         <form id="editor-form" onSubmit={this.submitForm.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
@@ -307,8 +316,7 @@ class Editor extends React.Component{
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
-        </form><br />
-        {errorField}
+        </form>
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
