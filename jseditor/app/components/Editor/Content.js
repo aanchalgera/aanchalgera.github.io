@@ -16,6 +16,16 @@ class Content extends React.Component{
   initializeEditor(editArea) {
     var editor = new SimpleMDE({ element: document.getElementById(editArea)});
     editor.render();
+    var dataId = this.props.dataId;
+    var updateText = this.props.updateText;
+    var id = this.props.data.id;
+    var addNewTextArea = this.props.addNewTextArea;
+    editor.codemirror.on("change", function(event){
+      updateText(dataId, editor.value())
+    });
+    editor.codemirror.on("keydown", function(cm, event){
+      addNewTextArea(event, id)
+    });
   }
   getStyleText(data) {
     var backgroundColor = '', backgroundImage = '';
@@ -23,19 +33,16 @@ class Content extends React.Component{
       backgroundColor = data.backgroundColor;
       backgroundImage = "url('"+data.backgroundImage+"')";
     }
-
     return 'background-color:'+backgroundColor+';background-image:'+backgroundImage;
   }
   render () {
     if('content' == this.props.type) {
       var field = <textarea
         id={this.props.index}
-        data-id={this.props.dataId}
         ref={'myInput' + Number(this.props.dataId)}
-        className="form-control-static"
         value= {this.props.data.text}
         onKeyDown={this.props.addNewTextArea.bind(this)}
-        onBlur={this.props.updateText.bind(this)}>
+        >
       </textarea>;
     } else if('image' == this.props.type) {
       var field = <img
