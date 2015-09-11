@@ -15,7 +15,7 @@
     "react": "~0.13.3",
     "react-router": "~0.13.3",
     "re-base": "~1.1.2",
-    "slug": "~0.9.1"
+    "speakingurl": "~6.0.0"
   },
   "devDependencies": {
     "babel-core": "~5.8.19",
