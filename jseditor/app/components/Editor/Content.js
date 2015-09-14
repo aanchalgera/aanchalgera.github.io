@@ -11,16 +11,19 @@ class Content extends React.Component{
     }
   }
   componentDidUpdate() {
-    document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+    if ('content' == this.props.type) {
+      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+    }
   }
   initializeEditor(editArea) {
-    var editor = new SimpleMDE({ element: document.getElementById(editArea)});
+    var editor = new SimpleMDE({ element: document.getElementById(editArea),
+    spellChecker : false});
     editor.render();
     var dataId = this.props.dataId;
     var updateText = this.props.updateText;
     var id = this.props.data.id;
     var addNewTextArea = this.props.addNewTextArea;
-    editor.codemirror.on("blur", function(event){
+    editor.codemirror.on("change", function(event){
       updateText(dataId, editor.value())
     });
     editor.codemirror.on("keydown", function(cm, event){
@@ -40,8 +43,6 @@ class Content extends React.Component{
       var field = <textarea
         id={this.props.index}
         ref={'myInput' + Number(this.props.dataId)}
-        value= {this.props.data.text}
-        onKeyDown={this.props.addNewTextArea.bind(this)}
         >
       </textarea>;
     } else if('image' == this.props.type) {
