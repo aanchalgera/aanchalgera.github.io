@@ -73,13 +73,12 @@ function isFalse(section, attribute)
 
 function handleSection(section, index, allSections)
 {
-    if (!isEmpty(section, 'text')) {
-        section['text'] = section['text'].replace(/<p><br><\/p>/g, '');
-        section['text'] = marked(section['text'].trim());
-    }
     while (skipSections > 0) {
         skipSections--;
         return;
+    }
+    if (!isEmpty(section, 'text')) {
+        section['text'] = marked(section['text']);
     }
 
     sectionClasses = getSectionClasses(section);
@@ -129,15 +128,18 @@ function getMutiColumnSection(section, index, allSections)
         if ('center' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
+            allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
             columns.push(allSections[nextIndex]);
             if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
                 skipSections++;
                 totalColumns++;
+                allSections[nextIndex]['text'] = marked(allSections[nextToNextIndex]['text']);
                 columns.push(allSections[nextToNextIndex]);
             }
         } else if ('section-align-right' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
+            allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
             columns.push(allSections[nextIndex]);
         }
     }
