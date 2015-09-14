@@ -1,5 +1,6 @@
 import React from 'react';
 import PropertyButtonContent from './PropertyButtonContent';
+import PropertyButtonImageSizes from './PropertyButtonImageSizes';
 
 class PropertyButton extends React.Component {
   constructor(props){
@@ -18,6 +19,7 @@ class PropertyButton extends React.Component {
     var leftAlignActive = "", rightAlignActive = "";
     var closeStyle = '',expandStyle='';
     var moreProperties = '';
+    var moreImageProperties = '';
     if (this.props.align == 'section-align-left') {
 	     leftAlignActive = 'active';
     } else if (this.props.align == 'section-align-right') {
@@ -38,6 +40,13 @@ class PropertyButton extends React.Component {
           openResourcePanel={this.props.openResourcePanel}
           dataId={this.props.dataId}
         />
+        break;
+      case 'image' :
+          var moreImageProperties = <PropertyButtonImageSizes
+            dataId={this.props.dataId}
+            layout={this.props.layout}
+            addLayoutToResource={this.props.addLayoutToResource}
+          />
     }
     return (
       <ul>
@@ -58,6 +67,7 @@ class PropertyButton extends React.Component {
                   <li><a data-align="section-align-right" onClick={this.props.addClassToResource.bind(this)} href="#" className={rightAlignActive}>Column right</a></li>
                 </ul>
               </span>
+              {moreImageProperties}
               <button type="button" onClick={this.props.deleteResource} className="btn btn-default">Delete</button>
               <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
             </span>

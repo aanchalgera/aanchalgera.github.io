@@ -41,6 +41,14 @@ class ResourcePanel extends React.Component {
                <ul>{images}</ul>
              </div>
             </div>
+            <div className="modal-footer">
+              <button
+                id={this.props.uploaderId}
+                type="button"
+                className="btn btn-primary"
+                disabled={!this.props.slug}
+                onClick={this.props.handleClick}>Upload Images</button>
+            </div>
           </div>
         </div>
       </div>

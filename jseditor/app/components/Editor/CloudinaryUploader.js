@@ -161,13 +161,13 @@ var CloudinaryUploader = React.createClass({
     document.getElementById('resourcePanel').classList.add('in')
   },
   handleClick: function(ev){
+    if(this.props.slug == undefined || this.props.slug == '') {
+      this.setError(true, "Title not set");
+      ev.preventDefault();
+    }
     var self = this;
     try{
       var options = this.getUploadOptions();
-      if(this.props.slug == undefined || this.props.slug == '') {
-        this.setError(true, "Title not set");
-        ev.preventDefault();
-      }
       cloudinary.openUploadWidget(
         options,
         function(error, result) {
@@ -211,6 +211,9 @@ var CloudinaryUploader = React.createClass({
           addImage={this.props.addImage}
           base={this.props.base}
           images={this.state.imageList}
+          uploaderId={uploader_id}
+          slug={this.props.slug}
+          handleClick={this.handleClick}
         />
       </div>
     );
