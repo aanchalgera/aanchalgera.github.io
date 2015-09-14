@@ -23,7 +23,7 @@ class Content extends React.Component{
     var updateText = this.props.updateText;
     var id = this.props.data.id;
     var addNewTextArea = this.props.addNewTextArea;
-    editor.codemirror.on("change", function(event){
+    editor.codemirror.on("blur", function(event){
       updateText(dataId, editor.value())
     });
     editor.codemirror.on("keydown", function(cm, event){
