@@ -43,6 +43,7 @@ class Content extends React.Component{
       var field = <textarea
         id={this.props.index}
         ref={'myInput' + Number(this.props.dataId)}
+        value= {this.props.data.text}
         >
       </textarea>;
     } else if('image' == this.props.type) {
