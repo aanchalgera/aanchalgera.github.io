@@ -9,7 +9,6 @@ class PropertyButtonImageSizes extends React.Component{
     this.props.addLayoutToResource(ev);
   }
   render () {
-    console.log(this.props.layout);
     return (
       <span className="btn-group dropdown" role="group">
         <button type="button" className="btn btn-default dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
