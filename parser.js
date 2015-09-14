@@ -128,18 +128,24 @@ function getMutiColumnSection(section, index, allSections)
         if ('center' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
-            allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
+            if (!isEmpty(allSections[nextIndex], 'text')) {
+                allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
+            }
             columns.push(allSections[nextIndex]);
             if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
                 skipSections++;
                 totalColumns++;
-                allSections[nextIndex]['text'] = marked(allSections[nextToNextIndex]['text']);
+                if (!isEmpty(allSections[nextToNextIndex], 'text')) {
+                    allSections[nextToNextIndex]['text'] = marked(allSections[nextToNextIndex]['text']);
+                }
                 columns.push(allSections[nextToNextIndex]);
             }
         } else if ('section-align-right' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
-            allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
+            if (!isEmpty(allSections[nextIndex], 'text')) {
+                allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
+            }
             columns.push(allSections[nextIndex]);
         }
     }
