@@ -235,6 +235,22 @@
       "parallax" : false,
       "width" : 400, 
       "height" : 600
+    },
+    {
+      "type" : "content",
+      "align" : "section-align-left",
+      "text" : "checking image in multi column"
+    },
+    {
+      "type" : "image",
+      "text" : "# Gif o Video con texto #",
+      "url" : "http://res.cloudinary.com/realarpit/image/upload/v1442297840/zgrmstkgihfue3qpw9lu.jpg",
+      "banner" : false,
+      "parallax" : false,
+      "width" : 400, 
+      "height" : 600,
+      "align" : "section-align-right",
+      "layout": "big"
     }
   ]
 }

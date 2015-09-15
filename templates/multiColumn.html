@@ -2,17 +2,17 @@
     <div class="builder-section-content">
         <%_.forEach(contentSections, function (contentSection, index) {%>
             <div class="builder-text-column builder-text-column-<%= index + 1%>">
-                        <% if ('image' == contentSection.type) { %>
-                            <figure class="builder-text-image">
-                    <% if ('small' == layout) { %>
-                        <img src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
-                    <% } else if ('normal' == layout) { %>
-                        <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
-                    <% } else if ('big' == layout) { %>
-                        <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
-                    <% } else if ('cover' == layout) { %>
-                        <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w, <%=imagePath2560%> 2560w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
-                    <% } %>
+                <% if ('image' == contentSection.type) { %>
+                    <figure class="builder-text-image">
+                        <% if ('small' == layout) { %>
+                            <img src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+                        <% } else if ('normal' == layout) { %>
+                            <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+                        <% } else if ('big' == layout) { %>
+                            <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+                        <% } else if ('cover' == layout) { %>
+                            <img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w, <%=imagePath2560%> 2560w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+                        <% } %>
                         <noscript><img width="<%=width%>" height="<%=height%>" src="<%=src%>" class="<%=classes%>" alt="<%=alt%>"></noscript>
                     </figure>
                 <% } else if('content' == contentSection.type) { %>

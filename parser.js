@@ -168,6 +168,9 @@ function getMutiColumnSection(section, index, allSections)
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
+    if (undefined === section.layout) {
+        section['layout'] = 'small';
+    }
     var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
     var imagePath450 = cloudinaryPath + '/w_450,c_fit/' + imageName;
     var imagePath650 = cloudinaryPath + '/w_650,c_fit/' + imageName;
