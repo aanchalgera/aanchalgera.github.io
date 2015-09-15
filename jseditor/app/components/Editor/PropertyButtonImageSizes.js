@@ -11,7 +11,7 @@ class PropertyButtonImageSizes extends React.Component{
   render () {
     return (
       <span className="btn-group dropdown" role="group">
-        <button type="button" className="btn btn-default dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Size
           <span className="caret"></span>
         </button>
