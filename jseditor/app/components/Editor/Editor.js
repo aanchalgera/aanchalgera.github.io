@@ -209,7 +209,7 @@ class Editor extends React.Component{
       "id" : postSlug,
       "title" : this.state.value,
       "sections" : this.state.fields,
-      "maxId" : this.state.maxId,
+      "maxId" : this.state.maxId
     };
     self = this;
     this.props.base.post(
@@ -237,13 +237,28 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
-  addBackgroundColorToResource(event)
+  addBackgroundColorToResource(property, value, event)
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     var value = event.target.dataset.color;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
-     obj.backgroundColor = (obj.color == value) ? "" : value;
+     switch (property) {
+       case 'backgroundColor' :
+         obj.backgroundColor = value;
+         break;
+       case 'parallax' :
+          obj.parallax = !obj.parallax;
+          event.target.className = "active";
+          break;
+        case 'backgroundRepeat' :
+          obj.backgroundRepeat = !obj.backgroundRepeat;
+          if (obj.backgroundRepeat == true) obj.backgroundCover = false;
+          break;
+        case 'backgroundCover' :
+          obj.backgroundCover = !obj.backgroundCover;
+          if (obj.backgroundCover == true) obj.backgroundRepeat = false;
+          break;
+       }
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
@@ -333,7 +348,7 @@ class Editor extends React.Component{
         <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
-            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)} />
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}

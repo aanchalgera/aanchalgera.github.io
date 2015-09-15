@@ -43,7 +43,7 @@ class Content extends React.Component{
       var field = <textarea
         id={this.props.index}
         ref={'myInput' + Number(this.props.dataId)}
-        value= {this.props.data.text}
+        defaultValue= {this.props.data.text}
         >
       </textarea>;
     } else if('image' == this.props.type) {
@@ -79,7 +79,7 @@ class Content extends React.Component{
            addBackgroundColorToResource={this.props.addBackgroundColorToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
-           backgroundColor={this.props.data.backgroundColor}
+           data={this.props.data}
            dataId={this.props.dataId}
            addLayoutToResource={this.props.addLayoutToResource}
          />
