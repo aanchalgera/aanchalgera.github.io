@@ -1,8 +1,16 @@
 <section class="<%=sectionClasses%>" style="<%=sectionStyles%>">
     <div class="builder-section-content">
         <div class="builder-text-column builder-text-column-1">
-        	<figure class="builder-text-image"> 
-				<img class="<%=classes%>" sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 681w, <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w" alt="<%=alt%>" />
+        	<figure class="builder-text-image">
+        	<% if ('small' == layout) { %>
+        		<img src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+        	<% } else if ('normal' == layout) { %>
+        		<img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+        	<% } else if ('big' == layout) { %>
+        		<img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+        	<% } else if ('cover' == layout) { %>
+        		<img sf-srcset="<%=imagePath450%> 450w, <%=imagePath650%> 650w <%=imagePath1024%> 1024w, <%=imagePath1366%> 1366w, <%=imagePath2560%> 2560w" src="<%=imagePath450%>" class="<%=classes%>" alt="<%=alt%>" />
+            <% } %>
 				<noscript><img width="<%=width%>" height="<%=height%>" src="<%=src%>" class="<%=classes%>" alt="<%=alt%>"></noscript>
         	</figure>
         </div>

@@ -178,12 +178,16 @@ function addSectionTypeClass(sectionClasses, section)
         case 'image':
             if (true == section.banner) {
                 sectionClasses.push(bannerClass);
-            } 
-            sectionClasses.push(textClass);
+            } else {
+                sectionClasses.push(textClass);
+            }
+            break;
         case 'content':
             sectionClasses.push(textClass);
+            break;
         case 'slider':
             sectionClasses.push(bannerClass);
+            break;
     }
     return sectionClasses;
 }
