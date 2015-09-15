@@ -222,6 +222,19 @@
       "width" : 400, 
       "height" : 600,
       "layout": "cover"
+    },
+    {
+      "type": "content",
+      "text": "without layout"
+    },
+    {
+      "type" : "image",
+      "text" : "# Gif o Video con texto #",
+      "url" : "http://res.cloudinary.com/realarpit/image/upload/v1442297840/zgrmstkgihfue3qpw9lu.jpg",
+      "banner" : false,
+      "parallax" : false,
+      "width" : 400, 
+      "height" : 600
     }
   ]
 }
