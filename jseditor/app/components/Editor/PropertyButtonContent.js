@@ -1,5 +1,4 @@
 import React from 'react';
-import Checkbox from 'react-checkbox';
 
 class PropertyButtonContent extends React.Component {
   render() {
