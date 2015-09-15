@@ -88,14 +88,14 @@ class Editor extends React.Component{
         banner : false,
         parallax : false,
         align: "",
-        layout: "650px"
+        layout: "normal"
       });
     }
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
-    });
-    document.getElementById('resourcePanel').style.display = 'none'
+    }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -253,7 +253,7 @@ class Editor extends React.Component{
     if (confirmation == true) {
       var currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
-      this.setState({fields: this.state.fields});
+      this.setState({fields: this.state.fields}, this.saveData());
     }
   }
   updateText(currentIndex, value)
@@ -261,8 +261,7 @@ class Editor extends React.Component{
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      obj.text = value;
      this.state.fields.splice(currentIndex, 0, obj);
-     this.setState({fields: this.state.fields});
-     this.saveData();
+     this.setState({fields: this.state.fields}, this.saveData());
   }
   addLayoutToResource(event)
   {
@@ -272,7 +271,7 @@ class Editor extends React.Component{
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      obj.layout = value;
      this.state.fields.splice(currentIndex, 0, obj);
-     this.setState({fields: this.state.fields});
+     this.setState({fields: this.state.fields}, this.saveData());
   }
   openPreviewPanel(event) {
     event.preventDefault();

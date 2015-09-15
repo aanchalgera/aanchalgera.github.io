@@ -16,10 +16,10 @@ class PropertyButtonImageSizes extends React.Component{
           <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
-          <li><a href="#" data-layout="650px" className={this.props.layout == "650px" ? "active" : ""} onClick={this.handleClick.bind(this)}> Normal</a></li>
-          <li><a href="#" data-layout="2560px" className={this.props.layout == "2560px" ? "active" : ""} onClick={this.handleClick.bind(this)}> Cover</a></li>
-          <li><a href="#" data-layout="1366px" className={this.props.layout == "1366px" ? "active" : ""} onClick={this.handleClick.bind(this)}> Big</a></li>
-          <li><a href="#" data-layout="450px" className={this.props.layout == "450px" ? "active" : ""} onClick={this.handleClick.bind(this)}> Small</a></li>
+          <li><a href="#" data-layout="normal" className={this.props.layout == "normal" ? "active" : ""} onClick={this.handleClick.bind(this)}> Normal</a></li>
+          <li><a href="#" data-layout="cover" className={this.props.layout == "cover" ? "active" : ""} onClick={this.handleClick.bind(this)}> Cover</a></li>
+          <li><a href="#" data-layout="big" className={this.props.layout == "big" ? "active" : ""} onClick={this.handleClick.bind(this)}> Big</a></li>
+          <li><a href="#" data-layout="small" className={this.props.layout == "small" ? "active" : ""} onClick={this.handleClick.bind(this)}> Small</a></li>
         </ul>
       </span>
     )
