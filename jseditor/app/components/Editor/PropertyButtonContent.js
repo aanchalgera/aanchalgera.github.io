@@ -8,9 +8,9 @@ class PropertyButtonContent extends React.Component {
       whiteBackgroundColor = <li data-color="#FFF" onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#FFF')} className="background-white">White</li>
     }
     if (this.props.data.backgroundImage != '') {
-      backgroundImageOptions = <li><li><a href="#" className={this.props.data.parallax ? "active" : null } onClick={this.props.addBackgroundOptionToResource.bind(this,'parallax', null)}> Add Parallax</a></li>
+      backgroundImageOptions = <ul><li><a href="#" className={this.props.data.parallax ? "active" : null } onClick={this.props.addBackgroundOptionToResource.bind(this,'parallax', null)}> Add Parallax</a></li>
       <li><a href="#" className={this.props.data.backgroundRepeat ? "active" : null } onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundRepeat', null)}> Background Repeat </a></li>
-      <li><a href="#" className={this.props.data.backgroundCover ? "active" : null } onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundCover', null)}>Background Cover</a></li></li>
+      <li><a href="#" className={this.props.data.backgroundCover ? "active" : null } onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundCover', null)}>Background Cover</a></li></ul>
     }
     return (
       <span className="btn-group dropdown" role="group">
