@@ -116,51 +116,9 @@ function getMultiColumnTemplate(sectionClasses, sectionStyles, columns)
     );
 }
 
-function getImageTemplate(sectionClasses, sectionStyles, section)
+function getImageTemplate(imageObject)
 {
-    if (undefined === section.layout) {
-        section['layout'] = 'small';
-    }
-    var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
-    var imagePath450 = cloudinaryPath + '/w_450,c_fit/' + imageName;
-    var imagePath650 = cloudinaryPath + '/w_650,c_fit/' + imageName;
-    var imagePath1024 = cloudinaryPath + '/w_1024,c_fit/' + imageName;
-    var imagePath1366 = cloudinaryPath + '/w_1366,c_fit/' + imageName;
-    var imagePath2560 = cloudinaryPath + '/w_2560,c_fit/' + imageName;
-
-    var imageTemplateObject = {
-        sectionClasses: sectionClasses, 
-        sectionStyles: sectionStyles,
-        width: section.width,
-        height: section.height,
-        imagePath450 : imagePath450,
-        src: section.url,
-        classes: section.class,
-        alt: section.alt,
-        layout: section.layout
-    };
-    
-    switch (section.layout) {
-        case 'small':
-            //no srcsets for small layout
-            break;
-        case 'normal':
-            imageTemplateObject.imagePath650 = imagePath650;
-            break;
-        case 'big':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
-            break;
-        case 'cover':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
-            imageTemplateObject.imagePath2560 = imagePath2560;
-            break;
-    }
-
-    return imageTemplate(imageTemplateObject);
+    return imageTemplate(imageObject);
 }
 
 function getSliderTemplate(sectionClasses, sectionStyles, section)
