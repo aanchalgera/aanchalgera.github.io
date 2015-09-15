@@ -190,9 +190,6 @@ class Editor extends React.Component{
     if (ev != undefined) {
       ev.preventDefault();
     }
-  }
-  submitForm (ev) {
-    ev.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
