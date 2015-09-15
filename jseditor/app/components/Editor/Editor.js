@@ -51,7 +51,7 @@ class Editor extends React.Component{
   componentDidMount(){
     var self = this;
     this.timerId = setInterval(function() {
-      self.submitForm();
+      self.saveData();
     }, 10000);
     this.init();
   }
@@ -87,14 +87,15 @@ class Editor extends React.Component{
         alt: image.imageAlt != undefined ? image.imageAlt : '',
         banner : false,
         parallax : false,
-	      align: ""
+        align: "",
+        layout: "normal"
       });
     }
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
-    });
-    document.getElementById('resourcePanel').style.display = 'none'
+    }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -185,7 +186,7 @@ class Editor extends React.Component{
       id: postSlug
     });
   }
-  submitForm (ev) {
+  saveData (ev) {
     if (ev != undefined) {
       ev.preventDefault();
     }
@@ -252,7 +253,7 @@ class Editor extends React.Component{
     if (confirmation == true) {
       var currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
-      this.setState({fields: this.state.fields});
+      this.setState({fields: this.state.fields}, this.saveData());
     }
   }
   updateText(currentIndex, value)
@@ -260,8 +261,17 @@ class Editor extends React.Component{
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      obj.text = value;
      this.state.fields.splice(currentIndex, 0, obj);
-     this.setState({fields: this.state.fields});
-     this.submitForm();
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
+  addLayoutToResource(event)
+  {
+     event.preventDefault();
+     var currentIndex = this.parentDiv(event.target).dataset.id;
+     var value = event.target.dataset.layout;
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.layout = value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields}, this.saveData());
   }
   openPreviewPanel(event) {
     event.preventDefault();
@@ -320,7 +330,7 @@ class Editor extends React.Component{
         <Link className="btn btn-primary" to="/">List Page</Link>
         <br /><br />
         {errorField}
-        <form id="editor-form">
+        <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)} />
@@ -336,6 +346,7 @@ class Editor extends React.Component{
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
+              addLayoutToResource={this.addLayoutToResource.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>

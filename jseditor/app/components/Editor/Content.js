@@ -73,13 +73,15 @@ class Content extends React.Component{
          {field}
          <PropertyButton
            align={this.props.data.align}
-	         type={this.props.type}
+           layout={this.props.data.layout}
+           type={this.props.type}
            addClassToResource={this.props.addClassToResource}
            addBackgroundColorToResource={this.props.addBackgroundColorToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
            backgroundColor={this.props.data.backgroundColor}
            dataId={this.props.dataId}
+           addLayoutToResource={this.props.addLayoutToResource}
          />
       </div>
     )
