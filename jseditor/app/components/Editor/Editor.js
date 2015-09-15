@@ -55,6 +55,9 @@ class Editor extends React.Component{
     }, 10000);
     this.init();
   }
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
   openResourcePanel(imageFunction, currentIndex, event) {
     if (undefined != event) {
       event.preventDefault();
@@ -216,7 +219,7 @@ class Editor extends React.Component{
       'posts/' + postSlug, {
       data: data,
       then(data) {
-        self.setMessage(false,'Post Successfully Submitted', true);
+        console.log('autosaved');
       }
     });
   }
@@ -241,7 +244,6 @@ class Editor extends React.Component{
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     //var value = event.target.dataset.color;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      switch (property) {
        case 'backgroundColor' :
@@ -349,7 +351,7 @@ class Editor extends React.Component{
         <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
-            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} />
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)/>
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}
@@ -372,6 +374,7 @@ class Editor extends React.Component{
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
           base={this.props.base}
+          slug={this.state.id}
         />
         <div id="preview"></div>
       </div>
