@@ -71,15 +71,23 @@ function isFalse(section, attribute)
     return (isDefined(section, attribute) && false === section[attribute]);
 }
 
+function doMarkUp(section)
+{
+    if (!isEmpty(section, 'text')) {
+        section['text'] = marked(section['text']);
+    }
+
+    return section;
+}
+
 function handleSection(section, index, allSections)
 {
     while (skipSections > 0) {
         skipSections--;
         return;
     }
-    if (!isEmpty(section, 'text')) {
-        section['text'] = marked(section['text']);
-    }
+
+    section = doMarkUp(section);
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
@@ -128,24 +136,19 @@ function getMutiColumnSection(section, index, allSections)
         if ('center' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
-            if (!isEmpty(allSections[nextIndex], 'text')) {
-                allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
-            }
+            allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
+
             columns.push(allSections[nextIndex]);
             if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
                 skipSections++;
                 totalColumns++;
-                if (!isEmpty(allSections[nextToNextIndex], 'text')) {
-                    allSections[nextToNextIndex]['text'] = marked(allSections[nextToNextIndex]['text']);
-                }
+                allSections[nextToNextIndex] = doMarkUp(allSections[nextToNextIndex]);
                 columns.push(allSections[nextToNextIndex]);
             }
         } else if ('section-align-right' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
-            if (!isEmpty(allSections[nextIndex], 'text')) {
-                allSections[nextIndex]['text'] = marked(allSections[nextIndex]['text']);
-            }
+            allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
             columns.push(allSections[nextIndex]);
         }
     }
@@ -168,18 +171,24 @@ function addFirstLastClass(sectionClasses)
 
 function addSectionTypeClass(sectionClasses, section)
 {
-    if ('image' == section.type) {
-        if (true == section.banner) {
-            sectionClasses.push("builder-section-banner");
-        } else {
-            sectionClasses.push("builder-section-text");
-        }
-    } else if ('content' == section.type) {
-        sectionClasses.push("builder-section-text");
-    } else if ('slider' == section.type) {
-        sectionClasses.push("builder-section-banner");
-    }
+    var bannerClass = "builder-section-banner";
+    var textClass = "builder-section-text";
 
+    switch(section.type) {
+        case 'image':
+            if (true == section.banner) {
+                sectionClasses.push(bannerClass);
+            } else {
+                sectionClasses.push(textClass);
+            }
+            break;
+        case 'content':
+            sectionClasses.push(textClass);
+            break;
+        case 'slider':
+            sectionClasses.push(bannerClass);
+            break;
+    }
     return sectionClasses;
 }
 
@@ -215,7 +224,7 @@ function addParallaxClass(sectionClasses, section)
 function getSectionClasses(section)
 {
     var sectionClasses = [];
-    sectionClasses.push('builder-section');
+    sectionClasses.push(commonClass);
 
     sectionClasses = addFirstLastClass(sectionClasses);
     sectionClasses = addSectionTypeClass(sectionClasses, section);
