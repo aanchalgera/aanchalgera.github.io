@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 class PropertyButtonImageSizes extends React.Component{
   handleClick (ev) {
-    debugger;
     if (ev.target.dataset.layout == this.props.layout) {
       return;
     }
