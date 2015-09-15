@@ -11,6 +11,7 @@ var imageColumnTemplate;
 var sliderTemplate;
 var pageTemplate;
 var templatesDir = './templates';
+var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 
 function loadFile(filePath)
@@ -117,15 +118,25 @@ function getMultiColumnTemplate(sectionClasses, sectionStyles, columns)
 
 function getImageTemplate(sectionClasses, sectionStyles, section)
 {
+    var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
+    var imagePath450 = cloudinaryPath + '/w_450/' + imageName;
+    var imagePath650 = cloudinaryPath + '/w_650/' + imageName;
+    var imagePath1024 = cloudinaryPath + '/w_1024/' + imageName;
+    var imagePath1366 = cloudinaryPath + '/w_1366/' + imageName;
+
     return imageTemplate(
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             width: section.width,
             height: section.height,
+            imagePath450 : imagePath450,
+            imagePath650 : imagePath650,
+            imagePath1024 : imagePath1024,
+            imagePath1366 : imagePath1366,
             src: section.url,
             classes: section.class,
-            alt: section
+            alt: section.alt
         }
     );
 }
