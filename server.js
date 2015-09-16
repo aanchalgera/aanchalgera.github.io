@@ -12,27 +12,37 @@ function processRequest(request, response)
         requestData += data;
     });
     request.on('end', function () {
-        switch(request.url) {
-            case '/process':
-                result = parser.processRequest(request.headers.host);
-                sendResponse(response, result);
-                break;
-            case '/test':
-                result = parser.testRead();
-                sendResponse(response, result);
-                break;
-            case '/parse2':
-                sendResponse(response, requestData);
-                break;
-            case '/parse':
-                try {
-                    result = parser.parse(request.url, requestData);
-                    sendResponse(response, '{"status": "success", "data": '+result+'}');
-                } catch (e) {
-                    console.log(e);
-                    sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
-                }
-                break;
+        if (/\/read\/(.+)?/.test(request.url)) {
+            var match = /\/read\/(.+)?/.exec(request.url);
+            result = parser.testRead(match[1]);
+            sendResponse(response, result);
+        } else {
+            switch(request.url) {
+                case '/process':
+                    result = parser.processRequest(request.headers.host);
+                    sendResponse(response, result);
+                    break;
+                case '/test':
+                    result = parser.testRead('test.json');
+                    sendResponse(response, result);
+                    break;
+                case '/allcases':
+                    result = parser.testRead('allcases.json');
+                    sendResponse(response, result);
+                    break;
+                case '/parse2':
+                    sendResponse(response, requestData);
+                    break;
+                case '/parse':
+                    try {
+                        result = parser.parse(request.url, requestData);
+                        sendResponse(response, '{"status": "success", "data": '+result+'}');
+                    } catch (e) {
+                        console.log(e);
+                        sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
+                    }
+                    break;
+            }
         }
     });
 }
