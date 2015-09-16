@@ -13,9 +13,9 @@
                         <% } else if ('normal' == contentSection.layout) { %>
                             <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w" src="<%=contentSection.imagePath450%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
                         <% } else if ('big' == contentSection.layout) { %>
-                            <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w <%=contentSection.imagePath1024%> 1024w, <%=contentSection.imagePath1366%> 1366w" src="<%=contentSection.imagePath450%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
+                            <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w, <%=contentSection.imagePath1024%> 1024w, <%=contentSection.imagePath1366%> 1366w" src="<%=contentSection.imagePath450%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
                         <% } else if ('cover' == contentSection.layout) { %>
-                            <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w <%=contentSection.imagePath1024%> 1024w, <%=contentSection.imagePath1366%> 1366w, <%=contentSection.imagePath2560%> 2560w" src="<%=contentSection.imagePath450%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
+                            <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w, <%=contentSection.imagePath1024%> 1024w, <%=contentSection.imagePath1366%> 1366w, <%=contentSection.imagePath2560%> 2560w" src="<%=contentSection.imagePath450%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
                         <% } %>
                         <noscript><img width="<%=contentSection.width%>" height="<%=contentSection.height%>" src="<%=contentSection.src%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>"></noscript>
                     </figure>
