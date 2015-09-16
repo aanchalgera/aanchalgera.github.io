@@ -122,11 +122,8 @@ function handleSection(section, index, allSections)
     sectionsCovered++;
 }
 
-
-function getMutiColumnSection(section, index, allSections)
+function addSection(columns, section)
 {
-    var totalColumns = 1;
-    var columns = [];
     if ('image' == section.type) {
         sectionClasses = getSectionClasses(section);
         sectionStyles = getSectionStyles(section);
@@ -135,6 +132,15 @@ function getMutiColumnSection(section, index, allSections)
     } else {
         columns.push(section);
     }
+
+    return columns;
+}
+
+function getMutiColumnSection(section, index, allSections)
+{
+    var totalColumns = 1;
+    var columns = [];
+    columns = addSection(columns, section);
     skipSections = 0;
 
     var nextIndex = index + 1;
@@ -144,20 +150,19 @@ function getMutiColumnSection(section, index, allSections)
         if ('center' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
+            columns = addSection(columns, allSections[nextIndex]);
             allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
-
-            columns.push(allSections[nextIndex]);
             if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
                 skipSections++;
                 totalColumns++;
                 allSections[nextToNextIndex] = doMarkUp(allSections[nextToNextIndex]);
-                columns.push(allSections[nextToNextIndex]);
+                columns = addSection(columns, allSections[nextToNextIndex]);
             }
         } else if ('section-align-right' == allSections[nextIndex]["align"]) {
             skipSections++;
             totalColumns++;
+            columns = addSection(columns, allSections[nextIndex]);
             allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
-            columns.push(allSections[nextIndex]);
         }
     }
 
@@ -168,6 +173,8 @@ function getMutiColumnSection(section, index, allSections)
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
+    var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+
     if (undefined === section.layout) {
         section['layout'] = 'small';
     }
@@ -187,7 +194,8 @@ function getImageObject(sectionClasses, sectionStyles, section)
         src: section.url,
         classes: section.class,
         alt: section.alt,
-        layout: section.layout
+        layout: section.layout,
+        type: 'image'
     };
     
     switch (section.layout) {
@@ -195,18 +203,18 @@ function getImageObject(sectionClasses, sectionStyles, section)
             //no srcsets for small layout
             break;
         case 'normal':
-            imageTemplateObject.imagePath650 = imagePath650;
+            imageObject.imagePath650 = imagePath650;
             break;
         case 'big':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
+            imageObject.imagePath650 = imagePath650;
+            imageObject.imagePath1024 = imagePath1024;
+            imageObject.imagePath1366 = imagePath1366;
             break;
         case 'cover':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
-            imageTemplateObject.imagePath2560 = imagePath2560;
+            imageObject.imagePath650 = imagePath650;
+            imageObject.imagePath1024 = imagePath1024;
+            imageObject.imagePath1366 = imagePath1366;
+            imageObject.imagePath2560 = imagePath2560;
             break;
     }
 
