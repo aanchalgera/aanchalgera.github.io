@@ -203,18 +203,18 @@ function getImageObject(sectionClasses, sectionStyles, section)
             //no srcsets for small layout
             break;
         case 'normal':
-            imageTemplateObject.imagePath650 = imagePath650;
+            imageObject.imagePath650 = imagePath650;
             break;
         case 'big':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
+            imageObject.imagePath650 = imagePath650;
+            imageObject.imagePath1024 = imagePath1024;
+            imageObject.imagePath1366 = imagePath1366;
             break;
         case 'cover':
-            imageTemplateObject.imagePath650 = imagePath650;
-            imageTemplateObject.imagePath1024 = imagePath1024;
-            imageTemplateObject.imagePath1366 = imagePath1366;
-            imageTemplateObject.imagePath2560 = imagePath2560;
+            imageObject.imagePath650 = imagePath650;
+            imageObject.imagePath1024 = imagePath1024;
+            imageObject.imagePath1366 = imagePath1366;
+            imageObject.imagePath2560 = imagePath2560;
             break;
     }
 
