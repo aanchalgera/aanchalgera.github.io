@@ -194,7 +194,8 @@ function getImageObject(sectionClasses, sectionStyles, section)
         src: section.url,
         classes: section.class,
         alt: section.alt,
-        layout: section.layout
+        layout: section.layout,
+        type: 'image'
     };
     
     switch (section.layout) {
