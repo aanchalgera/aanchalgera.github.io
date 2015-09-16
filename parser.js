@@ -136,7 +136,6 @@ function addSection(columns, section)
     return columns;
 }
 
-
 function getMutiColumnSection(section, index, allSections)
 {
     var totalColumns = 1;
