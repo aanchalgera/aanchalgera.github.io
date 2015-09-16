@@ -1,17 +1,18 @@
 'use strict';
-var fs = require('fs');
-var _ = require("underscore");
-var bannerTemplate;
-var imageTemplate;
-var videoBannerTemplate;
-var videoTemplate;
-var singleColumnTemplate;
-var multiColumnTemplate;
-var imageColumnTemplate;
-var sliderTemplate;
-var pageTemplate;
-var templatesDir = './templates';
-var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+var fs = require('fs')
+, _ = require("underscore")
+, bannerTemplate
+, imageTemplate
+, videoBannerTeplate
+, videoTemplate
+, singleColumnTmplate
+, multiColumnTeplate
+, imageColumnTeplate
+, sliderTemplate
+, summaryTemplate
+, pageTemplate
+, templatesDir = './templates'
+, cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 
 function loadFile(filePath)
@@ -47,6 +48,9 @@ function loadTemplates()
     }
     if (undefined === sliderTemplate) {
         sliderTemplate = getTemplate('slider.html');
+    }
+    if (undefined === summaryTemplate) {
+        summaryTemplate = getTemplate('summary.html');
     }
     if (undefined === pageTemplate) {
         pageTemplate = getTemplate('staticpage.html');
@@ -101,6 +105,17 @@ function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
             sectionStyles: sectionStyles,
             text: section["text"],
             title: section["title"]
+        }
+    );
+}
+
+function getSummaryTemplate(sectionClasses, sectionStyles, section)
+{
+    return summaryTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            text: section["text"]
         }
     );
 }
@@ -170,6 +185,7 @@ module.exports = {
     getVideoBannerTemplate: getVideoBannerTemplate,
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
+    getSummaryTemplate: getSummaryTemplate,
     getMultiColumnTemplate: getMultiColumnTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,

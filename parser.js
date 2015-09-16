@@ -74,6 +74,9 @@ function handleSection(section, index, allSections)
             case 'slider':
                 html += templating.getSliderTemplate(sectionClasses, sectionStyles, section);
                 break;
+            case 'summary':
+                html += templating.getSummaryTemplate(sectionClasses, sectionStyles, section);
+                break;
             case 'image':
                 if (true == section.banner) {
                     html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
@@ -220,6 +223,7 @@ function addSectionTypeClass(sectionClasses, section)
             sectionClasses.push('asset-size-'+section.layout);
             break;
         case 'content':
+        case 'summary':
             sectionClasses.push(textClass);
             break;
         case 'slider':
