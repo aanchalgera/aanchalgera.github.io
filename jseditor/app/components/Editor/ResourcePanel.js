@@ -17,7 +17,27 @@ class ResourcePanel extends React.Component {
     event.preventDefault();
     document.getElementById('resourcePanel').style.display = 'none';
   }
+  addImages() {
+    var selectedImages = document.querySelectorAll('input[name=imagecheckboxes]:checked');
+    var images = [];
+    if (selectedImages.length == 0) {
+      return
+    }
+    for (var i = 0; i < selectedImages.length; i++) {
+      images.push(JSON.parse(selectedImages[i].dataset.image))
+    }
+    this.props.addImages(images);
+  }
   render () {
+    var showGalleryButton = '';
+    if (this.props.addgallery != 'hidden') {
+      var showGalleryButton = <button
+        id="add-gallery"
+        type="button"
+        className="btn btn-primary add-gallery"
+        disabled={!this.props.slug}
+        onClick={this.addImages.bind(this)}>Add gallery to post</button>;
+    }
     var images = [];
     var images = this.state.imageList.map((data, i) => {
       return (
@@ -25,6 +45,7 @@ class ResourcePanel extends React.Component {
           key={data.public_id}
           data={data}
           addImage={this.props.addImage}
+          addgallery={this.props.addgallery}
         />
       )
     });
@@ -48,6 +69,7 @@ class ResourcePanel extends React.Component {
                 className="btn btn-primary"
                 disabled={!this.props.slug}
                 onClick={this.props.handleClick}>Upload Images</button>
+              {showGalleryButton}
             </div>
           </div>
         </div>

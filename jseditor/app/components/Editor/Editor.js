@@ -24,6 +24,7 @@ class Editor extends React.Component{
       message: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
+      addgallery: 'hidden',
       fields: []
     };
   }
@@ -58,13 +59,14 @@ class Editor extends React.Component{
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
-  openResourcePanel(imageFunction, currentIndex, event) {
+  openResourcePanel(imageFunction, currentIndex, addgallery = 'hidden', event) {
     if (undefined != event) {
       event.preventDefault();
     }
     this.setState({
       resourcePanelOpenedBy: currentIndex,
-      imageFunction: imageFunction
+      imageFunction: imageFunction,
+      addgallery : addgallery
     });
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
@@ -82,15 +84,26 @@ class Editor extends React.Component{
         id: this.state.maxId,
         type: "image",
         url: image.url,
-        height: image.imageHeight != undefined ? image.imageHeight : '',
-        width: image.imageWidth != undefined ? image.imageWidth : '',
-        alt: image.imageAlt != undefined ? image.imageAlt : '',
+        height: image.height != undefined ? image.height : '',
+        width: image.width != undefined ? image.width : '',
+        alt: image.alt != undefined ? image.alt : '',
         banner : false,
         parallax : false,
         align: "",
         layout: "normal"
       });
     }
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
+  }
+  addImages(images) {
+    var currentIndex = this.state.resourcePanelOpenedBy;
+    this.state.maxId++;
+    this.state.fields.splice(
+      currentIndex,0, [{"id": this.state.maxId, "type" : "gallery", "data" : images}]);
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
@@ -184,7 +197,7 @@ class Editor extends React.Component{
     }
     this.setState({
       id: postSlug
-    });
+    }, this.saveData());
   }
   saveData (ev) {
     if (ev != undefined) {
@@ -209,7 +222,7 @@ class Editor extends React.Component{
       "id" : postSlug,
       "title" : this.state.value,
       "sections" : this.state.fields,
-      "maxId" : this.state.maxId
+      "maxId" : this.state.maxId,
     };
     self = this;
     this.props.base.post(
@@ -370,8 +383,10 @@ class Editor extends React.Component{
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
+          addImages={this.addImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}
+          addgallery={this.state.addgallery}
         />
         <div id="preview"></div>
       </div>
