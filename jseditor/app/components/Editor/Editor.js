@@ -157,15 +157,15 @@ class Editor extends React.Component{
       lastKeypressTime = thisKeypressTime;
     }
   }
-   createNewTextArea(currentIndex, event) {
-    if (undefined != event) {
+   createNewTextArea(currentIndex, type = 'content', event='') {
+    if ('' != event) {
       event.preventDefault();
     }
     this.state.maxId++;
     this.state.fields.splice(
       currentIndex,0, {
       id: this.state.maxId,
-      type: "content",
+      type: type,
       text: "",
       align: "",
       backgroundColor: "",
@@ -291,6 +291,13 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields}, this.saveData());
   }
+  updateSummaryText(currentIndex, event)
+  {
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.text = event.target.value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
   addLayoutToResource(event)
   {
      event.preventDefault();
@@ -371,6 +378,7 @@ class Editor extends React.Component{
               addClassToResource={this.addClassToResource.bind(this)}
               addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
+              updateSummaryText={this.updateSummaryText.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               deleteResource={this.deleteResource.bind(this)}

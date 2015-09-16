@@ -17,7 +17,9 @@ class Content extends React.Component{
   }
   initializeEditor(editArea) {
     var editor = new SimpleMDE({ element: document.getElementById(editArea),
-    spellChecker : false});
+    spellChecker : false,
+    toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "unordered-list", "link"]
+  });
     editor.render();
     var dataId = this.props.dataId;
     var updateText = this.props.updateText;
@@ -46,6 +48,14 @@ class Content extends React.Component{
         defaultValue= {this.props.data.text}
         >
       </textarea>;
+    }else if ('summary' == this.props.type) {
+      var field = <textarea
+        id={this.props.index}
+        ref={'myInput' + Number(this.props.dataId)}
+        defaultValue= {this.props.data.text}
+        onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
+        >
+        </textarea>;
     } else if('image' == this.props.type) {
       var field = <img
         id={'img' + this.props.data.id}
