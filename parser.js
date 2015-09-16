@@ -21,9 +21,9 @@ function parse(requestUrl, requestData)
     return parseData(jsonObjects);
 }
 
-function testRead()
+function testRead(fileName)
 {
-    var testJson = templating.loadFile('test.json');
+    var testJson = templating.loadFile(fileName);
     jsonObjects = JSON.parse(testJson);
     templating.loadTemplates();
     return parseData(jsonObjects);
