@@ -119,10 +119,10 @@ class Editor extends React.Component{
       url: "",
       align: ""
     });
-  this.setState({
-    fields: this.state.fields,
-    maxId: this.state.maxId
-  }, this.saveData());
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
