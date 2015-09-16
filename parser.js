@@ -51,35 +51,6 @@ function parseData(jsonObjects)
     return finalHTML;
 }
 
-function isDefined(section, attribute)
-{
-    return (undefined !== section[attribute]);
-}
-
-function isEmpty(section, attribute)
-{
-    return (!isDefined(section, attribute) || "" == section[attribute]);
-}
-
-function isTrue(section, attribute)
-{
-    return (isDefined(section, attribute) && true === section[attribute]);
-}
-
-function isFalse(section, attribute)
-{
-    return (isDefined(section, attribute) && false === section[attribute]);
-}
-
-function doMarkUp(section)
-{
-    if (!isEmpty(section, 'text')) {
-        section['text'] = marked(section['text']);
-    }
-
-    return section;
-}
-
 function handleSection(section, index, allSections)
 {
     while (skipSections > 0) {
@@ -125,8 +96,8 @@ function handleSection(section, index, allSections)
 function addSection(columns, section)
 {
     if ('image' == section.type) {
-        sectionClasses = getSectionClasses(section);
-        sectionStyles = getSectionStyles(section);
+        var sectionClasses = getSectionClasses(section);
+        var sectionStyles = getSectionStyles(section);
         var imageObject = getImageObject(sectionClasses, sectionStyles, section); 
         columns.push(imageObject);
     } else {
@@ -176,7 +147,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
     var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
     if (undefined === section.layout) {
-        section['layout'] = 'small';
+        section['layout'] = 'normal';
     }
     var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
     var imagePath450 = cloudinaryPath + '/w_450,c_fit/' + imageName;
@@ -237,6 +208,8 @@ function addSectionTypeClass(sectionClasses, section)
     var bannerClass = "builder-section-banner";
     var textClass = "builder-section-text";
 
+    sectionClasses.push('asset-type-'+section.type);
+
     switch(section.type) {
         case 'image':
             if (true == section.banner) {
@@ -244,6 +217,7 @@ function addSectionTypeClass(sectionClasses, section)
             } else {
                 sectionClasses.push(textClass);
             }
+            sectionClasses.push('asset-size-'+section.layout);
             break;
         case 'content':
             sectionClasses.push(textClass);
@@ -326,6 +300,35 @@ function getSectionStyles(section)
     }
 
     return sectionStyles.join(' ');
+}
+
+function isDefined(section, attribute)
+{
+    return (undefined !== section[attribute]);
+}
+
+function isEmpty(section, attribute)
+{
+    return (!isDefined(section, attribute) || "" == section[attribute]);
+}
+
+function isTrue(section, attribute)
+{
+    return (isDefined(section, attribute) && true === section[attribute]);
+}
+
+function isFalse(section, attribute)
+{
+    return (isDefined(section, attribute) && false === section[attribute]);
+}
+
+function doMarkUp(section)
+{
+    if (!isEmpty(section, 'text')) {
+        section['text'] = marked(section['text']);
+    }
+
+    return section;
 }
 
 module.exports = {
