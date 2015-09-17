@@ -315,21 +315,22 @@ function getSectionStyles(section)
     if (!isEmpty(section, "backgroundImage")) {
 
         sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
-
-        if (isTrue(section, "backgroundCover")) {
-            sectionStyles.push("background-size: cover;");
+        if (isTrue(section, "backgroundRepeat")) {
+            sectionStyles.push("background-repeat:repeat;");
         } else {
-            if (isTrue(section, "backgroundRepeat")) {
-                sectionStyles.push("background-repeat:repeat;");
-            } else if (isFalse(section, "backgroundRepeat")) {
-                sectionStyles.push("background-repeat:no-repeat;");
-            } else { //temp code, in case attribute not defined.
-                sectionStyles.push("background-repeat:repeat;");
-            }
+            sectionStyles.push("background-size: cover;");
+        }
+
+        //temp. check
+        if (isEmpty(section, "backgroundFade")) {
+            section['backgroundFade'] = false;
         }
     }
     if (!isEmpty(section, "backgroundColor")) {
-        sectionStyles.push("background-color:" + section["backgroundColor"]);
+        sectionStyles.push("background-color:" + section["backgroundColor"]+";");
+    }
+    if (!isEmpty(section, "foregroundColor")) {
+        sectionStyles.push("color:" + section["foregroundColor"]+";");
     }
 
     if ('slider' === section.type) {
