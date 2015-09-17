@@ -1,0 +1,16 @@
+<section class="<%=sectionClasses%>" style="<%=sectionStyles%>">
+    <div class="builder-section-content">
+        <%_.forEach(images, function (image) {%>
+        <div class="builder-gallery-item" onclick="return false;">
+            <figure class="builder-gallery-image" style="background-image: url(&#039;<%= image['url']%>&#039;);"></figure>
+            <div class="builder-gallery-content">
+                <div class="builder-gallery-content-inner">
+                    <div class="builder-gallery-description">
+                        <%=image.description%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</section>
