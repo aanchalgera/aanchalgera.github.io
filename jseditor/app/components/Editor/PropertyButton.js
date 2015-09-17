@@ -47,7 +47,8 @@ class PropertyButton extends React.Component {
     }
     switch (this.props.type) {
       case 'content' :
-      case 'summary' :
+      case 'summary':
+      case 'richContent':
         moreProperties = <PropertyButtonContent
           addBackgroundOptionToResource={this.props.addBackgroundColorToResource}
           data={this.props.data}
