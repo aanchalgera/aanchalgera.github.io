@@ -19,6 +19,13 @@
          "align":"section-align-left/section-align-center/section-align-right"
       },
       {  
+         "type":"rich_content",
+         "text":"aadkdklad",
+         "backgroundImage":"",
+         "backgroundColor":"",
+         "align":"section-align-left/section-align-center/section-align-right"
+      },
+      {  
          "type":"video",
          "provider":"youtube",
          "url":"",

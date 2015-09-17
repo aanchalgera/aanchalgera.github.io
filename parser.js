@@ -212,6 +212,21 @@ function addFirstLastClass(sectionClasses)
     return sectionClasses;
 }
 
+function addSectionLayoutClass(sectionClasses, section)
+{
+    switch(section.type) {
+        case 'image':
+        case 'rich_content':
+            if (undefined === section.layout) {
+                section['layout'] = 'normal';
+            }
+            sectionClasses.push('asset-size-'+section.layout);
+            break;
+    }
+
+    return sectionClasses;
+}
+
 function addSectionTypeClass(sectionClasses, section)
 {
     var bannerClass = "builder-section-banner";
@@ -226,10 +241,9 @@ function addSectionTypeClass(sectionClasses, section)
             } else {
                 sectionClasses.push(textClass);
             }
-            sectionClasses.push('asset-size-'+section.layout);
             break;
-        case 'content':
         case 'rich_content':
+        case 'content':
         case 'summary':
             sectionClasses.push(textClass);
             break;
@@ -288,6 +302,7 @@ function getSectionClasses(section)
 
     sectionClasses = addFirstLastClass(sectionClasses);
     sectionClasses = addSectionTypeClass(sectionClasses, section);
+    sectionClasses = addSectionLayoutClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
     sectionClasses = addColumnClass(sectionClasses, section);
     sectionClasses = addParallaxClass(sectionClasses, section);
