@@ -80,7 +80,7 @@ function handleSection(section, index, allSections)
             case 'gallery':
                 html += templating.getGalleryTemplate(sectionClasses, sectionStyles, section);
                 break;
-            case 'rich_content':
+            case 'richContent':
                 html += templating.getRichContentTemplate(sectionClasses, sectionStyles, section);
                 break;
             case 'image':
@@ -216,7 +216,7 @@ function addSectionLayoutClass(sectionClasses, section)
 {
     switch(section.type) {
         case 'image':
-        case 'rich_content':
+        case 'richContent':
             if (undefined === section.layout) {
                 section['layout'] = 'normal';
             }
@@ -242,7 +242,7 @@ function addSectionTypeClass(sectionClasses, section)
                 sectionClasses.push(textClass);
             }
             break;
-        case 'rich_content':
+        case 'richContent':
         case 'content':
         case 'summary':
             sectionClasses.push(textClass);
@@ -293,7 +293,6 @@ function addParallaxClass(sectionClasses, section)
     
     return sectionClasses;
 }
-
 
 function getSectionClasses(section)
 {
@@ -362,7 +361,7 @@ function isFalse(section, attribute)
 
 function doMarkUp(section)
 {
-    if ('rich_content' != section.type && !isEmpty(section, 'text')) {
+    if ('richContent' != section.type && !isEmpty(section, 'text')) {
         section['text'] = marked(section['text']);
     }
 
