@@ -10,14 +10,14 @@ class Content extends React.Component{
       this.refs[currentRef].getDOMNode().focus();
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
     }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
-      document.querySelector('#div-'+this.props.index+' textarea').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
   componentDidUpdate() {
     if ('content' == this.props.type) {
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
     }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
-      document.querySelector('#div-'+this.props.index+' textarea').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
   initializeEditor(editArea) {
@@ -45,6 +45,9 @@ class Content extends React.Component{
     }
     return 'background-color:'+backgroundColor+';background-image:'+backgroundImage;
   }
+  getSummary(text) {
+    return {__html: '<blockquote>'+text+'</blockquote>'};
+  }
   render () {
     if('content' == this.props.type) {
       var field = <textarea
@@ -54,14 +57,15 @@ class Content extends React.Component{
         >
       </textarea>;
     }else if ('summary' == this.props.type) {
-      var field = <textarea
+      var field = <div
         id={this.props.index}
         className="form-control"
         ref={'myInput' + Number(this.props.dataId)}
-        defaultValue= {this.props.data.text}
+        dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
         onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
+        contentEditable="true"
         >
-        </textarea>;
+      </div>;
     } else if('image' == this.props.type) {
       var field = <img
         id={'img' + this.props.data.id}
@@ -77,12 +81,16 @@ class Content extends React.Component{
         openResourcePanel={this.props.openResourcePanel.bind(this)}
       />
     } else if('video' == this.props.type) {
-      var field = <input
-        type="text"
-        className="form-control"
-        defaultValue={this.props.data.url}
-        onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
-      </input>
+      if ('' == this.props.data.url) {
+        var field = <input
+          type="text"
+          className="form-control"
+          defaultValue={this.props.data.url}
+          onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
+        </input>
+      } else {
+        var field = <iframe src={this.props.data.url}></iframe>
+      }
     }else if('richContent' == this.props.type) {
       var field = <textarea
         id={this.props.index}
