@@ -12,8 +12,8 @@ function processRequest(request, response)
         requestData += data;
     });
     request.on('end', function () {
-        if (/\/read\/(.+)?/.test(request.url)) {
-            var match = /\/read\/(.+)?/.exec(request.url);
+        var match = /\/read\/(.+)?/.exec(request.url);
+        if (null !== match) {
             result = parser.testRead(match[1]);
             sendResponse(response, result);
         } else {
@@ -26,15 +26,11 @@ function processRequest(request, response)
                     result = parser.testRead('test.json');
                     sendResponse(response, result);
                     break;
-                case '/allcases':
-                    result = parser.testRead('allcases.json');
-                    sendResponse(response, result);
-                    break;
-                case '/parse2':
-                    sendResponse(response, requestData);
-                    break;
                 case '/parse':
                     try {
+                        if (undefined !== process.argv[2]) {
+                            console.log(requestData);
+                        }
                         result = parser.parse(request.url, requestData);
                         sendResponse(response, '{"status": "success", "data": '+result+'}');
                     } catch (e) {
