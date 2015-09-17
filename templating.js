@@ -1,18 +1,20 @@
 'use strict';
-var fs = require('fs')
-, _ = require("underscore")
-, bannerTemplate
-, imageTemplate
-, videoBannerTeplate
-, videoTemplate
-, singleColumnTmplate
-, multiColumnTeplate
-, imageColumnTeplate
-, sliderTemplate
-, summaryTemplate
-, pageTemplate
-, templatesDir = './templates'
-, cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+var fs = require('fs'), 
+    _ = require("underscore"), 
+    bannerTemplate, 
+    imageTemplate, 
+    videoBannerTemplate, 
+    videoTemplate, 
+    singleColumnTemplate, 
+    multiColumnTemplate, 
+    imageColumnTemplate, 
+    sliderTemplate, 
+    richContentTemplate, 
+    summaryTemplate, 
+    galleryTemplate, 
+    pageTemplate, 
+    templatesDir = './templates', 
+    cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 
 function loadFile(filePath)
@@ -51,6 +53,13 @@ function loadTemplates()
     }
     if (undefined === summaryTemplate) {
         summaryTemplate = getTemplate('summary.html');
+    }
+    if (undefined === richContentTemplate) {
+        //use same template for rich content and single column
+        richContentTemplate = getTemplate('singleColumn.html');
+    }
+    if (undefined === galleryTemplate) {
+        galleryTemplate = getTemplate('gallery.html');
     }
     if (undefined === pageTemplate) {
         pageTemplate = getTemplate('staticpage.html');
@@ -109,6 +118,17 @@ function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
+function getRichContentTemplate(sectionClasses, sectionStyles, section)
+{
+    return richContentTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            text: section["text"]
+        }
+    );
+}
+
 function getSummaryTemplate(sectionClasses, sectionStyles, section)
 {
     return summaryTemplate(
@@ -116,6 +136,17 @@ function getSummaryTemplate(sectionClasses, sectionStyles, section)
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             text: section["text"]
+        }
+    );
+}
+
+function getGalleryTemplate(sectionClasses, sectionStyles, section)
+{
+    return galleryTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            images: section['images']
         }
     );
 }
@@ -186,9 +217,11 @@ module.exports = {
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
     getSummaryTemplate: getSummaryTemplate,
+    getRichContentTemplate: getRichContentTemplate,
     getMultiColumnTemplate: getMultiColumnTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
+    getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
     loadFile: loadFile,
     writeFile: writeFile,

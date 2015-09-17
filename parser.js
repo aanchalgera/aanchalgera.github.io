@@ -77,6 +77,12 @@ function handleSection(section, index, allSections)
             case 'summary':
                 html += templating.getSummaryTemplate(sectionClasses, sectionStyles, section);
                 break;
+            case 'gallery':
+                html += templating.getGalleryTemplate(sectionClasses, sectionStyles, section);
+                break;
+            case 'rich_content':
+                html += templating.getRichContentTemplate(sectionClasses, sectionStyles, section);
+                break;
             case 'image':
                 if (true == section.banner) {
                     html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
@@ -223,12 +229,20 @@ function addSectionTypeClass(sectionClasses, section)
             sectionClasses.push('asset-size-'+section.layout);
             break;
         case 'content':
+        case 'rich_content':
         case 'summary':
             sectionClasses.push(textClass);
             break;
         case 'slider':
             sectionClasses.push(bannerClass);
             break;
+        case 'gallery':
+            sectionClasses.push('builder-section-gallery');
+            sectionClasses.push('builder-gallery-captions-reveal');
+            sectionClasses.push('builder-gallery-captions-dark');
+            sectionClasses.push('builder-gallery-aspect-landscape');
+            break;
+
     }
     return sectionClasses;
 }
@@ -249,7 +263,11 @@ function addColumnClass(sectionClasses, section)
     if (!isEmpty(section, "columns")) {
         sectionClasses.push("builder-text-columns-"+section["columns"]);
     }
-    
+
+    if ('gallery' == section.type) {
+        sectionClasses.push("builder-gallery-columns-"+section["images"].length);
+    }     
+
     return sectionClasses;
 }
 
@@ -261,6 +279,7 @@ function addParallaxClass(sectionClasses, section)
     
     return sectionClasses;
 }
+
 
 function getSectionClasses(section)
 {
@@ -328,7 +347,7 @@ function isFalse(section, attribute)
 
 function doMarkUp(section)
 {
-    if (!isEmpty(section, 'text')) {
+    if ('rich_content' != section.type && !isEmpty(section, 'text')) {
         section['text'] = marked(section['text']);
     }
 
