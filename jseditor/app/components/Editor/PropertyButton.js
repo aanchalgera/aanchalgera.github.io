@@ -20,6 +20,7 @@ class PropertyButton extends React.Component {
     var closeStyle = '',expandStyle='';
     var moreProperties = '';
     var moreImageProperties = '';
+    var alignProperties = '';
     if (this.props.align == 'section-align-left') {
 	     leftAlignActive = 'active';
     } else if (this.props.align == 'section-align-right') {
@@ -32,6 +33,18 @@ class PropertyButton extends React.Component {
       closeStyle = {display : 'block'}
       expandStyle = {display : 'none'}
     }
+    if (this.props.type != 'gallery') {
+      alignProperties = <span className="btn-group dropdown" role="group">
+        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          One Column
+          <span className="caret" />
+        </button>
+        <ul className="dropdown-menu">
+          <li><a data-align="section-align-left" onClick={this.props.addClassToResource.bind(this)} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
+          <li><a data-align="section-align-right" onClick={this.props.addClassToResource.bind(this)} href="#" className={rightAlignActive}>Column right</a></li>
+        </ul>
+      </span>
+    }
     switch (this.props.type) {
       case 'content' :
       case 'summary' :
@@ -43,11 +56,11 @@ class PropertyButton extends React.Component {
         />
         break;
       case 'image' :
-          var moreImageProperties = <PropertyButtonImageSizes
-            dataId={this.props.dataId}
-            layout={this.props.layout}
-            addLayoutToResource={this.props.addLayoutToResource}
-          />
+        var moreImageProperties = <PropertyButtonImageSizes
+          dataId={this.props.dataId}
+          layout={this.props.layout}
+          addLayoutToResource={this.props.addLayoutToResource}
+        />
     }
     return (
       <ul>
@@ -58,16 +71,7 @@ class PropertyButton extends React.Component {
           <li>
             <span className="btn-group" role="group" aria-label="...">
               {moreProperties}
-              <span className="btn-group dropdown" role="group">
-                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  One Column
-                  <span className="caret" />
-                </button>
-                <ul className="dropdown-menu">
-                  <li><a data-align="section-align-left" onClick={this.props.addClassToResource.bind(this)} href="#" className={"background-image "+leftAlignActive}>Column left</a></li>
-                  <li><a data-align="section-align-right" onClick={this.props.addClassToResource.bind(this)} href="#" className={rightAlignActive}>Column right</a></li>
-                </ul>
-              </span>
+              {alignProperties}
               {moreImageProperties}
               <button type="button" onClick={this.props.deleteResource} className="btn btn-default">Delete</button>
               <button onClick={this.closeBox.bind(this)} type="button" className="btn btn-default btn-proeprties-close">X</button>
