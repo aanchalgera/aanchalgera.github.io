@@ -9,18 +9,15 @@ class PropertyButtonImageSizes extends React.Component{
   }
   render () {
     return (
-      <span className="btn-group dropdown" role="group">
-        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Size
-          <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu">
-          <li><a href="#" data-layout="normal" className={this.props.layout == "normal" ? "active" : ""} onClick={this.handleClick.bind(this)}> Normal</a></li>
-          <li><a href="#" data-layout="cover" className={this.props.layout == "cover" ? "active" : ""} onClick={this.handleClick.bind(this)}> Cover</a></li>
-          <li><a href="#" data-layout="big" className={this.props.layout == "big" ? "active" : ""} onClick={this.handleClick.bind(this)}> Big</a></li>
-          <li><a href="#" data-layout="small" className={this.props.layout == "small" ? "active" : ""} onClick={this.handleClick.bind(this)}> Small</a></li>
-        </ul>
-      </span>
+      <ul className="list-size">
+        <h5>Size</h5>
+        <li>
+          <p className="size-small"><button data-layout="small" onClick={this.handleClick.bind(this)} className={"btn btn-default selected "+(this.props.layout == "small" ? "active" : "")}>Small</button></p>
+          <p className="size-normal"><button data-layout="normal" onClick={this.handleClick.bind(this)} className={"btn  btn-default selected "+(this.props.layout == "normal" ? "active" : "")}>Normal</button></p>
+          <p className="size-big"><button data-layout="big" onClick={this.handleClick.bind(this)} className={"btn  btn-default selected "+(this.props.layout == "big" ? "active" : "")}>Big</button></p>
+          <p className="size-cover"><button data-layout="cover" onClick={this.handleClick.bind(this)} className={"btn btn-default selected "+(this.props.layout == "cover" ? "active" : "")}>Cover</button></p>
+        </li>
+      </ul>
     )
   }
 }
