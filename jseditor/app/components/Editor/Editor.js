@@ -25,6 +25,7 @@ class Editor extends React.Component{
       resourcePanelOpenedBy : null,
       imageFunction : null,
       addgallery: 'hidden',
+      addMoreImagesToGallery: false,
       fields: []
     };
   }
@@ -59,14 +60,15 @@ class Editor extends React.Component{
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
-  openResourcePanel(imageFunction, currentIndex, addgallery = 'hidden', event) {
+  openResourcePanel(imageFunction, currentIndex, addgallery = 'hidden', addMoreImagesToGallery = false, event) {
     if (undefined != event) {
       event.preventDefault();
     }
     this.setState({
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction,
-      addgallery : addgallery
+      addgallery : addgallery,
+      addMoreImagesToGallery: addMoreImagesToGallery
     });
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
@@ -100,13 +102,21 @@ class Editor extends React.Component{
     document.getElementById('resourcePanel').style.display = 'none';
   }
   addImages(images) {
+    var addImagesToGallery = this.state.addMoreImagesToGallery;
     var currentIndex = this.state.resourcePanelOpenedBy;
-    this.state.maxId++;
-    this.state.fields.splice(
-      currentIndex,0, [{"id": this.state.maxId, "type" : "gallery", "data" : images}]);
+    if (!addImagesToGallery) {
+      this.state.maxId++;
+      this.state.fields.splice(
+        currentIndex,0, {"id": this.state.maxId, "type" : "gallery", images, "backgroundColor":"#000000"});
+    } else {
+      for(var i=0;i < images.length;i++) {
+        this.state.fields[currentIndex].images.push(images[i])}
+    }
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId
+      maxId: this.state.maxId,
+      addImagesToGallery: false,
+      addgallery: 'hidden'
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }

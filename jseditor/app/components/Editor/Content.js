@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
+import Gallery from './Gallery';
 
 class Content extends React.Component{
   componentDidMount() {
@@ -63,6 +64,12 @@ class Content extends React.Component{
         src={this.props.data.url}
         height={this.props.data.height}
         width={this.props.data.width}
+      />
+  }  else if('gallery' == this.props.type) {
+      var field = <Gallery
+        data={this.props.data}
+        dataId={this.props.dataId}
+        openResourcePanel={this.props.openResourcePanel.bind(this)}
       />
     }
     if (this.props.alignError == true) {
