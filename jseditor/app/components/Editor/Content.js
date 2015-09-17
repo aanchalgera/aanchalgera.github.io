@@ -9,11 +9,15 @@ class Content extends React.Component{
       var currentRef = 'myInput' + this.props.dataId;
       this.refs[currentRef].getDOMNode().focus();
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+    }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
+      document.querySelector('#div-'+this.props.index+' textarea').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
   componentDidUpdate() {
     if ('content' == this.props.type) {
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+    }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
+      document.querySelector('#div-'+this.props.index+' textarea').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
   initializeEditor(editArea) {
@@ -52,6 +56,7 @@ class Content extends React.Component{
     }else if ('summary' == this.props.type) {
       var field = <textarea
         id={this.props.index}
+        className="form-control"
         ref={'myInput' + Number(this.props.dataId)}
         defaultValue= {this.props.data.text}
         onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
@@ -65,18 +70,35 @@ class Content extends React.Component{
         height={this.props.data.height}
         width={this.props.data.width}
       />
-  }  else if('gallery' == this.props.type) {
+    }  else if('gallery' == this.props.type) {
       var field = <Gallery
         data={this.props.data}
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
       />
-    }
-    if (this.props.alignError == true) {
-      var alignError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
-    } else {
-      var alignError = '';
-    }
+  } else if('video' == this.props.type) {
+    var field = <input
+      type="text"
+      className="form-control"
+      defaultValue={this.props.data.url}
+      onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
+    </input>
+  }else if('richContent' == this.props.type) {
+    var field = <textarea
+      id={this.props.index}
+      className="form-control"
+      ref={'myInput' + Number(this.props.dataId)}
+      defaultValue= {this.props.data.text}
+      onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
+      >
+      </textarea>;
+  }
+
+  if (this.props.alignError == true) {
+    var alignError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
+  } else {
+    var alignError = '';
+  }
 
     return (
       <div className="container-ul-inner"

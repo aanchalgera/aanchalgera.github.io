@@ -322,6 +322,20 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields}, this.saveData());
   }
+  updateRichContent(currentIndex, event)
+  {
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.text = event.target.value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
+  updateVideo(currentIndex, event)
+  {
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     obj.url = event.target.value;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
   addLayoutToResource(event)
   {
      event.preventDefault();
@@ -403,6 +417,8 @@ class Editor extends React.Component{
               addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
+              updateRichContent={this.updateRichContent.bind(this)}
+              updateVideo={this.updateVideo.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}
