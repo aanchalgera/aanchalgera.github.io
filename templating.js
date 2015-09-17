@@ -9,7 +9,6 @@ var fs = require('fs'),
     multiColumnTemplate, 
     imageColumnTemplate, 
     sliderTemplate, 
-    richContentTemplate, 
     summaryTemplate, 
     galleryTemplate, 
     pageTemplate, 
@@ -53,10 +52,6 @@ function loadTemplates()
     }
     if (undefined === summaryTemplate) {
         summaryTemplate = getTemplate('summary.html');
-    }
-    if (undefined === richContentTemplate) {
-        //use same template for rich content and single column
-        richContentTemplate = getTemplate('singleColumn.html');
     }
     if (undefined === galleryTemplate) {
         galleryTemplate = getTemplate('gallery.html');
@@ -113,18 +108,8 @@ function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             text: section["text"],
-            title: section["title"]
-        }
-    );
-}
-
-function getRichContentTemplate(sectionClasses, sectionStyles, section)
-{
-    return richContentTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            text: section["text"]
+            title: section["title"],
+            backgroundFade: section["backgroundFade"]
         }
     );
 }
@@ -217,7 +202,7 @@ module.exports = {
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
     getSummaryTemplate: getSummaryTemplate,
-    getRichContentTemplate: getRichContentTemplate,
+    getRichContentTemplate: getSingleColumnTemplate, //same template for rich content and single column
     getMultiColumnTemplate: getMultiColumnTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,

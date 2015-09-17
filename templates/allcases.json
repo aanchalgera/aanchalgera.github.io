@@ -166,6 +166,43 @@
          "id":5,
          "text":"right column of video",
          "type":"content"
+      },
+      {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
+         "id":2,
+         "text":"checking with background repeat false  ",
+         "type":"content",
+         "backgroundRepeat": false
+      },
+      {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
+         "id":2,
+         "text":"checking with background repeat true  ",
+         "type":"content",
+         "backgroundRepeat": true
+      }
+,
+      {  
+         "backgroundColor":"#000",
+         "foregroundColor":"#fff",
+         "backgroundImage":"",
+         "id":9,
+         "text":"Pac-Man no es la abstracción de nada: no es una nave espacial ni un vaquero, no es un hombre ni está basado en nada previo. Se desliza por un laberinto escapando de (o comiendo) fantasmas, rompe el espacio al salir por un lado de la pantalla y entrar por el opuesto. También es el elegido, junto a otros cuantos títulos, para establecer competiciones que duran hasta nuestros días. Los mejores jugadores se miden entre ellos, sacan fotos de sus récords, crean estrategias que los diseñadores de este nuevo mundo ni siquiera habían pensado.\n\n",
+         "type":"content"
+      },
+      {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
+         "id":2,
+         "text":"checking with background repeat true, fade true  ",
+         "type":"content",
+         "backgroundRepeat": true,
+         "backgroundFade": true
       }
    ]
 }
