@@ -110,6 +110,20 @@ class Editor extends React.Component{
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
+  addVideo(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex,0, {
+      id: this.state.maxId,
+      type: "video",
+      url: "",
+      align: ""
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
   dragStart(e) {
     this.dragged = e.currentTarget;
     e.dataTransfer.effectAllowed = 'move';
@@ -381,6 +395,7 @@ class Editor extends React.Component{
               updateSummaryText={this.updateSummaryText.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
+              addVideo={this.addVideo.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
             />

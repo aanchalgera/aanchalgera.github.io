@@ -3,12 +3,15 @@ import React from 'react';
 class MoreOptions extends React.Component {
   render() {
     return (
-      <div className="add-more-options"><a className="btn-circle glyphicon glyphicon-plus" title="Add image, video, slider, new section" />
+      <div className="add-more-options">
+        <button className="btn glyphicon glyphicon-plus" title="Add image, video, slider, new section" ></button>
         <span className="add-options">
-          <a href="#" className="btn-circle glyphicon" onClick={this.props.addTextArea.bind(this,this.props.dataId,"content")} title="Add new section">T</a>
-          <a href="#" className="btn-circle glyphicon glyphicon-camera" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'hidden')} title="Add Image" />
-          <a href="#" className="btn-circle glyphicon glyphicon-picture" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'checkbox')} title="Add Gallery" />
-          <a href="#" className="btn-circle glyphicon glyphicon-file" onClick={this.props.addTextArea.bind(this,this.props.dataId,"summary")} title="Add Summary"/>
+          <button className="btn glyphicon glyphicon-text" onClick={this.props.addTextArea.bind(this,this.props.dataId,"content")} title="Add new section">T</button>
+          <button className="btn glyphicon glyphicon-camera" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'hidden')} title="Add Image" ></button>
+          <button className="btn glyphicon glyphicon-file" onClick={this.props.addTextArea.bind(this,this.props.dataId,"summary")} title="Add Summary"></button>
+          <button className="btn glyphicon glyphicon-facetime-video" onClick={this.props.addVideo.bind(this,this.props.dataId)} title="Add Video"></button>
+          <button className="btn glyphicon glyphicon-picture" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'checkbox')} title="Add Gallery" ></button>
+          <button className="btn glyphicon glyphicon-console" onClick={this.props.addTextArea.bind(this,this.props.dataId,"richContent")} title="Add rich content snippet"></button>
         </span>
         <span className="hint">Add images, video, slider and new section.</span>
       </div>

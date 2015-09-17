@@ -17,6 +17,7 @@ class ContentList extends React.Component{
         moreOptions = <MoreOptions
           openResourcePanel={this.props.openResourcePanel}
           addTextArea={this.props.addTextArea}
+          addVideo={this.props.addVideo}
           dataId={i}
         />;
       }
@@ -41,6 +42,7 @@ class ContentList extends React.Component{
           <MoreOptions
             openResourcePanel={this.props.openResourcePanel}
             addTextArea={this.props.addTextArea}
+            addVideo={this.props.addVideo}
             dataId={fields.length}
             key={fields.length}
           />
