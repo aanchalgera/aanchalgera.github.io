@@ -19,8 +19,10 @@
                         <% } %>
                         <noscript><img width="<%=contentSection.width%>" height="<%=contentSection.height%>" src="<%=contentSection.src%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>"></noscript>
                     </figure>
-                <% } else if('content' == contentSection.type) { %>
+                <% } else if('content' == contentSection.type || 'rich_content' == contentSection.type) { %>
                     <div class="builder-text-content"><%= contentSection.title %><%= contentSection.text %></div>
+                <% } else if('summary' == contentSection.type) { %>
+                    <div class="builder-text-content"><blockquote><%= contentSection.text %></blockquote></div>
                 <% } else if('video' == contentSection.type) { %>
                     <div class="builder-text-content"><iframe width="<%= width%>" height="<%= height%>" src="<%=videoUrl%>" frameborder="0" allowfullscreen></iframe></div>
                 <% } %>

@@ -1,17 +1,20 @@
 'use strict';
-var fs = require('fs');
-var _ = require("underscore");
-var bannerTemplate;
-var imageTemplate;
-var videoBannerTemplate;
-var videoTemplate;
-var singleColumnTemplate;
-var multiColumnTemplate;
-var imageColumnTemplate;
-var sliderTemplate;
-var pageTemplate;
-var templatesDir = './templates';
-var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+var fs = require('fs'), 
+    _ = require("underscore"), 
+    bannerTemplate, 
+    imageTemplate, 
+    videoBannerTemplate, 
+    videoTemplate, 
+    singleColumnTemplate, 
+    multiColumnTemplate, 
+    imageColumnTemplate, 
+    sliderTemplate, 
+    richContentTemplate, 
+    summaryTemplate, 
+    galleryTemplate, 
+    pageTemplate, 
+    templatesDir = './templates', 
+    cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 
 function loadFile(filePath)
@@ -47,6 +50,16 @@ function loadTemplates()
     }
     if (undefined === sliderTemplate) {
         sliderTemplate = getTemplate('slider.html');
+    }
+    if (undefined === summaryTemplate) {
+        summaryTemplate = getTemplate('summary.html');
+    }
+    if (undefined === richContentTemplate) {
+        //use same template for rich content and single column
+        richContentTemplate = getTemplate('singleColumn.html');
+    }
+    if (undefined === galleryTemplate) {
+        galleryTemplate = getTemplate('gallery.html');
     }
     if (undefined === pageTemplate) {
         pageTemplate = getTemplate('staticpage.html');
@@ -101,6 +114,39 @@ function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
             sectionStyles: sectionStyles,
             text: section["text"],
             title: section["title"]
+        }
+    );
+}
+
+function getRichContentTemplate(sectionClasses, sectionStyles, section)
+{
+    return richContentTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            text: section["text"]
+        }
+    );
+}
+
+function getSummaryTemplate(sectionClasses, sectionStyles, section)
+{
+    return summaryTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            text: section["text"]
+        }
+    );
+}
+
+function getGalleryTemplate(sectionClasses, sectionStyles, section)
+{
+    return galleryTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            images: section['images']
         }
     );
 }
@@ -170,9 +216,12 @@ module.exports = {
     getVideoBannerTemplate: getVideoBannerTemplate,
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
+    getSummaryTemplate: getSummaryTemplate,
+    getRichContentTemplate: getRichContentTemplate,
     getMultiColumnTemplate: getMultiColumnTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
+    getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
     loadFile: loadFile,
     writeFile: writeFile,
