@@ -76,23 +76,23 @@ class Content extends React.Component{
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
       />
-  } else if('video' == this.props.type) {
-    var field = <input
-      type="text"
-      className="form-control"
-      defaultValue={this.props.data.url}
-      onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
-    </input>
-  }else if('richContent' == this.props.type) {
-    var field = <textarea
-      id={this.props.index}
-      className="form-control"
-      ref={'myInput' + Number(this.props.dataId)}
-      defaultValue= {this.props.data.text}
-      onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
-      >
-      </textarea>;
-  }
+    } else if('video' == this.props.type) {
+      var field = <input
+        type="text"
+        className="form-control"
+        defaultValue={this.props.data.url}
+        onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
+      </input>
+    }else if('richContent' == this.props.type) {
+      var field = <textarea
+        id={this.props.index}
+        className="form-control"
+        ref={'myInput' + Number(this.props.dataId)}
+        defaultValue= {this.props.data.text}
+        onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
+        >
+        </textarea>;
+    }
 
   if (this.props.alignError == true) {
     var alignError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
