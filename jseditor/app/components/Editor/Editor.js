@@ -318,7 +318,7 @@ class Editor extends React.Component{
   updateSummaryText(currentIndex, event)
   {
      var obj = this.state.fields.splice(currentIndex, 1)[0];
-     obj.text = event.target.value;
+     obj.text = event.target.innerText;
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields}, this.saveData());
   }
