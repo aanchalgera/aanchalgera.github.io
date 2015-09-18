@@ -72,7 +72,7 @@ function handleSection(section, index, allSections)
             case 'video':
                 html += templating.getVideoTemplate();
                 break;
-            case 'video_banner':
+            case 'videoBanner':
                 html += templating.getVideoBannerTemplate();
                 break;
             case 'slider':
