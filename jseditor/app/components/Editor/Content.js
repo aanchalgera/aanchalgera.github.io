@@ -123,7 +123,7 @@ class Content extends React.Component{
            layout={this.props.data.layout}
            type={this.props.type}
            addClassToResource={this.props.addClassToResource}
-           addBackgroundOptionToResource={this.props.addBackgroundColorToResource}
+           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
            data={this.props.data}

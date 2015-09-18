@@ -274,7 +274,7 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
-  addBackgroundColorToResource(property, value, event)
+  addBackgroundOptionToResource(property, value, event)
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
@@ -412,7 +412,7 @@ class Editor extends React.Component{
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
               addClassToResource={this.addClassToResource.bind(this)}
-              addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
