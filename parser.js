@@ -64,35 +64,39 @@ function handleSection(section, index, allSections)
     sectionStyles = getSectionStyles(section);
 
     if (isEmpty(section, 'align')) {
+        templating.setSectionClasses(sectionClasses);
+        templating.setSectionStyles(sectionStyles);
+        templating.setSection(section);
+        
         switch(section.type) {
             case 'video':
-                html += templating.getVideoTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getVideoTemplate();
                 break;
             case 'video_banner':
-                html += templating.getVideoBannerTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getVideoBannerTemplate();
                 break;
             case 'slider':
-                html += templating.getSliderTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getSliderTemplate();
                 break;
             case 'summary':
-                html += templating.getSummaryTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getSummaryTemplate();
                 break;
             case 'gallery':
-                html += templating.getGalleryTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getGalleryTemplate();
                 break;
             case 'richContent':
-                html += templating.getRichContentTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getSingleColumnTemplate(); //same templating for richContent and singleColumn
                 break;
             case 'image':
-                if (true == section.banner) {
-                    html += templating.getBannerTemplate(sectionClasses, sectionStyles, section);
+                if (isTrue(section, 'banner')) {
+                    html += templating.getBannerTemplate();
                 } else {
                     var imageObject = getImageObject(sectionClasses, sectionStyles, section);
                     html += templating.getImageTemplate(imageObject);
                 }
                 break;
             case 'content':
-                html += templating.getSingleColumnTemplate(sectionClasses, sectionStyles, section);
+                html += templating.getSingleColumnTemplate();
                 break;
         }
     } else {

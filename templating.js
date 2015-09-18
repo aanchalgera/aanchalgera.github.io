@@ -12,6 +12,9 @@ var fs = require('fs'),
     summaryTemplate, 
     galleryTemplate, 
     pageTemplate, 
+    sectionClasses,
+    sectionStyles,
+    section,
     templatesDir = './templates', 
     cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
@@ -24,6 +27,20 @@ function loadFile(filePath)
 function getTemplate(filePath)
 {
     return _.template(loadFile(filePath));
+}
+
+function setSectionClasses(classes)
+{
+    sectionClasses = classes;
+}
+function setSectionStyles(styles)
+{
+    sectionStyles = styles;
+}
+
+function setSection(sec)
+{
+    section = sec;
 }
 
 //template caching
@@ -61,7 +78,7 @@ function loadTemplates()
     }
 }
 
-function getBannerTemplate(sectionClasses, sectionStyles, section)
+function getBannerTemplate()
 {
     return bannerTemplate(
         { 
@@ -74,7 +91,7 @@ function getBannerTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
-function getVideoBannerTemplate(sectionClasses, sectionStyles, section)
+function getVideoBannerTemplate()
 {
     return videoBannerTemplate(
         {
@@ -88,7 +105,7 @@ function getVideoBannerTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
-function getVideoTemplate(sectionClasses, sectionStyles, section)
+function getVideoTemplate()
 {
     return videoTemplate(
         { 
@@ -101,7 +118,7 @@ function getVideoTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
-function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
+function getSingleColumnTemplate()
 {
     return singleColumnTemplate(
         { 
@@ -114,7 +131,7 @@ function getSingleColumnTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
-function getSummaryTemplate(sectionClasses, sectionStyles, section)
+function getSummaryTemplate()
 {
     return summaryTemplate(
         { 
@@ -125,7 +142,7 @@ function getSummaryTemplate(sectionClasses, sectionStyles, section)
     );
 }
 
-function getGalleryTemplate(sectionClasses, sectionStyles, section)
+function getGalleryTemplate()
 {
     return galleryTemplate(
         { 
@@ -152,7 +169,7 @@ function getImageTemplate(imageObject)
     return imageTemplate(imageObject);
 }
 
-function getSliderTemplate(sectionClasses, sectionStyles, section)
+function getSliderTemplate()
 {
     return sliderTemplate(
         { 
@@ -202,12 +219,14 @@ module.exports = {
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
     getSummaryTemplate: getSummaryTemplate,
-    getRichContentTemplate: getSingleColumnTemplate, //same template for rich content and single column
     getMultiColumnTemplate: getMultiColumnTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
     getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
+    setSectionClasses: setSectionClasses,
+    setSectionStyles: setSectionStyles,
+    setSection: setSection,
     loadFile: loadFile,
     writeFile: writeFile,
     getTemplate: getTemplate,
