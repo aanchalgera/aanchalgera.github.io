@@ -111,7 +111,7 @@ function getVideoTemplate()
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            videoUrl: section['url'],
+            url: section['url'],
             height: section["height"],
             width: section["width"]
         }

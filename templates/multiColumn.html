@@ -24,7 +24,7 @@
                 <% } else if('summary' == contentSection.type) { %>
                     <div class="builder-text-content"><blockquote><%= contentSection.text %></blockquote></div>
                 <% } else if('video' == contentSection.type) { %>
-                    <div class="builder-text-content"><iframe width="<%= width%>" height="<%= height%>" src="<%=videoUrl%>" frameborder="0" allowfullscreen></iframe></div>
+                    <div class="builder-text-content"><iframe width="<%= contentSection.width%>" height="<%= contentSection.height%>" src="<%=contentSection.url%>" frameborder="0" allowfullscreen></iframe></div>
                 <% } %>
             </div>
         <% }) %>
