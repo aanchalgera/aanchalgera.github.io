@@ -32,7 +32,7 @@
          "align":"section-align-left/section-align-center/section-align-right"
       },
       {  
-         "type":"video_banner",
+         "type":"videoBanner",
          "provider":"youtube",
          "url":"",
          "width":"",
