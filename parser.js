@@ -236,7 +236,6 @@ function addSectionTypeClass(sectionClasses, section)
     var bannerClass = "builder-section-banner";
     var textClass = "builder-section-text";
 
-    sectionClasses.push('asset-type-'+section.type);
 
     switch(section.type) {
         case 'image':
@@ -255,10 +254,12 @@ function addSectionTypeClass(sectionClasses, section)
             sectionClasses.push(bannerClass);
             break;
         case 'gallery':
-            sectionClasses.push('builder-section-gallery');
-            sectionClasses.push('builder-gallery-captions-reveal');
-            sectionClasses.push('builder-gallery-captions-dark');
-            sectionClasses.push('builder-gallery-aspect-landscape');
+            sectionClasses.push(
+                'builder-section-gallery', 
+                'builder-gallery-captions-reveal', 
+                'builder-gallery-captions-dark', 
+                'builder-gallery-aspect-landscape'
+            );
             break;
 
     }
@@ -283,8 +284,13 @@ function addColumnClass(sectionClasses, section)
     }
 
     if ('gallery' == section.type) {
-        sectionClasses.push("builder-gallery-columns-"+section["images"].length);
-    }     
+        var galleryImageCount = section["images"].length;
+        if (galleryImageCount > 4) {
+            sectionClasses.push("builder-gallery-columns-4");
+        } else {
+            sectionClasses.push("builder-gallery-columns-"+galleryImageCount);
+        }
+    }
 
     return sectionClasses;
 }
@@ -301,7 +307,7 @@ function addParallaxClass(sectionClasses, section)
 function getSectionClasses(section)
 {
     var sectionClasses = [];
-    sectionClasses.push(commonClass);
+    sectionClasses.push(commonClass, 'asset-type-'+section.type);
 
     sectionClasses = addFirstLastClass(sectionClasses);
     sectionClasses = addSectionTypeClass(sectionClasses, section);
