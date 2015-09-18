@@ -159,7 +159,7 @@
          "backgroundImage":"",
          "align":"section-align-left"
       },
-      {  
+     {  
          "align":"section-align-right",
          "backgroundColor":"",
          "backgroundImage":"",
@@ -203,6 +203,12 @@
          "type":"content",
          "backgroundRepeat": true,
          "backgroundFade": true
-      }
+      },
+      {  
+        "type":"video",
+        "provider":"youtube",
+        "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
+        "align":""
+     }
    ]
 }
