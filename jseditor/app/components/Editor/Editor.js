@@ -289,11 +289,9 @@ class Editor extends React.Component{
           break;
         case 'backgroundRepeat' :
           obj.backgroundRepeat = !obj.backgroundRepeat;
-          if (obj.backgroundRepeat == true) obj.backgroundCover = false;
           break;
-        case 'backgroundCover' :
-          obj.backgroundCover = !obj.backgroundCover;
-          if (obj.backgroundCover == true) obj.backgroundRepeat = false;
+        case 'backgroundFade' :
+          obj.backgroundFade = !obj.backgroundFade;
           break;
        }
      this.state.fields.splice(currentIndex, 0, obj);
