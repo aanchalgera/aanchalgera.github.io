@@ -11,7 +11,9 @@ class PropertyButton extends React.Component {
   toggleBox() {
     this.setState({box:this.state.box=='open' ? 'close' : 'open'});
   }
-
+  closeBox() {
+    this.setState({box:'close'});
+  }
   render() {
     var leftAlignActive = "", rightAlignActive = "",singleColumnActive="";
     var closeStyle = '',expandStyle='', selected='';
@@ -64,10 +66,10 @@ class PropertyButton extends React.Component {
     }
     return (
       <ul>
-        <ul className="nav-pills2 js-nav-properties"><li>
-          <button type="button" onClick={this.toggleBox.bind(this)} className="btn btn-default glyphicon glyphicon-cog {selected}"></button>
-        </li></ul>
-        <span className="properties-container js-properties-container" style={expandStyle}>
+        <ul className="nav-pills2 js-nav-properties">
+          <li><button type="button" onClick={this.toggleBox.bind(this)} className="btn btn-default glyphicon glyphicon-cog {selected}"></button></li>
+        </ul>
+        <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
           {moreProperties}
           {alignProperties}
           {moreImageProperties}

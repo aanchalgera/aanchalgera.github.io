@@ -78,6 +78,7 @@ class Editor extends React.Component{
     if (this.state.imageFunction == 'backgroundImage') {
       var obj = this.state.fields.splice(currentIndex, 1)[0];
       obj.backgroundImage = image.url;
+      obj.backgroundImageName = image.original_filename;
       this.state.fields.splice(currentIndex, 0, obj);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -274,7 +275,7 @@ class Editor extends React.Component{
      this.state.fields.splice(currentIndex, 0, obj);
      this.setState({fields: this.state.fields});
   }
-  addBackgroundColorToResource(property, value, event)
+  addBackgroundOptionToResource(property, value, event)
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
@@ -282,6 +283,9 @@ class Editor extends React.Component{
      switch (property) {
        case 'backgroundColor' :
          obj.backgroundColor = value;
+         break;
+       case 'foregroundColor' :
+         obj.foregroundColor = value;
          break;
        case 'parallax' :
           obj.parallax = !obj.parallax;
@@ -292,6 +296,9 @@ class Editor extends React.Component{
           break;
         case 'backgroundFade' :
           obj.backgroundFade = !obj.backgroundFade;
+          break;
+        case 'removeBackgroundImage' :
+          obj.backgroundImage = '';
           break;
        }
      this.state.fields.splice(currentIndex, 0, obj);
@@ -412,7 +419,7 @@ class Editor extends React.Component{
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
               addClassToResource={this.addClassToResource.bind(this)}
-              addBackgroundColorToResource={this.addBackgroundColorToResource.bind(this)}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
