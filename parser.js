@@ -13,6 +13,7 @@ var relativeFilePath = 'posts';
 var totalSections;
 var jsonObjects;
 var templating;
+var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 function parse(requestUrl, requestData)
 {
@@ -157,7 +158,6 @@ function getMutiColumnSection(section, index, allSections)
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
-    var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
     if (undefined === section.layout) {
         section['layout'] = 'normal';
