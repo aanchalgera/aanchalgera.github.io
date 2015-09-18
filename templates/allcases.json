@@ -205,6 +205,15 @@
          "backgroundFade": true
       },
       {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
+         "id":2,
+         "text":"hahahahahhah",
+         "type":"content",
+         "backgroundFade": false
+      },
+      {  
         "type":"video",
         "provider":"youtube",
         "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
