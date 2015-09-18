@@ -133,14 +133,15 @@
       },
       { 
          "type":"richContent", 
-         "text":"<iframe width=\"560\" height=\"515\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
-         "backgroundColor":"#CC0000",
+         "text":"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
+         "backgroundColor":"#000000",
          "backgroundImage":""
       },
       {  
          "type":"summary",
          "backgroundImage":"",
-         "text":"hihihihi this is summary text in multi column layout, on left column",
+         "backgroundColor":"",
+         "text":"this is summary text in multi column layout, on left column",
          "align":"section-align-left"
       },
       {  
