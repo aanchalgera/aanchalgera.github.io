@@ -42,8 +42,13 @@ class Content extends React.Component{
     if (data.align == '') {
       backgroundColor = data.backgroundColor;
       backgroundImage = "url('"+data.backgroundImage+"')";
+      if (data.backgroundRepeat == true) {
+        var repeatOrCover = ';background-repeat:repeat'
+      } else {
+        var repeatOrCover = ';background-size:cover'
+      }
     }
-    return 'background-color:'+backgroundColor+';background-image:'+backgroundImage;
+    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
   }
   getSummary(text) {
     return {__html: '<blockquote>'+text+'</blockquote>'};

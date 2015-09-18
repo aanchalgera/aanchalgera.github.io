@@ -78,6 +78,7 @@ class Editor extends React.Component{
     if (this.state.imageFunction == 'backgroundImage') {
       var obj = this.state.fields.splice(currentIndex, 1)[0];
       obj.backgroundImage = image.url;
+      obj.backgroundImageName = image.original_filename;
       this.state.fields.splice(currentIndex, 0, obj);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -283,6 +284,9 @@ class Editor extends React.Component{
        case 'backgroundColor' :
          obj.backgroundColor = value;
          break;
+       case 'foregroundColor' :
+         obj.foregroundColor = value;
+         break;
        case 'parallax' :
           obj.parallax = !obj.parallax;
           event.target.className = "active";
@@ -292,6 +296,9 @@ class Editor extends React.Component{
           break;
         case 'backgroundFade' :
           obj.backgroundFade = !obj.backgroundFade;
+          break;
+        case 'removeBackgroundImage' :
+          obj.backgroundImage = '';
           break;
        }
      this.state.fields.splice(currentIndex, 0, obj);
