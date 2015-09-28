@@ -23,7 +23,7 @@ class Content extends React.Component{
   initializeEditor(editArea) {
     var editor = new SimpleMDE({ element: document.getElementById(editArea),
     spellChecker : false,
-    toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "unordered-list", "link"]
+    toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link", "|", "guide"]
   });
     editor.render();
     var dataId = this.props.dataId;
@@ -33,9 +33,9 @@ class Content extends React.Component{
     editor.codemirror.on("blur", function(event){
       updateText(dataId, editor.value())
     });
-    editor.codemirror.on("keydown", function(cm, event){
-      addNewTextArea(event, id)
-    });
+    //editor.codemirror.on("keydown", function(cm, event){
+    //  addNewTextArea(event, id)
+    //});
   }
   getStyleText(data) {
     var backgroundColor = '', backgroundImage = '';
