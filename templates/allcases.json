@@ -131,6 +131,14 @@
            }
         ]
       },
+      {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"",
+         "id":5,
+         "text":"Next is rich content",
+         "type":"content"
+      },
       { 
          "type":"richContent", 
          "text":"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
@@ -164,7 +172,7 @@
          "backgroundColor":"",
          "backgroundImage":"",
          "id":5,
-         "text":"right column of video",
+         "text":"left column is rich content, right side is content",
          "type":"content"
       },
       {  
@@ -218,6 +226,20 @@
         "provider":"youtube",
         "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
         "align":""
-     }
+      },
+      {  
+        "type":"video",
+        "provider":"youtube",
+        "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
+        "align":"section-align-left"
+      },
+      {  
+         "align":"section-align-right",
+         "backgroundColor":"",
+         "backgroundImage":"",
+         "id":2,
+         "text":"Left video and right text ",
+         "type":"content"
+      }
    ]
 }

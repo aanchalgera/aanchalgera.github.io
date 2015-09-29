@@ -152,7 +152,7 @@ function getMutiColumnSection(section, index, allSections)
     }
 
     sectionClasses += ' builder-text-columns-'+totalColumns;
-
+    sectionClasses += ' builder-section-text';
     return templating.getMultiColumnTemplate(sectionClasses, sectionStyles, columns);
 }
 
