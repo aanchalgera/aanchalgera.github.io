@@ -94,7 +94,7 @@ class Content extends React.Component{
           onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
         </input>
       } else {
-        var field = <div class="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
+        var field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
       }
     }else if('richContent' == this.props.type) {
       var field = <div
