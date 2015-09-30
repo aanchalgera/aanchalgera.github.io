@@ -65,11 +65,11 @@ class PropertyButton extends React.Component {
         />
     }
     return (
-      <ul>
+      <ul onMouseLeave={this.closeBox.bind(this)}>
         <ul className="nav-pills2 js-nav-properties">
           <li><button type="button" onClick={this.toggleBox.bind(this)} className="btn btn-default glyphicon glyphicon-cog {selected}"></button></li>
         </ul>
-        <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
+        <span className="properties-container js-properties-container" style={expandStyle}>
           {moreProperties}
           {alignProperties}
           {moreImageProperties}

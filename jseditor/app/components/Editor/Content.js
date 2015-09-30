@@ -23,7 +23,7 @@ class Content extends React.Component{
   initializeEditor(editArea) {
     var editor = new SimpleMDE({ element: document.getElementById(editArea),
     spellChecker : false,
-    toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link", "|", "guide"]
+    toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link"]
   });
     editor.render();
     var dataId = this.props.dataId;
@@ -94,17 +94,18 @@ class Content extends React.Component{
           onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
         </input>
       } else {
-        var field = <iframe src={this.props.data.url}></iframe>
+        var field = <div class="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
       }
     }else if('richContent' == this.props.type) {
-      var field = <textarea
+      var field = <div
         id={this.props.index}
         className="form-control"
         ref={'myInput' + Number(this.props.dataId)}
         defaultValue= {this.props.data.text}
+        contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >
-        </textarea>;
+      </div>;
     }
 
   if (this.props.alignError == true) {
