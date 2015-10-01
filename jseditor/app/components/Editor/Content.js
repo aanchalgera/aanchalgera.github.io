@@ -7,8 +7,8 @@ class Content extends React.Component{
     if ('content' == this.props.type) {
       this.initializeEditor(this.props.index);
       var currentRef = 'myInput' + this.props.dataId;
-      this.refs[currentRef].getDOMNode().focus();
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+      this.refs[currentRef].getDOMNode().focus();
     }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
       document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
@@ -101,10 +101,10 @@ class Content extends React.Component{
         id={this.props.index}
         className="form-control"
         ref={'myInput' + Number(this.props.dataId)}
-        defaultValue= {this.props.data.text}
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >
+        {this.props.data.text}
       </div>;
     }
 
