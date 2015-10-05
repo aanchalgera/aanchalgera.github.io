@@ -31,7 +31,7 @@ class Content extends React.Component{
     var id = this.props.data.id;
     var addNewTextArea = this.props.addNewTextArea;
     editor.codemirror.on("blur", function(event){
-      updateText(dataId, editor.value())
+      updateText(event, editor.value())
     });
     //editor.codemirror.on("keydown", function(cm, event){
     //  addNewTextArea(event, id)
@@ -59,6 +59,7 @@ class Content extends React.Component{
         id={this.props.index}
         ref={'myInput' + Number(this.props.dataId)}
         defaultValue= {this.props.data.text}
+        data-id={this.props.dataId}
         >
       </textarea>;
     }else if ('summary' == this.props.type) {
@@ -66,9 +67,9 @@ class Content extends React.Component{
         id={this.props.index}
         className="form-control"
         ref={'myInput' + Number(this.props.dataId)}
-        dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
         onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
         contentEditable="true"
+        dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
         >
       </div>;
     } else if('image' == this.props.type) {
@@ -103,8 +104,8 @@ class Content extends React.Component{
         ref={'myInput' + Number(this.props.dataId)}
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
+        defaultValue={this.props.data.text}
         >
-        {this.props.data.text}
       </div>;
     }
 
@@ -113,7 +114,11 @@ class Content extends React.Component{
   } else {
     var alignError = '';
   }
-
+  if (this.props.data.backgroundFade == true) {
+    var fade = <div className="builder-section-overlay"></div>
+  } else {
+    var fade = '';
+  }
     return (
       <div className="container-ul-inner"
        id={"div-"+this.props.index}
@@ -124,6 +129,7 @@ class Content extends React.Component{
        onDragStart={this.props.dragStart.bind(this)}>
 	       {alignError}
          {field}
+         {fade}
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}

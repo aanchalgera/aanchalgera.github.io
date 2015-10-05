@@ -314,8 +314,10 @@ class Editor extends React.Component{
       this.setState({fields: this.state.fields}, this.saveData());
     }
   }
-  updateText(currentIndex, value)
+  updateText(event, value)
   {
+     var ta = event.getTextArea();
+     var currentIndex = ta.dataset.id;
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      obj.text = value;
      this.state.fields.splice(currentIndex, 0, obj);
