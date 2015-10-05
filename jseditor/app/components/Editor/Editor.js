@@ -24,7 +24,7 @@ class Editor extends React.Component{
       message: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
-      addgallery: 'hidden',
+      addgallery: false,
       addMoreImagesToGallery: false,
       fields: []
     };
@@ -60,7 +60,7 @@ class Editor extends React.Component{
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
-  openResourcePanel(imageFunction, currentIndex, addgallery = 'hidden', addMoreImagesToGallery = false, event) {
+  openResourcePanel(imageFunction, currentIndex, addgallery = false, addMoreImagesToGallery = false, event) {
     if (undefined != event) {
       event.preventDefault();
     }
@@ -117,7 +117,7 @@ class Editor extends React.Component{
       fields: this.state.fields,
       maxId: this.state.maxId,
       addImagesToGallery: false,
-      addgallery: 'hidden'
+      addgallery: false
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
