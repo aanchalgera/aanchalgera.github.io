@@ -18,19 +18,20 @@ class ResourcePanel extends React.Component {
     document.getElementById('resourcePanel').style.display = 'none';
   }
   addImages() {
-    var selectedImages = document.querySelectorAll('input[name=imagecheckboxes]:checked');
+    var selectedImages = document.querySelectorAll('#imageList img.active');
     var images = [];
     if (selectedImages.length == 0) {
       return
     }
     for (var i = 0; i < selectedImages.length; i++) {
       images.push(JSON.parse(selectedImages[i].dataset.image))
+      selectedImages[i].className = '';
     }
     this.props.addImages(images);
   }
   render () {
     var showGalleryButton = '';
-    if (this.props.addgallery != 'hidden') {
+    if (this.props.addgallery) {
       var showGalleryButton = <button
         id="add-gallery"
         type="button"
@@ -59,7 +60,7 @@ class ResourcePanel extends React.Component {
             </div>
             <div className="modal-body">
              <div className="resources-panel-images">
-               <ul>{images}</ul>
+               <ul id="imageList">{images}</ul>
              </div>
             </div>
             <div className="modal-footer">

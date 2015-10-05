@@ -24,7 +24,7 @@ class Gallery extends React.Component {
       <div className="gallery">
         <ul>
           {images}
-          <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'checkbox', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
+          <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, true, true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
         </ul>
       </div>
     )
