@@ -48,7 +48,7 @@ class Content extends React.Component{
         var repeatOrCover = ';background-size:cover'
       }
     }
-    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+    return 'white-space: pre;background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
   }
   getSummary(text) {
     return {__html: '<blockquote>'+text+'</blockquote>'};
@@ -104,7 +104,7 @@ class Content extends React.Component{
         ref={'myInput' + Number(this.props.dataId)}
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
-        defaultValue={this.props.data.text}
+        dangerouslySetInnerHTML={{__html: this.props.data.text}}
         >
       </div>;
     }
