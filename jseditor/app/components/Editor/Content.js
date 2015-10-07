@@ -48,10 +48,10 @@ class Content extends React.Component{
         var repeatOrCover = ';background-size:cover'
       }
     }
-    return 'white-space: pre;background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+    return 'white-space:pre;background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
   }
   getSummary(text) {
-    return {__html: '<blockquote>'+text+'</blockquote>'};
+    return {__html: text};
   }
   render () {
     if('content' == this.props.type) {
@@ -65,7 +65,7 @@ class Content extends React.Component{
     }else if ('summary' == this.props.type) {
       var field = <div
         id={this.props.index}
-        className="form-control"
+        className="form-control blockquote"
         ref={'myInput' + Number(this.props.dataId)}
         onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
         contentEditable="true"
@@ -104,9 +104,7 @@ class Content extends React.Component{
         ref={'myInput' + Number(this.props.dataId)}
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
-        dangerouslySetInnerHTML={{__html: this.props.data.text}}
-        >
-      </div>;
+        >{this.props.data.text}</div>;
     }
 
   if (this.props.alignError == true) {
