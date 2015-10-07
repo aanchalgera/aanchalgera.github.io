@@ -41,6 +41,8 @@
                 padding: 0 !important;
                 }
             </style>
+            
+            <link rel='stylesheet' href='http://testblogwp.weblogssl.com/temp/devel/2011-template/editor/front/css/responsive-images.css' type='text/css' media='all' />
             <link rel='stylesheet' id='ttfmake-google-fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3Aregular%2Citalic%2C700&#038;subset=latin&#038;ver=1.6.1' type='text/css' media='all' />
             <link rel='stylesheet' id='ttfmake-font-awesome-css'  href='http://testjetpack.weblogssl.com/wp-content/themes/make/css/font-awesome.min.css?ver=4.3.0' type='text/css' media='all' />
             <link rel='stylesheet' id='ttfmake-main-style-css'  href='http://testjetpack.weblogssl.com/wp-content/themes/make/style.css?ver=1.6.1' type='text/css' media='all' />
@@ -122,13 +124,29 @@
                 /* ]]> */
             </script>
             <script type='text/javascript' src='http://testjetpack.weblogssl.com/wp-content/themes/make/js/global.min.js?ver=1.6.1'></script>
-            <script type='text/javascript' src='http://testjetpack.weblogssl.com/wp-content/plugins/make-plus/components/parallax/js/lib/jquery.stellar.min.js?ver=1.6.1.1'></script>
+            <script>
+                var isMobile;
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                    isMobile = true;
+                } else {
+                    isMobile = false;
+                }
+                var ttfmpParallax = '';
+                if (!isMobile) {
+                    var src = 'http://testjetpack.weblogssl.com/wp-content/plugins/make-plus/components/parallax/js/lib/jquery.stellar.min.js?ver=1.6.1.1';
+                    
+                    var src2 = 'http://testjetpack.weblogssl.com/wp-content/plugins/make-plus/components/parallax/js/frontend.js?ver=1.6.1.1';
+                    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+                    ttfmpParallax = {"backgroundRatio":"0.3","stellarConfig":"{\"horizontalScrolling\":false,\"parallaxElements\":false}"};
+                    
+                    document.write('<scr' + 'ipt src="' + src2 + '"></scr' + 'ipt>');
+                }
+            </script>
+            
             <script type='text/javascript'>
                 /* <![CDATA[ */
-                var ttfmpParallax = {"backgroundRatio":"0.3","stellarConfig":"{\"horizontalScrolling\":false,\"parallaxElements\":false}"};
                 /* ]]> */
             </script>
-            <script type='text/javascript' src='http://testjetpack.weblogssl.com/wp-content/plugins/make-plus/components/parallax/js/frontend.js?ver=1.6.1.1'></script>
             <script type='text/javascript' src='http://testjetpack.weblogssl.com/wp-content/themes/make/inc/formatting/dynamic-stylesheet/dynamic-stylesheet.js?ver=1.6.1'></script>
             <script type='text/javascript' src='http://testjetpack.weblogssl.com/wp-includes/js/underscore.min.js?ver=1.6.0'></script>
             <script type='text/javascript'>
