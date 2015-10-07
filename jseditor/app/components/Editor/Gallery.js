@@ -11,8 +11,6 @@ class Gallery extends React.Component {
     this.setState({imageList : this.props.data.images})
   }
   render () {
-    console.log(this.state.imageList);
-    console.log(this.props);
     var images = this.state.imageList.map((image, i) => {
       return (
         <li key={i}>

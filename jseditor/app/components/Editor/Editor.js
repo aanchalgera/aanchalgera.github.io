@@ -248,6 +248,10 @@ class Editor extends React.Component{
       data: data,
       then(data) {
         console.log('autosaved');
+        document.getElementById('successField').style.display = 'block';
+        setTimeout(function() {
+          document.getElementById('successField').style.display = 'none';
+        }, 4000);
       }
     });
   }
@@ -392,17 +396,18 @@ class Editor extends React.Component{
       errorField = <div className="alert alert-danger" role="alert">
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span className="sr-only">Error:</span>{this.state.message}</div>;
-    } else if (this.state.isSubmit) {
-      errorField = <div className="alert alert-success">
-          <strong>{this.state.message}</strong>
-        </div>;
     }
+    var successField = <div id="successField" className="alert alert-success" style={{display : "none"}}>
+          <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+          <strong>  Post saved </strong>
+        </div>;
     return (
       <div>
         <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
         <Link className="btn btn-primary" to="/">List Page</Link>
         <br /><br />
         {errorField}
+        {successField}
         <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
