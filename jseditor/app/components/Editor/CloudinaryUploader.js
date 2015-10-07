@@ -29,7 +29,7 @@ var CloudinaryUploader = React.createClass({
   getDefaultProps: function(){
     return {
       showPoweredBy: false,
-      sources: ['local'],
+      sources: ['local', 'url'],
       defaultSource: 'local',
       multiple: true,
       maxFiles: null,
