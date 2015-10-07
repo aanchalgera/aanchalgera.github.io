@@ -6,7 +6,7 @@ import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
 import {Link} from 'react-router';
-import slug from 'speakingurl';
+import helpers from '../../utils/generatehash';
 
 var placeholder = document.createElement("div");
 placeholder.className = "placeholder";
@@ -44,6 +44,10 @@ class Editor extends React.Component{
             });
           }
         }
+      });
+    } else {
+      this.setState({
+        id : helpers.generatePushID()
       });
     }
   }
@@ -204,7 +208,7 @@ class Editor extends React.Component{
   }
   handleChange (ev) {
     this.setState({
-      value : ev.currentTarget.value
+      value: ev.currentTarget.value
     });
   }
   handleBlur (ev) {
@@ -215,14 +219,8 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
-    var postSlug = slug(title);
-    if (this.state.id != undefined && this.state.id != '') {
-      if (this.state.id != slug(title)) {
-        var postSlug = this.state.id;
-      }
-    }
     this.setState({
-      id: postSlug
+      value: title,
     }, this.saveData());
   }
   saveData (ev) {
@@ -238,21 +236,15 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
-    var postSlug = slug(this.state.value);
-    if (this.state.id != undefined || this.state.id == '') {
-      if (this.state.id != postSlug) {
-        postSlug = this.state.id;
-      }
-    }
     var data = {
-      "id" : postSlug,
+      "id" : this.state.id,
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
     };
     self = this;
     this.props.base.post(
-      'posts/' + postSlug, {
+      'posts/' + this.state.id, {
       data: data,
       then(data) {
         console.log('autosaved');
@@ -365,9 +357,9 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
-    var postSlug = slug(this.state.value);
+    var hashId = this.state.id;
     var data = {
-      id : postSlug,
+      id : hashId,
       title : this.state.value,
       sections : this.state.fields
     };
@@ -380,7 +372,7 @@ class Editor extends React.Component{
     .then(function (response) {
       console.log(response);
       var random  = Math.round(Math.random() * 10000000);
-      React.render(<PreviewPanel src={postSlug + ".html?" + random} />, document.getElementById('preview'));
+      React.render(<PreviewPanel src={hashId + ".html?" + random} />, document.getElementById('preview'));
       document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
