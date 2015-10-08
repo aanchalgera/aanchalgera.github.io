@@ -178,12 +178,10 @@ function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)
         text: section["text"],
         type: 'summary'
     };
-
 }
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
-
     if (undefined === section.layout) {
         section['layout'] = 'normal';
     }
