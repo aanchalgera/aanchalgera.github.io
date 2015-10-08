@@ -32,7 +32,11 @@ function processRequest(request, response)
                             console.log(requestData);
                         }
                         result = parser.parse(request.url, requestData);
-                        sendResponse(response, '{"status": "success", "data": '+result+'}');
+                        var finalResponse = {
+                            "status": "success",
+                            "response": result
+                        }
+                        sendResponse(response, JSON.stringify(finalResponse));
                     } catch (e) {
                         console.log(e);
                         sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
@@ -45,10 +49,9 @@ function processRequest(request, response)
 
 function sendResponse(response, output)
 {
-    response.setHeader('content-type', 'text/html');
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
-    response.setHeader('content-type', 'text/html');
+    response.setHeader('content-type', 'applcation/json');
     response.setHeader('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
     response.writeHead(200);
