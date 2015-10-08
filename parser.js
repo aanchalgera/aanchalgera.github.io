@@ -121,6 +121,12 @@ function addSection(columns, section)
         var sectionStyles = getSectionStyles(section);
         var imageObject = getImageObject(sectionClasses, sectionStyles, section); 
         columns.push(imageObject);
+    } else if ('summary' == section.type) {
+        var sectionClasses = getSectionClasses(section);
+        var sectionStyles = getSectionStyles(section);
+        var extraStyles = getExtraStyles(section);
+        var summaryObject = getSummaryObject(sectionClasses, sectionStyles, extraStyles, section);
+        columns.push(summaryObject);
     } else {
         columns.push(section);
     }
@@ -161,6 +167,18 @@ function getMutiColumnSection(section, index, allSections)
     sectionClasses += ' builder-text-columns-'+totalColumns;
     sectionClasses += ' builder-section-text';
     return templating.getMultiColumnTemplate(sectionClasses, sectionStyles, columns);
+}
+
+function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)
+{
+    return { 
+        sectionClasses: sectionClasses, 
+        sectionStyles: sectionStyles,
+        extraStyles: extraStyles,
+        text: section["text"],
+        type: 'summary'
+    };
+
 }
 
 function getImageObject(sectionClasses, sectionStyles, section)

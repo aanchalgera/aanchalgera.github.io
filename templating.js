@@ -14,6 +14,7 @@ var fs = require('fs'),
     pageTemplate, 
     sectionClasses,
     sectionStyles,
+    extraStyles,
     section,
     templatesDir = './templates', 
     cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
@@ -36,6 +37,10 @@ function setSectionClasses(classes)
 function setSectionStyles(styles)
 {
     sectionStyles = styles;
+}
+function setExtraStyles(styles)
+{
+    extraStyles = styles;
 }
 
 function setSection(sec)
@@ -137,6 +142,7 @@ function getSummaryTemplate()
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
+            extraStyles: extraStyles,
             text: section["text"]
         }
     );
@@ -226,6 +232,7 @@ module.exports = {
     getPageTemplate: getPageTemplate,
     setSectionClasses: setSectionClasses,
     setSectionStyles: setSectionStyles,
+    setExtraStyles: setExtraStyles,
     setSection: setSection,
     loadFile: loadFile,
     writeFile: writeFile,
