@@ -7,6 +7,7 @@ var commonClass = 'builder-section';
 var sectionsCovered;
 var sectionClasses;
 var sectionStyles;
+var extraStyles;
 var skipSections = 0;
 var outputFilePath = './jseditor/public/posts';
 var relativeFilePath = 'posts';
@@ -43,6 +44,10 @@ function parseData(jsonObjects)
     totalSections = jsonObjects.sections.length;
     jsonObjects.sections.forEach(handleSection);
 
+    if ('publish' == jsonObjects.page) {
+        return html;
+    }
+
     var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, html);
 
     if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
@@ -63,10 +68,12 @@ function handleSection(section, index, allSections)
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
+    extraStyles = getExtraStyles(section);
 
     if (isEmpty(section, 'align')) {
         templating.setSectionClasses(sectionClasses);
         templating.setSectionStyles(sectionStyles);
+        templating.setExtraStyles(extraStyles);
         templating.setSection(section);
         
         switch(section.type) {
@@ -339,7 +346,7 @@ function getSectionStyles(section)
     if (!isEmpty(section, "backgroundColor")) {
         sectionStyles.push("background-color:" + section["backgroundColor"]+";");
     }
-    if (!isEmpty(section, "foregroundColor")) {
+    if (!isEmpty(section, "foregroundColor") && 'summary' !== section.type) {
         sectionStyles.push("color:" + section["foregroundColor"]+";");
     }
 
@@ -348,6 +355,15 @@ function getSectionStyles(section)
     }
 
     return sectionStyles.join(' ');
+}
+
+function getExtraStyles(section)
+{
+    var extraStyles = [];
+    if (!isEmpty(section, "foregroundColor") && 'summary' === section.type) {
+        extraStyles.push("color:" + section["foregroundColor"]+";");
+    }
+    return extraStyles.join(' ');
 }
 
 function isDefined(section, attribute)

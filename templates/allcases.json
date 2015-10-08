@@ -115,7 +115,8 @@
          "backgroundImage":"",
          "backgroundColor":"#CC0000",
          "text":"this is summary text",
-         "align":""
+         "align":"",
+         "foregroundColor": "#C850085"
       },
       { 
          "type":"gallery", 

@@ -15,7 +15,7 @@ function processRequest(request, response)
         var match = /\/read\/(.+)?/.exec(request.url);
         if (null !== match) {
             result = parser.testRead(match[1]);
-            sendResponse(response, result);
+            sendResponse(response, result, 'html');
         } else {
             switch(request.url) {
                 case '/process':
@@ -36,7 +36,7 @@ function processRequest(request, response)
                             "status": "success",
                             "response": result
                         }
-                        sendResponse(response, JSON.stringify(finalResponse));
+                        sendResponse(response, JSON.stringify(finalResponse), 'json');
                     } catch (e) {
                         console.log(e);
                         sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
@@ -47,11 +47,15 @@ function processRequest(request, response)
     });
 }
 
-function sendResponse(response, output)
+function sendResponse(response, output, contentType)
 {
+    if ('html' == contentType) {
+        response.setHeader('content-type', 'text/html');
+    } else {
+        response.setHeader('content-type', 'applcation/json');
+    }
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
-    response.setHeader('content-type', 'applcation/json');
     response.setHeader('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
     response.writeHead(200);
