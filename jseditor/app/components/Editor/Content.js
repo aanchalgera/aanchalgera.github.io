@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
+import ContentGrouped from './ContentGrouped';
 import Gallery from './Gallery';
 
 class Content extends React.Component{
@@ -12,6 +13,10 @@ class Content extends React.Component{
     }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
       document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
+  }
+  componentWillUnmount() {
+    console.log(this.props.dataId);
+    console.log(this.props.data.text);
   }
   componentDidUpdate() {
     if ('content' == this.props.type) {
@@ -54,6 +59,7 @@ class Content extends React.Component{
     return {__html: text};
   }
   render () {
+    var groupedClass='';
     if('content' == this.props.type) {
       var field = <textarea
         id={this.props.index}
@@ -105,27 +111,25 @@ class Content extends React.Component{
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >{this.props.data.text}</div>;
+    }else if('grouped' == this.props.type || 'multiple' == this.props.type) {
+        groupedClass = 'conatiner-columns-'+this.props.data.group;
+        var field =  <ContentGrouped
+          data = {this.props.data}
+          />
     }
-
-  if (this.props.alignError == true) {
-    var alignError = <div role="alert" className="alert alert-danger">Left and right column mismatch</div>;
-  } else {
-    var alignError = '';
-  }
-  if (this.props.data.backgroundFade == true) {
-    var fade = <div className="builder-section-overlay"></div>
-  } else {
-    var fade = '';
-  }
+    if (this.props.data.backgroundFade == true) {
+      var fade = <div className="builder-section-overlay"></div>
+    } else {
+      var fade = '';
+    }
     return (
-      <div className="container-ul-inner"
+      <div className={"container-ul-inner "+groupedClass}
        id={"div-"+this.props.index}
        draggable="true"
        data-id={this.props.dataId}
        key={this.props.data.key}
        onDragEnd={this.props.dragEnd.bind(this)}
        onDragStart={this.props.dragStart.bind(this)}>
-	       {alignError}
          {field}
          {fade}
          <PropertyButton
@@ -139,6 +143,8 @@ class Content extends React.Component{
            data={this.props.data}
            dataId={this.props.dataId}
            addLayoutToResource={this.props.addLayoutToResource}
+           groupSections={this.props.groupSections}
+           ungroupSections={this.props.ungroupSections}
          />
       </div>
     )

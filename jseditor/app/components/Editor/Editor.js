@@ -310,6 +310,26 @@ class Editor extends React.Component{
       this.setState({fields: this.state.fields}, this.saveData());
     }
   }
+  groupSections(currentIndex, group, event)
+  {
+     this.state.maxId++;
+     var obj = this.state.fields.splice(currentIndex, group);
+     obj.type = 'grouped';
+     obj.group = group;
+     obj.id = this.state.maxId;
+     this.state.fields.splice(currentIndex, 0, obj);
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
+  ungroupSections(currentIndex, event)
+  {
+     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     if (obj.group == 2 ){
+       this.state.fields.splice(currentIndex, 0, obj[0], obj[1]);
+     }else if (obj.group == 3) {
+       this.state.fields.splice(currentIndex, 0, obj[0], obj[1], obj[2]);
+     }
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
   updateText(event, value)
   {
      var ta = event.getTextArea();
@@ -429,6 +449,8 @@ class Editor extends React.Component{
               addVideo={this.addVideo.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
+              groupSections={this.groupSections.bind(this)}
+              ungroupSections={this.ungroupSections.bind(this)}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
