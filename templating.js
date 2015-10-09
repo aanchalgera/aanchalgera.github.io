@@ -11,6 +11,7 @@ var fs = require('fs'),
     sliderTemplate, 
     summaryTemplate, 
     galleryTemplate, 
+    groupedTemplate,
     pageTemplate, 
     sectionClasses,
     sectionStyles,
@@ -80,6 +81,9 @@ function loadTemplates()
     }
     if (undefined === pageTemplate) {
         pageTemplate = getTemplate('staticpage.html');
+    }
+    if (undefined === groupedTemplate) {
+        groupedTemplate = getTemplate('grouped.html');
     }
 }
 
@@ -198,6 +202,17 @@ function getPageTemplate(pageTitle, pageDescription, html)
     );
 }
 
+function getGroupedTemplate(sectionClasses, sectionStyles, columns)
+{
+    return groupedTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            contentSections: columns
+        }
+    );
+}
+
 function processData(host)
 {
     var testForm = getTemplate('testForm.html');
@@ -226,6 +241,7 @@ module.exports = {
     getSingleColumnTemplate: getSingleColumnTemplate,
     getSummaryTemplate: getSummaryTemplate,
     getMultiColumnTemplate: getMultiColumnTemplate,
+    getGroupedTemplate: getGroupedTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
     getGalleryTemplate: getGalleryTemplate,

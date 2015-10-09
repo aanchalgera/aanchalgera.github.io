@@ -106,6 +106,9 @@ function handleSection(section, index, allSections)
             case 'content':
                 html += templating.getSingleColumnTemplate();
                 break;
+            case 'grouped':
+                html += getGroupedSection(section);
+                break;
         }
     } else {
         html += getMutiColumnSection(section, index, allSections);
@@ -114,24 +117,43 @@ function handleSection(section, index, allSections)
     sectionsCovered++;
 }
 
-function addSection(columns, section)
+function getSectionObject(section)
 {
     if ('image' == section.type) {
         var sectionClasses = getSectionClasses(section);
         var sectionStyles = getSectionStyles(section);
-        var imageObject = getImageObject(sectionClasses, sectionStyles, section); 
-        columns.push(imageObject);
-    } else if ('summary' == section.type) {
+        return getImageObject(sectionClasses, sectionStyles, section);
+    }
+
+    if ('summary' == section.type) {
         var sectionClasses = getSectionClasses(section);
         var sectionStyles = getSectionStyles(section);
         var extraStyles = getExtraStyles(section);
-        var summaryObject = getSummaryObject(sectionClasses, sectionStyles, extraStyles, section);
-        columns.push(summaryObject);
-    } else {
-        columns.push(section);
+        return getSummaryObject(sectionClasses, sectionStyles, extraStyles, section);
     }
 
+    return section;
+}
+
+function addSection(columns, section)
+{
+    columns.push(getSectionObject(section));
+
     return columns;
+}
+
+function getGroupedSection(section)
+{
+    var columns = [];
+    var column;
+    var allColumns = section['columns'];
+    for (column in allColumns) {
+        allColumns[column] = doMarkUp(allColumns[column]);
+        var sectionObject = getSectionObject(allColumns[column]);
+        columns.push(sectionObject);
+    }
+
+    return templating.getGroupedTemplate(sectionClasses, sectionStyles, columns);
 }
 
 function getMutiColumnSection(section, index, allSections)
@@ -303,7 +325,7 @@ function addBackgroundClass(sectionClasses, section)
 function addColumnClass(sectionClasses, section)
 {
     if (!isEmpty(section, "columns")) {
-        sectionClasses.push("builder-text-columns-"+section["columns"]);
+        sectionClasses.push("builder-text-columns-"+section["columns"].length);
     }
 
     if ('gallery' == section.type) {
