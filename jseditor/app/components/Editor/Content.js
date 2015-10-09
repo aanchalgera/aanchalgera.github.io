@@ -14,10 +14,6 @@ class Content extends React.Component{
       document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
-  componentWillUnmount() {
-    console.log(this.props.dataId);
-    console.log(this.props.data.text);
-  }
   componentDidUpdate() {
     if ('content' == this.props.type) {
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
@@ -53,7 +49,7 @@ class Content extends React.Component{
         var repeatOrCover = ';background-size:cover'
       }
     }
-    return 'white-space:pre;background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
   }
   getSummary(text) {
     return {__html: text};
