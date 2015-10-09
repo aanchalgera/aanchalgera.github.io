@@ -425,6 +425,9 @@ function isFalse(section, attribute)
 
 function doMarkUp(section)
 {
+    if (!isEmpty(section, 'text')) {
+        section['text'].replace('\n', '<br />');
+    }
     if ('richContent' != section.type && !isEmpty(section, 'text')) {
         section['text'] = marked(section['text']);
     }
