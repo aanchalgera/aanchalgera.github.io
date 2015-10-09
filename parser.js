@@ -265,11 +265,10 @@ function addSectionLayoutClass(sectionClasses, section)
 {
     switch(section.type) {
         case 'image':
-        case 'richContent':
             if (undefined === section.layout) {
                 section['layout'] = 'normal';
             }
-            sectionClasses.push('asset-size-'+section.layout);
+            sectionClasses.push('asset-size-'+section['layout']);
             break;
     }
 
