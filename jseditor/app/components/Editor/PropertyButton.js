@@ -1,4 +1,6 @@
 import React from 'react';
+import PropertyButtonGroup from './PropertyButtonGroup';
+import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonImageSizes from './PropertyButtonImageSizes';
 
@@ -15,11 +17,10 @@ class PropertyButton extends React.Component {
     this.setState({box:'close'});
   }
   render() {
-    var leftAlignActive = "", rightAlignActive = "",singleColumnActive="";
     var closeStyle = '',expandStyle='', selected='';
     var moreProperties = '';
     var moreImageProperties = '';
-    var alignProperties = '';
+    var groupProperties = '';
     if (this.state.box == 'open') {
       closeStyle = {display : 'none'}
       expandStyle = {display : 'block'}
@@ -28,23 +29,23 @@ class PropertyButton extends React.Component {
       closeStyle = {display : 'block'}
       expandStyle = {display : 'none'}
     }
-    if (this.props.type != 'gallery') {
-      if (this.props.align == 'section-align-left') {
-         leftAlignActive = 'active';
-      } else if (this.props.align == 'section-align-right') {
-          rightAlignActive = 'active';
-      } else if (this.props.align == '') {
-          singleColumnActive = 'active';
-      }
-      alignProperties =
-        <ul className="list-layout">
-          <h5>Layout</h5>
-          <li>
-            <button data-align="" onClick={this.props.addClassToResource.bind(this)} className={"btn btn-default btn-block "+singleColumnActive}>Single Column</button>
-            <button data-align="section-align-left" onClick={this.props.addClassToResource.bind(this)} className={"btn btn-default "+leftAlignActive}>Column left</button>
-            <button data-align="section-align-right" onClick={this.props.addClassToResource.bind(this)} className={"btn btn-default pull-right "+rightAlignActive}>Column right</button>
-           </li>
-        </ul>
+    switch (this.props.type) {
+      case 'content' :
+      case 'summary':
+      case 'richContent':
+      case 'video':
+      case 'image':
+        groupProperties = <PropertyButtonGroup
+          dataId={this.props.dataId}
+          groupSections={this.props.groupSections}
+        />
+        break;
+      case 'grouped':
+        groupProperties = <PropertyButtonUngroup
+          dataId={this.props.dataId}
+          ungroupSections={this.props.ungroupSections}
+        />
+        break;
     }
     switch (this.props.type) {
       case 'content' :
@@ -71,7 +72,7 @@ class PropertyButton extends React.Component {
         </ul>
         <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
           {moreProperties}
-          {alignProperties}
+          {groupProperties}
           {moreImageProperties}
           <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete selected">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
         </span>
