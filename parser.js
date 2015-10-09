@@ -265,11 +265,10 @@ function addSectionLayoutClass(sectionClasses, section)
 {
     switch(section.type) {
         case 'image':
-        case 'richContent':
             if (undefined === section.layout) {
                 section['layout'] = 'normal';
             }
-            sectionClasses.push('asset-size-'+section.layout);
+            sectionClasses.push('asset-size-'+section['layout']);
             break;
     }
 
@@ -426,6 +425,9 @@ function isFalse(section, attribute)
 
 function doMarkUp(section)
 {
+    if (!isEmpty(section, 'text')) {
+        section['text'].replace('\n', '<br />');
+    }
     if ('richContent' != section.type && !isEmpty(section, 'text')) {
         section['text'] = marked(section['text']);
     }
