@@ -31,7 +31,7 @@ function processRequest(request, response)
                         if (undefined !== process.argv[2]) {
                             console.log(requestData);
                         }
-                        result = parser.parse(request.url, requestData);
+                        result = parser.parse(requestData);
                         var finalResponse = {
                             "status": "success",
                             "response": result

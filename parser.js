@@ -16,7 +16,7 @@ var jsonObjects;
 var templating;
 var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
-function parse(requestUrl, requestData)
+function parse(requestData)
 {
     jsonObjects = JSON.parse(requestData);
     templating.loadTemplates();
@@ -40,7 +40,6 @@ function parseData(jsonObjects)
 {
     html = '';
     sectionsCovered = 0;
-
     totalSections = jsonObjects.sections.length;
     jsonObjects.sections.forEach(handleSection);
 
@@ -292,6 +291,7 @@ function addSectionTypeClass(sectionClasses, section)
         case 'richContent':
         case 'content':
         case 'summary':
+        case 'grouped':
             sectionClasses.push(textClass);
             break;
         case 'slider':
