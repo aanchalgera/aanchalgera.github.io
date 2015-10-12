@@ -316,19 +316,21 @@ class Editor extends React.Component{
   {
      this.state.maxId++;
      var obj = this.state.fields.splice(currentIndex, group);
-     obj.type = 'grouped';
-     obj.group = group;
-     obj.id = this.state.maxId;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, {
+       id : this.state.maxId,
+       type : 'grouped',
+       length : group,
+       columns: obj
+     });
      this.setState({fields: this.state.fields}, this.saveData());
   }
   ungroupSections(currentIndex, event)
   {
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      if (obj.group == 2 ){
-       this.state.fields.splice(currentIndex, 0, obj[0], obj[1]);
+       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
      }else if (obj.group == 3) {
-       this.state.fields.splice(currentIndex, 0, obj[0], obj[1], obj[2]);
+       this.state.fields.splice(currentIndex, 0, ob.columnsj[0], obj.columns[1], obj.columns[2]);
      }
      this.setState({fields: this.state.fields}, this.saveData());
   }
@@ -421,7 +423,7 @@ class Editor extends React.Component{
         <span className="sr-only">Error:</span>{this.state.message}</div>;
     }
     var successField = <div id="successField" className="alert alert-info auto-saved" style={{display : "none"}}>
-          <span className="glyphicon glyphicon-saved" aria-hidden="true"></span>
+          <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
           <strong>  Post saved </strong>
         </div>;
     return (
@@ -430,6 +432,7 @@ class Editor extends React.Component{
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
         </div>
+        <br /><br />
         {errorField}
         {successField}
         <form id="editor-form" onClick={this.saveData.bind(this)}>
