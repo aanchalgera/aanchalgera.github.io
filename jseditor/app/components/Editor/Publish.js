@@ -12,14 +12,14 @@ class Publish extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      fields: []
+      fields: [],
+      value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm')
     };
   }
   componentDidMount(){
     this.init();
   }
   init(){
-    window.mm = moment;
     this.postname = this.router.getCurrentParams().postname;
     if (undefined != this.postname) {
       this.props.base.fetch("posts/" + this.postname, {
@@ -29,7 +29,23 @@ class Publish extends React.Component {
             this.setState({
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
-              value: data.title,
+              title: data.title,
+              status: data.status
+            });
+          }
+        }
+      });
+      this.props.base.fetch('posts', {
+        context: this,
+        asArray: true,
+        queries: {
+          orderByChild: 'status',
+          equalTo: 'future'
+        },
+        then(data){
+          if (null != data) {
+            this.setState({
+              posts: data
             });
           }
         }
@@ -43,7 +59,7 @@ class Publish extends React.Component {
     ev.preventDefault();
     var data = {
       id : this.postname,
-      title : this.state.value,
+      title : this.state.title,
       sections : this.state.fields,
       page: "publish"
     };
@@ -65,7 +81,7 @@ class Publish extends React.Component {
   saveData(content) {
     var data = {
       "categoryId":"-1",
-      "post_title":this.state.value,
+      "post_title":this.state.title,
       "comment_status":"open",
       "post_type":"normal",
       "post_content":content,
@@ -94,12 +110,31 @@ class Publish extends React.Component {
   }
   onChange(){}
   onPickSlot(ev) {
-    console.log(ev);
+    var currentTarget = ev.currentTarget;
+    var currentSlot = document.getElementsByClassName('slot-current')
+    if (currentSlot.length > 0) {
+      currentSlot[0].classList.add("slot-free")
+      currentSlot[0].innerHTML = "Libre"
+      currentSlot[0].classList.remove("slot-current")
+    }
+    currentTarget.classList.remove("slot-free")
+    currentTarget.innerHTML = "Elegido"
+    currentTarget.classList.add("slot-current")
+    this.setState({
+      value: ev.currentTarget.dataset.date
+    });
+    document.getElementById('publish-slots').style.display = 'none';
   }
   openSlotWidget(ev) {
     ev.preventDefault();
     var visible = document.getElementById('publish-slots').style.display;
     document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
+  }
+  onSchedule(ev) {
+    ev.preventDefault();
+    this.setState({
+      status: "future"
+    });
   }
   render () {
     var tablehead = [];
@@ -117,7 +152,18 @@ class Publish extends React.Component {
     }
     for (var j = 7; j < 24; j++) {
       for (var k = 0; k < 7; k++) {
-        td.push(React.createElement('td', {}, React.createElement('a', {className: 'slot-free', href: 'javascript:void(0)', onClick: this.onPickSlot.bind(this)}, "Libre")));
+        var slot = '';
+        var msg = '';
+        var dateTime = moment().add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
+        var fomattedDateTime = moment(dateTime).format('DD/MM/YYYY H:mm');
+        if (timeStamp > moment(dateTime).format('X')) {
+          var slot = 'slot-past';
+          var msg = 'Pasado';
+        } else {
+          var slot = 'slot-free';
+          var msg = 'Libre';
+        }
+        td.push(React.createElement('td', {}, React.createElement('a', {className: slot,'data-date': fomattedDateTime, href: 'javascript:void(0)', onClick: this.onPickSlot.bind(this)}, msg)));
       }
       if (j % 2 == 0) {
         tr = React.createElement('tr', {className: 'even'}, React.createElement('th', {}, j), td);
@@ -127,8 +173,6 @@ class Publish extends React.Component {
       tablerows.push(React.createElement('div',{},tr));
       td = [];
     }
-    window.aa = tablehead;
-    window.ab = tablerows;
     return(
       <div>
         <div className="preview-nav">
@@ -141,9 +185,9 @@ class Publish extends React.Component {
             <fieldset className="date-time">
            		<legend>Date and time</legend>
               <p className="non-published-state">
-                <input type="text" size="20" value={moment.unix(timeStamp).format('DD/MM/YYYY HH:mm')} onChange={this.onChange()} name="postDate" id="publish-date-old" />
+                <input type="text" size="20" value={this.state.value} onChange={this.onChange()} name="postDate" id="publish-date-old" />
                 <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.openSlotWidget.bind(this)}>Select now</a>
-                <a className="btn btn-warning" href="#" id="schedule-future-top">Schedule</a>
+                <a className="btn btn-warning" onClick={this.onSchedule.bind(this)} href="#" id="schedule-future-top">Schedule</a>
               </p>
               <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
                 <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
@@ -164,19 +208,6 @@ class Publish extends React.Component {
             </table>
             </div>
            </fieldset>
-          </div>
-          <div className="form-group">
-            <fieldset className="country">
-           		<legend>Countries</legend>
-              <select multiple="multiple" className="form-control" style={{minHeight:"150px"}}>
-                <option value="ALL">All</option>
-                <option value="ES">Spain</option>
-                <option value="MX">Mexico</option>
-                <option value="PE">Peru</option>
-                <option value="US">United States</option>
-                <option value="CO">Colombia</option>
-            </select>
-        </fieldset>
           </div>
         </form>
       </div>

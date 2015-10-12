@@ -241,6 +241,8 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
+      "status" : 'future',
+      "date" : '2015-10-20 08:31:25'
     };
     self = this;
     this.props.base.post(
@@ -407,11 +409,10 @@ class Editor extends React.Component{
         <div className="preview-nav">
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publish</Link>
         </div>
         {errorField}
         {successField}
-        <form id="editor-form">
+        <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
@@ -434,6 +435,7 @@ class Editor extends React.Component{
               addLayoutToResource={this.addLayoutToResource.bind(this)}
             />
           </div>
+          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
         </form>
         <CloudinaryUploader
           cloudName='realarpit'
