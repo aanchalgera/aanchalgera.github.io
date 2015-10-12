@@ -12,6 +12,8 @@ class MoreOptions extends React.Component {
           <button className="btn glyphicon glyphicon-facetime-video" onClick={this.props.addVideo.bind(this,this.props.dataId)} title="Add Video"></button>
           <button className="btn glyphicon glyphicon-picture" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, true, false)} title="Add Gallery" ></button>
           <button className="btn glyphicon glyphicon-console" onClick={this.props.addTextArea.bind(this,this.props.dataId,"richContent")} title="Add rich content snippet"></button>
+          <button className="btn" onClick={this.props.groupSections.bind(this, this.props.dataId, 2)} title="2 Columns"> 2 Columns</button>
+          <button className="btn" onClick={this.props.groupSections.bind(this, this.props.dataId, 3)} title="3 Columns"> 3 Columns</button>
         </span>
         <span className="hint">Add images, video, slider and new section.</span>
       </div>

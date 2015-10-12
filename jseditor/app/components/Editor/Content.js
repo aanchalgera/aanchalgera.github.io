@@ -1,23 +1,22 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
-import ContentGrouped from './ContentGrouped';
 import Gallery from './Gallery';
 
 class Content extends React.Component{
   componentDidMount() {
-    if ('content' == this.props.type) {
+    if ('content' == this.props.data.type) {
       this.initializeEditor(this.props.index);
       var currentRef = 'myInput' + this.props.dataId;
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
       this.refs[currentRef].getDOMNode().focus();
-    }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
+    }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
       document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
   componentDidUpdate() {
-    if ('content' == this.props.type) {
+    if ('content' == this.props.data.type) {
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
-    }else if ('summary' == this.props.type || 'richContent' == this.props.type) {
+    }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
       document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
     }
   }
@@ -55,8 +54,7 @@ class Content extends React.Component{
     return {__html: text};
   }
   render () {
-    var groupedClass='';
-    if('content' == this.props.type) {
+    if('content' == this.props.data.type) {
       var field = <textarea
         id={this.props.index}
         ref={'myInput' + Number(this.props.dataId)}
@@ -64,7 +62,7 @@ class Content extends React.Component{
         data-id={this.props.dataId}
         >
       </textarea>;
-    }else if ('summary' == this.props.type) {
+    }else if ('summary' == this.props.data.type) {
       var field = <div
         id={this.props.index}
         className="form-control blockquote"
@@ -74,7 +72,7 @@ class Content extends React.Component{
         dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
         >
       </div>;
-    } else if('image' == this.props.type) {
+    } else if('image' == this.props.data.type) {
       var field = <img
         id={'img' + this.props.data.id}
         data-id={this.props.dataId}
@@ -82,13 +80,13 @@ class Content extends React.Component{
         height={this.props.data.height}
         width={this.props.data.width}
       />
-    }  else if('gallery' == this.props.type) {
+  }  else if('gallery' == this.props.data.type) {
       var field = <Gallery
         data={this.props.data}
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
       />
-    } else if('video' == this.props.type) {
+  } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
         var field = <input
           type="text"
@@ -99,7 +97,7 @@ class Content extends React.Component{
       } else {
         var field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
       }
-    }else if('richContent' == this.props.type) {
+    }else if('richContent' == this.props.data.type) {
       var field = <div
         id={this.props.index}
         className="form-control"
@@ -107,11 +105,6 @@ class Content extends React.Component{
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >{this.props.data.text}</div>;
-    }else if('grouped' == this.props.type || 'multiple' == this.props.type) {
-        groupedClass = 'conatiner-columns-'+this.props.data.group;
-        var field =  <ContentGrouped
-          data = {this.props.data}
-          />
     }
     if (this.props.data.backgroundFade == true) {
       var fade = <div className="builder-section-overlay"></div>
@@ -119,19 +112,15 @@ class Content extends React.Component{
       var fade = '';
     }
     return (
-      <div className={"container-ul-inner "+groupedClass}
+      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner"}
        id={"div-"+this.props.index}
-       draggable="true"
        data-id={this.props.dataId}
-       key={this.props.data.key}
-       onDragEnd={this.props.dragEnd.bind(this)}
-       onDragStart={this.props.dragStart.bind(this)}>
+       key={this.props.data.key}>
          {field}
          {fade}
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}
-           type={this.props.type}
            addClassToResource={this.props.addClassToResource}
            addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
            openResourcePanel={this.props.openResourcePanel}
@@ -139,7 +128,6 @@ class Content extends React.Component{
            data={this.props.data}
            dataId={this.props.dataId}
            addLayoutToResource={this.props.addLayoutToResource}
-           groupSections={this.props.groupSections}
            ungroupSections={this.props.ungroupSections}
          />
       </div>

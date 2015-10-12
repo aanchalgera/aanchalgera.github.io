@@ -1,5 +1,4 @@
 import React from 'react';
-import PropertyButtonGroup from './PropertyButtonGroup';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonImageSizes from './PropertyButtonImageSizes';
@@ -29,17 +28,7 @@ class PropertyButton extends React.Component {
       closeStyle = {display : 'block'}
       expandStyle = {display : 'none'}
     }
-    switch (this.props.type) {
-      case 'content' :
-      case 'summary':
-      case 'richContent':
-      case 'video':
-      case 'image':
-        groupProperties = <PropertyButtonGroup
-          dataId={this.props.dataId}
-          groupSections={this.props.groupSections}
-        />
-        break;
+    switch (this.props.data.type) {
       case 'grouped':
         groupProperties = <PropertyButtonUngroup
           dataId={this.props.dataId}
@@ -47,10 +36,11 @@ class PropertyButton extends React.Component {
         />
         break;
     }
-    switch (this.props.type) {
+    switch (this.props.data.type) {
       case 'content' :
       case 'summary':
       case 'richContent':
+      case 'grouped':
         moreProperties = <PropertyButtonContent
           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
           data={this.props.data}
