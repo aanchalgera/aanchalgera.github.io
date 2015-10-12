@@ -11,9 +11,10 @@
   "dependencies": {
     "axios": "^0.5.4",
     "firebase": "~2.2.9",
+    "moment": "^2.10.6",
+    "re-base": "~1.1.2",
     "react": "~0.13.3",
     "react-router": "~0.13.3",
-    "re-base": "~1.1.2",
     "speakingurl": "~6.0.0"
   },
   "devDependencies": {

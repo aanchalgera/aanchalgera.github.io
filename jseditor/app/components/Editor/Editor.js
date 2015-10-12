@@ -241,6 +241,8 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
+      "status" : 'future',
+      "date" : '2015-10-20 08:31:25'
     };
     self = this;
     this.props.base.post(
@@ -385,7 +387,8 @@ class Editor extends React.Component{
     var data = {
       id : hashId,
       title : this.state.value,
-      sections : this.state.fields
+      sections : this.state.fields,
+      page: "preview"
     };
     data = JSON.stringify(data);
     axios({
@@ -417,15 +420,16 @@ class Editor extends React.Component{
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span className="sr-only">Error:</span>{this.state.message}</div>;
     }
-    var successField = <div id="successField" className="alert alert-success" style={{display : "none"}}>
-          <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+    var successField = <div id="successField" className="alert alert-info auto-saved" style={{display : "none"}}>
+          <span className="glyphicon glyphicon-saved" aria-hidden="true"></span>
           <strong>  Post saved </strong>
         </div>;
     return (
       <div>
-        <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-        <Link className="btn btn-primary" to="/">List Page</Link>
-        <br /><br />
+        <div className="preview-nav">
+          <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
+          <Link className="btn btn-primary" to="/">List Page</Link>
+        </div>
         {errorField}
         {successField}
         <form id="editor-form" onClick={this.saveData.bind(this)}>
