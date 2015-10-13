@@ -10,7 +10,7 @@
                "align":"",
                "alt":"",
                "banner":false,
-               "height":"100",
+               "height":"300",
                "id":3,
                "layout":"normal",
                "parallax":false,
@@ -20,7 +20,8 @@
             },
             {  
                "align":"",
-               "backgroundColor":"",
+               "backgroundColor":"#CCC",
+               "foregroundColor":"#CC0000",
                "backgroundImage":"",
                "id":4,
                "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
@@ -28,7 +29,8 @@
             },
             {  
                "align":"",
-               "backgroundColor":"",
+               "backgroundColor":"#AAA",
+               "foregroundColor":"#FFF000",
                "backgroundImage":"",
                "id":4,
                "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
