@@ -80,10 +80,16 @@ class Editor extends React.Component{
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
-      var obj = this.state.fields.splice(currentIndex, 1)[0];
+      var indexes = currentIndex.split("-");
+      var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+      if (undefined !== indexes[1]) {
+        var obj = obj1.columns[indexes[1]];
+      } else {
+        var obj = obj1;
+      }
       obj.backgroundImage = image.url;
       obj.backgroundImageName = image.original_filename;
-      this.state.fields.splice(currentIndex, 0, obj);
+      this.state.fields.splice(currentIndex, 0, obj1);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
       this.state.fields.splice(
@@ -264,21 +270,17 @@ class Editor extends React.Component{
       isSubmit: isSubmit
     });
   }
-  addClassToResource(event)
-  {
-     event.preventDefault();
-     var currentIndex = this.parentDiv(event.target).dataset.id;
-     var value = event.target.dataset.align;
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
-     obj.align = (obj.align == value) ? "" : value;
-     this.state.fields.splice(currentIndex, 0, obj);
-     this.setState({fields: this.state.fields});
-  }
   addBackgroundOptionToResource(property, value, event)
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+       var obj = obj1.columns[indexes[1]];
+     } else {
+       var obj = obj1;
+     }
      switch (property) {
        case 'backgroundColor' :
          obj.backgroundColor = value;
@@ -300,7 +302,7 @@ class Editor extends React.Component{
           obj.backgroundImage = '';
           break;
        }
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields});
   }
   deleteResource(event)
@@ -327,9 +329,9 @@ class Editor extends React.Component{
   ungroupSections(currentIndex, event)
   {
      var obj = this.state.fields.splice(currentIndex, 1)[0];
-     if (obj.group == 2 ){
+     if (obj.length == 2 ){
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
-     }else if (obj.group == 3) {
+     }else if (obj.length == 3) {
        this.state.fields.splice(currentIndex, 0, ob.columnsj[0], obj.columns[1], obj.columns[2]);
      }
      this.setState({fields: this.state.fields}, this.saveData());
@@ -338,30 +340,54 @@ class Editor extends React.Component{
   {
      var ta = event.getTextArea();
      var currentIndex = ta.dataset.id;
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+       var obj = obj1.columns[indexes[1]];
+     } else {
+       var obj = obj1;
+     }
      obj.text = value;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateSummaryText(currentIndex, event)
   {
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.toString().split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+      var obj = obj1.columns[indexes[1]];
+     } else {
+      var obj = obj1;
+     }
      obj.text = event.target.innerHTML;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateRichContent(currentIndex, event)
   {
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.toString().split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+      var obj = obj1.columns[indexes[1]];
+     } else {
+      var obj = obj1;
+     }
      obj.text = event.target.textContent;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateVideo(currentIndex, event)
   {
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+      var obj = obj1.columns[indexes[1]];
+     } else {
+      var obj = obj1;
+     }
      obj.url = event.target.value;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   addLayoutToResource(event)
@@ -369,9 +395,15 @@ class Editor extends React.Component{
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.layout;
-     var obj = this.state.fields.splice(currentIndex, 1)[0];
+     var indexes = currentIndex.split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+       var obj = obj1.columns[indexes[1]];
+     } else {
+       var obj = obj1;
+     }
      obj.layout = value;
-     this.state.fields.splice(currentIndex, 0, obj);
+     this.state.fields.splice(currentIndex, 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   openPreviewPanel(event) {
@@ -445,7 +477,6 @@ class Editor extends React.Component{
               dragStart={this.dragStart.bind(this)}
               dragEnd={this.dragEnd.bind(this)}
               dragOver={this.dragOver.bind(this)}
-              addClassToResource={this.addClassToResource.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}

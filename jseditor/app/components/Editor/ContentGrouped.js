@@ -3,19 +3,25 @@ import Content from './Content';
 import PropertyButton from './PropertyButton';
 
 class ContentGrouped extends React.Component{
+  componentDidMount() {
+    document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+  }
+  componentDidUpdate() {
+    document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+  }
   render () {
-    var groupedClass = "conatiner-columns-"+this.props.group;
+    var groupedClass = "conatiner-columns-"+this.props.data.length;
     var _this = this;
     var {data,index,...other} = this.props;
     var fields = this.props.data.columns.map(function(field, i) {
       var index = "text-area" + field.id;
-      return (<div key={i} className={"column-1"} style={{height:"200px", overflow:"hidden"}}>
+      return (<div key={i} className="column-1">
       <Content
         data = {field}
         {...other}
         grouped='true'
         index={index}
-        dataId={_this.props.dataId + i}
+        dataId={_this.props.dataId +"-"+ i}
         />
       </div>)
       });
@@ -30,7 +36,6 @@ class ContentGrouped extends React.Component{
            <PropertyButton
              align={this.props.data.align}
              layout={this.props.data.layout}
-             addClassToResource={this.props.addClassToResource}
              addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
              openResourcePanel={this.props.openResourcePanel}
              deleteResource={this.props.deleteResource}

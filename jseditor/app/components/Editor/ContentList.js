@@ -4,6 +4,17 @@ import ContentGrouped from './ContentGrouped';
 import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component{
+  getStyleText(data) {
+    var backgroundColor = '', backgroundImage = '';
+      backgroundColor = data.backgroundColor;
+      backgroundImage = "url('"+data.backgroundImage+"')";
+      if (data.backgroundRepeat == true) {
+        var repeatOrCover = ';background-repeat:repeat'
+      } else {
+        var repeatOrCover = ';background-size:cover'
+      }
+    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+  }
   render(){
     var previousAlign = '', alignError = '';
     var {dragOver,fields,...other} = this.props;
@@ -21,6 +32,7 @@ class ContentList extends React.Component{
           dataId={i}
           data={field}
           index={index}
+          getStyleText={this.getStyleText}
           {...other}
           ></ContentGrouped>
       } else {
@@ -28,6 +40,7 @@ class ContentList extends React.Component{
           dataId={i}
           data={field}
           index={index}
+          getStyleText={this.getStyleText}
           {...other}
         />
       }

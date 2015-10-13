@@ -7,17 +7,17 @@ class Content extends React.Component{
     if ('content' == this.props.data.type) {
       this.initializeEditor(this.props.index);
       var currentRef = 'myInput' + this.props.dataId;
-      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
       this.refs[currentRef].getDOMNode().focus();
     }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.props.getStyleText(this.props.data));
     }
   }
   componentDidUpdate() {
     if ('content' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
     }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.props.getStyleText(this.props.data));
     }
   }
   initializeEditor(editArea) {
@@ -37,19 +37,7 @@ class Content extends React.Component{
     //  addNewTextArea(event, id)
     //});
   }
-  getStyleText(data) {
-    var backgroundColor = '', backgroundImage = '';
-    if (data.align == '') {
-      backgroundColor = data.backgroundColor;
-      backgroundImage = "url('"+data.backgroundImage+"')";
-      if (data.backgroundRepeat == true) {
-        var repeatOrCover = ';background-repeat:repeat'
-      } else {
-        var repeatOrCover = ';background-size:cover'
-      }
-    }
-    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
-  }
+
   getSummary(text) {
     return {__html: text};
   }
@@ -57,7 +45,7 @@ class Content extends React.Component{
     if('content' == this.props.data.type) {
       var field = <textarea
         id={this.props.index}
-        ref={'myInput' + Number(this.props.dataId)}
+        ref={'myInput' + this.props.dataId}
         defaultValue= {this.props.data.text}
         data-id={this.props.dataId}
         >
@@ -66,7 +54,7 @@ class Content extends React.Component{
       var field = <div
         id={this.props.index}
         className="form-control blockquote"
-        ref={'myInput' + Number(this.props.dataId)}
+        ref={'myInput' + this.props.dataId}
         onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
         contentEditable="true"
         dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
@@ -101,7 +89,7 @@ class Content extends React.Component{
       var field = <div
         id={this.props.index}
         className="form-control"
-        ref={'myInput' + Number(this.props.dataId)}
+        ref={'myInput' + this.props.dataId}
         contentEditable="true"
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >{this.props.data.text}</div>;
@@ -121,7 +109,6 @@ class Content extends React.Component{
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}
-           addClassToResource={this.props.addClassToResource}
            addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}
