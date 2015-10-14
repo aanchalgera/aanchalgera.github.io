@@ -198,6 +198,21 @@ function getGroupedTemplate(sectionClasses, sectionStyles, columns)
     );
 }
 
+function processData(host)
+{
+    var testForm = getTemplate('testForm.html');
+    var testJson = loadFile('test.json');
+
+    var testHTML = testForm(
+        {
+          testData: testJson,
+          host: host
+        }
+    );
+
+    return testHTML;
+}
+
 function writeFile(fileName, fileContents)
 {
     fs.writeFileSync(fileName, fileContents, "UTF-8", {'flags': 'w+'});    
@@ -221,5 +236,6 @@ module.exports = {
     setSection: setSection,
     loadFile: loadFile,
     writeFile: writeFile,
-    getTemplate: getTemplate
+    getTemplate: getTemplate,
+    processData: processData
 }
