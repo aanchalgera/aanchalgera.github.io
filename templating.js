@@ -6,7 +6,6 @@ var fs = require('fs'),
     videoBannerTemplate, 
     videoTemplate, 
     singleColumnTemplate, 
-    multiColumnTemplate, 
     imageColumnTemplate, 
     sliderTemplate, 
     summaryTemplate, 
@@ -63,9 +62,6 @@ function loadTemplates()
     }
     if (undefined === singleColumnTemplate) {
         singleColumnTemplate = getTemplate('singleColumn.html');
-    }
-    if (undefined === multiColumnTemplate) {
-        multiColumnTemplate = getTemplate('multiColumn.html');
     }
     if (undefined === imageTemplate) {
         imageTemplate = getTemplate('image.html');
@@ -163,17 +159,6 @@ function getGalleryTemplate()
     );
 }
 
-function getMultiColumnTemplate(sectionClasses, sectionStyles, columns)
-{
-    return multiColumnTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            contentSections: columns
-        }
-    );
-}
-
 function getImageTemplate(imageObject)
 {
     return imageTemplate(imageObject);
@@ -213,21 +198,6 @@ function getGroupedTemplate(sectionClasses, sectionStyles, columns)
     );
 }
 
-function processData(host)
-{
-    var testForm = getTemplate('testForm.html');
-    var testJson = loadFile('test.json');
-
-    var testHTML = testForm(
-        {
-          testData: testJson,
-          host: host
-        }
-    );
-
-    return testHTML;
-}
-
 function writeFile(fileName, fileContents)
 {
     fs.writeFileSync(fileName, fileContents, "UTF-8", {'flags': 'w+'});    
@@ -240,7 +210,6 @@ module.exports = {
     getVideoTemplate: getVideoTemplate,
     getSingleColumnTemplate: getSingleColumnTemplate,
     getSummaryTemplate: getSummaryTemplate,
-    getMultiColumnTemplate: getMultiColumnTemplate,
     getGroupedTemplate: getGroupedTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
@@ -252,6 +221,5 @@ module.exports = {
     setSection: setSection,
     loadFile: loadFile,
     writeFile: writeFile,
-    getTemplate: getTemplate,
-    processData: processData
+    getTemplate: getTemplate
 }

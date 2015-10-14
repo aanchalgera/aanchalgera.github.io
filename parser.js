@@ -8,7 +8,6 @@ var sectionsCovered;
 var sectionClasses;
 var sectionStyles;
 var extraStyles;
-var skipSections = 0;
 var outputFilePath = './jseditor/public/posts';
 var relativeFilePath = 'posts';
 var totalSections;
@@ -58,59 +57,50 @@ function parseData(jsonObjects)
 
 function handleSection(section, index, allSections)
 {
-    while (skipSections > 0) {
-        skipSections--;
-        return;
-    }
-
     section = doMarkUp(section);
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
     extraStyles = getExtraStyles(section);
 
-    if (isEmpty(section, 'align')) {
-        templating.setSectionClasses(sectionClasses);
-        templating.setSectionStyles(sectionStyles);
-        templating.setExtraStyles(extraStyles);
-        templating.setSection(section);
-        
-        switch(section.type) {
-            case 'video':
-                html += templating.getVideoTemplate();
-                break;
-            case 'videoBanner':
-                html += templating.getVideoBannerTemplate();
-                break;
-            case 'slider':
-                html += templating.getSliderTemplate();
-                break;
-            case 'summary':
-                html += templating.getSummaryTemplate();
-                break;
-            case 'gallery':
-                html += templating.getGalleryTemplate();
-                break;
-            case 'richContent':
-                html += templating.getSingleColumnTemplate(); //same templating for richContent and singleColumn
-                break;
-            case 'image':
-                if (isTrue(section, 'banner')) {
-                    html += templating.getBannerTemplate();
-                } else {
-                    var imageObject = getImageObject(sectionClasses, sectionStyles, section);
-                    html += templating.getImageTemplate(imageObject);
-                }
-                break;
-            case 'content':
-                html += templating.getSingleColumnTemplate();
-                break;
-            case 'grouped':
-                html += getGroupedSection(section);
-                break;
-        }
-    } else {
-        html += getMutiColumnSection(section, index, allSections);
+    templating.setSectionClasses(sectionClasses);
+    templating.setSectionStyles(sectionStyles);
+    templating.setExtraStyles(extraStyles);
+    templating.setSection(section);
+    
+    switch(section.type) {
+        case 'video':
+            html += templating.getVideoTemplate();
+            break;
+        case 'videoBanner':
+            html += templating.getVideoBannerTemplate();
+            break;
+        case 'slider':
+            html += templating.getSliderTemplate();
+            break;
+        case 'summary':
+            html += templating.getSummaryTemplate();
+            break;
+        case 'gallery':
+            html += templating.getGalleryTemplate();
+            break;
+        case 'richContent':
+            html += templating.getSingleColumnTemplate(); //same templating for richContent and singleColumn
+            break;
+        case 'image':
+            if (isTrue(section, 'banner')) {
+                html += templating.getBannerTemplate();
+            } else {
+                var imageObject = getImageObject(sectionClasses, sectionStyles, section);
+                html += templating.getImageTemplate(imageObject);
+            }
+            break;
+        case 'content':
+            html += templating.getSingleColumnTemplate();
+            break;
+        case 'grouped':
+            html += getGroupedSection(section);
+            break;
     }
 
     sectionsCovered++;
@@ -153,41 +143,6 @@ function getGroupedSection(section)
     }
 
     return templating.getGroupedTemplate(sectionClasses, sectionStyles, columns);
-}
-
-function getMutiColumnSection(section, index, allSections)
-{
-    var totalColumns = 1;
-    var columns = [];
-    columns = addSection(columns, section);
-    skipSections = 0;
-
-    var nextIndex = index + 1;
-    var nextToNextIndex = index + 2;
-
-    if ('section-align-left' === section.align) {
-        if ('center' == allSections[nextIndex]["align"]) {
-            skipSections++;
-            totalColumns++;
-            columns = addSection(columns, allSections[nextIndex]);
-            allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
-            if ('section-align-right' == allSections[nextToNextIndex]["align"]) {
-                skipSections++;
-                totalColumns++;
-                allSections[nextToNextIndex] = doMarkUp(allSections[nextToNextIndex]);
-                columns = addSection(columns, allSections[nextToNextIndex]);
-            }
-        } else if ('section-align-right' == allSections[nextIndex]["align"]) {
-            skipSections++;
-            totalColumns++;
-            columns = addSection(columns, allSections[nextIndex]);
-            allSections[nextIndex] = doMarkUp(allSections[nextIndex]);
-        }
-    }
-
-    sectionClasses += ' builder-text-columns-'+totalColumns;
-    sectionClasses += ' builder-section-text';
-    return templating.getMultiColumnTemplate(sectionClasses, sectionStyles, columns);
 }
 
 function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)
