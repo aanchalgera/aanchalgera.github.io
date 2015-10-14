@@ -116,6 +116,7 @@ class Content extends React.Component{
            dataId={this.props.dataId}
            addLayoutToResource={this.props.addLayoutToResource}
            ungroupSections={this.props.ungroupSections}
+           grouped={this.props.grouped}
          />
       </div>
     )

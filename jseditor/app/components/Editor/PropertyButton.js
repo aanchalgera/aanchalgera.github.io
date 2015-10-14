@@ -55,6 +55,7 @@ class PropertyButton extends React.Component {
           addLayoutToResource={this.props.addLayoutToResource}
         />
     }
+    var deleteButton = <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete selected">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
     return (
       <ul>
         <ul className="nav-pills2 js-nav-properties">
@@ -64,7 +65,7 @@ class PropertyButton extends React.Component {
           {moreProperties}
           {groupProperties}
           {moreImageProperties}
-          <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete selected">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
+          {this.props.grouped=='true'?'':deleteButton}
         </span>
       </ul>
     )

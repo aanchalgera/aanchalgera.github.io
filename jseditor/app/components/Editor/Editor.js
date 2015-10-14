@@ -80,7 +80,7 @@ class Editor extends React.Component{
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
-      var indexes = currentIndex.split("-");
+      var indexes = currentIndex.toString().split("-");
       var obj1 = this.state.fields.splice(indexes[0], 1)[0];
       if (undefined !== indexes[1]) {
         var obj = obj1.columns[indexes[1]];
@@ -89,7 +89,7 @@ class Editor extends React.Component{
       }
       obj.backgroundImage = image.url;
       obj.backgroundImageName = image.original_filename;
-      this.state.fields.splice(currentIndex, 0, obj1);
+      this.state.fields.splice(indexes[0], 0, obj1);;
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
       this.state.fields.splice(
@@ -302,7 +302,7 @@ class Editor extends React.Component{
           obj.backgroundImage = '';
           break;
        }
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields});
   }
   deleteResource(event)
@@ -348,7 +348,7 @@ class Editor extends React.Component{
        var obj = obj1;
      }
      obj.text = value;
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateSummaryText(currentIndex, event)
@@ -361,7 +361,7 @@ class Editor extends React.Component{
       var obj = obj1;
      }
      obj.text = event.target.innerHTML;
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateRichContent(currentIndex, event)
@@ -374,12 +374,12 @@ class Editor extends React.Component{
       var obj = obj1;
      }
      obj.text = event.target.textContent;
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateVideo(currentIndex, event)
   {
-     var indexes = currentIndex.split("-");
+     var indexes = currentIndex.toString().split("-");
      var obj1 = this.state.fields.splice(indexes[0], 1)[0];
      if (undefined !== indexes[1]) {
       var obj = obj1.columns[indexes[1]];
@@ -387,7 +387,7 @@ class Editor extends React.Component{
       var obj = obj1;
      }
      obj.url = event.target.value;
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   addLayoutToResource(event)
@@ -403,7 +403,7 @@ class Editor extends React.Component{
        var obj = obj1;
      }
      obj.layout = value;
-     this.state.fields.splice(currentIndex, 0, obj1);
+     this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   openPreviewPanel(event) {
