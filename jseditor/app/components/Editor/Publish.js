@@ -106,7 +106,6 @@ class Publish extends React.Component {
     for (var i = 0;i < repostBlogs.length ;i++) {
       postRepostBlogNames.push(repostBlogs[i].value);
     }
-    debugger
     var data = {
       "categoryId":"-1",
       "post_title":this.state.title,
