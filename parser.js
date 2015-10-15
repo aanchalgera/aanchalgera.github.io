@@ -142,7 +142,6 @@ function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
         columns.push(sectionObject);
     }
 
-    console.log(columns);
     return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
 }
 
