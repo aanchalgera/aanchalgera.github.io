@@ -189,7 +189,6 @@ function getPageTemplate(pageTitle, pageDescription, html)
 
 function getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns)
 {
-    console.log(columns);
     return groupedTemplate(
         { 
             sectionClasses: sectionClasses, 
