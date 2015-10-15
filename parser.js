@@ -99,7 +99,7 @@ function handleSection(section, index, allSections)
             html += templating.getSingleColumnTemplate();
             break;
         case 'grouped':
-            html += getGroupedSection(section);
+            html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
             break;
     }
 
@@ -131,7 +131,7 @@ function addSection(columns, section)
     return columns;
 }
 
-function getGroupedSection(section)
+function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
 {
     var columns = [];
     var column;
@@ -142,7 +142,7 @@ function getGroupedSection(section)
         columns.push(sectionObject);
     }
 
-    return templating.getGroupedTemplate(sectionClasses, sectionStyles, columns);
+    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
 }
 
 function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)

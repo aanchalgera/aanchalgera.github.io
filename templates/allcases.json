@@ -115,8 +115,7 @@
          "backgroundImage":"",
          "backgroundColor":"#CC0000",
          "text":"this is summary text",
-         "align":"",
-         "foregroundColor": "#C850085"
+         "align":""
       },
       { 
          "type":"gallery", 
@@ -142,7 +141,7 @@
       },
       { 
          "type":"richContent", 
-         "text":"<iframe width=\"700\" height=\"500\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
+         "text":"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
          "backgroundColor":"#000000",
          "backgroundImage":""
       },

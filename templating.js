@@ -187,12 +187,13 @@ function getPageTemplate(pageTitle, pageDescription, html)
     );
 }
 
-function getGroupedTemplate(sectionClasses, sectionStyles, columns)
+function getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns)
 {
     return groupedTemplate(
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
+            extraStyles: extraStyles, 
             contentSections: columns
         }
     );
