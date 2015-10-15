@@ -332,7 +332,7 @@ class Editor extends React.Component{
      if (obj.length == 2 ){
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
      }else if (obj.length == 3) {
-       this.state.fields.splice(currentIndex, 0, ob.columnsj[0], obj.columns[1], obj.columns[2]);
+       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
      }
      this.setState({fields: this.state.fields}, this.saveData());
   }

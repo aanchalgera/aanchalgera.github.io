@@ -16,7 +16,8 @@
     "react": "~0.13.3",
     "react-router": "~0.13.3",
     "speakingurl": "~6.0.0",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "react-checkbox-group": "~0.2.2"
   },
   "devDependencies": {
     "babel-core": "~5.8.19",

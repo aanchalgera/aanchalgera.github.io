@@ -32,6 +32,7 @@ class ContentList extends React.Component{
       }
       else {
         this.props.fields[i]['show2column'] = false;
+        this.props.fields[i]['show3column'] = false;
       }
     }
     if (this.props.fields.length > 0) {
