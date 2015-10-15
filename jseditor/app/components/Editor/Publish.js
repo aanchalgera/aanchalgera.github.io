@@ -32,7 +32,7 @@ class Publish extends React.Component {
         asArray: true,
         queries: {
           orderByChild: 'status',
-          equalTo: 'future'
+          equalTo: 'publish'
         },
         then(data){
           if (null != data) {
@@ -134,12 +134,28 @@ class Publish extends React.Component {
         "postRepostBlogNames": postRepostBlogNames
       }
     };
-    this.props.base.post(
-      'posts/' + this.state.id, {
-      data: formData,
-      then(data) {
-        console.log('saved');
-      }
+
+    var self = this;
+    jquery.ajax({
+      url: "http://testing.xataka.com/admin/posts.json",
+      type: "POST",
+      dataType: "json",
+      data: data,
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true
+    })
+    .success(function(result, status) {
+     console.log(result, status);
+     self.props.base.post(
+       'posts/' + self.state.id, {
+       data: formData,
+       then(data) {
+         console.log('saved');
+         self.setState({status: 'publish'})
+       }
+     });
     });
   }
   onChange (ev) {
@@ -168,13 +184,23 @@ class Publish extends React.Component {
     ev.preventDefault();
     if (!this.validate()) return;
     this.setState({
-      status: "future"
-    });
+      status: "publish"
+    }, this.toggleSlotWidgetButtons());
+  }
+  onDraft(ev) {
+    ev.preventDefault();
+    if (!this.validate()) return;
+    this.setState({
+      status: "draft"
+    }, this.toggleSlotWidgetButtons());
+  }
+  toggleSlotWidgetButtons() {
+    document.getElementById('slot-widget-buttons').style.display = document.getElementById('slot-widget-buttons').style.display == 'block' ? 'none' : 'block';
   }
   validate() {
     var errorField = document.getElementsByClassName('error');
     errorField[0].style.display = 'none';
-    if ('future' == this.state.status || 'draft' == this.state.status) {
+    if ('publish' == this.state.status || 'draft' == this.state.status) {
       if (this.getFutureTimeInUTC() < new Date().getTime()) {
         document.getElementById('date-error').style.display = 'block';
         return;
@@ -189,14 +215,16 @@ class Publish extends React.Component {
     return formattedFutureDate.getTime() - utcDifference;
   }
   render () {
+    console.log(this.state.status);
     return(
       <div>
         <div className="preview-nav">
           <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to post</Link>
-          <a className="btn btn-primary" href="#" onClick={this.onPublish.bind(this)}>Publish</a>
+          <a className="btn btn-primary" href="#" onClick={this.onPublish.bind(this)}>{this.state.status == "publish" ? 'Update': 'Publish'}</a>
         </div>
         <form className="post-publish" ref="publish-form">
           <h3>Publish your post</h3>
+          {this.state.status == "publish" ? <a className="btn btn-primary" href="#" onClick={this.onDraft.bind(this)}>Draft</a> : ""}
           <div className="error alert alert-danger" id="date-error" style={{display: 'none'}}>Por favor, seleccione fecha válida</div>
           <SlotWidget
             value={this.state.value}

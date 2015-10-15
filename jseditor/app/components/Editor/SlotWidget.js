@@ -10,7 +10,7 @@ class SlotWidget extends React.Component {
     ev.preventDefault();
     var visible = document.getElementById('publish-slots').style.display;
     document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
-  }  
+  }
   render () {
     var tablehead = [];
     var tablerows = [];
@@ -57,8 +57,10 @@ class SlotWidget extends React.Component {
           <legend>Date and time</legend>
           <p className="non-published-state">
             <input type="text" size="20" value={this.props.value} onChange={this.props.onChange.bind(this)} name="postDate" id="publish-date-old" />
-            <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.openSlotWidget.bind(this)}>Select now</a>
-            <a className="btn btn-warning" onClick={this.props.onSchedule.bind(this)} href="#" id="schedule-future-top">Schedule</a>
+            <span id="slot-widget-buttons" style={{display: 'block'}}>
+              <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.openSlotWidget.bind(this)}>Select now</a>
+              <a className="btn btn-warning" href="#" id="schedule-future-top" onClick={this.props.onSchedule.bind(this)}>Schedule</a>
+            </span>
           </p>
           <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
             <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
