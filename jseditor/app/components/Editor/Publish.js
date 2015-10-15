@@ -3,17 +3,23 @@ import {Link} from 'react-router';
 import axios from 'axios';
 import jquery from 'jquery';
 import moment from 'moment';
+import SlotWidget from './SlotWidget';
+import RepostBlogsFormOptions from './RepostBlogsFormOptions';
+import CountriesFormOptions from './CountriesFormOptions';
 
-var timeStamp = moment().locale('es').format('X');
-var nextDayTimeStamp = moment.unix(timeStamp).add(1, 'day').locale('es').format('dddd DD');
-var currentMonth = moment().locale('es').format('MMMM');
+var utcDifference = 7200000;
+var timeStamp = moment().format('X');
 
 class Publish extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       fields: [],
-      value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm')
+      value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
+      status: 'draft',
+      postRepostBlogNames: [],
+      publishRegion: [],
+      postMethod: 'POST'
     };
   }
   componentDidMount(){
@@ -22,6 +28,26 @@ class Publish extends React.Component {
   init(){
     this.postname = this.router.getCurrentParams().postname;
     if (undefined != this.postname) {
+      this.props.base.fetch('posts', {
+        context: this,
+        asArray: true,
+        queries: {
+          orderByChild: 'status',
+          equalTo: 'publish'
+        },
+        then(data){
+          if (null != data) {
+            var scheduledPosts = {};
+            data.forEach(function(result,b){
+              var formatDate = moment(result.date).format('YYYY-MM-DD H:00:00');
+              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title}
+            })
+            this.setState({
+              futureProgrammedPosts: scheduledPosts
+            });
+          }
+        }
+      });
       this.props.base.fetch("posts/" + this.postname, {
         context: this,
         then(data){
@@ -30,22 +56,12 @@ class Publish extends React.Component {
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
-              status: data.status
-            });
-          }
-        }
-      });
-      this.props.base.fetch('posts', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'status',
-          equalTo: 'future'
-        },
-        then(data){
-          if (null != data) {
-            this.setState({
-              posts: data
+              maxId : data.maxId,
+              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "draft",
+              value: data.publishData.postDate != undefined ? data.publishData.postDate : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
+              postRepostBlogNames: data.publishData.postRepostBlogNames,
+              publishRegion: data.publishData.publishRegion,
+              postMethod: data.publishData.postMethod != undefined ? data.publishData.postMethod : 'POST'
             });
           }
         }
@@ -79,24 +95,52 @@ class Publish extends React.Component {
     });
   }
   saveData(content) {
+    if (this.postname == undefined) return;
+    if (!this.validate()) return;
+    content = content.replace(/(\r\n|\n|\r)/gm,"");
+    var countries = document.querySelectorAll('#countries input[type=checkbox]:checked');
+    var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
+    var publishRegion = [];
+    var postRepostBlogNames = [];
+    for (var i = 0;i < countries.length ;i++) {
+      publishRegion.push(countries[i].value);
+    }
+    for (var i = 0;i < repostBlogs.length ;i++) {
+      postRepostBlogNames.push(repostBlogs[i].value);
+    }
     var data = {
       "categoryId":"-1",
       "post_title":this.state.title,
       "comment_status":"open",
-      "post_type":"normal",
+      "postType":"normal",
       "post_content":content,
       "post_abstract":"",
       "post_extended_title":"",
       "post_visibility":0,
       "posts_galleries":"",
-      "postDate": "20/06/2016 22:48",
-      "publish-region": ["ES", "US"],
-      "postStatus": "future",
-      "postRepostBlogNames": ["applesfera", "genbetadev"]
+      "postDate": this.state.value,
+      "publish-region": publishRegion,
+      "postStatus": "publish",
+      "postRepostBlogNames": postRepostBlogNames
     }
+    var formData = {
+      "id" : this.state.id,
+      "title" : this.state.title,
+      "sections" : this.state.fields,
+      "maxId" : this.state.maxId,
+      "status" : 'publish',
+      "publishData" : {
+        "postDate": this.state.value,
+        "publishRegion": publishRegion,
+        "postStatus": "publish",
+        "postRepostBlogNames": postRepostBlogNames
+      }
+    };
+
+    var self = this;
     jquery.ajax({
       url: "http://testing.xataka.com/admin/posts.json",
-      type: "POST",
+      type: this.state.postMethod,
       dataType: "json",
       data: data,
       xhrFields: {
@@ -105,12 +149,24 @@ class Publish extends React.Component {
       crossDomain: true
     })
     .success(function(result, status) {
-      console.log(result, status);
+     console.log(result, status);
+     self.props.base.post(
+       'posts/' + self.state.id, {
+       data: formData,
+       then(data) {
+         console.log('saved');
+         self.setState({status: 'publish', postMethod: 'PUT'})
+       }
+     });
     });
   }
-  onChange(){}
-  onPickSlot(ev) {
+  onChange (ev) {
+    ev.preventDefault()
+    this.setState({value: ev.currentTarget.value});
+  }
+  onPickSlot (ev) {
     var currentTarget = ev.currentTarget;
+    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return
     var currentSlot = document.getElementsByClassName('slot-current')
     if (currentSlot.length > 0) {
       currentSlot[0].classList.add("slot-free")
@@ -125,90 +181,60 @@ class Publish extends React.Component {
     });
     document.getElementById('publish-slots').style.display = 'none';
   }
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    var visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
-  }
   onSchedule(ev) {
     ev.preventDefault();
+    if (!this.validate()) return;
     this.setState({
-      status: "future"
-    });
+      status: "publish"
+    }, this.toggleSlotWidgetButtons());
+  }
+  onDraft(ev) {
+    ev.preventDefault();
+    if (!this.validate()) return;
+    this.setState({
+      status: "draft"
+    }, this.toggleSlotWidgetButtons());
+  }
+  toggleSlotWidgetButtons() {
+    document.getElementById('slot-widget-buttons').style.display = document.getElementById('slot-widget-buttons').style.display == 'block' ? 'none' : 'block';
+  }
+  validate() {
+    var errorField = document.getElementsByClassName('error');
+    errorField[0].style.display = 'none';
+    if ('publish' == this.state.status || 'draft' == this.state.status) {
+      if (this.getFutureTimeInUTC() < new Date().getTime()) {
+        document.getElementById('date-error').style.display = 'block';
+        return;
+      }
+    }
+    return true;
+  }
+  getFutureTimeInUTC() {
+    var futureDate = this.state.value.split(' ')
+    var dateSplit = futureDate[0].split('/')
+    var formattedFutureDate = new Date(Date.parse(dateSplit[1] + '/' + dateSplit[0] + '/' + dateSplit[2] + ' ' + futureDate[1] + ':00 UTC'))
+    return formattedFutureDate.getTime() - utcDifference;
   }
   render () {
-    var tablehead = [];
-    var tablerows = [];
-    var td = [];
-    var tr = '';
-    for (var i = 0; i < 7; i++) {
-      if (i == 0) {
-        var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD')
-        tablehead.push(React.createElement('th', {}, React.createElement('strong', {}, "»"+currentDay.toLowerCase())));
-      } else {
-        var nextDayTimeStamp = moment.unix(timeStamp).add(i, 'day').locale('es').format('dddd DD');
-        tablehead.push(React.createElement('th', {}, nextDayTimeStamp.toLowerCase()));
-      }
-    }
-    for (var j = 7; j < 24; j++) {
-      for (var k = 0; k < 7; k++) {
-        var slot = '';
-        var msg = '';
-        var dateTime = moment().add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        var fomattedDateTime = moment(dateTime).format('DD/MM/YYYY H:mm');
-        if (timeStamp > moment(dateTime).format('X')) {
-          var slot = 'slot-past';
-          var msg = 'Pasado';
-        } else {
-          var slot = 'slot-free';
-          var msg = 'Libre';
-        }
-        td.push(React.createElement('td', {}, React.createElement('a', {className: slot,'data-date': fomattedDateTime, href: 'javascript:void(0)', onClick: this.onPickSlot.bind(this)}, msg)));
-      }
-      if (j % 2 == 0) {
-        tr = React.createElement('tr', {className: 'even'}, React.createElement('th', {}, j), td);
-      } else {
-        tr = React.createElement('tr', {}, React.createElement('th', {}, j), td);
-      }
-      tablerows.push(React.createElement('div',{},tr));
-      td = [];
-    }
+    console.log(this.state.status);
     return(
       <div>
         <div className="preview-nav">
           <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to post</Link>
-          <a className="btn btn-primary" href="#" onClick={this.onPublish.bind(this)}>Publish</a>
+          <a className="btn btn-primary" href="#" onClick={this.onPublish.bind(this)}>{this.state.status == "publish" ? 'Update': 'Publish'}</a>
         </div>
-        <form className="post-publish">
+        <form className="post-publish" ref="publish-form">
           <h3>Publish your post</h3>
-          <div className="form-group">
-            <fieldset className="date-time">
-           		<legend>Date and time</legend>
-              <p className="non-published-state">
-                <input type="text" size="20" value={this.state.value} onChange={this.onChange()} name="postDate" id="publish-date-old" />
-                <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.openSlotWidget.bind(this)}>Select now</a>
-                <a className="btn btn-warning" onClick={this.onSchedule.bind(this)} href="#" id="schedule-future-top">Schedule</a>
-              </p>
-              <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
-                <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
-                <table summary="Huecos disponibles para publicar">
-                  <thead>
-                    <tr id="table-head">
-                      <th><em>{currentMonth.toLowerCase()}</em></th>
-                      {tablehead.map(function(result) {
-                        return result;
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody id="table-rows">
-                    {tablerows.map(function(result) {
-                      return result;
-                    })}
-                  </tbody>
-            </table>
-            </div>
-           </fieldset>
-          </div>
+          {this.state.status == "publish" ? <a className="btn btn-primary" href="#" onClick={this.onDraft.bind(this)}>Draft</a> : ""}
+          <div className="error alert alert-danger" id="date-error" style={{display: 'none'}}>Por favor, seleccione fecha válida</div>
+          <SlotWidget
+            value={this.state.value}
+            futureProgrammedPosts={this.state.futureProgrammedPosts}
+            onChange={this.onChange.bind(this)}
+            onPickSlot={this.onPickSlot.bind(this)}
+            onSchedule={this.onSchedule.bind(this)} />
+          <CountriesFormOptions publishRegions={this.state.publishRegion} />
+          <RepostBlogsFormOptions repostBlogs={this.state.postRepostBlogNames} />
         </form>
       </div>
     )
