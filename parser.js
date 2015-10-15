@@ -17,6 +17,15 @@ var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 function parse(requestData)
 {
+    templating.setTemplatesDir('./templates');
+    jsonObjects = JSON.parse(requestData);
+    templating.loadTemplates();
+    return parseData(jsonObjects);
+}
+
+function parse2(requestData)
+{
+    templating.setTemplatesDir('./templates2');
     jsonObjects = JSON.parse(requestData);
     templating.loadTemplates();
     return parseData(jsonObjects);
@@ -24,6 +33,7 @@ function parse(requestData)
 
 function testRead(fileName)
 {
+    templating.setTemplatesDir('./templates2');
     var testJson = templating.loadFile(fileName);
     jsonObjects = JSON.parse(testJson);
     templating.loadTemplates();
@@ -47,7 +57,6 @@ function parseData(jsonObjects)
     }
 
     var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, html);
-
     if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
         var outputFileName = jsonObjects.id + '.html';
         templating.writeFile(outputFilePath + '/' + outputFileName, finalHTML);
