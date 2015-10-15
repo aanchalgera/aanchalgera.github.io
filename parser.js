@@ -148,14 +148,6 @@ function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
 
 function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)
 {
-    // var a = { 
-    //     sectionClasses: sectionClasses, 
-    //     sectionStyles: sectionStyles,
-    //     extraStyles: extraStyles,
-    //     text: section["text"],
-    //     type: 'summary'
-    // };
-    // console.log(a);
     return { 
         sectionClasses: sectionClasses, 
         sectionStyles: sectionStyles,
