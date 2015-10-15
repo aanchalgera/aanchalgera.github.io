@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
-var timeStamp = moment().locale('es').format('X');
+var timeStamp = moment().format('X');
 var nextDayTimeStamp = moment.unix(timeStamp).add(1, 'day').locale('es').format('dddd DD');
 var currentMonth = moment().locale('es').format('MMMM');
 
