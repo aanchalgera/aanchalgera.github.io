@@ -8,7 +8,7 @@ import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
 var utcDifference = 7200000;
-var timeStamp = moment().locale('es').format('X');
+var timeStamp = moment().format('X');
 
 class Publish extends React.Component {
   constructor(props){
@@ -18,7 +18,8 @@ class Publish extends React.Component {
       value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
       status: 'draft',
       postRepostBlogNames: [],
-      publishRegion: []
+      publishRegion: [],
+      postMethod: 'POST'
     };
   }
   componentDidMount(){
@@ -59,7 +60,8 @@ class Publish extends React.Component {
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "draft",
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
-              publishRegion: data.publishData.publishRegion
+              publishRegion: data.publishData.publishRegion,
+              postMethod: data.publishData.postMethod != undefined ? data.publishData.postMethod : 'POST'
             });
           }
         }
@@ -138,7 +140,7 @@ class Publish extends React.Component {
     var self = this;
     jquery.ajax({
       url: "http://testing.xataka.com/admin/posts.json",
-      type: "POST",
+      type: this.state.postMethod,
       dataType: "json",
       data: data,
       xhrFields: {
@@ -153,7 +155,7 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          console.log('saved');
-         self.setState({status: 'publish'})
+         self.setState({status: 'publish', postMethod: 'PUT'})
        }
      });
     });
@@ -165,7 +167,6 @@ class Publish extends React.Component {
   onPickSlot (ev) {
     var currentTarget = ev.currentTarget;
     if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return
-    if (!this.validate()) return
     var currentSlot = document.getElementsByClassName('slot-current')
     if (currentSlot.length > 0) {
       currentSlot[0].classList.add("slot-free")
