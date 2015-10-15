@@ -123,6 +123,4 @@ class Content extends React.Component{
   }
 }
 
-Content.propTypes = { type: React.PropTypes.string.isRequired };
-
 export default Content;
