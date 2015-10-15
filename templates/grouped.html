@@ -1,17 +1,22 @@
 <section class="<%=sectionClasses%>" style="<%=sectionStyles%>">
     <div class="builder-section-content">
         <%_.forEach(contentSections, function (contentSection, index) {%>
-            <% if (_.isUndefined(contentSection.backgroundColor)) { %>
-                <% backgroundColor = '' %>
+            <% backgroundStyle = "" %>
+            <% if ('summary' == contentSection.type) { %>
+                <% if (!_.isUndefined(contentSection.sectionStyles)) { %>
+                    <% backgroundStyle = contentSection.sectionStyles %>
+                <% } %>
             <% } else { %>
-                <% backgroundColor = contentSection.backgroundColor %>
+                <% if (!_.isUndefined(contentSection.backgroundColor)) { %>
+                    <% backgroundStyle = "background-color:".concat(contentSection.backgroundColor).concat(";") %>
+                <% } %>
             <% } %>
             <% if (_.isUndefined(contentSection.foregroundColor)) { %>
                 <% foregroundColor = '' %>
             <% } else { %>
                 <% foregroundColor = contentSection.foregroundColor %>
             <% } %>
-            <div class="builder-text-column builder-text-column-<%= index + 1%>" style="background-color:<%= backgroundColor %>;color:<%= foregroundColor %>">
+            <div class="builder-text-column builder-text-column-<%= index + 1%>" style="<%= backgroundStyle %>;color:<%= foregroundColor %>">
                 <% if ('image' == contentSection.type) { %>
                     <figure class="builder-text-image">
                         <% if ('small' == contentSection.layout) { %>
@@ -32,7 +37,7 @@
                 <% } else if('content' == contentSection.type || 'richContent' == contentSection.type) { %>
                     <div class="builder-text-content"><%= contentSection.title %><%= contentSection.text %></div>
                 <% } else if('summary' == contentSection.type) { %>
-                    <div class="builder-text-content" class="summary" style="<%= contentSection.extraStyles %>"><blockquote><%= contentSection.text %></blockquote></div>
+                    <div class="builder-text-content"><blockquote class="summary" style="<%= contentSection.extraStyles %>"><%= contentSection.text %></blockquote></div>
                 <% } else if('video' == contentSection.type) { %>
                     <div class="builder-text-content">
                         <div class="ttfmake-embed-wrapper aligncenter" style="max-width: 960px;"><iframe width="<%= contentSection.width%>" height="<%= contentSection.height%>" src="<%=contentSection.url%>" frameborder="0" allowfullscreen></iframe>
