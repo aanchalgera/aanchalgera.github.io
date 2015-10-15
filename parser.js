@@ -108,27 +108,47 @@ function handleSection(section, index, allSections)
 
 function getSectionObject(section)
 {
+    var sectionClasses= getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
+    var extraStyles = getExtraStyles(section);
+    section = doMarkUp(section);
+
     if ('image' == section.type) {
-        var sectionClasses = getSectionClasses(section);
-        var sectionStyles = getSectionStyles(section);
         return getImageObject(sectionClasses, sectionStyles, section);
     }
 
     if ('summary' == section.type) {
-        var sectionClasses = getSectionClasses(section);
-        var sectionStyles = getSectionStyles(section);
-        var extraStyles = getExtraStyles(section);
-        return getSummaryObject(sectionClasses, sectionStyles, extraStyles, section);
+        return { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            extraStyles: extraStyles,
+            text: section["text"],
+            type: section.type
+        };
+    }
+
+    if ('content' == section.type) {
+        return { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            extraStyles: extraStyles,
+            text: section["text"],
+            type: section.type
+        };
+    }
+
+    if ('video' == section.type) {
+        return {
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            url: section['url'],
+            height: section["height"],
+            width: section["width"],
+            type: section.type
+        }
     }
 
     return section;
-}
-
-function addSection(columns, section)
-{
-    columns.push(getSectionObject(section));
-
-    return columns;
 }
 
 function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
@@ -137,23 +157,11 @@ function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
     var column;
     var allColumns = section['columns'];
     for (column in allColumns) {
-        allColumns[column] = doMarkUp(allColumns[column]);
         var sectionObject = getSectionObject(allColumns[column]);
         columns.push(sectionObject);
     }
 
     return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
-}
-
-function getSummaryObject(sectionClasses, sectionStyles, extraStyles, section)
-{
-    return { 
-        sectionClasses: sectionClasses, 
-        sectionStyles: sectionStyles,
-        extraStyles: extraStyles,
-        text: section["text"],
-        type: 'summary'
-    };
 }
 
 function getImageObject(sectionClasses, sectionStyles, section)
