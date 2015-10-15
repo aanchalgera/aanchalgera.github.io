@@ -425,8 +425,9 @@ class Editor extends React.Component{
       page: "preview"
     };
     data = JSON.stringify(data);
+    var previewUrl = event.currentTarget.id == 'preview1' ? 'parse' : 'parse2';
     axios({
-      url : 'http://52.19.39.251:81/parse',
+      url : 'http://52.19.39.251:81/' + previewUrl,
       method: 'POST',
       data : data
     })
@@ -461,7 +462,8 @@ class Editor extends React.Component{
     return (
       <div>
         <div className="preview-nav">
-          <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
+          <a className="btn btn-primary" id="preview1" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
+          <a className="btn btn-primary" id="preview2" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview 2</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publicar</Link>
         </div>
