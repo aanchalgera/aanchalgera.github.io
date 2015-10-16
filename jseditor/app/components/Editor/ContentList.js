@@ -3,21 +3,6 @@ import Resource from './Resource';
 import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component{
-<<<<<<< HEAD
-  getStyleText(data) {
-    var backgroundColor = '', backgroundImage = '';
-      backgroundColor = data.backgroundColor;
-
-      backgroundImage = data.backgroundImage ? "url('"+data.backgroundImage+"')" : '';
-      if (data.backgroundRepeat == true) {
-        var repeatOrCover = ';background-repeat:repeat'
-      } else {
-        var repeatOrCover = ';background-size:cover'
-      }
-    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
-  }
-=======
->>>>>>> refactoring
   isGroupable(type){
     var groupable = {'content':true,'gallery':false,'video':true,'summary':true,'richContent':true,'image':true,'grouped':false};
     return groupable[type];

@@ -102,8 +102,10 @@ class Content extends React.Component{
     } else {
       var fade = '';
     }
+    var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
+
     return (
-      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner"}
+      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner "+minimized}
        id={"div-"+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
