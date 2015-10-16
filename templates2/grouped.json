@@ -1,0 +1,50 @@
+{  
+   "id":"sample-test",
+   "title":"Sample Test",
+   "sections":[  
+      {
+         "type":"grouped",
+         "comment": "2 column, image and content", 
+         "columns": [
+            {  
+               "align":"",
+               "alt":"",
+               "banner":false,
+               "height":"300",
+               "id":3,
+               "layout":"normal",
+               "parallax":false,
+               "type":"image",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
+               "width":"100"
+            },
+            {  
+               "align":"",
+               "backgroundColor":"#CCC",
+               "foregroundColor":"#CC0000",
+               "backgroundImage":"",
+               "id":4,
+               "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
+               "type":"content"
+            },
+            {  
+               "align":"",
+               "backgroundColor":"#AAA",
+               "foregroundColor":"#FFF000",
+               "backgroundImage":"",
+               "id":4,
+               "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo **interesante** es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
+               "type":"content"
+            }
+         ]
+      },
+      {  
+         "align":"",
+         "backgroundColor":"",
+         "backgroundImage":"",
+         "id":1,
+         "text":"##### Heading with  section without content formatting\n# Cómo hemos jugado a videojuegos desde 1980 y cómo lo haremos en 2016\nJugar a videojuegos es ser un DJ de vidas paralelas, que remezcla con cada botón las decisiones de una comandante espacial, el temor de un cazador de monstruos victoriano, la montaña rusa de una huida en motocicleta, el instinto de supervivencia de Mad Max o el impulso de construir bloque a bloque en los legos virtuales de Minecraft.\n\nUn remix de una melodía de mundos, un ritmo de cosas imposibles, una fiesta eterna del conócete a ti mismo a través de todo aquello que sólo puedes vivir en el videojuego.\n\nJugar es crear belleza. También es una forma de autobiografía que trasciende la carne y los límites del mundo. Es explorar universos, cartografiar lo que no existe, establecer mapas de otras realidades. Es caminar hacia lo desconocido y disfrazarte de héroe. Y después, soltar el mando y seguir con tu vida, mientras todos los que te rodean ignoran tu viaje. Qué digo: las posibilidades de ese viaje.\n\nToru Iwatani inventó Pac-Man hace 35 años, y con él todo un lenguaje del videojuego. Su visión única del videojuego es la mejor manera de entender esa vida mejor que propone. Iwatani, leyenda viva, resume mejor que nadie estos cambios y el futuro que nos espera.",
+         "type":"content"
+      }
+   ]
+}

@@ -16,9 +16,14 @@ var fs = require('fs'),
     sectionStyles,
     extraStyles,
     section,
-    templatesDir = './templates', 
+    templatesDir = '', 
     cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
+
+function setTemplatesDir(templatesDirectory)
+{
+    templatesDir = templatesDirectory;
+}
 
 function loadFile(filePath)
 {
@@ -238,5 +243,6 @@ module.exports = {
     loadFile: loadFile,
     writeFile: writeFile,
     getTemplate: getTemplate,
-    processData: processData
+    processData: processData,
+    setTemplatesDir: setTemplatesDir
 }
