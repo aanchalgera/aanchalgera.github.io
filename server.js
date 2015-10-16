@@ -27,21 +27,6 @@ function processRequest(request, response)
                 console.log(e);
                 sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
             }
-        } else if ('/parse2' === request.url) {
-            try {
-                if (undefined !== process.argv[2]) {
-                    console.log(requestData);
-                }
-                result = parser.parse2(requestData);
-                var finalResponse = {
-                    "status": "success",
-                    "response": result
-                }
-                sendResponse(response, JSON.stringify(finalResponse), 'json');
-            } catch (e) {
-                console.log(e);
-                sendResponse(response, '{"status": "failure", "data": "invalid JSON"}');
-            }
         } else {
             var match = /\/read\/(.+)?/.exec(request.url);
             if (null !== match) {
