@@ -17,15 +17,6 @@ var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
 function parse(requestData)
 {
-    templating.setTemplatesDir('./templates');
-    jsonObjects = JSON.parse(requestData);
-    templating.loadTemplates();
-    return parseData(jsonObjects);
-}
-
-function parse2(requestData)
-{
-    templating.setTemplatesDir('./templates2');
     jsonObjects = JSON.parse(requestData);
     templating.loadTemplates();
     return parseData(jsonObjects);
@@ -33,11 +24,8 @@ function parse2(requestData)
 
 function testRead(fileName)
 {
-    templating.setTemplatesDir('./templates2');
     var testJson = templating.loadFile(fileName);
-    jsonObjects = JSON.parse(testJson);
-    templating.loadTemplates();
-    return parseData(jsonObjects);
+    return parse(testJson);
 }
 
 function processRequest(host)
@@ -78,23 +66,13 @@ function handleSection(section, index, allSections)
     templating.setSection(section);
     
     switch(section.type) {
-        case 'video':
-            html += templating.getVideoTemplate();
-            break;
-        // case 'videoBanner':
-        //     html += templating.getVideoBannerTemplate();
-        //     break;
-        // case 'slider':
-        //     html += templating.getSliderTemplate();
-        //     break;
         case 'summary':
+        case 'richContent':
+        case 'content':
             html += templating.getCommonTemplate();
             break;
-        // case 'gallery':
-        //     html += templating.getGalleryTemplate();
-        //     break;
-        case 'richContent':
-            html += templating.getCommonTemplate(); //same templating for richContent and singleColumn
+        case 'video':
+            html += templating.getVideoTemplate();
             break;
         case 'image':
             if (isTrue(section, 'banner')) {
@@ -104,9 +82,15 @@ function handleSection(section, index, allSections)
                 html += templating.getImageTemplate(imageObject);
             }
             break;
-        case 'content':
-            html += templating.getCommonTemplate();
-            break;
+        // case 'videoBanner':
+        //     html += templating.getVideoBannerTemplate();
+        //     break;
+        // case 'slider':
+        //     html += templating.getSliderTemplate();
+        //     break;
+        // case 'gallery':
+        //     html += templating.getGalleryTemplate();
+        //     break;
         // case 'grouped':
         //     html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
         //     break;
@@ -165,17 +149,6 @@ function getImageObject(sectionClasses, sectionStyles, section)
     return imageObject;
 }
 
-// function addFirstLastClass(sectionClasses)
-// {
-//     if (0 === sectionsCovered) {
-//         sectionClasses.push("builder-section-first");
-//     } else if (sectionsCovered === totalSections - 1) {
-//         sectionClasses.push("builder-section-last");
-//     }
-
-//     return sectionClasses;
-// }
-
 function addSectionLayoutClass(sectionClasses, section)
 {
     switch(section.type) {
@@ -208,9 +181,9 @@ function addSectionTypeClass(sectionClasses, section)
             break;
         case 'richContent':
         case 'content':
-        // case 'grouped':
             sectionClasses.push("module-type-text");
             break;
+        // case 'grouped':
         // case 'slider':
         //     sectionClasses.push(bannerClass);
         //     break;
@@ -285,7 +258,6 @@ function getSectionClasses(section)
     var sectionClasses = [];
     sectionClasses.push(commonClass);
 
-    // sectionClasses = addFirstLastClass(sectionClasses);
     sectionClasses = addSectionTypeClass(sectionClasses, section);
     sectionClasses = addSectionLayoutClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
@@ -369,7 +341,6 @@ function doMarkUp(section)
 
 module.exports = {
     parse: parse,
-    parse2: parse2,
     processRequest: processRequest,
     testRead: testRead
 }
@@ -420,15 +391,15 @@ function getSectionObject(section)
     return section;
 }
 
-function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
-{
-    var columns = [];
-    var column;
-    var allColumns = section['columns'];
-    for (column in allColumns) {
-        var sectionObject = getSectionObject(allColumns[column]);
-        columns.push(sectionObject);
-    }
+// function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
+// {
+//     var columns = [];
+//     var column;
+//     var allColumns = section['columns'];
+//     for (column in allColumns) {
+//         var sectionObject = getSectionObject(allColumns[column]);
+//         columns.push(sectionObject);
+//     }
 
-    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
-}
+//     return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
+// }

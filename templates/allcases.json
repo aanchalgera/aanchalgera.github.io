@@ -1,258 +1,96 @@
 {  
-   "id":"sample-test",
-   "title":"Sample Test",
+   "id":"-K0dxiSOkZZuA5qS4uSM",
+   "title":"testing New",
    "sections":[  
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":1,
-         "text":"##### Heading with  section without content formatting\n# Cómo hemos jugado a videojuegos desde 1980 y cómo lo haremos en 2016\nJugar a videojuegos es ser un DJ de vidas paralelas, que remezcla con cada botón las decisiones de una comandante espacial, el temor de un cazador de monstruos victoriano, la montaña rusa de una huida en motocicleta, el instinto de supervivencia de Mad Max o el impulso de construir bloque a bloque en los legos virtuales de Minecraft.\n\nUn remix de una melodía de mundos, un ritmo de cosas imposibles, una fiesta eterna del conócete a ti mismo a través de todo aquello que sólo puedes vivir en el videojuego.\n\nJugar es crear belleza. También es una forma de autobiografía que trasciende la carne y los límites del mundo. Es explorar universos, cartografiar lo que no existe, establecer mapas de otras realidades. Es caminar hacia lo desconocido y disfrazarte de héroe. Y después, soltar el mando y seguir con tu vida, mientras todos los que te rodean ignoran tu viaje. Qué digo: las posibilidades de ese viaje.\n\nToru Iwatani inventó Pac-Man hace 35 años, y con él todo un lenguaje del videojuego. Su visión única del videojuego es la mejor manera de entender esa vida mejor que propone. Iwatani, leyenda viva, resume mejor que nadie estos cambios y el futuro que nos espera.",
-         "type":"content"
+      {
+         "type": "content",
+         "text": "plain content, hello ajinder singh"
       },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":2,
-         "text":"##### Heading with section with content formatting \n\nEn la reciente ComiCon de San Diego se ha estrenado el primer tráiler de Batman v Superman: Dawn of Justice. Es una película. En ella, el actor Ben Affleck se sube al batmóvil con el traje del Hombre Murciélago. Él. El resto, los espectadores, sólo pueden mirar e identificarse con Affleck , suspirando por ser Bruce Wayne por unas horas: un ***multibillonario que se viste de Drácula para pegarse*** con gente y presumir de carísimos juguetes. Sin la carga de los padres muertos, o los años de entrenamiento.\n\nAl mismo tiempo, unos cuantos cientos de miles de jugadores pueden ser Batman. Subirse al Batmóvil, probarse los distintos trajes y planear o conducir sobre Gotham repartiendo justicia en forma de nudillos y facturas hospitalarias. Los guionistas no deciden el recorrido, el director es el pulgar del jugador mientras mueve la cámara buscando ese ángulo perfecto. Hay un actor [poniendo voz al superhéroe](http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis), pero es un elemento de atrezzo ante la furia del Caballero Oscuro. Como las gotas de lluvia virtual deslizándose por la capa o los edificios golpeados por el crimen que esperan a un salvador: tú.\n\n\n![imagetest](http://i.blogs.es/c93cd6/project-valley/650_1200.jpg)\n\n**Generic Listing Goes here**\n\n* Parte de la labor de las compañías es mantenerse actuales, por ello existen fuertes inversiones en investigación y desarrollo, con la idea de anticiparse y tener listo el dispositivo del futuro. ***[Samsung es una de esas compañías](http://www.xataka.com/especial/videojuegos-ochenta-dosmildieciseis)*** que desde hace años han trabajado en desarrollar tecnología, para implementarla en sus dispositivos y así no depender de otros fabricantes.\n* Uno de los desarrollos que más le ha funcionado a la compañía, es el de las pantallas flexibles, ya lo vimos en un inicio con el Galaxy Round, posteriormente con el Galaxy Note Edge y este año con el Galaxy S6 Edge y Edge+. Pero esto apenas es el inicio, ya que de acuerdo a los rumores, Samsung ya prepara su próximo dispositivo con pantalla flexible, que además se podrá plegar, lo interesante es que este dispositivo podría ser anunciado a inicios de 2016.\n\n**Numbered Listing goes here**\n\n1. Parte de la labor de las compañías es mantenerse actuales, por ello existen fuertes inversiones en investigación y desarrollo, con la idea de anticiparse y tener listo el dispositivo del futuro. Samsung es una de esas compañías, que desde hace años han trabajado en desarrollar tecnología, para implementarla en sus dispositivos y así no depender de otros fabricantes.\n2. Uno de los desarrollos que más le ha funcionado a la compañía, es el de las pantallas flexibles, ya lo vimos en un inicio con el Galaxy Round, posteriormente con el Galaxy Note Edge y este año con el Galaxy S6 Edge y Edge+. Pero esto apenas es el inicio, ya que de acuerdo a los rumores, Samsung ya prepara su próximo dispositivo con pantalla flexible, que además se podrá plegar, lo interesante es que este dispositivo podría ser anunciado a inicios de 2016.",
-         "type":"content"
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png"
       },
-      {  
-         "align":"",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":3,
-         "layout":"normal",
-         "parallax":false,
-         "type":"image",
-         "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
-         "width":""
-      },
-      {  
-         "align":"section-align-left",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":4,
-         "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
-         "type":"content"
-      },
-      {  
-         "align":"section-align-right",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":5,
-         "text":"## Salón de Frankfurt 2015: los mejores coches eléctricos e híbridos presentados\n\nComo bien sabéis, el Salón de Frankfurt 2015 comienza esta semana y como cada edición, nos trae novedades muy suculentas, también en el ***campo de la movilidad alternativa***. Como no podría ser de otro modo, os invitamos a que sigáis en Motorpasión hasta el último detalle de lo que dará de sí la cita alemana.\nPor nuestra parte, vamos a repasar cuáles han sido las principales novedades para la movilidad alternativa, en la que esta vez destacan las motorizaciones eléctricas con tres prototipos 100% eléctricos, dos híbridos enchufables y el rey de los híbridos convencionales.\n",
-         "type":"content"
-      },
-      {  
-         "align":"section-align-left",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":6,
-         "text":"Lo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 años después.\n\n",
-         "type":"content"
-      },
-      {  
-         "align":"section-align-right",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":7,
-         "layout":"normal",
-         "parallax":false,
-         "type":"image",
-         "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379758/yof3cmpvgce2h5yy8jei.jpg",
-         "width":""
-      },
-      {  
-         "align":"section-align-left",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":8,
-         "layout":"normal",
-         "parallax":false,
-         "type":"image",
-         "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379780/pxnp39lxjqlq6pwcws28.png",
-         "width":""
-      },
-      {  
-         "align":"section-align-right",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":9,
-         "text":"Pac-Man no es la abstracción de nada: no es una nave espacial ni un vaquero, no es un hombre ni está basado en nada previo. Se desliza por un laberinto escapando de (o comiendo) fantasmas, rompe el espacio al salir por un lado de la pantalla y entrar por el opuesto. También es el elegido, junto a otros cuantos títulos, para establecer competiciones que duran hasta nuestros días. Los mejores jugadores se miden entre ellos, sacan fotos de sus récords, crean estrategias que los diseñadores de este nuevo mundo ni siquiera habían pensado.\n\n",
-         "type":"content"
-      },
-      {  
-         "align":"section-align-left",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":11,
-         "layout":"normal",
-         "parallax":false,
-         "type":"image",
-         "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379868/tqmsupq3i9eh2xgvuvqy.png",
-         "width":""
-      },
-      {  
-         "align":"section-align-right",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":12,
-         "layout":"normal",
-         "parallax":false,
-         "type":"image",
-         "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379870/jvppzkrlwznxaljcz6yg.jpg",
-         "width":""
-      },
-      {  
-         "type":"summary",
-         "backgroundImage":"",
-         "backgroundColor":"#CC0000",
-         "text":"this is summary text",
-         "align":""
-      },
-      { 
-         "type":"gallery", 
-         "backgroundColor":"#000000",
-         "images":[  
-           {  
-              "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379870/jvppzkrlwznxaljcz6yg.jpg",
-              "description":"test description"
-           },
-           {  
-              "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379870/jvppzkrlwznxaljcz6yg.jpg",
-              "description":"test description"
-           }
-        ]
-      },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":5,
-         "text":"Next is rich content",
-         "type":"content"
-      },
-      { 
-         "type":"richContent", 
-         "text":"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
-         "backgroundColor":"#000000",
-         "backgroundImage":""
-      },
-      {  
-         "type":"summary",
-         "backgroundImage":"",
-         "backgroundColor":"",
-         "text":"this is summary text in multi column layout, on left column",
-         "align":"section-align-left"
-      },
-      {  
-         "align":"section-align-right",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":5,
-         "text":"## Salón de Frankfurt 2015: los mejores coches eléctricos e híbridos presentados\n\nComo bien sabéis, suculentas, también en el ***campo de la movilidad alternativa***. Como no podría ser de otro modo, os invitamos a que sigáis en Motorpasión hasta el último detalle de lo que dará de sí la cita alemana.\nPor nuestra parte, vamos a repasar cuáles han sido las principales novedades para la movilidad alternativa, en la que esta vez destacan las motorizaciones eléctricas con tres prototipos 100% eléctricos, dos híbridos enchufables y el rey de los híbridos convencionales.\n",
-         "type":"content"
-      },
-      { 
-         "type":"richContent", 
-         "text":"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Q3S97D5n5t4\" frameborder=\"0\" allowfullscreen></iframe>",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "align":"section-align-left"
-      },
-     {  
-         "align":"section-align-right",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":5,
-         "text":"left column is rich content, right side is content",
-         "type":"content"
-      },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
-         "id":2,
-         "text":"checking with background repeat false  ",
-         "type":"content",
-         "backgroundRepeat": false
-      },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
-         "id":2,
-         "text":"checking with background repeat true  ",
-         "type":"content",
-         "backgroundRepeat": true
-      }
-,
-      {  
-         "backgroundColor":"#000",
-         "foregroundColor":"#fff",
-         "backgroundImage":"",
-         "id":9,
-         "text":"Pac-Man no es la abstracción de nada: no es una nave espacial ni un vaquero, no es un hombre ni está basado en nada previo. Se desliza por un laberinto escapando de (o comiendo) fantasmas, rompe el espacio al salir por un lado de la pantalla y entrar por el opuesto. También es el elegido, junto a otros cuantos títulos, para establecer competiciones que duran hasta nuestros días. Los mejores jugadores se miden entre ellos, sacan fotos de sus récords, crean estrategias que los diseñadores de este nuevo mundo ni siquiera habían pensado.\n\n",
-         "type":"content"
-      },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
-         "id":2,
-         "text":"checking with background repeat true, fade true  ",
-         "type":"content",
-         "backgroundRepeat": true,
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
          "backgroundFade": true
       },
-      {  
-         "align":"",
-         "backgroundColor":"",
-         "backgroundImage":"http:\/\/imshopping.rediff.com\/imgshop\/100-100\/shopping\/pixs\/13239\/g\/gymball75cm._acme-fitness-75-cm-gym-ball.jpg",
-         "id":2,
-         "text":"hahahahahhah",
-         "type":"content",
-         "backgroundFade": false
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundFade": true,
+         "foregroundColor": "#FFF"
       },
-      {  
-        "type":"video",
-        "provider":"youtube",
-        "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
-        "align":""
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg11.jpg",
+         "backgroundRepeat": true
       },
-      {  
-        "type":"video",
-        "provider":"youtube",
-        "url":"https://www.youtube.com/embed/Q3S97D5n5t4",
-        "align":"section-align-left"
+
+      {
+         "type": "content",
+         "text": "plain content with blockquote, hello ajinder singh \n > hello hi"
       },
-      {  
-         "align":"",
-         "alt":"",
-         "banner":false,
-         "height":"",
-         "id":3,
-         "layout":"normal",
-         "parallax":true,
-         "type":"content",
-         "backgroundImage":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
-         "width":"",
-         "text": "Pokémon ipsum dolor sit amet Kabutops metamórfica Crobat pomdepik Kakuna Quilava pyroli Bellsprout xatu Sentret: Scizor Dragonite Dragonite Sudowoodo. Snubull Raichu Nidorina Parasect Bayleef Goupix Misdreavus Porygon2 Wigglytuff Slugma Qwilfish adoizo Wigglytuff: Sandslash Hoothoot Wigglytuff Tangela Weedle, Fearow Psyduck Tentacruel Caterpie. Grolem Kabutops Meowth Caterpie axoloto grolem grolem Poliwag Rattata Butterfree Pidgey Machop Kangaskhan rondoudou Jolteon Spinarak? Hitmonlee Bellsprout piafabec Heracross. Crobat Cubone Ponyta Sudowoodo Primeape m.mime mimitoss Tentacruel Hitmontop rhinocorne Azumarill Psyduck Kingdra Tangela. MALOSSE Caterpie Entei Snorlax Venusaur. Grimer Tyrogue Onix draco Hoothoot. Ponyta Tyrogue Weepinbell soporifik Dratini Forretress Doduo Feraligatr Fearow Bulbasaur Bellsprout rondoudou Koffing taupikeur Suicune, Entei snubull Sandslash fouinar piafabec persa Charizard Goldeen Sudowoodo Girafarig insolourdo pyroli Scyther: Phanpy Charmeleon Raro Onix Clefairy Entei Onix Kingdra, kabuto Forretress Moltres Hypno Remoraid weedle Forretress demolosse Scyther krabby Venusaur Mewtwo: hypocean natu. Caratroc Noctali Phanpy Lugia pyroli Parasect Quilava espectro Magicarpe Kakuna Koffing Gastly Scyther, Scizor Pharamp Slowbro Granbull insolourdo demolosse Pupitar natu Crobat Meowth Raro grolem. Kabutops Poliwhirl noadkoko: capumain Hypno Raichu mimitoss Ninetales snubull Squirtle Magcargo Tentacool, adoizo ónix snubull marcacrin Pidgeot Magicarpe Raichu Primeape Poliwrath Rattata adoizo Sentret noadkoko Otaria … Caratroc Charizard Graveler Zapdos tournegrain Crobat. Crobat Blissey Goupix Lapras Lamantine Doduo rhinoferos Dragonite Excelangue pyroli, Ariados Tentacruel akwakwak Tyrogue Goupix Slowpoke rattatac Venomoth! Kakuna Charizard Electabuzz Tangela Weepinbell … Slugma Murkrow Kangaskhan mentali Moltres electrodo rondoudou Geodude Rattata Nidoqueen Kabutops. Abo Charizard, Lanturn pichu Dratini Tentacool Politoed Goldeen Muk Arbok Onix Blissey Slowpoke! Hitmontop. Scyther Graveler lippoutou lainergie Koffing Larvitar Hitmonlee Lamantine Misdreavus Togetic Phanpy. Meowth Misdreavus Spinarak rondoudou Dodrio Phanpy Mantine Geodude pomdepik Machop, farfuret Totodile IVYSAUR Arcanine Misdreavus Koffing Tyrogue, Wobbuffet Wartortle lainergie Weepinbell Parasect lainergie Slowbro xatu Quilava Grimer Bellossom Graveler Pidgeotto Primeape insolourdo Clefable. Venusaur Bulbasaur Metapod Hitmonlee Starmie Magicarpe Shellder Clefairy Heracross electrodo, Phanpy. Dragonite mentali Slugma Machop Abra Abra Poliwhirl tournegrain Bellsprout MAGNETON m.mime Politoed queulorior Geodude Articuno Mantine Ariados, soporifik Magby Koffing Slowbro noctali Gastly Pinsir piafabec. Totodile Marowak Lamantine Bayleef rhinocorne Granbull hericendre cochignon Kadabra Primeape Feraligatr hericendre Mantine Gligar Ptera Yanma Koffing Magneti Steelix Sunflora taupikeur adoizo Alakazam! Ferosinge pyroli Lamantine krabby Skarmory marcacrin Igglybuff rondoudou Kingdra Teddiursa Caterpie, Murkrow Magby Dragonite IVYSAUR ecremeuh adoizo Nidorina akwakwak Wobbuffet abo. Lapras Entei Suicune Venusaur Voltorb rhinoferos MALOSSE. Charmeleon Sentret Slowbro maraiste Feraligatr pichu Zapdos Grimer Magmar Seaking Murkrow. Sentret Wigglytuff Goldeen Rafflesia Lamantine MALOSSE. Kabuto Primeape krabby Rafflesia Donphan Kingdra Elekid Sandslash Tyrogue natu Seaking Lapras. Pokémon ipsum dolor sit amet Kabutops metamórfica Crobat pomdepik Kakuna Quilava pyroli Bellsprout xatu Sentret: Scizor Dragonite Dragonite Sudowoodo. Snubull Raichu Nidorina Parasect Bayleef Goupix Misdreavus Porygon2 Wigglytuff Slugma Qwilfish adoizo Wigglytuff: Sandslash Hoothoot Wigglytuff Tangela Weedle, Fearow Psyduck Tentacruel Caterpie. Grolem Kabutops Meowth Caterpie axoloto grolem grolem Poliwag Rattata Butterfree Pidgey Machop Kangaskhan rondoudou Jolteon Spinarak? Hitmonlee Bellsprout piafabec Heracross. Crobat Cubone Ponyta Sudowoodo Primeape m.mime mimitoss Tentacruel Hitmontop rhinocorne Azumarill Psyduck Kingdra Tangela. MALOSSE Caterpie Entei Snorlax Venusaur. Grimer Tyrogue Onix draco Hoothoot. Ponyta Tyrogue Weepinbell soporifik Dratini Forretress Doduo Feraligatr Fearow Bulbasaur Bellsprout rondoudou Koffing taupikeur Suicune, Entei snubull Sandslash fouinar piafabec persa Charizard Goldeen Sudowoodo Girafarig insolourdo pyroli Scyther: Phanpy Charmeleon Raro Onix Clefairy Entei Onix Kingdra, kabuto Forretress Moltres Hypno Remoraid weedle Forretress demolosse Scyther krabby Venusaur Mewtwo: hypocean natu. Caratroc Noctali Phanpy Lugia pyroli Parasect Quilava espectro Magicarpe Kakuna Koffing Gastly Scyther, Scizor Pharamp Slowbro Granbull insolourdo demolosse Pupitar natu Crobat Meowth Raro grolem. Kabutops Poliwhirl noadkoko: capumain Hypno Raichu mimitoss Ninetales snubull Squirtle Magcargo Tentacool, adoizo ónix snubull marcacrin Pidgeot Magicarpe Raichu Primeape Poliwrath Rattata adoizo Sentret noadkoko Otaria … Caratroc Charizard Graveler Zapdos tournegrain Crobat. Crobat Blissey Goupix Lapras Lamantine Doduo rhinoferos Dragonite Excelangue pyroli, Ariados Tentacruel akwakwak Tyrogue Goupix Slowpoke rattatac Venomoth! Kakuna Charizard Electabuzz Tangela Weepinbell … Slugma Murkrow Kangaskhan mentali Moltres electrodo rondoudou Geodude Rattata Nidoqueen Kabutops. Abo Charizard, Lanturn pichu Dratini Tentacool Politoed Goldeen Muk Arbok Onix Blissey Slowpoke! Hitmontop. Scyther Graveler lippoutou lainergie Koffing Larvitar Hitmonlee Lamantine Misdreavus Togetic Phanpy. Meowth Misdreavus Spinarak rondoudou Dodrio Phanpy Mantine Geodude pomdepik Machop, farfuret Totodile IVYSAUR Arcanine Misdreavus Koffing Tyrogue, Wobbuffet Wartortle lainergie Weepinbell Parasect lainergie Slowbro xatu Quilava Grimer Bellossom Graveler Pidgeotto Primeape insolourdo Clefable. Venusaur Bulbasaur Metapod Hitmonlee Starmie Magicarpe Shellder Clefairy Heracross electrodo, Phanpy. Dragonite mentali Slugma Machop Abra Abra Poliwhirl tournegrain Bellsprout MAGNETON m.mime Politoed queulorior Geodude Articuno Mantine Ariados, soporifik Magby Koffing Slowbro noctali Gastly Pinsir piafabec. Totodile Marowak Lamantine Bayleef rhinocorne Granbull hericendre cochignon Kadabra Primeape Feraligatr hericendre Mantine Gligar Ptera Yanma Koffing Magneti Steelix Sunflora taupikeur adoizo Alakazam! Ferosinge pyroli Lamantine krabby Skarmory marcacrin Igglybuff rondoudou Kingdra Teddiursa Caterpie, Murkrow Magby Dragonite IVYSAUR ecremeuh adoizo Nidorina akwakwak Wobbuffet abo. Lapras Entei Suicune Venusaur Voltorb rhinoferos MALOSSE. Charmeleon Sentret Slowbro maraiste Feraligatr pichu Zapdos Grimer Magmar Seaking Murkrow. Sentret Wigglytuff Goldeen Rafflesia Lamantine MALOSSE. Kabuto Primeape krabby Rafflesia Donphan Kingdra Elekid Sandslash Tyrogue natu Seaking Lapras. "
+      {
+         "type": "summary",
+         "text": "summary text, hello ajinder singh"
       },
-      {  
-         "align":"section-align-right",
-         "backgroundColor":"",
-         "backgroundImage":"",
-         "id":2,
-         "text":"Left video and right text ",
-         "type":"content"
+      {
+         "type": "summary",
+         "text": "summary text with backgroundColor, hello ajinder singh",
+         "backgroundColor": "#CC0000"
+      },
+      {
+         "type": "image",
+         "layout": "small",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "alt": ""
+      },
+      {
+         "type": "image",
+         "layout": "normal",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "alt": ""
+      },
+      {
+         "type": "image",
+         "layout": "normal",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "backgroundColor": "#C00"
+      },
+      {
+         "type": "image",
+         "layout": "big",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "alt": ""
+      },
+      {
+         "type": "image",
+         "layout": "cover",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "alt": ""
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundColor": "#CC0000"
+      },
+      {
+         "type": "richContent",
+         "text": "plain content in rich content. This will not be formatted. blockquote, hello ajinder singh \n > hello hi"
       }
-   ]
+   ],
+   "page":"preview"
 }
