@@ -146,31 +146,6 @@ class Editor extends React.Component{
       maxId: this.state.maxId
     }, this.saveData());
   }
-  dragStart(e) {
-    this.dragged = e.currentTarget;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-  dragEnd(e) {
-    this.dragged.style.display = "block";
-    document.getElementById("myList").removeChild(placeholder);
-    // Update state
-    var from = Number(this.dragged.dataset.id);
-    var to = Number(this.over.dataset.id);
-    if(from < to) to--;
-    var temp = this.state.fields.splice(from, 1)[0];
-    this.state.fields.splice(to, 0, temp);
-    this.setState({fields: this.state.fields});
-  }
-  dragOver(e) {
-    e.preventDefault();
-    this.dragged.style.display = "none";
-    if(e.target.className == "placeholder") return;
-    this.over = e.target;
-    var parentDiv = this.parentDiv(e.target);
-    if (parentDiv.parentNode.id != 'myList') return;
-    parentDiv.parentNode.insertBefore(placeholder, parentDiv);
-  }
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -477,9 +452,6 @@ class Editor extends React.Component{
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}
-              dragStart={this.dragStart.bind(this)}
-              dragEnd={this.dragEnd.bind(this)}
-              dragOver={this.dragOver.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
