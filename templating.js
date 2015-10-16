@@ -5,10 +5,8 @@ var fs = require('fs'),
     imageTemplate, 
     videoBannerTemplate, 
     videoTemplate, 
-    singleColumnTemplate, 
     imageColumnTemplate, 
     sliderTemplate, 
-    summaryTemplate, 
     galleryTemplate, 
     groupedTemplate,
     commonTemplate,
@@ -61,17 +59,11 @@ function loadTemplates()
     if (undefined === videoTemplate) {
         videoTemplate = getTemplate('video.html');
     }
-    if (undefined === singleColumnTemplate) {
-        singleColumnTemplate = getTemplate('singleColumn.html');
-    }
     if (undefined === imageTemplate) {
         imageTemplate = getTemplate('image.html');
     }
     if (undefined === sliderTemplate) {
         sliderTemplate = getTemplate('slider.html');
-    }
-    if (undefined === summaryTemplate) {
-        summaryTemplate = getTemplate('summary.html');
     }
     if (undefined === galleryTemplate) {
         galleryTemplate = getTemplate('gallery.html');
@@ -127,19 +119,6 @@ function getVideoTemplate()
     );
 }
 
-function getSingleColumnTemplate()
-{
-    return singleColumnTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            text: section["text"],
-            title: section["title"],
-            backgroundFade: section["backgroundFade"]
-        }
-    );
-}
-
 function getCommonTemplate()
 {
     return commonTemplate(
@@ -148,18 +127,6 @@ function getCommonTemplate()
             sectionStyles: sectionStyles,
             text: section["text"],
             type: section["type"] //added for debugging purpose in templating
-        }
-    );
-}
-
-function getSummaryTemplate()
-{
-    return summaryTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
-            text: section["text"]
         }
     );
 }
@@ -240,8 +207,6 @@ module.exports = {
     getBannerTemplate: getBannerTemplate,
     getVideoBannerTemplate: getVideoBannerTemplate,
     getVideoTemplate: getVideoTemplate,
-    getSingleColumnTemplate: getSingleColumnTemplate,
-    getSummaryTemplate: getSummaryTemplate,
     getGroupedTemplate: getGroupedTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
