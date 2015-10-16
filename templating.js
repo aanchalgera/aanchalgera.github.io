@@ -5,25 +5,19 @@ var fs = require('fs'),
     imageTemplate, 
     videoBannerTemplate, 
     videoTemplate, 
-    singleColumnTemplate, 
     imageColumnTemplate, 
     sliderTemplate, 
-    summaryTemplate, 
     galleryTemplate, 
     groupedTemplate,
+    commonTemplate,
     pageTemplate, 
     sectionClasses,
     sectionStyles,
     extraStyles,
     section,
-    templatesDir = '', 
+    templatesDir = './templates', 
     cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
 
-
-function setTemplatesDir(templatesDirectory)
-{
-    templatesDir = templatesDirectory;
-}
 
 function loadFile(filePath)
 {
@@ -65,17 +59,11 @@ function loadTemplates()
     if (undefined === videoTemplate) {
         videoTemplate = getTemplate('video.html');
     }
-    if (undefined === singleColumnTemplate) {
-        singleColumnTemplate = getTemplate('singleColumn.html');
-    }
     if (undefined === imageTemplate) {
         imageTemplate = getTemplate('image.html');
     }
     if (undefined === sliderTemplate) {
         sliderTemplate = getTemplate('slider.html');
-    }
-    if (undefined === summaryTemplate) {
-        summaryTemplate = getTemplate('summary.html');
     }
     if (undefined === galleryTemplate) {
         galleryTemplate = getTemplate('gallery.html');
@@ -85,6 +73,9 @@ function loadTemplates()
     }
     if (undefined === groupedTemplate) {
         groupedTemplate = getTemplate('grouped.html');
+    }
+    if (undefined === commonTemplate) {
+        commonTemplate = getTemplate('common.html');
     }
 }
 
@@ -128,27 +119,14 @@ function getVideoTemplate()
     );
 }
 
-function getSingleColumnTemplate()
+function getCommonTemplate()
 {
-    return singleColumnTemplate(
+    return commonTemplate(
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             text: section["text"],
-            title: section["title"],
-            backgroundFade: section["backgroundFade"]
-        }
-    );
-}
-
-function getSummaryTemplate()
-{
-    return summaryTemplate(
-        { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
-            text: section["text"]
+            type: section["type"] //added for debugging purpose in templating
         }
     );
 }
@@ -229,13 +207,12 @@ module.exports = {
     getBannerTemplate: getBannerTemplate,
     getVideoBannerTemplate: getVideoBannerTemplate,
     getVideoTemplate: getVideoTemplate,
-    getSingleColumnTemplate: getSingleColumnTemplate,
-    getSummaryTemplate: getSummaryTemplate,
     getGroupedTemplate: getGroupedTemplate,
     getImageTemplate: getImageTemplate,
     getSliderTemplate: getSliderTemplate,
     getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
+    getCommonTemplate: getCommonTemplate,
     setSectionClasses: setSectionClasses,
     setSectionStyles: setSectionStyles,
     setExtraStyles: setExtraStyles,
@@ -243,6 +220,5 @@ module.exports = {
     loadFile: loadFile,
     writeFile: writeFile,
     getTemplate: getTemplate,
-    processData: processData,
-    setTemplatesDir: setTemplatesDir
+    processData: processData
 }
