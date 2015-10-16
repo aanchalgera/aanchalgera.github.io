@@ -17,7 +17,10 @@ class Content extends React.Component{
     if ('content' == this.props.data.type) {
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
     }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.props.getStyleText(this.props.data));
+      var a = '#div-'+this.props.index+' .form-control';
+      var b = this.props.getStyleText(this.props.data);
+      var c = document.querySelector(a);
+      c.setAttribute('style',b);
     }
   }
   initializeEditor(editArea) {

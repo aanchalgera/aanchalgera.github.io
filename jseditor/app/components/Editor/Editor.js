@@ -26,6 +26,7 @@ class Editor extends React.Component{
       imageFunction : null,
       addgallery: false,
       addMoreImagesToGallery: false,
+      orderMode: false,
       fields: []
     };
   }
@@ -391,8 +392,9 @@ class Editor extends React.Component{
     var obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex-1, 0, obj[0]);;
   }
-  orderElements(event) {
-
+  toggleOrderMode(event) {
+    event.preventDefault();
+    this.setState({orderMode:!this.state.orderMode})
   }
   openPreviewPanel(event) {
     event.preventDefault();
@@ -449,7 +451,7 @@ class Editor extends React.Component{
     return (
       <div>
         <div className="preview-nav">
-          <a title="Order Elements" onClick={this.orderElements.bind(this)} href="#" class="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
+          <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
         </div>
@@ -477,6 +479,7 @@ class Editor extends React.Component{
               ungroupSections={this.ungroupSections.bind(this)}
               moveResourceDown={this.moveResourceDown.bind(this)}
               moveResourceUp={this.moveResourceUp.bind(this)}
+              orderMode={this.state.orderMode}
             />
           </div>
           <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
