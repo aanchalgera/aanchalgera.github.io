@@ -1,6 +1,7 @@
 import React from 'react';
 import Resource from './Resource';
 import MoreOptions from './MoreOptions';
+import MoveControls from './MoveControls';
 
 class ContentList extends React.Component{
   getStyleText(data) {
@@ -42,7 +43,6 @@ class ContentList extends React.Component{
     }
     var fields = this.props.fields.map((field, i) => {
       var index = "text-area" + field.id;
-
       return (
         <Resource key={index}
           field={field}

@@ -40,8 +40,7 @@ class Editor extends React.Component{
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
               value: data.title,
-              maxId: data.maxId,
-              publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
+              maxId: data.maxId
             });
           }
         }
@@ -223,7 +222,8 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
-      "publishData" : this.state.publishData
+      "status" : 'future',
+      "date" : '2015-10-20 08:31:25'
     };
     self = this;
     this.props.base.post(
@@ -381,6 +381,16 @@ class Editor extends React.Component{
      this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
+  moveResourceDown(currentIndex)
+  {
+    var obj = this.state.fields.splice(currentIndex, 1);
+    this.state.fields.splice(currentIndex+1, 0, obj[0]);;
+  }
+  moveResourceUp(currentIndex, event)
+  {
+    var obj = this.state.fields.splice(currentIndex, 1);
+    this.state.fields.splice(currentIndex-1, 0, obj[0]);;
+  }
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
@@ -400,9 +410,8 @@ class Editor extends React.Component{
       page: "preview"
     };
     data = JSON.stringify(data);
-    var previewUrl = event.currentTarget.id == 'preview1' ? 'parse' : 'parse2';
     axios({
-      url : 'http://52.19.39.251:81/' + previewUrl,
+      url : 'http://52.19.39.251:81/parse',
       method: 'POST',
       data : data
     })
@@ -437,15 +446,13 @@ class Editor extends React.Component{
     return (
       <div>
         <div className="preview-nav">
-          <a className="btn btn-primary" id="preview1" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-          <a className="btn btn-primary" id="preview2" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview 2</a>
+          <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publicar</Link>
         </div>
         <br /><br />
         {errorField}
         {successField}
-        <form id="editor-form">
+        <form id="editor-form" onClick={this.saveData.bind(this)}>
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
@@ -464,8 +471,11 @@ class Editor extends React.Component{
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
               ungroupSections={this.ungroupSections.bind(this)}
+              moveResourceDown={this.moveResourceDown.bind(this)}
+              moveResourceUp={this.moveResourceUp.bind(this)}
             />
           </div>
+          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
         </form>
         <CloudinaryUploader
           cloudName='realarpit'
