@@ -391,6 +391,9 @@ class Editor extends React.Component{
     var obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex-1, 0, obj[0]);;
   }
+  orderElements(event) {
+
+  }
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
@@ -446,13 +449,14 @@ class Editor extends React.Component{
     return (
       <div>
         <div className="preview-nav">
+          <a title="Order Elements" onClick={this.orderElements.bind(this)} href="#" class="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
         </div>
         <br /><br />
         {errorField}
         {successField}
-        <form id="editor-form" onClick={this.saveData.bind(this)}>
+        <form id="editor-form">
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
