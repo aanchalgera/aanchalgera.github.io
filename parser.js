@@ -3,7 +3,7 @@ var marked = require('marked');
 var templating = require('./templating.js');
 
 var html;
-var commonClass = 'builder-section';
+var commonClass = 'module';
 var sectionsCovered;
 var sectionClasses;
 var sectionStyles;
@@ -81,20 +81,20 @@ function handleSection(section, index, allSections)
         case 'video':
             html += templating.getVideoTemplate();
             break;
-        case 'videoBanner':
-            html += templating.getVideoBannerTemplate();
-            break;
-        case 'slider':
-            html += templating.getSliderTemplate();
-            break;
+        // case 'videoBanner':
+        //     html += templating.getVideoBannerTemplate();
+        //     break;
+        // case 'slider':
+        //     html += templating.getSliderTemplate();
+        //     break;
         case 'summary':
-            html += templating.getSummaryTemplate();
+            html += templating.getCommonTemplate();
             break;
-        case 'gallery':
-            html += templating.getGalleryTemplate();
-            break;
+        // case 'gallery':
+        //     html += templating.getGalleryTemplate();
+        //     break;
         case 'richContent':
-            html += templating.getSingleColumnTemplate(); //same templating for richContent and singleColumn
+            html += templating.getCommonTemplate(); //same templating for richContent and singleColumn
             break;
         case 'image':
             if (isTrue(section, 'banner')) {
@@ -105,73 +105,17 @@ function handleSection(section, index, allSections)
             }
             break;
         case 'content':
-            html += templating.getSingleColumnTemplate();
+            html += templating.getCommonTemplate();
             break;
-        case 'grouped':
-            html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
-            break;
+        // case 'grouped':
+        //     html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
+        //     break;
     }
 
     sectionsCovered++;
 }
 
-function getSectionObject(section)
-{
-    var sectionClasses= getSectionClasses(section);
-    var sectionStyles = getSectionStyles(section);
-    var extraStyles = getExtraStyles(section);
-    section = doMarkUp(section);
 
-    if ('image' == section.type) {
-        return getImageObject(sectionClasses, sectionStyles, section);
-    }
-
-    if ('summary' == section.type) {
-        return { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
-            text: section["text"],
-            type: section.type
-        };
-    }
-
-    if ('content' == section.type) {
-        return { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
-            text: section["text"],
-            type: section.type
-        };
-    }
-
-    if ('video' == section.type) {
-        return {
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            url: section['url'],
-            height: section["height"],
-            width: section["width"],
-            type: section.type
-        }
-    }
-
-    return section;
-}
-
-function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
-{
-    var columns = [];
-    var column;
-    var allColumns = section['columns'];
-    for (column in allColumns) {
-        var sectionObject = getSectionObject(allColumns[column]);
-        columns.push(sectionObject);
-    }
-
-    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
-}
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
@@ -221,16 +165,16 @@ function getImageObject(sectionClasses, sectionStyles, section)
     return imageObject;
 }
 
-function addFirstLastClass(sectionClasses)
-{
-    if (0 === sectionsCovered) {
-        sectionClasses.push("builder-section-first");
-    } else if (sectionsCovered === totalSections - 1) {
-        sectionClasses.push("builder-section-last");
-    }
+// function addFirstLastClass(sectionClasses)
+// {
+//     if (0 === sectionsCovered) {
+//         sectionClasses.push("builder-section-first");
+//     } else if (sectionsCovered === totalSections - 1) {
+//         sectionClasses.push("builder-section-last");
+//     }
 
-    return sectionClasses;
-}
+//     return sectionClasses;
+// }
 
 function addSectionLayoutClass(sectionClasses, section)
 {
@@ -239,7 +183,7 @@ function addSectionLayoutClass(sectionClasses, section)
             if (undefined === section.layout) {
                 section['layout'] = 'normal';
             }
-            sectionClasses.push('asset-size-'+section['layout']);
+            sectionClasses.push('module-size-'+section['layout']);
             break;
     }
 
@@ -248,35 +192,36 @@ function addSectionLayoutClass(sectionClasses, section)
 
 function addSectionTypeClass(sectionClasses, section)
 {
-    var bannerClass = "builder-section-banner";
-    var textClass = "builder-section-text";
-
-
     switch(section.type) {
         case 'image':
             if (true == section.banner) {
-                sectionClasses.push(bannerClass);
+                sectionClasses.push("builder-section-banner");
             } else {
-                sectionClasses.push(textClass);
+                sectionClasses.push("module-type-image");
             }
+            break;
+        case 'summary':
+            sectionClasses.push("module-type-summary");
+            break;
+        case 'video':
+            sectionClasses.push("module-type-video");
             break;
         case 'richContent':
         case 'content':
-        case 'summary':
-        case 'grouped':
-            sectionClasses.push(textClass);
+        // case 'grouped':
+            sectionClasses.push("module-type-text");
             break;
-        case 'slider':
-            sectionClasses.push(bannerClass);
-            break;
-        case 'gallery':
-            sectionClasses.push(
-                'builder-section-gallery', 
-                'builder-gallery-captions-reveal', 
-                'builder-gallery-captions-dark', 
-                'builder-gallery-aspect-landscape'
-            );
-            break;
+        // case 'slider':
+        //     sectionClasses.push(bannerClass);
+        //     break;
+        // case 'gallery':
+        //     sectionClasses.push(
+        //         'builder-section-gallery', 
+        //         'builder-gallery-captions-reveal', 
+        //         'builder-gallery-captions-dark', 
+        //         'builder-gallery-aspect-landscape'
+        //     );
+        //     break;
 
     }
     return sectionClasses;
@@ -287,50 +232,65 @@ function addBackgroundClass(sectionClasses, section)
     if ('banner' != section.type 
         && (!isEmpty(section, "backgroundImage") || !isEmpty(section, "backgroundColor"))) {
 
-        sectionClasses.push("has-background");
+        sectionClasses.push("module-bg-image");
+    }
+
+    if (!isEmpty(section, "backgroundFade")) {
+        sectionClasses.push("module-bg-fade");
+    }
+
+    if (!isEmpty(section, "foregroundColor") && "#FFF" == section['foregroundColor']) {
+        sectionClasses.push("module-fg-light");
+    }
+
+    if (isTrue(section, "backgroundRepeat")) {
+        sectionClasses.push("module-bg-repeat");
+    }
+    if (!isEmpty(section, "backgroundColor")) {
+        sectionClasses.push("module-bg-color");
     }
 
     return sectionClasses;
 }
 
-function addColumnClass(sectionClasses, section)
-{
-    if (!isEmpty(section, "columns")) {
-        sectionClasses.push("builder-text-columns-"+section["columns"].length);
-    }
+// function addColumnClass(sectionClasses, section)
+// {
+//     if (!isEmpty(section, "columns")) {
+//         sectionClasses.push("builder-text-columns-"+section["columns"].length);
+//     }
 
-    if ('gallery' == section.type) {
-        var galleryImageCount = section["images"].length;
-        if (galleryImageCount > 4) {
-            sectionClasses.push("builder-gallery-columns-4");
-        } else {
-            sectionClasses.push("builder-gallery-columns-"+galleryImageCount);
-        }
-    }
+//     if ('gallery' == section.type) {
+//         var galleryImageCount = section["images"].length;
+//         if (galleryImageCount > 4) {
+//             sectionClasses.push("builder-gallery-columns-4");
+//         } else {
+//             sectionClasses.push("builder-gallery-columns-"+galleryImageCount);
+//         }
+//     }
 
-    return sectionClasses;
-}
+//     return sectionClasses;
+// }
 
-function addParallaxClass(sectionClasses, section)
-{
-    if (isTrue(section, "parallax")) {
-        sectionClasses.push("parallax");
-    }
+// function addParallaxClass(sectionClasses, section)
+// {
+//     if (isTrue(section, "parallax")) {
+//         sectionClasses.push("parallax");
+//     }
     
-    return sectionClasses;
-}
+//     return sectionClasses;
+// }
 
 function getSectionClasses(section)
 {
     var sectionClasses = [];
-    sectionClasses.push(commonClass, 'asset-type-'+section.type);
+    sectionClasses.push(commonClass);
 
-    sectionClasses = addFirstLastClass(sectionClasses);
+    // sectionClasses = addFirstLastClass(sectionClasses);
     sectionClasses = addSectionTypeClass(sectionClasses, section);
     sectionClasses = addSectionLayoutClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
-    sectionClasses = addColumnClass(sectionClasses, section);
-    sectionClasses = addParallaxClass(sectionClasses, section);
+    // sectionClasses = addColumnClass(sectionClasses, section);
+    // sectionClasses = addParallaxClass(sectionClasses, section);
 
     return sectionClasses.join(' ');
 }
@@ -342,7 +302,7 @@ function getSectionStyles(section)
 
         sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
         if (isTrue(section, "backgroundRepeat")) {
-            sectionStyles.push("background-repeat:repeat;");
+            // sectionStyles.push("background-repeat:repeat;");
         } else {
             sectionStyles.push("background-size: cover;");
         }
@@ -409,6 +369,66 @@ function doMarkUp(section)
 
 module.exports = {
     parse: parse,
+    parse2: parse2,
     processRequest: processRequest,
     testRead: testRead
+}
+/////////////////////
+
+function getSectionObject(section)
+{
+    var sectionClasses= getSectionClasses(section);
+    var sectionStyles = getSectionStyles(section);
+    var extraStyles = getExtraStyles(section);
+    section = doMarkUp(section);
+
+    if ('image' == section.type) {
+        return getImageObject(sectionClasses, sectionStyles, section);
+    }
+
+    if ('summary' == section.type) {
+        return { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            extraStyles: extraStyles,
+            text: section["text"],
+            type: section.type
+        };
+    }
+
+    if ('content' == section.type) {
+        return { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            extraStyles: extraStyles,
+            text: section["text"],
+            type: section.type
+        };
+    }
+
+    if ('video' == section.type) {
+        return {
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            url: section['url'],
+            height: section["height"],
+            width: section["width"],
+            type: section.type
+        }
+    }
+
+    return section;
+}
+
+function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
+{
+    var columns = [];
+    var column;
+    var allColumns = section['columns'];
+    for (column in allColumns) {
+        var sectionObject = getSectionObject(allColumns[column]);
+        columns.push(sectionObject);
+    }
+
+    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
 }

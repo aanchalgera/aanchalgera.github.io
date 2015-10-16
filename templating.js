@@ -11,6 +11,7 @@ var fs = require('fs'),
     summaryTemplate, 
     galleryTemplate, 
     groupedTemplate,
+    commonTemplate,
     pageTemplate, 
     sectionClasses,
     sectionStyles,
@@ -86,6 +87,9 @@ function loadTemplates()
     if (undefined === groupedTemplate) {
         groupedTemplate = getTemplate('grouped.html');
     }
+    if (undefined === commonTemplate) {
+        commonTemplate = getTemplate('common.html');
+    }
 }
 
 function getBannerTemplate()
@@ -137,6 +141,18 @@ function getSingleColumnTemplate()
             text: section["text"],
             title: section["title"],
             backgroundFade: section["backgroundFade"]
+        }
+    );
+}
+
+function getCommonTemplate()
+{
+    return commonTemplate(
+        { 
+            sectionClasses: sectionClasses, 
+            sectionStyles: sectionStyles,
+            text: section["text"],
+            type: section["type"] //added for debugging purpose in templating
         }
     );
 }
@@ -236,6 +252,7 @@ module.exports = {
     getSliderTemplate: getSliderTemplate,
     getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
+    getCommonTemplate: getCommonTemplate,
     setSectionClasses: setSectionClasses,
     setSectionStyles: setSectionStyles,
     setExtraStyles: setExtraStyles,

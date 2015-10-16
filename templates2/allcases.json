@@ -8,11 +8,41 @@
       },
       {
          "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png"
+      },
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundFade": true
+      },
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundFade": true,
+         "foregroundColor": "#FFF"
+      },
+      {
+         "type": "content",
+         "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg11.jpg",
+         "backgroundRepeat": true
+      },
+
+      {
+         "type": "content",
          "text": "plain content with blockquote, hello ajinder singh \n > hello hi"
       },
       {
          "type": "summary",
          "text": "summary text, hello ajinder singh"
+      },
+      {
+         "type": "summary",
+         "text": "summary text with backgroundColor, hello ajinder singh",
+         "backgroundColor": "#CC0000"
       },
       {
          "type": "image",
@@ -25,6 +55,12 @@
          "layout": "normal",
          "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
          "alt": ""
+      },
+      {
+         "type": "image",
+         "layout": "normal",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "backgroundColor": "#C00"
       },
       {
          "type": "image",
@@ -43,6 +79,13 @@
          "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
          "width": "640",
          "height": "360"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundColor": "#CC0000"
       },
       {
          "type": "richContent",
