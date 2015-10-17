@@ -260,10 +260,10 @@ class Editor extends React.Component{
      }
      switch (property) {
        case 'backgroundColor' :
-         obj.backgroundColor = value;
+         obj.backgroundColor = (obj.backgroundColor == value) ? '' : value;
          break;
        case 'foregroundColor' :
-         obj.foregroundColor = value;
+         obj.foregroundColor = (obj.foregroundColor == value) ? '' : value;
          break;
        case 'parallax' :
           obj.parallax = !obj.parallax;
@@ -386,12 +386,14 @@ class Editor extends React.Component{
   moveResourceDown(currentIndex)
   {
     var obj = this.state.fields.splice(currentIndex, 1);
-    this.state.fields.splice(currentIndex+1, 0, obj[0]);;
+    this.state.fields.splice(currentIndex+1, 0, obj[0]);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
   moveResourceUp(currentIndex, event)
   {
     var obj = this.state.fields.splice(currentIndex, 1);
-    this.state.fields.splice(currentIndex-1, 0, obj[0]);;
+    this.state.fields.splice(currentIndex-1, 0, obj[0]);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
   toggleOrderMode(event) {
     event.preventDefault();

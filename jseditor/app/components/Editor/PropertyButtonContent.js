@@ -6,7 +6,7 @@ class PropertyButtonContent extends React.Component {
     if (this.props.data.backgroundColor != '' &&  this.props.data.backgroundColor != '#FFF') {
       whiteBackgroundColor = <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#FFF')} className={"btn background-white "+(this.props.data.backgroundColor=="#FFF" ?  "active" : null)} />
     }
-    if (this.props.data.backgroundImage != '') {
+    if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       var backgroundImage=<span className="input-group">
         <input type="text" placeholder={this.props.data.backgroundImageName} className="form-control input-group-sm" style={{width: '50%'}} />
         <span className="input-group-btn">
