@@ -82,9 +82,6 @@ function handleSection(section, index, allSections)
                 html += templating.getImageTemplate(imageObject);
             }
             break;
-        // case 'videoBanner':
-        //     html += templating.getVideoBannerTemplate();
-        //     break;
         // case 'slider':
         //     html += templating.getSliderTemplate();
         //     break;
@@ -202,9 +199,7 @@ function addSectionTypeClass(sectionClasses, section)
 
 function addBackgroundClass(sectionClasses, section)
 {
-    if ('banner' != section.type 
-        && (!isEmpty(section, "backgroundImage") || !isEmpty(section, "backgroundColor"))) {
-
+    if (!isEmpty(section, "backgroundImage")) {
         sectionClasses.push("module-bg-image");
     }
 

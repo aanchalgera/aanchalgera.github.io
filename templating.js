@@ -3,7 +3,6 @@ var fs = require('fs'),
     _ = require("underscore"), 
     bannerTemplate, 
     imageTemplate, 
-    videoBannerTemplate, 
     videoTemplate, 
     imageColumnTemplate, 
     sliderTemplate, 
@@ -53,9 +52,6 @@ function loadTemplates()
     if (undefined === bannerTemplate) {
         bannerTemplate = getTemplate('banner.html');
     }
-    if (undefined === videoBannerTemplate) {
-        videoBannerTemplate = getTemplate('videoBanner.html');
-    }
     if (undefined === videoTemplate) {
         videoTemplate = getTemplate('video.html');
     }
@@ -88,20 +84,6 @@ function getBannerTemplate()
             imageUrl: section["url"],
             bannerText: section["text"],
             height: section["height"]
-        }
-    );
-}
-
-function getVideoBannerTemplate()
-{
-    return videoBannerTemplate(
-        {
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            videoUrl: section['url'],
-            height: section["height"],
-            width: section["width"],
-            bannerHeight: section['bannerHeight']
         }
     );
 }
@@ -205,7 +187,6 @@ function writeFile(fileName, fileContents)
 module.exports = {
     loadTemplates: loadTemplates,
     getBannerTemplate: getBannerTemplate,
-    getVideoBannerTemplate: getVideoBannerTemplate,
     getVideoTemplate: getVideoTemplate,
     getGroupedTemplate: getGroupedTemplate,
     getImageTemplate: getImageTemplate,
