@@ -26,6 +26,7 @@ class Editor extends React.Component{
       imageFunction : null,
       addgallery: false,
       addMoreImagesToGallery: false,
+      orderMode: false,
       fields: []
     };
   }
@@ -146,31 +147,6 @@ class Editor extends React.Component{
       maxId: this.state.maxId
     }, this.saveData());
   }
-  dragStart(e) {
-    this.dragged = e.currentTarget;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-  dragEnd(e) {
-    this.dragged.style.display = "block";
-    document.getElementById("myList").removeChild(placeholder);
-    // Update state
-    var from = Number(this.dragged.dataset.id);
-    var to = Number(this.over.dataset.id);
-    if(from < to) to--;
-    var temp = this.state.fields.splice(from, 1)[0];
-    this.state.fields.splice(to, 0, temp);
-    this.setState({fields: this.state.fields});
-  }
-  dragOver(e) {
-    e.preventDefault();
-    this.dragged.style.display = "none";
-    if(e.target.className == "placeholder") return;
-    this.over = e.target;
-    var parentDiv = this.parentDiv(e.target);
-    if (parentDiv.parentNode.id != 'myList') return;
-    parentDiv.parentNode.insertBefore(placeholder, parentDiv);
-  }
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -248,7 +224,8 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
-      "publishData" : this.state.publishData
+      "publishData" : this.state.publishData,
+      "date" : '2015-10-20 08:31:25'
     };
     self = this;
     this.props.base.post(
@@ -283,10 +260,10 @@ class Editor extends React.Component{
      }
      switch (property) {
        case 'backgroundColor' :
-         obj.backgroundColor = value;
+         obj.backgroundColor = (obj.backgroundColor == value) ? '' : value;
          break;
        case 'foregroundColor' :
-         obj.foregroundColor = value;
+         obj.foregroundColor = (obj.foregroundColor == value) ? '' : value;
          break;
        case 'parallax' :
           obj.parallax = !obj.parallax;
@@ -332,7 +309,7 @@ class Editor extends React.Component{
      if (obj.length == 2 ){
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
      }else if (obj.length == 3) {
-       this.state.fields.splice(currentIndex, 0, ob.columnsj[0], obj.columns[1], obj.columns[2]);
+       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
      }
      this.setState({fields: this.state.fields}, this.saveData());
   }
@@ -406,6 +383,22 @@ class Editor extends React.Component{
      this.state.fields.splice(indexes[0], 0, obj1);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
+  moveResourceDown(currentIndex)
+  {
+    var obj = this.state.fields.splice(currentIndex, 1);
+    this.state.fields.splice(currentIndex+1, 0, obj[0]);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+  moveResourceUp(currentIndex, event)
+  {
+    var obj = this.state.fields.splice(currentIndex, 1);
+    this.state.fields.splice(currentIndex-1, 0, obj[0]);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+  toggleOrderMode(event) {
+    event.preventDefault();
+    this.setState({orderMode:!this.state.orderMode})
+  }
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
@@ -425,9 +418,8 @@ class Editor extends React.Component{
       page: "preview"
     };
     data = JSON.stringify(data);
-    var previewUrl = event.currentTarget.id == 'preview1' ? 'parse' : 'parse2';
     axios({
-      url : 'http://52.19.39.251:81/' + previewUrl,
+      url : 'http://52.19.39.251:81/parse',
       method: 'POST',
       data : data
     })
@@ -462,10 +454,9 @@ class Editor extends React.Component{
     return (
       <div>
         <div className="preview-nav">
-          <a className="btn btn-primary" id="preview1" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-          <a className="btn btn-primary" id="preview2" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview 2</a>
+          <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
+          <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publicar</Link>
         </div>
         <br /><br />
         {errorField}
@@ -477,9 +468,6 @@ class Editor extends React.Component{
             <ContentList
               fields={this.state.fields}
               addNewTextArea={this.keyHandler.bind(this)}
-              dragStart={this.dragStart.bind(this)}
-              dragEnd={this.dragEnd.bind(this)}
-              dragOver={this.dragOver.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
@@ -492,8 +480,12 @@ class Editor extends React.Component{
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
               ungroupSections={this.ungroupSections.bind(this)}
+              moveResourceDown={this.moveResourceDown.bind(this)}
+              moveResourceUp={this.moveResourceUp.bind(this)}
+              orderMode={this.state.orderMode}
             />
           </div>
+          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
         </form>
         <CloudinaryUploader
           cloudName='realarpit'
