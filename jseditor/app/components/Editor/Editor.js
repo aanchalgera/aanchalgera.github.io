@@ -224,8 +224,7 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
-      "publishData" : this.state.publishData,
-      "date" : '2015-10-20 08:31:25'
+      "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
     };
     self = this;
     this.props.base.post(
@@ -457,6 +456,7 @@ class Editor extends React.Component{
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
+          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publicar</Link>
         </div>
         <br /><br />
         {errorField}
@@ -485,7 +485,6 @@ class Editor extends React.Component{
               orderMode={this.state.orderMode}
             />
           </div>
-          <div className="submit-area"><button className="btn btn-primary">Submit</button></div>
         </form>
         <CloudinaryUploader
           cloudName='realarpit'

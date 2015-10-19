@@ -19,7 +19,8 @@ class Publish extends React.Component {
       status: 'draft',
       postRepostBlogNames: [],
       publishRegion: [],
-      postMethod: 'POST'
+      postMethod: 'POST',
+      postId : 'posts'
     };
   }
   componentDidMount(){
@@ -61,7 +62,8 @@ class Publish extends React.Component {
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
-              postMethod: data.publishData.postMethod != undefined ? data.publishData.postMethod : 'POST'
+              postMethod: data.publishData.postMethod != undefined ? data.publishData.postMethod : 'POST',
+              postId : data.publishData.postId != undefined ? data.publishData.postId : 'posts'
             });
           }
         }
@@ -88,7 +90,9 @@ class Publish extends React.Component {
     })
     .then(function (response) {
       console.log(response);
-      self.saveData(response.data.response)
+      if (response.data.status == "success") {
+        self.saveData(response.data.response)
+      }
     })
     .catch(function (response) {
       console.log('error : ',response);
@@ -112,7 +116,7 @@ class Publish extends React.Component {
       "categoryId":"-1",
       "post_title":this.state.title,
       "comment_status":"open",
-      "postType":"normal",
+      "post_type":"normal",
       "post_content":content,
       "post_abstract":"",
       "post_extended_title":"",
@@ -122,6 +126,9 @@ class Publish extends React.Component {
       "publish-region": publishRegion,
       "postStatus": "publish",
       "postRepostBlogNames": postRepostBlogNames
+    }
+    if ("PUT" == this.state.postMethod) {
+      data.id = this.state.postId
     }
     var formData = {
       "id" : this.state.id,
@@ -133,13 +140,15 @@ class Publish extends React.Component {
         "postDate": this.state.value,
         "publishRegion": publishRegion,
         "postStatus": "publish",
-        "postRepostBlogNames": postRepostBlogNames
+        "postRepostBlogNames": postRepostBlogNames,
+        "postMethod" : this.state.postMethod,
+        "postId" : this.state.postId
       }
     };
 
     var self = this;
     jquery.ajax({
-      url: "http://testing.xataka.com/admin/posts.json",
+      url: "http://testing.xataka.com/admin/"+this.state.postId+".json",
       type: this.state.postMethod,
       dataType: "json",
       data: data,
@@ -155,7 +164,9 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          console.log('saved');
-         self.setState({status: 'publish', postMethod: 'PUT'})
+         if (result.id != undefined) {
+           self.setState({status: 'publish', postMethod: 'PUT', postId: result.id})
+         }
        }
      });
     });
