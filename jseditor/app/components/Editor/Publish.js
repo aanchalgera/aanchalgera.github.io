@@ -16,11 +16,10 @@ class Publish extends React.Component {
     this.state = {
       fields: [],
       value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
-      status: 'draft',
+      status: 'publish',
       postRepostBlogNames: [],
       publishRegion: [],
-      postMethod: 'POST',
-      postId : 'posts'
+      postId : ''
     };
   }
   componentDidMount(){
@@ -58,12 +57,11 @@ class Publish extends React.Component {
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
               maxId : data.maxId,
-              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "draft",
+              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
-              postMethod: data.publishData.postMethod != undefined ? data.publishData.postMethod : 'POST',
-              postId : data.publishData.postId != undefined ? data.publishData.postId : 'posts'
+              postId : data.publishData.postId != undefined ? data.publishData.postId : ''
             });
           }
         }
@@ -124,32 +122,32 @@ class Publish extends React.Component {
       "posts_galleries":"",
       "postDate": this.state.value,
       "publish-region": publishRegion,
-      "postStatus": "publish",
+      "postStatus": this.state.status,
       "postRepostBlogNames": postRepostBlogNames
-    }
-    if ("PUT" == this.state.postMethod) {
-      data.id = this.state.postId
     }
     var formData = {
       "id" : this.state.id,
       "title" : this.state.title,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
-      "status" : 'publish',
       "publishData" : {
         "postDate": this.state.value,
         "publishRegion": publishRegion,
-        "postStatus": "publish",
-        "postRepostBlogNames": postRepostBlogNames,
-        "postMethod" : this.state.postMethod,
-        "postId" : this.state.postId
+        "postStatus": this.state.status,
+        "postRepostBlogNames": postRepostBlogNames
       }
     };
-
+    var postType = 'POST';
+    var postUrl = 'posts.json';
+    if (this.state.postId != undefined && this.state.postId != '') {
+      var postType = 'PUT';
+      var postUrl = "posts/" + this.state.postId + ".json";
+      data.id = this.state.postId;
+    }
     var self = this;
     jquery.ajax({
-      url: "http://testing.xataka.com/admin/"+this.state.postId+".json",
-      type: this.state.postMethod,
+      url: "http://testing.xataka.com/admin/"+postUrl,
+      type: postType,
       dataType: "json",
       data: data,
       xhrFields: {
@@ -159,13 +157,16 @@ class Publish extends React.Component {
     })
     .success(function(result, status) {
      console.log(result, status);
+     if (result.id != undefined) {
+       formData.publishData.postId = result.id;
+     }
      self.props.base.post(
        'posts/' + self.state.id, {
        data: formData,
        then(data) {
          console.log('saved');
          if (result.id != undefined) {
-           self.setState({status: 'publish', postMethod: 'PUT', postId: result.id})
+           self.setState({postId: result.id});
          }
        }
      });

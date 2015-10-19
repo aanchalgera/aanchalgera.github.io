@@ -60,7 +60,7 @@ class Editor extends React.Component{
     var self = this;
     this.timerId = setInterval(function() {
       self.saveData();
-    }, 10000);
+    }, 20000);
     this.init();
   }
   componentWillUnmount() {
