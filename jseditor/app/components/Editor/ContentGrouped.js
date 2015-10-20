@@ -27,7 +27,7 @@ class ContentGrouped extends React.Component{
       });
       var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
       return (
-        <div className={"container-ul-inner "+groupedClass+" "+minimized}
+        <div className={"container-ul-inner "+groupedClass+" "+minimized+" "+this.props.data.backgroundClass}
          id={"div-"+this.props.index}
          data-id={this.props.dataId}
          key={this.props.data.key}
