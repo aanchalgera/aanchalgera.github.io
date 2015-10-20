@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 var timeStamp = moment().format('X');
-var nextDayTimeStamp = moment.unix(timeStamp).add(1, 'day').locale('es').format('dddd DD');
 var currentMonth = moment().locale('es').format('MMMM');
 
 class SlotWidget extends React.Component {
@@ -12,10 +11,10 @@ class SlotWidget extends React.Component {
     document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
   }
   render () {
-    var tablehead = [];
-    var tablerows = [];
+    var tablehead = [], tablerows = [];
     var td = [];
     var tr = '';
+    var slot, msg, dateTime, formattedDateTime;
     for (var i = 0; i < 7; i++) {
       if (i == 0) {
         var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD')
@@ -27,21 +26,21 @@ class SlotWidget extends React.Component {
     }
     for (var j = 7; j < 24; j++) {
       for (var k = 0; k < 7; k++) {
-        var slot = '';
-        var msg = '';
-        var dateTime = moment().add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        var fomattedDateTime = moment(dateTime).format('DD/MM/YYYY HH:mm');
+        slot = '';
+        msg = '';
+        dateTime = moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
+        formattedDateTime = moment(dateTime).format('DD/MM/YYYY') + ' ' + j + ':00';
         if (timeStamp > moment(dateTime).format('X')) {
-          var slot = 'slot-past';
-          var msg = 'Pasado';
+          slot = 'slot-past';
+          msg = 'Pasado';
         } else if (this.props.futureProgrammedPosts != undefined && this.props.futureProgrammedPosts[dateTime] != undefined) {
-          var slot = 'slot-busy';
-          var msg = 'Ocupado';
+          slot = 'slot-busy';
+          msg = 'Ocupado';
         } else {
-          var slot = 'slot-free';
-          var msg = 'Libre';
+          slot = 'slot-free';
+          msg = 'Libre';
         }
-        td.push(React.createElement('td', {}, React.createElement('a', {className: slot,'data-date': fomattedDateTime, href: 'javascript:void(0)', onClick: this.props.onPickSlot.bind(this)}, msg)));
+        td.push(React.createElement('td', {}, React.createElement('a', {className: slot,'data-date': formattedDateTime, href: 'javascript:void(0)', onClick: this.props.onPickSlot.bind(this)}, msg)));
       }
       if (j % 2 == 0) {
         tr = React.createElement('tr', {className: 'even'}, React.createElement('th', {}, j), td);
