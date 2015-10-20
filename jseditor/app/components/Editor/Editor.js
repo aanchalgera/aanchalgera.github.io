@@ -120,7 +120,7 @@ class Editor extends React.Component{
     if (!addImagesToGallery) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex,0, {"id": this.state.maxId, "type" : "gallery", images, "backgroundColor":"#000000"});
+        currentIndex,0, {"id": this.state.maxId, "type" : "gallery", images});
     } else {
       for(var i=0;i < images.length;i++) {
         this.state.fields[currentIndex].images.push(images[i])}
@@ -180,9 +180,6 @@ class Editor extends React.Component{
       id: this.state.maxId,
       type: type,
       text: "",
-      align: "",
-      backgroundColor: "",
-      backgroundImage: ""
     });
     this.setState({
       fields: this.state.fields,
@@ -258,8 +255,8 @@ class Editor extends React.Component{
        var obj = obj1;
      }
      switch (property) {
-       case 'backgroundColor' :
-         obj.backgroundColor = (obj.backgroundColor == value) ? '' : value;
+       case 'backgroundClass' :
+         obj.backgroundClass = (obj.backgroundClass == value) ? '' : value;
          break;
        case 'foregroundColor' :
          obj.foregroundColor = (obj.foregroundColor == value) ? '' : value;

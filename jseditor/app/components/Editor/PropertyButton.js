@@ -1,7 +1,7 @@
 import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
-import PropertyButtonImageSizes from './PropertyButtonImageSizes';
+import PropertyButtonSizes from './PropertyButtonSizes';
 
 class PropertyButton extends React.Component {
   constructor(props){
@@ -35,12 +35,20 @@ class PropertyButton extends React.Component {
           ungroupSections={this.props.ungroupSections}
         />
         break;
+      case 'image' :
+        var moreImageProperties = <PropertyButtonSizes
+          dataId={this.props.dataId}
+          layout={this.props.layout}
+          addLayoutToResource={this.props.addLayoutToResource}
+        />
     }
     switch (this.props.data.type) {
       case 'content' :
       case 'summary':
       case 'richContent':
       case 'grouped':
+      case 'video':
+      case 'image':
         moreProperties = <PropertyButtonContent
           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
           data={this.props.data}
@@ -48,12 +56,6 @@ class PropertyButton extends React.Component {
           dataId={this.props.dataId}
         />
         break;
-      case 'image' :
-        var moreImageProperties = <PropertyButtonImageSizes
-          dataId={this.props.dataId}
-          layout={this.props.layout}
-          addLayoutToResource={this.props.addLayoutToResource}
-        />
     }
     var deleteButton = <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete selected">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
     return (

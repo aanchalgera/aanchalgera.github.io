@@ -4,20 +4,34 @@ import Gallery from './Gallery';
 
 class Content extends React.Component{
   componentDidMount() {
-    if ('content' == this.props.data.type) {
-      this.initializeEditor(this.props.index);
-      var currentRef = 'myInput' + this.props.dataId;
-      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
-      this.refs[currentRef].getDOMNode().focus();
-    }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.props.getStyleText(this.props.data));
+    switch (this.props.data.type) {
+      case 'content':
+        this.initializeEditor(this.props.index);
+        var currentRef = 'myInput' + this.props.dataId;
+        document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
+        document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('class', this.props.data.backgroundClass);
+        this.refs[currentRef].getDOMNode().focus();
+        break;
+      case 'summary':
+      case 'richContent':
+      case 'image':
+      case 'video':
+        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+        break;
     }
   }
   componentDidUpdate() {
-    if ('content' == this.props.data.type) {
+    switch (this.props.data.type) {
+      case 'content':
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
-    }else if ('summary' == this.props.data.type || 'richContent' == this.props.data.type) {
-      document.querySelector('#div-'+this.props.index+' .form-control').setAttribute('style',this.props.getStyleText(this.props.data));
+      document.querySelector('#div-'+this.props.index+' .CodeMirror').addClass(this.props.data.backgroundClass);
+      break;
+    case 'summary':
+    case 'richContent':
+    case 'image':
+    case 'video':
+      document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+      break;
     }
   }
   initializeEditor(editArea) {
@@ -102,7 +116,7 @@ class Content extends React.Component{
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
 
     return (
-      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner "+minimized}
+      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner "+minimized+" "+this.props.data.backgroundClass}
        id={"div-"+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
