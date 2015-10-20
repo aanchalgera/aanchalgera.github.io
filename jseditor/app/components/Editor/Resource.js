@@ -15,15 +15,15 @@ class Resource extends React.Component {
     this.setState({minimize:!this.state.minimize})
   }
   getStyleText(data) {
-    var backgroundColor = '', backgroundImage = '';
-      backgroundColor = data.backgroundColor;
+    var backgroundClass = '', backgroundImage = '';
+      backgroundClass = data.backgroundClass;
       backgroundImage = data.backgroundImage ? "url('"+data.backgroundImage+"')" : '';
       if (data.backgroundRepeat == true) {
         var repeatOrCover = ';background-repeat:repeat'
       } else {
         var repeatOrCover = ';background-size:cover'
       }
-    return 'background-color:'+backgroundColor+';color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+    return 'color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
   }
   render() {
     var {field,i,totalElements,...other} = this.props;
@@ -43,6 +43,7 @@ class Resource extends React.Component {
         data={field}
         index={index}
         getStyleText={this.getStyleText}
+        minimize={this.state.minimize}
         {...other}
         ></ContentGrouped>
     } else {

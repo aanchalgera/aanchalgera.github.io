@@ -2,9 +2,9 @@ import React from 'react';
 
 class PropertyButtonContent extends React.Component {
   render() {
-    var whiteBackgroundColor = '', backgroundImageOptions = '';
-    if (this.props.data.backgroundColor != '' &&  this.props.data.backgroundColor != '#FFF') {
-      whiteBackgroundColor = <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#FFF')} className={"btn background-white "+(this.props.data.backgroundColor=="#FFF" ?  "active" : null)} />
+    var whitebackgroundClass = '', backgroundImageOptions = '';
+    if (this.props.data.backgroundClass != '' &&  this.props.data.backgroundClass != '#FFF') {
+      whitebackgroundClass = <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'background-white')} className={"btn background-white "+(this.props.data.backgroundClass=="background-white" ?  "active" : null)} />
     }
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       var backgroundImage=<span className="input-group">
@@ -32,10 +32,11 @@ class PropertyButtonContent extends React.Component {
       <ul className="list-background">
         <h5>Background</h5>
         <li><label> Colour </label>
-          {whiteBackgroundColor}
-          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#000')} className={"btn background-black "+(this.props.data.backgroundColor=="#000" ?  "active" : null)} />
-          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#4b8a20')} className={"btn background-green "+(this.props.data.backgroundColor=="#4b8a20" ?  "active" : null)} />
-          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundColor', '#d8022a')} className={"btn background-red "+(this.props.data.backgroundColor=="#d8022a" ?  "active" : null)} />
+          {whitebackgroundClass}
+          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-branded-light')} className={"btn module-bg-color-branded-light "+(this.props.data.backgroundClass=="module-bg-color-branded-light" ?  "active" : null)} />
+          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-neutral-dark')} className={"btn module-bg-color-neutral-dark "+(this.props.data.backgroundClass=="module-bg-color-neutral-dark" ?  "active" : null)} />
+          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-neutral-light')} className={"btn module-bg-color-neutral-light "+(this.props.data.backgroundClass=="module-bg-color-neutral-light" ?  "active" : null)} />
+          <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-branded-dark')} className={"btn module-bg-color-branded-dark "+(this.props.data.backgroundClass=="module-bg-color-branded-dark" ?  "active" : null)} />
         </li>
         <li><label> Text </label>
             <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'foregroundColor', '#FFF')} className={"btn background-white "+(this.props.data.foregroundColor=="#FFF" ?  "active" : null)}></button>

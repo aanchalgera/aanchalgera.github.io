@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-class PropertyButtonImageSizes extends React.Component{
+class PropertyButtonSizes extends React.Component{
   handleClick (ev) {
     if (ev.target.dataset.layout == this.props.layout) {
       return;
@@ -22,4 +22,4 @@ class PropertyButtonImageSizes extends React.Component{
   }
 }
 
-export default PropertyButtonImageSizes;
+export default PropertyButtonSizes;
