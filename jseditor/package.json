@@ -11,13 +11,13 @@
   "dependencies": {
     "axios": "^0.5.4",
     "firebase": "~2.2.9",
+    "jquery": "~2.1.4",
     "moment": "^2.10.6",
+    "moment-timezone": "^0.4.1",
     "re-base": "~1.1.2",
     "react": "~0.13.3",
-    "react-router": "~0.13.3",
-    "speakingurl": "~6.0.0",
-    "jquery": "~2.1.4",
-    "react-checkbox-group": "~0.2.2"
+    "react-checkbox-group": "~0.2.2",
+    "react-router": "~0.13.3"
   },
   "devDependencies": {
     "babel-core": "~5.8.19",
