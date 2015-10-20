@@ -12,6 +12,13 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
       },
+      {
+        include: /\.json$/,
+        loaders: ["json-loader"]
+      },
     ]
   },
+  resolve: {
+    extensions: ['', '.json', '.jsx', '.js']
+  }
 };

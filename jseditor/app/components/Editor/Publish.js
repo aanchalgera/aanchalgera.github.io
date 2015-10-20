@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 import {Link} from 'react-router';
 import axios from 'axios';
 import jquery from 'jquery';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
 import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
+moment.tz.setDefault("Europe/Madrid");
 var utcDifference = 7200000;
 var timeStamp = moment().format('X');
 
