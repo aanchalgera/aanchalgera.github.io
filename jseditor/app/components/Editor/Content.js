@@ -9,7 +9,6 @@ class Content extends React.Component{
         this.initializeEditor(this.props.index);
         var currentRef = 'myInput' + this.props.dataId;
         document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
-        document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('class', this.props.data.backgroundClass);
         this.refs[currentRef].getDOMNode().focus();
         break;
       case 'summary':
@@ -24,7 +23,6 @@ class Content extends React.Component{
     switch (this.props.data.type) {
       case 'content':
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
-      document.querySelector('#div-'+this.props.index+' .CodeMirror').addClass(this.props.data.backgroundClass);
       break;
     case 'summary':
     case 'richContent':
@@ -114,9 +112,9 @@ class Content extends React.Component{
       var fade = '';
     }
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
-
+    var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
     return (
-      <div className={this.props.grouped=='true'?'cloumn-content':"container-ul-inner "+minimized+" "+this.props.data.backgroundClass}
+      <div className={(this.props.grouped=='true'?'cloumn-content ':"container-ul-inner ")+minimized+" "+backgroundClass}
        id={"div-"+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>

@@ -4,10 +4,14 @@ import PropertyButton from './PropertyButton';
 
 class ContentGrouped extends React.Component{
   componentDidMount() {
-    document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+    var element = '#div-'+this.props.index;
+    document.querySelector(element).setAttribute('style',this.props.getStyleText(this.props.data));
+    document.querySelector(element).classList.add(this.props.data.backgroundClass);
   }
   componentDidUpdate() {
-    document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+    var element = '#div-'+this.props.index;
+    document.querySelector(element).setAttribute('style',this.props.getStyleText(this.props.data));
+    document.querySelector(element).classList.add(this.props.data.backgroundClass);
   }
   render () {
     var groupedClass = "conatiner-columns-"+this.props.data.length;
