@@ -10,6 +10,7 @@ import CountriesFormOptions from './CountriesFormOptions';
 moment.tz.setDefault("Europe/Madrid");
 var utcDifference = 7200000;
 var timeStamp = moment().format('X');
+var chooseSlotMsg = "Select slot";
 
 class Publish extends React.Component {
   constructor(props){
@@ -72,8 +73,7 @@ class Publish extends React.Component {
   componentWillMount(){
     this.router = this.context.router;
   }
-  onPublish(ev) {
-    ev.preventDefault();
+  submitPost() {
     var data = {
       id : this.postname,
       title : this.state.title,
@@ -165,8 +165,12 @@ class Publish extends React.Component {
        'posts/' + self.state.id, {
        data: formData,
        then(data) {
-         console.log('saved');
          if (result.id != undefined) {
+           console.log('saved');
+           document.getElementById('schedule-success').style.display = 'block';
+           setTimeout(function() {
+             document.getElementById('schedule-success').style.display = 'none';
+           }, 7000);
            self.setState({postId: result.id});
          }
        }
@@ -176,6 +180,40 @@ class Publish extends React.Component {
   onChange (ev) {
     ev.preventDefault()
     this.setState({value: ev.currentTarget.value});
+  }
+  onSchedule(ev) {
+    ev.preventDefault();
+    if (!this.validate()) return;
+    this.submitPost();
+  }
+  validate() {
+    document.getElementById('date-error').style.display = 'none';
+    if ('publish' == this.state.status) {
+      if (this.getFutureTimeInUTC() < moment().format('x')) {
+        document.getElementById('date-error').style.display = 'block';
+        return;
+      }
+    }
+    return true;
+  }
+  getFutureTimeInUTC() {
+    var futureDate = this.state.value.split(' ')
+    var dateSplit = futureDate[0].split('/')
+    var formattedFutureDate = new Date(Date.parse(dateSplit[1] + '/' + dateSplit[0] + '/' + dateSplit[2] + ' ' + futureDate[1] + ':00 UTC'))
+    return formattedFutureDate.getTime() - utcDifference;
+  }
+  openSlotWidget(ev) {
+    ev.preventDefault();
+    var visible = document.getElementById('publish-slots').style.display;
+    document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
+    this.handleDatePickerText();
+  }
+  handleDatePickerText() {
+    if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
+      document.getElementById('toggle-publish-slots').text = "Close";
+    } else {
+      document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
+    }
   }
   onPickSlot (ev) {
     var currentTarget = ev.currentTarget;
@@ -193,59 +231,27 @@ class Publish extends React.Component {
       value: ev.currentTarget.dataset.date
     });
     document.getElementById('publish-slots').style.display = 'none';
-  }
-  onSchedule(ev) {
-    ev.preventDefault();
-    if (!this.validate()) return;
-    this.setState({
-      status: "publish"
-    }, this.toggleSlotWidgetButtons());
-  }
-  onDraft(ev) {
-    ev.preventDefault();
-    if (!this.validate()) return;
-    this.setState({
-      status: "draft"
-    }, this.toggleSlotWidgetButtons());
-  }
-  toggleSlotWidgetButtons() {
-    document.getElementById('slot-widget-buttons').style.display = document.getElementById('slot-widget-buttons').style.display == 'block' ? 'none' : 'block';
-  }
-  validate() {
-    var errorField = document.getElementsByClassName('error');
-    errorField[0].style.display = 'none';
-    if ('publish' == this.state.status || 'draft' == this.state.status) {
-      if (this.getFutureTimeInUTC() < new Date().getTime()) {
-        document.getElementById('date-error').style.display = 'block';
-        return;
-      }
-    }
-    return true;
-  }
-  getFutureTimeInUTC() {
-    var futureDate = this.state.value.split(' ')
-    var dateSplit = futureDate[0].split('/')
-    var formattedFutureDate = new Date(Date.parse(dateSplit[1] + '/' + dateSplit[0] + '/' + dateSplit[2] + ' ' + futureDate[1] + ':00 UTC'))
-    return formattedFutureDate.getTime() - utcDifference;
+    this.handleDatePickerText();
   }
   render () {
-    console.log(this.state.status);
     return(
       <div>
         <div className="preview-nav">
-          <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to post</Link>
-          <a className="btn btn-primary" href="#" onClick={this.onPublish.bind(this)}>{this.state.status == "publish" ? 'Update': 'Publish'}</a>
+          <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to editing</Link>
         </div>
         <form className="post-publish" ref="publish-form">
-          <h3>Publish your post</h3>
-          {this.state.status == "publish" ? <a className="btn btn-primary" href="#" onClick={this.onDraft.bind(this)}>Draft</a> : ""}
-          <div className="error alert alert-danger" id="date-error" style={{display: 'none'}}>Por favor, seleccione fecha válida</div>
+          <div className="publish-headers">
+            <h3>Publish your post</h3>
+          </div>
+          <div className="published-messages error" style={{display: 'none'}} id="date-error">Please select a valid date, future date</div>
+          <div className="published-messages success" style={{display: 'none'}} id="schedule-success">Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
           <SlotWidget
             value={this.state.value}
             futureProgrammedPosts={this.state.futureProgrammedPosts}
             onChange={this.onChange.bind(this)}
             onPickSlot={this.onPickSlot.bind(this)}
-            onSchedule={this.onSchedule.bind(this)} />
+            onSchedule={this.onSchedule.bind(this)}
+            openSlotWidget={this.openSlotWidget.bind(this)} />
           <CountriesFormOptions publishRegions={this.state.publishRegion} />
           <RepostBlogsFormOptions repostBlogs={this.state.postRepostBlogNames} />
         </form>
