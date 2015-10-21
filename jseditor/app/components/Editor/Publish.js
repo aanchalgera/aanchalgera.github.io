@@ -11,6 +11,7 @@ moment.tz.setDefault("Europe/Madrid");
 var utcDifference = 7200000;
 var timeStamp = moment().format('X');
 var chooseSlotMsg = "Select slot";
+var successMessage = '';
 
 class Publish extends React.Component {
   constructor(props){
@@ -143,6 +144,7 @@ class Publish extends React.Component {
     if (this.state.postId != undefined && this.state.postId != '') {
       var postType = 'PUT';
       var postUrl = "posts/" + this.state.postId + ".json";
+      successMessage = 'Changes has been saved.';
       data.id = this.state.postId;
     }
     var self = this;
@@ -166,7 +168,6 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          if (result.id != undefined) {
-           console.log('saved');
            document.getElementById('schedule-success').style.display = 'block';
            setTimeout(function() {
              document.getElementById('schedule-success').style.display = 'none';
@@ -244,7 +245,7 @@ class Publish extends React.Component {
             <h3>Publish your post</h3>
           </div>
           <div className="published-messages error" style={{display: 'none'}} id="date-error">Please select a valid date, future date</div>
-          <div className="published-messages success" style={{display: 'none'}} id="schedule-success">Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
+          <div className="published-messages success" style={{display: 'none'}} id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
           <SlotWidget
             value={this.state.value}
             futureProgrammedPosts={this.state.futureProgrammedPosts}
