@@ -5,11 +5,6 @@ var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
 
 class SlotWidget extends React.Component {
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    var visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
-  }
   render () {
     var tablehead = [], tablerows = [];
     var td = [];
@@ -53,13 +48,11 @@ class SlotWidget extends React.Component {
     return(
       <div className="form-group">
         <fieldset className="date-time">
-          <legend>Date and time</legend>
+          <legend>Fecha y hora</legend>
           <p className="non-published-state">
             <input type="text" size="20" value={this.props.value} onChange={this.props.onChange.bind(this)} name="postDate" id="publish-date-old" />
-            <span id="slot-widget-buttons" style={{display: 'block'}}>
-              <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.openSlotWidget.bind(this)}>Select now</a>
-              <a className="btn btn-warning" href="#" id="schedule-future-top" onClick={this.props.onSchedule.bind(this)}>Schedule</a>
-            </span>
+            <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.props.openSlotWidget.bind(this)}>Select slot</a>
+            <a className="btn btn-warning" href="#" id="schedule-future-top" onClick={this.props.onSchedule.bind(this)}>Schedule</a>
           </p>
           <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
             <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>

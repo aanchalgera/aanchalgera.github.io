@@ -164,7 +164,7 @@ class Editor extends React.Component{
       if ( thisKeypressTime - lastKeypressTime <= delta )
       {
         event.preventDefault();
-        var parentDiv = this.parentDiv(event.target);
+        this.parentDiv(event.target);
         this.createNewTextArea(Number(currentId) + 1);
       }
       lastKeypressTime = thisKeypressTime;
@@ -453,7 +453,7 @@ class Editor extends React.Component{
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Publicar</Link>
+          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
         </div>
         <br /><br />
         {errorField}
