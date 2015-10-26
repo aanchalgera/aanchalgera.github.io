@@ -8,8 +8,6 @@ import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
 moment.tz.setDefault("Europe/Madrid");
-var utcDifference = 7200000;
-var timeStamp = moment().format('X');
 var chooseSlotMsg = "Select slot";
 var successMessage = '';
 
@@ -18,7 +16,7 @@ class Publish extends React.Component {
     super(props);
     this.state = {
       fields: [],
-      value : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
+      value : moment().format('DD/MM/YYYY HH:mm'),
       status: 'publish',
       postRepostBlogNames: [],
       publishRegion: [],
@@ -42,7 +40,7 @@ class Publish extends React.Component {
           if (null != data) {
             var scheduledPosts = {};
             data.forEach(function(result,b){
-              var formatDate = moment(result.date).format('YYYY-MM-DD H:00:00');
+              var formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
               scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title}
             })
             this.setState({
@@ -61,7 +59,7 @@ class Publish extends React.Component {
               title: data.title,
               maxId : data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
-              value: data.publishData.postDate != undefined ? data.publishData.postDate : moment.unix(timeStamp).format('DD/MM/YYYY HH:mm'),
+              value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
               postId : data.publishData.postId != undefined ? data.publishData.postId : ''
@@ -133,6 +131,7 @@ class Publish extends React.Component {
       "title" : this.state.title,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
+      "status": this.state.status,
       "publishData" : {
         "postDate": this.state.value,
         "publishRegion": publishRegion,

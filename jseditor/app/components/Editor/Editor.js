@@ -42,6 +42,7 @@ class Editor extends React.Component{
               fields: data.sections != undefined ? data.sections : [],
               value: data.title,
               maxId: data.maxId,
+              status: data.status != undefined ? data.status : '',
               publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
             });
           }
@@ -221,6 +222,7 @@ class Editor extends React.Component{
       "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
+      "status": this.state.status != undefined ? this.state.status : '',
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
     };
     self = this;
