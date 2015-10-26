@@ -122,6 +122,7 @@ class Publish extends React.Component {
       "post_extended_title":"",
       "post_visibility":0,
       "posts_galleries":"",
+      "post_subtype" : 13,
       "postDate": this.state.value,
       "publish-region": publishRegion,
       "postStatus": this.state.status,
