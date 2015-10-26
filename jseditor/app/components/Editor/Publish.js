@@ -122,6 +122,7 @@ class Publish extends React.Component {
       "post_extended_title":"",
       "post_visibility":0,
       "posts_galleries":"",
+      "post_subtype" : 13,
       "postDate": this.state.value,
       "publish-region": publishRegion,
       "postStatus": this.state.status,
@@ -190,18 +191,12 @@ class Publish extends React.Component {
   validate() {
     document.getElementById('date-error').style.display = 'none';
     if ('publish' == this.state.status) {
-      if (this.getFutureTimeInUTC() < moment().format('x')) {
+      if (moment(this.state.value, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm")) {
         document.getElementById('date-error').style.display = 'block';
         return;
       }
     }
     return true;
-  }
-  getFutureTimeInUTC() {
-    var futureDate = this.state.value.split(' ')
-    var dateSplit = futureDate[0].split('/')
-    var formattedFutureDate = new Date(Date.parse(dateSplit[1] + '/' + dateSplit[0] + '/' + dateSplit[2] + ' ' + futureDate[1] + ':00 UTC'))
-    return formattedFutureDate.getTime() - utcDifference;
   }
   openSlotWidget(ev) {
     ev.preventDefault();

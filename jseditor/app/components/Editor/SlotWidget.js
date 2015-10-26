@@ -24,8 +24,8 @@ class SlotWidget extends React.Component {
         slot = '';
         msg = '';
         dateTime = moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        formattedDateTime = moment(dateTime).format('DD/MM/YYYY') + ' ' + j + ':00';
-        if (timeStamp > moment(dateTime).format('X')) {
+        formattedDateTime = moment(dateTime, "YYYY-MM-DD HH:mm:ss").format('DD/MM/YYYY') + ' ' + j + ':00';
+        if (timeStamp > moment(dateTime, "YYYY-MM-DD HH:mm:ss").format("X")) {
           slot = 'slot-past';
           msg = 'Pasado';
         } else if (this.props.futureProgrammedPosts != undefined && this.props.futureProgrammedPosts[dateTime] != undefined) {
