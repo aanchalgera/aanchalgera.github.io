@@ -12,6 +12,7 @@ var chooseSlotMsg = "Select slot";
 var successMessage = '';
 var sitePreviewLink = '';
 var sitePreviewUrl = '';
+const SITE_DOMAIN = 'http://testing.xataka.com/';
 
 class Publish extends React.Component {
   constructor(props){
@@ -235,7 +236,7 @@ class Publish extends React.Component {
   }
   render () {
     if (this.state.postId != undefined && this.state.postId != '') {
-      sitePreviewUrl = "http://testing.xataka.com/preview-main/" +this.state.postId+'/'+this.state.postHash;
+      sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
       sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
     }
     return(
