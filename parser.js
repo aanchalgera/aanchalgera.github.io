@@ -88,9 +88,9 @@ function handleSection(section, index, allSections)
         case 'gallery':
             html += templating.getGalleryTemplate();
             break;
-        // case 'grouped':
-        //     html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
-        //     break;
+        case 'grouped':
+            html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
+            break;
     }
 
     sectionsCovered++;
@@ -223,23 +223,16 @@ function addBackgroundClass(sectionClasses, section)
     return sectionClasses;
 }
 
-// function addColumnClass(sectionClasses, section)
-// {
-//     if (!isEmpty(section, "columns")) {
-//         sectionClasses.push("builder-text-columns-"+section["columns"].length);
-//     }
+function addColumnClass(sectionClasses, section)
+{
+    if ('grouped' == section['type']) {
+        sectionClasses.push("module-layout-columns");
+    } else {
+        sectionClasses.push("module-layout-single");
+    }
 
-//     if ('gallery' == section['type']) {
-//         var galleryImageCount = section["images"].length;
-//         if (galleryImageCount > 4) {
-//             sectionClasses.push("builder-gallery-columns-4");
-//         } else {
-//             sectionClasses.push("builder-gallery-columns-"+galleryImageCount);
-//         }
-//     }
-
-//     return sectionClasses;
-// }
+    return sectionClasses;
+}
 
 function addParallaxClass(sectionClasses, section)
 {
@@ -258,7 +251,7 @@ function getSectionClasses(section)
     sectionClasses = addSectionTypeClass(sectionClasses, section);
     sectionClasses = addSectionLayoutClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
-    // sectionClasses = addColumnClass(sectionClasses, section);
+    sectionClasses = addColumnClass(sectionClasses, section);
     sectionClasses = addParallaxClass(sectionClasses, section);
 
     return sectionClasses.join(' ');
@@ -289,6 +282,7 @@ function getSectionStyles(section)
 
 function getExtraStyles(section)
 {
+    return '';
     var extraStyles = [];
     if (!isEmpty(section, "foregroundColor") && 'summary' === section['type']) {
         extraStyles.push("color:" + section["foregroundColor"]+";");
@@ -337,7 +331,10 @@ module.exports = {
 
 function getSectionObject(section)
 {
-    var sectionClasses= getSectionClasses(section);
+    var sectionClasses = [];
+    sectionClasses = addSectionTypeClass(sectionClasses, section);
+    sectionClasses = addBackgroundClass(sectionClasses, section);
+    sectionClasses = sectionClasses.join(' ');
     var sectionStyles = getSectionStyles(section);
     var extraStyles = getExtraStyles(section);
     section = doMarkUp(section);
@@ -346,21 +343,10 @@ function getSectionObject(section)
         return getImageObject(sectionClasses, sectionStyles, section);
     }
 
-    if ('summary' == section['type']) {
+    if ('summary' == section['type'] || 'content' == section['type'] || 'richContent' == section['type']) {
         return { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
-            text: section["text"],
-            type: section['type']
-        };
-    }
-
-    if ('content' == section['type']) {
-        return { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            extraStyles: extraStyles,
             text: section["text"],
             type: section['type']
         };
@@ -380,15 +366,15 @@ function getSectionObject(section)
     return section;
 }
 
-// function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
-// {
-//     var columns = [];
-//     var column;
-//     var allColumns = section['columns'];
-//     for (column in allColumns) {
-//         var sectionObject = getSectionObject(allColumns[column]);
-//         columns.push(sectionObject);
-//     }
+function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
+{
+    var columns = [];
+    var column;
+    var allColumns = section['columns'];
+    for (column in allColumns) {
+        var sectionObject = getSectionObject(allColumns[column]);
+        columns.push(sectionObject);
+    }
 
-//     return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
-// }
+    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
+}
