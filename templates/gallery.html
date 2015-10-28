@@ -1,16 +1,10 @@
-<section class="<%=sectionClasses%>" style="<%=sectionStyles%>">
-    <div class="builder-section-content">
-        <%_.forEach(images, function (image) {%>
-        <div class="builder-gallery-item" onclick="return false;">
-            <figure class="builder-gallery-image" style="background-image: url(&#039;<%= image['url']%>&#039;);"></figure>
-            <div class="builder-gallery-content">
-                <div class="builder-gallery-content-inner">
-                    <div class="builder-gallery-description">
-                        <%=image.description%>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <% }) %>
+<div class="<%=sectionClasses%>" style="<%=sectionStyles%>">
+    <div class="module-content">
+        <div class="gallery-caption"><span><%= images.length %> imágenes</span></div>
+        <ul class="elastislide-list type-gallery js-gallery">
+            <%_.forEach(images, function (image) {%>
+            <li><a href="#"><span class="gallery-img-caption"><%=image.description%> </span><img src="<%= image['url']%>" alt="" /></a></li>
+            <% }) %>
+        </ul>
     </div>
-</section>
+</div>
