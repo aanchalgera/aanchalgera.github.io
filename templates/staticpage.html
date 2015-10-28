@@ -246,15 +246,11 @@
 <script type="text/javascript" src="http://testblogwp.weblogssl.com/temp/devel/r/js/jquery.elastislide-auto.js"></script>
 <script type="text/javascript">
 window.addEventListener('load', function() {
-    $('.js-gallery').each(function(index,element) { $(element).elastislide({
-        autoplay : false,
-    })});
-    $(".js-slider:not(.js-autoplay)").each(function(index,element) { $(element).elastislide({
-        autoplay : false,
-    })});
-    $(".js-slider.js-autoplay").each(function(index,element) { $(element).elastislide({
-        autoplay : true,
-    })});
+    var $this;
+    $('.js-elastislide-element').each(function() {
+        $this = $(this);
+        $this.elastislide({autoplay : !!$this.attr('autoplay')});
+    });
 });
 </script>
 </body>
