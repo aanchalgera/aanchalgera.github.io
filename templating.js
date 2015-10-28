@@ -136,7 +136,8 @@ function getSliderTemplate()
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             title: section['title'],
-            images: section['images']
+            images: section['images'],
+            autoplay: section['autoplay']
         }
     );
 }

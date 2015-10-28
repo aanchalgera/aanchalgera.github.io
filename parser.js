@@ -65,7 +65,7 @@ function handleSection(section, index, allSections)
     templating.setExtraStyles(extraStyles);
     templating.setSection(section);
     
-    switch(section.type) {
+    switch(section['type']) {
         case 'summary':
         case 'richContent':
         case 'content':
@@ -82,12 +82,12 @@ function handleSection(section, index, allSections)
                 html += templating.getImageTemplate(imageObject);
             }
             break;
-        // case 'slider':
-        //     html += templating.getSliderTemplate();
-        //     break;
-        // case 'gallery':
-        //     html += templating.getGalleryTemplate();
-        //     break;
+        case 'slider':
+            html += templating.getSliderTemplate();
+            break;
+        case 'gallery':
+            html += templating.getGalleryTemplate();
+            break;
         // case 'grouped':
         //     html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
         //     break;
@@ -100,7 +100,7 @@ function handleSection(section, index, allSections)
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
-    if (undefined === section.layout) {
+    if (undefined === section['layout']) {
         section['layout'] = 'normal';
     }
     var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
@@ -113,17 +113,17 @@ function getImageObject(sectionClasses, sectionStyles, section)
     var imageObject = {
         sectionClasses: sectionClasses, 
         sectionStyles: sectionStyles,
-        width: section.width,
-        height: section.height,
+        width: section['width'],
+        height: section['height'],
         imagePath450 : imagePath450,
-        src: section.url,
-        classes: section.class,
-        alt: section.alt,
-        layout: section.layout,
+        src: section['url'],
+        classes: section['class'],
+        alt: section['alt'],
+        layout: section['layout'],
         type: 'image'
     };
     
-    switch (section.layout) {
+    switch (section['layout']) {
         case 'small':
             //no srcsets for small layout
             break;
@@ -148,9 +148,11 @@ function getImageObject(sectionClasses, sectionStyles, section)
 
 function addSectionLayoutClass(sectionClasses, section)
 {
-    switch(section.type) {
+    switch(section['type']) {
         case 'image':
-            if (undefined === section.layout) {
+        case 'gallery':
+        case 'slider':
+            if (undefined === section['layout']) {
                 section['layout'] = 'normal';
             }
             sectionClasses.push('module-size-'+section['layout']);
@@ -162,9 +164,9 @@ function addSectionLayoutClass(sectionClasses, section)
 
 function addSectionTypeClass(sectionClasses, section)
 {
-    switch(section.type) {
+    switch(section['type']) {
         case 'image':
-            if (true == section.banner) {
+            if (true == section['banner']) {
                 sectionClasses.push("builder-section-banner");
             } else {
                 sectionClasses.push("module-type-image");
@@ -181,17 +183,12 @@ function addSectionTypeClass(sectionClasses, section)
             sectionClasses.push("module-type-text");
             break;
         // case 'grouped':
-        // case 'slider':
-        //     sectionClasses.push(bannerClass);
-        //     break;
-        // case 'gallery':
-        //     sectionClasses.push(
-        //         'builder-section-gallery', 
-        //         'builder-gallery-captions-reveal', 
-        //         'builder-gallery-captions-dark', 
-        //         'builder-gallery-aspect-landscape'
-        //     );
-        //     break;
+        case 'slider':
+            sectionClasses.push('module-type-slider');
+            break;
+        case 'gallery':
+            sectionClasses.push('module-type-gallery');
+            break;
 
     }
     return sectionClasses;
@@ -214,8 +211,13 @@ function addBackgroundClass(sectionClasses, section)
     if (isTrue(section, "backgroundRepeat")) {
         sectionClasses.push("module-bg-repeat");
     }
-    if (!isEmpty(section, "backgroundColor")) {
+    // if (!isEmpty(section, "backgroundColor")) {
+    //     sectionClasses.push("module-bg-color");
+    // }
+    
+    if (!isEmpty(section, "backgroundClass")) {
         sectionClasses.push("module-bg-color");
+        sectionClasses.push(section['backgroundClass']);
     }
 
     return sectionClasses;
@@ -227,7 +229,7 @@ function addBackgroundClass(sectionClasses, section)
 //         sectionClasses.push("builder-text-columns-"+section["columns"].length);
 //     }
 
-//     if ('gallery' == section.type) {
+//     if ('gallery' == section['type']) {
 //         var galleryImageCount = section["images"].length;
 //         if (galleryImageCount > 4) {
 //             sectionClasses.push("builder-gallery-columns-4");
@@ -239,14 +241,14 @@ function addBackgroundClass(sectionClasses, section)
 //     return sectionClasses;
 // }
 
-// function addParallaxClass(sectionClasses, section)
-// {
-//     if (isTrue(section, "parallax")) {
-//         sectionClasses.push("parallax");
-//     }
+function addParallaxClass(sectionClasses, section)
+{
+    if (isTrue(section, "parallax")) {
+        sectionClasses.push("module-bg-parallax");
+    }
     
-//     return sectionClasses;
-// }
+    return sectionClasses;
+}
 
 function getSectionClasses(section)
 {
@@ -257,7 +259,7 @@ function getSectionClasses(section)
     sectionClasses = addSectionLayoutClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
     // sectionClasses = addColumnClass(sectionClasses, section);
-    // sectionClasses = addParallaxClass(sectionClasses, section);
+    sectionClasses = addParallaxClass(sectionClasses, section);
 
     return sectionClasses.join(' ');
 }
@@ -268,11 +270,6 @@ function getSectionStyles(section)
     if (!isEmpty(section, "backgroundImage")) {
 
         sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
-        if (isTrue(section, "backgroundRepeat")) {
-            // sectionStyles.push("background-repeat:repeat;");
-        } else {
-            sectionStyles.push("background-size: cover;");
-        }
 
         //temp. check
         if (isEmpty(section, "backgroundFade")) {
@@ -282,11 +279,8 @@ function getSectionStyles(section)
     if (!isEmpty(section, "backgroundColor")) {
         sectionStyles.push("background-color:" + section["backgroundColor"]+";");
     }
-    if (!isEmpty(section, "foregroundColor") && 'summary' !== section.type) {
-        sectionStyles.push("color:" + section["foregroundColor"]+";");
-    }
 
-    if ('slider' === section.type) {
+    if ('slider' === section['type']) {
         sectionStyles.push('background-size: cover;');
     }
 
@@ -296,7 +290,7 @@ function getSectionStyles(section)
 function getExtraStyles(section)
 {
     var extraStyles = [];
-    if (!isEmpty(section, "foregroundColor") && 'summary' === section.type) {
+    if (!isEmpty(section, "foregroundColor") && 'summary' === section['type']) {
         extraStyles.push("color:" + section["foregroundColor"]+";");
     }
     return extraStyles.join(' ');
@@ -327,7 +321,7 @@ function doMarkUp(section)
     if (!isEmpty(section, 'text')) {
         section['text'].replace('\n', '<br />');
     }
-    if ('richContent' != section.type && !isEmpty(section, 'text')) {
+    if ('richContent' != section['type'] && !isEmpty(section, 'text')) {
         section['text'] = marked(section['text']);
     }
 
@@ -348,38 +342,38 @@ function getSectionObject(section)
     var extraStyles = getExtraStyles(section);
     section = doMarkUp(section);
 
-    if ('image' == section.type) {
+    if ('image' == section['type']) {
         return getImageObject(sectionClasses, sectionStyles, section);
     }
 
-    if ('summary' == section.type) {
+    if ('summary' == section['type']) {
         return { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             extraStyles: extraStyles,
             text: section["text"],
-            type: section.type
+            type: section['type']
         };
     }
 
-    if ('content' == section.type) {
+    if ('content' == section['type']) {
         return { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             extraStyles: extraStyles,
             text: section["text"],
-            type: section.type
+            type: section['type']
         };
     }
 
-    if ('video' == section.type) {
+    if ('video' == section['type']) {
         return {
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             url: section['url'],
             height: section["height"],
             width: section["width"],
-            type: section.type
+            type: section['type']
         }
     }
 

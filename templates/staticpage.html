@@ -241,6 +241,21 @@
     
 
 </script>
-
+<script src="http://mtest.xataka.com/scripts/lib/modernizr.custom.js"></script> 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://testblogwp.weblogssl.com/temp/devel/r/js/jquery.elastislide-auto.js"></script>
+<script type="text/javascript">
+window.addEventListener('load', function() {
+    $('.js-gallery').elastislide({
+        autoplay : false,
+    });
+    $(".js-slider:not(.js-autoplay)").elastislide({
+        autoplay : false,
+    });
+    $(".js-slider.js-autoplay").elastislide({
+        autoplay : true,
+    });
+});
+</script>
 </body>
 </html>

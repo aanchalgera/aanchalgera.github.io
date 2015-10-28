@@ -30,7 +30,13 @@
          "backgroundImage": "http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/bg11.jpg",
          "backgroundRepeat": true
       },
-
+      {
+         "type": "content",
+         "text": "content with background image and parallax, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundRepeat": true,
+         "parallax": true
+      },
       {
          "type": "content",
          "text": "plain content with blockquote, hello ajinder singh \n > hello hi"
@@ -40,9 +46,24 @@
          "text": "summary text, hello ajinder singh"
       },
       {
-         "type": "summary",
-         "text": "summary text with backgroundColor, hello ajinder singh",
-         "backgroundColor": "#CC0000"
+         "type": "content",
+         "text": "normal text with background class neutral light, hello ajinder singh",
+         "backgroundClass": "module-bg-color-neutral-light"
+      },
+      {
+         "type": "content",
+         "text": "normal text with background class neutral dark, hello ajinder singh",
+         "backgroundClass": "module-bg-color-neutral-dark"
+      },
+      {
+         "type": "content",
+         "text": "normal text with background class module-bg-color-branded-light, hello ajinder singh",
+         "backgroundClass": "module-bg-color-branded-light"
+      },
+      {
+         "type": "content",
+         "text": "normal text with background class module-bg-color-branded-dark, hello ajinder singh",
+         "backgroundClass": "module-bg-color-branded-dark"
       },
       {
          "type": "image",
@@ -60,7 +81,7 @@
          "type": "image",
          "layout": "normal",
          "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
-         "backgroundColor": "#C00"
+         "backgroundClass": "module-bg-color-branded-dark"
       },
       {
          "type": "image",
@@ -85,12 +106,139 @@
          "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
          "width": "640",
          "height": "360",
-         "backgroundColor": "#CC0000"
+         "backgroundClass": "module-bg-color-neutral-light"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundClass": "module-bg-color-neutral-dark"
       },
       {
          "type": "richContent",
          "text": "plain content in rich content. This will not be formatted. blockquote, hello ajinder singh \n > hello hi"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundClass": "module-bg-color-branded-light"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundClass": "module-bg-color-branded-dark"
+      },
+      {
+         "type": "richContent",
+         "text": "plain content in rich content. This will not be formatted. blockquote, hello ajinder singh \n > hello hi"
+      },
+      {
+         "type": "video",
+         "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+         "width": "640",
+         "height": "360",
+         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundRepeat": true,
+         "backgroundClass": "module-bg-color-branded-dark",
+         "parallax": true
+      },
+      {  
+         "type":"gallery",
+         "backgroundColor":"#CCC",
+         "images":[  
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            }
+         ]
+      },
+      {  
+         "type":"slider",
+         "backgroundColor":"#CCC",
+         "autoplay": true,
+         "images":[  
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            }
+         ]
+      },
+      {  
+         "type":"slider",
+         "backgroundColor":"#CCC",
+         "autoplay": false,
+         "images":[  
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "description":"test description"
+            },
+            {  
+               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "description":"test description"
+            }
+         ]
       }
-   ],
+  ],
    "page":"preview"
 }
