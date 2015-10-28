@@ -10,6 +10,9 @@ import CountriesFormOptions from './CountriesFormOptions';
 moment.tz.setDefault("Europe/Madrid");
 var chooseSlotMsg = "Select slot";
 var successMessage = '';
+var sitePreviewLink = '';
+var sitePreviewUrl = '';
+const SITE_DOMAIN = 'http://testing.xataka.com/';
 
 class Publish extends React.Component {
   constructor(props){
@@ -20,7 +23,8 @@ class Publish extends React.Component {
       status: 'publish',
       postRepostBlogNames: [],
       publishRegion: [],
-      postId : ''
+      postId : '',
+      postHash: ''
     };
   }
   componentDidMount(){
@@ -62,7 +66,8 @@ class Publish extends React.Component {
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
-              postId : data.publishData.postId != undefined ? data.publishData.postId : ''
+              postId : data.publishData.postId != undefined ? data.publishData.postId : '',
+              postHash : data.publishData.postHash != undefined ? data.publishData.postHash : ''
             });
           }
         }
@@ -162,6 +167,7 @@ class Publish extends React.Component {
      console.log(result, status);
      if (result.id != undefined) {
        formData.publishData.postId = result.id;
+       formData.publishData.postHash = result.post_hash;
      }
      self.props.base.post(
        'posts/' + self.state.id, {
@@ -172,7 +178,7 @@ class Publish extends React.Component {
            setTimeout(function() {
              document.getElementById('schedule-success').style.display = 'none';
            }, 7000);
-           self.setState({postId: result.id});
+           self.setState({postId: result.id, postHash: result.post_hash});
          }
        }
      });
@@ -190,7 +196,7 @@ class Publish extends React.Component {
   validate() {
     document.getElementById('date-error').style.display = 'none';
     if ('publish' == this.state.status) {
-      if (moment(this.state.value, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm")) {
+      if (moment(moment(this.state.value, "DD/MM/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         document.getElementById('date-error').style.display = 'block';
         return;
       }
@@ -229,10 +235,15 @@ class Publish extends React.Component {
     this.handleDatePickerText();
   }
   render () {
+    if (this.state.postId != undefined && this.state.postId != '') {
+      sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
+      sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
+    }
     return(
       <div>
         <div className="preview-nav">
           <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to editing</Link>
+          {sitePreviewLink}
         </div>
         <form className="post-publish" ref="publish-form">
           <div className="publish-headers">
