@@ -195,7 +195,7 @@ class Publish extends React.Component {
   validate() {
     document.getElementById('date-error').style.display = 'none';
     if ('publish' == this.state.status) {
-      if (moment(this.state.value, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm")) {
+      if (moment(moment(this.state.value, "DD/MM/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         document.getElementById('date-error').style.display = 'block';
         return;
       }
