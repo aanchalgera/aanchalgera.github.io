@@ -8,11 +8,11 @@ var fs = require('fs'),
     sliderTemplate, 
     galleryTemplate, 
     groupedTemplate,
+    contentTemplate,
     commonTemplate,
     pageTemplate, 
     sectionClasses,
     sectionStyles,
-    extraStyles,
     section,
     templatesDir = './templates', 
     cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
@@ -35,10 +35,6 @@ function setSectionClasses(classes)
 function setSectionStyles(styles)
 {
     sectionStyles = styles;
-}
-function setExtraStyles(styles)
-{
-    extraStyles = styles;
 }
 
 function setSection(sec)
@@ -66,6 +62,9 @@ function loadTemplates()
     }
     if (undefined === pageTemplate) {
         pageTemplate = getTemplate('staticpage.html');
+    }
+    if (undefined === contentTemplate) {
+        contentTemplate = getTemplate('content.html');
     }
     if (undefined === groupedTemplate) {
         groupedTemplate = getTemplate('grouped.html');
@@ -142,24 +141,33 @@ function getSliderTemplate()
     );
 }
 
-function getPageTemplate(pageTitle, pageDescription, html)
+function getContentTemplate(title, html)
 {
-    return pageTemplate(
+    return contentTemplate(
         { 
-          title: pageTitle,
-          pageDescription: pageDescription,
+          title: title,
           sectionsHTML: html
         }
     );
 }
 
-function getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns)
+function getPageTemplate(pageTitle, pageDescription, contentHTML)
+{
+    return pageTemplate(
+        { 
+          title: pageTitle,
+          pageDescription: pageDescription,
+          contentHTML: contentHTML
+        }
+    );
+}
+
+function getGroupedTemplate(sectionClasses, sectionStyles, columns)
 {
     return groupedTemplate(
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            extraStyles: extraStyles, 
             contentSections: columns
         }
     );
@@ -195,9 +203,9 @@ module.exports = {
     getGalleryTemplate: getGalleryTemplate,
     getPageTemplate: getPageTemplate,
     getCommonTemplate: getCommonTemplate,
+    getContentTemplate: getContentTemplate,
     setSectionClasses: setSectionClasses,
     setSectionStyles: setSectionStyles,
-    setExtraStyles: setExtraStyles,
     setSection: setSection,
     loadFile: loadFile,
     writeFile: writeFile,
