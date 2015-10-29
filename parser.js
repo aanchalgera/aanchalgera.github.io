@@ -2,18 +2,18 @@
 var marked = require('marked');
 var templating = require('./templating.js');
 
-var html;
-var commonClass = 'module';
-var sectionsCovered;
-var sectionClasses;
-var sectionStyles;
-var extraStyles;
-var outputFilePath = './jseditor/public/posts';
-var relativeFilePath = 'posts';
-var totalSections;
-var jsonObjects;
-var templating;
-var cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+var html
+, commonClass = 'module'
+, sectionsCovered
+, sectionClasses
+, sectionStyles
+, outputFilePath = './jseditor/public/posts'
+, relativeFilePath = 'posts'
+, totalSections
+, jsonObjects
+, templating
+, cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload'
+;
 
 function parse(requestData)
 {
@@ -40,11 +40,12 @@ function parseData(jsonObjects)
     totalSections = jsonObjects.sections.length;
     jsonObjects.sections.forEach(handleSection);
 
+    var contentHTML = templating.getContentTemplate(jsonObjects.title, html);
     if ('publish' == jsonObjects.page) {
-        return html;
+        return contentHTML;
     }
 
-    var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, html);
+    var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, contentHTML);
     if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
         var outputFileName = jsonObjects.id + '.html';
         templating.writeFile(outputFilePath + '/' + outputFileName, finalHTML);
@@ -58,11 +59,9 @@ function handleSection(section, index, allSections)
 
     sectionClasses = getSectionClasses(section);
     sectionStyles = getSectionStyles(section);
-    extraStyles = getExtraStyles(section);
 
     templating.setSectionClasses(sectionClasses);
     templating.setSectionStyles(sectionStyles);
-    templating.setExtraStyles(extraStyles);
     templating.setSection(section);
     
     switch(section['type']) {
@@ -89,7 +88,7 @@ function handleSection(section, index, allSections)
             html += templating.getGalleryTemplate();
             break;
         case 'grouped':
-            html += getGroupedSection(sectionClasses, sectionStyles, extraStyles, section);
+            html += getGroupedSection(sectionClasses, sectionStyles, section);
             break;
     }
 
@@ -211,9 +210,6 @@ function addBackgroundClass(sectionClasses, section)
     if (isTrue(section, "backgroundRepeat")) {
         sectionClasses.push("module-bg-repeat");
     }
-    // if (!isEmpty(section, "backgroundColor")) {
-    //     sectionClasses.push("module-bg-color");
-    // }
     
     if (!isEmpty(section, "backgroundClass")) {
         sectionClasses.push("module-bg-color");
@@ -280,16 +276,6 @@ function getSectionStyles(section)
     return sectionStyles.join(' ');
 }
 
-function getExtraStyles(section)
-{
-    return '';
-    var extraStyles = [];
-    if (!isEmpty(section, "foregroundColor") && 'summary' === section['type']) {
-        extraStyles.push("color:" + section["foregroundColor"]+";");
-    }
-    return extraStyles.join(' ');
-}
-
 function isDefined(section, attribute)
 {
     return (undefined !== section[attribute]);
@@ -327,7 +313,6 @@ module.exports = {
     processRequest: processRequest,
     testRead: testRead
 }
-/////////////////////
 
 function getSectionObject(section)
 {
@@ -336,7 +321,6 @@ function getSectionObject(section)
     sectionClasses = addBackgroundClass(sectionClasses, section);
     sectionClasses = sectionClasses.join(' ');
     var sectionStyles = getSectionStyles(section);
-    var extraStyles = getExtraStyles(section);
     section = doMarkUp(section);
 
     if ('image' == section['type']) {
@@ -366,7 +350,7 @@ function getSectionObject(section)
     return section;
 }
 
-function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
+function getGroupedSection(sectionClasses, sectionStyles, section)
 {
     var columns = [];
     var column;
@@ -376,5 +360,5 @@ function getGroupedSection(sectionClasses, sectionStyles, extraStyles, section)
         columns.push(sectionObject);
     }
 
-    return templating.getGroupedTemplate(sectionClasses, sectionStyles, extraStyles, columns);
+    return templating.getGroupedTemplate(sectionClasses, sectionStyles, columns);
 }

@@ -1,6 +1,9 @@
 {  
    "id":"-K0dxiSOkZZuA5qS4uSM",
-   "title":"testing New",
+   "title": {
+      "text": "testing New",
+      "backgroundClass": "module-bg-color-neutral-dark"
+   },
    "sections":[  
       {
          "type": "content",

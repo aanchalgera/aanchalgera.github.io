@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title><%= title %></title>
+    <title><%= title.text %></title>
     <link rel="stylesheet" type="text/css" href="http://testblogwp.weblogssl.com/temp/devel/r/r/main-long.css">
 </head>
 <body>
@@ -28,24 +28,11 @@
 <!-- .head -->
 <div class="page-container">
 <div class="content-container">
-<main>
-    <article class="article article-longform">
-        <header class="article-header article-longform-header">
-            <h1><%= title %></h1>
-        </header>
-        <div class="article-content">
-            <%= sectionsHTML %>
-            <div class="module module-type-rich module-size-normal">
-                <div class="module-content">
-                </div>
-            </div>
-        </div>
-    </article>
-</main>
-<section id="sections" class="head-menu-container head-menu-sections">
-    <a href="#sections" class="head-menu-toggler js-close-menu"></a>
-    <div class="head-menu">test</div>
-</section>
+    <%= contentHTML %>
+    <section id="sections" class="head-menu-container head-menu-sections">
+        <a href="#sections" class="head-menu-toggler js-close-menu"></a>
+        <div class="head-menu">test</div>
+    </section>
     <nav id="nav-login" class="nav nav-list nav-login">
         <a href="#nav-login" class="head-menu-toggler js-close-menu"></a>
         <div class="head-menu">
