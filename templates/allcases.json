@@ -1,13 +1,10 @@
 {  
    "id":"-K0dxiSOkZZuA5qS4uSM",
-   "title": {
-      "text": "testing New",
-      "backgroundClass": "module-bg-color-neutral-dark"
-   },
+   "title": "testing New",
    "sections":[  
       {
          "type": "content",
-         "text": "plain content, hello ajinder singh"
+         "text": "**plain content**, hi ajinder singh"
       },
       {
          "type": "content",
@@ -313,13 +310,37 @@
                "text":"text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 ",
                "type":"content",
                "backgroundClass": "module-bg-color-branded-dark",
-               "foregroundColor": "#FFF"
+               "foregroundColor": "#FFF",
+               "layout": "normal"
             },
             {  
                "align":"",
                "id":4,
                "text":"text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 ",
-               "type":"content"
+               "type":"content",
+               "layout": "normal"
+            }
+         ]
+      },
+      {
+         "type":"grouped",
+         "comment": "2 column", 
+         "columns": [
+            {  
+               "align":"",
+               "id":4,
+               "text":"text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 text columns 1 ",
+               "type":"content",
+               "backgroundClass": "module-bg-color-branded-dark",
+               "foregroundColor": "#FFF",
+               "size": "small"
+            },
+            {  
+               "align":"",
+               "id":4,
+               "text":"text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 text columns 2 ",
+               "type":"content",
+               "size": "big"
             }
          ]
       },
@@ -355,7 +376,8 @@
                "parallax":false,
                "type":"image",
                "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
-               "width":"100"
+               "width":"100",
+               "size": "small"
             },
             {  
                "align":"",
@@ -364,7 +386,8 @@
                "backgroundImage":"",
                "id":4,
                "text":"## TotalChannel se estrena en la Champions con una caída total de su servicio, ¿hay alternativas?\n\nLo interesante es que la propuesta de Arkham Knight, el videojuego de Rocksteady que ha hecho más que Nolan para que nos sintamos los amos de Gotham, no es nueva. De acuerdo, Batman luce esplendoroso en las consolas actuales; la ciudad respira asfalto y humo y llamas; los personajes tienen más definición que tu familia antes de que comprasen tu primer par de gafas. Pero atravesar ese laberinto de calles nocturnas recogiendo objetos, enfrentándose a los villanos, siempre en movimiento… no es nuevo: Batman rima con Pac-Man. \n\n> Implantes en el cerebro para ser capaces de mejorar nuestra memoria o manipularla para rescatar recuerdos o ayudar a personas con lesiones postraumáticas u otro tipo de problemas neurológicos. No, \n\n > *no se trata del argumento de una nueva entrega de Matrix o Desafío Total, sino de un estudio que está siendo llevado a cabo por la DARPA.*\n\nPero cómo iba a imaginar su creador, Toru Iwatani, que el Comecocos sería uno de los padres de la forma cultural definitiva del siglo XXI. Cómo iba a imaginar nadie que aquella bola amarilla indescriptible que comía puntos y huía de los fantasmas por un laberinto tatuado en nuestras mentes iba a seguir vigente 35 ***años después***.\n\n\n",
-               "type":"content"
+               "type":"content",
+               "size": "big"
             },
             {  
                "align":"",
@@ -373,7 +396,8 @@
                "backgroundImage":"",
                "id":4,
                "text":"column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 column 3 ",
-               "type":"content"
+               "type":"content",
+               "size": "small"
             }
          ]
       },
@@ -473,6 +497,39 @@
          "type":"grouped",
          "comment": "3 column, image and content", 
          "columns": [
+            {  
+               "type": "video",
+               "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+               "width": "640",
+               "height": "360",
+               "size": "small"
+            },
+            {  
+               "type": "video",
+               "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+               "width": "640",
+               "height": "360",
+               "size": "big"
+            },
+            {
+               "type": "video",
+               "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+               "width": "640",
+               "height": "360",
+               "size": "small"
+            }
+        ]
+      },
+      {
+         "type":"grouped",
+         "comment": "3 column, image and content", 
+         "columns": [
+            {  
+               "type": "video",
+               "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
+               "width": "640",
+               "height": "360"
+            },
             {  
                "type": "video",
                "url": "https://www.youtube.com/embed/LLPj2h0N3bU",

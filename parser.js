@@ -3,6 +3,7 @@ var marked = require('marked');
 var templating = require('./templating.js');
 
 var html
+, firstSectionHTML
 , commonClass = 'module'
 , sectionsCovered
 , sectionClasses
@@ -36,11 +37,12 @@ function processRequest(host)
 function parseData(jsonObjects)
 {
     html = '';
+    firstSectionHTML = '';
     sectionsCovered = 0;
     totalSections = jsonObjects.sections.length;
     jsonObjects.sections.forEach(handleSection);
 
-    var contentHTML = templating.getContentTemplate(jsonObjects.title, html);
+    var contentHTML = templating.getContentTemplate(firstSectionHTML, html);
     if ('publish' == jsonObjects.page) {
         return contentHTML;
     }
@@ -92,6 +94,11 @@ function handleSection(section, index, allSections)
             break;
     }
 
+    if ('' == firstSectionHTML) {
+        firstSectionHTML = html;
+        html = ''
+    }
+
     sectionsCovered++;
 }
 
@@ -119,7 +126,8 @@ function getImageObject(sectionClasses, sectionStyles, section)
         classes: section['class'],
         alt: section['alt'],
         layout: section['layout'],
-        type: 'image'
+        type: 'image',
+        size: section['size']
     };
     
     switch (section['layout']) {
@@ -181,7 +189,6 @@ function addSectionTypeClass(sectionClasses, section)
         case 'content':
             sectionClasses.push("module-type-text");
             break;
-        // case 'grouped':
         case 'slider':
             sectionClasses.push('module-type-slider');
             break;
@@ -332,7 +339,8 @@ function getSectionObject(section)
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
             text: section["text"],
-            type: section['type']
+            type: section['type'],
+            size: section['size']
         };
     }
 
@@ -343,7 +351,8 @@ function getSectionObject(section)
             url: section['url'],
             height: section["height"],
             width: section["width"],
-            type: section['type']
+            type: section['type'],
+            size: section['size']
         }
     }
 
@@ -357,6 +366,9 @@ function getGroupedSection(sectionClasses, sectionStyles, section)
     var allColumns = section['columns'];
     for (column in allColumns) {
         var sectionObject = getSectionObject(allColumns[column]);
+        if (isEmpty(sectionObject, 'size')) {
+            sectionObject.size = 'normal';
+        }
         columns.push(sectionObject);
     }
 
