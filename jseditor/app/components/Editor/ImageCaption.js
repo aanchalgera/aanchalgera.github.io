@@ -33,7 +33,6 @@ class ImageCaption extends React.Component {
         onBlur={this.handleBlur.bind(this)}
       />
     )
-
   }
 }
 
