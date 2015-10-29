@@ -44,6 +44,7 @@ class ContentList extends React.Component{
         <ul id ="myList">{fields}</ul>
           <MoreOptions
             openResourcePanel={this.props.openResourcePanel}
+            addImageCaption={this.props.addImageCaption.bind(this)}
             addTextArea={this.props.addTextArea}
             addVideo={this.props.addVideo}
             dataId={fields.length}

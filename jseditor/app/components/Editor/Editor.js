@@ -115,6 +115,19 @@ class Editor extends React.Component{
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
+  addImageCaption(imageId, caption, currentIndex) {
+    var imageSet = this.state.fields[currentIndex].images;
+    if (imageSet.length > 0) {
+      for (var image of imageSet) {
+        if (image.spid == imageId) {
+          image.description = caption;
+        }
+      }
+      this.setState({
+        fields: this.state.fields
+      }, this.saveData());
+    }
+  }
   addImages(images) {
     var addImagesToGallery = this.state.addMoreImagesToGallery;
     var currentIndex = this.state.resourcePanelOpenedBy;
@@ -482,6 +495,7 @@ class Editor extends React.Component{
               moveResourceDown={this.moveResourceDown.bind(this)}
               moveResourceUp={this.moveResourceUp.bind(this)}
               orderMode={this.state.orderMode}
+              addImageCaption={this.addImageCaption.bind(this)}
             />
           </div>
         </form>
