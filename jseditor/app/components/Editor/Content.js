@@ -11,12 +11,14 @@ class Content extends React.Component{
         document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
         this.refs[currentRef].getDOMNode().focus();
         break;
-      case 'summary':
       case 'richContent':
       case 'image':
       case 'video':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
+      case 'summary':
+        document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
+      break;
     }
   }
   componentDidUpdate() {
@@ -24,12 +26,14 @@ class Content extends React.Component{
       case 'content':
       document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
       break;
-    case 'summary':
     case 'richContent':
     case 'image':
     case 'video':
       document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
       break;
+    case 'summary':
+      document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
+    break;
     }
   }
   initializeEditor(editArea) {
@@ -38,10 +42,7 @@ class Content extends React.Component{
     toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link"]
   });
     editor.render();
-    var dataId = this.props.dataId;
     var updateText = this.props.updateText;
-    var id = this.props.data.id;
-    var addNewTextArea = this.props.addNewTextArea;
     editor.codemirror.on("blur", function(event){
       updateText(event, editor.value())
     });
@@ -106,7 +107,7 @@ class Content extends React.Component{
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >{this.props.data.text}</div>;
     }
-    if (this.props.data.backgroundFade == true) {
+    if (this.props.data.backgroundFade === true) {
       var fade = <div className="builder-section-overlay"></div>
     } else {
       var fade = '';

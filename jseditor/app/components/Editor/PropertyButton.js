@@ -57,7 +57,7 @@ class PropertyButton extends React.Component {
         />
         break;
     }
-    var deleteButton = <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete selected">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
+    var deleteButton = <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
     return (
       <ul>
         <ul className="nav-pills2 js-nav-properties">
