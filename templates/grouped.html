@@ -1,7 +1,7 @@
 <div class="<%= sectionClasses %>" style="<%=sectionStyles%>">
     <div class="module-content">
         <%_.forEach(contentSections, function (contentSection, index) {%>
-            <div class="module-column module-c<%= contentSections.length %> <%= contentSection.sectionClasses %>" style="<%=contentSection.sectionStyles%>">
+            <div class="module-column module-c<%= contentSections.length %> module-c<%= contentSections.length %>-<%= contentSection.size %> <%= contentSection.sectionClasses %>" style="<%=contentSection.sectionStyles%>">
                 <div class="module-content">
                 <% if ('image' == contentSection.type) { %>
                     <% if ('small' == contentSection.layout) { %>

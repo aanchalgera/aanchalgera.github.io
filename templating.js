@@ -106,8 +106,7 @@ function getCommonTemplate()
         { 
             sectionClasses: sectionClasses, 
             sectionStyles: sectionStyles,
-            text: section["text"],
-            type: section["type"] //added for debugging purpose in templating
+            text: section["text"]
         }
     );
 }
@@ -141,11 +140,11 @@ function getSliderTemplate()
     );
 }
 
-function getContentTemplate(title, html)
+function getContentTemplate(firstSectionHTML, html)
 {
     return contentTemplate(
         { 
-          title: title,
+          firstSectionHTML: firstSectionHTML,
           sectionsHTML: html
         }
     );
