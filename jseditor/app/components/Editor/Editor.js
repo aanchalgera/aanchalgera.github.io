@@ -18,9 +18,7 @@ class Editor extends React.Component{
     super(props);
     this.state = {
       maxId: 0,
-      title:{
-        text : null
-      },
+      value: null,
       isError: false,
       isSubmit: false,
       message: null,
@@ -42,7 +40,7 @@ class Editor extends React.Component{
             this.setState({
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
-              title: data.title,
+              value: data.title,
               maxId: data.maxId,
               status: data.status != undefined ? data.status : '',
               publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
@@ -173,7 +171,7 @@ class Editor extends React.Component{
       lastKeypressTime = thisKeypressTime;
     }
   }
-  createNewTextArea(currentIndex, type = 'content', event='') {
+   createNewTextArea(currentIndex, type = 'content', event='') {
     if ('' != event) {
       event.preventDefault();
     }
@@ -190,9 +188,8 @@ class Editor extends React.Component{
     });
   }
   handleChange (ev) {
-    this.state.title.text = ev.currentTarget.value;
     this.setState({
-      title : this.state.title
+      value: ev.currentTarget.value
     });
   }
   handleBlur (ev) {
@@ -204,19 +201,14 @@ class Editor extends React.Component{
       this.setMessage(false);
     }
     this.setState({
-      title: {
-        text : title
-      }
+      value: title,
     }, this.saveData());
   }
   saveData (ev) {
     if (ev != undefined) {
       ev.preventDefault();
     }
-    if (this.state.value) {
-      this.setState({title: {text : this.state.value}}, this.saveData());
-    }
-    if (undefined == this.state.title.text || '' == this.state.title.text.trim()) {
+    if (undefined == this.state.value || '' == this.state.value.trim()) {
       this.setMessage(true,'Title should not be empty');
       return
     } else if(0 == this.state.fields.length){
@@ -227,7 +219,7 @@ class Editor extends React.Component{
     }
     var data = {
       "id" : this.state.id,
-      "title" : this.state.title,
+      "title" : this.state.value,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
       "status": this.state.status != undefined ? this.state.status : '',
@@ -257,16 +249,12 @@ class Editor extends React.Component{
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     if (currentIndex == 'title') {
-       var obj = this.state.title;
+     var indexes = currentIndex.split("-");
+     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
+     if (undefined !== indexes[1]) {
+       var obj = obj1.columns[indexes[1]];
      } else {
-       var indexes = currentIndex.split("-");
-       var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-       if (undefined !== indexes[1]) {
-         var obj = obj1.columns[indexes[1]];
-       } else {
-         var obj = obj1;
-       }
+       var obj = obj1;
      }
      switch (property) {
        case 'backgroundClass' :
@@ -289,12 +277,8 @@ class Editor extends React.Component{
           obj.backgroundImage = '';
           break;
        }
-       if (currentIndex == 'title') {
-         this.setState({title: obj}, this.saveData());
-       } else {
-         this.state.fields.splice(indexes[0], 0, obj1);;
-         this.setState({fields: this.state.fields}, this.saveData());
-       }
+     this.state.fields.splice(indexes[0], 0, obj1);;
+     this.setState({fields: this.state.fields});
   }
   deleteResource(event)
   {
@@ -427,7 +411,7 @@ class Editor extends React.Component{
     var hashId = this.state.id;
     var data = {
       id : hashId,
-      title : this.state.title,
+      title : this.state.value,
       sections : this.state.fields,
       page: "preview"
     };
@@ -479,12 +463,10 @@ class Editor extends React.Component{
         <form id="editor-form">
           <div className="form-group">
             <label className="col-sm-12 control-label">Title</label>
-            <PostTitle
-              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
-              openResourcePanel={this.openResourcePanel.bind(this)}
-              title={this.state.title} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
+            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
             <ContentList
               fields={this.state.fields}
+              addNewTextArea={this.keyHandler.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
