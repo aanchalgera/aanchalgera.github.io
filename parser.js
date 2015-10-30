@@ -208,10 +208,10 @@ function addBackgroundClass(sectionClasses, section)
 {
     if (!isEmpty(section, "backgroundImage")) {
         sectionClasses.push("module-bg-image");
-    }
-
-    if (!isEmpty(section, "backgroundFade")) {
-        sectionClasses.push("module-bg-fade");
+        
+        if (!isEmpty(section, "backgroundFade")) {
+            sectionClasses.push("module-bg-fade");
+        }
     }
 
     if (!isEmpty(section, "foregroundColor") && "#FFF" == section['foregroundColor']) {
@@ -267,7 +267,9 @@ function getSectionClasses(section)
 function getSectionStyles(section)
 {
     var sectionStyles = [];
-    if (!isEmpty(section, "backgroundImage")) {
+    if (isEmpty(section, "backgroundImage")) {
+        section['backgroundFade'] = false;
+    } else {
 
         sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
 
@@ -297,30 +299,29 @@ function getSectionObject(section)
     var sectionStyles = getSectionStyles(section);
     section = doMarkUp(section);
 
-    if ('image' == section['type']) {
-        return getImageObject(sectionClasses, sectionStyles, section);
-    }
-
-    if ('summary' == section['type'] || 'content' == section['type'] || 'richContent' == section['type']) {
-        return { 
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            text: section["text"],
-            type: section['type'],
-            size: section['size']
-        };
-    }
-
-    if ('video' == section['type']) {
-        return {
-            sectionClasses: sectionClasses, 
-            sectionStyles: sectionStyles,
-            url: section['url'],
-            height: section["height"],
-            width: section["width"],
-            type: section['type'],
-            size: section['size']
-        }
+    switch(section['type']) {
+        case 'image':
+            return getImageObject(sectionClasses, sectionStyles, section);
+        case 'summary':
+        case 'content':
+        case 'richContent':
+            return { 
+                sectionClasses: sectionClasses, 
+                sectionStyles: sectionStyles,
+                text: section["text"],
+                type: section['type'],
+                size: section['size']
+            };
+        case 'video':
+            return {
+                sectionClasses: sectionClasses, 
+                sectionStyles: sectionStyles,
+                url: section['url'],
+                height: section["height"],
+                width: section["width"],
+                type: section['type'],
+                size: section['size']
+            }
     }
 
     return section;
