@@ -106,8 +106,11 @@ function handleSection(section, index, allSections)
 
 function getImageObject(sectionClasses, sectionStyles, section)
 {
-    if (undefined === section['layout']) {
+    if (isEmpty(section, 'layout')) {
         section['layout'] = 'normal';
+    }
+    if (isEmpty(section, 'caption')) {
+        section['caption'] = '';
     }
     var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
     var imagePath450 = cloudinaryPath + '/w_450,c_fit/' + imageName;
@@ -127,7 +130,8 @@ function getImageObject(sectionClasses, sectionStyles, section)
         alt: section['alt'],
         layout: section['layout'],
         type: 'image',
-        size: section['size']
+        size: section['size'],
+        caption: section['caption']
     };
     
     switch (section['layout']) {
@@ -283,43 +287,6 @@ function getSectionStyles(section)
     return sectionStyles.join(' ');
 }
 
-function isDefined(section, attribute)
-{
-    return (undefined !== section[attribute]);
-}
-
-function isEmpty(section, attribute)
-{
-    return (!isDefined(section, attribute) || "" == section[attribute]);
-}
-
-function isTrue(section, attribute)
-{
-    return (isDefined(section, attribute) && true === section[attribute]);
-}
-
-function isFalse(section, attribute)
-{
-    return (isDefined(section, attribute) && false === section[attribute]);
-}
-
-function doMarkUp(section)
-{
-    if (!isEmpty(section, 'text')) {
-        section['text'].replace('\n', '<br />');
-    }
-    if ('richContent' != section['type'] && !isEmpty(section, 'text')) {
-        section['text'] = marked(section['text']);
-    }
-
-    return section;
-}
-
-module.exports = {
-    parse: parse,
-    processRequest: processRequest,
-    testRead: testRead
-}
 
 function getSectionObject(section)
 {
@@ -373,4 +340,42 @@ function getGroupedSection(sectionClasses, sectionStyles, section)
     }
 
     return templating.getGroupedTemplate(sectionClasses, sectionStyles, columns);
+}
+
+function isDefined(section, attribute)
+{
+    return (undefined !== section[attribute]);
+}
+
+function isEmpty(section, attribute)
+{
+    return (!isDefined(section, attribute) || "" == section[attribute]);
+}
+
+function isTrue(section, attribute)
+{
+    return (isDefined(section, attribute) && true === section[attribute]);
+}
+
+function isFalse(section, attribute)
+{
+    return (isDefined(section, attribute) && false === section[attribute]);
+}
+
+function doMarkUp(section)
+{
+    if (!isEmpty(section, 'text')) {
+        section['text'].replace('\n', '<br />');
+    }
+    if ('richContent' != section['type'] && !isEmpty(section, 'text')) {
+        section['text'] = marked(section['text']);
+    }
+
+    return section;
+}
+
+module.exports = {
+    parse: parse,
+    processRequest: processRequest,
+    testRead: testRead
 }

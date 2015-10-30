@@ -73,6 +73,13 @@
       },
       {
          "type": "image",
+         "layout": "small",
+         "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
+         "alt": "",
+         "caption": "small image with caption"
+      },
+      {
+         "type": "image",
          "layout": "normal",
          "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
          "alt": ""
