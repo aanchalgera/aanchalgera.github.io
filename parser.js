@@ -374,7 +374,6 @@ function doMarkUp(section)
     return section;
 }
 
-
 module.exports = {
     parse: parse,
     processRequest: processRequest,
