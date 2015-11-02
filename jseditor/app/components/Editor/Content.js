@@ -108,11 +108,7 @@ class Content extends React.Component{
         onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
         >{this.props.data.text}</div>;
     }
-    if (this.props.data.backgroundFade === true) {
-      var fade = <div className="builder-section-overlay"></div>
-    } else {
-      var fade = '';
-    }
+
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
     return (
@@ -120,8 +116,10 @@ class Content extends React.Component{
        id={"div-"+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
-         {field}
-         {fade}
+         <div className={this.props.data.backgroundFade == true ? "module-bg-fade "+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': ''): ''}>
+           <div className={this.props.data.backgroundFade == true ? "module-content" : ''}>
+           {field}
+         </div></div>
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}
