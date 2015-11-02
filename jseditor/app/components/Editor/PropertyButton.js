@@ -17,8 +17,7 @@ class PropertyButton extends React.Component {
   }
   render() {
     var closeStyle = '',expandStyle='', selected='';
-    var moreProperties = '';
-    var moreImageProperties = '';
+    var sizeProperties = '', showPropertiesBox;
     var groupProperties = '';
     if (this.state.box == 'open') {
       closeStyle = {display : 'none'}
@@ -36,39 +35,40 @@ class PropertyButton extends React.Component {
         />
         break;
       case 'image' :
-        var moreImageProperties = <PropertyButtonSizes
+        var sizeProperties = <PropertyButtonSizes
           dataId={this.props.dataId}
           layout={this.props.layout}
           addLayoutToResource={this.props.addLayoutToResource}
         />
     }
-    switch (this.props.data.type) {
-      case 'content' :
-      case 'summary':
-      case 'richContent':
-      case 'grouped':
-      case 'video':
-      case 'image':
-        moreProperties = <PropertyButtonContent
-          addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
-          data={this.props.data}
-          openResourcePanel={this.props.openResourcePanel}
-          dataId={this.props.dataId}
-        />
-        break;
+    var bgProperties = <PropertyButtonContent
+      addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
+      data={this.props.data}
+      openResourcePanel={this.props.openResourcePanel}
+      dataId={this.props.dataId}
+    />
+    var bgOptionsAllowedForGroupedTypes = {'content':true,'summary':true,'richContent':true}
+    if (this.props.grouped != 'true') {
+      showPropertiesBox = true;
+    } else if (bgOptionsAllowedForGroupedTypes[this.props.data.type] == true) {
+      showPropertiesBox = true;
+    } else {
+      showPropertiesBox = false;
     }
     var deleteButton = <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete">Delete Section <span type="button" className="glyphicon glyphicon-trash "></span></button>
+    var propertyButton =
+      <ul className="nav-pills2 js-nav-properties">
+        <li><button type="button" onClick={this.toggleBox.bind(this)} className="btn btn-default glyphicon glyphicon-cog {selected}"></button></li>
+      </ul>
     return (
       <ul>
-        <ul className="nav-pills2 js-nav-properties">
-          <li><button type="button" onClick={this.toggleBox.bind(this)} className="btn btn-default glyphicon glyphicon-cog {selected}"></button></li>
-        </ul>
-        <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
-          {moreProperties}
-          {groupProperties}
-          {moreImageProperties}
-          {this.props.grouped=='true'?'':deleteButton}
-        </span>
+      {showPropertiesBox == true ? propertyButton : ''}
+      <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
+        {bgProperties}
+        {groupProperties}
+        {this.props.grouped=='true' ? '' : sizeProperties}
+        {this.props.grouped=='true' ? '' : deleteButton}
+      </span>
       </ul>
     )
   }
