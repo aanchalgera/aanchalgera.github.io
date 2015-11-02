@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import PropertyButton from './PropertyButton';
 import Gallery from './Gallery';
+import Slider from './Slider';
 
 class Content extends React.Component{
   componentDidMount() {
@@ -88,6 +89,13 @@ class Content extends React.Component{
         openResourcePanel={this.props.openResourcePanel.bind(this)}
         addImageCaption={this.props.addImageCaption.bind(this)}
       />
+  }  else if('slider' == this.props.data.type) {
+        var field = <Slider
+          data={this.props.data}
+          dataId={this.props.dataId}
+          openResourcePanel={this.props.openResourcePanel.bind(this)}
+          addImageCaption={this.props.addImageCaption.bind(this)}
+        />
   } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
         var field = <input

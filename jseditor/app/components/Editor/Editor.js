@@ -24,8 +24,8 @@ class Editor extends React.Component{
       message: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
-      addgallery: false,
-      addMoreImagesToGallery: false,
+      addImageModule: '',
+      addMoreImages: false,
       orderMode: false,
       fields: []
     };
@@ -67,15 +67,16 @@ class Editor extends React.Component{
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
-  openResourcePanel(imageFunction, currentIndex, addgallery = false, addMoreImagesToGallery = false, event) {
+
+  openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
     if (undefined != event) {
       event.preventDefault();
     }
     this.setState({
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction,
-      addgallery : addgallery,
-      addMoreImagesToGallery: addMoreImagesToGallery
+      addImageModule : addImageModule,
+      addMoreImages: addMoreImages,
     });
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
@@ -128,13 +129,13 @@ class Editor extends React.Component{
       }, this.saveData());
     }
   }
-  addImages(images) {
-    var addImagesToGallery = this.state.addMoreImagesToGallery;
+  addImages(images, moduleType) {
+    var addMoreImages = this.state.addMoreImages;
     var currentIndex = this.state.resourcePanelOpenedBy;
-    if (!addImagesToGallery) {
+    if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex,0, {"id": this.state.maxId, "type" : "gallery", images});
+        currentIndex,0, {"id": this.state.maxId, "type" : moduleType, images});
     } else {
       for(var i=0;i < images.length;i++) {
         this.state.fields[currentIndex].images.push(images[i])}
@@ -142,8 +143,8 @@ class Editor extends React.Component{
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId,
-      addImagesToGallery: false,
-      addgallery: false
+      addMoreImages: false,
+      addImageModule: ''
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -506,7 +507,7 @@ class Editor extends React.Component{
           addImages={this.addImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}
-          addgallery={this.state.addgallery}
+          addImageModule={this.state.addImageModule}
         />
         <div id="preview"></div>
       </div>

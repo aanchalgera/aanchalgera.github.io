@@ -215,7 +215,7 @@ var CloudinaryUploader = React.createClass({
           uploaderId={uploader_id}
           slug={this.props.slug}
           handleClick={this.handleClick}
-          addgallery={this.props.addgallery}
+          addImageModule={this.props.addImageModule}
         />
       </div>
     );
