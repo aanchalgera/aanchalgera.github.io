@@ -86,6 +86,7 @@ class Content extends React.Component{
         data={this.props.data}
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
+        addImageCaption={this.props.addImageCaption.bind(this)}
       />
   } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {

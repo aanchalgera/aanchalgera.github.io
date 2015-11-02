@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import ImageCaption from './ImageCaption';
 
 class Gallery extends React.Component {
   constructor(props){
@@ -12,9 +13,16 @@ class Gallery extends React.Component {
   }
   render () {
     var images = this.state.imageList.map((image, i) => {
+      image.spid = image.public_id+i;
+      var imageCaption = image.description != undefined ? image.description : ''
       return (
         <li key={i}>
-          <img alt="" src={image.url} />
+          <img alt="" id={image.spid} src={image.url} />
+          <ImageCaption
+            id={image.spid}
+            addImageCaption={this.props.addImageCaption.bind(this)}
+            fieldId={this.props.dataId}
+            imageCaption={imageCaption} />
         </li>
       )
     });

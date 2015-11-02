@@ -10,8 +10,6 @@ import CountriesFormOptions from './CountriesFormOptions';
 moment.tz.setDefault("Europe/Madrid");
 var chooseSlotMsg = "Select slot";
 var successMessage = '';
-var sitePreviewLink = '';
-var sitePreviewUrl = '';
 const SITE_DOMAIN = 'http://testing.xataka.com/';
 
 class Publish extends React.Component {
@@ -235,6 +233,8 @@ class Publish extends React.Component {
     this.handleDatePickerText();
   }
   render () {
+    var sitePreviewLink = '';
+    var sitePreviewUrl = '';
     if (this.state.postId != undefined && this.state.postId != '') {
       sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
       sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
