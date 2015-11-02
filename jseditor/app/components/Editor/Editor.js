@@ -24,7 +24,7 @@ class Editor extends React.Component{
       message: null,
       resourcePanelOpenedBy : null,
       imageFunction : null,
-      addmodule: '',
+      addImageModule: '',
       addMoreImages: false,
       orderMode: false,
       fields: []
@@ -68,14 +68,14 @@ class Editor extends React.Component{
     clearInterval(this.timerId);
   }
 
-  openResourcePanel(imageFunction, currentIndex, addmodule = '', addMoreImages = false, event) {
+  openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
     if (undefined != event) {
       event.preventDefault();
     }
     this.setState({
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction,
-      addmodule : addmodule,
+      addImageModule : addImageModule,
       addMoreImages: addMoreImages,
     });
     document.getElementById('resourcePanel').style.display = 'block'
@@ -129,13 +129,13 @@ class Editor extends React.Component{
       }, this.saveData());
     }
   }
-  addGallery(images) {
+  addImages(images, moduleType) {
     var addMoreImages = this.state.addMoreImages;
     var currentIndex = this.state.resourcePanelOpenedBy;
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex,0, {"id": this.state.maxId, "type" : "gallery", images});
+        currentIndex,0, {"id": this.state.maxId, "type" : moduleType, images});
     } else {
       for(var i=0;i < images.length;i++) {
         this.state.fields[currentIndex].images.push(images[i])}
@@ -144,7 +144,7 @@ class Editor extends React.Component{
       fields: this.state.fields,
       maxId: this.state.maxId,
       addMoreImages: false,
-      addmodule: ''
+      addImageModule: ''
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -161,25 +161,6 @@ class Editor extends React.Component{
       fields: this.state.fields,
       maxId: this.state.maxId
     }, this.saveData());
-  }
-  addSlider(images) {
-    var addMoreImages = this.state.addMoreImages;
-    var currentIndex = this.state.resourcePanelOpenedBy;
-    if (!addMoreImages) {
-      this.state.maxId++;
-      this.state.fields.splice(
-        currentIndex,0, {"id": this.state.maxId, "type" : "slider", images});
-    } else {
-      for(var i=0;i < images.length;i++) {
-        this.state.fields[currentIndex].images.push(images[i])}
-    }
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId,
-      addMoreImages: false,
-      addmodule: ''
-    }, this.saveData());
-    document.getElementById('resourcePanel').style.display = 'none';
   }
   parentDiv(el) {
     while (el && el.parentNode) {
@@ -523,11 +504,10 @@ class Editor extends React.Component{
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
           addImage={this.addImage.bind(this)}
-          addGallery={this.addGallery.bind(this)}
-          addSlider={this.addSlider.bind(this)}
+          addImages={this.addImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}
-          addmodule={this.state.addmodule}
+          addImageModule={this.state.addImageModule}
         />
         <div id="preview"></div>
       </div>

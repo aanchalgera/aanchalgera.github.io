@@ -27,15 +27,11 @@ class ResourcePanel extends React.Component {
       images.push(JSON.parse(selectedImages[i].dataset.image))
       selectedImages[i].className = '';
     }
-    if ('gallery' == this.props.addmodule) {
-      this.props.addGallery(images);
-    } else if ('slider' == this.props.addmodule) {
-      this.props.addSlider(images);
-    }
+    this.props.addImages(images, this.props.addImageModule);
   }
   render () {
     var showGalleryButton = '';
-    if ('gallery' == this.props.addmodule) {
+    if ('gallery' == this.props.addImageModule) {
       var showGalleryButton = <button
         id="add-gallery"
         type="button"
@@ -44,7 +40,7 @@ class ResourcePanel extends React.Component {
         onClick={this.addImages.bind(this)}>Add gallery to post</button>;
     }
     var showSliderButton = '';
-    if ('slider' == this.props.addmodule) {
+    if ('slider' == this.props.addImageModule) {
       var showSliderButton = <button
         id="add-slider"
         type="button"
@@ -59,7 +55,7 @@ class ResourcePanel extends React.Component {
           key={data.public_id}
           data={data}
           addImage={this.props.addImage}
-          addmodule={this.props.addmodule}
+          addImageModule={this.props.addImageModule}
         />
       )
     });

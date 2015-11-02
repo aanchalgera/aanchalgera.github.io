@@ -4,7 +4,7 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class Thumbnail extends React.Component {
   selectImage(data, e) {
-    if ('' == this.props.addmodule) {
+    if ('' == this.props.addImageModule) {
       this.props.addImage(data);
       return
     }
