@@ -10,7 +10,7 @@ class PropertyButtonContent extends React.Component {
       var backgroundImage=<span className="input-group">
         <input type="text" placeholder={this.props.data.backgroundImageName} className="form-control input-group-sm" style={{width: '50%'}} />
         <span className="input-group-btn">
-          <button onClick={this.props.openResourcePanel.bind(this,'backgroundImage',this.props.dataId, false, false)} type="button" className="btn btn-default">
+          <button onClick={this.props.openResourcePanel.bind(this,'backgroundImage',this.props.dataId, '', false)} type="button" className="btn btn-default">
             <span className="glyphicon glyphicon-edit" />
           </button><button onClick={this.props.addBackgroundOptionToResource.bind(this,'removeBackgroundImage', null)} type="button" className="btn btn-default">
           <span className="glyphicon glyphicon-trash" /></button>
@@ -25,7 +25,7 @@ class PropertyButtonContent extends React.Component {
         </li>
     } else {
       var backgroundImage = <div className="input-group">
-        <button onClick={this.props.openResourcePanel.bind(this,'backgroundImage',this.props.dataId, false, false)} className="btn btn-default" data-toggle="button" aria-pressed="false" autoComplete="off">Select background image</button>
+        <button onClick={this.props.openResourcePanel.bind(this,'backgroundImage',this.props.dataId, '', false)} className="btn btn-default" data-toggle="button" aria-pressed="false" autoComplete="off">Select background image</button>
       </div>
     }
     return (

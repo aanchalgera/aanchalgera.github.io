@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ImageCaption from './ImageCaption';
 
-class Gallery extends React.Component {
+class Slider extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -16,8 +16,7 @@ class Gallery extends React.Component {
       image.spid = image.public_id+i;
       var imageCaption = image.description != undefined ? image.description : ''
       return (
-        <li key={i}>
-          <img alt="" id={image.spid} src={image.url} />
+        <li key={i} style={{backgroundImage: 'url(' + image.url + ')'}}>
           <ImageCaption
             id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
@@ -27,14 +26,14 @@ class Gallery extends React.Component {
       )
     });
     return (
-      <div className="gallery">
+      <div className="slider">
         <ul>
           {images}
-          <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'gallery', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
+          <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'slider', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
         </ul>
       </div>
     )
   }
 }
 
-export default Gallery;
+export default Slider;

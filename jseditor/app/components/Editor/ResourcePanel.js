@@ -27,17 +27,30 @@ class ResourcePanel extends React.Component {
       images.push(JSON.parse(selectedImages[i].dataset.image))
       selectedImages[i].className = '';
     }
-    this.props.addImages(images);
+    if ('gallery' == this.props.addmodule) {
+      this.props.addGallery(images);
+    } else if ('slider' == this.props.addmodule) {
+      this.props.addSlider(images);
+    }
   }
   render () {
     var showGalleryButton = '';
-    if (this.props.addgallery) {
+    if ('gallery' == this.props.addmodule) {
       var showGalleryButton = <button
         id="add-gallery"
         type="button"
         className="btn btn-primary add-gallery"
         disabled={!this.props.slug}
         onClick={this.addImages.bind(this)}>Add gallery to post</button>;
+    }
+    var showSliderButton = '';
+    if ('slider' == this.props.addmodule) {
+      var showSliderButton = <button
+        id="add-slider"
+        type="button"
+        className="btn btn-primary add-slider"
+        disabled={!this.props.slug}
+        onClick={this.addImages.bind(this)}>Add slider to post</button>;
     }
     var images = [];
     var images = this.state.imageList.map((data, i) => {
@@ -46,7 +59,7 @@ class ResourcePanel extends React.Component {
           key={data.public_id}
           data={data}
           addImage={this.props.addImage}
-          addgallery={this.props.addgallery}
+          addmodule={this.props.addmodule}
         />
       )
     });
@@ -71,6 +84,7 @@ class ResourcePanel extends React.Component {
                 disabled={!this.props.slug}
                 onClick={this.props.handleClick}>Upload Images</button>
               {showGalleryButton}
+              {showSliderButton}
             </div>
           </div>
         </div>
