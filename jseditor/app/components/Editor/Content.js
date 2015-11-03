@@ -9,7 +9,7 @@ class Content extends React.Component{
       case 'content':
         this.initializeEditor(this.props.index);
         var currentRef = 'myInput' + this.props.dataId;
-        document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
+        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         this.refs[currentRef].getDOMNode().focus();
         break;
       case 'richContent':
@@ -24,9 +24,7 @@ class Content extends React.Component{
   }
   componentDidUpdate() {
     switch (this.props.data.type) {
-      case 'content':
-      document.querySelector('#div-'+this.props.index+' .CodeMirror').setAttribute('style',this.props.getStyleText(this.props.data));
-      break;
+    case 'content':
     case 'richContent':
     case 'image':
     case 'video':

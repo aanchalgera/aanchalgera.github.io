@@ -289,6 +289,8 @@ class Editor extends React.Component{
           break;
         case 'removeBackgroundImage' :
           obj.backgroundImage = '';
+          obj.backgroundFade = '';
+          obj.backgroundRepeat = '';
           break;
        }
      this.state.fields.splice(indexes[0], 0, obj1);;
