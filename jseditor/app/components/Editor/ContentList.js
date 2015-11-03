@@ -4,8 +4,7 @@ import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component{
   isGroupable(type){
-    var groupable = {'content':true,'gallery':false,'video':true,'summary':true,'richContent':true,'image':true,'grouped':false};
-    return groupable[type];
+    return type == 'grouped' ? false : true;
   }
   render(){
     var {fields,...other} = this.props;
