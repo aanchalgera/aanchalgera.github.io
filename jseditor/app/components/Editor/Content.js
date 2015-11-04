@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import PropertyButton from './PropertyButton';
 import Gallery from './Gallery';
 import Slider from './Slider';

@@ -1,5 +1,4 @@
 import React from 'react';
-import Thumbnail from './Thumbnail';
 import ResourcePanel from './ResourcePanel';
 
 var CloudinaryUploader = React.createClass({

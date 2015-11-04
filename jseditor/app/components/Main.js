@@ -1,7 +1,5 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
-import Editor from './Editor/Editor';
-import Publish from './Editor/Publish';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
