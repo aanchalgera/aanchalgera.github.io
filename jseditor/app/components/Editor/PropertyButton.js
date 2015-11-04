@@ -2,6 +2,7 @@ import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonSizes from './PropertyButtonSizes';
+import AutoplaySliderButton from './AutoplaySliderButton';
 
 class PropertyButton extends React.Component {
   constructor(props){
@@ -19,6 +20,7 @@ class PropertyButton extends React.Component {
     var closeStyle = '',expandStyle='', selected='';
     var sizeProperties = '', showPropertiesBox;
     var groupProperties = '';
+    var autoPlaySliderButton = '';
     if (this.state.box == 'open') {
       closeStyle = {display : 'none'}
       expandStyle = {display : 'block'}
@@ -40,6 +42,13 @@ class PropertyButton extends React.Component {
           layout={this.props.layout}
           addLayoutToResource={this.props.addLayoutToResource}
         />
+      case 'slider' :
+        var autoPlaySliderButton = <AutoplaySliderButton
+          dataId={this.props.dataId}
+          autoplay={this.props.autoplay}
+          setAutoPlaySlider={this.props.setAutoPlaySlider}
+        />
+        break;
     }
     var bgProperties = <PropertyButtonContent
       addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
