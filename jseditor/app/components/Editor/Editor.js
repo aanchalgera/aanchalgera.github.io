@@ -1,11 +1,10 @@
 import React from 'react';
 import ContentList from './ContentList';
-import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
-import {Link} from 'react-router';
+import Link from 'react-router';
 import helpers from '../../utils/generatehash';
 
 var placeholder = document.createElement("div");
