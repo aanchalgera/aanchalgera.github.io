@@ -45,6 +45,7 @@ class PropertyButton extends React.Component {
       case 'slider' :
         var autoPlaySliderButton = <AutoplaySliderButton
           dataId={this.props.dataId}
+          id="post-slider"
           autoplay={this.props.autoplay}
           setAutoPlaySlider={this.props.setAutoPlaySlider}
         />
