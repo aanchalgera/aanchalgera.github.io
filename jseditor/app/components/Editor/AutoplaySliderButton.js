@@ -3,10 +3,8 @@ import React, { PropTypes } from 'react'
 class AutoplaySlideButton extends React.Component {
   toggleAutoplaySlider(event) {
     event.preventDefault();
-    debugger
-    var autoplay = !!event.currentTarget.dataset.autoplay;
+    var autoplay = event.currentTarget.dataset.autoplay == "false" ? true : false;
     this.props.setAutoPlaySlider(event, autoplay);
-    debugger
   }
   shouldComponentUpdate (nextProps, nextState) {
     if (nextProps.autoplay == this.props.autoplay) {
@@ -14,7 +12,6 @@ class AutoplaySlideButton extends React.Component {
     }
   }
   render () {
-    console.log(this.props.autoplay);
     return (
       <div>
         <h5>Autoplay</h5>
