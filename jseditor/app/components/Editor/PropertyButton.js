@@ -36,18 +36,19 @@ class PropertyButton extends React.Component {
           ungroupSections={this.props.ungroupSections}
         />
         break;
+      case 'slider' :
+        var autoPlaySliderButton = <AutoplaySliderButton
+          dataId={this.props.dataId}
+          autoplay={this.props.autoplay}
+          setAutoPlaySlider={this.props.setAutoPlaySlider}
+        />
       case 'image' :
+      case 'gallery' :
+      case 'slider' :
         var sizeProperties = <PropertyButtonSizes
           dataId={this.props.dataId}
           layout={this.props.layout}
           addLayoutToResource={this.props.addLayoutToResource}
-        />
-      case 'slider' :
-        var autoPlaySliderButton = <AutoplaySliderButton
-          dataId={this.props.dataId}
-          id="post-slider"
-          autoplay={this.props.autoplay}
-          setAutoPlaySlider={this.props.setAutoPlaySlider}
         />
         break;
     }
@@ -75,6 +76,7 @@ class PropertyButton extends React.Component {
       {showPropertiesBox == true ? propertyButton : ''}
       <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
         {bgProperties}
+        {autoPlaySliderButton}
         {groupProperties}
         {this.props.grouped=='true' ? '' : sizeProperties}
         {this.props.grouped=='true' ? '' : deleteButton}
