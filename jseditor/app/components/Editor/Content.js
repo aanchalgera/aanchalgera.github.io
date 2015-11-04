@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import PropertyButton from './PropertyButton';
 import Gallery from './Gallery';
 import Slider from './Slider';
@@ -129,6 +129,8 @@ class Content extends React.Component{
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}
+           autoplay={this.props.data.autoplay}
+           setAutoPlaySlider={this.props.setAutoPlaySlider}
            addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
            openResourcePanel={this.props.openResourcePanel}
            deleteResource={this.props.deleteResource}

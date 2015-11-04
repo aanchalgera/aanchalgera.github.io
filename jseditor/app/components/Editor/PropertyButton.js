@@ -2,6 +2,7 @@ import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonSizes from './PropertyButtonSizes';
+import AutoplaySliderButton from './AutoplaySliderButton';
 
 class PropertyButton extends React.Component {
   constructor(props){
@@ -19,6 +20,7 @@ class PropertyButton extends React.Component {
     var closeStyle = '',expandStyle='', selected='';
     var sizeProperties = '', showPropertiesBox;
     var groupProperties = '';
+    var autoPlaySliderButton = '';
     if (this.state.box == 'open') {
       closeStyle = {display : 'none'}
       expandStyle = {display : 'block'}
@@ -34,12 +36,21 @@ class PropertyButton extends React.Component {
           ungroupSections={this.props.ungroupSections}
         />
         break;
+      case 'slider' :
+        var autoPlaySliderButton = <AutoplaySliderButton
+          dataId={this.props.dataId}
+          autoplay={this.props.autoplay}
+          setAutoPlaySlider={this.props.setAutoPlaySlider}
+        />
       case 'image' :
+      case 'gallery' :
+      case 'slider' :
         var sizeProperties = <PropertyButtonSizes
           dataId={this.props.dataId}
           layout={this.props.layout}
           addLayoutToResource={this.props.addLayoutToResource}
         />
+        break;
     }
     var bgProperties = <PropertyButtonContent
       addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
@@ -65,6 +76,7 @@ class PropertyButton extends React.Component {
       {showPropertiesBox == true ? propertyButton : ''}
       <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
         {bgProperties}
+        {autoPlaySliderButton}
         {groupProperties}
         {this.props.grouped=='true' ? '' : sizeProperties}
         {this.props.grouped=='true' ? '' : deleteButton}

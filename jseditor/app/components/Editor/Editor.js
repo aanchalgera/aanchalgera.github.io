@@ -413,6 +413,15 @@ class Editor extends React.Component{
     event.preventDefault();
     this.setState({orderMode:!this.state.orderMode})
   }
+  setAutoPlaySlider(event, value)
+  {
+     event.preventDefault();
+     var currentIndex = event.currentTarget.dataset.id;
+     var obj = this.state.fields.splice(currentIndex, 1);
+     obj[0].autoplay = value;
+     this.state.fields.splice(currentIndex, 0, obj[0]);
+     this.setState({fields: this.state.fields}, this.saveData());
+  }
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
@@ -499,6 +508,7 @@ class Editor extends React.Component{
               moveResourceUp={this.moveResourceUp.bind(this)}
               orderMode={this.state.orderMode}
               addImageCaption={this.addImageCaption.bind(this)}
+              setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
             />
           </div>
         </form>

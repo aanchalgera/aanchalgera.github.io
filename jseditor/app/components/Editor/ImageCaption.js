@@ -26,6 +26,7 @@ class ImageCaption extends React.Component {
       <input
         type="text"
         id={this.props.id}
+        maxLength="140"
         className="caption"
         value={this.state.value}
         placeholder="Add caption"
