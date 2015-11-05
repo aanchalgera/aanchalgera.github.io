@@ -1,6 +1,5 @@
 import React from 'react';
 import ContentList from './ContentList';
-import PropertyButton from './PropertyButton';
 import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
