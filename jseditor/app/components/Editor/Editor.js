@@ -80,19 +80,24 @@ class Editor extends React.Component{
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
   }
+  getField(currentIndex) {
+    var indexes = currentIndex.toString().split("-");
+    var original = this.state.fields.splice(indexes[0], 1)[0];
+    if (undefined !== indexes[1]) {
+      var altered = original.columns[indexes[1]];
+    } else {
+      var altered = original;
+    }
+
+    return {indexes, original, altered};
+  }
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
-      var indexes = currentIndex.toString().split("-");
-      var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-      if (undefined !== indexes[1]) {
-        var obj = obj1.columns[indexes[1]];
-      } else {
-        var obj = obj1;
-      }
-      obj.backgroundImage = image.url;
-      obj.backgroundImageName = image.original_filename;
-      this.state.fields.splice(indexes[0], 0, obj1);;
+      var field = this.getField(currentIndex);
+      field.altered.backgroundImage = image.url;
+      field.altered.backgroundImageName = image.original_filename;
+      this.state.fields.splice(field.indexes[0], 0, field.original);;
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
       this.state.fields.splice(
@@ -116,13 +121,15 @@ class Editor extends React.Component{
     document.getElementById('resourcePanel').style.display = 'none';
   }
   addImageCaption(imageId, caption, currentIndex) {
-    var imageSet = this.state.fields[currentIndex].images;
+    var field = this.getField(currentIndex);
+    var imageSet = field.altered.images;
     if (imageSet.length > 0) {
       for (var image of imageSet) {
         if (image.spid == imageId) {
           image.description = caption;
         }
       }
+      this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({
         fields: this.state.fields
       }, this.saveData());
@@ -136,8 +143,11 @@ class Editor extends React.Component{
       this.state.fields.splice(
         currentIndex,0, {"id": this.state.maxId, "type" : moduleType, images});
     } else {
+      var field = this.getField(currentIndex);
       for(var i=0;i < images.length;i++) {
-        this.state.fields[currentIndex].images.push(images[i])}
+        field.altered.images.push(images[i]);
+      }
+      this.state.fields.splice(field.indexes[0], 0, field.original);
     }
     this.setState({
       fields: this.state.fields,
@@ -262,37 +272,31 @@ class Editor extends React.Component{
   {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
-     var indexes = currentIndex.split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-       var obj = obj1.columns[indexes[1]];
-     } else {
-       var obj = obj1;
-     }
+     var field = this.getField(currentIndex);
      switch (property) {
        case 'backgroundClass' :
-         obj.backgroundClass = (obj.backgroundClass == value) ? '' : value;
+         field.altered.backgroundClass = (field.altered.backgroundClass == value) ? '' : value;
          break;
        case 'foregroundColor' :
-         obj.foregroundColor = (obj.foregroundColor == value) ? '' : value;
+         field.altered.foregroundColor = (field.altered.foregroundColor == value) ? '' : value;
          break;
        case 'parallax' :
-          obj.parallax = !obj.parallax;
+          field.altered.parallax = !field.altered.parallax;
           event.target.className = "active";
           break;
         case 'backgroundRepeat' :
-          obj.backgroundRepeat = !obj.backgroundRepeat;
+          field.altered.backgroundRepeat = !field.altered.backgroundRepeat;
           break;
         case 'backgroundFade' :
-          obj.backgroundFade = !obj.backgroundFade;
+          field.altered.backgroundFade = !field.altered.backgroundFade;
           break;
         case 'removeBackgroundImage' :
-          obj.backgroundImage = '';
-          obj.backgroundFade = '';
-          obj.backgroundRepeat = '';
+          field.altered.backgroundImage = '';
+          field.altered.backgroundFade = '';
+          field.altered.backgroundRepeat = '';
           break;
        }
-     this.state.fields.splice(indexes[0], 0, obj1);;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields});
   }
   deleteResource(event)
@@ -330,54 +334,30 @@ class Editor extends React.Component{
   {
      var ta = event.getTextArea();
      var currentIndex = ta.dataset.id;
-     var indexes = currentIndex.split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-       var obj = obj1.columns[indexes[1]];
-     } else {
-       var obj = obj1;
-     }
-     obj.text = value;
-     this.state.fields.splice(indexes[0], 0, obj1);;
+     var field = this.getField(currentIndex);
+     field.altered.text = value;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateSummaryText(currentIndex, event)
   {
-     var indexes = currentIndex.toString().split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-      var obj = obj1.columns[indexes[1]];
-     } else {
-      var obj = obj1;
-     }
-     obj.text = event.target.innerHTML;
-     this.state.fields.splice(indexes[0], 0, obj1);;
+     var field = this.getField(currentIndex);
+     field.altered.text = event.target.innerHTML;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateRichContent(currentIndex, event)
   {
-     var indexes = currentIndex.toString().split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-      var obj = obj1.columns[indexes[1]];
-     } else {
-      var obj = obj1;
-     }
-     obj.text = event.target.textContent;
-     this.state.fields.splice(indexes[0], 0, obj1);;
+     var field = this.getField(currentIndex);
+     field.altered.text = event.target.textContent;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   updateVideo(currentIndex, event)
   {
-     var indexes = currentIndex.toString().split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-      var obj = obj1.columns[indexes[1]];
-     } else {
-      var obj = obj1;
-     }
-     obj.url = event.target.value;
-     this.state.fields.splice(indexes[0], 0, obj1);
+     var field = this.getField(currentIndex);
+     field.altered.url = event.target.value;
+     this.state.fields.splice(field.indexes[0], 0, field.original);
      this.setState({fields: this.state.fields}, this.saveData());
   }
   addLayoutToResource(event)
@@ -385,15 +365,9 @@ class Editor extends React.Component{
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.layout;
-     var indexes = currentIndex.split("-");
-     var obj1 = this.state.fields.splice(indexes[0], 1)[0];
-     if (undefined !== indexes[1]) {
-       var obj = obj1.columns[indexes[1]];
-     } else {
-       var obj = obj1;
-     }
-     obj.layout = value;
-     this.state.fields.splice(indexes[0], 0, obj1);;
+     var field = this.getField(currentIndex);
+     field.altered.layout = value;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   moveResourceDown(currentIndex)
