@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js",
-    "test:watch": "npm test -- --watch",
-    "lint": "eslint ./components/**/*.js ./reducers/**/*.js ./containers/**/*.js"
+    "test": "eslint app/components/*|less"
   },
   "author": "",
   "license": "BSD-2-Clause",
@@ -20,16 +17,14 @@
     "re-base": "~1.1.2",
     "react": "~0.13.3",
     "react-checkbox-group": "~0.2.2",
-    "react-router": "~0.13.3",
-    "eslint": "~1.8.0",
-    "eslint-plugin-react": "~3.6.3"
+    "react-router": "~0.13.3"
   },
   "devDependencies": {
     "babel-core": "~5.8.19",
     "webpack": "~1.10.5",
     "babel-loader": "~5.3.2",
     "json-loader": "~0.5.3",
-    "eslint": "^1.0.0",
+    "eslint": "~1.8.0",
     "eslint-config-airbnb": "0.1.0",
     "eslint-plugin-react": "~3.6.3"
   }
