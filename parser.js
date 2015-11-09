@@ -296,7 +296,6 @@ function getSectionObject(section)
     sectionClasses = addSectionTypeClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
     sectionClasses = addParallaxClass(sectionClasses, section);
-    // sectionClasses = addSectionLayoutClass(sectionClasses, section);
 
     sectionClasses = sectionClasses.join(' ');
     var sectionStyles = getSectionStyles(section);
