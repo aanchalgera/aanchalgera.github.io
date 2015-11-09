@@ -4,343 +4,424 @@
         "title": {
             "type": "string"
         },
-        "content": {
-            "type": "object",
-            "properties": {
-                "sections": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "url": {
-                                    "type": "string"
-                                },
-                                "alt": {
-                                    "type": "string"
-                                },
-                                "width": {
-                                    "type": "integer"
-                                },
-                                "height": {
-                                    "type": "integer"
-                                },
-                                "parallax": {
-                                    "type": "boolean"
-                                },
-                                "banner": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "text": {
-                                    "type": "string"
-                                },
-                                "backgroundImage": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "text": {
-                                    "type": "string"
-                                },
-                                "backgroundImage": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "provider": {
-                                    "type": "string"
-                                },
-                                "url": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "backgroundImage": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                },
-                                "foregroundColor": {
-                                    "type": "string"
-                                },
-                                "text": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                },
-                                "foregroundColor": {
-                                    "type": "string"
-                                },
-                                "sections": {
-                                    "type": "array",
-                                    "items": [
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "type": "string"
-                                                },
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "alt": {
-                                                    "type": "string"
-                                                },
-                                                "width": {
-                                                    "type": "integer"
-                                                },
-                                                "height": {
-                                                    "type": "integer"
-                                                },
-                                                "parallax": {
-                                                    "type": "boolean"
-                                                },
-                                                "banner": {
-                                                    "type": "boolean"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "type": "string"
-                                                },
-                                                "text": {
-                                                    "type": "string"
-                                                },
-                                                "backgroundImage": {
-                                                    "type": "string"
-                                                },
-                                                "backgroundColor": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "type": "string"
-                                                },
-                                                "text": {
-                                                    "type": "string"
-                                                },
-                                                "backgroundImage": {
-                                                    "type": "string"
-                                                },
-                                                "backgroundColor": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "type": "string"
-                                                },
-                                                "provider": {
-                                                    "type": "string"
-                                                },
-                                                "url": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                },
-                                "images": {
-                                    "type": "array",
-                                    "items": [
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "backgroundColor": {
-                                    "type": "string"
-                                },
-                                "autoplay": {
-                                    "type": "boolean"
-                                },
-                                "images": {
-                                    "type": "array",
-                                    "items": [
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "meta": {
-            "type": "object",
-            "properties": {
-                "index": {
-                    "type": "string"
-                },
-                "homepage": {
+        "sections": {
+            "type": "array",
+            "items": [
+                {
                     "type": "object",
                     "properties": {
-                        "image": {
-                            "type": "object",
-                            "properties": {
-                                "url": {
-                                    "type": "string"
-                                },
-                                "alt": {
-                                    "type": "string"
-                                },
-                                "width": {
-                                    "type": "integer"
-                                },
-                                "height": {
-                                    "type": "integer"
-                                },
-                                "parallax": {
-                                    "type": "boolean"
-                                },
-                                "banner": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "content": {
+                        "type": {
                             "type": "string"
                         },
-                        "sponsor": {
+                        "url": {
+                            "type": "string"
+                        },
+                        "alt": {
+                            "type": "string"
+                        },
+                        "width": {
+                            "type": "integer"
+                        },
+                        "height": {
+                            "type": "integer"
+                        },
+                        "parallax": {
+                            "type": "boolean"
+                        },
+                        "banner": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "text": {
+                            "type": "string"
+                        },
+                        "backgroundImage": {
+                            "type": "string"
+                        },
+                        "backgroundColor": {
                             "type": "string"
                         }
                     }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "text": {
+                            "type": "string"
+                        },
+                        "backgroundImage": {
+                            "type": "string"
+                        },
+                        "backgroundColor": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "width": {
+                            "type": "string"
+                        },
+                        "height": {
+                            "type": "string"
+                        },
+                        "bannerHeight": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "backgroundImage": {
+                            "type": "string"
+                        },
+                        "backgroundColor": {
+                            "type": "string"
+                        },
+                        "foregroundColor": {
+                            "type": "string"
+                        },
+                        "text": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "images": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "extension": {
+                                            "type": "string"
+                                        },
+                                        "layout": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "backgroundColor": {
+                            "type": "string"
+                        },
+                        "foregroundColor": {
+                            "type": "string"
+                        },
+                        "sections": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "alt": {
+                                            "type": "string"
+                                        },
+                                        "width": {
+                                            "type": "integer"
+                                        },
+                                        "height": {
+                                            "type": "integer"
+                                        },
+                                        "parallax": {
+                                            "type": "boolean"
+                                        },
+                                        "banner": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        },
+                                        "backgroundImage": {
+                                            "type": "string"
+                                        },
+                                        "backgroundColor": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        },
+                                        "backgroundImage": {
+                                            "type": "string"
+                                        },
+                                        "backgroundColor": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "provider": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "backgroundColor": {
+                            "type": "string"
+                        },
+                        "images": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "products": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "imagePath": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "storeLink": {
+                                            "type": "string"
+                                        },
+                                        "linkText": {
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "imagePath": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "storeLink": {
+                                            "type": "string"
+                                        },
+                                        "linkText": {
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 }
-            }
+            ]
         },
-        "publish": {
-            "type": "object",
-            "properties": {
-                "postDate": {
-                    "type": "string"
-                },
-                "postStatus": {
-                    "type": "string"
-                },
-                "postRepostBlogNames": {
-                    "type": "string"
-                }
-            }
+        "postDate": {
+            "type": "string"
+        },
+        "postStatus": {
+            "type": "string"
+        },
+        "postRepostBlogNames": {
+            "type": "string"
         }
     },
     "required": [
         "title",
-        "content",
-        "meta",
-        "publish"
+        "sections",
+        "postDate",
+        "postStatus",
+        "postRepostBlogNames"
     ]
 }
