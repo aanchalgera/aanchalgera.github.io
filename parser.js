@@ -295,6 +295,8 @@ function getSectionObject(section)
     var sectionClasses = [];
     sectionClasses = addSectionTypeClass(sectionClasses, section);
     sectionClasses = addBackgroundClass(sectionClasses, section);
+    sectionClasses = addParallaxClass(sectionClasses, section);
+
     sectionClasses = sectionClasses.join(' ');
     var sectionStyles = getSectionStyles(section);
     section = doMarkUp(section);
@@ -302,6 +304,22 @@ function getSectionObject(section)
     switch(section['type']) {
         case 'image':
             return getImageObject(sectionClasses, sectionStyles, section);
+        case 'gallery':
+            return {
+                sectionClasses: sectionClasses, 
+                sectionStyles: sectionStyles,
+                images: section['images'],
+                type: section['type']
+            };
+        case 'slider':
+            return { 
+                sectionClasses: sectionClasses, 
+                sectionStyles: sectionStyles,
+                title: section['title'],
+                images: section['images'],
+                autoplay: section['autoplay'],
+                type: section['type']
+            };
         case 'summary':
         case 'content':
         case 'richContent':

@@ -22,6 +22,20 @@
                         <%= contentSection.text %>
                 <% } else if('video' == contentSection.type) { %>
                     <div class="js-video"><iframe width="<%= contentSection.width%>" height="<%= contentSection.height%>" src="<%=contentSection.url%>" frameborder="0" allowfullscreen></iframe></div>
+                <% } else if('gallery' == contentSection.type) { %>
+                    <div class="gallery-caption"><span><%= contentSection.images.length %> imágenes</span></div>
+                    <ul class="elastislide-list type-gallery js-elastislide-element">
+                        <%_.forEach(contentSection.images, function (image) {%>
+                        <li><a href="#"><span class="gallery-img-caption"><%=image.description%> </span><img src="<%= image['url']%>" alt="" /></a></li>
+                        <% }) %>
+                    </ul>
+                <% } else if('slider' == contentSection.type) { %>
+                    <div class="slider-caption"><span><%= contentSection.images.length %> imágenes</span></div>
+                    <ul class="elastislide-list type-slider js-elastislide-element" <% if (true == contentSection.autoplay) { %>autoplay<% } %>>
+                        <%_.forEach(contentSection.images, function (image) {%>
+                        <li><a href="#"><span class="slider-img-caption"><%=image.description%> </span><img src="<%= image['url']%>" alt="" /></a></li>
+                        <% }) %>
+                    </ul>
                 <% } %>
                 </div>
             </div>
