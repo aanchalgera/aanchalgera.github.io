@@ -190,6 +190,8 @@ function addSectionTypeClass(sectionClasses, section)
             sectionClasses.push("module-type-video");
             break;
         case 'richContent':
+            sectionClasses.push("module-type-rich");
+            break;
         case 'content':
             sectionClasses.push("module-type-text");
             break;
