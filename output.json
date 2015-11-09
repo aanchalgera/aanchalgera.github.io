@@ -1,149 +1,122 @@
-{  
-   "title":"A title",
-   "sections":[  
-      {  
-         "type":"image",
-         "url":"abc",
-         "alt":"abc",
-         "width":100,
-         "height":100,
-         "parallax":false,
-         "banner":false
-      },
-      {  
-         "type":"content",
-         "text":"aadkdklad",
-         "backgroundImage":"",
-         "backgroundColor":""
-      },
-      {  
-         "type":"richContent",
-         "text":"aadkdklad",
-         "backgroundImage":"",
-         "backgroundColor":""
-      },
-      {  
-         "type":"video",
-         "provider":"youtube",
-         "url":""
-      },
-      {  
-         "type":"videoBanner",
-         "provider":"youtube",
-         "url":"",
-         "width":"",
-         "height":"",
-         "bannerHeight":""
-      },
-      {  
-         "type":"summary",
-         "backgroundImage":"",
-         "backgroundColor":"",
-         "foregroundColor":"",
-         "text":"aadkdklad"
-      },
-      {  
-         "type":"slideshow",
-         "images":[  
-            {  
-               "url":"abc",
-               "alt":"abc",
-               "extension":"jpg",
-               "layout":"normal",
-               "title":"test title"
+{
+    "title": "A title",
+    "content": {
+        "sections": [
+            {
+                "type": "image",
+                "url": "abc",
+                "alt": "abc",
+                "width": 100,
+                "height": 100,
+                "parallax": false,
+                "banner": false
             },
-            {  
-               "url":"abc",
-               "alt":"abc",
-               "extension":"jpg",
-               "layout":"normal",
-               "title":"test title"
+            {
+                "type": "content",
+                "text": "aadkdklad",
+                "backgroundImage": "",
+                "backgroundColor": ""
             },
-            {  
-               "url":"abc",
-               "alt":"abc",
-               "extension":"jpg",
-               "layout":"normal",
-               "title":"test title"
+            {
+                "type": "richContent",
+                "text": "aadkdklad",
+                "backgroundImage": "",
+                "backgroundColor": ""
+            },
+            {
+                "type": "video",
+                "provider": "youtube",
+                "url": ""
+            },
+            {
+                "type": "summary",
+                "backgroundImage": "",
+                "backgroundColor": "",
+                "foregroundColor": "",
+                "text": "aadkdklad"
+            },
+            {
+                "type": "grouped",
+                "backgroundColor": "",
+                "foregroundColor": "",
+                "sections": [
+                    {
+                        "type": "image",
+                        "url": "abc",
+                        "alt": "abc",
+                        "width": 100,
+                        "height": 100,
+                        "parallax": false,
+                        "banner": false
+                    },
+                    {
+                        "type": "content",
+                        "text": "aadkdklad",
+                        "backgroundImage": "",
+                        "backgroundColor": ""
+                    },
+                    {
+                        "type": "richContent",
+                        "text": "aadkdklad",
+                        "backgroundImage": "",
+                        "backgroundColor": ""
+                    },
+                    {
+                        "type": "video",
+                        "provider": "youtube",
+                        "url": ""
+                    }
+                ]
+            },
+            {
+                "type": "gallery",
+                "backgroundColor": "xxxxxxx",
+                "images": [
+                    {
+                        "url": "xxxxxxx",
+                        "description": "test description"
+                    },
+                    {
+                        "url": "xxxxxxx",
+                        "description": "test description"
+                    }
+                ]
+            },
+            {
+                "type": "slider",
+                "backgroundColor": "xxxxxxx",
+                "autoplay": true,
+                "images": [
+                    {
+                        "url": "xxxxxxx",
+                        "description": "test description"
+                    },
+                    {
+                        "url": "xxxxxxx",
+                        "description": "test description"
+                    }
+                ]
             }
-         ]
-      },
-      {  
-         "type":"grouped",
-         "backgroundColor": "",
-         "foregroundColor": "",
-         "sections":[  
-            {  
-               "type":"image",
-               "url":"abc",
-               "alt":"abc",
-               "width":100,
-               "height":100,
-               "parallax":false,
-               "banner":false
+        ]
+    },
+    "meta": {
+        "index": "this is index html",
+        "homepage": {
+            "image": {
+                "url": "abc",
+                "alt": "abc",
+                "width": 100,
+                "height": 100,
+                "parallax": false,
+                "banner": false
             },
-            {  
-               "type":"content",
-               "text":"aadkdklad",
-               "backgroundImage":"",
-               "backgroundColor":""
-            },
-            {  
-               "type":"richContent",
-               "text":"aadkdklad",
-               "backgroundImage":"",
-               "backgroundColor":""
-            },
-            {  
-               "type":"video",
-               "provider":"youtube",
-               "url":""
-            }
-         ]
-      },
-      {  
-         "type":"gallery",
-         "backgroundColor":"xxxxxxx",
-         "images":[  
-            {  
-               "url":"xxxxxxx",
-               "description":"test description"
-            },
-            {  
-               "url":"xxxxxxx",
-               "description":"test description"
-            }
-         ]
-      },
-      {  
-         "type":"shoppingGuide",
-         "products":[  
-            {  
-               "title":"first_image_name",
-               "imagePath":"http://i.blogs.es/6cf7c7/waqt-nahi/650_1200.jpg",
-               "order":"1",
-               "description":"first image description",
-               "storeLink":"http://www.anc.com",
-               "linkText":"link text",
-               "price":100,
-               "currency":"Euro",
-               "category":"test category"
-            },
-            {  
-               "title":"first_image_name",
-               "imagePath":"http://i.blogs.es/95181a/428840_200297050098951_1912800679_n/650_1200.jpg",
-               "order":"2",
-               "description":"first image description",
-               "storeLink":"http://www.qqaas.com",
-               "linkText":"link text",
-               "price":200,
-               "currency":"USD",
-               "category":"2test category"
-            }
-         ]
-      }
-   ],
-   "postDate":"2015-04-21 19:01:42",
-   "postStatus":"draft/future",
-   "postRepostBlogNames": "blognames"
+            "content": "aadkdklad",
+            "sponsor": "aadkdklad"
+        }
+    },
+    "publish": {
+        "postDate": "2015-04-21 19:01:42",
+        "postStatus": "draft/publish",
+        "postRepostBlogNames": "blognames"
+    }
 }
