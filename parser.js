@@ -329,7 +329,7 @@ function getSectionObject(section)
             return {
                 sectionClasses: sectionClasses, 
                 sectionStyles: sectionStyles,
-                images: getImageCdnPaths(images),
+                images: getImageCdnPaths(section['images']),
                 type: section['type']
             };
         case 'slider':
@@ -337,7 +337,7 @@ function getSectionObject(section)
                 sectionClasses: sectionClasses, 
                 sectionStyles: sectionStyles,
                 title: section['title'],
-                images: getImageCdnPaths(images),
+                images: getImageCdnPaths(section['images']),
                 autoplay: section['autoplay'],
                 type: section['type']
             };
