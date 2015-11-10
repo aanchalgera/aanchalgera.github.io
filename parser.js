@@ -65,18 +65,20 @@ function handleSection(section, index, allSections)
 
     templating.setSectionClasses(sectionClasses);
     templating.setSectionStyles(sectionStyles);
-    templating.setSection(section);
     
     switch(section['type']) {
         case 'summary':
         case 'richContent':
         case 'content':
+            templating.setSection(section);
             html += templating.getCommonTemplate();
             break;
         case 'video':
+            templating.setSection(section);
             html += templating.getVideoTemplate();
             break;
         case 'image':
+            templating.setSection(section);
             if (isTrue(section, 'banner')) {
                 html += templating.getBannerTemplate();
             } else {
@@ -85,12 +87,17 @@ function handleSection(section, index, allSections)
             }
             break;
         case 'slider':
+            section['images'] = getImageCdnPaths(section['images']);
+            templating.setSection(section);
             html += templating.getSliderTemplate();
             break;
         case 'gallery':
+            section['images'] = getImageCdnPaths(section['images']);
+            templating.setSection(section);
             html += templating.getGalleryTemplate();
             break;
         case 'grouped':
+            templating.setSection(section);
             html += getGroupedSection(sectionClasses, sectionStyles, section);
             break;
     }
@@ -104,7 +111,6 @@ function handleSection(section, index, allSections)
 }
 
 
-
 function getImageObject(sectionClasses, sectionStyles, section)
 {
     if (isEmpty(section, 'layout')) {
@@ -113,7 +119,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
     if (isEmpty(section, 'caption')) {
         section['caption'] = '';
     }
-    var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
+    var imageName = getImageName(section['url']);
     var imagePath450 = cdnPath + '/w_450,c_fit/' + imageName;
     var imagePath650 = cdnPath + '/w_650,c_fit/' + imageName;
     var imagePath1024 = cdnPath + '/w_1024,c_fit/' + imageName;
@@ -274,7 +280,10 @@ function getSectionStyles(section)
         section['backgroundFade'] = false;
     } else {
 
-        sectionStyles.push("background-image: url('"+section["backgroundImage"]+"');");
+        var imageName = getImageName(section['backgroundImage']);
+        var imageCdnPath = cdnPath + '/' + imageName;
+
+        sectionStyles.push("background-image: url('"+imageCdnPath+"');");
 
         //temp. check
         if (isEmpty(section, "backgroundFade")) {
@@ -292,6 +301,15 @@ function getSectionStyles(section)
     return sectionStyles.join(' ');
 }
 
+function getImageCdnPaths(images)
+{
+    var totalImages = images.length;
+    for (var i = 0; i < totalImages; i++) {
+        images[i].url = cdnPath + '/' + getImageName(images[i].url);
+    }
+
+    return images;
+}
 
 function getSectionObject(section)
 {
@@ -311,7 +329,7 @@ function getSectionObject(section)
             return {
                 sectionClasses: sectionClasses, 
                 sectionStyles: sectionStyles,
-                images: section['images'],
+                images: getImageCdnPaths(section['images']),
                 type: section['type']
             };
         case 'slider':
@@ -319,7 +337,7 @@ function getSectionObject(section)
                 sectionClasses: sectionClasses, 
                 sectionStyles: sectionStyles,
                 title: section['title'],
-                images: section['images'],
+                images: getImageCdnPaths(section['images']),
                 autoplay: section['autoplay'],
                 type: section['type']
             };
@@ -394,6 +412,11 @@ function doMarkUp(section)
     }
 
     return section;
+}
+
+function getImageName(url)
+{
+    return url.substring(url.lastIndexOf('/')+1);
 }
 
 module.exports = {

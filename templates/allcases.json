@@ -9,18 +9,18 @@
       {
          "type": "content",
          "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
-         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png"
+         "backgroundImage": "http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg"
       },
       {
          "type": "content",
          "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
-         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundImage": "http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
          "backgroundFade": true
       },
       {
          "type": "content",
          "text": "content with background image, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
-         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundImage": "http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
          "backgroundFade": true,
          "foregroundColor": "#FFF"
       },
@@ -33,7 +33,7 @@
       {
          "type": "content",
          "text": "content with background image and parallax, hello ajinder singh. Escama mucho, como hemos conocido recientemente con motivo de una entrevista en PC Gamer, que Rockstar North siempre tuviera en mente la versión para PC. Desde el principio, de hecho, cuando estaba inmerso en PS3 y Xbox 360. Sin embargo quiso alargar su desarrollo lo máximo posible hasta que se embarcó en las adaptaciones a PS4 y Xbox One, que supusieron un gran salto de calidad.",
-         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundImage": "http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
          "backgroundRepeat": true,
          "parallax": true
       },
@@ -149,7 +149,7 @@
          "url": "https://www.youtube.com/embed/LLPj2h0N3bU",
          "width": "640",
          "height": "360",
-         "backgroundImage": "http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/pokemon-list.png",
+         "backgroundImage": "http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
          "backgroundRepeat": true,
          "backgroundClass": "module-bg-color-branded-dark",
          "parallax": true
@@ -159,27 +159,27 @@
          "backgroundColor":"#CCC",
          "images":[  
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             }
          ]
@@ -189,27 +189,27 @@
          "backgroundColor":"#CCC",
          "images":[  
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             }
          ]
@@ -220,27 +220,27 @@
          "autoplay": true,
          "images":[  
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "description":"test description"
             }
          ]
@@ -251,27 +251,23 @@
          "autoplay": false,
          "images":[  
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136491/ypo4eztgv5f89yr2ptdb.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136500/f6upi0zcspjstjwgdkjc.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136522/exoi0ycs21ku6xhyhmww.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136512/eqwanw6dnjcw3vdwjlr2.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-               "description":"test description"
-            },
-            {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136547/w4rirkpdpmd4wu0nvmyd.jpg",
                "description":"test description"
             }
          ]
@@ -282,27 +278,23 @@
          "autoplay": false,
          "images":[  
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136491/ypo4eztgv5f89yr2ptdb.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136500/f6upi0zcspjstjwgdkjc.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136522/exoi0ycs21ku6xhyhmww.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136512/eqwanw6dnjcw3vdwjlr2.jpg",
                "description":"test description"
             },
             {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-               "description":"test description"
-            },
-            {  
-               "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+               "url":"http://res.cloudinary.com/realarpit/image/upload/v1447136547/w4rirkpdpmd4wu0nvmyd.jpg",
                "description":"test description"
             }
          ]
@@ -580,27 +572,27 @@
                "backgroundColor":"#CCC",
                "images":[  
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   }
                ]
@@ -631,27 +623,27 @@
                "autoplay": true,
                "images":[  
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   },
                   {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
+                     "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                      "description":"test description"
                   }
                ]
