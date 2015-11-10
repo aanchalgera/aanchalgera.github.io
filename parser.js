@@ -14,6 +14,7 @@ var html
 , jsonObjects
 , templating
 , cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload'
+, cdnPath = 'http://i1.blogs.es'
 ;
 
 function parse(requestData)
@@ -113,11 +114,11 @@ function getImageObject(sectionClasses, sectionStyles, section)
         section['caption'] = '';
     }
     var imageName = section['url'].substring(section['url'].lastIndexOf('/')+1);
-    var imagePath450 = cloudinaryPath + '/w_450,c_fit/' + imageName;
-    var imagePath650 = cloudinaryPath + '/w_650,c_fit/' + imageName;
-    var imagePath1024 = cloudinaryPath + '/w_1024,c_fit/' + imageName;
-    var imagePath1366 = cloudinaryPath + '/w_1366,c_fit/' + imageName;
-    var imagePath2560 = cloudinaryPath + '/w_2560,c_fit/' + imageName;
+    var imagePath450 = cdnPath + '/w_450,c_fit/' + imageName;
+    var imagePath650 = cdnPath + '/w_650,c_fit/' + imageName;
+    var imagePath1024 = cdnPath + '/w_1024,c_fit/' + imageName;
+    var imagePath1366 = cdnPath + '/w_1366,c_fit/' + imageName;
+    var imagePath2560 = cdnPath + '/w_2560,c_fit/' + imageName;
 
     var imageObject = {
         sectionClasses: sectionClasses, 

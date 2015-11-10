@@ -14,8 +14,7 @@ var fs = require('fs'),
     sectionClasses,
     sectionStyles,
     section,
-    templatesDir = './templates', 
-    cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload';
+    templatesDir = './templates';
 
 
 function loadFile(filePath)
