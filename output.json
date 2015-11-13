@@ -114,6 +114,10 @@
             "sponsor": "aadkdklad"
         }
     },
+    "seo": {
+        "title": "seo title",
+        "description": "seo description"
+    },
     "publish": {
         "postDate": "2015-04-21 19:01:42",
         "postStatus": "draft/publish",
