@@ -44,7 +44,7 @@ class Editor extends React.Component{
               maxId: data.maxId,
               status: data.status != undefined ? data.status : '',
               publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}}
+              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
             });
           }
         }
@@ -90,7 +90,6 @@ class Editor extends React.Component{
     } else {
       var altered = original;
     }
-
     return {indexes, original, altered};
   }
   addImage(image) {
@@ -460,12 +459,30 @@ class Editor extends React.Component{
     this.state.meta.index = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+  updateFooterCredits(event) {
+    this.state.meta.footer = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
   updateHomepageContent(value) {
     this.state.meta.homepage.content = value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
   updateHomepageSponsor(event) {
     this.state.meta.homepage.sponsor = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  deleteHomepageImage() {
+    this.state.meta.homepage.image = null;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateSeoTitle(event) {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.title = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateSeoDescription(event) {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.description = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
   render(){
@@ -482,8 +499,12 @@ class Editor extends React.Component{
     var metadata = <Metadata
       meta={this.state.meta}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
+      updateSeoTitle={this.updateSeoTitle.bind(this)}
+      updateSeoDescription={this.updateSeoDescription.bind(this)}
+      updateFooterCredits={this.updateFooterCredits.bind(this)}
       updateHomepageContent={this.updateHomepageContent.bind(this)}
       updateHomepageSponsor={this.updateHomepageSponsor.bind(this)}
+      deleteHomepageImage={this.deleteHomepageImage.bind(this)}
       openResourcePanel={this.openResourcePanel.bind(this)}
     />
     return (
