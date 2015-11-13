@@ -4,6 +4,7 @@ import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
+import Metadata from './Metadata/Metadata';
 import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
 
@@ -26,7 +27,7 @@ class Editor extends React.Component{
       addImageModule: '',
       addMoreImages: false,
       orderMode: false,
-      fields: []
+      fields: [],
     };
   }
   init(){
@@ -42,7 +43,8 @@ class Editor extends React.Component{
               value: data.title,
               maxId: data.maxId,
               status: data.status != undefined ? data.status : '',
-              publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
+              publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
+              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
             });
           }
         }
@@ -88,7 +90,6 @@ class Editor extends React.Component{
     } else {
       var altered = original;
     }
-
     return {indexes, original, altered};
   }
   addImage(image) {
@@ -113,10 +114,19 @@ class Editor extends React.Component{
         align: "",
         layout: "normal"
       });
+    } else if (this.state.imageFunction == 'homepage') {
+      this.state.meta.homepage.image = {
+        url: image.url,
+        height: image.height != undefined ? image.height : '',
+        width: image.width != undefined ? image.width : '',
+        alt: image.alt != undefined ? image.alt : '',
+        name : image.original_filename
+      };
     }
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId
+      maxId: this.state.maxId,
+      meta: this.state.meta
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -246,7 +256,8 @@ class Editor extends React.Component{
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
       "status": this.state.status != undefined ? this.state.status : '',
-      "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']}
+      "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
+      "meta"  : this.state.meta
     };
     self = this;
     this.props.base.post(
@@ -297,7 +308,7 @@ class Editor extends React.Component{
           break;
        }
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields});
+     this.setState({fields: this.state.fields}, this.saveData());
   }
   deleteResource(event)
   {
@@ -311,12 +322,19 @@ class Editor extends React.Component{
   groupSections(currentIndex, group, event)
   {
      this.state.maxId++;
-     var obj = this.state.fields.splice(currentIndex, group);
+     var objects = this.state.fields.splice(currentIndex, group);
+     for (var object of objects) {
+       if (object.type == 'image' || object.type == 'video' || object.type == 'gallery' || object.type == 'slider') {
+         object.backgroundFade = '';
+         object.backgroundClass = '';
+         object.backgroundImage = '';
+       }
+     }
      this.state.fields.splice(currentIndex, 0, {
        id : this.state.maxId,
        type : 'grouped',
        length : group,
-       columns: obj
+       columns: objects
      });
      this.setState({fields: this.state.fields}, this.saveData());
   }
@@ -411,7 +429,8 @@ class Editor extends React.Component{
       id : hashId,
       title : this.state.value,
       sections : this.state.fields,
-      page: "preview"
+      page: "preview",
+      meta : this.state.meta
     };
     data = JSON.stringify(data);
     axios({
@@ -436,6 +455,36 @@ class Editor extends React.Component{
         console.log(response);
       });
   }
+  updateIndexMetadata(event) {
+    this.state.meta.index = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateFooterCredits(event) {
+    this.state.meta.footer = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateHomepageContent(value) {
+    this.state.meta.homepage.content = value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateHomepageSponsor(event) {
+    this.state.meta.homepage.sponsor = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  deleteHomepageImage() {
+    this.state.meta.homepage.image = null;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateSeoTitle(event) {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.title = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
+  updateSeoDescription(event) {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.description = event.target.value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
   render(){
     var errorField = '';
     if (this.state.isError) {
@@ -447,6 +496,17 @@ class Editor extends React.Component{
           <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
           <strong>  Post saved </strong>
         </div>;
+    var metadata = <Metadata
+      meta={this.state.meta}
+      updateIndexMetadata={this.updateIndexMetadata.bind(this)}
+      updateSeoTitle={this.updateSeoTitle.bind(this)}
+      updateSeoDescription={this.updateSeoDescription.bind(this)}
+      updateFooterCredits={this.updateFooterCredits.bind(this)}
+      updateHomepageContent={this.updateHomepageContent.bind(this)}
+      updateHomepageSponsor={this.updateHomepageSponsor.bind(this)}
+      deleteHomepageImage={this.deleteHomepageImage.bind(this)}
+      openResourcePanel={this.openResourcePanel.bind(this)}
+    />
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
@@ -485,6 +545,8 @@ class Editor extends React.Component{
             />
           </div>
         </form>
+        {this.state.meta ? metadata : ''}
+
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
