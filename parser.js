@@ -13,6 +13,7 @@ var html
 , totalSections
 , jsonObjects
 , templating
+, parsedData
 , cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload'
 , cdnPath = 'http://i1.blogs.es'
 ;
@@ -20,8 +21,17 @@ var html
 function parse(requestData)
 {
     jsonObjects = JSON.parse(requestData);
+    jsonObjects.meta.homepage.content = doMarkUp(jsonObjects.meta.homepage.content);
     templating.loadTemplates();
-    return parseData(jsonObjects);
+    parsedData = parseData(jsonObjects);
+
+    var response = {
+        'meta' : jsonObjects.meta,
+        'seo': jsonObjects.seo,
+        'parsedData': parsedData
+    }
+
+    return JSON.stringify(response);
 }
 
 function testRead(fileName)
@@ -41,6 +51,7 @@ function parseData(jsonObjects)
     firstSectionHTML = '';
     sectionsCovered = 0;
     totalSections = jsonObjects.sections.length;
+
     jsonObjects.sections.forEach(handleSection);
 
     var contentHTML = templating.getContentTemplate(firstSectionHTML, html);

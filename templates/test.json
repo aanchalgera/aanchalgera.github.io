@@ -1,108 +1,30 @@
 {  
-   "id":"-K1rLWDEE8R7A5WhqpLI",
-   "title":"testing image and summary",
+   "id":"-K0dxiSOkZZuA5qS4uSM",
+   "title": "testing New",
    "sections":[  
       {
-         "type":"grouped",
-         "comment": "2 column, image and content", 
-         "columns": [
-            {  
-               "align":"",
-               "alt":"",
-               "banner":false,
-               "height":"300",
-               "id":3,
-               "layout":"normal",
-               "parallax":false,
-               "type":"image",
-               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
-               "width":"100",
-               "size": "small"
-            },
-            {  
-               "type":"gallery",
-               "layout":"big",
-               "backgroundColor":"#CCC",
-               "images":[  
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
-                     "description":"test description"
-                  }
-               ]
-            }
-         ]
-      },
-      {
-         "type":"grouped",
-         "comment": "2 column, image and content", 
-         "columns": [
-            {  
-               "align":"",
-               "alt":"",
-               "banner":false,
-               "height":"300",
-               "id":3,
-               "layout":"normal",
-               "parallax":false,
-               "type":"image",
-               "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
-               "width":"100",
-               "size": "small"
-            },
-            {  
-               "type":"slider",
-               "backgroundColor":"#CCC",
-               "size":"big",
-               "autoplay": true,
-               "images":[  
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/Bulbasaur1-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/T9yl9B2-1024x576.jpg",
-                     "description":"test description"
-                  },
-                  {  
-                     "url":"http://testjetpack.weblogssl.com/wp-content/uploads/2015/08/tumblr_m18zldgB1H1qbj5b4o4_1280-1024x576.jpg",
-                     "description":"test description"
-                  }
-               ]
-            }
-         ]
+         "type": "content",
+         "text": "**plain content**, hi ajinder singh"
       }
    ],
-   "page":"preview"
+   "page":"preview",
+   "meta": {
+     "index": "this is index html",
+     "homepage": {
+         "image": {
+             "url": "abc",
+             "alt": "abc",
+             "width": 100,
+             "height": 100,
+             "parallax": false,
+             "banner": false
+         },
+         "content": "aadkdklad",
+         "sponsor": "aadkdklad"
+     }
+   },
+   "seo": {
+     "title": "seo title",
+     "description": "seo description"
+   }
 }

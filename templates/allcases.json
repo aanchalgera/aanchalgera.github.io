@@ -651,5 +651,24 @@
          ]
       }
   ],
-   "page":"preview"
+   "page":"preview",
+   "meta": {
+     "index": "this is index html",
+     "homepage": {
+         "image": {
+             "url": "abc",
+             "alt": "abc",
+             "width": 100,
+             "height": 100,
+             "parallax": false,
+             "banner": false
+         },
+         "content": "aadkdklad",
+         "sponsor": "aadkdklad"
+     },
+   }
+  "seo": {
+    "title": "seo title",
+    "description": "seo description"
+  }
 }
