@@ -1,8 +1,22 @@
 import React from 'react';
 
 class Homepage extends React.Component{
+  componentDidMount() {
+    this.initializeEditor();
+  }
+  initializeEditor() {
+    var editor = new SimpleMDE({ element: document.getElementById('homepage-content'),
+      spellChecker : false,
+      toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link"]
+    });
+    editor.render();
+    var updateHomepageContent = this.props.updateHomepageContent;
+    editor.codemirror.on("blur", function(event){
+      updateHomepageContent(editor.value());
+    });
+  }
   render () {
-    if (this.props.homepage.image == '') {
+    if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
       var image = <div className="homepage-image-container">
       <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>Choose from gallery</button>
       </div>
@@ -26,10 +40,10 @@ class Homepage extends React.Component{
         <div className="form-group">
           <label htmlFor>Add text <span className="hint">(Optional)</span></label>
           <textarea
+            id = "homepage-content"
             className="form-control"
             defaultValue= {this.props.homepage.content}
-            placeholder="Add your text here...."
-            onBlur={this.props.updateHomepageContent} />
+            placeholder="Add your text here...." />
         </div>
         <div className="form-group">
           <label htmlFor>Sponsor name</label>

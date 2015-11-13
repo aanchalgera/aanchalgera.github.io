@@ -59,6 +59,7 @@ class Publish extends React.Component {
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
+              meta: data.meta,
               maxId : data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
@@ -79,6 +80,7 @@ class Publish extends React.Component {
     var data = {
       id : this.postname,
       title : this.state.title,
+      meta : this.state.meta,
       sections : this.state.fields,
       page: "publish"
     };
@@ -92,14 +94,16 @@ class Publish extends React.Component {
     .then(function (response) {
       console.log(response);
       if (response.data.status == "success") {
-        self.saveData(response.data.response)
+        self.saveData(response.data)
       }
     })
     .catch(function (response) {
       console.log('error : ',response);
     });
   }
-  saveData(content) {
+  saveData(response) {
+    var content = response.response;
+    var metadata = response.meta ? response.meta : 'placeholder metadata';
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm,"");
@@ -119,6 +123,7 @@ class Publish extends React.Component {
       "comment_status":"open",
       "post_type":"normal",
       "post_content":content,
+      "postExcerpt" : metadata,
       "post_abstract":"",
       "post_extended_title":"",
       "post_visibility":0,
@@ -140,7 +145,8 @@ class Publish extends React.Component {
         "publishRegion": publishRegion,
         "postStatus": this.state.status,
         "postRepostBlogNames": postRepostBlogNames
-      }
+      },
+      "meta" : this.state.meta
     };
     var postType = 'POST';
     var postUrl = 'posts.json';

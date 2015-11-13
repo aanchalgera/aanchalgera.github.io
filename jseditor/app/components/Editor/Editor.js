@@ -456,12 +456,12 @@ class Editor extends React.Component{
         console.log(response);
       });
   }
-  updateIndexMetadata(value) {
-    this.state.meta.index = value;
+  updateIndexMetadata(event) {
+    this.state.meta.index = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
-  updateHomepageContent(event) {
-    this.state.meta.homepage.content = event.target.value;
+  updateHomepageContent(value) {
+    this.state.meta.homepage.content = value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
   updateHomepageSponsor(event) {
