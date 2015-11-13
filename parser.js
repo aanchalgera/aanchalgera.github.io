@@ -50,7 +50,6 @@ function parseData(jsonObjects)
     html = '';
     firstSectionHTML = '';
     sectionsCovered = 0;
-    console.log(jsonObjects.sections);
     totalSections = jsonObjects.sections.length;
 
     jsonObjects.sections.forEach(handleSection);
