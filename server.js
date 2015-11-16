@@ -30,8 +30,8 @@ function processRequest(request, response)
         } else {
             var match = /\/read\/(.+)?/.exec(request.url);
             if (null !== match) {
-                result = parser.testRead(match[1]);
-                sendResponse(response, result, 'html');
+                result = JSON.parse(parser.testRead(match[1]));
+                sendResponse(response, result.parsedData, 'html');
             }
         }
     });

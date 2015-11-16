@@ -21,8 +21,14 @@ var html
 function parse(requestData)
 {
     jsonObjects = JSON.parse(requestData);
-    jsonObjects.meta.homepage.content = doMarkUp(jsonObjects.meta.homepage.content);
-    jsonObjects.meta.homepage.image.name = getImageName(jsonObjects.meta.homepage.image.url);
+    if ('meta' in jsonObjects && 'homepage' in jsonObjects.meta) {
+        if ('content' in jsonObjects.meta.homepage) {
+            jsonObjects.meta.homepage.content = doMarkUp(jsonObjects.meta.homepage.content);
+        }
+        if ('image' in jsonObjects.meta.homepage && 'url' in jsonObjects.meta.homepage.image) {
+            jsonObjects.meta.homepage.image.name = getImageName(jsonObjects.meta.homepage.image.url);
+        }
+    }
 
     templating.loadTemplates();
     parsedData = parseData(jsonObjects);
