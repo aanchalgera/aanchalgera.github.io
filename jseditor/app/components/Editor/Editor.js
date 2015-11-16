@@ -258,9 +258,6 @@ class Editor extends React.Component{
       this.setMessage(true,'Please add some content');
       return
     } else {
-      if (this.state.meta == null) {
-        this.state.meta = {index : '',homepage : {content:'',sponsor:''}, seo:{}};
-      }
       this.setMessage(false);
     }
     var data = {
