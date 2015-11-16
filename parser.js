@@ -22,12 +22,13 @@ function parse(requestData)
 {
     jsonObjects = JSON.parse(requestData);
     jsonObjects.meta.homepage.content = doMarkUp(jsonObjects.meta.homepage.content);
+    jsonObjects.meta.homepage.image.name = getImageName(jsonObjects.meta.homepage.image.url);
+
     templating.loadTemplates();
     parsedData = parseData(jsonObjects);
 
     var response = {
         'meta' : jsonObjects.meta,
-        'seo': jsonObjects.seo,
         'parsedData': parsedData
     }
 
@@ -131,6 +132,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
         section['caption'] = '';
     }
     var imageName = getImageName(section['url']);
+    var imagePathNormal = cdnPath + '/' + imageName;
     var imagePath450 = cdnPath + '/w_450,c_fit/' + imageName;
     var imagePath650 = cdnPath + '/w_650,c_fit/' + imageName;
     var imagePath1024 = cdnPath + '/w_1024,c_fit/' + imageName;
@@ -143,7 +145,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
         width: section['width'],
         height: section['height'],
         imagePath450 : imagePath450,
-        src: section['url'],
+        src: originalImage,
         classes: section['class'],
         alt: section['alt'],
         layout: section['layout'],
