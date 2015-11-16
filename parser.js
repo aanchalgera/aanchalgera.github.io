@@ -145,7 +145,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
         width: section['width'],
         height: section['height'],
         imagePath450 : imagePath450,
-        src: originalImage,
+        src: imagePathNormal,
         classes: section['class'],
         alt: section['alt'],
         layout: section['layout'],
