@@ -321,6 +321,20 @@
                     }
                 }
             }
+            "seo": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+           "footer": {
+              "type": "string"
+            }
         },
         "publish": {
             "type": "object",
@@ -336,17 +350,6 @@
                 }
             }
         },
-        "seo": {
-            "type": "object",
-            "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                }
-            }
-        }
     },
     "required": [
         "title",

@@ -112,11 +112,12 @@
             },
             "content": "aadkdklad",
             "sponsor": "aadkdklad"
-        }
-    },
-    "seo": {
-        "title": "seo title",
-        "description": "seo description"
+        },
+        "seo": {
+            "title": "seo title",
+            "description": "seo description"
+        },
+        "footer": "asfdsafsadfsdf"
     },
     "publish": {
         "postDate": "2015-04-21 19:01:42",
