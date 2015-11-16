@@ -21,7 +21,6 @@ class Image extends React.Component {
         />
       </div>
     )
-
   }
 }
 
