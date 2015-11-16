@@ -265,7 +265,7 @@ class Editor extends React.Component{
       "maxId" : this.state.maxId,
       "status": this.state.status != undefined ? this.state.status : '',
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-      "meta"  : this.state.meta
+      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
     };
     self = this;
     this.props.base.post(
@@ -523,7 +523,6 @@ class Editor extends React.Component{
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
         </div>
-        <br /><br />
         {errorField}
         {successField}
         <form id="editor-form">
