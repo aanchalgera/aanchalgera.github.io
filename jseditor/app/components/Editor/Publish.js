@@ -94,7 +94,7 @@ class Publish extends React.Component {
     .then(function (response) {
       console.log(response);
       if (response.data.status == "success") {
-        self.saveData(response.data)
+        self.saveData(JSON.parse(response.data.response))
       }
     })
     .catch(function (response) {
@@ -102,7 +102,7 @@ class Publish extends React.Component {
     });
   }
   saveData(response) {
-    var content = response.response;
+    var content = response.parsedData;
     var metadata = response.meta ? response.meta : 'placeholder metadata';
     if (this.postname == undefined) return;
     if (!this.validate()) return;
@@ -123,7 +123,7 @@ class Publish extends React.Component {
       "comment_status":"open",
       "post_type":"normal",
       "post_content":content,
-      "postExcerpt" : metadata,
+      "postExcerpt" : JSON.stringify(metadata),
       "post_abstract":"",
       "post_extended_title":"",
       "post_visibility":0,
