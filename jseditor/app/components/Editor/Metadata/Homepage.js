@@ -18,6 +18,7 @@ class Homepage extends React.Component{
   render () {
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
       var image = <div className="homepage-image-container">
+      <label htmlFor="exampleInputEmail1">Add image</label>
       <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>Choose from gallery</button>
       </div>
     } else {
@@ -34,7 +35,6 @@ class Homepage extends React.Component{
       <div className="modules module-home">
         <h4>Homepage Content</h4>
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Add image</label>
           {image}
         </div>
         <div className="form-group">
