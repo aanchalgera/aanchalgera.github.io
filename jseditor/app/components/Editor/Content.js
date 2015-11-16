@@ -1,5 +1,6 @@
 import React from 'react';
 import PropertyButton from './PropertyButton';
+import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
 
@@ -75,13 +76,7 @@ class Content extends React.Component{
         >
       </div>;
     } else if('image' == this.props.data.type) {
-      var field = <img
-        id={'img' + this.props.data.id}
-        data-id={this.props.dataId}
-        src={this.props.data.url}
-        height={this.props.data.height}
-        width={this.props.data.width}
-      />
+      var field = <Image {...this.props} />
   }  else if('gallery' == this.props.data.type) {
       var field = <Gallery
         data={this.props.data}
