@@ -5,7 +5,8 @@ class Home extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      loaded: false
     };
   }
   init(){
@@ -18,7 +19,8 @@ class Home extends React.Component {
       then(data){
         if (null != data) {
           this.setState({
-            posts: data
+            posts: data,
+            loaded: true
           });
         }
       }
@@ -28,6 +30,10 @@ class Home extends React.Component {
     this.init();
   }
   render () {
+    var loadingMessage = ""
+    if (!this.state.loaded) {
+      loadingMessage = <p><strong>Loading .....</strong></p>;
+    }
     var postList = [];
     var postList = this.state.posts.map((post, i) => {
       return (
@@ -36,14 +42,13 @@ class Home extends React.Component {
     });
     return (
       <div>
-      <h2>List Page</h2>
-      <Link to="/post/new" className="btn btn-primary">New Post</Link>
-      <br />
-      <br />
-      <ul className="list-group">
-        {postList}
-      </ul>
-    </div>
+        <h2>List Page</h2>
+        <Link to="/post/new" className="btn btn-primary">New Post</Link>
+        {loadingMessage}
+        <ul className="list-group">
+          {postList}
+        </ul>
+      </div>
     )
   }
 }
