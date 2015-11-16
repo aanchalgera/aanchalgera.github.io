@@ -132,13 +132,21 @@ class Editor extends React.Component{
   }
   addImageCaption(imageId, caption, currentIndex) {
     var field = this.getField(currentIndex);
-    var imageSet = field.altered.images;
-    if (imageSet.length > 0) {
-      for (var image of imageSet) {
-        if (image.spid == imageId) {
-          image.description = caption;
+    if (field.altered.images != undefined) {
+      var imageSet = field.altered.images;
+      if (imageSet.length > 0) {
+        for (var image of imageSet) {
+          if (image.spid == imageId) {
+            image.description = caption;
+          }
         }
+        this.state.fields.splice(field.indexes[0], 0, field.original);
+        this.setState({
+          fields: this.state.fields
+        }, this.saveData());
       }
+    } else {
+      field.altered.description = caption;
       this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({
         fields: this.state.fields

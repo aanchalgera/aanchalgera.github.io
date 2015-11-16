@@ -59,7 +59,7 @@ class Publish extends React.Component {
               id : data.id,
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
-              meta: data.meta,
+              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}},
               maxId : data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
