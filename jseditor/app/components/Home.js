@@ -32,7 +32,7 @@ class Home extends React.Component {
   render () {
     var loadingMessage = ""
     if (!this.state.loaded) {
-      loadingMessage = <p><strong>Loading .....</strong></p>;
+      loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
     }
     var postList = [];
     var postList = this.state.posts.map((post, i) => {
