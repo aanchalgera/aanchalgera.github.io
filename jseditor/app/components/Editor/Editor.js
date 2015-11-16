@@ -28,6 +28,7 @@ class Editor extends React.Component{
       addMoreImages: false,
       orderMode: false,
       fields: [],
+      meta: null
     };
   }
   init(){
@@ -51,7 +52,8 @@ class Editor extends React.Component{
       });
     } else {
       this.setState({
-        id : helpers.generatePushID()
+        id : helpers.generatePushID(),
+        meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
       });
     }
   }
@@ -552,8 +554,7 @@ class Editor extends React.Component{
             />
           </div>
         </form>
-        {this.state.meta ? metadata : ''}
-
+        {this.state.meta ? metadata: ''}
         <CloudinaryUploader
           cloudName='realarpit'
           uploadPreset='h2sbmprz'
