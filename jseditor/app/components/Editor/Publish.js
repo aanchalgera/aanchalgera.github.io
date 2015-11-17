@@ -123,7 +123,7 @@ class Publish extends React.Component {
       "comment_status":"open",
       "post_type":"normal",
       "post_content":content,
-      "postExcerpt" : JSON.stringify(metadata),
+      "postExcerpt" : JSON.stringify(meta : {metadata}),
       "post_abstract":"",
       "post_extended_title":"",
       "post_visibility":0,
