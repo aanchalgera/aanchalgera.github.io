@@ -2,10 +2,7 @@ import React from 'react';
 
 class PropertyButtonContent extends React.Component {
   render() {
-    var whitebackgroundClass = '', backgroundImageOptions = '';
-    if (this.props.data.backgroundClass != '' &&  this.props.data.backgroundClass != '#FFF') {
-      whitebackgroundClass = <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'background-white')} className={"btn background-white "+(this.props.data.backgroundClass=="background-white" ?  "active" : null)} />
-    }
+    var backgroundImageOptions = '';
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       var backgroundImage=<span className="input-group">
         <input type="text" placeholder={this.props.data.backgroundImageName} className="form-control input-group-sm" style={{width: '50%'}} />
@@ -32,7 +29,6 @@ class PropertyButtonContent extends React.Component {
       <ul className="list-background">
         <h5>Background</h5>
         <li><label> Colour </label>
-          {whitebackgroundClass}
           <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-branded-light')} className={"btn module-bg-color-branded-light "+(this.props.data.backgroundClass=="module-bg-color-branded-light" ?  "active" : null)} />
           <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-neutral-dark')} className={"btn module-bg-color-neutral-dark "+(this.props.data.backgroundClass=="module-bg-color-neutral-dark" ?  "active" : null)} />
           <button onClick={this.props.addBackgroundOptionToResource.bind(this, 'backgroundClass', 'module-bg-color-neutral-light')} className={"btn module-bg-color-neutral-light "+(this.props.data.backgroundClass=="module-bg-color-neutral-light" ?  "active" : null)} />

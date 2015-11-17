@@ -23,7 +23,7 @@ class Resource extends React.Component {
       } else {
         var repeatOrCover = ';background-size:cover'
       }
-    return 'color:'+data.foregroundColor+';background-image:'+backgroundImage+repeatOrCover;
+    return 'background-image:'+backgroundImage+repeatOrCover;
   }
   render() {
     var {field,i,totalElements,...other} = this.props;

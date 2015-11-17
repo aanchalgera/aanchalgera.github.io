@@ -58,10 +58,11 @@ class PropertyButton extends React.Component {
       openResourcePanel={this.props.openResourcePanel}
       dataId={this.props.dataId}
     />
-    var bgOptionsAllowedForGroupedTypes = {'content':true,'summary':true,'richContent':true}
+  var bgOptionsAllowedForGroupedTypes = {'content':true,'summary':true,'richContent':true,'slider':true}
+  var showPropertiesBoxForGroupedTypes = {'content':true,'summary':true,'richContent':true,'slider':true}
     if (this.props.grouped != 'true') {
       showPropertiesBox = true;
-    } else if (bgOptionsAllowedForGroupedTypes[this.props.data.type] == true) {
+    } else if (showPropertiesBoxForGroupedTypes[this.props.data.type] == true) {
       showPropertiesBox = true;
     } else {
       showPropertiesBox = false;
@@ -75,7 +76,7 @@ class PropertyButton extends React.Component {
       <ul>
       {showPropertiesBox == true ? propertyButton : ''}
       <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
-        {bgProperties}
+        {this.props.grouped != 'true' ? bgProperties : (bgOptionsAllowedForGroupedTypes[this.props.data.type] == true ? bgProperties : '')}
         {autoPlaySliderButton}
         {groupProperties}
         {this.props.grouped=='true' ? '' : sizeProperties}
