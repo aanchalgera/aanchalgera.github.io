@@ -31,6 +31,8 @@ class Content extends React.Component{
     case 'richContent':
     case 'image':
     case 'video':
+    case 'gallery':
+    case 'slider':
       document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
       break;
     case 'summary':
