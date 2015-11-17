@@ -76,7 +76,7 @@
          "layout": "small",
          "url": "http://res.cloudinary.com/realarpit/image/upload/v1444204886/rdakmr8yyxgoolpriw9r.jpg",
          "alt": "",
-         "caption": "small image with caption"
+         "description": "small image with caption"
       },
       {
          "type": "image",
@@ -666,9 +666,9 @@
          "content": "aadkdklad",
          "sponsor": "aadkdklad"
      },
+     "seo": {
+       "title": "seo title",
+       "description": "seo description"
+     }
    }
-  "seo": {
-    "title": "seo title",
-    "description": "seo description"
-  }
 }

@@ -134,8 +134,8 @@ function getImageObject(sectionClasses, sectionStyles, section)
     if (isEmpty(section, 'layout')) {
         section['layout'] = 'normal';
     }
-    if (isEmpty(section, 'caption')) {
-        section['caption'] = '';
+    if (isEmpty(section, 'description')) {
+        section['description'] = '';
     }
     var imageName = getImageName(section['url']);
     var imagePathNormal = cdnPath + '/' + imageName;
@@ -157,7 +157,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
         layout: section['layout'],
         type: 'image',
         size: section['size'],
-        caption: section['caption']
+        description: section['description']
     };
     
     switch (section['layout']) {
