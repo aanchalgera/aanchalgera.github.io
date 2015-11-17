@@ -3,7 +3,6 @@ import React from 'react';
 class PropertyButtonContent extends React.Component {
   render() {
     var backgroundImageOptions = '';
-
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       var backgroundImage=<span className="input-group">
         <input type="text" placeholder={this.props.data.backgroundImageName} className="form-control input-group-sm" style={{width: '50%'}} />
