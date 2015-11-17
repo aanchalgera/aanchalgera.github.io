@@ -107,6 +107,7 @@ class Publish extends React.Component {
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm,"");
+    metadata = metadata.replace(/(\r\n|\n|\r)/gm,"");
     var countries = document.querySelectorAll('#countries input[type=checkbox]:checked');
     var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
     var publishRegion = [];
@@ -123,7 +124,7 @@ class Publish extends React.Component {
       "comment_status":"open",
       "post_type":"normal",
       "post_content":content,
-      "postExcerpt" : JSON.stringify(meta : {metadata}),
+      "postExcerpt" : JSON.stringify({'meta' : metadata}),
       "post_abstract":"",
       "post_extended_title":"",
       "post_visibility":0,
