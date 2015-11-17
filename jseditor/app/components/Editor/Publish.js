@@ -107,7 +107,6 @@ class Publish extends React.Component {
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm,"");
-    metadata = metadata.replace(/(\r\n|\n|\r)/gm,"");
     var countries = document.querySelectorAll('#countries input[type=checkbox]:checked');
     var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
     var publishRegion = [];
