@@ -23,7 +23,7 @@ function parse(requestData)
     jsonObjects = JSON.parse(requestData);
     if ('meta' in jsonObjects && 'homepage' in jsonObjects.meta) {
         if ('content' in jsonObjects.meta.homepage) {
-            jsonObjects.meta.homepage.content = doMarkUp(jsonObjects.meta.homepage.content);
+            jsonObjects.meta.homepage.content = marked(jsonObjects.meta.homepage.content);
         }
         if ('image' in jsonObjects.meta.homepage && 'url' in jsonObjects.meta.homepage.image) {
             jsonObjects.meta.homepage.image.name = getImageName(jsonObjects.meta.homepage.image.url);
