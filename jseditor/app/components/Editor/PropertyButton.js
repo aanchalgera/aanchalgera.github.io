@@ -58,8 +58,8 @@ class PropertyButton extends React.Component {
       openResourcePanel={this.props.openResourcePanel}
       dataId={this.props.dataId}
     />
-  var bgOptionsAllowedForGroupedTypes = {'content':true,'summary':true,'richContent':true,'slider':true}
-  var showPropertiesBoxForGroupedTypes = {'content':true,'summary':true,'richContent':true,'slider':true}
+    var bgOptionsAllowedForGroupedTypes = {'content':true,'summary':true,'richContent':true}
+    var showPropertiesBoxForGroupedTypes = {'content':true,'summary':true,'richContent':true,'slider':true}
     if (this.props.grouped != 'true') {
       showPropertiesBox = true;
     } else if (showPropertiesBoxForGroupedTypes[this.props.data.type] == true) {
