@@ -418,9 +418,9 @@ class Editor extends React.Component{
   {
      event.preventDefault();
      var currentIndex = event.currentTarget.dataset.id;
-     var obj = this.state.fields.splice(currentIndex, 1);
-     obj[0].autoplay = value;
-     this.state.fields.splice(currentIndex, 0, obj[0]);
+     var field = this.getField(currentIndex);
+     field.altered.autoplay = value;
+     this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
   openPreviewPanel(event) {
