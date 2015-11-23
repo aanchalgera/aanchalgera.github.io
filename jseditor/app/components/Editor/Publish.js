@@ -87,7 +87,7 @@ class Publish extends React.Component {
     data = JSON.stringify(data);
     var self = this;
     axios({
-      url : 'http://52.19.39.251:81/parse',
+      url : 'http://52.19.4.152:81/parse',
       method: 'POST',
       data : data
     })
