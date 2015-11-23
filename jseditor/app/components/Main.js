@@ -3,7 +3,7 @@ import { RouteHandler } from 'react-router';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
-var base = Rebase.createClass('https://brilliant-heat-3614.firebaseio.com/');
+var base = Rebase.createClass('https://dazzling-torch-3017.firebaseio.com/');
 
 class Main extends React.Component{
   render(){
