@@ -7,10 +7,10 @@ import SlotWidget from './SlotWidget';
 import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
-moment.tz.setDefault("Europe/Madrid");
+moment.tz.setDefault(configParams.timezone);
 var chooseSlotMsg = "Select slot";
 var successMessage = '';
-const SITE_DOMAIN = 'http://testing.xataka.com/';
+const SITE_DOMAIN = configParams.blogUrl;
 
 class Publish extends React.Component {
   constructor(props){
@@ -87,7 +87,7 @@ class Publish extends React.Component {
     data = JSON.stringify(data);
     var self = this;
     axios({
-      url : 'http://52.19.4.152:81/parse',
+      url : configParams.host + ':81/parse',
       method: 'POST',
       data : data
     })

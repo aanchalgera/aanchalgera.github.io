@@ -16,7 +16,7 @@ export default class PreviewPanel extends React.Component {
             </div>
             <div className="modal-body">
                 <iframe
-                  src={"http://52.19.39.251/posts/" + this.props.src}
+                  src={configParams.host+ "/posts/" + this.props.src}
                   allowFullScreen="true"
                   width="1080"
                   height="500"
