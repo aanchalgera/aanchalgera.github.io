@@ -1,6 +1,6 @@
 'use strict';
 var marked = require('marked');
-var templating = require('./templating.js');
+var templating = require(__dirname + '/templating.js');
 
 var html
 , firstSectionHTML
