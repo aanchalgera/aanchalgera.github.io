@@ -12,6 +12,10 @@ function processRequest(request, response)
         requestData += data;
     });
     request.on('end', function () {
+        if ('production' == process.env.NODE_ENV) {
+            parser.setCloudinaryPath('http://res.cloudinary.com/realarpit/image/upload');
+            parser.setCdnPath('http://i1.blogs.es');
+        }
         if ('/parse' === request.url) {
             try {
                 if (undefined !== process.argv[2]) {
