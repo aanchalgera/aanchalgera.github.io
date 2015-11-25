@@ -376,7 +376,9 @@
                "type":"image",
                "url":"http://res.cloudinary.com/realarpit/image/upload/v1442379278/libxwt7h2zcm2vtejhmi.jpg",
                "width":"100",
-               "size": "small"
+               "size": "small",
+               "description": "first qqqq"
+
             },
             {  
                "align":"",

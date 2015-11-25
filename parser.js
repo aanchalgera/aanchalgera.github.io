@@ -14,9 +14,19 @@ var html
 , jsonObjects
 , templating
 , parsedData
-, cloudinaryPath = 'http://res.cloudinary.com/realarpit/image/upload'
-, cdnPath = 'http://i1.blogs.es'
+, cloudinaryPath = 'http://res.cloudinary.com/agilemediatest/image/upload'
+, cdnPath = 'http://ti1.blogs.es'
 ;
+
+function setCloudinaryPath(requestCloudinaryPath)
+{
+    cloudinaryPath = requestCloudinaryPath;
+}
+
+function setCdnPath(requestCdnPath)
+{
+    cdnPath = requestCdnPath;
+}
 
 function parse(requestData)
 {
@@ -441,5 +451,7 @@ function getImageName(url)
 module.exports = {
     parse: parse,
     processRequest: processRequest,
+    setCloudinaryPath: setCloudinaryPath,
+    setCdnPath: setCdnPath,
     testRead: testRead
 }
