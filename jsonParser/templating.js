@@ -14,7 +14,7 @@ var fs = require('fs'),
     sectionClasses,
     sectionStyles,
     section,
-    templatesDir = './templates';
+    templatesDir = __dirname + '/templates';
 
 
 function loadFile(filePath)

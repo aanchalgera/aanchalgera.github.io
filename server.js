@@ -1,5 +1,5 @@
 'use strict';
-var parser = require('./parser.js');
+var parser = require(__dirname + '/jsonParser/parser.js');
 var http = require("http");
 var result;
 
