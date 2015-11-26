@@ -51,10 +51,11 @@ class Editor extends React.Component{
         }
       });
     } else {
+      let hashId = helpers.generatePushID();
       this.setState({
-        id : helpers.generatePushID(),
+        id : hashId,
         meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
-      });
+      }, this.router.transitionTo('/edit/post/'+hashId));
     }
   }
   componentWillMount(){
@@ -282,11 +283,10 @@ class Editor extends React.Component{
       }
     });
   }
-  setMessage(isError = false, message, isSubmit = false) {
+  setMessage(isError = false, message) {
     this.setState({
       isError: isError,
-      message: message,
-      isSubmit: isSubmit
+      message: message
     });
   }
   addBackgroundOptionToResource(property, value, event)
