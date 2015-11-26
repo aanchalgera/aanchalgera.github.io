@@ -1,6 +1,7 @@
 'use strict';
 var marked = require('marked');
 var templating = require(__dirname + '/templating.js');
+var path = require('path');
 
 var html
 , firstSectionHTML
@@ -8,7 +9,7 @@ var html
 , sectionsCovered
 , sectionClasses
 , sectionStyles
-, outputFilePath = './jseditor/public/posts'
+, outputFilePath = __dirname + '/../jseditor/public/posts'
 , relativeFilePath = 'posts'
 , totalSections
 , jsonObjects
@@ -28,9 +29,8 @@ function setCdnPath(requestCdnPath)
     cdnPath = requestCdnPath;
 }
 
-function parse(requestData)
+function parse(jsonObjects)
 {
-    jsonObjects = JSON.parse(requestData);
     if ('meta' in jsonObjects && 'homepage' in jsonObjects.meta) {
         if ('content' in jsonObjects.meta.homepage) {
             jsonObjects.meta.homepage.content = marked(jsonObjects.meta.homepage.content);
@@ -53,7 +53,7 @@ function parse(requestData)
 
 function testRead(fileName)
 {
-    var testJson = templating.loadFile(fileName);
+    var testJson = JSON.parse(templating.loadFile(fileName));
     return parse(testJson);
 }
 
