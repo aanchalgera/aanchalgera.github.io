@@ -1,16 +1,18 @@
 'use strict';
 var express = require('express')
 ,   router = express.Router()
-,   configController = require(__dirname + '/ConfigController')
+,   configController = require(__dirname + '/ConfigController')()
 ;
 
 router.route('/')
-    .get(configController.getCampaigns);
-    .post(configController.postCampaign)
-    .delete(configController.patchCampaign)
+    .get(configController.getConfigs)
+    .post(configController.postConfig)
+;
 
 router.route('/:configId')
-    .put(configController.putCampaign)
-    .get(configController.getCampaign);
+    .put(configController.putConfig)
+    .get(configController.getConfig)
+    .delete(configController.deleteConfig)
+;
 
 module.exports = router;
