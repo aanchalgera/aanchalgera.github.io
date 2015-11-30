@@ -1,6 +1,6 @@
 'use strict';
 var Sequelize = require('sequelize');
-var Connection = new Sequelize('cms', 'root', '', {host: 'localhost', dialect: 'mysql'});
+var Connection = require(__dirname + '/Connection');
 
 var Config = Connection.define(
     'config', 
@@ -64,10 +64,7 @@ var Config = Connection.define(
                     .build(this.dataValues)
                     .save()
                     .then(onSuccess)
-                    .catch(function(error) {
-                            onError(error);
-                        }
-                    );
+                    .catch(function(error) {onError(error); });
             },
             updateById: function(configId, onSuccess, onError) {
                 delete this.dataValues['id'];
@@ -92,7 +89,7 @@ var Config = Connection.define(
                     .then(onSuccess)
                     .catch(function(error){onError(error);})
             }
-        },
+        }
     }
 );
 
