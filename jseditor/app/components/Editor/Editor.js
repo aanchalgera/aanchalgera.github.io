@@ -8,11 +8,6 @@ import Metadata from './Metadata/Metadata';
 import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
 
-var placeholder = document.createElement("div");
-placeholder.className = "placeholder";
-var delta = 500;
-var lastKeypressTime = 0;
-
 class Editor extends React.Component{
   constructor(props){
     super(props);
@@ -200,25 +195,7 @@ class Editor extends React.Component{
       }
     }
   }
-  keyHandler(event, currentId)
-  {
-    var map = [];
-    if (event.keyCode == 13 )
-    {
-      var thisKeypressTime = new Date();
-      if ( thisKeypressTime - lastKeypressTime <= delta )
-      {
-        event.preventDefault();
-        this.parentDiv(event.target);
-        this.createNewTextArea(Number(currentId) + 1);
-      }
-      lastKeypressTime = thisKeypressTime;
-    }
-  }
-   createNewTextArea(currentIndex, type = 'content', event='') {
-    if ('' != event) {
-      event.preventDefault();
-    }
+  createNewTextArea(currentIndex, type = 'content') {
     this.state.maxId++;
     this.state.fields.splice(
       currentIndex,0, {
@@ -533,7 +510,6 @@ class Editor extends React.Component{
             <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
             <ContentList
               fields={this.state.fields}
-              addNewTextArea={this.keyHandler.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateSummaryText={this.updateSummaryText.bind(this)}
@@ -563,6 +539,7 @@ class Editor extends React.Component{
           base={this.props.base}
           slug={this.state.id}
           addImageModule={this.state.addImageModule}
+          ref="resourcePanel"
         />
         <div id="preview"></div>
       </div>

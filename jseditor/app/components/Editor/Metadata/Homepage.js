@@ -40,6 +40,7 @@ class Homepage extends React.Component{
         <div className="form-group">
           <label htmlFor>Add text <span className="hint">(Optional)</span></label>
           <textarea
+            ref = "homepageContent"
             id = "homepage-content"
             className="form-control"
             defaultValue= {this.props.homepage.content}

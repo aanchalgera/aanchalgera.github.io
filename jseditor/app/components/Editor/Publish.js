@@ -178,9 +178,9 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          if (result.id != undefined) {
-           document.getElementById('schedule-success').style.display = 'block';
+           this.refs.scheduleSuccess.getDOMNode().style.display = 'block';
            setTimeout(function() {
-             document.getElementById('schedule-success').style.display = 'none';
+             this.refs.scheduleSuccess.getDOMNode().style.display = 'none';
            }, 7000);
            self.setState({postId: result.id, postHash: result.post_hash});
          }
@@ -256,7 +256,7 @@ class Publish extends React.Component {
             <h3>Publish your post</h3>
           </div>
           <div className="published-messages error" style={{display: 'none'}} id="date-error">Please select a valid date, future date</div>
-          <div className="published-messages success" style={{display: 'none'}} id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
+          <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
           <SlotWidget
             value={this.state.value}
             futureProgrammedPosts={this.state.futureProgrammedPosts}

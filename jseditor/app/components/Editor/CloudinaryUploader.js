@@ -156,8 +156,8 @@ var CloudinaryUploader = React.createClass({
     });
   },
   openResourcePanel: function () {
-    document.getElementById('resourcePanel').style.display = 'block'
-    document.getElementById('resourcePanel').classList.add('in')
+    this.refs.resourcePanel.getStyle().style.display = 'block'
+    this.refs.resourcePanel.getStyle().classList.add('in')
   },
   handleClick: function(ev){
     if(this.props.slug == undefined || this.props.slug == '') {
@@ -215,6 +215,7 @@ var CloudinaryUploader = React.createClass({
           slug={this.props.slug}
           handleClick={this.handleClick}
           addImageModule={this.props.addImageModule}
+          ref="resourcePanel"
         />
       </div>
     );

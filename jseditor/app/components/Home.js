@@ -13,9 +13,6 @@ class Home extends React.Component {
     this.props.base.fetch('posts', {
       context: this,
       asArray: true,
-      queries: {
-        orderByChild: 'id'
-      },
       then(data){
         if (null != data) {
           this.setState({
