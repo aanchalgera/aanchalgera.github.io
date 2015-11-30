@@ -45,6 +45,8 @@ class PropertyButton extends React.Component {
       case 'image' :
       case 'gallery' :
       case 'slider' :
+      case 'video':
+      case 'summary':
         var sizeProperties = <PropertyButtonSizes
           dataId={this.props.dataId}
           layout={this.props.layout}

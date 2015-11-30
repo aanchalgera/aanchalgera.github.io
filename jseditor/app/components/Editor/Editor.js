@@ -1,12 +1,15 @@
 import React from 'react';
 import ContentList from './ContentList';
 import PostTitle from './PostTitle';
+import PreviewOnSite from './PreviewOnSite';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import PreviewPanel from './PreviewPanel';
 import Metadata from './Metadata/Metadata';
 import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
+
+const SITE_DOMAIN = configParams.blogUrl;
 
 class Editor extends React.Component{
   constructor(props){
@@ -421,7 +424,7 @@ class Editor extends React.Component{
     };
     data = JSON.stringify(data);
     axios({
-      url : configParams.host + ':81/parse',
+      url : 'http://52.19.4.152:81/parse',
       method: 'POST',
       data : data
     })
@@ -472,6 +475,7 @@ class Editor extends React.Component{
     this.state.meta.seo.description = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   render(){
     var errorField = '';
     if (this.state.isError) {
@@ -499,6 +503,7 @@ class Editor extends React.Component{
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
+          <PreviewOnSite state={this.state} setState={this.setState.bind(this)}/>
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
         </div>
@@ -532,8 +537,8 @@ class Editor extends React.Component{
         </form>
         {this.state.meta ? metadata: ''}
         <CloudinaryUploader
-          cloudName={configParams.cloudName}
-          uploadPreset={configParams.uploadPreset}
+          cloudName='agilemediatest'
+          uploadPreset='aras8ztr'
           addImage={this.addImage.bind(this)}
           addImages={this.addImages.bind(this)}
           base={this.props.base}
