@@ -424,7 +424,7 @@ class Editor extends React.Component{
     };
     data = JSON.stringify(data);
     axios({
-      url : 'http://52.19.4.152:81/parse',
+      url : configParams.host +':81/parse',
       method: 'POST',
       data : data
     })
@@ -537,8 +537,8 @@ class Editor extends React.Component{
         </form>
         {this.state.meta ? metadata: ''}
         <CloudinaryUploader
-          cloudName='agilemediatest'
-          uploadPreset='aras8ztr'
+          cloudName={configParams.cloudName}
+          uploadPreset={configParams.uploadPreset}
           addImage={this.addImage.bind(this)}
           addImages={this.addImages.bind(this)}
           base={this.props.base}
