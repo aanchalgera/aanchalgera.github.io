@@ -74,8 +74,12 @@ class PreviewOnSite extends React.Component{
     });
   }
   render(){
+    var previewButton = '';
+    if (this.props.state.id && (this.props.state.status == undefined || this.props.state.status != 'publish')) {
+      previewButton = <button className="btn btn-primary" onClick={this.submitPost.bind(this)}>Preview on Site (Not yet working)</button>
+    }
     return (
-      <button className="btn btn-primary" onClick={this.submitPost.bind(this)}>Preview on Site</button>
+      <span>{previewButton}</span>
     );
   }
 }

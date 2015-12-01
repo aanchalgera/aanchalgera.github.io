@@ -132,7 +132,8 @@ class Publish extends React.Component {
       "postDate": this.state.value,
       "publish-region": publishRegion,
       "postStatus": this.state.status,
-      "postRepostBlogNames": postRepostBlogNames
+      "postRepostBlogNames": postRepostBlogNames,
+      "page": "publish"
     }
     var formData = {
       "id" : this.state.id,
