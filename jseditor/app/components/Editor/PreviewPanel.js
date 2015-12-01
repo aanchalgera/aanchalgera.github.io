@@ -3,11 +3,11 @@ import React, { PropTypes } from 'react'
 export default class PreviewPanel extends React.Component {
   closePanel(event) {
     event.preventDefault();
-    document.getElementById('previewPanel').style.display = 'none';
+    this.refs.previewPanel.getDOMNode().style.display = 'none';
   }
   render () {
     return (
-      <div className="modal fade" id="previewPanel" tabIndex="-1" role="dialog" aria-labelledby="myPreviewLabel" style={{display:"none"}}>
+      <div className="modal fade" ref="previewPanel" id="previewPanel" tabIndex="-1" role="dialog" aria-labelledby="myPreviewLabel" style={{display:"none"}}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

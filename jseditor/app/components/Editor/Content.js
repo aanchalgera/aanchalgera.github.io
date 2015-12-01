@@ -50,9 +50,6 @@ class Content extends React.Component{
     editor.codemirror.on("blur", function(event){
       updateText(event, editor.value())
     });
-    //editor.codemirror.on("keydown", function(cm, event){
-    //  addNewTextArea(event, id)
-    //});
   }
 
   getSummary(text) {

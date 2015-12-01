@@ -15,10 +15,13 @@ class ResourcePanel extends React.Component {
   }
   closePanel(event) {
     event.preventDefault();
-    document.getElementById('resourcePanel').style.display = 'none';
+    this.refs.resourcePanel.getDOMNode().style.display = 'none';
+  }
+  getStyle() {
+    return this.refs.resourcePanel.getDOMNode();
   }
   addImages() {
-    var selectedImages = document.querySelectorAll('#imageList img.active');
+    var selectedImages = this.refs.resourcePanel.getDOMNode().querySelectorAll('#imageList img.active');
     var images = [];
     if (selectedImages.length == 0) {
       return
@@ -60,7 +63,7 @@ class ResourcePanel extends React.Component {
       )
     });
     return (
-      <div className="modal fade" id="resourcePanel" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" style={{display: "none"}}>
+      <div className="modal fade" ref="resourcePanel" id="resourcePanel" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" style={{display: "none"}}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -69,7 +72,7 @@ class ResourcePanel extends React.Component {
             </div>
             <div className="modal-body">
              <div className="resources-panel-images">
-               <ul id="imageList">{images}</ul>
+               <ul ref="imageList" id="imageList">{images}</ul>
              </div>
             </div>
             <div className="modal-footer">
