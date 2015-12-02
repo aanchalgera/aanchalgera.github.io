@@ -10,7 +10,7 @@ class Home extends React.Component {
     };
   }
   init(){
-    this.props.base.fetch('posts', {
+    this.props.base.fetch('posts_list', {
       context: this,
       asArray: true,
       queries: {
