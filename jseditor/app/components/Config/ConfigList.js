@@ -43,6 +43,7 @@ class ConfigList extends React.Component {
       <div>
         <h2>Config List Page</h2>
         <Link to="/config/new" className="btn btn-primary">New Config</Link>
+        <Link to="/" className="btn btn-primary">Post List Page</Link>
         {loadingMessage}
         <ul className="list-group">
           {configList}

@@ -501,6 +501,8 @@ class Editor extends React.Component{
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
+          <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>
+          <Link className="btn btn-primary" to={"/config/new"}>Add Config</Link>
         </div>
         {errorField}
         {successField}

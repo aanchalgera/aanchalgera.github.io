@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import {Link} from 'react-router';
 import axios from 'axios';
-import jquery from 'jquery';
+// import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
 import RepostBlogsFormOptions from './RepostBlogsFormOptions';
@@ -117,22 +117,24 @@ class Publish extends React.Component {
     for (var i = 0;i < repostBlogs.length ;i++) {
       postRepostBlogNames.push(repostBlogs[i].value);
     }
+
     var data = {
-      "categoryId":"-1",
-      "post_title":this.state.title,
-      "comment_status":"open",
-      "post_type":"normal",
-      "post_content":content,
-      "postExcerpt" : JSON.stringify({'meta' : metadata}),
-      "post_abstract":"",
-      "post_extended_title":"",
-      "post_visibility":0,
-      "posts_galleries":"",
-      "post_subtype" : 13,
-      "postDate": this.state.value,
+      categoryId: "-1",
+      post_title: this.state.title,
+      comment_status: "open",
+      post_type: "normal",
+      post_content: content,
+      postExcerpt: JSON.stringify({'meta': metadata}),
+      post_abstract: "",
+      post_extended_title: "",
+      post_visibility: 0,
+      posts_galleries: "",
+      post_subtype: 13,
+      postDate: this.state.value,
       "publish-region": publishRegion,
-      "postStatus": this.state.status,
-      "postRepostBlogNames": postRepostBlogNames
+      postStatus: this.state.status,
+      postRepostBlogNames: postRepostBlogNames,
+      page: "publish"
     }
     var formData = {
       "id" : this.state.id,
@@ -157,36 +159,38 @@ class Publish extends React.Component {
       data.id = this.state.postId;
     }
     var self = this;
-    jquery.ajax({
-      url: "http://testing.xataka.com/admin/"+postUrl,
-      type: postType,
-      dataType: "json",
-      data: data,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true
+/////////////////////////////
+    axios({
+      url : SITE_DOMAIN+"admin/"+postUrl,
+      method: postType,
+      // headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+      withCredentials: true,
+      // data : 'categoryId=-1&post_title=hello+hello+hello+hello+hello+hello&comment_status=open&post_type=normal&post_content=%3Cmain%3E++++%3Carticle+class%3D%22article+article-longform%22%3E++++++++%3Cheader+class%3D%22article-header+article-longform-header%22%3E++++++++++++%3Cdiv+class%3D%22module+module-type-text+module-layout-single%22+style%3D%22%22%3E++++%3Cdiv+class%3D%22module-content%22%3E++++++++%3Cp%3Ehello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+hello+%3C%2Fp%3E++++%3C%2Fdiv%3E%3C%2Fdiv%3E++++++++%3C%2Fheader%3E++++++++%3Cdiv+class%3D%22article-metadata-container+m-in-longform%22%3E++++++++++++%3Cdiv+class%3D%22article-metadata%22%3E++++++++++++%3Ctime+class%3D%22article-date%22+datetime%3D%22%23DATETIME%23%22+data-format%3D%22DD+MMMM+YYYY+HH%3Amm%22%3E%3C%2Ftime%3E++++++++++++%3C%2Fdiv%3E++++++++%3C%2Fdiv%3E++++++++%3Cdiv+class%3D%22article-social-share+m-in-longform%22%3E++++++++++++%3Cp%3ECompartir%3C%2Fp%3E++++++++++++%3Cul%3E++++++++++++++++%3Cli%3E%3Ca+class%3D%22btn-facebook%22+data-social%3D%22facebook%22%3EFacebook%3C%2Fa%3E%3C%2Fli%3E++++++++++++++++%3Cli%3E%3Ca+class%3D%22btn-twitter%22+data-social%3D%22twitter%22%3ETwitter%3C%2Fa%3E%3C%2Fli%3E++++++++++++++++%3Cli%3E%3Ca+class%3D%22btn-email%22+data-social%3D%22email%22%3EEmail%3C%2Fa%3E%3C%2Fli%3E++++++++++++%3C%2Ful%3E++++++++%3C%2Fdiv%3E++++++++%3Cdiv+class%3D%22article-content%22%3E++++++++++++++++++++%3C%2Fdiv%3E++++%3C%2Farticle%3E%3C%2Fmain%3E&postExcerpt=%7B%22meta%22%3A%7B%22homepage%22%3A%7B%22content%22%3A%22%22%2C%22sponsor%22%3A%22%22%7D%2C%22index%22%3A%22%22%7D%7D&post_abstract=&post_extended_title=&post_visibility=0&posts_galleries=&post_subtype=13&postDate=04%2F12%2F2015+7%3A00&publish-region%5B%5D=ES&publish-region%5B%5D=US&publish-region%5B%5D=MX&publish-region%5B%5D=PE&publish-region%5B%5D=ROW&postStatus=publish&page=publish'
+      data : data
     })
-    .success(function(result, status) {
-     console.log(result, status);
-     if (result.id != undefined) {
-       formData.publishData.postId = result.id;
-       formData.publishData.postHash = result.post_hash;
-     }
-     self.props.base.post(
-       'posts/' + self.state.id, {
-       data: formData,
-       then(data) {
-         if (result.id != undefined) {
-           this.refs.scheduleSuccess.getDOMNode().style.display = 'block';
-           setTimeout(function() {
-             this.refs.scheduleSuccess.getDOMNode().style.display = 'none';
-           }, 7000);
-           self.setState({postId: result.id, postHash: result.post_hash});
-         }
-       }
-     });
-    });
+    .then(function (result) {
+      if (result.id != undefined) {
+        formData.publishData.postId = result.id;
+        formData.publishData.postHash = result.post_hash;
+      }
+      self.props.base.post(
+        'posts/' + self.state.id, {
+        data: formData,
+        then(data) {
+          if (result.id != undefined) {
+            document.getElementById('schedule-success').style.display = 'block';
+            setTimeout(function() {
+              document.getElementById('schedule-success').style.display = 'none';
+            }, 7000);
+            self.setState({postId: result.id, postHash: result.post_hash});
+          }
+        }
+      });
+    })
+    .catch(function (response) {
+      console.log('error : ',response);
+    });    
+/////////////////////////////    
   }
   onChange (ev) {
     ev.preventDefault()

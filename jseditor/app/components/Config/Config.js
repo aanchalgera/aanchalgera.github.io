@@ -65,35 +65,50 @@ class Config extends React.Component {
 
     render() {
         return (
-            <div>
-                <form id="config-form">
-                    Site Name: <input ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} />
-                    Site Url: <input ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} />
-                    Cloudinary Url: <input ref="cloudinary_url" type="text" value={this.state.cloudinaryUrl} onChange={this.handleCloudinaryChange.bind(this)} />
-                    Cdn Url: <input ref="cdn_url" type="text" value={this.state.cdnUrl} onChange={this.handleCdnUrlChange.bind(this)} />
-                    <button onClick={this.submitConfig.bind(this)} className="btn btn-primary">Submit</button>
-                </form>
+            <div className="row">
+                <div className="col-xs-12 col-md-8 col-md-offset-2 well">
+                    <div className="form-group">Site Name: <input className="form-control" ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} /></div>
+                    <div className="form-group">Site Url: <input className="form-control" ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} /></div>
+                    <div className="form-group">Cloudinary Url: <input className="form-control" ref="cloudinary_url" type="text" value={this.state.cloudinaryUrl} onChange={this.handleCloudinaryChange.bind(this)} /></div>
+                    <div className="form-group">Cdn Url: <input className="form-control" ref="cdn_url" type="text" value={this.state.cdnUrl} onChange={this.handleCdnUrlChange.bind(this)} /></div>
+                    <button onClick={this.submitConfig.bind(this)} className="btn btn-primary">Save</button>
+                </div>
             </div>
+
         )
     }
 
     submitConfig() {
-        var data = {
-            id: this.state.id,
-            site_name: this.refs.site_name.getDOMNode().value,
-            site_url: this.refs.site_url.getDOMNode().value,
-            cloudinary_url: this.refs.cloudinary_url.getDOMNode().value,
-            cdn_url: this.refs.cdn_url.getDOMNode().value
-        };
-
-        this.props.base.post(
-            'config/'+this.state.id, {
-                    data: data,
-                    then(data) {
-                        console.log('saved');
-                    }
+        this.props.base.fetch('config',  {
+              context: this,
+              state: 'config',
+              asArray: true,
+              queries: {
+                orderByChild: 'site_name',
+                equalTo: this.state.siteName
+              },
+              then(data){
+                console.log(data);
+              }
             }
         );
+
+        // var data = {
+        //     id: this.state.id,
+        //     site_name: this.refs.site_name.getDOMNode().value,
+        //     site_url: this.refs.site_url.getDOMNode().value,
+        //     cloudinary_url: this.refs.cloudinary_url.getDOMNode().value,
+        //     cdn_url: this.refs.cdn_url.getDOMNode().value
+        // };
+
+        // this.props.base.post(
+        //     'config/'+this.state.id, {
+        //             data: data,
+        //             then(data) {
+        //                 console.log('saved');
+        //             }
+        //     }
+        // );
     }
 }
 

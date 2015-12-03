@@ -42,10 +42,9 @@ class Home extends React.Component {
     });
     return (
       <div>
-        <h2>List Page</h2>
+        <h2>Post List Page</h2>
         <Link to="/post/new" className="btn btn-primary">New Post</Link>
-        <Link to="/config" className="btn btn-primary">List Config</Link>
-        <Link to="/config/new" className="btn btn-primary">New Config</Link>
+        <Link to="/config" className="btn btn-primary">Config List Page</Link>
         {loadingMessage}
         <ul className="list-group">
           {postList}

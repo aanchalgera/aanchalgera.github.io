@@ -15,7 +15,6 @@ export default (
     <Route name="newpost" path="post/new" handler={Editor} />
     <Route name="newconfig" path="config/new" handler={Config} />
     <Route name="listconfig" path="config" handler={ConfigList} />
-    <Route name="listconfigWithSlash" path="config/" handler={ConfigList} />
     <Route name="editconfig" path="config/:configId" handler={Config} />
 
     <DefaultRoute handler={Home} />
