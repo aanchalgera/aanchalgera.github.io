@@ -22,7 +22,8 @@ class Publish extends React.Component {
       postRepostBlogNames: [],
       publishRegion: [],
       postId : '',
-      postHash: ''
+      postHash: '',
+      buttonDisabled: true
     };
   }
   componentDidMount(){
@@ -46,7 +47,8 @@ class Publish extends React.Component {
               scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title}
             })
             this.setState({
-              futureProgrammedPosts: scheduledPosts
+              futureProgrammedPosts: scheduledPosts,
+              buttonDisabled: false
             });
           }
         }
@@ -66,7 +68,8 @@ class Publish extends React.Component {
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
               postId : data.publishData.postId != undefined ? data.publishData.postId : '',
-              postHash : data.publishData.postHash != undefined ? data.publishData.postHash : ''
+              postHash : data.publishData.postHash != undefined ? data.publishData.postHash : '',
+              buttonDisabled: false
             });
           }
         }
@@ -99,6 +102,7 @@ class Publish extends React.Component {
     })
     .catch(function (response) {
       console.log('error : ',response);
+      self.toggleButton();
     });
   }
   saveData(response) {
@@ -178,11 +182,12 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          if (result.id != undefined) {
-           this.refs.scheduleSuccess.getDOMNode().style.display = 'block';
+           self.refs.scheduleSuccess.getDOMNode().style.display = 'block';
            setTimeout(function() {
-             this.refs.scheduleSuccess.getDOMNode().style.display = 'none';
+             self.refs.scheduleSuccess.getDOMNode().style.display = 'none';
            }, 7000);
            self.setState({postId: result.id, postHash: result.post_hash});
+           self.toggleButton();
          }
        }
      });
@@ -195,7 +200,13 @@ class Publish extends React.Component {
   onSchedule(ev) {
     ev.preventDefault();
     if (!this.validate()) return;
+    this.toggleButton();
     this.submitPost();
+  }
+  toggleButton() {
+    this.setState({
+      buttonDisabled : !this.state.buttonDisabled
+    });
   }
   validate() {
     document.getElementById('date-error').style.display = 'none';
@@ -258,6 +269,7 @@ class Publish extends React.Component {
           <div className="published-messages error" style={{display: 'none'}} id="date-error">Please select a valid date, future date</div>
           <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
           <SlotWidget
+            buttonDisabled={this.state.buttonDisabled}
             value={this.state.value}
             futureProgrammedPosts={this.state.futureProgrammedPosts}
             onChange={this.onChange.bind(this)}

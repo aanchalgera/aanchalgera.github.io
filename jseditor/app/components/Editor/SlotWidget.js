@@ -52,7 +52,7 @@ class SlotWidget extends React.Component {
           <p className="non-published-state">
             <input type="text" size="20" value={this.props.value} onChange={this.props.onChange.bind(this)} name="postDate" id="publish-date-old" />
             <a className="btn btn-primary" href="#" id="toggle-publish-slots" onClick={this.props.openSlotWidget.bind(this)}>Select slot</a>
-            <a className="btn btn-warning" href="#" id="schedule-future-top" onClick={this.props.onSchedule.bind(this)}>Schedule</a>
+            <button className="btn btn-warning" disabled={this.props.buttonDisabled} id="schedule-future-top" onClick={this.props.onSchedule.bind(this)}>Schedule</button>
           </p>
           <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
             <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
