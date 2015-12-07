@@ -103,7 +103,7 @@ class Publish extends React.Component {
   }
   saveData(response) {
     var content = response.parsedData;
-    var metadata = response.meta ? response.meta : 'placeholder metadata';
+    var metadata = response.meta;
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm,"");
@@ -132,7 +132,8 @@ class Publish extends React.Component {
       "postDate": this.state.value,
       "publish-region": publishRegion,
       "postStatus": this.state.status,
-      "postRepostBlogNames": postRepostBlogNames
+      "postRepostBlogNames": postRepostBlogNames,
+      "page": "publish"
     }
     var formData = {
       "id" : this.state.id,
