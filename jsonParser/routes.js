@@ -3,12 +3,12 @@ var express = require('express')
 ,   router = express.Router()
 ,   parser = require(__dirname + '/parser.js')
 ,   result
+,   Firebase = require("firebase")
 ;
 
 router.post('/', function (request, response) {
     if ('production' == process.env.NODE_ENV) {
-        parser.setCloudinaryPath('http://res.cloudinary.com/realarpit/image/upload');
-        parser.setCdnPath('http://i1.blogs.es');
+        parser.setFirebaseRef('https://brilliant-heat-3614.firebaseio.com');
     }
     try {
         result = parser.parse(request.body);
