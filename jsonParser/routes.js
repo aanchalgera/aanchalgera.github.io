@@ -7,7 +7,7 @@ var express = require('express')
 
 router.post('/', function (request, response) {
     if ('production' == process.env.NODE_ENV) {
-        parser.setFirebaseConfigUrl('https://brilliant-heat-3614.firebaseio.com/config.json');
+        parser.setFirebaseRef('https://brilliant-heat-3614.firebaseio.com/config');
     }
     try {
         result = parser.parse(request.body);
