@@ -3,12 +3,11 @@ var express = require('express')
 ,   router = express.Router()
 ,   parser = require(__dirname + '/parser.js')
 ,   result
-,   Firebase = require("firebase")
 ;
 
 router.post('/', function (request, response) {
     if ('production' == process.env.NODE_ENV) {
-        parser.setFirebaseRef('https://brilliant-heat-3614.firebaseio.com');
+        parser.setFirebaseConfigUrl('https://brilliant-heat-3614.firebaseio.com/config.json');
     }
     try {
         result = parser.parse(request.body);

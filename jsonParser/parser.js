@@ -2,7 +2,7 @@
 var marked = require('marked');
 var templating = require(__dirname + '/templating.js');
 var path = require('path');
-var Firebase = require("firebase");
+var axios = require("axios");
 
 var html
 , firstSectionHTML
@@ -18,24 +18,28 @@ var html
 , parsedData
 , cloudinaryPath = 'http://res.cloudinary.com/agilemediatest/image/upload'
 , cdnPath = 'http://ti1.blogs.es'
-, firebaseRef = new Firebase("https://dazzling-torch-3017.firebaseio.com/")
+, firebaseConfigUrl = "https://dazzling-torch-3017.firebaseio.com/config.json"
 ;
 
-function setFirebaseRef(requestFirebase)
+function setFirebaseConfigUrl(requestFirebaseConfigUrl)
 {
-    firebaseRef = new Firebase(requestFirebase);
+    firebaseConfigUrl = requestFirebaseConfigUrl;
 }
 
 function parse(jsonObjects)
 {
-    firebaseRef.once("value", function(snapshot) { 
-        snapshot.forEach(function(childSnapshot) { 
-            childData = childSnapshot.val();
-            if ('xataka' == childSnapshot.site_name) {
-                cloudinaryPath = childSnapshot.cloudinary_url;
-                cdnPath = childSnapshot.cdn_url;
+    axios.get(firebaseConfigUrl)
+    .then(function (response) {
+        var responseData = response.data;
+        var site;
+        for (site in responseData) {
+            if ('xataka' == responseData[site]['site_name']) {
+                cloudinaryPath = responseData[site]['cloudinary_url'];
+                cdnPath = responseData[site]['cdn_url'];
             }
-        });
+        }
+    }).catch(function (response) {
+        console.log(response);
     });
 
     if ('meta' in jsonObjects && 'homepage' in jsonObjects.meta) {
@@ -43,7 +47,7 @@ function parse(jsonObjects)
             jsonObjects.meta.homepage.content = marked(jsonObjects.meta.homepage.content);
         }
         if ('image' in jsonObjects.meta.homepage && 'url' in jsonObjects.meta.homepage.image) {
-            jsonObjects.meta.homepage.image.name = getImageName(jsonObjects.meta.homepage.image.url);
+            jsonObjects.meta.homepage.image.name = cdnPath + '/' + getImageName(jsonObjects.meta.homepage.image.url);
         }
     }
 
@@ -458,6 +462,6 @@ function getImageName(url)
 module.exports = {
     parse: parse,
     processRequest: processRequest,
-    setFirebaseRef: setFirebaseRef,
+    setFirebaseConfigUrl: setFirebaseConfigUrl,
     testRead: testRead
 }
