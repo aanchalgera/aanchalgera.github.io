@@ -44,7 +44,13 @@ function parse(jsonObjects)
             jsonObjects.meta.homepage.content = marked(jsonObjects.meta.homepage.content);
         }
         if ('image' in jsonObjects.meta.homepage && 'url' in jsonObjects.meta.homepage.image) {
-            jsonObjects.meta.homepage.image.name = cdnPath + '/' + getImageName(jsonObjects.meta.homepage.image.url);
+            var imageName = getImageName(jsonObjects.meta.homepage.image.url);
+            jsonObjects.meta.homepage.image.name = cdnPath + '/' + imageName;
+            jsonObjects.meta.homepage.image.name450 = cdnPath + '/w_450,c_fit/' + imageName;
+            jsonObjects.meta.homepage.image.name650 = cdnPath + '/w_650,c_fit/' + imageName;
+            jsonObjects.meta.homepage.image.name1024 = cdnPath + '/w_1024,c_fit/' + imageName;
+            jsonObjects.meta.homepage.image.name1366 = cdnPath + '/w_1366,c_fit/' + imageName;
+            jsonObjects.meta.homepage.image.name2560 = cdnPath + '/w_2560,c_fit/' + imageName;
         }
     }
 
