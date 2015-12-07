@@ -12,8 +12,8 @@ if ('production' == process.env.NODE_ENV) {
     }
 } else if ('testing' == process.env.NODE_ENV) {
   var configParams = {
-      'host' : 'http://dev.code.com',
-      'blogUrl' : 'http://dev.xataka.com:8282/',
+      'host' : 'http://52.19.4.152',
+      'blogUrl' : 'http://testing.xataka.com/',
       'firebaseUrl': 'https://dazzling-torch-3017.firebaseio.com/',
       'cloudName' : 'agilemediatest',
       'uploadPreset' : 'aras8ztr',
