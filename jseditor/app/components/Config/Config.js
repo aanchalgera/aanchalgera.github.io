@@ -37,6 +37,7 @@ class Config extends React.Component {
             }
           });
         } else {
+          hashId = helpers.generatePushID();
           this.setState({
             id : hashId
           }, this.router.transitionTo('/config/'+hashId));
