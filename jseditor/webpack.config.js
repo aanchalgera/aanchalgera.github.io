@@ -19,6 +19,15 @@ if ('production' == process.env.NODE_ENV) {
       'uploadPreset' : 'aras8ztr',
       'timezone' : 'Europe/Madrid'
     }
+} else if ('development' == process.env.NODE_ENV) {
+  var configParams = {
+      'host' : 'http://dev.code.com',
+      'blogUrl' : 'http://dev.xataka.com:8282/',
+      'firebaseUrl': 'https://dazzling-torch-3017.firebaseio.com/',
+      'cloudName' : 'agilemediatest',
+      'uploadPreset' : 'aras8ztr',
+      'timezone' : 'Europe/Madrid'
+    }
 } else {
   console.log('NODE_ENV not defined');
   return false;
