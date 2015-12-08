@@ -9,8 +9,6 @@ import Metadata from './Metadata/Metadata';
 import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
 
-const SITE_DOMAIN = configParams.blogUrl;
-
 class Editor extends React.Component{
   constructor(props){
     super(props);
