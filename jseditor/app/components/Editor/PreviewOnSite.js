@@ -1,6 +1,9 @@
 import React from 'react'
 import jquery from 'jquery';
 import axios from 'axios';
+import moment from 'moment-timezone';
+
+const SITE_DOMAIN = configParams.blogUrl;
 
 class PreviewOnSite extends React.Component{
   submitPost() {
@@ -32,6 +35,8 @@ class PreviewOnSite extends React.Component{
     var content = response.parsedData;
     var metadata = response.meta;
     content = content.replace(/(\r\n|\n|\r)/gm,"");
+    var timeStamp = moment().format('X');
+    var currentDay = moment.unix(timeStamp).locale('es').format('DD/MM/YYYY HH:mm')
     var data = {
       "categoryId":"-1",
       "post_title":this.props.state.value,
@@ -45,7 +50,10 @@ class PreviewOnSite extends React.Component{
       "posts_galleries":"",
       "post_subtype" : 13,
       "postStatus": "draft",
-      "page": "preview"
+      "page": "preview",
+      "postDate": currentDay,
+      "publish-region": "",
+      "postRepostBlogNames": ""
     }
     var postType = 'POST';
     var postUrl = 'posts.json';
@@ -68,7 +76,7 @@ class PreviewOnSite extends React.Component{
     })
     .success(function(result, status) {
      console.log(result, status);
-     this.props.setState({postId: result.id, postHash: result.post_hash});
+     self.props.setState({postId: result.id, postHash: result.post_hash});
      var sitePreviewUrl = SITE_DOMAIN+"preview-main/" +result.id+'/'+result.post_hash;
      window.open(sitePreviewUrl);
     });
@@ -76,7 +84,7 @@ class PreviewOnSite extends React.Component{
   render(){
     var previewButton = '';
     if (this.props.state.id && (this.props.state.status == undefined || this.props.state.status != 'publish')) {
-      previewButton = <button className="btn btn-primary" onClick={this.submitPost.bind(this)}>Preview on Site (Not yet working)</button>
+      previewButton = <button className="btn btn-primary" onClick={this.submitPost.bind(this)}>Preview on Site</button>
     }
     return (
       <span>{previewButton}</span>
