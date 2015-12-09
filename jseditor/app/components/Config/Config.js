@@ -11,9 +11,10 @@ class Config extends React.Component {
             siteName: '',
             siteUrl: '',
             cloudinaryUrl: '',
-            cdnUrl: ''
+            cdnUrl: '',
+            errors: ''
         };
-    }
+    };
 
     componentDidMount() {
         this.init();
@@ -66,6 +67,12 @@ class Config extends React.Component {
 
 
     render() {
+        var errorField = '';
+        if ('' != this.state.errors) {
+          errorField = <div className="alert alert-danger" role="alert">
+            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span className="sr-only">Error:</span> {this.state.errors}</div>;
+        }
         return (
         <div>
           <div>
@@ -73,20 +80,37 @@ class Config extends React.Component {
             <Link to="/" className="btn btn-primary">Post List Page</Link>
             <Link to="/post/new" className="btn btn-primary">New Post</Link>
           </div>
-                <div className="row">
-                    <div className="col-xs-12 col-md-8 col-md-offset-2 well">
-                        <div className="form-group">Site Name: <input className="form-control" ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} /></div>
-                        <div className="form-group">Site Url: <input className="form-control" ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} /></div>
-                        <div className="form-group">Cloudinary Url: <input className="form-control" ref="cloudinary_url" type="text" value={this.state.cloudinaryUrl} onChange={this.handleCloudinaryChange.bind(this)} /></div>
-                        <div className="form-group">Cdn Url: <input className="form-control" ref="cdn_url" type="text" value={this.state.cdnUrl} onChange={this.handleCdnUrlChange.bind(this)} /></div>
-                        <button onClick={this.checkDuplicateSiteName.bind(this)} className="btn btn-primary">Save</button>
-                    </div>
+          {errorField}
+            <div className="row">
+                <div className="col-xs-12 col-md-8 col-md-offset-2 well">
+                    <div className="form-group">Site Name: <input className="form-control" ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} /></div>
+                    <div className="form-group">Site Url: <input className="form-control" ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} /></div>
+                    <div className="form-group">Cloudinary Url: <input className="form-control" ref="cloudinary_url" type="text" value={this.state.cloudinaryUrl} onChange={this.handleCloudinaryChange.bind(this)} /></div>
+                    <div className="form-group">Cdn Url: <input className="form-control" ref="cdn_url" type="text" value={this.state.cdnUrl} onChange={this.handleCdnUrlChange.bind(this)} /></div>
+                    <button onClick={this.checkDuplicateSiteName.bind(this)} className="btn btn-primary">Save</button>
                 </div>
             </div>
+        </div>
         )
     }
 
     saveRecord(result) {
+        if ('' === this.refs.site_name.getDOMNode().value.trim()) {
+            this.setState({errors: 'Site Name can not be empty'})
+            return false;
+        }
+        if ('' === this.refs.site_url.getDOMNode().value.trim()) {
+            this.setState({errors: 'Site Url can not be empty'})
+            return false;
+        }
+        if ('' === this.refs.cloudinary_url.getDOMNode().value.trim()) {
+            this.setState({errors: 'Cloudinary Url can not be empty'})
+            return false;
+        }
+        if ('' === this.refs.cdn_url.getDOMNode().value.trim()) {
+            this.setState({errors: 'Cdn Url can not be empty'})
+            return false;
+        }
         var data = {
             id: this.state.id,
             site_name: this.refs.site_name.getDOMNode().value,
@@ -111,14 +135,14 @@ class Config extends React.Component {
                 asArray: true,
                 queries: {
                     orderByChild: 'site_url',
-                    equalTo: this.state.siteUrl
+                    equalTo: this.state.siteUrl.trim()
                 },
                 then(data) {
                     var total = data.length;
                     var i;
                     for (i = 0; i < total; i++) {
                         if (this.state.id != data[i].id) {
-                            console.log('Another record with same site url already exists');
+                            this.setState({errors: 'Another record with same site url already exists'})
                             return false;
                         }
                     }
@@ -135,14 +159,14 @@ class Config extends React.Component {
                 asArray: true,
                 queries: {
                     orderByChild: 'site_name',
-                    equalTo: this.state.siteName
+                    equalTo: this.state.siteName.trim()
                 },
                 then(data) {
                     var total = data.length;
                     var i;
                     for (i = 0; i < total; i++) {
                         if (this.state.id != data[i].id) {
-                            console.log('Another record with same site name already exists');
+                            this.setState({errors: 'Another record with same site name already exists'})
                             return false;
                         }
                     }
