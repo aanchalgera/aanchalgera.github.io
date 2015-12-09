@@ -5,7 +5,6 @@ import {Link} from 'react-router';
 let hashId = helpers.generatePushID();
 
 class Config extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
