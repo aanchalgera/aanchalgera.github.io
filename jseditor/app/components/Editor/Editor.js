@@ -248,7 +248,16 @@ class Editor extends React.Component{
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
       "meta"  : this.state.meta != undefined ? this.state.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
     };
+    var listData = {
+      "id" : this.state.id,
+      "title" : this.state.value
+    };
     self = this;
+    this.props.base.post(
+      'posts_list/' + this.state.id, {
+      data: listData,
+      then(data){}
+    });
     this.props.base.post(
       'posts/' + this.state.id, {
       data: data,
@@ -444,7 +453,7 @@ class Editor extends React.Component{
       });
   }
   updateIndexMetadata(event) {
-    this.state.meta.index = event.target.value;
+    this.state.meta.index= event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
   updateFooterCredits(event) {
