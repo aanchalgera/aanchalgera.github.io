@@ -111,6 +111,7 @@ class Config extends React.Component {
             this.setState({errors: 'Cdn Url can not be empty'})
             return false;
         }
+        this.setState({errors: ''})
         var data = {
             id: this.state.id,
             site_name: this.refs.site_name.getDOMNode().value,
