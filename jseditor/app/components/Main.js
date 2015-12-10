@@ -3,7 +3,7 @@ import { RouteHandler } from 'react-router';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
-var base = Rebase.createClass(configParams.firebaseUrl);
+var base = Rebase.createClass('https://user-auth-test.firebaseio.com/');
 
 class Main extends React.Component{
   render(){
