@@ -60,7 +60,6 @@ class PreviewOnSite extends React.Component{
     if (this.props.state.postId != undefined && this.props.state.postId != '') {
       var postType = 'PUT';
       var postUrl = "posts/" + this.props.state.postId + ".json";
-      successMessage = 'Changes has been saved.';
       data.id = this.props.state.postId;
     }
     var self = this;
