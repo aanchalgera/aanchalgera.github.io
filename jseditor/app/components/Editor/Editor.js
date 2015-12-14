@@ -41,7 +41,7 @@ class Editor extends React.Component{
               maxId: data.maxId,
               status: data.status != undefined ? data.status : '',
               publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
+              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor: {name:'', image:''}}, seo:{}}
             });
           }
         }
@@ -50,7 +50,7 @@ class Editor extends React.Component{
       let hashId = helpers.generatePushID();
       this.setState({
         id : hashId,
-        meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
+        meta : {index : '',homepage : {content:'',sponsor:{name:'', image:''}}, seo:{}}
       }, this.router.transitionTo('/edit/post/'+hashId));
     }
   }
@@ -246,7 +246,7 @@ class Editor extends React.Component{
       "maxId" : this.state.maxId,
       "status": this.state.status != undefined ? this.state.status : '',
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}}
+      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '',homepage : {content:'',sponsor:{name:'',image:''}}, seo:{}}
     };
     var listData = {
       "id" : this.state.id,
@@ -465,7 +465,7 @@ class Editor extends React.Component{
     this.setState({meta: this.state.meta}, this.saveData());
   }
   updateHomepageSponsor(event) {
-    this.state.meta.homepage.sponsor = event.target.value;
+    this.state.meta.homepage.sponsor.name = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
   deleteHomepageImage() {
@@ -482,7 +482,10 @@ class Editor extends React.Component{
     this.state.meta.seo.description = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
-
+  updateSponsorImage(value) {
+    this.state.meta.homepage.sponsor.image = value;
+    this.setState({meta: this.state.meta}, this.saveData());
+  }
   render(){
     var errorField = '';
     if (this.state.isError) {
@@ -502,6 +505,7 @@ class Editor extends React.Component{
       updateFooterCredits={this.updateFooterCredits.bind(this)}
       updateHomepageContent={this.updateHomepageContent.bind(this)}
       updateHomepageSponsor={this.updateHomepageSponsor.bind(this)}
+      updateSponsorImage={this.updateSponsorImage.bind(this)}
       deleteHomepageImage={this.deleteHomepageImage.bind(this)}
       openResourcePanel={this.openResourcePanel.bind(this)}
     />

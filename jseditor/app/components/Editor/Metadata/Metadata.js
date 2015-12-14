@@ -21,6 +21,7 @@ class Metadata extends React.Component{
           homepage={this.props.meta.homepage}
           updateHomepageContent={this.props.updateHomepageContent}
           updateHomepageSponsor={this.props.updateHomepageSponsor}
+          updateSponsorImage={this.props.updateSponsorImage}
           deleteHomepageImage={this.props.deleteHomepageImage}
           openResourcePanel={this.props.openResourcePanel}
         />
