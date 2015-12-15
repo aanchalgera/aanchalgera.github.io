@@ -46,14 +46,6 @@ class Homepage extends React.Component{
             defaultValue= {this.props.homepage.content}
             placeholder="Add your text here...." />
         </div>
-        <div className="form-group">
-          <label htmlFor>Sponsor name</label>
-          <input
-            type="text"
-            className="form-control sponsor-field"
-            defaultValue= {this.props.homepage.sponsor}
-            onBlur={this.props.updateHomepageSponsor} />
-        </div>
       </div>
     )
   }
