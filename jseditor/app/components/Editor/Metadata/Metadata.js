@@ -3,6 +3,7 @@ import Index from './Index';
 import Footer from './Footer';
 import Seo from './Seo';
 import Homepage from './Homepage';
+import Sponsor from './Sponsor';
 
 class Metadata extends React.Component{
   render () {
@@ -29,6 +30,11 @@ class Metadata extends React.Component{
           seo={this.props.meta.seo ? this.props.meta.seo : {title:'', description:''} }
           updateSeoTitle={this.props.updateSeoTitle}
           updateSeoDescription={this.props.updateSeoDescription}
+        />
+        <Sponsor
+          sponsor={this.props.meta.sponsor}
+          updateSponsorName={this.props.updateSponsorName}
+          updateSponsorImage={this.props.updateSponsorImage}
         />
       </div>
     )
