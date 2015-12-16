@@ -35,6 +35,7 @@ class Metadata extends React.Component{
           sponsor={this.props.meta.sponsor}
           updateSponsorName={this.props.updateSponsorName}
           updateSponsorImage={this.props.updateSponsorImage}
+          updateSponsorTracker={this.props.updateSponsorTracker}
         />
       </div>
     )
