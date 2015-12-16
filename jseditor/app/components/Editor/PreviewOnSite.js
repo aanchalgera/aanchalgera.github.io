@@ -64,7 +64,7 @@ class PreviewOnSite extends React.Component{
     }
     var self = this;
     jquery.ajax({
-      url: "http://testing.xataka.com/admin/"+postUrl,
+      url: SITE_DOMAIN+postUrl,
       type: postType,
       dataType: "json",
       data: data,
