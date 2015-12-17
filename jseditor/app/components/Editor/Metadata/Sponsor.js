@@ -34,6 +34,15 @@ class Sponsor extends React.Component {
             defaultValue= {this.props.sponsor.image}
             onBlur={this.updateSponsorImage.bind(this)} />
         </div>
+        <div className="form-group">
+          <label htmlFor>Add tracker</label>
+          <textarea
+            ref = "trackerContent"
+            className="form-control"
+            placeholder="Add your tracker code here...."
+            defaultValue= {this.props.sponsor.tracker}
+            onBlur={this.props.updateSponsorTracker} />
+        </div>
       </div>
     )
   }
