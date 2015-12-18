@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Seo from './Seo';
 import Homepage from './Homepage';
 import Sponsor from './Sponsor';
+import Css from './Css';
 
 class Metadata extends React.Component{
   render () {
@@ -36,6 +37,10 @@ class Metadata extends React.Component{
           updateSponsorName={this.props.updateSponsorName}
           updateSponsorImage={this.props.updateSponsorImage}
           updateSponsorTracker={this.props.updateSponsorTracker}
+        />
+        <Css
+          css={this.props.meta.css}
+          updateCssSkinname={this.props.updateCssSkinname.bind(this)}
         />
       </div>
     )
