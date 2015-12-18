@@ -40,7 +40,7 @@ class Metadata extends React.Component{
         />
         <Css
           css={this.props.meta.css}
-          updateCssSkinname={this.props.updateCssSkinname.bind(this)}
+          updateCssSkinName={this.props.updateCssSkinName.bind(this)}
         />
       </div>
     )

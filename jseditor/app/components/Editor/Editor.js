@@ -41,7 +41,7 @@ class Editor extends React.Component{
               maxId: data.maxId,
               status: data.status != undefined ? data.status : '',
               publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-              meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinname:''}, seo:{}}
+              meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
             });
           }
         }
@@ -50,7 +50,7 @@ class Editor extends React.Component{
       let hashId = helpers.generatePushID();
       this.setState({
         id : hashId,
-        meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinname:''}, seo:{}}
+        meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
       }, this.router.transitionTo('/edit/post/'+hashId));
     }
   }
@@ -246,7 +246,7 @@ class Editor extends React.Component{
       "maxId" : this.state.maxId,
       "status": this.state.status != undefined ? this.state.status : '',
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinname:''}, seo:{}}
+      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
     };
     var listData = {
       "id" : this.state.id,
@@ -490,8 +490,8 @@ class Editor extends React.Component{
     this.state.meta.sponsor.tracker = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
-  updateCssSkinname(event) {
-    this.state.meta.css.skinname = event.target.value;
+  updateCssSkinName(event) {
+    this.state.meta.css.skinName = event.target.value.trim();
     this.setState({meta: this.state.meta}, this.saveData());
   }
   render(){
@@ -515,7 +515,7 @@ class Editor extends React.Component{
       updateSponsorName={this.updateSponsorName.bind(this)}
       updateSponsorImage={this.updateSponsorImage.bind(this)}
       updateSponsorTracker={this.updateSponsorTracker.bind(this)}
-      updateCssSkinname={this.updateCssSkinname.bind(this)}
+      updateCssSkinName={this.updateCssSkinName.bind(this)}
       deleteHomepageImage={this.deleteHomepageImage.bind(this)}
       openResourcePanel={this.openResourcePanel.bind(this)}
     />

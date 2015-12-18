@@ -64,7 +64,7 @@ class PreviewOnSite extends React.Component{
     }
     var self = this;
     jquery.ajax({
-      url: SITE_DOMAIN+postUrl,
+      url: SITE_DOMAIN+'admin/'+postUrl,
       type: postType,
       dataType: "json",
       data: data,
