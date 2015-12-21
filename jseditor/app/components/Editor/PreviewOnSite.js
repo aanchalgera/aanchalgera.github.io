@@ -75,7 +75,7 @@ class PreviewOnSite extends React.Component{
     })
     .success(function(result, status) {
      console.log(result, status);
-     self.props.setState({postId: result.id, postHash: result.post_hash});
+     self.props.savePreviewData(result.id, result.post_hash);
      var sitePreviewUrl = SITE_DOMAIN+"preview-main/" +result.id+'/'+result.post_hash;
      window.open(sitePreviewUrl);
     });
