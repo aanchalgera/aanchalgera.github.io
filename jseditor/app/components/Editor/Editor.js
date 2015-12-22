@@ -24,7 +24,9 @@ class Editor extends React.Component{
       addMoreImages: false,
       orderMode: false,
       fields: [],
-      meta: null
+      meta: null,
+      postId: '',
+      postHash: ''
     };
   }
   init(){
@@ -36,6 +38,8 @@ class Editor extends React.Component{
           if (null != data) {
             this.setState({
               id : data.id,
+              postId: data.publishData.postId != undefined? data.publishData.postId : '',
+              postHash: data.publishData.postHash != undefined? data.publishData.postHash : '',
               fields: data.sections != undefined ? data.sections : [],
               value: data.title,
               maxId: data.maxId,
@@ -248,6 +252,10 @@ class Editor extends React.Component{
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
       "meta"  : this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
     };
+    if (this.state.postId != undefined) {
+      data.publishData.postId = this.state.postId;
+      data.publishData.postHash = this.state.postHash;
+    }
     var listData = {
       "id" : this.state.id,
       "title" : this.state.value
@@ -494,6 +502,12 @@ class Editor extends React.Component{
     this.state.meta.css.skinName = event.target.value.trim();
     this.setState({meta: this.state.meta}, this.saveData());
   }
+  savePreviewData(id, postHash) {
+    this.setState({
+      postId: id,
+      postHash: postHash
+    }, this.saveData());
+  }
   render(){
     var errorField = '';
     if (this.state.isError) {
@@ -524,7 +538,7 @@ class Editor extends React.Component{
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-          <PreviewOnSite state={this.state} setState={this.setState.bind(this)}/>
+          <PreviewOnSite state={this.state} savePreviewData={this.savePreviewData.bind(this)} />
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
           <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>
