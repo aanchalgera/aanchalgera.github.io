@@ -11,7 +11,7 @@ class PreviewOnSite extends React.Component{
       id : this.props.state.id,
       title : this.props.state.value,
       sections : this.props.state.fields,
-      page: "preview",
+      page: "publish",
       meta : this.props.state.meta
     };
     data = JSON.stringify(data);
@@ -50,7 +50,7 @@ class PreviewOnSite extends React.Component{
       "posts_galleries":"",
       "post_subtype" : 13,
       "postStatus": "draft",
-      "page": "preview",
+      "page": "publish",
       "postDate": currentDay,
       "publish-region": "",
       "postRepostBlogNames": ""
