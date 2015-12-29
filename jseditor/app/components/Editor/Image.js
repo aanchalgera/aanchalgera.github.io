@@ -18,6 +18,7 @@ class Image extends React.Component {
           addImageCaption={this.props.addImageCaption.bind(this)}
           fieldId={this.props.dataId}
           imageCaption={imageCaption}
+          limit=""
         />
       </div>
     )

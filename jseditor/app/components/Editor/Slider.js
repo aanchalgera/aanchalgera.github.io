@@ -21,7 +21,8 @@ class Slider extends React.Component {
             id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
-            imageCaption={imageCaption} />
+            imageCaption={imageCaption}
+            limit="140" />
         </li>
       )
     });
