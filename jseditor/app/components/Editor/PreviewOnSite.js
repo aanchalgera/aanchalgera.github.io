@@ -49,7 +49,7 @@ class PreviewOnSite extends React.Component{
       "post_visibility":0,
       "posts_galleries":"",
       "post_subtype" : 13,
-      "postStatus": "draft",
+      "post_status": "draft",
       "page": "preview",
       "postDate": currentDay,
       "publish-region": "",

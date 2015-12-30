@@ -135,7 +135,7 @@ class Publish extends React.Component {
       "post_subtype" : 13,
       "postDate": this.state.value,
       "publish-region": publishRegion,
-      "postStatus": this.state.status,
+      "post_status": this.state.status,
       "postRepostBlogNames": postRepostBlogNames,
       "page": "publish"
     }
