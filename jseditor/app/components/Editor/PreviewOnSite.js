@@ -36,7 +36,7 @@ class PreviewOnSite extends React.Component{
     })
     .catch(function (response) {
       console.log('error : ',response);
-      this.toggleButton();
+      self.toggleButton();
     });
   }
   savePost(response) {
