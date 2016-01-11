@@ -7,6 +7,7 @@ var base = Rebase.createClass(configParams.firebaseUrl);
 
 class Main extends React.Component{
   render(){
+      Rollbar.info("User Navigation Info", {path: this.props.pathname});
       return (
         <div className="main-container">
           <TopBar />
