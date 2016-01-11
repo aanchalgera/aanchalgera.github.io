@@ -6,7 +6,14 @@ import moment from 'moment-timezone';
 const SITE_DOMAIN = configParams.blogUrl;
 
 class PreviewOnSite extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      buttonDisabled: false
+    };
+  }
   submitPost() {
+    this.toggleButton();
     var data = {
       id : this.props.state.id,
       title : this.props.state.value,
@@ -29,6 +36,7 @@ class PreviewOnSite extends React.Component{
     })
     .catch(function (response) {
       console.log('error : ',response);
+      self.toggleButton();
     });
   }
   savePost(response) {
@@ -75,15 +83,24 @@ class PreviewOnSite extends React.Component{
     })
     .success(function(result, status) {
      console.log(result, status);
+     self.toggleButton();
      self.props.savePreviewData(result.id, result.post_hash);
      var sitePreviewUrl = SITE_DOMAIN+"preview-main/" +result.id+'/'+result.post_hash;
      window.open(sitePreviewUrl);
+    })
+    .error(function(jqXHR, textStatus, errorThrown) {
+      self.toggleButton();
+    });
+  }
+  toggleButton() {
+    this.setState({
+      buttonDisabled : !this.state.buttonDisabled
     });
   }
   render(){
     var previewButton = '';
     if (this.props.state.id && (this.props.state.status == undefined || this.props.state.status != 'publish')) {
-      previewButton = <button className="btn btn-primary" onClick={this.submitPost.bind(this)}>Preview on Site</button>
+      previewButton = <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.submitPost.bind(this)}>Preview on Site</button>
     }
     return (
       <span>{previewButton}</span>
