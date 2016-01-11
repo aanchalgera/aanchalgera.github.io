@@ -26,10 +26,12 @@ class Editor extends React.Component{
       fields: [],
       meta: null,
       postId: '',
-      postHash: ''
+      postHash: '',
+      isConnected: true
     };
   }
   init(){
+    this.checkConnectStatus();
     var postname = this.router.getCurrentParams().postname;
     if (undefined != postname) {
       this.props.base.fetch("posts/" + postname, {
@@ -71,7 +73,20 @@ class Editor extends React.Component{
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
-
+  checkConnectStatus() {
+    var connectedRef = new Firebase(configParams.firebaseUrl+".info/connected");
+    connectedRef.on("value",(snap) => {
+      if (snap.val() === true) {
+        this.setState({
+          isConnected : true
+        });
+      } else {
+        this.setState({
+          isConnected : false
+        });
+      }
+    });
+  }
   openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
     if (undefined != event) {
       event.preventDefault();
@@ -266,17 +281,21 @@ class Editor extends React.Component{
       data: listData,
       then(data){}
     });
-    this.props.base.post(
-      'posts/' + this.state.id, {
-      data: data,
-      then(data) {
-        console.log('autosaved');
-        document.getElementById('successField').style.display = 'block';
-        setTimeout(function() {
-          document.getElementById('successField').style.display = 'none';
-        }, 4000);
-      }
-    });
+    try {
+      this.props.base.post(
+        'posts/' + this.state.id, {
+        data: data,
+        then() {
+          console.log('autosaved');
+          document.getElementById('successField').style.display = 'block';
+          setTimeout(function() {
+            document.getElementById('successField').style.display = 'none';
+          }, 4000);
+        },
+      });
+    } catch (e) {
+      Rollbar.critical('Error occured on saving data to Firebase', e);
+    }
   }
   setMessage(isError = false, message) {
     this.setState({
@@ -519,6 +538,7 @@ class Editor extends React.Component{
           <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
           <strong>  Post saved </strong>
         </div>;
+    var connectStatus = <div className={this.state.isConnected ? "status status-on" :"status status-off"}></div>;
     var metadata = <Metadata
       meta={this.state.meta}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
@@ -544,6 +564,7 @@ class Editor extends React.Component{
           <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>
           <Link className="btn btn-primary" to={"/config/new"}>Add Config</Link>
         </div>
+        {connectStatus}
         {errorField}
         {successField}
         <form id="editor-form">
