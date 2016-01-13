@@ -4,9 +4,9 @@
         <ul class="elastislide-list type-gallery js-elastislide-element">
             <%_.forEach(images, function (image) {%>
             <li><a href="javascript:void(0)">
-              {% if (image.description) { %}
+              <% if (image.description) { %>
                   <span class="gallery-img-caption"><%=image.description%></span>
-              {% } %}
+              <% } %>
               <img src="<%= image.url %>" alt="" /></a></li>
             <% }) %>
         </ul>
