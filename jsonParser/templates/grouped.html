@@ -18,7 +18,9 @@
                         <img srcset="<%=contentSection.imagePath450%> 450w, <%=contentSection.imagePath650%> 650w, <%=contentSection.imagePath1024%> 1024w, <%=contentSection.imagePath1366%> 1366w, <%=contentSection.imagePath2560%> 2560w" src="<%=contentSection.src%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>" />
                     <% } %>
                     <noscript><img width="<%=contentSection.width%>" height="<%=contentSection.height%>" src="<%=contentSection.src%>" class="<%=contentSection.classes%>" alt="<%=contentSection.alt%>"></noscript>
-                    <div class="module-image-caption"><span class="caption-text"><%= contentSection.description %></span></div>
+                    <% if (contentSection.description) { %>
+                      <div class="module-image-caption"><span class="caption-text"><%= contentSection.description %></span></div>
+                    <% } %>
                 <% } else if('content' == contentSection.type || 'richContent' == contentSection.type || 'summary' == contentSection.type) { %>
                         <%= contentSection.text %>
                 <% } else if('video' == contentSection.type) { %>
