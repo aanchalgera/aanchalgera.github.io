@@ -39,9 +39,9 @@
                     <ul class="elastislide-list type-slider js-elastislide-element" <% if (true == contentSection.autoplay) { %>autoplay<% } %>>
                         <%_.forEach(contentSection.images, function (image) {%>
                         <li><a href="javascript:void(0)">
-                          {% if (image.description) { %}
+                          <% if (image.description) { %>
                               <span class="slider-img-caption"><%=image.description%></span>
-                          {% } %}
+                          <% } %>
                           <img src="<%= image.url %>" alt="" /></a></li>
                         <% }) %>
                     </ul>
