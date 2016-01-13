@@ -6,18 +6,17 @@ import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
 import Config from '../components/Config/Config';
 import ConfigList from '../components/Config/ConfigList';
-import { Router, Route, DefaultRoute, NotFoundRoute } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 export default (
-  <Route name="main" handler={Main} path="/">
-    <Route name="editpost" path="edit/post/:postname" handler={Editor} />
-    <Route name="publishpost" path="publish/:postname" handler={Publish} />    
-    <Route name="newpost" path="post/new" handler={Editor} />
-    <Route name="newconfig" path="config/new" handler={Config} />
-    <Route name="listconfig" path="config" handler={ConfigList} />
-    <Route name="editconfig" path="config/:configId" handler={Config} />
-
-    <DefaultRoute handler={Home} />
-    <NotFoundRoute handler={NotFoundPage}/>
+  <Route component={Main} path="/">
+    <Route path="edit/post/:postname" component={Editor} />
+    <Route path="publish/:postname" component={Publish} />
+    <Route path="post/new" component={Editor} />
+    <Route path="config/new" component={Config} />
+    <Route path="config" component={ConfigList} />
+    <Route path="config/:configId" component={Config} />
+    <IndexRoute component={Home} />
+    <Route path="*" component={NotFoundPage} />
   </Route>
 );

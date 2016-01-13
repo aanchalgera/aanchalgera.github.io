@@ -9,7 +9,7 @@ if ('production' == process.env.NODE_ENV) {
       'cloudName' : 'realarpit',
       'uploadPreset' : 'h2sbmprz',
       'timezone' : 'Europe/Madrid'
-    }
+  }
 } else if ('testing' == process.env.NODE_ENV) {
   var configParams = {
       'host' : 'http://52.19.4.152',
@@ -18,7 +18,7 @@ if ('production' == process.env.NODE_ENV) {
       'cloudName' : 'agilemediatest',
       'uploadPreset' : 'aras8ztr',
       'timezone' : 'Europe/Madrid'
-    }
+  }
 } else if ('development' == process.env.NODE_ENV) {
   var configParams = {
       'host' : 'http://dev.code.com',
@@ -27,7 +27,7 @@ if ('production' == process.env.NODE_ENV) {
       'cloudName' : 'agilemediatest',
       'uploadPreset' : 'aras8ztr',
       'timezone' : 'Europe/Madrid'
-    }
+  }
 } else {
   console.log('NODE_ENV not defined');
   return false;
@@ -43,7 +43,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        loader: 'babel',
+        query: {
+          presets:['es2015', 'stage-2', 'react']
+        }
       },
       {
         include: /\.json$/,

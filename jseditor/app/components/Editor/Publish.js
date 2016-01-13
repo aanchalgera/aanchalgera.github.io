@@ -30,7 +30,7 @@ class Publish extends React.Component {
     this.init();
   }
   init(){
-    this.postname = this.router.getCurrentParams().postname;
+    this.postname = this.props.routeParams.postname;
     if (undefined != this.postname) {
       this.props.base.fetch('posts', {
         context: this,

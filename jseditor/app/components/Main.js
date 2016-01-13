@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouteHandler } from 'react-router';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
@@ -14,7 +13,7 @@ class Main extends React.Component{
           <div className="col-sm-12 main">
             <div className="container-fluid">
               <div className="row">
-                <RouteHandler base={base} {...this.props}/>
+                {React.cloneElement(this.props.children, { base: base })}
               </div>
             </div>
           </div>
