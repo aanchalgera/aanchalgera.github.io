@@ -21,7 +21,7 @@ class Config extends React.Component {
     }
 
     init() {
-        var configId = this.router.getCurrentParams().configId;
+        var configId = this.props.routeParams.configId;
         if (undefined != configId) {
           this.props.base.fetch("config/" + configId, {
             context: this,
@@ -41,12 +41,8 @@ class Config extends React.Component {
           hashId = helpers.generatePushID();
           this.setState({
             id : hashId
-          }, this.router.transitionTo('/config/'+hashId));
+          }, this.context.history.pushState(null,'/config/'+hashId));
         }
-    }
-
-    componentWillMount(){
-        this.router = this.context.router;
     }
 
     handleSiteNameChange(event) {
@@ -95,33 +91,33 @@ class Config extends React.Component {
     }
 
     saveRecord(result) {
-        if ('' === this.refs.site_name.getDOMNode().value.trim()) {
+        if ('' === this.refs.site_name.value.trim()) {
             this.setState({errors: 'Site Name can not be empty'})
             return false;
         }
-        if ('' === this.refs.site_url.getDOMNode().value.trim()) {
+        if ('' === this.refs.site_url.value.trim()) {
             this.setState({errors: 'Site Url can not be empty'})
             return false;
         }
-        if ('' === this.refs.cloudinary_url.getDOMNode().value.trim()) {
+        if ('' === this.refs.cloudinary_url.value.trim()) {
             this.setState({errors: 'Cloudinary Url can not be empty'})
             return false;
         }
-        if ('' === this.refs.cdn_url.getDOMNode().value.trim()) {
+        if ('' === this.refs.cdn_url.value.trim()) {
             this.setState({errors: 'Cdn Url can not be empty'})
             return false;
         }
         this.setState({errors: ''})
         var data = {
             id: this.state.id,
-            site_name: this.refs.site_name.getDOMNode().value,
-            site_url: this.refs.site_url.getDOMNode().value,
-            cloudinary_url: this.refs.cloudinary_url.getDOMNode().value,
-            cdn_url: this.refs.cdn_url.getDOMNode().value
+            site_name: this.refs.site_name.value,
+            site_url: this.refs.site_url.value,
+            cloudinary_url: this.refs.cloudinary_url.value,
+            cdn_url: this.refs.cdn_url.value
         };
 
         this.props.base.post(
-            'config/'+this.state.id, 
+            'config/'+this.state.id,
             {
                 data: data,
                 then(data) {console.log('saved');}
@@ -180,7 +176,7 @@ class Config extends React.Component {
 }
 
 Config.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  history: React.PropTypes.func.isRequired
 };
 
 export default Config;

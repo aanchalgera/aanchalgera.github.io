@@ -15,13 +15,13 @@ class ResourcePanel extends React.Component {
   }
   closePanel(event) {
     event.preventDefault();
-    this.refs.resourcePanel.getDOMNode().style.display = 'none';
+    this.refs.resourcePanel.style.display = 'none';
   }
   getStyle() {
-    return this.refs.resourcePanel.getDOMNode();
+    return this.refs.resourcePanel;
   }
   addImages() {
-    var selectedImages = this.refs.resourcePanel.getDOMNode().querySelectorAll('#imageList img.active');
+    var selectedImages = this.refs.resourcePanel.querySelectorAll('#imageList img.active');
     var images = [];
     if (selectedImages.length == 0) {
       return

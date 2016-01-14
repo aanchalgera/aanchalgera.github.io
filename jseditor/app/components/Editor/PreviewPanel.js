@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 export default class PreviewPanel extends React.Component {
   closePanel(event) {
     event.preventDefault();
-    this.refs.previewPanel.getDOMNode().style.display = 'none';
+    this.refs.previewPanel.style.display = 'none';
   }
   render () {
     return (

@@ -11,7 +11,7 @@ class Content extends React.Component{
         this.initializeEditor(this.props.index);
         var currentRef = 'myInput' + this.props.dataId;
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
-        this.refs[currentRef].getDOMNode().focus();
+        this.refs[currentRef].focus();
         break;
       case 'richContent':
       case 'image':
