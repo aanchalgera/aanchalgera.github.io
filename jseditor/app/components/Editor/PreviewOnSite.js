@@ -37,7 +37,6 @@ class PreviewOnSite extends React.Component{
     .catch(function (response) {
       console.log('error : ',response);
       self.toggleButton();
-      console.log(Rollbar);
       Rollbar.critical('Problem in parsing data', response);
     });
   }
