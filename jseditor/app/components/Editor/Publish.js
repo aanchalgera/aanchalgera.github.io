@@ -103,6 +103,7 @@ class Publish extends React.Component {
     .catch(function (response) {
       console.log('error : ',response);
       self.toggleButton();
+      Rollbar.critical('Problem in parsing data', response);
     });
   }
   saveData(response) {

@@ -34,24 +34,28 @@ class Editor extends React.Component{
     this.checkConnectStatus();
     var postname = this.router.getCurrentParams().postname;
     if (undefined != postname) {
-      this.props.base.fetch("posts/" + postname, {
-        context: this,
-        then(data){
-          if (null != data) {
-            this.setState({
-              id : data.id,
-              postId: data.publishData.postId != undefined? data.publishData.postId : '',
-              postHash: data.publishData.postHash != undefined? data.publishData.postHash : '',
-              fields: data.sections != undefined ? data.sections : [],
-              value: data.title,
-              maxId: data.maxId,
-              status: data.status != undefined ? data.status : '',
-              publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-              meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
-            });
+      try {
+        this.props.base.fetch("posts/" + postname, {
+          context: this,
+          then(data){
+            if (null != data) {
+              this.setState({
+                id : data.id,
+                postId: data.publishData.postId != undefined? data.publishData.postId : '',
+                postHash: data.publishData.postHash != undefined? data.publishData.postHash : '',
+                fields: data.sections != undefined ? data.sections : [],
+                value: data.title,
+                maxId: data.maxId,
+                status: data.status != undefined ? data.status : '',
+                publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
+                meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
+              });
+            }
           }
-        }
-      });
+        });
+      } catch (e) {
+        Rollbar.critical('Error occured while fetching post data from Firebase', e);
+      }
     } else {
       let hashId = helpers.generatePushID();
       this.setState({
@@ -83,7 +87,7 @@ class Editor extends React.Component{
       } else {
         this.setState({
           isConnected : false
-        });
+        }, alert('Internet connection lost'));
       }
     });
   }
@@ -477,6 +481,7 @@ class Editor extends React.Component{
     })
       .catch(function (response) {
         console.log(response);
+        Rollbar.critical('Problem in parsing data', response);
       });
   }
   updateIndexMetadata(event) {

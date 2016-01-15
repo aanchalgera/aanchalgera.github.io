@@ -37,6 +37,8 @@ class PreviewOnSite extends React.Component{
     .catch(function (response) {
       console.log('error : ',response);
       self.toggleButton();
+      console.log(Rollbar);
+      Rollbar.critical('Problem in parsing data', response);
     });
   }
   savePost(response) {
@@ -90,6 +92,7 @@ class PreviewOnSite extends React.Component{
     })
     .error(function(jqXHR, textStatus, errorThrown) {
       self.toggleButton();
+      console.log(errorThrown);
     });
   }
   toggleButton() {
