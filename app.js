@@ -5,7 +5,7 @@ var express = require('express')
 ,   parserRoutes = require(__dirname + '/jsonParser/routes')
 ;
 
-app.use(bodyParser.json({ type: 'text/plain' }));
+app.use(bodyParser.json({ type: 'text/plain', limit: '5mb' }));
 app.use('/parse', parserRoutes);
 
 app.listen(81);
