@@ -87,7 +87,7 @@ class Editor extends React.Component{
       } else {
         this.setState({
           isConnected : false
-        }, alert('Internet connection lost'));
+        });
       }
     });
   }
@@ -291,10 +291,13 @@ class Editor extends React.Component{
         data: data,
         then() {
           console.log('autosaved');
-          document.getElementById('successField').style.display = 'block';
-          setTimeout(function() {
-            document.getElementById('successField').style.display = 'none';
-          }, 4000);
+          var successField = document.getElementById('successField');
+          if (undefined != typeof successField) {
+            document.getElementById('successField').style.display = 'block';
+            setTimeout(function() {
+              document.getElementById('successField').style.display = 'none';
+            }, 4000);
+          }
         },
       });
     } catch (e) {
@@ -479,10 +482,10 @@ class Editor extends React.Component{
       document.getElementById('previewPanel').style.display = 'block';
       document.getElementById('previewPanel').classList.add("in");
     })
-      .catch(function (response) {
-        console.log(response);
-        Rollbar.critical('Problem in parsing data', response);
-      });
+    .catch(function (response) {
+      console.log('The response is :', response);
+      Rollbar.critical('Problem in parsing data', response);
+    });
   }
   updateIndexMetadata(event) {
     this.state.meta.index= event.target.value;
