@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 class Sponsor extends React.Component {
   updateSponsorImage() {
-    let sponsorImageUrl = this.refs.sponsorImage.getDOMNode().value;
+    let sponsorImageUrl = this.refs.sponsorImage.value;
     if('' != sponsorImageUrl) {
       var isValidUrl = this.checkURL(sponsorImageUrl);
       if (isValidUrl) {

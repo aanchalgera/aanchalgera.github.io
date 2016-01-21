@@ -32,7 +32,7 @@ class Editor extends React.Component{
   }
   init(){
     this.checkConnectStatus();
-    var postname = this.router.getCurrentParams().postname;
+    var postname = this.props.routeParams.postname;
     if (undefined != postname) {
       this.props.base.fetch("posts/" + postname, {
         context: this,
@@ -57,11 +57,8 @@ class Editor extends React.Component{
       this.setState({
         id : hashId,
         meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
-      }, this.router.transitionTo('/edit/post/'+hashId));
+      }, this.context.history.pushState(null,'/edit/post/'+hashId));
     }
-  }
-  componentWillMount(){
-    this.router = this.context.router;
   }
   componentDidMount(){
     var self = this;
@@ -611,7 +608,7 @@ class Editor extends React.Component{
 };
 
 Editor.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  history: React.PropTypes.func.isRequired
 };
 
 export default Editor;

@@ -30,7 +30,7 @@ class Publish extends React.Component {
     this.init();
   }
   init(){
-    this.postname = this.router.getCurrentParams().postname;
+    this.postname = this.props.routeParams.postname;
     if (undefined != this.postname) {
       this.props.base.fetch('posts', {
         context: this,
@@ -183,9 +183,9 @@ class Publish extends React.Component {
        data: formData,
        then(data) {
          if (result.id != undefined) {
-           self.refs.scheduleSuccess.getDOMNode().style.display = 'block';
+           self.refs.scheduleSuccess.style.display = 'block';
            setTimeout(function() {
-             self.refs.scheduleSuccess.getDOMNode().style.display = 'none';
+             self.refs.scheduleSuccess.style.display = 'none';
            }, 7000);
            self.setState({postId: result.id, postHash: result.post_hash});
            self.toggleButton();
