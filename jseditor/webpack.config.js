@@ -3,7 +3,7 @@ var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 if ('production' == process.env.NODE_ENV) {
   var configParams = {
-      'host' : 'http://52.19.39.251',
+      'host' : 'http://admin.weblogssl.com',
       'blogUrl' : 'http://www.xataka.com/',
       'firebaseUrl': 'https://brilliant-heat-3614.firebaseio.com/',
       'cloudName' : 'realarpit',
@@ -12,7 +12,7 @@ if ('production' == process.env.NODE_ENV) {
   }
 } else if ('testing' == process.env.NODE_ENV) {
   var configParams = {
-      'host' : 'http://52.19.4.152',
+      'host' : 'http://test.admin.weblogssl.com',
       'blogUrl' : 'http://testing.xataka.com/',
       'firebaseUrl': 'https://dazzling-torch-3017.firebaseio.com/',
       'cloudName' : 'agilemediatest',
