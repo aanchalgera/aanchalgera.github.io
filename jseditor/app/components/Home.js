@@ -43,7 +43,7 @@ class Home extends React.Component {
     return (
       <div>
         <h2>Config</h2>
-        <Link to="/config" className="btn btn-primary">Config List Page</Link>
+        <Link to="/configs" className="btn btn-primary">Config List Page</Link>
         <Link to="/config/new" className="btn btn-primary">New Config</Link>
         <h2>Posts</h2>
         <Link to="/post/new" className="btn btn-primary">New Post</Link>
