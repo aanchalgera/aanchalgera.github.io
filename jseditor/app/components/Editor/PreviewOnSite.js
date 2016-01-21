@@ -32,11 +32,14 @@ class PreviewOnSite extends React.Component{
       console.log(response);
       if (response.data.status == "success") {
         self.savePost(JSON.parse(response.data.response))
+      } else {
+        Rollbar.critical('Problem in parsing data', response);
       }
     })
     .catch(function (response) {
       console.log('error : ',response);
       self.toggleButton();
+      Rollbar.critical('Problem in parsing data', response);
     });
   }
   savePost(response) {
@@ -90,6 +93,7 @@ class PreviewOnSite extends React.Component{
     })
     .error(function(jqXHR, textStatus, errorThrown) {
       self.toggleButton();
+      console.log(errorThrown);
     });
   }
   toggleButton() {

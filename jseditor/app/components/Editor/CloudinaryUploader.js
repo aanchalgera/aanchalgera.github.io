@@ -63,17 +63,21 @@ var CloudinaryUploader = React.createClass({
   },
   init: function(){
     if (this.props.slug != undefined && this.props.slug != '') {
-      this.props.base.fetch('images/' + this.props.slug, {
-        context: this,
-        asArray: true,
-        then(data){
-          if (null != data) {
-            this.setState({
-              imageList : data
-            });
+      try {
+        this.props.base.fetch('images/' + this.props.slug, {
+          context: this,
+          asArray: true,
+          then(data){
+            if (null != data) {
+              this.setState({
+                imageList : data
+              });
+            }
           }
-        }
-      });
+        });
+      } catch (e) {
+        Rollbar.critical('Error while fetching image data from firebase', e);
+      }
     }
   },
   componentWillReceiveProps: function() {
@@ -189,6 +193,7 @@ var CloudinaryUploader = React.createClass({
         }
       );
     }catch(e){
+      Rollbar.error('Error occured while uploading image to cloudinary', e)
       self.setError(true, e);
       ev.preventDefault();
     }

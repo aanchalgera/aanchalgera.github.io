@@ -98,11 +98,14 @@ class Publish extends React.Component {
       console.log(response);
       if (response.data.status == "success") {
         self.saveData(JSON.parse(response.data.response))
+      } else {
+        Rollbar.critical('Problem in parsing data', response);
       }
     })
     .catch(function (response) {
       console.log('error : ',response);
       self.toggleButton();
+      Rollbar.critical('Problem in parsing data', response);
     });
   }
   saveData(response) {
