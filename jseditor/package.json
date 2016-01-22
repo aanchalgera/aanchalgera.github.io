@@ -27,11 +27,14 @@
     "json-loader": "~0.5.4",
     "babel-preset-stage-2": "~6.3.13",
     "babel-preset-stage-0": "~6.3.13",
-    "react-addons-css-transition-group": "~0.14.6"
+    "react-addons-css-transition-group": "~0.14.6",
+    "redux": "~3.0.5",
+    "react-redux": "~4.0.6"
   },
   "devDependencies": {
     "eslint": "~1.10.3",
     "eslint-config-airbnb": "~3.1.0",
-    "eslint-plugin-react": "~3.15.0"
+    "eslint-plugin-react": "~3.15.0",
+    "redux-devtools": "~3.0.1"
   }
 }
