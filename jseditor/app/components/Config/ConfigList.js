@@ -1,5 +1,5 @@
-import React, {PropTypes, Component} from 'react'
-import {Link} from 'react-router'
+import React, {PropTypes, Component} from 'react';
+import {Link} from 'react-router';
 
 export default class ConfigList extends Component {
   constructor(props) {
