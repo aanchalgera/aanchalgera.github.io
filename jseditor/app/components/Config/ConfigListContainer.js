@@ -3,17 +3,12 @@ import ConfigList from './ConfigList'
 
 export default class ConfigListContainer extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       configs: [],
       loading : true
     }
   }
-
-  static propTypes = {
-    base: React.PropTypes.object.isRequired
-  };
 
   componentDidMount() {
     this.props.base.listenTo('config', {
@@ -30,7 +25,11 @@ export default class ConfigListContainer extends Component {
     });
   }
 
-  render () {
+  render() {
     return <ConfigList configs={this.state.configs} loading={this.state.loading} />
   }
+
+  static propTypes = {
+    base: React.PropTypes.object.isRequired
+  };
 }

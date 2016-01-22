@@ -6,12 +6,7 @@ export default class ConfigList extends Component {
     super(props);
   }
 
-  static propTypes = {
-    configs: React.PropTypes.array.isRequired,
-    loading: React.PropTypes.bool.isRequired
-  };
-
-  render () {
+  render() {
     return (
       <div>
         <h2>Posts</h2>
@@ -20,17 +15,22 @@ export default class ConfigList extends Component {
         <h2>Config</h2>
         <Link to="/config/new" className="btn btn-primary">New Config</Link>
         {this.props.loading ? <p className='loader'><strong>Loading .....</strong></p> : ""}
-        <ul className="list-group">{this.props.configs.map(this.renderConfig)}</ul>
+        <ul className="list-group">
+          {this.props.configs.map((config, index) => {
+            return (
+              <li key={index} className="list-group-item">
+                {config.site_name}
+                <Link className="btn btn-primary" to={"/config/"+config.id}>Edit</Link>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     )
   }
 
-  renderConfig({id, site_name}) {
-    return (
-      <li className="list-group-item">
-        {site_name}
-        <Link className="btn btn-primary" to={"/config/"+id}>Edit</Link>
-      </li>
-    )
-  }
+  static propTypes = {
+    configs: React.PropTypes.array.isRequired,
+    loading: React.PropTypes.bool.isRequired
+  };
 }
