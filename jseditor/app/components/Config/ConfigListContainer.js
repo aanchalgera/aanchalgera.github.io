@@ -1,27 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import ConfigList from './ConfigList';
-import { createStore } from 'redux';
-
-//reducer
-const initialState = {
-  configs: [],
-  loading: true
-};
-
-const configs = (state = initialState, action) => {
-  switch (action.type) {
-    case 'RECEIVE_CONFIGS':
-      return Object.assign({}, state, {
-        configs: action.data,
-        loading: false
-      })
-    default:
-      return state;
-  }
-};
-
-//store
-const store = createStore(configs);
 
 export default class ConfigListContainer extends Component {
   constructor(props) {
@@ -36,7 +14,7 @@ export default class ConfigListContainer extends Component {
     }
   }
 
-  fetchConfigs() {
+  fetchConfigs(store) {
     this.props.base.listenTo('config', {
       context: this,
       asArray: true,
@@ -47,14 +25,22 @@ export default class ConfigListContainer extends Component {
   }
 
   componentDidMount() {
-    this.fetchConfigs();
+    const { store } = this.context;
+    this.fetchConfigs(store);
     store.subscribe(this.render);
   }
 
   render() {
-    console.log('State stats :', store.getState());
-    return <ConfigList configs={store.getState().configs} loading={store.getState().loading} />
+    const { store } = this.context;
+    const state = store.getState();
+    console.log('State stats :', state);
+
+    return <ConfigList configs={state.configs} loading={state.loading} />
   }
+
+  static contextTypes = {
+    store: React.PropTypes.object
+  };
 
   static propTypes = {
     base: React.PropTypes.object.isRequired
