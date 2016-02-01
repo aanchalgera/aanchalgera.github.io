@@ -30,7 +30,7 @@ export default class ConfigList extends Component {
   }
 
   static propTypes = {
-    configs: React.PropTypes.array.isRequired,
-    loading: React.PropTypes.bool.isRequired
+    configs: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
   };
 }
