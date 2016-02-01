@@ -5,13 +5,12 @@ function receiveConfigs(configs) {
   }
 }
 
-export function fetchConfigs(component,base) {
-  debugger
+export function fetchConfigs(component, base) {
   return dispatch => {
     return base.listenTo('config', {
       context: component,
       asArray: true,
-      then(configs){
+      then(configs) {
         dispatch(receiveConfigs(configs));
       }
     });
