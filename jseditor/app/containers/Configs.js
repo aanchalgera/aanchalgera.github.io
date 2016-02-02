@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import ConfigList from './ConfigList';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 
-import * as ConfigActions from '../../actions/config';
+import ConfigList from '../components/Config/ConfigList';
+import * as ConfigActions from '../actions/config';
 
-class ConfigListContainer extends Component {
+class Configs extends Component {
   componentDidMount() {
     this.props.actions.fetchConfigs(this, this.props.base);
   }
@@ -38,4 +38,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ConfigListContainer);
+)(Configs);
