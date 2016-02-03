@@ -1,9 +1,19 @@
 import React, {PropTypes, Component} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 
-export default class ConfigList extends Component {
-  constructor(props) {
-    super(props);
+import {fetchConfigs} from '../../actions/config';
+
+const mapStateToProps = (state) => ({
+  configs: state.configs,
+  loading: state.loading
+});
+
+export class ConfigList extends Component {
+
+  componentDidMount() {
+    const {dispatch, base} = this.props;
+    dispatch(fetchConfigs(this, base));
   }
 
   render() {
@@ -31,6 +41,9 @@ export default class ConfigList extends Component {
 
   static propTypes = {
     configs: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    base: PropTypes.object.isRequired
   };
 }
+
+export default connect(mapStateToProps)(ConfigList);
