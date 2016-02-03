@@ -1,6 +1,8 @@
+import {RECEIVE_CONFIGS} from '../constants/ActionTypes';
+
 function receiveConfigs(configs) {
   return {
-    type: 'RECEIVE_CONFIGS',
+    type: RECEIVE_CONFIGS,
     data: configs
   }
 }
