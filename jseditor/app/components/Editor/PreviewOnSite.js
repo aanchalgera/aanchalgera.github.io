@@ -49,22 +49,24 @@ class PreviewOnSite extends React.Component{
     var timeStamp = moment().format('X');
     var currentDay = moment.unix(timeStamp).locale('es').format('DD/MM/YYYY HH:mm')
     var data = {
-      "categoryId":"-1",
-      "post_title":this.props.state.value,
-      "comment_status":"open",
-      "post_type":"normal",
-      "post_content":content,
-      "postExcerpt" : JSON.stringify({'meta' : metadata}),
-      "post_abstract":"",
-      "post_extended_title":"",
-      "post_visibility":0,
-      "posts_galleries":"",
-      "post_subtype" : 13,
-      "post_status": "draft",
-      "page": "preview",
-      "postDate": currentDay,
-      "publish-region": "",
-      "postRepostBlogNames": ""
+      postform: {
+        "categoryId":"-1",
+        "post_title":this.props.state.value,
+        "comment_status":"open",
+        "post_type":"normal",
+        "post_content":content,
+        "postExcerpt" : JSON.stringify({'meta' : metadata}),
+        "post_abstract":"",
+        "post_extended_title":"",
+        "post_visibility":0,
+        "posts_galleries":"",
+        "post_subtype" : 13,
+        "post_status": "draft",
+        "page": "preview",
+        "postDate": currentDay,
+        "publish-region": "",
+        "postRepostBlogNames": ""
+      }
     }
     var postType = 'POST';
     var postUrl = 'posts.json';

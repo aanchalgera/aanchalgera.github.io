@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import helpers from '../../utils/generatehash';
 import {Link} from 'react-router';
 
 let hashId = helpers.generatePushID();
 
-class Config extends React.Component {
+class Config extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,7 +41,7 @@ class Config extends React.Component {
           hashId = helpers.generatePushID();
           this.setState({
             id : hashId
-          }, this.context.history.pushState(null,'/config/'+hashId));
+          }, this.context.router.push('/config/'+hashId));
         }
     }
 
@@ -72,7 +72,7 @@ class Config extends React.Component {
         return (
         <div>
           <div>
-            <Link to="/config" className="btn btn-primary">Config List Page</Link>
+            <Link to="/configs" className="btn btn-primary">Config List Page</Link>
             <Link to="/" className="btn btn-primary">Post List Page</Link>
             <Link to="/post/new" className="btn btn-primary">New Post</Link>
           </div>
@@ -176,7 +176,7 @@ class Config extends React.Component {
 }
 
 Config.contextTypes = {
-  history: React.PropTypes.func.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 export default Config;
