@@ -1,44 +1,22 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 
-class ConfigList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            configList: [],
-            loaded: false
-        };
-    }
+import {fetchConfigs} from '../../actions/config';
 
-    componentDidMount() {
-        this.init();
-    }
+const mapStateToProps = (state) => ({
+  configs: state.configs,
+  loading: state.loading
+});
 
-    init() {
-        this.props.base.fetch('config', {
-          context: this,
-          asArray: true,
-          then(data){
-            if (null != data) {
-              this.setState({
-                configList: data,
-                loaded: true
-              });
-            }
-          }
-        });
-    }
+export class ConfigList extends Component {
 
-  render () {
-    var loadingMessage = ""
-    if (!this.state.loaded) {
-      loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
-    }
-    var configList = this.state.configList.map((config, i) => {
-      return (
-        <li key={i} className="list-group-item">{config.site_name}  <Link className="btn btn-primary" to={"/config/"+config.id}>Edit</Link></li>
-      )
-    });
+  componentDidMount() {
+    const {dispatch, base} = this.props;
+    dispatch(fetchConfigs(this, base));
+  }
+
+  render() {
     return (
       <div>
         <h2>Posts</h2>
@@ -46,14 +24,26 @@ class ConfigList extends React.Component {
         <Link to="/post/new" className="btn btn-primary">New Post</Link>
         <h2>Config</h2>
         <Link to="/config/new" className="btn btn-primary">New Config</Link>
-        {loadingMessage}
+        {this.props.loading ? <p className='loader'><strong>Loading .....</strong></p> : ""}
         <ul className="list-group">
-          {configList}
+          {this.props.configs.map((config, index) => {
+            return (
+              <li key={index} className="list-group-item">
+                {config.site_name}
+                <Link className="btn btn-primary" to={"/config/"+config.id}>Edit</Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
     )
   }
+
+  static propTypes = {
+    configs: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    base: PropTypes.object.isRequired
+  };
 }
 
-
-export default ConfigList;
+export default connect(mapStateToProps)(ConfigList);
