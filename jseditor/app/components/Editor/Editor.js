@@ -61,7 +61,7 @@ class Editor extends React.Component{
       this.setState({
         id : hashId,
         meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
-      }, this.context.history.pushState(null,'/edit/post/'+hashId));
+      }, this.context.router.push('/edit/post/'+hashId));
     }
   }
   componentDidMount(){
@@ -616,7 +616,7 @@ class Editor extends React.Component{
 };
 
 Editor.contextTypes = {
-  history: React.PropTypes.func.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 export default Editor;

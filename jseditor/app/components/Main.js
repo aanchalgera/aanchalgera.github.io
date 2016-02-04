@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
@@ -21,5 +21,9 @@ class Main extends React.Component{
       );
   }
 }
+
+Main.propTypes = {
+  children: PropTypes.node
+};
 
 export default Main;

@@ -1,8 +1,6 @@
-import React from 'react/addons';
+import React, {Component} from 'react';
 
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-export default class Thumbnail extends React.Component {
+export default class Thumbnail extends Component {
   selectImage(data, e) {
     if ('' == this.props.addImageModule) {
       this.props.addImage(data);
@@ -13,14 +11,12 @@ export default class Thumbnail extends React.Component {
   render () {
     return (
       <li>
-        <ReactCSSTransitionGroup transitionName="carousel">
-          <img
+        <img
             src={this.props.data.thumbnail_url}
             draggable="false"
             onClick={this.selectImage.bind(this, this.props.data)}
             data-image={JSON.stringify(this.props.data)}
           />
-        </ReactCSSTransitionGroup>
       </li>
     )
   }

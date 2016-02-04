@@ -76,9 +76,6 @@ class Publish extends React.Component {
       });
     }
   }
-  componentWillMount(){
-    this.router = this.context.router;
-  }
   submitPost() {
     var data = {
       id : this.postname,
@@ -125,22 +122,24 @@ class Publish extends React.Component {
       postRepostBlogNames.push(repostBlogs[i].value);
     }
     var data = {
-      "categoryId":"-1",
-      "post_title":this.state.title,
-      "comment_status":"open",
-      "post_type":"normal",
-      "post_content":content,
-      "postExcerpt" : JSON.stringify({'meta' : metadata}),
-      "post_abstract":"",
-      "post_extended_title":"",
-      "post_visibility":0,
-      "posts_galleries":"",
-      "post_subtype" : 13,
-      "postDate": this.state.value,
-      "publish-region": publishRegion,
-      "post_status": this.state.status,
-      "postRepostBlogNames": postRepostBlogNames,
-      "page": "publish"
+      postform : {
+        "categoryId":"-1",
+        "post_title":this.state.title,
+        "comment_status":"open",
+        "post_type":"normal",
+        "post_content":content,
+        "postExcerpt" : JSON.stringify({'meta' : metadata}),
+        "post_abstract":"",
+        "post_extended_title":"",
+        "post_visibility":0,
+        "posts_galleries":"",
+        "post_subtype" : 13,
+        "postDate": this.state.value,
+        "publish-region": publishRegion,
+        "post_status": this.state.status,
+        "postRepostBlogNames": postRepostBlogNames,
+        "page": "publish"
+      }
     }
     var formData = {
       "id" : this.state.id,
@@ -285,11 +284,7 @@ class Publish extends React.Component {
         </form>
       </div>
     )
-
   }
 }
-Publish.contextTypes = {
-  router: React.PropTypes.func.isRequired
-};
 
 export default Publish;
