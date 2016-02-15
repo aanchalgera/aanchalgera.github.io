@@ -49,7 +49,6 @@ class PreviewOnSite extends React.Component{
     var timeStamp = moment().format('X');
     var currentDay = moment.unix(timeStamp).locale('es').format('DD/MM/YYYY HH:mm')
     var data = {
-      postform: {
         "categoryId":"-1",
         "post_title":this.props.state.value,
         "comment_status":"open",
@@ -66,7 +65,6 @@ class PreviewOnSite extends React.Component{
         "postDate": currentDay,
         "publish-region": "",
         "postRepostBlogNames": ""
-      }
     }
     var postType = 'POST';
     var postUrl = 'posts.json';
