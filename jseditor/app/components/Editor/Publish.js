@@ -8,139 +8,145 @@ import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
 moment.tz.setDefault(configParams.timezone);
-var chooseSlotMsg = "Select slot";
+var chooseSlotMsg = 'Select slot ';
 var successMessage = '';
 const SITE_DOMAIN = configParams.blogUrl;
 
 class Publish extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       fields: [],
-      value : moment().format('DD/MM/YYYY HH:mm'),
+      value: moment().format('DD/MM/YYYY HH:mm'),
       status: 'publish',
       postRepostBlogNames: [],
       publishRegion: [],
-      postId : '',
+      postId: '',
       postHash: '',
-      buttonDisabled: true
+      buttonDisabled: true,
     };
   }
-  componentDidMount(){
+
+  componentDidMount() {
     this.init();
   }
-  init(){
+
+  init() {
     this.postname = this.props.routeParams.postname;
-    if (undefined != this.postname) {
+    if (this.postname != undefined) {
       this.props.base.fetch('posts', {
         context: this,
         asArray: true,
         queries: {
           orderByChild: 'status',
-          equalTo: 'publish'
+          equalTo: 'publish',
         },
-        then(data){
-          if (null != data) {
+        then(data) {
+          if (data != null) {
             var scheduledPosts = {};
-            data.forEach(function(result,b){
+            data.forEach(function (result, b) {
               var formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
               scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title}
-            })
+            });
+
             this.setState({
               futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false
+              buttonDisabled: false,
             });
           }
-        }
+        },
       });
-      this.props.base.fetch("posts/" + this.postname, {
+      this.props.base.fetch('posts/' + this.postname, {
         context: this,
-        then(data){
-          if (null != data) {
+        then(data) {
+          if (data != null) {
             this.setState({
-              id : data.id,
+              id: data.id,
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
               meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}},
-              maxId : data.maxId,
+              maxId: data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
-              postId : data.publishData.postId != undefined ? data.publishData.postId : '',
-              postHash : data.publishData.postHash != undefined ? data.publishData.postHash : '',
-              buttonDisabled: false
+              postId: data.publishData.postId != undefined ? data.publishData.postId : '',
+              postHash: data.publishData.postHash != undefined ? data.publishData.postHash : '',
+              buttonDisabled: false,
             });
           }
-        }
+        },
       });
     }
   }
+
   submitPost() {
     var data = {
-      id : this.postname,
-      title : this.state.title,
-      meta : this.state.meta,
-      sections : this.state.fields,
+      id: this.postname,
+      title: this.state.title,
+      meta: this.state.meta,
+      sections: this.state.fields,
       page: "publish"
     };
     data = JSON.stringify(data);
     var self = this;
     axios({
-      url : configParams.host + ':81/parse',
+      url: configParams.host + ':81/parse',
       method: 'POST',
-      data : data
+      data: data,
     })
     .then(function (response) {
       console.log(response);
-      if (response.data.status == "success") {
-        self.saveData(JSON.parse(response.data.response))
+      if (response.data.status == 'success') {
+        self.saveData(JSON.parse(response.data.response));
       } else {
         Rollbar.critical('Problem in parsing data', response);
       }
     })
     .catch(function (response) {
-      console.log('error : ',response);
+      console.log('error : ', response);
       self.toggleButton();
       Rollbar.critical('Problem in parsing data', response);
     });
   }
+
   saveData(response) {
     var content = response.parsedData;
     var metadata = response.meta;
     if (this.postname == undefined) return;
     if (!this.validate()) return;
-    content = content.replace(/(\r\n|\n|\r)/gm,"");
+    content = content.replace(/(\r\n|\n|\r)/gm, '');
     var countries = document.querySelectorAll('#countries input[type=checkbox]:checked');
     var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
     var publishRegion = [];
     var postRepostBlogNames = [];
-    for (var i = 0;i < countries.length ;i++) {
+    for (var i = 0; i < countries.length; i++) {
       publishRegion.push(countries[i].value);
     }
-    for (var i = 0;i < repostBlogs.length ;i++) {
+
+    for (var i = 0; i < repostBlogs.length; i++) {
       postRepostBlogNames.push(repostBlogs[i].value);
     }
+
     var data = {
-      postform : {
-        "categoryId":"-1",
-        "post_title":this.state.title,
-        "comment_status":"open",
-        "post_type":"normal",
-        "post_content":content,
-        "postExcerpt" : JSON.stringify({'meta' : metadata}),
-        "post_abstract":"",
-        "post_extended_title":"",
-        "post_visibility":0,
-        "posts_galleries":"",
-        "post_subtype" : 13,
-        "postDate": this.state.value,
-        "publish-region": publishRegion,
-        "post_status": this.state.status,
-        "postRepostBlogNames": postRepostBlogNames,
-        "page": "publish"
-      }
-    }
+      "categoryId":"-1",
+      "post_title":this.state.title,
+      "comment_status":"open",
+      "post_type":"normal",
+      "post_content":content,
+      "postExcerpt" : JSON.stringify({'meta' : metadata}),
+      "post_abstract":"",
+      "post_extended_title":"",
+      "post_visibility":0,
+      "posts_galleries":"",
+      "post_subtype" : 13,
+      "postDate": this.state.value,
+      "publish-region": publishRegion,
+      "post_status": this.state.status,
+      "postRepostBlogNames": postRepostBlogNames,
+      "page": "publish"
+    };
+
     var formData = {
       "id" : this.state.id,
       "title" : this.state.title,
