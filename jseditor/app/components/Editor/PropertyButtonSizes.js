@@ -5,8 +5,10 @@ class PropertyButtonSizes extends React.Component{
     if (ev.target.dataset.layout == this.props.layout) {
       return;
     }
+
     this.props.addLayoutToResource(ev);
   }
+
   render () {
     return (
       <ul className="list-size">
@@ -18,7 +20,7 @@ class PropertyButtonSizes extends React.Component{
           <p className="size-cover"><button data-layout="cover" onClick={this.handleClick.bind(this)} className={"btn btn-default selected "+(this.props.layout == "cover" ? "active" : "")}>Cover</button></p>
         </li>
       </ul>
-    )
+    );
   }
 }
 

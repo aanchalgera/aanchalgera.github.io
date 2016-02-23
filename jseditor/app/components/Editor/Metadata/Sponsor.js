@@ -3,16 +3,20 @@ import React, { PropTypes } from 'react'
 class Sponsor extends React.Component {
   updateSponsorImage() {
     let sponsorImageUrl = this.refs.sponsorImage.value;
-    if('' != sponsorImageUrl) {
+    if (sponsorImageUrl == '') {
+      this.props.updateSponsorImage(sponsorImageUrl);
+    } else {
       var isValidUrl = this.checkURL(sponsorImageUrl);
       if (isValidUrl) {
         this.props.updateSponsorImage(sponsorImageUrl);
       }
     }
   }
+
   checkURL(url) {
     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
+
   render () {
     return (
       <div className="modules module-home">
