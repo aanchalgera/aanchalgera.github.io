@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ContentList from './ContentList';
 import PostTitle from './PostTitle';
 import PreviewOnSite from './PreviewOnSite';
@@ -10,7 +11,7 @@ import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
 
 class Editor extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       maxId: 0,
@@ -18,8 +19,8 @@ class Editor extends React.Component{
       isError: false,
       isSubmit: false,
       message: null,
-      resourcePanelOpenedBy : null,
-      imageFunction : null,
+      resourcePanelOpenedBy: null,
+      imageFunction: null,
       addImageModule: '',
       addMoreImages: false,
       orderMode: false,
@@ -27,10 +28,11 @@ class Editor extends React.Component{
       meta: null,
       postId: '',
       postHash: '',
-      isConnected: true
+      isConnected: true,
     };
   }
-  init(){
+
+  init() {
     this.checkConnectStatus();
     var postname = this.props.routeParams.postname;
     if (undefined != postname) {
@@ -64,16 +66,19 @@ class Editor extends React.Component{
       }, this.context.router.push('/edit/post/'+hashId));
     }
   }
-  componentDidMount(){
+
+  componentDidMount() {
     var self = this;
     this.timerId = setInterval(function() {
       self.saveData();
     }, 20000);
     this.init();
   }
+
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
+
   checkConnectStatus() {
     var connectedRef = new Firebase(configParams.firebaseUrl+".info/connected");
     connectedRef.on("value",(snap) => {
@@ -88,6 +93,7 @@ class Editor extends React.Component{
       }
     });
   }
+
   openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
     if (undefined != event) {
       event.preventDefault();
@@ -101,6 +107,7 @@ class Editor extends React.Component{
     document.getElementById('resourcePanel').style.display = 'block'
     document.getElementById('resourcePanel').classList.add('in')
   }
+
   getField(currentIndex) {
     var indexes = currentIndex.toString().split("-");
     var original = this.state.fields.splice(indexes[0], 1)[0];
@@ -111,6 +118,7 @@ class Editor extends React.Component{
     }
     return {indexes, original, altered};
   }
+
   addImage(image) {
     var currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
@@ -149,6 +157,7 @@ class Editor extends React.Component{
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
+
   addImageCaption(imageId, caption, currentIndex) {
     var field = this.getField(currentIndex);
     if (field.altered.images != undefined) {
@@ -172,6 +181,7 @@ class Editor extends React.Component{
       }, this.saveData());
     }
   }
+
   addImages(images, moduleType) {
     var addMoreImages = this.state.addMoreImages;
     var currentIndex = this.state.resourcePanelOpenedBy;
@@ -194,6 +204,7 @@ class Editor extends React.Component{
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
+
   addVideo(currentIndex) {
     this.state.maxId++;
     this.state.fields.splice(
@@ -201,13 +212,15 @@ class Editor extends React.Component{
       id: this.state.maxId,
       type: "video",
       url: "",
-      align: ""
+      align: "",
+      layout: "normal"
     });
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
     }, this.saveData());
   }
+
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -216,24 +229,32 @@ class Editor extends React.Component{
       }
     }
   }
+
   createNewTextArea(currentIndex, type = 'content') {
     this.state.maxId++;
-    this.state.fields.splice(
-      currentIndex,0, {
+    var field = {
       id: this.state.maxId,
       type: type,
-      text: "",
-    });
+      text: ""
+    };
+
+    if (type == 'summary') {
+      field.layout = 'normal';
+    }
+
+    this.state.fields.splice(currentIndex,0, field);
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
     });
   }
+
   handleChange (ev) {
     this.setState({
       value: ev.currentTarget.value
     });
   }
+
   handleBlur (ev) {
     var title = ev.currentTarget.value.trim();
     if (undefined == title || '' == title) {
@@ -246,6 +267,7 @@ class Editor extends React.Component{
       value: title,
     }, this.saveData());
   }
+
   saveData (ev) {
     if (ev != undefined) {
       ev.preventDefault();
@@ -259,6 +281,7 @@ class Editor extends React.Component{
     } else {
       this.setMessage(false);
     }
+
     var data = {
       "id" : this.state.id,
       "title" : this.state.value,
@@ -268,10 +291,12 @@ class Editor extends React.Component{
       "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
       "meta"  : this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
     };
+
     if (this.state.postId != undefined) {
       data.publishData.postId = this.state.postId;
       data.publishData.postHash = this.state.postHash;
     }
+
     var listData = {
       "id" : this.state.id,
       "title" : this.state.value
@@ -301,14 +326,15 @@ class Editor extends React.Component{
       Rollbar.critical('Error occured on saving data to Firebase', e);
     }
   }
+
   setMessage(isError = false, message) {
     this.setState({
       isError: isError,
       message: message
     });
   }
-  addBackgroundOptionToResource(property, value, event)
-  {
+
+  addBackgroundOptionToResource(property, value, event) {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var field = this.getField(currentIndex);
@@ -338,8 +364,8 @@ class Editor extends React.Component{
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  deleteResource(event)
-  {
+
+  deleteResource(event) {
     var confirmation = confirm("Are you sure you want to delete this?");
     if (confirmation == true) {
       var currentIndex = this.parentDiv(event.target).dataset.id;
@@ -347,8 +373,8 @@ class Editor extends React.Component{
       this.setState({fields: this.state.fields}, this.saveData());
     }
   }
-  groupSections(currentIndex, group, event)
-  {
+
+  groupSections(currentIndex, group, event) {
      this.state.maxId++;
      var objects = this.state.fields.splice(currentIndex, group);
      for (var object of objects) {
@@ -366,8 +392,8 @@ class Editor extends React.Component{
      });
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  ungroupSections(currentIndex, event)
-  {
+
+  ungroupSections(currentIndex, event) {
      var obj = this.state.fields.splice(currentIndex, 1)[0];
      if (obj.length == 2 ){
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
@@ -376,8 +402,8 @@ class Editor extends React.Component{
      }
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  updateText(event, value)
-  {
+
+  updateText(event, value) {
      var ta = event.getTextArea();
      var currentIndex = ta.dataset.id;
      var field = this.getField(currentIndex);
@@ -385,6 +411,7 @@ class Editor extends React.Component{
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
+
   updateSummaryText(currentIndex, event)
   {
      var field = this.getField(currentIndex);
@@ -392,22 +419,22 @@ class Editor extends React.Component{
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  updateRichContent(currentIndex, event)
-  {
+
+  updateRichContent(currentIndex, event) {
      var field = this.getField(currentIndex);
      field.altered.text = event.target.textContent;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  updateVideo(currentIndex, event)
-  {
+
+  updateVideo(currentIndex, event) {
      var field = this.getField(currentIndex);
      field.altered.url = event.target.value;
      this.state.fields.splice(field.indexes[0], 0, field.original);
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  addLayoutToResource(event)
-  {
+
+  addLayoutToResource(event) {
      event.preventDefault();
      var currentIndex = this.parentDiv(event.target).dataset.id;
      var value = event.target.dataset.layout;
@@ -416,24 +443,26 @@ class Editor extends React.Component{
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
-  moveResourceDown(currentIndex)
-  {
+
+  moveResourceDown(currentIndex) {
     var obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex+1, 0, obj[0]);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
+
   moveResourceUp(currentIndex, event)
   {
     var obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex-1, 0, obj[0]);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
+
   toggleOrderMode(event) {
     event.preventDefault();
     this.setState({orderMode:!this.state.orderMode})
   }
-  setAutoPlaySlider(event, value)
-  {
+
+  setAutoPlaySlider(event, value) {
      event.preventDefault();
      var currentIndex = event.currentTarget.dataset.id;
      var field = this.getField(currentIndex);
@@ -441,6 +470,7 @@ class Editor extends React.Component{
      this.state.fields.splice(field.indexes[0], 0, field.original);;
      this.setState({fields: this.state.fields}, this.saveData());
   }
+
   openPreviewPanel(event) {
     event.preventDefault();
     if (undefined == this.state.value || '' == this.state.value.trim()) {
@@ -469,7 +499,7 @@ class Editor extends React.Component{
     .then(function (response) {
       console.log(response);
       var random  = Math.round(Math.random() * 10000000);
-      React.render(<PreviewPanel src={hashId + ".html?" + random} />, document.getElementById('preview'));
+      ReactDOM.render(<PreviewPanel src={hashId + ".html?" + random} />, document.getElementById('preview'));
       document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -484,55 +514,67 @@ class Editor extends React.Component{
       Rollbar.critical('Problem in parsing data', response);
     });
   }
+
   updateIndexMetadata(event) {
     this.state.meta.index= event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateFooterCredits(event) {
     this.state.meta.footer = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateHomepageContent(value) {
     this.state.meta.homepage.content = value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateSponsorName(event) {
     this.state.meta.sponsor.name = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   deleteHomepageImage() {
     this.state.meta.homepage.image = null;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateSeoTitle(event) {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.title = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateSeoDescription(event) {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.description = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateSponsorImage(value) {
     this.state.meta.sponsor.image = value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateSponsorTracker(event) {
     this.state.meta.sponsor.tracker = event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   updateCssSkinName(event) {
     this.state.meta.css.skinName = event.target.value.trim();
     this.setState({meta: this.state.meta}, this.saveData());
   }
+
   savePreviewData(id, postHash) {
     this.setState({
       postId: id,
       postHash: postHash
     }, this.saveData());
   }
-  render(){
+
+  render() {
     var errorField = '';
     if (this.state.isError) {
       errorField = <div className="alert alert-danger" role="alert">
