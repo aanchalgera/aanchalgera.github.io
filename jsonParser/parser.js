@@ -213,6 +213,8 @@ function addSectionLayoutClass(sectionClasses, section)
         case 'image':
         case 'gallery':
         case 'slider':
+        case 'video':
+        case 'summary':
             if (undefined === section['layout']) {
                 section['layout'] = 'normal';
             }
