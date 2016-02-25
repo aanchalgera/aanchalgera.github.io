@@ -1,244 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title><%= title.text %></title>
-    <link rel="stylesheet" type="text/css" href="http://img.weblogssl.com/css/xataka/l-19-11-2015/main.css?v=34303">
-</head>
-<body>
-<section class="head-container head-container-longform">
-    <div class="head">
-        <div class="head-brand">
-            <ul class="head-nav">
-                <li><a href="#sections" class="head-link head-link-sections m-v1 js-menu js-open-menu">Menu</a></li>
-            </ul>
-            <div class="brand longform-brand">
-                <a href="http://xataka.com" class="brand-logo longform-brand-logo"><span>Xataka</span></a>
-            </div>
-            <div class="longform-sponsor">
-                <span class="longform-sponsor-disclaimer">Un especial ofrecido por</span>
-                <span class="longform-sponsor-logo"><img alt="Vodafone" src="http://img.weblogssl.com/g/longform/vodafone-220715/imagesdesktop/logo_vf_one.png"></span>
-            </div>
-        </div>
-    </div>
-    <!-- .header -->
-</section>
-<!-- .head -->
-<div class="page-container">
-<div class="content-container">
-    <%= contentHTML %>
+ <head>
+  <meta charset="utf-8" />
+  <title><%= data.title.text %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="" />
+  <meta name="news_keywords" content=""/>
+  <meta name='robots' content='noodp' />
+  <meta property="fb:admins" content="100000716994885"/>
+  <meta name="application-name" content="<%= data.siteName %>" />
+  <meta property="og:image" content="" />
+  <meta property="og:title" content="<%= data.title.text %>" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:type" content="article" />
+  <meta name="DC.Source" content="<%= data.siteName %>" />
+  <link rel="stylesheet" type="text/css" href="http://img.weblogssl.com/css/xataka/l-19-11-2015/main.css?v=34303">
+  <link rel="shortcut icon" href="http://img.weblogssl.com/css/xataka/r/images/favicon.ico" type="image/ico" />
+  <link rel="apple-touch-icon" href="http://img.weblogssl.com/css/xataka/r/images/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://img.weblogssl.com/css/xataka/r/images/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://img.weblogssl.com/css/xataka/r/images/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://img.weblogssl.com/css/xataka/r/images/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="http://img.weblogssl.com/css/xataka/r/images/apple-touch-icon-57-precomposed.png">
+ </head>
+ <body>
+  <section class="head-container head-container-longform">
+   <div class="head">
+    <div class="head-brand">
+     <ul class="head-nav">
+      <li><a href="#sections" class="head-link head-link-sections m-v1 js-menu js-open-menu">Menu</a></li>
+     </ul>
+     <% if (data.sponsorImage) { %>
+      <div class="brand longform-brand">
+       <a href="blogUrl" class="brand-logo longform-brand-logo"><span><%= data.siteName %></span></a>
+      </div>
+      <div class="longform-sponsor">
+       <span class="longform-sponsor-disclaimer">Un especial ofrecido por</span>
+       <span class="longform-sponsor-logo"><img alt="<%= data.sponsorName %>" src="<%= sponsorImage %>"></span>
+      </div>
+     </div>
+    <% } %>
+   </div>
+   <!-- .header -->
+  </section>
+  <!-- .head -->
+  <div class="page-container">
+   <div class="content-container">
+    <%= data.html %>
     <section id="sections" class="head-menu-container head-menu-sections">
-        <a href="#sections" class="head-menu-toggler js-close-menu"></a>
-        <div class="head-menu">test</div>
+     <a href="#sections" class="head-menu-toggler js-close-menu"></a>
+     <div class="head-menu"></div>
     </section>
-    <nav id="nav-login" class="nav nav-list nav-login">
-        <a href="#nav-login" class="head-menu-toggler js-close-menu"></a>
-        <div class="head-menu">
-            <a href="#nav-login" class="close close-corner js-close-menu"></a>
-            <form id="wsl_login_form" class="login-form" onSubmit="return false">
-              <p>
-                <label for="wsl_ud_email">Correo electrónico: <input type="email" class="text" name="ud_username" id="wsl_ud_email" value="" tabindex="1" size="15"></label>
-                <label for="wsl_ud_pass">Contraseña: <input type="password" class="text" name="ud_pass" id="wsl_ud_pass" value="" tabindex="2" size="15"></label>
-              </p>
-              <div class="submit-area"><button type="submit" id="wsl_login_button" class="btn btn-primary">Entrar</button></div>
-            </form>
-            
-            <div class="login-3rd-part">
-              <p>
-                <a href="#" class="facebook-login" id="facebook_login">Entra con Facebook</a>
-              </p>
-            </div>
-            <p id="dont_have_account_text"><a href="#" id="open_register" data-target="#nav-register">Regístrate en Xataka</a></p>
-        </div>
-
-    </nav>
-    <nav class="nav nav-list nav-register" id="nav-register">
-        <a href="#nav-register" class="head-menu-toggler js-close-menu"></a>
-        <div class="head-menu">
-            <a href="#nav-register" class="close close-corner js-close-menu"></a>
-            <form onsubmit="return false" action="#" class="register-form" id="fos_user_registration_form">
-              <p id="wsl_register_invalid" class="wsl_error" style="display: none;">El correo electrónico no tiene el formato válido.</p>
-              <p id="wsl_email_invalid" class="wsl_error" style="display: none;">El correo electrónico no tiene el formato válido.</p>
-              <p id="wsl_short_pwd" class="wsl_error" style="display: none;">La contraseña debe tener al menos 6 caracteres.</p>
-              <p id="wsl_pwd_not_match" class="wsl_error" style="display: none;">Las contraseñas no coinciden.</p>
-              <p style="display:none" id="wsl_check_email"><span id="check_username">Comprobando...</span></p>
-              <p style="display:none" id="nicename_not_reqd" class="mclear message status">Ya tienes nombre de usuario en Xataka: <strong id="username">chavalina</strong></p>
-              <p>
-                <label for="wsl_email">E-mail: <input type="email" size="30" value="" id="wsl_email" name="fos_user_registration_form[email]" class="required text"></label>
-                <label for="wsl_password">Contraseña: <span class="mhelp">Al menos 6 caracteres</span> <input type="password" value="" id="wsl_password" name="fos_user_registration_form[plainPassword][first]" class="required text" size="20">
-                </label>
-                <label for="wsl_confirm_password">Repite la contraseña: <input type="password" value="" id="wsl_confirm_password" name="fos_user_registration_form[plainPassword][second]" class="required text" size="20"></label>
-              </p>
-              <p id="wsl_invalid_username" class="wsl_error" style="display: none;">El nombre de usuario no tiene el formato válido.</p>
-              <span id="wsl_res_username"></span>
-              <p id="username-box" class="mclear">
-                  <label for="wsl_username">
-                  Nombre de usuario: m.xataka.com/usuario/ <input type="text" class="required text " name="user_name" id="wsl_username" value="" size="25">
-                <span style="display: none;" id="wsl_check_username">Comprobando...</span>
-                            <span class="mhelp">Piénsalo bien porque no podrás cambiarlo. Mínimo 3 caracteres, se pueden usar números (pero no como carácter inicial), pero no mayúsculas, espacios, tildes o caracteres especiales.</span>
-                </label>
-              </p>
-              <p id="wsl_check_policy" class="wsl_error" style="display: none;">Debes aceptar la política de privacidad y de participación.</p>
-              <p>
-                <label for="wsl_condition_agree"><input type="checkbox" value="condition_agree" id="wsl_condition_agree" name="condition_agree" class="required"> He leído y acepto la <a href="/aviso" id="politica" target="_blank"><strong>politica de privacidad y de participación</strong></a>.</label>
-              </p>
-            
-              <div class="submit-area"><button class="btn btn-primary button" type="submit" id="wsl_register_button">Regístrate</button></div>
-            </form>
-            <div class="login-3rd-part">
-              <p>
-                <a id="facebook_login2" class="facebook-login" href="#">Entra con Facebook</a>
-              </p>
-            </div>
-            <p id="already_acc">¿Ya tienes cuenta? <a href="#">identifícate aquí</a></p>
-        </div>
-    </nav>
-    <!-- .nav-register -->
     <section class="foot-external">
-        <div class="wrapper foot-wrapper">
-            <header class="foot-head">
-                <a class="backlink foot-backlink" href="#head">Subir</a>
-                <p class="wsl-brand foot-wsl-brand"><a href="http://weblogssl.com" class="wsl-logo foot-wsl-logo"><span>Weblogs SL</span></a></p>
-            </header>
-        </div>  
+     <div class="wrapper foot-wrapper">
+      <header class="foot-head">
+       <a class="backlink foot-backlink" href="#head">Subir</a>
+       <p class="wsl-brand foot-wsl-brand"><a href="http://weblogssl.com" class="wsl-logo foot-wsl-logo"><span>Weblogs SL</span></a></p>
+      </header>
+     </div>
     </section>
     <!-- .foot -->
-    <div id="cookies-overlay" class="cookies-overlay">
-        <div class="cookies-wrapper">
-            <a href="#cookies-overlay" class="close js-close">×</a>
-            <p>Usamos cookies para personalizar su experiencia. Si sigue navegando estará aceptando su uso. <a href="#"> Más información </a> </p>
-        </div>
-    </div>
-</div>
-</div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-    
-    //Menus toggle
-    // Open a menu
-    $(".js-open-menu").click(function(e) {
-        e.preventDefault();
-        
-        target = $(this).attr("href");
-
-        // Close previously opened menus
-        $("#headlines").removeClass("is-visible");
-        $("#sections").removeClass("is-visible");
-        $("#search").removeClass("is-visible");
-        $("#nav-login").removeClass("is-visible");
-        $("#nav-register").removeClass("is-visible");
-        // Open this
-        $(target).addClass("is-visible");
-        $(".page-container").addClass("is-blocked");
-        $("html").addClass("noscroll");
-    });
-    $(".js-close-menu").click(function(e) {
-        e.preventDefault();
-        
-        target = $(this).attr("href");
-
-        $(target).removeClass("is-visible");
-        $(".page-container").removeClass("is-blocked");
-        $("html").removeClass("noscroll");
-    });
-    
-    // Hide Header on on scroll down
-    var didScroll;
-    var lastScrollTop = 0;
-    var delta = 5;
-    var navbarHeight = $('.head').outerHeight();
-    var navbarOffset = navbarHeight + $('.head').offset().top;
-    
-    $(window).scroll(function(event){
-        didScroll = true;
-    });
-    
-    setInterval(function() {
-        if (didScroll) {
-            hasScrolled();
-            didScroll = false;
-        }
-    }, 250);
-    
-    function hasScrolled() {
-        var st = $(this).scrollTop();
-        
-        // Make sure they scroll more than delta
-        if(Math.abs(lastScrollTop - st) <= delta)
-        return;
-        
-        // If they scrolled down and are past the navbar, add class .nav-up.
-        // This is necessary so you never see what is "behind" the navbar.
-        if(st < navbarOffset) {
-            $('.head').removeClass('is-visible').removeClass('is-hidden').addClass('is-init');
-            $('.js-article-social-share').removeClass('is-visible').removeClass('is-hidden');
-            $('.js-head-favicons').removeClass('is-visible');
-            $('.js-toggle-channel').removeClass('is-visible');
-        }else if (st > lastScrollTop && st > navbarHeight){
-        // Scroll Down
-            $('.head').removeClass('is-visible').removeClass('is-init').addClass('is-hidden');
-            $('.js-article-social-share').removeClass('is-visible').addClass('is-hidden');
-            $('.js-related-leaving').removeClass('is-visible');
-            $('.js-head-favicons').removeClass('is-visible');
-            $('.js-toggle-channel').removeClass('is-visible');
-        } else {
-        // Scroll Up
-            if(st + $(window).height() < $(document).height()) {
-                $('.head').removeClass('is-hidden').removeClass('is-init').addClass('is-visible');
-                $('.js-article-social-share').removeClass('is-hidden').addClass('is-visible');
-                $('.js-related-leaving').addClass('is-visible');
-            }
-        }
-        
-        
-        lastScrollTop = st;
-    }
-
-    // Toggle
-    //Multipurpose toggle, hides trigger
-    $(".js-toggle").click(function(e) {
-        e.preventDefault();
-        
-        target = $(this).attr("href");
-
-        $(target).toggle();
-        $(this).toggleClass("is-opened");
-    });
-
-    // Close
-    $(".js-close").click(function(e) {
-        e.preventDefault();
-        
-        target = $(this).attr("href");
-
-        $(target).hide();
-    });
-
-    // Channels
-    $(".js-toggle-channel").click(function(e) {
-        e.preventDefault();
-        
-        target = $(this).attr("href");
-
-        $(this).toggleClass("is-visible");
-        $(target).toggleClass("is-visible");
-    });
-    
-
-</script>
-<script src="http://mtest.xataka.com/scripts/lib/modernizr.custom.js"></script> 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="http://testblogwp.weblogssl.com/temp/devel/r/js/jquery.elastislide-auto.js"></script>
-<script type="text/javascript">
-window.addEventListener('load', function() {
-    var $this;
-    $('.js-elastislide-element').each(function() {
-        $this = $(this);
-        $this.elastislide({autoplay : !!$this.attr('autoplay')});
-    });
-});
-</script>
-</body>
+    <div id="cookies-overlay" class="cookies-overlay"></div>
+   </div>
+  </div>
+  <script type="text/javascript" src="http://img.weblogssl.com/LPbackend/prod/v2/js/main-1205.js"></script>
+  <script type="text/javascript">
+   $(".js-open-menu").click(function(e) {
+    e.preventDefault();
+    target = $(this).attr("href");
+    $("#sections").removeClass("is-visible");
+    $(target).addClass("is-visible");
+    $(".page-container").addClass("is-blocked");
+    $("html").addClass("noscroll");
+   });
+   $(".js-close-menu").click(function(e) {
+    e.preventDefault();
+    target = $(this).attr("href");
+    $(target).removeClass("is-visible");
+    $(".page-container").removeClass("is-blocked");
+    $("html").removeClass("noscroll");
+   });
+  </script>
+  <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   ga('create', 'UA-679927-76', 'auto');
+   ga('send', 'pageview');
+  </script>
+ </body>
 </html>

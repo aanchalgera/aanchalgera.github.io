@@ -19,6 +19,8 @@ var html
 , cloudinaryPath = 'http://res.cloudinary.com/agilemediatest/image/upload'
 , cdnPath = 'http://ti1.blogs.es'
 , firebaseRef = new Firebase("https://dazzling-torch-3017.firebaseio.com/config")
+, siteName = 'xataka',
+, siteUrl = 'http://testing.xataka.com'
 ;
 
 function setFirebaseRef(requestFirebaseRef)
@@ -34,7 +36,9 @@ function parse(jsonObjects)
         var childData = childSnapshot.val();
         if ('xataka' == childData.site_name) {
             cdnPath = childData.cdn_url;
-            cloudinaryPath = childData.cloudinary_url;
+            cloudinaryPath = childData.cloudinary_url,
+            siteName = childData.site_name;
+            siteUrl = childData.site_url;
         }
       });
     });
@@ -82,6 +86,7 @@ function parseData(jsonObjects)
     firstSectionHTML = '';
     sectionsCovered = 0;
     totalSections = jsonObjects.sections.length;
+    var pageData = {};
 
     jsonObjects.sections.forEach(handleSection);
 
@@ -90,7 +95,14 @@ function parseData(jsonObjects)
         return contentHTML;
     }
 
-    var finalHTML = templating.getPageTemplate(jsonObjects.title, jsonObjects.page_description, contentHTML);
+    pageData.siteName = siteName;
+    pageData.siteUrl = siteUrl;
+    pageData.title = jsonObjects.title;
+    pageData.sponsorName = jsonObjects.meta.sponsor.name;
+    pageData.sponsorImage = jsonObjects.meta.sponsor.image;
+    pageData.html = contentHTML;
+
+    var finalHTML = templating.getPageTemplate(pageData);
     if (undefined !== jsonObjects.id && '' != jsonObjects.id) {
         var outputFileName = jsonObjects.id + '.html';
         templating.writeFile(outputFilePath + '/' + outputFileName, finalHTML);
@@ -107,7 +119,7 @@ function handleSection(section, index, allSections)
 
     templating.setSectionClasses(sectionClasses);
     templating.setSectionStyles(sectionStyles);
-    
+
     switch(section['type']) {
         case 'summary':
         case 'richContent':
@@ -170,7 +182,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
     var imagePath2560 = cdnPath + '/w_2560,c_fit/' + imageName;
 
     var imageObject = {
-        sectionClasses: sectionClasses, 
+        sectionClasses: sectionClasses,
         sectionStyles: sectionStyles,
         width: section['width'],
         height: section['height'],
@@ -183,7 +195,7 @@ function getImageObject(sectionClasses, sectionStyles, section)
         size: section['size'],
         description: section['description']
     };
-    
+
     switch (section['layout']) {
         case 'small':
             //no srcsets for small layout
@@ -262,7 +274,7 @@ function addBackgroundClass(sectionClasses, section)
 {
     if (!isEmpty(section, "backgroundImage")) {
         sectionClasses.push("module-bg-image");
-        
+
         if (!isEmpty(section, "backgroundFade")) {
             sectionClasses.push("module-bg-fade");
         }
@@ -275,7 +287,7 @@ function addBackgroundClass(sectionClasses, section)
     if (isTrue(section, "backgroundRepeat")) {
         sectionClasses.push("module-bg-repeat");
     }
-    
+
     if (!isEmpty(section, "backgroundClass")) {
         sectionClasses.push("module-bg-color");
         sectionClasses.push(section['backgroundClass']);
@@ -300,7 +312,7 @@ function addParallaxClass(sectionClasses, section)
     if (isTrue(section, "parallax")) {
         sectionClasses.push("module-bg-parallax");
     }
-    
+
     return sectionClasses;
 }
 
@@ -372,14 +384,14 @@ function getSectionObject(section)
             return getImageObject(sectionClasses, sectionStyles, section);
         case 'gallery':
             return {
-                sectionClasses: sectionClasses, 
+                sectionClasses: sectionClasses,
                 sectionStyles: sectionStyles,
                 images: getImageCdnPaths(section['images']),
                 type: section['type']
             };
         case 'slider':
-            return { 
-                sectionClasses: sectionClasses, 
+            return {
+                sectionClasses: sectionClasses,
                 sectionStyles: sectionStyles,
                 title: section['title'],
                 images: getImageCdnPaths(section['images']),
@@ -389,8 +401,8 @@ function getSectionObject(section)
         case 'summary':
         case 'content':
         case 'richContent':
-            return { 
-                sectionClasses: sectionClasses, 
+            return {
+                sectionClasses: sectionClasses,
                 sectionStyles: sectionStyles,
                 text: section["text"],
                 type: section['type'],
@@ -398,7 +410,7 @@ function getSectionObject(section)
             };
         case 'video':
             return {
-                sectionClasses: sectionClasses, 
+                sectionClasses: sectionClasses,
                 sectionStyles: sectionStyles,
                 url: section['url'],
                 height: section["height"],
