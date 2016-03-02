@@ -18,7 +18,7 @@ class Publish extends React.Component {
     this.state = {
       fields: [],
       value: moment().format('DD/MM/YYYY HH:mm'),
-      status: 'publish',
+      status: '',
       postRepostBlogNames: [],
       publishRegion: [],
       postId: '',
@@ -64,9 +64,9 @@ class Publish extends React.Component {
               id: data.id,
               fields: data.sections != undefined ? data.sections : [],
               title: data.title,
-              meta: data.meta != undefined ? data.meta : {index : '',homepage : {content:'',sponsor:''}, seo:{}},
+              meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
               maxId: data.maxId,
-              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : "publish",
+              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : '',
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
@@ -142,7 +142,7 @@ class Publish extends React.Component {
       "post_subtype" : 13,
       "postDate": this.state.value,
       "publish-region": publishRegion,
-      "post_status": this.state.status,
+      "post_status": "publish",
       "postRepostBlogNames": postRepostBlogNames,
       "page": "publish"
     };
@@ -152,11 +152,11 @@ class Publish extends React.Component {
       "title" : this.state.title,
       "sections" : this.state.fields,
       "maxId" : this.state.maxId,
-      "status": this.state.status,
+      "status": "publish",
       "publishData" : {
         "postDate": this.state.value,
         "publishRegion": publishRegion,
-        "postStatus": this.state.status,
+        "postStatus": "publish",
         "postRepostBlogNames": postRepostBlogNames
       },
       "meta" : this.state.meta
@@ -195,13 +195,14 @@ class Publish extends React.Component {
            setTimeout(function() {
              self.refs.scheduleSuccess.style.display = 'none';
            }, 7000);
-           self.setState({postId: result.id, postHash: result.post_hash});
+           self.setState({postId: result.id, postHash: result.post_hash, status: 'publish'});
            self.toggleButton();
          }
        }
      });
     });
   }
+
   onChange (ev) {
     ev.preventDefault()
     this.setState({value: ev.currentTarget.value});
@@ -261,7 +262,7 @@ class Publish extends React.Component {
   render () {
     var sitePreviewLink = '';
     var sitePreviewUrl = '';
-    if (this.state.postId != undefined && this.state.postId != '') {
+    if (this.state.postId != undefined && this.state.postId != '' && this.state.status == 'publish') {
       sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
       sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
     }
