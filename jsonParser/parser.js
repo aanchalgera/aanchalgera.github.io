@@ -19,7 +19,7 @@ var html
 , cloudinaryPath = 'http://res.cloudinary.com/agilemediatest/image/upload'
 , cdnPath = 'http://ti1.blogs.es'
 , firebaseRef = new Firebase("https://dazzling-torch-3017.firebaseio.com/config")
-, siteName = 'xataka',
+, siteName = 'xataka'
 , siteUrl = 'http://testing.xataka.com'
 ;
 
@@ -36,7 +36,7 @@ function parse(jsonObjects)
         var childData = childSnapshot.val();
         if ('xataka' == childData.site_name) {
             cdnPath = childData.cdn_url;
-            cloudinaryPath = childData.cloudinary_url,
+            cloudinaryPath = childData.cloudinary_url;
             siteName = childData.site_name;
             siteUrl = childData.site_url;
         }
