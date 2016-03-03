@@ -1,16 +1,16 @@
 'use strict';
-var fs = require('fs'), 
-    _ = require("underscore"), 
-    bannerTemplate, 
-    imageTemplate, 
-    videoTemplate, 
-    imageColumnTemplate, 
-    sliderTemplate, 
-    galleryTemplate, 
+var fs = require('fs'),
+    _ = require("underscore"),
+    bannerTemplate,
+    imageTemplate,
+    videoTemplate,
+    imageColumnTemplate,
+    sliderTemplate,
+    galleryTemplate,
     groupedTemplate,
     contentTemplate,
     commonTemplate,
-    pageTemplate, 
+    pageTemplate,
     sectionClasses,
     sectionStyles,
     section,
@@ -76,8 +76,8 @@ function loadTemplates()
 function getBannerTemplate()
 {
     return bannerTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             imageUrl: section["url"],
             bannerText: section["text"],
@@ -89,8 +89,8 @@ function getBannerTemplate()
 function getVideoTemplate()
 {
     return videoTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             url: section['url'],
             height: section["height"],
@@ -102,8 +102,8 @@ function getVideoTemplate()
 function getCommonTemplate()
 {
     return commonTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             text: section["text"]
         }
@@ -113,8 +113,8 @@ function getCommonTemplate()
 function getGalleryTemplate()
 {
     return galleryTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             images: section['images']
         }
@@ -129,8 +129,8 @@ function getImageTemplate(imageObject)
 function getSliderTemplate()
 {
     return sliderTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             title: section['title'],
             images: section['images'],
@@ -142,20 +142,18 @@ function getSliderTemplate()
 function getContentTemplate(firstSectionHTML, html)
 {
     return contentTemplate(
-        { 
+        {
           firstSectionHTML: firstSectionHTML,
           sectionsHTML: html
         }
     );
 }
 
-function getPageTemplate(pageTitle, pageDescription, contentHTML)
+function getPageTemplate(pageData)
 {
     return pageTemplate(
-        { 
-          title: pageTitle,
-          pageDescription: pageDescription,
-          contentHTML: contentHTML
+        {
+          data: pageData
         }
     );
 }
@@ -163,8 +161,8 @@ function getPageTemplate(pageTitle, pageDescription, contentHTML)
 function getGroupedTemplate(sectionClasses, sectionStyles, columns)
 {
     return groupedTemplate(
-        { 
-            sectionClasses: sectionClasses, 
+        {
+            sectionClasses: sectionClasses,
             sectionStyles: sectionStyles,
             contentSections: columns
         }
@@ -188,7 +186,7 @@ function processData(host)
 
 function writeFile(fileName, fileContents)
 {
-    fs.writeFileSync(fileName, fileContents, "UTF-8", {'flags': 'w+'});    
+    fs.writeFileSync(fileName, fileContents, "UTF-8", {'flags': 'w+'});
 }
 
 module.exports = {
