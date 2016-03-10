@@ -57,6 +57,7 @@ class PropertyButton extends React.Component {
           dataId={this.props.dataId}
           layout={this.props.layout}
           addLayoutToResource={this.props.addLayoutToResource}
+          dataType={this.props.data.type}
         />;
         break;
     }

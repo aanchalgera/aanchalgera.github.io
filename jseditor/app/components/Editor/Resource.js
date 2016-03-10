@@ -15,7 +15,7 @@ class Resource extends React.Component {
     this.setState({minimize:!this.state.minimize})
   }
   getStyleText(data) {
-    var backgroundClass = '', backgroundImage = '';
+    var backgroundClass = '', backgroundImage = '', backgroundImageHeight = '';
       backgroundClass = data.backgroundClass;
       backgroundImage = data.backgroundImage ? "url('"+data.backgroundImage+"')" : '';
       if (data.backgroundRepeat == true) {
@@ -23,7 +23,10 @@ class Resource extends React.Component {
       } else {
         var repeatOrCover = ';background-size:cover'
       }
-    return 'background-image:'+backgroundImage+repeatOrCover;
+      if (data.backgroundFullscreen && data.backgroundImageHeight) {
+        backgroundImageHeight = ";height:"+data.backgroundImageHeight+"px";
+      }
+    return 'background-image:'+backgroundImage+repeatOrCover+backgroundImageHeight;
   }
   render() {
     var {field,i,totalElements,...other} = this.props;

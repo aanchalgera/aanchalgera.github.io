@@ -19,6 +19,7 @@ class PropertyButtonContent extends React.Component {
           <button type='button' onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundFade', null)} className={"btn btn-default "+(this.props.data.backgroundFade ? "active" : null)}>Fade</button>
           <button type='button' onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundRepeat', null)} className={"btn btn-default "+(this.props.data.backgroundRepeat ? "active" : null)}>Repeat</button>
           <span className="hint">you can select multiple effects</span>
+          <button className="btn btn-default full-bg" type='button' onClick={this.props.addBackgroundOptionToResource.bind(this,'backgroundFullscreen', null)} className={"btn btn-default "+(this.props.data.backgroundFullscreen ?  "active" : null)}>Fullscreen background</button>
         </li>
     } else {
       var backgroundImage = <div className="input-group">
