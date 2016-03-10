@@ -125,6 +125,7 @@ class Editor extends React.Component{
       var field = this.getField(currentIndex);
       field.altered.backgroundImage = image.url;
       field.altered.backgroundImageName = image.original_filename;
+      field.altered.backgroundImageHeight = image.height;
       this.state.fields.splice(field.indexes[0], 0, field.original);;
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -359,6 +360,10 @@ class Editor extends React.Component{
           field.altered.backgroundImage = '';
           field.altered.backgroundFade = '';
           field.altered.backgroundRepeat = '';
+          field.altered.backgroundFullscreen = '';
+          break;
+        case 'backgroundFullscreen' :
+          field.altered.backgroundFullscreen = !field.altered.backgroundFullscreen;
           break;
        }
      this.state.fields.splice(field.indexes[0], 0, field.original);;
