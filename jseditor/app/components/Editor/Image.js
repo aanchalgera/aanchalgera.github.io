@@ -3,9 +3,9 @@ import ImageCaption from './ImageCaption';
 
 class Image extends React.Component {
   render () {
-    var imageCaption = this.props.data.description != undefined ? this.props.data.description : ''
+    var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
     return (
-      <div>
+      <div className={'asset-size-' + this.props.data.layout}>
         <img
           id={'img' + this.props.data.id}
           data-id={this.props.dataId}
@@ -21,7 +21,7 @@ class Image extends React.Component {
           limit=""
         />
       </div>
-    )
+    );
   }
 }
 
