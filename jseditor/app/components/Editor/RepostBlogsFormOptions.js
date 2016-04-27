@@ -1,31 +1,40 @@
 import React, { PropTypes } from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
-var blogs = ["decoesfera", "ahorrodiario", "applesfera", "bebesymas",
-         "blogdecine", "diariodelviajero", "directoalpaladar", "elblogsalmon",
-         "genbeta", "genbetadev", "motorpasion", "motorpasionfuturo", "pequesymas",
-         "pymesyautonomos", "trendencias", "vayatele", "vidaextra", "vitonica",
-         "xatakandroid", "xatakaciencia", "xatakafoto", "xatakahome", "xatakamexico",
-         "xatakamovil", "xatakawindows", "xatakaon", "xatakacolombia"];
+let blogs = ['decoesfera', 'ahorrodiario', 'applesfera', 'bebesymas',
+         'blogdecine', 'diariodelviajero', 'directoalpaladar', 'elblogsalmon',
+         'genbeta', 'genbetadev', 'motorpasion', 'motorpasionfuturo', 'pequesymas',
+         'pymesyautonomos', 'trendencias', 'vayatele', 'vidaextra', 'vitonica',
+         'xatakandroid', 'xatakaciencia', 'xatakafoto', 'xatakahome', 'xatakamexico',
+         'xatakamovil', 'xatakawindows', 'xatakaon', 'xatakacolombia',
+];
+
 class RepostBlogsFormOptions extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      value : []
+      value: [],
     };
   }
+
   componentWillReceiveProps (nextProps) {
     this.setState({
-      value: nextProps.repostBlogs
+      value: nextProps.repostBlogs,
     });
   }
+
+  addCheckBoxes(Checkbox) {
+    var checkboxes = '';
+    checkboxes = blogs.map(function (blog, index) {
+      return <label key={index} className="label-inline">
+        <Checkbox value={blog} />{blog}
+      </label>;
+    });
+
+    return checkboxes;
+  }
+
   render () {
-    var checks = '';
-    checks = blogs.map(function(blogName,i){
-      return (
-        React.createElement("label", {key: i,className: "label-inline"}, React.createElement("input", {type:"checkbox",value: blogName,name:"postRepostBlogNames[]"}, blogName))
-      )
-    })
     return (
       <div className="form-group" id="repost-blogs">
         <fieldset className="country">
@@ -34,12 +43,19 @@ class RepostBlogsFormOptions extends React.Component {
               name="repostblogs"
               value={this.state.value}
               ref="repostBlogOptions"
+              onChange={this.props.setRepostBlogs.bind(this)}
           >
-            <div className="field-repost">{checks}</div>
+          {
+            Checkbox => (
+              <div className="field-repost">
+                {this.addCheckBoxes(Checkbox)}
+              </div>
+            )
+          }
           </CheckboxGroup>
         </fieldset>
       </div>
-    )
+    );
   }
 }
 

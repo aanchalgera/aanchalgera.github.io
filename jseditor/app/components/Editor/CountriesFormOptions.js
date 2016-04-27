@@ -2,19 +2,21 @@ import React, { PropTypes } from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
 class CountriesFormOptions extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      value : [],
+      value: [],
     };
   }
+
   componentWillReceiveProps (nextProps) {
     this.setState({
-      value: nextProps.publishRegions
+      value: nextProps.publishRegions,
     });
   }
+
   render () {
-    return(
+    return (
       <div className="form-group" id="countries">
         <fieldset className="country">
           <legend>Publicar en los países</legend>
@@ -22,28 +24,33 @@ class CountriesFormOptions extends React.Component {
             name="countries"
             value={this.state.value}
             ref="countryOptions"
+            onChange={this.props.setPublishRegions}
           >
-            <div className="field-repost">
-              <label className="label-inline">
-                <input type="checkbox" value="ES" name="publish-region[]" />España
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="US" name="publish-region[]" />EE.UU
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="MX" name="publish-region[]" />México
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="PE" name="publish-region[]" />Perú
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="ROW" name="publish-region[]" />Resto del mundo
-              </label>
-            </div>
+          {
+            Checkbox => (
+              <div className="field-repost">
+                <label className="label-inline">
+                  <Checkbox value="ES"/>España
+                </label>
+                <label className="label-inline">
+                  <Checkbox value="US"/>EE.UU
+                </label>
+                <label className="label-inline">
+                  <Checkbox value="MX"/>México
+                </label>
+                <label className="label-inline">
+                  <Checkbox value="PE"/>Perú
+                </label>
+                <label className="label-inline">
+                  <Checkbox value="ROW"/>Resto del mundo
+                </label>
+              </div>
+            )
+          }
           </CheckboxGroup>
         </fieldset>
       </div>
-    )
+    );
   }
 }
 
