@@ -255,8 +255,7 @@ class Publish extends React.Component {
   setPublishRegions (newRegions) {
     this.setState({
         publishRegion: newRegions,
-      }
-    )
+    })
   }
 
   setRepostBlogs (newBlogs) {
