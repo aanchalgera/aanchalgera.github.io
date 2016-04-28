@@ -116,7 +116,6 @@ class Publish extends React.Component {
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm, '');
-    var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
     var publishRegion = this.state.publishRegion;
     var postRepostBlogNames = this.state.postRepostBlogNames;
 
@@ -254,7 +253,7 @@ class Publish extends React.Component {
 
   setPublishRegions (newRegions) {
     this.setState({
-        publishRegion: newRegions,
+      publishRegion: newRegions,
     })
   }
 

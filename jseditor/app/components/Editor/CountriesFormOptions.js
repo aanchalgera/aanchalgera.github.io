@@ -2,19 +2,6 @@ import React, { PropTypes } from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
 class CountriesFormOptions extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: [],
-    };
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.publishRegions,
-    });
-  }
-
   render () {
     return (
       <div className="form-group" id="countries">
@@ -22,7 +9,7 @@ class CountriesFormOptions extends React.Component {
           <legend>Publicar en los países</legend>
           <CheckboxGroup
             name="countries"
-            value={this.state.value}
+            value={this.props.publishRegions}
             ref="countryOptions"
             onChange={this.props.setPublishRegions}
           >

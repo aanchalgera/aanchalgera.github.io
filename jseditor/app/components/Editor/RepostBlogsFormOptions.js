@@ -10,30 +10,6 @@ let blogs = ['decoesfera', 'ahorrodiario', 'applesfera', 'bebesymas',
 ];
 
 class RepostBlogsFormOptions extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: [],
-    };
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.repostBlogs,
-    });
-  }
-
-  addCheckBoxes(Checkbox) {
-    var checkboxes = '';
-    checkboxes = blogs.map(function (blog, index) {
-      return <label key={index} className="label-inline">
-        <Checkbox value={blog} />{blog}
-      </label>;
-    });
-
-    return checkboxes;
-  }
-
   render () {
     return (
       <div className="form-group" id="repost-blogs">
@@ -41,14 +17,20 @@ class RepostBlogsFormOptions extends React.Component {
           <legend>Repost en otros blogs</legend>
           <CheckboxGroup
               name="repostblogs"
-              value={this.state.value}
+              value={this.props.repostBlogs}
               ref="repostBlogOptions"
               onChange={this.props.setRepostBlogs.bind(this)}
           >
           {
             Checkbox => (
               <div className="field-repost">
-                {this.addCheckBoxes(Checkbox)}
+                {
+                  blogs.map((blog, index) => (
+                    <label key={index} className="label-inline">
+                      <Checkbox value={blog} />{blog}
+                    </label>)
+                  )
+                }
               </div>
             )
           }
