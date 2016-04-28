@@ -1,49 +1,43 @@
 import React, { PropTypes } from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
+let regions = {
+  ES: 'España',
+  US: 'EE.UU',
+  MX: 'México',
+  PE: 'Perú',
+  ROW: 'Resto del mundo',
+};
+
 class CountriesFormOptions extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      value : [],
-    };
-  }
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.publishRegions
-    });
-  }
   render () {
-    return(
+    return (
       <div className="form-group" id="countries">
         <fieldset className="country">
           <legend>Publicar en los países</legend>
           <CheckboxGroup
             name="countries"
-            value={this.state.value}
+            value={this.props.publishRegions}
             ref="countryOptions"
+            onChange={this.props.setPublishRegions}
           >
-            <div className="field-repost">
-              <label className="label-inline">
-                <input type="checkbox" value="ES" name="publish-region[]" />España
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="US" name="publish-region[]" />EE.UU
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="MX" name="publish-region[]" />México
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="PE" name="publish-region[]" />Perú
-              </label>
-              <label className="label-inline">
-                <input type="checkbox" value="ROW" name="publish-region[]" />Resto del mundo
-              </label>
-            </div>
+          {
+            Checkbox => (
+              <div className="field-repost">
+                {
+                  Object.keys(regions).map((key) => (
+                    <label key={key} className="label-inline">
+                      <Checkbox value={key} />{regions[key]}
+                    </label>
+                  ))
+                }
+              </div>
+            )
+          }
           </CheckboxGroup>
         </fieldset>
       </div>
-    )
+    );
   }
 }
 

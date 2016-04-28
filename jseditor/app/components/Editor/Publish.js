@@ -116,17 +116,8 @@ class Publish extends React.Component {
     if (this.postname == undefined) return;
     if (!this.validate()) return;
     content = content.replace(/(\r\n|\n|\r)/gm, '');
-    var countries = document.querySelectorAll('#countries input[type=checkbox]:checked');
-    var repostBlogs = document.querySelectorAll('#repost-blogs input[type=checkbox]:checked');
-    var publishRegion = [];
-    var postRepostBlogNames = [];
-    for (var i = 0; i < countries.length; i++) {
-      publishRegion.push(countries[i].value);
-    }
-
-    for (var i = 0; i < repostBlogs.length; i++) {
-      postRepostBlogNames.push(repostBlogs[i].value);
-    }
+    var publishRegion = this.state.publishRegion;
+    var postRepostBlogNames = this.state.postRepostBlogNames;
 
     var data = {
       "categoryId":"-1",
@@ -259,6 +250,19 @@ class Publish extends React.Component {
     document.getElementById('publish-slots').style.display = 'none';
     this.handleDatePickerText();
   }
+
+  setPublishRegions (newRegions) {
+    this.setState({
+      publishRegion: newRegions,
+    })
+  }
+
+  setRepostBlogs (newBlogs) {
+    this.setState({
+      postRepostBlogNames: newBlogs,
+    })
+  }
+
   render () {
     var sitePreviewLink = '';
     var sitePreviewUrl = '';
@@ -286,8 +290,8 @@ class Publish extends React.Component {
             onPickSlot={this.onPickSlot.bind(this)}
             onSchedule={this.onSchedule.bind(this)}
             openSlotWidget={this.openSlotWidget.bind(this)} />
-          <CountriesFormOptions publishRegions={this.state.publishRegion} />
-          <RepostBlogsFormOptions repostBlogs={this.state.postRepostBlogNames} />
+          <CountriesFormOptions setPublishRegions={this.setPublishRegions.bind(this)} publishRegions={this.state.publishRegion} />
+          <RepostBlogsFormOptions setRepostBlogs={this.setRepostBlogs.bind(this)} repostBlogs={this.state.postRepostBlogNames} />
         </form>
       </div>
     )
