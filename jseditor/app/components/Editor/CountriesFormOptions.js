@@ -1,6 +1,14 @@
 import React, { PropTypes } from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
+let regions = {
+  ES: 'España',
+  US: 'EE.UU',
+  MX: 'México',
+  PE: 'Perú',
+  ROW: 'Resto del mundo',
+};
+
 class CountriesFormOptions extends React.Component {
   render () {
     return (
@@ -16,21 +24,13 @@ class CountriesFormOptions extends React.Component {
           {
             Checkbox => (
               <div className="field-repost">
-                <label className="label-inline">
-                  <Checkbox value="ES"/>España
-                </label>
-                <label className="label-inline">
-                  <Checkbox value="US"/>EE.UU
-                </label>
-                <label className="label-inline">
-                  <Checkbox value="MX"/>México
-                </label>
-                <label className="label-inline">
-                  <Checkbox value="PE"/>Perú
-                </label>
-                <label className="label-inline">
-                  <Checkbox value="ROW"/>Resto del mundo
-                </label>
+                {
+                  Object.keys(regions).map((key) => (
+                    <label key={key} className="label-inline">
+                      <Checkbox value={key} />{regions[key]}
+                    </label>
+                  ))
+                }
               </div>
             )
           }
