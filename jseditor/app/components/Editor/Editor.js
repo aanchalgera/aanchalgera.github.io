@@ -5,7 +5,6 @@ import PostTitle from './PostTitle';
 import PreviewOnSite from './PreviewOnSite';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
-import PreviewPanel from './PreviewPanel';
 import Metadata from './Metadata/Metadata';
 import {Link} from 'react-router';
 import helpers from '../../utils/generatehash';
@@ -476,50 +475,6 @@ class Editor extends React.Component{
      this.setState({fields: this.state.fields}, this.saveData());
   }
 
-  openPreviewPanel(event) {
-    event.preventDefault();
-    if (undefined == this.state.value || '' == this.state.value.trim()) {
-      this.setMessage(true,'Title should not be empty');
-      return
-    } else if(0 == this.state.fields.length){
-      this.setMessage(true,'Please add some content');
-      return
-    } else {
-      this.setMessage(false);
-    }
-    var hashId = this.state.id;
-    var data = {
-      id : hashId,
-      title : this.state.value,
-      sections : this.state.fields,
-      page: "preview",
-      meta : this.state.meta
-    };
-    data = JSON.stringify(data);
-    axios({
-      url : configParams.host +':81/parse',
-      method: 'POST',
-      data : data
-    })
-    .then(function (response) {
-      console.log(response);
-      var random  = Math.round(Math.random() * 10000000);
-      ReactDOM.render(<PreviewPanel src={hashId + ".html?" + random} />, document.getElementById('preview'));
-      document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-          document.getElementById('previewPanel').style.display = 'none';
-        }
-      };
-      document.getElementById('previewPanel').style.display = 'block';
-      document.getElementById('previewPanel').classList.add("in");
-    })
-    .catch(function (response) {
-      console.log('The response is :', response);
-      Rollbar.critical('Problem in parsing data', response);
-    });
-  }
-
   updateIndexMetadata(event) {
     this.state.meta.index= event.target.value;
     this.setState({meta: this.state.meta}, this.saveData());
@@ -609,8 +564,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <a className="btn btn-primary" href="#" onClick={this.openPreviewPanel.bind(this)}>Preview</a>
-          <PreviewOnSite state={this.state} savePreviewData={this.savePreviewData.bind(this)} />
+          <PreviewOnSite postId={this.state.id} savePreviewData={this.savePreviewData.bind(this)} />
           <Link className="btn btn-primary" to="/">List Page</Link>
           <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
           <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>

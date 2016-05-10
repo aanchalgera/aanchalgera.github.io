@@ -68,7 +68,7 @@ class Publish extends React.Component {
               maxId: data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : '',
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
-              postRepostBlogNames: data.publishData.postRepostBlogNames,
+              postRepostBlogNames: data.publishData.postRepostBlogNames != undefined ? data.publishData.postRepostBlogNames : [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId != undefined ? data.publishData.postId : '',
               postHash: data.publishData.postHash != undefined ? data.publishData.postHash : '',
