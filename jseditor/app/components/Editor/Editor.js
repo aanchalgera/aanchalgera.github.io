@@ -6,7 +6,7 @@ import PreviewOnSite from './PreviewOnSite';
 import CloudinaryUploader from './CloudinaryUploader';
 import axios from 'axios';
 import Metadata from './Metadata/Metadata';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
 class Editor extends React.Component{
@@ -24,53 +24,59 @@ class Editor extends React.Component{
       addMoreImages: false,
       orderMode: false,
       fields: [],
-      meta: null,
+      meta: { index: '', homepage: { content: '' }, sponsor: { name: '', image: '', tracker: '' }, css: { skinName: '' }, seo: {} },
       postId: '',
       postHash: '',
       isConnected: true,
+      status: 'draft',
     };
   }
 
   init() {
     this.checkConnectStatus();
-    var postname = this.props.routeParams.postname;
+    let postname = this.props.params.postname;
+    let { query } = this.props.location;
+    this.userId = parseInt(query.userid);
     if (undefined != postname) {
       try {
-        this.props.base.fetch("posts/" + postname, {
+        this.props.base.fetch('posts/' + postname, {
           context: this,
-          then(data){
+          then(data) {
             if (null != data) {
               this.setState({
-                id : data.id,
-                postId: data.publishData.postId != undefined? data.publishData.postId : '',
-                postHash: data.publishData.postHash != undefined? data.publishData.postHash : '',
+                id: data.id,
+                userId: data.user_id != undefined ? data.user_id : 1,
+                postId: data.publishData.postId != undefined ? data.publishData.postId : '',
+                postHash: data.publishData.postHash != undefined ? data.publishData.postHash : '',
                 fields: data.sections != undefined ? data.sections : [],
                 value: data.title,
                 maxId: data.maxId,
-                status: data.status != undefined ? data.status : '',
-                publishData: data.publishData != undefined ? data.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-                meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
+                status: data.status != undefined ? data.status : this.state.status,
+                publishData: data.publishData != undefined ? data.publishData : { publishRegion: ['ES', 'US', 'MX', 'PE', 'ROW'] },
+                meta: data.meta != undefined ? data.meta : this.state.meta,
               });
             }
-          }
+          },
         });
       } catch (e) {
         Rollbar.critical('Error occured while fetching post data from Firebase', e);
       }
     } else {
       let hashId = helpers.generatePushID();
+      let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
       this.setState({
-        id : hashId,
-        meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}}
-      }, this.context.router.push('/edit/post/'+hashId));
+        id: hashId,
+        userId: this.userId,
+      }, this.context.router.push(postEditUrl));
     }
   }
 
   componentDidMount() {
     var self = this;
-    this.timerId = setInterval(function() {
+    this.timerId = setInterval(function () {
       self.saveData();
     }, 20000);
+
     this.init();
   }
 
@@ -79,15 +85,15 @@ class Editor extends React.Component{
   }
 
   checkConnectStatus() {
-    var connectedRef = new Firebase(configParams.firebaseUrl+".info/connected");
-    connectedRef.on("value",(snap) => {
+    var connectedRef = new Firebase(configParams.firebaseUrl + '.info/connected');
+    connectedRef.on('value', (snap) => {
       if (snap.val() === true) {
         this.setState({
-          isConnected : true
+          isConnected: true,
         });
       } else {
         this.setState({
-          isConnected : false
+          isConnected: false,
         });
       }
     });
@@ -97,25 +103,27 @@ class Editor extends React.Component{
     if (undefined != event) {
       event.preventDefault();
     }
+
     this.setState({
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction,
-      addImageModule : addImageModule,
+      addImageModule: addImageModule,
       addMoreImages: addMoreImages,
     });
-    document.getElementById('resourcePanel').style.display = 'block'
-    document.getElementById('resourcePanel').classList.add('in')
+    document.getElementById('resourcePanel').style.display = 'block';
+    document.getElementById('resourcePanel').classList.add('in');
   }
 
   getField(currentIndex) {
-    var indexes = currentIndex.toString().split("-");
+    var indexes = currentIndex.toString().split('-');
     var original = this.state.fields.splice(indexes[0], 1)[0];
     if (undefined !== indexes[1]) {
       var altered = original.columns[indexes[1]];
     } else {
       var altered = original;
     }
-    return {indexes, original, altered};
+
+    return { indexes, original, altered };
   }
 
   addImage(image) {
@@ -129,17 +137,17 @@ class Editor extends React.Component{
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
       this.state.fields.splice(
-      currentIndex,0, {
+      currentIndex, 0, {
         id: this.state.maxId,
-        type: "image",
+        type: 'image',
         url: image.url,
         height: image.height != undefined ? image.height : '',
         width: image.width != undefined ? image.width : '',
         alt: image.alt != undefined ? image.alt : '',
-        banner : false,
-        parallax : false,
-        align: "",
-        layout: "normal"
+        banner: false,
+        parallax: false,
+        align: '',
+        layout: 'normal',
       });
     } else if (this.state.imageFunction == 'homepage') {
       this.state.meta.homepage.image = {
@@ -147,13 +155,14 @@ class Editor extends React.Component{
         height: image.height != undefined ? image.height : '',
         width: image.width != undefined ? image.width : '',
         alt: image.alt != undefined ? image.alt : '',
-        name : image.original_filename
+        name: image.original_filename,
       };
     }
+
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId,
-      meta: this.state.meta
+      meta: this.state.meta,
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -168,16 +177,17 @@ class Editor extends React.Component{
             image.description = caption;
           }
         }
+
         this.state.fields.splice(field.indexes[0], 0, field.original);
         this.setState({
-          fields: this.state.fields
+          fields: this.state.fields,
         }, this.saveData());
       }
     } else {
       field.altered.description = caption;
       this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({
-        fields: this.state.fields
+        fields: this.state.fields,
       }, this.saveData());
     }
   }
@@ -188,19 +198,21 @@ class Editor extends React.Component{
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex,0, {"id": this.state.maxId, "type" : moduleType, images});
+        currentIndex, 0, { id: this.state.maxId, type: moduleType, images });
     } else {
       var field = this.getField(currentIndex);
-      for(var i=0;i < images.length;i++) {
+      for (var i = 0; i < images.length; i++) {
         field.altered.images.push(images[i]);
       }
+
       this.state.fields.splice(field.indexes[0], 0, field.original);
     }
+
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId,
       addMoreImages: false,
-      addImageModule: ''
+      addImageModule: '',
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -208,16 +220,16 @@ class Editor extends React.Component{
   addVideo(currentIndex) {
     this.state.maxId++;
     this.state.fields.splice(
-    currentIndex,0, {
+    currentIndex, 0, {
       id: this.state.maxId,
-      type: "video",
-      url: "",
-      align: "",
-      layout: "normal"
+      type: 'video',
+      url: '',
+      align: '',
+      layout: 'normal',
     });
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId
+      maxId: this.state.maxId,
     }, this.saveData());
   }
 
@@ -235,34 +247,35 @@ class Editor extends React.Component{
     var field = {
       id: this.state.maxId,
       type: type,
-      text: ""
+      text: '',
     };
 
     if (type == 'summary') {
       field.layout = 'normal';
     }
 
-    this.state.fields.splice(currentIndex,0, field);
+    this.state.fields.splice(currentIndex, 0, field);
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId
+      maxId: this.state.maxId,
     });
   }
 
   handleChange (ev) {
     this.setState({
-      value: ev.currentTarget.value
+      value: ev.currentTarget.value,
     });
   }
 
   handleBlur (ev) {
     var title = ev.currentTarget.value.trim();
     if (undefined == title || '' == title) {
-      this.setMessage(true,'Title should not be empty');
-      return
+      this.setMessage(true, 'Title should not be empty');
+      return;
     } else {
       this.setMessage(false);
     }
+
     this.setState({
       value: title,
     }, this.saveData());
@@ -272,24 +285,31 @@ class Editor extends React.Component{
     if (ev != undefined) {
       ev.preventDefault();
     }
+
     if (undefined == this.state.value || '' == this.state.value.trim()) {
-      this.setMessage(true,'Title should not be empty');
-      return
-    } else if(0 == this.state.fields.length){
-      this.setMessage(true,'Please add some content');
-      return
+      this.setMessage(true, 'Title should not be empty');
+      return;
+    } else if (0 == this.state.fields.length) {
+      this.setMessage(true, 'Please add some content');
+      return;
+    } else if (isNaN(this.userId) && this.userId != this.state.userId) {
+      this.setMessage(true, 'You cannot edit this post');
+      return;
     } else {
       this.setMessage(false);
     }
 
+    let userStatus = this.userId + "_" + this.state.status;
     var data = {
-      "id" : this.state.id,
-      "title" : this.state.value,
-      "sections" : this.state.fields,
-      "maxId" : this.state.maxId,
-      "status": this.state.status != undefined ? this.state.status : '',
-      "publishData" : this.state.publishData != undefined ? this.state.publishData : {'publishRegion' : ['ES','US','MX','PE','ROW']},
-      "meta"  : this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
+      id: this.state.id,
+      user_id: this.userId,
+      user_status: userStatus,
+      title: this.state.value,
+      sections: this.state.fields,
+      maxId: this.state.maxId,
+      status: this.state.status != undefined ? this.state.status : '',
+      publishData: this.state.publishData != undefined ? this.state.publishData : { 'publishRegion': ['ES', 'US', 'MX', 'PE', 'ROW'] },
+      meta: this.state.meta != undefined ? this.state.meta : { index: '', homepage: { content: '' }, sponsor: { name: '', image: '', tracker: '' }, css: { skinName: '' }, seo: {} }
     };
 
     if (this.state.postId != undefined) {
@@ -298,14 +318,16 @@ class Editor extends React.Component{
     }
 
     var listData = {
-      "id" : this.state.id,
-      "title" : this.state.value
+      id: this.state.id,
+      title: this.state.value,
+      user_id: this.userId,
+      user_status: this.userStatus,
     };
     self = this;
     this.props.base.post(
       'posts_list/' + this.state.id, {
       data: listData,
-      then(data){}
+      then(data) {}
     });
     try {
       this.props.base.post(
@@ -316,7 +338,7 @@ class Editor extends React.Component{
           var successField = document.getElementById('successField');
           if (undefined != typeof successField) {
             document.getElementById('successField').style.display = 'block';
-            setTimeout(function() {
+            setTimeout(function () {
               document.getElementById('successField').style.display = 'none';
             }, 4000);
           }
@@ -366,7 +388,7 @@ class Editor extends React.Component{
           break;
        }
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   deleteResource(event) {
@@ -374,7 +396,7 @@ class Editor extends React.Component{
     if (confirmation == true) {
       var currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
-      this.setState({fields: this.state.fields}, this.saveData());
+      this.setState({ fields: this.state.fields }, this.saveData());
     }
   }
 
@@ -388,23 +410,25 @@ class Editor extends React.Component{
          object.backgroundImage = '';
        }
      }
+
      this.state.fields.splice(currentIndex, 0, {
-       id : this.state.maxId,
-       type : 'grouped',
-       length : group,
+       id: this.state.maxId,
+       type: 'grouped',
+       length: group,
        columns: objects
      });
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   ungroupSections(currentIndex, event) {
      var obj = this.state.fields.splice(currentIndex, 1)[0];
-     if (obj.length == 2 ){
+     if (obj.length == 2) {
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
      }else if (obj.length == 3) {
        this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
      }
-     this.setState({fields: this.state.fields}, this.saveData());
+
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateText(event, value) {
@@ -413,7 +437,7 @@ class Editor extends React.Component{
      var field = this.getField(currentIndex);
      field.altered.text = value;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateSummaryText(currentIndex, event)
@@ -421,21 +445,21 @@ class Editor extends React.Component{
      var field = this.getField(currentIndex);
      field.altered.text = event.target.innerHTML;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateRichContent(currentIndex, event) {
      var field = this.getField(currentIndex);
      field.altered.text = event.target.textContent;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateVideo(currentIndex, event) {
      var field = this.getField(currentIndex);
      field.altered.url = event.target.value;
      this.state.fields.splice(field.indexes[0], 0, field.original);
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   addLayoutToResource(event) {
@@ -445,25 +469,25 @@ class Editor extends React.Component{
      var field = this.getField(currentIndex);
      field.altered.layout = value;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   moveResourceDown(currentIndex) {
     var obj = this.state.fields.splice(currentIndex, 1);
-    this.state.fields.splice(currentIndex+1, 0, obj[0]);
+    this.state.fields.splice(currentIndex + 1, 0, obj[0]);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   moveResourceUp(currentIndex, event)
   {
     var obj = this.state.fields.splice(currentIndex, 1);
-    this.state.fields.splice(currentIndex-1, 0, obj[0]);
+    this.state.fields.splice(currentIndex - 1, 0, obj[0]);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   toggleOrderMode(event) {
     event.preventDefault();
-    this.setState({orderMode:!this.state.orderMode})
+    this.setState({ orderMode: !this.state.orderMode })
   }
 
   setAutoPlaySlider(event, value) {
@@ -472,59 +496,59 @@ class Editor extends React.Component{
      var field = this.getField(currentIndex);
      field.altered.autoplay = value;
      this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({fields: this.state.fields}, this.saveData());
+     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateIndexMetadata(event) {
-    this.state.meta.index= event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.state.meta.index = event.target.value;
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateFooterCredits(event) {
     this.state.meta.footer = event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateHomepageContent(value) {
     this.state.meta.homepage.content = value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateSponsorName(event) {
     this.state.meta.sponsor.name = event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   deleteHomepageImage() {
     this.state.meta.homepage.image = null;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateSeoTitle(event) {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.title = event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateSeoDescription(event) {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.description = event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateSponsorImage(value) {
     this.state.meta.sponsor.image = value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateSponsorTracker(event) {
     this.state.meta.sponsor.tracker = event.target.value;
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   updateCssSkinName(event) {
     this.state.meta.css.skinName = event.target.value.trim();
-    this.setState({meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   savePreviewData(id, postHash) {
@@ -541,11 +565,12 @@ class Editor extends React.Component{
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span className="sr-only">Error:</span>{this.state.message}</div>;
     }
-    var successField = <div id="successField" className="alert alert-info auto-saved" style={{display : "none"}}>
+
+    var successField = <div id="successField" className="alert alert-info auto-saved" style={{ display: "none" }}>
           <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
           <strong>  Post saved </strong>
         </div>;
-    var connectStatus = <div className={this.state.isConnected ? "status status-on" :"status status-off"}></div>;
+    var connectStatus = <div className={this.state.isConnected ? "status status-on" : "status status-off"}></div>;
     var metadata = <Metadata
       meta={this.state.meta}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
@@ -566,7 +591,7 @@ class Editor extends React.Component{
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} savePreviewData={this.savePreviewData.bind(this)} />
           <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/"+this.state.id}>Go to Publish</Link>
+          <Link className="btn btn-primary" to={"/publish/" + this.state.id + '?userid=' + this.userId}>Go to Publish</Link>
           <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>
           <Link className="btn btn-primary" to={"/config/new"}>Add Config</Link>
         </div>
@@ -599,7 +624,7 @@ class Editor extends React.Component{
             />
           </div>
         </form>
-        {this.state.meta ? metadata: ''}
+        {this.state.meta ? metadata : ''}
         <CloudinaryUploader
           cloudName={configParams.cloudName}
           uploadPreset={configParams.uploadPreset}

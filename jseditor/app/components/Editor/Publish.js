@@ -8,9 +8,13 @@ import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 
 moment.tz.setDefault(configParams.timezone);
-var chooseSlotMsg = 'Select slot ';
-var successMessage = '';
+let chooseSlotMsg = 'Select slot ';
+let successMessage = '';
 const SITE_DOMAIN = configParams.blogUrl;
+const VALID_DATE_WARNING = 'Please select a valid date, future date';
+const PARSING_DATA_ERROR_WARNING = 'Problem in parsing data';
+const SAVING_DATA_ERROR_WARNING = 'Problem in saving data';
+
 
 class Publish extends React.Component {
   constructor(props) {
@@ -18,12 +22,15 @@ class Publish extends React.Component {
     this.state = {
       fields: [],
       value: moment().format('DD/MM/YYYY HH:mm'),
-      status: '',
+      status: 'draft',
       postRepostBlogNames: [],
       publishRegion: [],
       postId: '',
       postHash: '',
       buttonDisabled: true,
+      loaded: false,
+      isError: false,
+      message: '',
     };
   }
 
@@ -32,7 +39,9 @@ class Publish extends React.Component {
   }
 
   init() {
-    this.postname = this.props.routeParams.postname;
+    this.postname = this.props.params.postname;
+    let { query } = this.props.location;
+    this.userId = parseInt(query.userid);
     if (this.postname != undefined) {
       this.props.base.fetch('posts', {
         context: this,
@@ -68,11 +77,13 @@ class Publish extends React.Component {
               maxId: data.maxId,
               status: data.publishData.postStatus != undefined ? data.publishData.postStatus : '',
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
-              postRepostBlogNames: data.publishData.postRepostBlogNames != undefined ? data.publishData.postRepostBlogNames : [],
+              postRepostBlogNames: data.publishData.postRepostBlogNames,
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId != undefined ? data.publishData.postId : '',
               postHash: data.publishData.postHash != undefined ? data.publishData.postHash : '',
               buttonDisabled: false,
+              loaded: true,
+              userId: data.user_id != undefined ? data.user_id : 1,
             });
           }
         },
@@ -81,15 +92,15 @@ class Publish extends React.Component {
   }
 
   submitPost() {
-    var data = {
+    let data = {
       id: this.postname,
       title: this.state.title,
       meta: this.state.meta,
       sections: this.state.fields,
-      page: "publish"
+      page: 'publish',
     };
     data = JSON.stringify(data);
-    var self = this;
+    let self = this;
     axios({
       url: configParams.host + ':81/parse',
       method: 'POST',
@@ -100,24 +111,25 @@ class Publish extends React.Component {
       if (response.data.status == 'success') {
         self.saveData(JSON.parse(response.data.response));
       } else {
-        Rollbar.critical('Problem in parsing data', response);
+        self.setMessage(true, PARSING_DATA_ERROR_WARNING)
+        Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
       }
     })
     .catch(function (response) {
-      console.log('error : ', response);
-      self.toggleButton();
-      Rollbar.critical('Problem in parsing data', response);
+      self.setMessage(true, PARSING_DATA_ERROR_WARNING)
+      Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
     });
   }
 
   saveData(response) {
-    var content = response.parsedData;
-    var metadata = response.meta;
+    let content = response.parsedData;
+    let metadata = response.meta;
     if (this.postname == undefined) return;
-    if (!this.validate()) return;
+    this.validate();
+    if (this.state.isError) return;
     content = content.replace(/(\r\n|\n|\r)/gm, '');
-    var publishRegion = this.state.publishRegion;
-    var postRepostBlogNames = this.state.postRepostBlogNames;
+    let publishRegion = this.state.publishRegion;
+    let postRepostBlogNames = this.state.postRepostBlogNames;
 
     var data = {
       "categoryId":"-1",
@@ -138,59 +150,70 @@ class Publish extends React.Component {
       "page": "publish"
     };
 
-    var formData = {
-      "id" : this.state.id,
-      "title" : this.state.title,
-      "sections" : this.state.fields,
-      "maxId" : this.state.maxId,
-      "status": "publish",
-      "publishData" : {
-        "postDate": this.state.value,
-        "publishRegion": publishRegion,
-        "postStatus": "publish",
-        "postRepostBlogNames": postRepostBlogNames
+    let formData = {
+      id: this.state.id,
+      title: this.state.title,
+      sections: this.state.fields,
+      maxId: this.state.maxId,
+      status: this.state.status,
+      publishData: {
+        postDate: this.state.value,
+        publishRegion: publishRegion,
+        postStatus: 'publish',
+        postRepostBlogNames: postRepostBlogNames
       },
-      "meta" : this.state.meta
+      meta: this.state.meta,
+      user_id: this.state.userId
     };
-    var postType = 'POST';
-    var postUrl = 'posts.json';
+    let postType = 'POST';
+    let postUrl = 'posts.json';
     if (this.state.postId != undefined && this.state.postId != '') {
-      var postType = 'PUT';
-      var postUrl = "posts/" + this.state.postId + ".json";
+      let postType = 'PUT';
+      let postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
       data.id = this.state.postId;
     }
-    var self = this;
+    let self = this;
+    debugger
     jquery.ajax({
-      url: SITE_DOMAIN+'admin/'+postUrl,
+      url: SITE_DOMAIN + 'admin/' + postUrl,
       type: postType,
-      dataType: "json",
+      dataType: 'json',
       data: data,
       xhrFields: {
         withCredentials: true
       },
       crossDomain: true
     })
-    .success(function(result, status) {
+    .fail(function(){
+      self.setMessage(true, SAVING_DATA_ERROR_WARNING)
+    })
+    .done(function(result, status) {
      console.log(result, status);
      if (result.id != undefined) {
        formData.publishData.postId = result.id;
        formData.publishData.postHash = result.post_hash;
+       self.toggleButton();
      }
-     self.props.base.post(
-       'posts/' + self.state.id, {
-       data: formData,
-       then(data) {
-         if (result.id != undefined) {
-           self.refs.scheduleSuccess.style.display = 'block';
-           setTimeout(function() {
-             self.refs.scheduleSuccess.style.display = 'none';
-           }, 7000);
-           self.setState({postId: result.id, postHash: result.post_hash, status: 'publish'});
-           self.toggleButton();
+     try {
+       self.props.base.post(
+         'posts/' + self.state.id, {
+         data: formData,
+         then(data) {
+           if (result.id != undefined) {
+             self.refs.scheduleSuccess.style.display = 'block';
+             setTimeout(function() {
+               self.refs.scheduleSuccess.style.display = 'none';
+             }, 7000);
+             self.setState({postId: result.id, postHash: result.post_hash, status: 'publish'});
+           }
          }
-       }
-     });
+       });
+     } catch (e) {
+       let errorMessage = e.substring(0, 20);
+       self.setMessage({ true, errorMessage });
+       Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
+     }
     });
   }
 
@@ -198,33 +221,48 @@ class Publish extends React.Component {
     ev.preventDefault()
     this.setState({value: ev.currentTarget.value});
   }
+
   onSchedule(ev) {
     ev.preventDefault();
-    if (!this.validate()) return;
     this.toggleButton();
+    this.validate();
     this.submitPost();
   }
+
   toggleButton() {
     this.setState({
       buttonDisabled : !this.state.buttonDisabled
     });
   }
+
   validate() {
-    document.getElementById('date-error').style.display = 'none';
     if ('publish' == this.state.status) {
       if (moment(moment(this.state.value, "DD/MM/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
-        document.getElementById('date-error').style.display = 'block';
-        return;
+        this.setMessage(true, VALID_DATE_WARNING);
+      } else {
+        this.setMessage(false);
       }
     }
-    return true;
   }
+
+  setMessage(isError, message) {
+    let params = {
+      isError: isError,
+      message: message
+    };
+    if (isError) {
+      params.buttonDisabled = false;
+    }
+    this.setState(params);
+  }
+
   openSlotWidget(ev) {
     ev.preventDefault();
     var visible = document.getElementById('publish-slots').style.display;
     document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
     this.handleDatePickerText();
   }
+
   handleDatePickerText() {
     if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
       document.getElementById('toggle-publish-slots').text = "Close";
@@ -232,6 +270,7 @@ class Publish extends React.Component {
       document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
     }
   }
+
   onPickSlot (ev) {
     var currentTarget = ev.currentTarget;
     if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return
@@ -264,8 +303,16 @@ class Publish extends React.Component {
   }
 
   render () {
-    var sitePreviewLink = '';
-    var sitePreviewUrl = '';
+    let loadingMessage = '';
+    let sitePreviewLink = '';
+    let sitePreviewUrl = '';
+    let errorField = '';
+    if (!this.state.loaded) {
+      loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
+    }
+    if (this.state.isError) {
+      errorField = <div className="published-messages error">{this.state.message}</div>;
+    }
     if (this.state.postId != undefined && this.state.postId != '' && this.state.status == 'publish') {
       sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
       sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
@@ -273,14 +320,14 @@ class Publish extends React.Component {
     return(
       <div>
         <div className="preview-nav">
-          <Link to={"/edit/post/"+this.postname} className="btn btn-primary">Back to editing</Link>
+          <Link to={'/edit/post/'+this.postname} className="btn btn-primary">Back to editing</Link>
           {sitePreviewLink}
         </div>
         <form className="post-publish" ref="publish-form">
           <div className="publish-headers">
             <h3>Publish your post</h3>
           </div>
-          <div className="published-messages error" style={{display: 'none'}} id="date-error">Please select a valid date, future date</div>
+          {errorField}
           <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
           <SlotWidget
             buttonDisabled={this.state.buttonDisabled}
@@ -292,6 +339,7 @@ class Publish extends React.Component {
             openSlotWidget={this.openSlotWidget.bind(this)} />
           <CountriesFormOptions setPublishRegions={this.setPublishRegions.bind(this)} publishRegions={this.state.publishRegion} />
           <RepostBlogsFormOptions setRepostBlogs={this.setRepostBlogs.bind(this)} repostBlogs={this.state.postRepostBlogNames} />
+          {loadingMessage}
         </form>
       </div>
     )
