@@ -321,7 +321,7 @@ class Editor extends React.Component{
       id: this.state.id,
       title: this.state.value,
       user_id: this.userId,
-      user_status: this.userStatus,
+      user_status: userStatus,
     };
     self = this;
     this.props.base.post(

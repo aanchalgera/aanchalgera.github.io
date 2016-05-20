@@ -12,9 +12,9 @@ let chooseSlotMsg = 'Select slot ';
 let successMessage = '';
 const SITE_DOMAIN = configParams.blogUrl;
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
-const PARSING_DATA_ERROR_WARNING = 'Problem in parsing data';
-const SAVING_DATA_ERROR_WARNING = 'Problem in saving data';
-
+const PARSING_DATA_ERROR_WARNING = 'Error occured while parsing data';
+const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
+const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 
 class Publish extends React.Component {
   constructor(props) {
@@ -75,9 +75,9 @@ class Publish extends React.Component {
               title: data.title,
               meta: data.meta != undefined ? data.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
               maxId: data.maxId,
-              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : '',
+              status: data.publishData.postStatus != undefined ? data.publishData.postStatus : 'draft',
               value: data.publishData.postDate != undefined ? data.publishData.postDate : moment().format('DD/MM/YYYY HH:mm'),
-              postRepostBlogNames: data.publishData.postRepostBlogNames,
+              postRepostBlogNames: data.publishData.postRepostBlogNames != undefined ? data.publishData.postRepostBlogNames : [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId != undefined ? data.publishData.postId : '',
               postHash: data.publishData.postHash != undefined ? data.publishData.postHash : '',
@@ -131,23 +131,23 @@ class Publish extends React.Component {
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
-    var data = {
-      "categoryId":"-1",
-      "post_title":this.state.title,
-      "comment_status":"open",
-      "post_type":"normal",
-      "post_content":content,
-      "postExcerpt" : JSON.stringify({'meta' : metadata}),
-      "post_abstract":"",
-      "post_extended_title":"",
-      "post_visibility":0,
-      "posts_galleries":"",
-      "post_subtype" : 13,
-      "postDate": this.state.value,
-      "publish-region": publishRegion,
-      "post_status": "publish",
-      "postRepostBlogNames": postRepostBlogNames,
-      "page": "publish"
+    let data = {
+      categoryId: '-1',
+      post_title: this.state.title,
+      comment_status: 'open',
+      post_type: 'normal',
+      post_content: content,
+      postExcerpt: JSON.stringify({'meta' : metadata}),
+      post_abstract: '',
+      post_extended_title: '',
+      post_visibility: 0,
+      posts_galleries: '',
+      post_subtype: 13,
+      postDate: this.state.value,
+      'publish-region': publishRegion,
+      post_status: 'publish',
+      postRepostBlogNames: postRepostBlogNames,
+      page: 'publish'
     };
 
     let formData = {
@@ -155,7 +155,7 @@ class Publish extends React.Component {
       title: this.state.title,
       sections: this.state.fields,
       maxId: this.state.maxId,
-      status: this.state.status,
+      status: 'publish',
       publishData: {
         postDate: this.state.value,
         publishRegion: publishRegion,
@@ -163,18 +163,17 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames
       },
       meta: this.state.meta,
-      user_id: this.state.userId
+      user_id: this.state.userId,
     };
     let postType = 'POST';
     let postUrl = 'posts.json';
     if (this.state.postId != undefined && this.state.postId != '') {
-      let postType = 'PUT';
-      let postUrl = 'posts/' + this.state.postId + '.json';
+      postType = 'PUT';
+      postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
       data.id = this.state.postId;
     }
     let self = this;
-    debugger
     jquery.ajax({
       url: SITE_DOMAIN + 'admin/' + postUrl,
       type: postType,
@@ -210,7 +209,7 @@ class Publish extends React.Component {
          }
        });
      } catch (e) {
-       let errorMessage = e.substring(0, 20);
+       let errorMessage = e.message.substring(0, 100);
        self.setMessage({ true, errorMessage });
        Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
      }
@@ -236,7 +235,9 @@ class Publish extends React.Component {
   }
 
   validate() {
-    if ('publish' == this.state.status) {
+    if (isNaN(this.userId) || this.userId != this.state.userId) {
+      this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
+    } else if ('publish' == this.state.status) {
       if (moment(moment(this.state.value, "DD/MM/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         this.setMessage(true, VALID_DATE_WARNING);
       } else {
