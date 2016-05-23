@@ -6,6 +6,12 @@ let regions = {
   US: 'EE.UU',
   MX: 'México',
   PE: 'Perú',
+  AR: 'Argentina',
+  CL: 'Chile',
+  EC: 'Ecuador',
+  CR: 'Costa Rica',
+  CO: 'Columbia',
+  CEA: 'Centro America',
   ROW: 'Resto del mundo',
 };
 
