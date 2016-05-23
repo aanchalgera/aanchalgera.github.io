@@ -338,7 +338,7 @@ class Publish extends React.Component {
 		return(
 			<div>
 				<div className="preview-nav">
-					<Link to={'/edit/post/'+this.postname} className="btn btn-primary">Back to editing</Link>
+					<Link to={'/edit/post/'+this.postname + '?userid=' + this.userId} className="btn btn-primary">Back to editing</Link>
 					{sitePreviewLink}
 				</div>
 				<form className="post-publish" ref="publish-form">

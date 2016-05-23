@@ -9,6 +9,11 @@ import Metadata from './Metadata/Metadata';
 import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
+const TITLE_EMPTY_WARNING = 'Title should not be empty';
+const CONTENT_EMPTY_WARNING = 'Please add some content';
+const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
+const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
+
 class Editor extends React.Component{
   constructor(props) {
     super(props);
@@ -274,7 +279,7 @@ class Editor extends React.Component{
   handleBlur (ev) {
     let title = ev.currentTarget.value.trim();
     if (undefined == title || '' == title) {
-      this.setMessage(true, 'Title should not be empty');
+      this.setMessage(true, TITLE_EMPTY_WARNING);
       return;
     } else {
       this.setMessage(false);
@@ -291,13 +296,13 @@ class Editor extends React.Component{
     }
 
     if (undefined == this.state.value || '' == this.state.value.trim()) {
-      this.setMessage(true, 'Title should not be empty');
+      this.setMessage(true, TITLE_EMPTY_WARNING);
       return;
     } else if (0 == this.state.fields.length) {
-      this.setMessage(true, 'Please add some content');
+      this.setMessage(true, CONTENT_EMPTY_WARNING);
       return;
     } else if (isNaN(this.userId) && this.userId != this.state.userId) {
-      this.setMessage(true, 'You cannot edit this post');
+      this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
       return;
     } else {
       this.setMessage(false);
@@ -395,7 +400,7 @@ class Editor extends React.Component{
   }
 
   deleteResource(event) {
-    let confirmation = confirm("Are you sure you want to delete this?");
+    let confirmation = confirm(DELETE_SECTION_WARNING);
     if (confirmation == true) {
       let currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
