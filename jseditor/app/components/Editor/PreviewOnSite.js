@@ -3,7 +3,7 @@ import React from 'react';
 class PreviewOnSite extends React.Component{
   submitPost() {
     const sitePreviewUrl = configParams.blogUrl + 'preview-longform/' + this.props.postId;
-    window.open(sitePreviewUrl);
+    window.open(sitePreviewUrl, 'Site Preview');
   }
 
   render() {
