@@ -138,22 +138,24 @@ class Publish extends React.Component {
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
     let data = {
-      categoryId: '-1',
-      post_title: this.state.title,
-      comment_status: 'open',
-      post_type: 'normal',
-      post_content: content,
-      postExcerpt: JSON.stringify({'meta' : metadata}),
-      post_abstract: '',
-      post_extended_title: '',
-      post_visibility: 0,
-      posts_galleries: '',
-      post_subtype: 13,
-      postDate: this.state.value,
-      'publish-region': publishRegion,
-      post_status: 'publish',
-      postRepostBlogNames: postRepostBlogNames,
-      page: 'publish'
+      postform: {
+        categoryId: '-1',
+        post_title: this.state.title,
+        comment_status: 'open',
+        post_type: 'normal',
+        post_content: content,
+        postExcerpt: JSON.stringify({'meta' : metadata}),
+        post_abstract: '',
+        post_extended_title: '',
+        post_visibility: 0,
+        posts_galleries: '',
+        post_subtype: 13,
+        postDate: this.state.value,
+        'publish-region': publishRegion,
+        post_status: 'publish',
+        postRepostBlogNames: postRepostBlogNames,
+        page: 'publish',
+     }
     };
 
     let formData = {
@@ -177,7 +179,7 @@ class Publish extends React.Component {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
-      data.id = this.state.postId;
+      data.postform.id = this.state.postId;
     }
     jquery.ajax({
       url: SITE_DOMAIN + 'admin/' + postUrl,
@@ -201,6 +203,7 @@ class Publish extends React.Component {
          let listData = {
            id: this.state.id,
            title: this.state.title,
+           status: 'publish',
            user_id: this.userId,
            user_status: this.userId + '_' + 'publish',
          };

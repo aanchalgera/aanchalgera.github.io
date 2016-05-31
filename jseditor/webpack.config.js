@@ -65,9 +65,9 @@ module.exports = {
       configParams: JSON.stringify(configParams),
       'process.env': {
         // This has effect on the react lib size
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(NODE_ENV),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
   ],
 };
