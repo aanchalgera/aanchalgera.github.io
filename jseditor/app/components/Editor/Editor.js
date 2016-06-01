@@ -29,13 +29,7 @@ class Editor extends React.Component{
       addMoreImages: false,
       orderMode: false,
       fields: [],
-      meta: {
-        index: '',
-        homepage: { content: '' },
-        sponsor: { name: '', image: '', tracker: '' },
-        css: { skinName: '' },
-        seo: {}
-      },
+      meta: null,
       regions: {
         publishRegion: ['ES', 'US', 'MX', 'PE', 'AR', 'CL', 'EC', 'CR', 'CO', 'CEA', 'ROW']
       },
@@ -67,7 +61,7 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || this.state.meta,
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
               });
             }
           },
@@ -80,6 +74,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
       this.setState({
         id: hashId,
+        meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
         userId: this.userId,
       }, this.context.router.push(postEditUrl));
     }
@@ -301,7 +296,7 @@ class Editor extends React.Component{
     } else if (0 == this.state.fields.length) {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
       return;
-    } else if (isNaN(this.userId) && this.userId != this.state.userId) {
+    } else if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
       return;
     } else {
@@ -318,7 +313,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -329,6 +324,7 @@ class Editor extends React.Component{
     let listData = {
       id: this.state.id,
       title: this.state.value,
+      status: this.state.status,
       user_id: this.userId,
       user_status: userStatus,
     };
@@ -400,8 +396,8 @@ class Editor extends React.Component{
   }
 
   deleteResource(event) {
-    let confirmation = confirm(DELETE_SECTION_WARNING);
-    if (confirmation == true) {
+    event.preventDefault();
+    if (confirm(DELETE_SECTION_WARNING)) {
       let currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
       this.setState({ fields: this.state.fields }, this.saveData());
@@ -569,9 +565,8 @@ class Editor extends React.Component{
   render() {
     let errorField = '';
     if (this.state.isError) {
-      errorField = <div className="alert alert-danger" role="alert">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span className="sr-only">Error:</span>{this.state.message}</div>;
+      errorField = <div className="top-messages"><div className="alert alert-danger">
+        <span>{this.state.message}</span></div></div>;
     }
 
     let successField = <div id="successField" className="alert alert-info auto-saved" style={{ display: "none" }}>
@@ -598,10 +593,9 @@ class Editor extends React.Component{
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} savePreviewData={this.savePreviewData.bind(this)} />
-          <Link className="btn btn-primary" to="/">List Page</Link>
-          <Link className="btn btn-primary" to={"/publish/" + this.state.id + '?userid=' + this.userId}>Go to Publish</Link>
-          <Link className="btn btn-primary" to={"/config"}>Go to Config</Link>
-          <Link className="btn btn-primary" to={"/config/new"}>Add Config</Link>
+          <Link className="glyphicon glyphicon-ok" to={"/publish/" + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
+          <Link className="glyphicon glyphicon-wrench" to={"/configs"}><span>Go to Config</span></Link>
+          <Link className="glyphicon glyphicon-cog" to={"/config/new"}><span>Add Config</span></Link>
         </div>
         {connectStatus}
         {errorField}
