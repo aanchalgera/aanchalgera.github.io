@@ -5,6 +5,7 @@ import Seo from './Seo';
 import Homepage from './Homepage';
 import Sponsor from './Sponsor';
 import Css from './Css';
+import Microsite from './Microsite';
 
 class Metadata extends React.Component{
   render () {
@@ -41,6 +42,13 @@ class Metadata extends React.Component{
         <Css
           css={this.props.meta.css}
           updateCssSkinName={this.props.updateCssSkinName.bind(this)}
+        />
+        <Microsite
+          microsite={this.props.meta.microsite}
+          updateMicrositeName={this.props.updateMicrositeName}
+          updateMicrositeGASnippet={this.props.updateMicrositeGASnippet}
+          toggleWSLLogo={this.props.toggleWSLLogo}
+          toggleSocialSharing={this.props.toggleSocialSharing}
         />
       </div>
     )

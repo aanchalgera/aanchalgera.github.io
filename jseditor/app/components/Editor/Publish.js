@@ -32,7 +32,13 @@ class Publish extends React.Component {
         homepage: { content: '' },
         sponsor: { name: '', image: '', tracker: '' },
         css: { skinName: '' },
-        seo: {}
+        seo: {},
+        microsite: {
+          name:'',
+          gaSnippet: '',
+          showWSLLogo: true,
+          showSocialButtons: true,
+        }
       },
       buttonDisabled: true,
       loaded: false,

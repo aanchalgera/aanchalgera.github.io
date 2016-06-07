@@ -61,7 +61,7 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
               });
             }
           },
@@ -74,7 +74,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor:{name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
         userId: this.userId,
       }, this.context.router.push(postEditUrl));
     }
@@ -313,7 +313,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor:{name:'',image:'',tracker:''}, css:{skinName:''}, seo:{}}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -523,6 +523,26 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  updateMicrositeName(event) {
+    this.state.meta.microsite.name = event.target.value;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  updateMicrositeGASnippet(event) {
+    this.state.meta.microsite.gaSnippet = event.target.value;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  toggleSocialSharing(event) {
+    this.state.meta.microsite.showSocialButtons = event.target.checked;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  toggleWSLLogo(event) {
+    this.state.meta.microsite.showWSLLogo = event.target.checked;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
   deleteHomepageImage() {
     this.state.meta.homepage.image = null;
     this.setState({ meta: this.state.meta }, this.saveData());
@@ -587,6 +607,10 @@ class Editor extends React.Component{
       updateCssSkinName={this.updateCssSkinName.bind(this)}
       deleteHomepageImage={this.deleteHomepageImage.bind(this)}
       openResourcePanel={this.openResourcePanel.bind(this)}
+      updateMicrositeName={this.updateMicrositeName.bind(this)}
+      updateMicrositeGASnippet={this.updateMicrositeGASnippet.bind(this)}
+      toggleWSLLogo={this.toggleWSLLogo.bind(this)}
+      toggleSocialSharing={this.toggleSocialSharing.bind(this)}
     />
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
