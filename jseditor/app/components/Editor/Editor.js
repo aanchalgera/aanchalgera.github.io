@@ -594,6 +594,12 @@ class Editor extends React.Component{
           <strong>  Post saved </strong>
         </div>;
     let connectStatus = <div className={this.state.isConnected ? "status status-on" : "status status-off"}></div>;
+    let goToConfig = '';
+    let addConfig = '';
+    if (this.userId==1) {
+      goToConfig = <Link className="glyphicon glyphicon-wrench" to = { "/configs" }><span>Go to Config</span></Link>
+      addConfig = <Link className="glyphicon glyphicon-cog" to = { "/config/new" }><span>Add Config</span></Link>
+    }
     let metadata = <Metadata
       meta={this.state.meta}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
@@ -618,8 +624,8 @@ class Editor extends React.Component{
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} savePreviewData={this.savePreviewData.bind(this)} />
           <Link className="glyphicon glyphicon-ok" to={"/publish/" + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
-          <Link className="glyphicon glyphicon-wrench" to={"/configs"}><span>Go to Config</span></Link>
-          <Link className="glyphicon glyphicon-cog" to={"/config/new"}><span>Add Config</span></Link>
+          {goToConfig}
+          {addConfig}
         </div>
         {connectStatus}
         {errorField}
