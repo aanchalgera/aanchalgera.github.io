@@ -287,12 +287,13 @@ class Publish extends React.Component {
     ev.preventDefault();
     let visible = document.getElementById('publish-slots').style.display;
     document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
+    chooseSlotMsg = "Close";
     this.handleDatePickerText();
   }
 
   handleDatePickerText() {
     if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
-      document.getElementById('toggle-publish-slots').text = "Close";
+      document.getElementById('toggle-publish-slots').text = "Select slot";
     } else {
       document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
     }
