@@ -533,6 +533,11 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  updateMicrositeCookiePage(event) {
+    this.state.meta.microsite.cookiePage = event.target.value;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
   toggleSocialSharing(event) {
     this.state.meta.microsite.showSocialButtons = event.target.checked;
     this.setState({ meta: this.state.meta }, this.saveData());
@@ -609,6 +614,7 @@ class Editor extends React.Component{
       openResourcePanel={this.openResourcePanel.bind(this)}
       updateMicrositeName={this.updateMicrositeName.bind(this)}
       updateMicrositeGASnippet={this.updateMicrositeGASnippet.bind(this)}
+      updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
       toggleWSLLogo={this.toggleWSLLogo.bind(this)}
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
     />
