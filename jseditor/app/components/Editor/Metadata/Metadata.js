@@ -47,6 +47,7 @@ class Metadata extends React.Component{
           microsite={this.props.meta.microsite}
           updateMicrositeName={this.props.updateMicrositeName}
           updateMicrositeGASnippet={this.props.updateMicrositeGASnippet}
+          updateMicrositeCookiePage={this.props.updateMicrositeCookiePage}
           toggleWSLLogo={this.props.toggleWSLLogo}
           toggleSocialSharing={this.props.toggleSocialSharing}
         />

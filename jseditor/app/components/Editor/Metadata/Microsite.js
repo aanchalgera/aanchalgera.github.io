@@ -39,6 +39,14 @@ class Microsite extends React.Component {
           />
           </label>
         </div>
+        <div className="form-group">
+          <label>Cookie Page URL</label>
+          <input
+            type="text"
+            className="form-control"
+            defaultValue={this.props.microsite.cookiePage}
+            onBlur={this.props.updateMicrositeCookiePage} />
+        </div>
       </div>
     )
   }
