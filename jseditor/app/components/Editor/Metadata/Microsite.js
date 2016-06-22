@@ -22,21 +22,23 @@ class Microsite extends React.Component {
             onBlur={this.props.updateMicrositeGASnippet} />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Social Sharing
-          <input
-            type="checkbox"
-            className="form-control"
-            checked={this.props.microsite.showSocialButtons}
-            onChange={this.props.toggleSocialSharing}
+          <label htmlFor="exampleInputEmail1">
+            <input
+              type="checkbox"
+              className="sponsor-field"
+              checked={this.props.microsite.showSocialButtons}
+              onChange={this.props.toggleSocialSharing}
             />
+            Social Sharing
           </label>
-          <label htmlFor="exampleInputEmail1">WSL Logo
-          <input
-            type="checkbox"
-            className="form-control"
-            checked={this.props.microsite.showWSLLogo}
-            onChange={this.props.toggleWSLLogo}
-          />
+          <label htmlFor="exampleInputEmail1">
+            <input
+              type="checkbox"
+              className="sponsor-field"
+              checked={this.props.microsite.showWSLLogo}
+              onChange={this.props.toggleWSLLogo}
+            />
+            WSL Logo
           </label>
         </div>
         <div className="form-group">

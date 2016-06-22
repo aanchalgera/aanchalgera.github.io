@@ -92,12 +92,18 @@ class Content extends React.Component{
         />
   } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
-        var field = <input
-          type="text"
-          className="form-control"
-          defaultValue={this.props.data.url}
-          onBlur = {this.props.updateVideo.bind(this, this.props.dataId)}>
-        </input>
+        var field = <div>
+          <label className="ptitle">
+            URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            defaultValue={this.props.data.url}
+            onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
+            placeholder="https://youtu.be/azxoVRTwlNg">
+          </input>
+        </div>
       } else {
         var field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
       }
