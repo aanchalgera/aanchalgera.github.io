@@ -338,7 +338,6 @@ class Editor extends React.Component{
         'posts/' + this.state.id, {
         data: data,
         then() {
-          console.log('autosaved');
           let successField = document.getElementById('successField');
           if (undefined != typeof successField) {
             document.getElementById('successField').style.display = 'block';
@@ -598,6 +597,7 @@ class Editor extends React.Component{
       goToConfig = <Link className="glyphicon glyphicon-wrench" to = { "/configs" }><span>Go to Config</span></Link>
       addConfig = <Link className="glyphicon glyphicon-cog" to = { "/config/new" }><span>Add Config</span></Link>
     }
+
     let metadata = <Metadata
       meta={this.state.meta}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
@@ -652,6 +652,7 @@ class Editor extends React.Component{
               orderMode={this.state.orderMode}
               addImageCaption={this.addImageCaption.bind(this)}
               setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
+              deleteImage={this.deleteImage.bind(this)}
             />
           </div>
         </form>

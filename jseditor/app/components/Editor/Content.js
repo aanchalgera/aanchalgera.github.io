@@ -82,6 +82,7 @@ class Content extends React.Component{
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
         addImageCaption={this.props.addImageCaption.bind(this)}
+        deleteImage={this.props.deleteImage.bind(this)}
       />
   }  else if('slider' == this.props.data.type) {
         var field = <Slider
@@ -89,6 +90,7 @@ class Content extends React.Component{
           dataId={this.props.dataId}
           openResourcePanel={this.props.openResourcePanel.bind(this)}
           addImageCaption={this.props.addImageCaption.bind(this)}
+          deleteImage={this.props.deleteImage.bind(this)}
         />
   } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
