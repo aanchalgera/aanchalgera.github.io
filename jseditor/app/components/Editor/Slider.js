@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ImageCaption from './ImageCaption';
 
 class Slider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageList: [],
+      imageList: []
     };
   }
 

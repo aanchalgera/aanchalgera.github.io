@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ContentList from './ContentList';
 import PostTitle from './PostTitle';
 import PreviewOnSite from './PreviewOnSite';
 import CloudinaryUploader from './CloudinaryUploader';
-import axios from 'axios';
 import Metadata from './Metadata/Metadata';
 import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
@@ -36,7 +34,7 @@ class Editor extends React.Component{
       postId: '',
       postHash: '',
       isConnected: true,
-      status: 'draft',
+      status: 'draft'
     };
   }
 
@@ -61,10 +59,10 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}}
               });
             }
-          },
+          }
         });
       } catch (e) {
         Rollbar.critical('Error occured while fetching post data from Firebase', e);
@@ -75,7 +73,7 @@ class Editor extends React.Component{
       this.setState({
         id: hashId,
         meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
-        userId: this.userId,
+        userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
   }
@@ -94,11 +92,11 @@ class Editor extends React.Component{
     connectedRef.on('value', (snap) => {
       if (snap.val() === true) {
         this.setState({
-          isConnected: true,
+          isConnected: true
         });
       } else {
         this.setState({
-          isConnected: false,
+          isConnected: false
         });
       }
     });
@@ -113,7 +111,7 @@ class Editor extends React.Component{
       resourcePanelOpenedBy: currentIndex,
       imageFunction: imageFunction,
       addImageModule: addImageModule,
-      addMoreImages: addMoreImages,
+      addMoreImages: addMoreImages
     });
     document.getElementById('resourcePanel').style.display = 'block';
     document.getElementById('resourcePanel').classList.add('in');
@@ -137,7 +135,7 @@ class Editor extends React.Component{
       field.altered.backgroundImage = image.url;
       field.altered.backgroundImageName = image.original_filename;
       field.altered.backgroundImageHeight = image.height;
-      this.state.fields.splice(field.indexes[0], 0, field.original);;
+      this.state.fields.splice(field.indexes[0], 0, field.original);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
       this.state.fields.splice(
@@ -151,7 +149,7 @@ class Editor extends React.Component{
         banner: false,
         parallax: false,
         align: '',
-        layout: 'normal',
+        layout: 'normal'
       });
     } else if (this.state.imageFunction == 'homepage') {
       this.state.meta.homepage.image = {
@@ -159,14 +157,14 @@ class Editor extends React.Component{
         height: image.height || '',
         width: image.width || '',
         alt: image.alt || '',
-        name: image.original_filename,
+        name: image.original_filename
       };
     }
 
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId,
-      meta: this.state.meta,
+      meta: this.state.meta
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -184,14 +182,14 @@ class Editor extends React.Component{
 
         this.state.fields.splice(field.indexes[0], 0, field.original);
         this.setState({
-          fields: this.state.fields,
+          fields: this.state.fields
         }, this.saveData());
       }
     } else {
       field.altered.description = caption;
       this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({
-        fields: this.state.fields,
+        fields: this.state.fields
       }, this.saveData());
     }
   }
@@ -202,7 +200,8 @@ class Editor extends React.Component{
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex, 0, { id: this.state.maxId, type: moduleType, images });
+        currentIndex, 0, { id: this.state.maxId, type: moduleType, images }
+      );
     } else {
       let field = this.getField(currentIndex);
       for (let i = 0; i < images.length; i++) {
@@ -216,7 +215,7 @@ class Editor extends React.Component{
       fields: this.state.fields,
       maxId: this.state.maxId,
       addMoreImages: false,
-      addImageModule: '',
+      addImageModule: ''
     }, this.saveData());
     document.getElementById('resourcePanel').style.display = 'none';
   }
@@ -229,11 +228,11 @@ class Editor extends React.Component{
       type: 'video',
       url: '',
       align: '',
-      layout: 'normal',
+      layout: 'normal'
     });
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId,
+      maxId: this.state.maxId
     }, this.saveData());
   }
 
@@ -251,7 +250,7 @@ class Editor extends React.Component{
     let field = {
       id: this.state.maxId,
       type: type,
-      text: '',
+      text: ''
     };
 
     if (type == 'summary') {
@@ -261,13 +260,13 @@ class Editor extends React.Component{
     this.state.fields.splice(currentIndex, 0, field);
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId,
+      maxId: this.state.maxId
     });
   }
 
   handleChange (ev) {
     this.setState({
-      value: ev.currentTarget.value,
+      value: ev.currentTarget.value
     });
   }
 
@@ -281,7 +280,7 @@ class Editor extends React.Component{
     }
 
     this.setState({
-      value: title,
+      value: title
     }, this.saveData());
   }
 
@@ -303,7 +302,7 @@ class Editor extends React.Component{
       this.setMessage(false);
     }
 
-    let userStatus = this.userId + "_" + this.state.status;
+    let userStatus = this.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
       user_id: this.userId,
@@ -326,25 +325,29 @@ class Editor extends React.Component{
       title: this.state.value,
       status: this.state.status,
       user_id: this.userId,
-      user_status: userStatus,
+      user_status: userStatus
     };
     this.props.base.post(
-      'posts_list/' + this.state.id, {
-      data: listData,
-      then(data) {}
-    });
+      'posts_list/' + this.state.id,
+      {
+        data: listData,
+        then() {}
+      }
+    );
     try {
       this.props.base.post(
-        'posts/' + this.state.id, {
-        data: data,
-        then() {
-          let successField = document.getElementById('successField');
-          if (undefined != typeof successField) {
-            document.getElementById('successField').style.display = 'block';
-            setTimeout(() => document.getElementById('successField').style.display = 'none', 4000);
+        'posts/' + this.state.id,
+        {
+          data: data,
+          then() {
+            let successField = document.getElementById('successField');
+            if (undefined != typeof successField) {
+              document.getElementById('successField').style.display = 'block';
+              setTimeout(() => document.getElementById('successField').style.display = 'none', 4000);
+            }
           }
-        },
-      });
+        }
+      );
     } catch (e) {
       Rollbar.critical('Error occured on saving data to Firebase', e);
       let errorMessage = e.message.substring(0, 100);
@@ -355,43 +358,43 @@ class Editor extends React.Component{
   setMessage(isError = false, message) {
     this.setState({
       isError: isError,
-      message: message,
+      message: message
     });
   }
 
   addBackgroundOptionToResource(property, value, event) {
-     event.preventDefault();
-     let currentIndex = this.parentDiv(event.target).dataset.id;
-     let field = this.getField(currentIndex);
-     switch (property) {
-       case 'backgroundClass' :
-         field.altered.backgroundClass = (field.altered.backgroundClass == value) ? '' : value;
-         break;
-       case 'foregroundColor' :
-         field.altered.foregroundColor = (field.altered.foregroundColor == value) ? '' : value;
-         break;
-       case 'parallax' :
-          field.altered.parallax = !field.altered.parallax;
-          event.target.className = "active";
-          break;
-        case 'backgroundRepeat' :
-          field.altered.backgroundRepeat = !field.altered.backgroundRepeat;
-          break;
-        case 'backgroundFade' :
-          field.altered.backgroundFade = !field.altered.backgroundFade;
-          break;
-        case 'removeBackgroundImage' :
-          field.altered.backgroundImage = '';
-          field.altered.backgroundFade = '';
-          field.altered.backgroundRepeat = '';
-          field.altered.backgroundFullscreen = '';
-          break;
-        case 'backgroundFullscreen' :
-          field.altered.backgroundFullscreen = !field.altered.backgroundFullscreen;
-          break;
-       }
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    event.preventDefault();
+    let currentIndex = this.parentDiv(event.target).dataset.id;
+    let field = this.getField(currentIndex);
+    switch (property) {
+      case 'backgroundClass' :
+        field.altered.backgroundClass = (field.altered.backgroundClass == value) ? '' : value;
+        break;
+      case 'foregroundColor' :
+        field.altered.foregroundColor = (field.altered.foregroundColor == value) ? '' : value;
+        break;
+      case 'parallax' :
+        field.altered.parallax = !field.altered.parallax;
+        event.target.className = 'active';
+        break;
+      case 'backgroundRepeat' :
+        field.altered.backgroundRepeat = !field.altered.backgroundRepeat;
+        break;
+      case 'backgroundFade' :
+        field.altered.backgroundFade = !field.altered.backgroundFade;
+        break;
+      case 'removeBackgroundImage' :
+        field.altered.backgroundImage = '';
+        field.altered.backgroundFade = '';
+        field.altered.backgroundRepeat = '';
+        field.altered.backgroundFullscreen = '';
+        break;
+      case 'backgroundFullscreen' :
+        field.altered.backgroundFullscreen = !field.altered.backgroundFullscreen;
+        break;
+    }
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   deleteResource(event) {
@@ -403,76 +406,76 @@ class Editor extends React.Component{
     }
   }
 
-  groupSections(currentIndex, group, event) {
-     this.state.maxId++;
-     let objects = this.state.fields.splice(currentIndex, group);
-     for (let object of objects) {
-       if (object.type == 'image' || object.type == 'video' || object.type == 'gallery' || object.type == 'slider') {
-         object.backgroundFade = '';
-         object.backgroundClass = '';
-         object.backgroundImage = '';
-       }
-     }
+  groupSections(currentIndex, group) {
+    this.state.maxId++;
+    let objects = this.state.fields.splice(currentIndex, group);
+    for (let object of objects) {
+      if (object.type == 'image' || object.type == 'video' || object.type == 'gallery' || object.type == 'slider') {
+        object.backgroundFade = '';
+        object.backgroundClass = '';
+        object.backgroundImage = '';
+      }
+    }
 
-     this.state.fields.splice(currentIndex, 0, {
-       id: this.state.maxId,
-       type: 'grouped',
-       length: group,
-       columns: objects
-     });
-     this.setState({ fields: this.state.fields }, this.saveData());
+    this.state.fields.splice(currentIndex, 0, {
+      id: this.state.maxId,
+      type: 'grouped',
+      length: group,
+      columns: objects
+    });
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  ungroupSections(currentIndex, event) {
-     let obj = this.state.fields.splice(currentIndex, 1)[0];
-     if (obj.length == 2) {
-       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
-     }else if (obj.length == 3) {
-       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
-     }
+  ungroupSections(currentIndex) {
+    let obj = this.state.fields.splice(currentIndex, 1)[0];
+    if (obj.length == 2) {
+      this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
+    } else if (obj.length == 3) {
+      this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
+    }
 
-     this.setState({ fields: this.state.fields }, this.saveData());
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateText(event, value) {
-     let ta = event.getTextArea();
-     let currentIndex = ta.dataset.id;
-     let field = this.getField(currentIndex);
-     field.altered.text = value;
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    let ta = event.getTextArea();
+    let currentIndex = ta.dataset.id;
+    let field = this.getField(currentIndex);
+    field.altered.text = value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateSummaryText(currentIndex, event)
   {
-     let field = this.getField(currentIndex);
-     field.altered.text = event.target.innerHTML;
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    let field = this.getField(currentIndex);
+    field.altered.text = event.target.innerHTML;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateRichContent(currentIndex, event) {
-     let field = this.getField(currentIndex);
-     field.altered.text = event.target.textContent;
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    let field = this.getField(currentIndex);
+    field.altered.text = event.target.textContent;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateVideo(currentIndex, event) {
-     let field = this.getField(currentIndex);
-     field.altered.url = event.target.value;
-     this.state.fields.splice(field.indexes[0], 0, field.original);
-     this.setState({ fields: this.state.fields }, this.saveData());
+    let field = this.getField(currentIndex);
+    field.altered.url = event.target.value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   addLayoutToResource(event) {
-     event.preventDefault();
-     let currentIndex = this.parentDiv(event.target).dataset.id;
-     let value = event.target.dataset.layout;
-     let field = this.getField(currentIndex);
-     field.altered.layout = value;
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    event.preventDefault();
+    let currentIndex = this.parentDiv(event.target).dataset.id;
+    let value = event.target.dataset.layout;
+    let field = this.getField(currentIndex);
+    field.altered.layout = value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   moveResourceDown(currentIndex) {
@@ -481,8 +484,7 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  moveResourceUp(currentIndex, event)
-  {
+  moveResourceUp(currentIndex) {
     let obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex - 1, 0, obj[0]);
     this.setState({ fields: this.state.fields }, this.saveData());
@@ -490,16 +492,16 @@ class Editor extends React.Component{
 
   toggleOrderMode(event) {
     event.preventDefault();
-    this.setState({ orderMode: !this.state.orderMode })
+    this.setState({ orderMode: !this.state.orderMode });
   }
 
   setAutoPlaySlider(event, value) {
-     event.preventDefault();
-     let currentIndex = event.currentTarget.dataset.id;
-     let field = this.getField(currentIndex);
-     field.altered.autoplay = value;
-     this.state.fields.splice(field.indexes[0], 0, field.original);;
-     this.setState({ fields: this.state.fields }, this.saveData());
+    event.preventDefault();
+    let currentIndex = event.currentTarget.dataset.id;
+    let field = this.getField(currentIndex);
+    field.altered.autoplay = value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateIndexMetadata(event) {
@@ -582,20 +584,27 @@ class Editor extends React.Component{
   render() {
     let errorField = '';
     if (this.state.isError) {
-      errorField = <div className="top-messages"><div className="alert alert-danger">
-        <span>{this.state.message}</span></div></div>;
+      errorField = (
+        <div className="top-messages">
+          <div className="alert alert-danger">
+            <span>{this.state.message}</span>
+          </div>
+        </div>
+      );
     }
 
-    let successField = <div id="successField" className="alert alert-info auto-saved" style={{ display: "none" }}>
-          <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-          <strong>  Post saved </strong>
-        </div>;
-    let connectStatus = <div className={this.state.isConnected ? "status status-on" : "status status-off"}></div>;
+    let successField = (
+      <div id="successField" className="alert alert-info auto-saved" style={{ display: 'none' }}>
+        <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        <strong>  Post saved </strong>
+      </div>
+    );
+    let connectStatus = <div className={this.state.isConnected ? 'status status-on' : 'status status-off'}></div>;
     let goToConfig = '';
     let addConfig = '';
     if (this.userId==1) {
-      goToConfig = <Link className="glyphicon glyphicon-wrench" to = { "/configs" }><span>Go to Config</span></Link>
-      addConfig = <Link className="glyphicon glyphicon-cog" to = { "/config/new" }><span>Add Config</span></Link>
+      goToConfig = <Link className="glyphicon glyphicon-wrench" to={ '/configs' }><span>Go to Config</span></Link>;
+      addConfig = <Link className="glyphicon glyphicon-cog" to={ '/config/new' }><span>Add Config</span></Link>;
     }
 
     let metadata = <Metadata
@@ -616,13 +625,13 @@ class Editor extends React.Component{
       updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
       toggleWSLLogo={this.toggleWSLLogo.bind(this)}
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
-    />
+    />;
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} />
-          <Link className="glyphicon glyphicon-ok" to={"/publish/" + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
+          <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
           {goToConfig}
           {addConfig}
         </div>
@@ -669,9 +678,9 @@ class Editor extends React.Component{
         />
         <div id="preview"></div>
       </div>
-    )
+    );
   }
-};
+}
 
 Editor.contextTypes = {
   router: React.PropTypes.object.isRequired

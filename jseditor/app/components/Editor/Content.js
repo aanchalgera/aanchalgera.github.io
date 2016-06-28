@@ -6,7 +6,7 @@ import Slider from './Slider';
 
 class Content extends React.Component{
   componentDidMount() {
-    switch (this.props.data.type) {
+    switch (this.props.data.type){
       case 'content':
         this.initializeEditor(this.props.index);
         var currentRef = 'myInput' + this.props.dataId;
@@ -22,33 +22,47 @@ class Content extends React.Component{
         break;
       case 'summary':
         document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
-      break;
+        break;
     }
   }
   componentDidUpdate() {
     switch (this.props.data.type) {
-    case 'content':
-    case 'richContent':
-    case 'image':
-    case 'video':
-    case 'gallery':
-    case 'slider':
-      document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
-      break;
-    case 'summary':
-      document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
-    break;
+      case 'content':
+      case 'richContent':
+      case 'image':
+      case 'video':
+      case 'gallery':
+      case 'slider':
+        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
+        break;
+      case 'summary':
+        document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
+        break;
     }
   }
   initializeEditor(editArea) {
-    var editor = new SimpleMDE({ element: document.getElementById(editArea),
-    spellChecker : false,
-    toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link"]
-  });
+    var editor = new SimpleMDE({
+      element: document.getElementById(editArea),
+      spellChecker : false,
+      toolbar: [
+        'bold',
+        'italic',
+        'strikethrough',
+        '|',
+        'heading-1',
+        'heading-2',
+        'heading-3',
+        '|',
+        'quote',
+        'ordered-list',
+        'unordered-list',
+        'link'
+      ]
+    });
     editor.render();
     var updateText = this.props.updateText;
-    editor.codemirror.on("blur", function(event){
-      updateText(event, editor.value())
+    editor.codemirror.on('blur', function(event){
+      updateText(event, editor.value());
     });
   }
 
@@ -56,16 +70,17 @@ class Content extends React.Component{
     return {__html: text};
   }
   render () {
+    var field;
     if('content' == this.props.data.type) {
-      var field = <textarea
+      field = <textarea
         id={this.props.index}
         ref={'myInput' + this.props.dataId}
         defaultValue= {this.props.data.text}
         data-id={this.props.dataId}
         >
       </textarea>;
-    }else if ('summary' == this.props.data.type) {
-      var field = <div
+    } else if ('summary' == this.props.data.type) {
+      field = <div
         id={this.props.index}
         className="form-control blockquote"
         ref={'myInput' + this.props.dataId}
@@ -75,26 +90,26 @@ class Content extends React.Component{
         >
       </div>;
     } else if('image' == this.props.data.type) {
-      var field = <Image {...this.props} />
-  }  else if('gallery' == this.props.data.type) {
-      var field = <Gallery
+      field = <Image {...this.props} />;
+    } else if('gallery' == this.props.data.type) {
+      field = <Gallery
         data={this.props.data}
         dataId={this.props.dataId}
         openResourcePanel={this.props.openResourcePanel.bind(this)}
         addImageCaption={this.props.addImageCaption.bind(this)}
         deleteImage={this.props.deleteImage.bind(this)}
-      />
-  }  else if('slider' == this.props.data.type) {
-        var field = <Slider
-          data={this.props.data}
-          dataId={this.props.dataId}
-          openResourcePanel={this.props.openResourcePanel.bind(this)}
-          addImageCaption={this.props.addImageCaption.bind(this)}
-          deleteImage={this.props.deleteImage.bind(this)}
-        />
-  } else if('video' == this.props.data.type) {
+      />;
+    } else if('slider' == this.props.data.type) {
+      field = <Slider
+        data={this.props.data}
+        dataId={this.props.dataId}
+        openResourcePanel={this.props.openResourcePanel.bind(this)}
+        addImageCaption={this.props.addImageCaption.bind(this)}
+        deleteImage={this.props.deleteImage.bind(this)}
+      />;
+    } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
-        var field = <div>
+        field = <div>
           <label className="ptitle">
             URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
           </label>
@@ -105,12 +120,12 @@ class Content extends React.Component{
             onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
             placeholder="https://youtu.be/azxoVRTwlNg">
           </input>
-        </div>
+        </div>;
       } else {
-        var field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>
+        field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>;
       }
-    }else if('richContent' == this.props.data.type) {
-      var field = <div
+    } else if('richContent' == this.props.data.type) {
+      field = <div
         id={this.props.index}
         className="form-control"
         ref={'myInput' + this.props.dataId}
@@ -122,12 +137,12 @@ class Content extends React.Component{
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
     return (
-      <div className={(this.props.grouped=='true'?'cloumn-content ':"container-ul-inner ")+minimized+" "+backgroundClass}
-       id={"div-"+this.props.index}
+      <div className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass}
+       id={'div-'+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
-         <div className={(this.props.data.backgroundFade == true ? "module-bg-fade ":'')+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '')}>
-           <div className={this.props.data.backgroundFade == true ? "module-content" : ''}>
+         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '')}>
+           <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
            {field}
          </div></div>
          <PropertyButton
@@ -145,7 +160,7 @@ class Content extends React.Component{
            grouped={this.props.grouped}
          />
       </div>
-    )
+    );
   }
 }
 
