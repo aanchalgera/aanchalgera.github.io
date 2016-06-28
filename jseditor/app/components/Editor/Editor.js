@@ -581,6 +581,13 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  deleteImage({sectionIndex, imageIndex}, event) {
+    event.preventDefault();
+    let { fields } = this.state;
+    delete fields[sectionIndex].images[imageIndex];
+    this.setState({ fields }, this.saveData());
+  }
+
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -625,6 +632,7 @@ class Editor extends React.Component{
       updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
       toggleWSLLogo={this.toggleWSLLogo.bind(this)}
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
+      deleteImage={this.deleteImage.bind(this)}
     />;
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
