@@ -575,13 +575,6 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  savePreviewData(id, postHash) {
-    this.setState({
-      postId: id,
-      postHash: postHash
-    }, this.saveData());
-  }
-
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -616,7 +609,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <PreviewOnSite postId={this.state.id} savePreviewData={this.savePreviewData.bind(this)} />
+          <PreviewOnSite postId={this.state.id} />
           <Link className="glyphicon glyphicon-ok" to={"/publish/" + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
           <Link className="glyphicon glyphicon-wrench" to={"/configs"}><span>Go to Config</span></Link>
           <Link className="glyphicon glyphicon-cog" to={"/config/new"}><span>Add Config</span></Link>

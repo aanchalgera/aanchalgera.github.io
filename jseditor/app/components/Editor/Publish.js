@@ -6,6 +6,7 @@ import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
 import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
+import PreviewOnSite from './PreviewOnSite';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'Select slot ';
@@ -331,8 +332,6 @@ class Publish extends React.Component {
 
   render () {
     let loadingMessage = '';
-    let sitePreviewLink = '';
-    let sitePreviewUrl = '';
     let errorField = '';
     if (!this.state.loaded) {
       loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
@@ -340,15 +339,11 @@ class Publish extends React.Component {
     if (this.state.isError) {
       errorField = <div className="published-messages error">{this.state.message}</div>;
     }
-    if (this.state.postId != undefined && this.state.postId != '' && this.state.status == 'publish') {
-      sitePreviewUrl = SITE_DOMAIN+"preview-main/" +this.state.postId+'/'+this.state.postHash;
-      sitePreviewLink = <a id="site-preview" target={sitePreviewUrl} href={sitePreviewUrl} className="btn btn-primary">Go to Site Preview</a>
-    }
     return(
       <div>
         <div className="preview-nav">
           <Link to={'/edit/post/'+this.postname + '?userid=' + this.userId} className="btn btn-primary">Back to editing</Link>
-          {sitePreviewLink}
+          <PreviewOnSite postId={this.state.id} />
         </div>
         <form className="post-publish" ref="publish-form">
           <div className="publish-headers">
