@@ -2,7 +2,8 @@
     "rules": {
         "indent": [
             2,
-            4
+            2,
+            { "SwitchCase": 1 }
         ],
         "quotes": [
             2,
@@ -16,6 +17,13 @@
             2,
             "always"
         ]
+    },
+    "globals": {
+        "Rollbar": true,
+        "cloudinary": true,
+        "SimpleMDE": true,
+        "Firebase": true,
+        "configParams": true
     },
     "env": {
         "es6": true,

@@ -46,7 +46,7 @@ var CloudinaryUploader = React.createClass({
       maxImageHeight: null,
       buttonClass: 'btn btn-primary',
       buttonCaption: 'Upload Images'
-    }
+    };
   },
   getInitialState: function(){
     var initialState =  {
@@ -107,7 +107,7 @@ var CloudinaryUploader = React.createClass({
     options.multiple = this.props.multiple;
 
     if(this.props.maxFiles){
-      options.max_files = this.props.maxFiles
+      options.max_files = this.props.maxFiles;
     }
 
     if(this.props.cropping && this.props.cropping === 'server'){
@@ -135,7 +135,7 @@ var CloudinaryUploader = React.createClass({
     }
 
     if(this.props.allowedFormats){
-      options.client_allowed_formats = this.props.allowedFormats
+      options.client_allowed_formats = this.props.allowedFormats;
     }
 
     var context = {};
@@ -160,12 +160,12 @@ var CloudinaryUploader = React.createClass({
     });
   },
   openResourcePanel: function () {
-    this.refs.resourcePanel.getStyle().style.display = 'block'
-    this.refs.resourcePanel.getStyle().classList.add('in')
+    this.refs.resourcePanel.getStyle().style.display = 'block';
+    this.refs.resourcePanel.getStyle().classList.add('in');
   },
   handleClick: function(ev){
     if(this.props.slug == undefined || this.props.slug == '') {
-      this.setError(true, "Title not set");
+      this.setError(true, 'Title not set');
       ev.preventDefault();
     }
     var self = this;
@@ -175,7 +175,7 @@ var CloudinaryUploader = React.createClass({
         options,
         function(error, result) {
           if (error){
-            self.setError(true, error)
+            self.setError(true, error);
             ev.preventDefault();
           }
           if (!result || result.length === 0){
@@ -193,13 +193,13 @@ var CloudinaryUploader = React.createClass({
         }
       );
     }catch(e){
-      Rollbar.error('Error occured while uploading image to cloudinary', e)
+      Rollbar.error('Error occured while uploading image to cloudinary', e);
       self.setError(true, e);
       ev.preventDefault();
     }
   },
   render: function(){
-    var uploader_id = "uploader_" + this.state.uuid;
+    var uploader_id = 'uploader_' + this.state.uuid;
     return (
       <div>
         <div className="nav-btns-top">
@@ -209,7 +209,6 @@ var CloudinaryUploader = React.createClass({
             disabled={!this.props.slug}
             className={this.props.buttonClass}
             onClick={this.handleClick}>{this.props.buttonCaption}</button>
-          <p>{console.log(this.state.errorMessage)}</p>
         </div>
         <ResourcePanel
           addImage={this.props.addImage}

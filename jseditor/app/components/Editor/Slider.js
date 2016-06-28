@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ImageCaption from './ImageCaption';
 
 class Slider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageList: [],
+      imageList: []
     };
   }
 
@@ -24,6 +24,13 @@ class Slider extends React.Component {
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
             imageCaption={imageCaption} />
+          <div className="hover-nav">
+            <div className="btn-group btn-group-sm" role="group" aria-label="...">
+              <button className="btn btn-default" onClick={this.props.deleteImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i})}>
+                <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
+              </button>
+            </div>
+          </div>
         </li>
       );
     });
