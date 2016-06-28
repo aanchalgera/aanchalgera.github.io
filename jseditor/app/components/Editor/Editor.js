@@ -7,7 +7,7 @@ import Metadata from './Metadata/Metadata';
 import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
-const TITLE_EMPTY_WARNING = 'Title should not be empty';
+const TITLE_EMPTY_WARNING = 'Invalid Title name, It should be 4 or more characters long';
 const CONTENT_EMPTY_WARNING = 'Please add some content';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
@@ -289,16 +289,26 @@ class Editor extends React.Component{
       ev.preventDefault();
     }
 
-    if (undefined == this.state.value || '' == this.state.value.trim()) {
+    if (undefined == this.state.value ||
+      '' == this.state.value.trim() ||
+      4 >= this.state.value.length ||
+      300 <= this.state.value.length)
+    {
       this.setMessage(true, TITLE_EMPTY_WARNING);
       return;
-    } else if (0 == this.state.fields.length) {
+    }
+    else if (0 == this.state.fields.length)
+    {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
       return;
-    } else if (isNaN(this.userId) || this.userId != this.state.userId) {
+    }
+    else if (isNaN(this.userId) || this.userId != this.state.userId)
+    {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
       return;
-    } else {
+    }
+    else
+    {
       this.setMessage(false);
     }
 
