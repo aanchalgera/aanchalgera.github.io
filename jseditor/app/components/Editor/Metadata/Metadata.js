@@ -52,7 +52,7 @@ class Metadata extends React.Component{
           toggleSocialSharing={this.props.toggleSocialSharing}
         />
       </div>
-    )
+    );
   }
 }
 

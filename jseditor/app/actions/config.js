@@ -1,9 +1,9 @@
-import {RECEIVE_CONFIGS} from '../constants/ActionTypes';
+import { RECEIVE_CONFIGS } from '../constants/ActionTypes';
 
 function receiveConfigs(configs) {
   return {
     type: RECEIVE_CONFIGS,
-    data: configs,
+    data: configs
   };
 }
 
@@ -14,7 +14,7 @@ export function fetchConfigs(component, base) {
       asArray: true,
       then(configs) {
         dispatch(receiveConfigs(configs));
-      },
+      }
     });
   };
 }

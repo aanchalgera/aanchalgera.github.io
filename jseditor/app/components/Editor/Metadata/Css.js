@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
 
 class Css extends React.Component {
   render () {
@@ -14,7 +14,7 @@ class Css extends React.Component {
             onBlur={this.props.updateCssSkinName} />
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
 
 class Sponsor extends React.Component {
   updateSponsorImage() {
@@ -48,7 +48,7 @@ class Sponsor extends React.Component {
             onBlur={this.props.updateSponsorTracker} />
         </div>
       </div>
-    )
+    );
   }
 }
 

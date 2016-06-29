@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
 
 class Microsite extends React.Component {
   render () {
@@ -50,7 +50,7 @@ class Microsite extends React.Component {
             onBlur={this.props.updateMicrositeCookiePage} />
         </div>
       </div>
-    )
+    );
   }
 }
 

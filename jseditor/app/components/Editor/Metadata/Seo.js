@@ -14,7 +14,7 @@ class Seo extends React.Component{
           <textarea className="form-control" placeholder="Add your text here...." defaultValue={this.props.seo.description} onBlur={this.props.updateSeoDescription} />
         </div>
       </div>
-    )
+    );
   }
 }
 

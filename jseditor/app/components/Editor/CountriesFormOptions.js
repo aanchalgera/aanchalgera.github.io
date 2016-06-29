@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
 let regions = {
@@ -12,7 +12,7 @@ let regions = {
   CR: 'Costa Rica',
   CO: 'Columbia',
   CEA: 'Centro America',
-  ROW: 'Resto del mundo',
+  ROW: 'Resto del mundo'
 };
 
 class CountriesFormOptions extends React.Component {

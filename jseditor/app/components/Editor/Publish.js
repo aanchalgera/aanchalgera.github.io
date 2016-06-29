@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import {Link} from 'react-router';
+import React from 'react';
+import { Link } from 'react-router';
 import axios from 'axios';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
@@ -19,7 +19,7 @@ const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 
 class Publish extends React.Component {
   constructor(props) {
-   super(props);
+    super(props);
     this.state = {
       fields: [],
       value: moment().format('DD/MM/YYYY HH:mm'),
@@ -38,13 +38,13 @@ class Publish extends React.Component {
           name:'',
           gaSnippet: '',
           showWSLLogo: true,
-          showSocialButtons: true,
+          showSocialButtons: true
         }
       },
       buttonDisabled: true,
       loaded: false,
       isError: false,
-      message: '',
+      message: ''
     };
   }
 
@@ -62,22 +62,22 @@ class Publish extends React.Component {
         asArray: true,
         queries: {
           orderByChild: 'status',
-          equalTo: 'publish',
+          equalTo: 'publish'
         },
         then(data) {
           if (data != null) {
             let scheduledPosts = {};
-            data.forEach((result, b) => {
+            data.forEach(result => {
               let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
-              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title}
+              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
             });
 
             this.setState({
               futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false,
+              buttonDisabled: false
             });
           }
-        },
+        }
       });
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
@@ -97,10 +97,10 @@ class Publish extends React.Component {
               postHash: data.publishData.postHash || '',
               buttonDisabled: false,
               loaded: true,
-              userId: data.user_id || 1,
+              userId: data.user_id || 1
             });
           }
-        },
+        }
       });
     }
   }
@@ -111,25 +111,24 @@ class Publish extends React.Component {
       title: this.state.title,
       meta: this.state.meta,
       sections: this.state.fields,
-      page: 'publish',
+      page: 'publish'
     };
     data = JSON.stringify(data);
     axios({
       url: configParams.host + ':81/parse',
       method: 'POST',
-      data: data,
+      data: data
     })
-    .then((response) => {
-      console.log(response);
+    .then(response => {
       if (response.data.status == 'success') {
         this.saveData(JSON.parse(response.data.response));
       } else {
-        this.setMessage(true, PARSING_DATA_ERROR_WARNING)
+        this.setMessage(true, PARSING_DATA_ERROR_WARNING);
         Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
       }
     })
-    .catch((response) => {
-      this.setMessage(true, PARSING_DATA_ERROR_WARNING)
+    .catch(response => {
+      this.setMessage(true, PARSING_DATA_ERROR_WARNING);
       Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
     });
   }
@@ -161,8 +160,8 @@ class Publish extends React.Component {
         'publish-region': publishRegion,
         post_status: 'publish',
         postRepostBlogNames: postRepostBlogNames,
-        page: 'publish',
-     }
+        page: 'publish'
+      }
     };
 
     let formData = {
@@ -178,7 +177,7 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames
       },
       meta: this.state.meta,
-      user_id: this.state.userId,
+      user_id: this.state.userId
     };
     let postType = 'POST';
     let postUrl = 'posts.json';
@@ -199,47 +198,51 @@ class Publish extends React.Component {
       crossDomain: true
     })
     .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
-    .done((result, status) => {
-       console.log(result, status);
-       if (result.id != undefined) {
-         formData.publishData.postId = result.id;
-         formData.publishData.postHash = result.post_hash;
-         this.toggleButton();
-       }
-       try {
-         let listData = {
-           id: this.state.id,
-           title: this.state.title,
-           status: 'publish',
-           user_id: this.userId,
-           user_status: this.userId + '_' + 'publish',
-         };
-         this.props.base.post(
-           'posts_list/' + this.state.id, {
-           data: listData,
-           then(data) {}
-         });
+    .done(result => {
+      if (result.id != undefined) {
+        formData.publishData.postId = result.id;
+        formData.publishData.postHash = result.post_hash;
+        this.toggleButton();
+      }
+      try {
+        let listData = {
+          id: this.state.id,
+          title: this.state.title,
+          status: 'publish',
+          user_id: this.userId,
+          user_status: this.userId + '_' + 'publish'
+        };
 
-         this.props.base.post(
-           'posts/' + this.state.id, {
-           data: formData,
-           then: (data) => {
-             if (result.id != undefined) {
-               this.refs.scheduleSuccess.style.display = 'block';
-               setTimeout(() => this.refs.scheduleSuccess.style.display = 'none', 7000);
-               this.setState({
-                 postId: result.id,
-                 postHash: result.post_hash,
-                 status: 'publish',
-               });
-             }
-           }
-         });
-       } catch (e) {
-         let errorMessage = e.message.substring(0, 100);
-         this.setMessage(true, errorMessage);
-         Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
-       }
+        this.props.base.post(
+          'posts_list/' + this.state.id,
+          {
+            data: listData,
+            then() {}
+          }
+        );
+
+        this.props.base.post(
+          'posts/' + this.state.id,
+          {
+            data: formData,
+            then: () => {
+              if (result.id != undefined) {
+                this.refs.scheduleSuccess.style.display = 'block';
+                setTimeout(() => this.refs.scheduleSuccess.style.display = 'none', 7000);
+                this.setState({
+                  postId: result.id,
+                  postHash: result.post_hash,
+                  status: 'publish'
+                });
+              }
+            }
+          }
+        );
+      } catch (e) {
+        let errorMessage = e.message.substring(0, 100);
+        this.setMessage(true, errorMessage);
+        Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
+      }
     });
   }
 
@@ -265,7 +268,7 @@ class Publish extends React.Component {
     if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
     } else if ('publish' == this.state.status) {
-      if (moment(moment(this.state.value, "DD/MM/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
+      if (moment(moment(this.state.value, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         this.setMessage(true, VALID_DATE_WARNING);
       } else {
         this.setMessage(false);
@@ -287,14 +290,14 @@ class Publish extends React.Component {
   openSlotWidget(ev) {
     ev.preventDefault();
     let visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none'? 'block': 'none';
-    chooseSlotMsg = "Close";
+    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
+    chooseSlotMsg = 'Close';
     this.handleDatePickerText();
   }
 
   handleDatePickerText() {
     if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
-      document.getElementById('toggle-publish-slots').text = "Select slot";
+      document.getElementById('toggle-publish-slots').text = 'Select slot';
     } else {
       document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
     }
@@ -302,16 +305,16 @@ class Publish extends React.Component {
 
   onPickSlot (ev) {
     let currentTarget = ev.currentTarget;
-    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return
-    let currentSlot = document.getElementsByClassName('slot-current')
+    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
+    let currentSlot = document.getElementsByClassName('slot-current');
     if (currentSlot.length > 0) {
-      currentSlot[0].classList.add("slot-free")
-      currentSlot[0].innerHTML = "Libre"
-      currentSlot[0].classList.remove("slot-current")
+      currentSlot[0].classList.add('slot-free');
+      currentSlot[0].innerHTML = 'Libre';
+      currentSlot[0].classList.remove('slot-current');
     }
-    currentTarget.classList.remove("slot-free")
-    currentTarget.innerHTML = "Elegido"
-    currentTarget.classList.add("slot-current")
+    currentTarget.classList.remove('slot-free');
+    currentTarget.innerHTML = 'Elegido';
+    currentTarget.classList.add('slot-current');
     this.setState({
       value: ev.currentTarget.dataset.date
     });
@@ -321,21 +324,21 @@ class Publish extends React.Component {
 
   setPublishRegions (newRegions) {
     this.setState({
-      publishRegion: newRegions,
-    })
+      publishRegion: newRegions
+    });
   }
 
   setRepostBlogs (newBlogs) {
     this.setState({
-      postRepostBlogNames: newBlogs,
-    })
+      postRepostBlogNames: newBlogs
+    });
   }
 
   render () {
     let loadingMessage = '';
     let errorField = '';
     if (!this.state.loaded) {
-      loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
+      loadingMessage = <p className='loader'><strong>Loading.....</strong></p>;
     }
     if (this.state.isError) {
       errorField = <div className="published-messages error">{this.state.message}</div>;
@@ -351,7 +354,7 @@ class Publish extends React.Component {
             <h3>Publish your post</h3>
           </div>
           {errorField}
-          <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, "DD-MM-YYYY HH:mm").format('LLLL')}</div>
+          <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, 'DD-MM-YYYY HH:mm').format('LLLL')}</div>
           <SlotWidget
             buttonDisabled={this.state.buttonDisabled}
             value={this.state.value}
@@ -365,7 +368,7 @@ class Publish extends React.Component {
           {loadingMessage}
         </form>
       </div>
-    )
+    );
   }
 }
 

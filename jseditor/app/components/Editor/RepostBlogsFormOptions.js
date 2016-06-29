@@ -1,12 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CheckboxGroup from 'react-checkbox-group';
 
-let blogs = ['decoesfera', 'ahorrodiario', 'applesfera', 'bebesymas',
-         'blogdecine', 'diariodelviajero', 'directoalpaladar', 'elblogsalmon',
-         'genbeta', 'genbetadev', 'motorpasion', 'motorpasionfuturo', 'pequesymas',
-         'pymesyautonomos', 'trendencias', 'vayatele', 'vidaextra', 'vitonica',
-         'xatakandroid', 'xatakaciencia', 'xatakafoto', 'xatakahome', 'xatakamexico',
-         'xatakamovil', 'xatakawindows', 'xatakaon', 'xatakacolombia',
+let blogs = [
+  'decoesfera', 'ahorrodiario', 'applesfera', 'bebesymas',
+  'blogdecine', 'diariodelviajero', 'directoalpaladar', 'elblogsalmon',
+  'genbeta', 'genbetadev', 'motorpasion', 'motorpasionfuturo', 'pequesymas',
+  'pymesyautonomos', 'trendencias', 'vayatele', 'vidaextra', 'vitonica',
+  'xatakandroid', 'xatakaciencia', 'xatakafoto', 'xatakahome', 'xatakamexico',
+  'xatakamovil', 'xatakawindows', 'xatakaon', 'xatakacolombia'
 ];
 
 class RepostBlogsFormOptions extends React.Component {
@@ -16,10 +17,10 @@ class RepostBlogsFormOptions extends React.Component {
         <fieldset className="country">
           <legend>Repost en otros blogs</legend>
           <CheckboxGroup
-              name="repostblogs"
-              value={this.props.repostBlogs}
-              ref="repostBlogOptions"
-              onChange={this.props.setRepostBlogs.bind(this)}
+            name="repostblogs"
+            value={this.props.repostBlogs}
+            ref="repostBlogOptions"
+            onChange={this.props.setRepostBlogs.bind(this)}
           >
           {
             Checkbox => (
