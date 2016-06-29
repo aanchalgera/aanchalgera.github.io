@@ -584,7 +584,7 @@ class Editor extends React.Component{
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let { fields } = this.state;
-    delete fields[sectionIndex].images[imageIndex];
+    fields[sectionIndex].images.splice(imageIndex, 1);
     this.setState({ fields }, this.saveData());
   }
 

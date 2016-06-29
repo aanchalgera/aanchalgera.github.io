@@ -14,6 +14,7 @@ class Slider extends React.Component {
   }
 
   render () {
+    const totalImages = this.state.imageList.length;
     var images = this.state.imageList.map((image, i) => {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
@@ -26,9 +27,11 @@ class Slider extends React.Component {
             imageCaption={imageCaption} />
           <div className="hover-nav">
             <div className="btn-group btn-group-sm" role="group" aria-label="...">
+            {totalImages == 1 ? null :
               <button className="btn btn-default" onClick={this.props.deleteImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i})}>
                 <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
               </button>
+            }
             </div>
           </div>
         </li>
