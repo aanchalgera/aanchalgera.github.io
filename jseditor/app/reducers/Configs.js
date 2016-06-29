@@ -2,7 +2,7 @@ import {RECEIVE_CONFIGS} from '../constants/ActionTypes';
 
 const initialState = {
   configs: [],
-  loading: true,
+  loading: true
 };
 
 const configs = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const configs = (state = initialState, action) => {
     case RECEIVE_CONFIGS:
       return Object.assign({}, state, {
         configs: action.data,
-        loading: false,
+        loading: false
       });
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 class Home extends React.Component {
   constructor(props){
@@ -26,19 +26,24 @@ class Home extends React.Component {
       }
     });
   }
+
   componentDidMount(){
     this.init();
   }
+
   render () {
-    var loadingMessage = ""
+    var loadingMessage = '';
     if (!this.state.loaded) {
       loadingMessage = <p className='loader'><strong>Loading .....</strong></p>;
     }
     var postList = [];
-    var postList = this.state.posts.map((post, i) => {
+    postList = this.state.posts.map((post, i) => {
       return (
-        <li key={i} className="list-group-item">{post.title}  <Link className="btn btn-primary" to={"/edit/post/" + post.id}>Edit</Link></li>
-      )
+        <li key={i} className="list-group-item">
+          {post.title}
+          <Link className="btn btn-primary" to={'/edit/post/' + post.id}>Edit</Link>
+        </li>
+      );
     });
     return (
       <div>
@@ -52,7 +57,7 @@ class Home extends React.Component {
           {postList}
         </ul>
       </div>
-    )
+    );
   }
 }
 export default Home;

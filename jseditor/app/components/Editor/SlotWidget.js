@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import moment from 'moment-timezone';
 
 var timeStamp = moment().format('X');
@@ -12,8 +12,8 @@ class SlotWidget extends React.Component {
     var slot, msg, dateTime, formattedDateTime;
     for (var i = 0; i < 7; i++) {
       if (i == 0) {
-        var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD')
-        tablehead.push(React.createElement('th', {}, React.createElement('strong', {}, "»"+currentDay.toLowerCase())));
+        var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD');
+        tablehead.push(React.createElement('th', {}, React.createElement('strong', {}, '»'+currentDay.toLowerCase())));
       } else {
         var nextDayTimeStamp = moment.unix(timeStamp).add(i, 'day').locale('es').format('dddd DD');
         tablehead.push(React.createElement('th', {}, nextDayTimeStamp.toLowerCase()));
@@ -24,8 +24,8 @@ class SlotWidget extends React.Component {
         slot = '';
         msg = '';
         dateTime = moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        formattedDateTime = moment(dateTime, "YYYY-MM-DD HH:mm:ss").format('DD/MM/YYYY') + ' ' + j + ':00';
-        if (timeStamp > moment(dateTime, "YYYY-MM-DD HH:mm:ss").format("X")) {
+        formattedDateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') + ' ' + j + ':00';
+        if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
           slot = 'slot-past';
           msg = 'Pasado';
         } else if (this.props.futureProgrammedPosts != undefined && this.props.futureProgrammedPosts[dateTime] != undefined) {
@@ -60,21 +60,25 @@ class SlotWidget extends React.Component {
               <thead>
                 <tr id="table-head">
                   <th><em>{currentMonth.toLowerCase()}</em></th>
-                  {tablehead.map(function(result, i) {
-                    return result;
-                  })}
+                  {
+                    tablehead.map(function(result) {
+                      return result;
+                    })
+                  }
                 </tr>
               </thead>
               <tbody id="table-rows">
-                {tablerows.map(function(result, i) {
-                  return result;
-                })}
+                {
+                  tablerows.map(function(result) {
+                    return result;
+                  })
+                }
               </tbody>
-        </table>
-        </div>
-       </fieldset>
+            </table>
+          </div>
+        </fieldset>
       </div>
-    )
+    );
   }
 }
 

@@ -7,22 +7,41 @@ class Homepage extends React.Component{
   initializeEditor() {
     var editor = new SimpleMDE({ element: document.getElementById('homepage-content'),
       spellChecker : false,
-      toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "ordered-list", "unordered-list", "link"]
+      toolbar: [
+        'bold',
+        'italic',
+        'strikethrough',
+        '|',
+        'heading-1',
+        'heading-2',
+        'heading-3',
+        '|',
+        'quote',
+        'ordered-list',
+        'unordered-list',
+        'link'
+      ]
     });
     editor.render();
     var updateHomepageContent = this.props.updateHomepageContent;
-    editor.codemirror.on("blur", function(event){
+    editor.codemirror.on('blur', function(){
       updateHomepageContent(editor.value());
     });
   }
   render () {
+    var image;
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
-      var image = <div className="homepage-image-container">
-      <label htmlFor="exampleInputEmail1">Add image</label>
-      <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>Choose from gallery</button>
-      </div>
+      image = (
+        <div className="homepage-image-container">
+          <label htmlFor="exampleInputEmail1">Add image</label>
+          <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>
+            Choose from gallery
+          </button>
+        </div>
+      );
     } else {
-      var image =<div className="homepage-image-container">
+      image = (
+        <div className="homepage-image-container">
           <a href={this.props.homepage.image.url} target="_blank">{this.props.homepage.image.name}</a>
           <div aria-label="Extra-small button group" role="group" className="btn-group btn-group-xs pull-right">
             <button className="btn btn-default" type="button" title="Change Image" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}><span className="glyphicon glyphicon-edit" /></button>
@@ -30,6 +49,7 @@ class Homepage extends React.Component{
           </div>
           <img alt src={this.props.homepage.image.url} />
         </div>
+      );
     }
     return (
       <div className="modules module-home">
@@ -47,7 +67,7 @@ class Homepage extends React.Component{
             placeholder="Add your text here...." />
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -16,9 +16,16 @@
         "semi": [
             2,
             "always"
-        ]
+        ],
+        "react/prop-types": 0,
+        "react/no-did-mount-set-state": 0,
+        "react/no-direct-mutation-state": 0,
+        "react/no-danger": 0
     },
     "globals": {
+        "require": true,
+        "process": true,
+        "module": true,
         "Rollbar": true,
         "cloudinary": true,
         "SimpleMDE": true,
@@ -29,13 +36,14 @@
         "es6": true,
         "browser": true
     },
-    "extends": "eslint:recommended",
-    "ecmaFeatures": {
-        "jsx": true,
-	"modules": true, 
-        "experimentalObjectRestSpread": true
-    },
-    "plugins": [
-        "react"
-    ]
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "plugins": ["react"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        },
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    }
 }

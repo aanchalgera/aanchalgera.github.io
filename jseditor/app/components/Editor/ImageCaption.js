@@ -1,17 +1,17 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 class ImageCaption extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.imageCaption,
+      value: this.props.imageCaption
     };
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({
-      value: e.currentTarget.value,
+      value: e.currentTarget.value
     });
   }
 
@@ -20,7 +20,7 @@ class ImageCaption extends React.Component {
     var data = e.currentTarget.value.trim();
     var imageId = e.currentTarget.id;
     this.setState({
-      value: data,
+      value: data
     }, this.props.addImageCaption.bind(this, imageId, data, this.props.fieldId));
   }
 
