@@ -42,41 +42,45 @@ class Editor extends React.Component{
     this.checkConnectStatus();
     let postname = this.props.params.postname;
     let { query } = this.props.location;
-    this.userId = parseInt(query.userid);
-    if (undefined != postname) {
-      try {
-        this.props.base.fetch('posts/' + postname, {
-          context: this,
-          then(data) {
-            if (null != data) {
-              this.setState({
-                id: data.id,
-                userId: data.user_id || 1,
-                postId: data.publishData.postId || '',
-                postHash: data.publishData.postHash || '',
-                fields: data.sections || [],
-                value: data.title,
-                maxId: data.maxId,
-                status: data.status || this.state.status,
-                publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}}
-              });
+    this.userId = query.userid;
+    let regEx = /\D/;
+    if (regEx.test(this.userId)) {
+      alert('Not a valid userId');
+      this.context.router.goBack();
+    } else if (undefined != postname) {
+        try {
+          this.props.base.fetch('posts/' + postname, {
+            context: this,
+            then(data) {
+              if (null != data) {
+                this.setState({
+                  id: data.id,
+                  userId: data.user_id || 1,
+                  postId: data.publishData.postId || '',
+                  postHash: data.publishData.postHash || '',
+                  fields: data.sections || [],
+                  value: data.title,
+                  maxId: data.maxId,
+                  status: data.status || this.state.status,
+                  publishData: data.publishData || this.state.regions,
+                  meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}}
+                });
+              }
             }
-          }
-        });
-      } catch (e) {
-        Rollbar.critical('Error occured while fetching post data from Firebase', e);
+          });
+        } catch (e) {
+          Rollbar.critical('Error occured while fetching post data from Firebase', e);
+        }
+      } else {
+        let hashId = helpers.generatePushID();
+        let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
+        this.setState({
+          id: hashId,
+          meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
+          userId: this.userId
+        }, this.context.router.push(postEditUrl));
       }
-    } else {
-      let hashId = helpers.generatePushID();
-      let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
-      this.setState({
-        id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
-        userId: this.userId
-      }, this.context.router.push(postEditUrl));
     }
-  }
 
   componentDidMount() {
     this.timerId = setInterval(() => this.saveData(), 20000);
