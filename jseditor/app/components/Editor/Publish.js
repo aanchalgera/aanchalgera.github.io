@@ -56,6 +56,7 @@ class Publish extends React.Component {
     this.postname = this.props.params.postname;
     let { query } = this.props.location;
     this.userId = query.userid;
+    let regEx = /\D/;
     if (regEx.test(this.userId)) {
       this.context.router.goBack();
     } else {
