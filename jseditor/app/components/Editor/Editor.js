@@ -45,7 +45,6 @@ class Editor extends React.Component{
     this.userId = query.userid;
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      alert('Not a valid userId');
       this.context.router.goBack();
     } else if (undefined != postname) {
         try {
