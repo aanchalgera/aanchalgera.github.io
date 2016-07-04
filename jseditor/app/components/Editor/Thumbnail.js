@@ -18,6 +18,7 @@ export default class Thumbnail extends React.Component {
           onClick={this.selectImage.bind(this, this.props.data)}
           data-image={JSON.stringify(this.props.data)}
         />
+        <span>{ this.props.data.original_filename }</span>
       </li>
     );
   }
