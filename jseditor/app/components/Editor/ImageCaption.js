@@ -11,7 +11,7 @@ class ImageCaption extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.state = {
       value: nextProps.imageCaption
-    }
+    };
   }
 
   handleChange(e) {
