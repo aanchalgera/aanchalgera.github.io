@@ -80,15 +80,20 @@ class Content extends React.Component{
         >
       </textarea>;
     } else if ('summary' == this.props.data.type) {
-      field = <div
-        id={this.props.index}
-        className="form-control blockquote"
-        ref={'myInput' + this.props.dataId}
-        onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
-        contentEditable="true"
-        dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
-        >
-      </div>;
+      field = (
+        <div>
+          <label className="ptitle">Summary</label>
+          <div
+            id={this.props.index}
+            className="form-control blockquote"
+            ref={'myInput' + this.props.dataId}
+            onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
+            contentEditable="true"
+            dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
+            >
+          </div>
+        </div>
+      );
     } else if('image' == this.props.data.type) {
       field = <Image {...this.props} />;
     } else if('gallery' == this.props.data.type) {
@@ -109,29 +114,40 @@ class Content extends React.Component{
       />;
     } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {
-        field = <div>
-          <label className="ptitle">
-            URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            defaultValue={this.props.data.url}
-            onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
-            placeholder="https://youtu.be/azxoVRTwlNg">
-          </input>
-        </div>;
+        field = (
+          <div>
+            <label className="ptitle">
+              URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              defaultValue={this.props.data.url}
+              onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
+              placeholder="https://www.youtube.com/embed/azxoVRTwlNg">
+            </input>
+          </div>
+        );
       } else {
         field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>;
       }
     } else if('richContent' == this.props.data.type) {
-      field = <div
-        id={this.props.index}
-        className="form-control"
-        ref={'myInput' + this.props.dataId}
-        contentEditable="true"
-        onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
-        >{this.props.data.text}</div>;
+      field = (
+        <div>
+          <label className="ptitle">
+            Rich content snippet <span className="hint">(You can use HTML, CSS and Javascript here)</span>
+          </label>
+          <div
+            id={this.props.index}
+            className="form-control"
+            ref={'myInput' + this.props.dataId}
+            contentEditable="true"
+            onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
+          >
+            {this.props.data.text}
+          </div>
+        </div>
+      );
     }
 
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
