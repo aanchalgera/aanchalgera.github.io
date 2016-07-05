@@ -28,12 +28,13 @@ class Homepage extends React.Component{
       updateHomepageContent(editor.value());
     });
   }
+
   render () {
     var image;
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
       image = (
         <div className="homepage-image-container">
-          <label htmlFor="exampleInputEmail1">Add image</label>
+          <label>Add image</label>
           <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>
             Choose from gallery
           </button>
@@ -53,18 +54,23 @@ class Homepage extends React.Component{
     }
     return (
       <div className="modules module-home">
-        <h4>Homepage Content</h4>
-        <div className="form-group">
-          {image}
-        </div>
-        <div className="form-group">
-          <label htmlFor>Add text <span className="hint">(Optional)</span></label>
-          <textarea
-            ref = "homepageContent"
-            id = "homepage-content"
-            className="form-control"
-            defaultValue= {this.props.homepage.content}
-            placeholder="Add your text here...." />
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
+          Homepage Content
+          <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>
+        </h4>
+        <div className="collapsed-content" ref="articleMetaPannel">
+          <div className="form-group">
+            {image}
+          </div>
+          <div className="form-group">
+            <label>Add text <span className="hint">(Optional)</span></label>
+            <textarea
+              ref = "homepageContent"
+              id = "homepage-content"
+              className="form-control"
+              defaultValue= {this.props.homepage.content}
+              placeholder="Add your text here...." />
+          </div>
         </div>
       </div>
     );

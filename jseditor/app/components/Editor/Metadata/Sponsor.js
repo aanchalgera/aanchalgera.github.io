@@ -20,32 +20,37 @@ class Sponsor extends React.Component {
   render () {
     return (
       <div className="modules module-home">
-        <h4>Sponsor Content</h4>
-        <div className="form-group">
-          <label htmlFor>Sponsor name</label>
-          <input
-            type="text"
-            className="form-control sponsor-field"
-            defaultValue= {this.props.sponsor.name}
-            onBlur={this.props.updateSponsorName} />
-        </div>
-        <div className="form-group">
-          <label htmlFor>Sponsor image URL <span className="hint">(Maximum size: 70x48)</span></label>
-          <input
-            ref="sponsorImage"
-            type="text"
-            className="form-control sponsor-field"
-            defaultValue= {this.props.sponsor.image}
-            onBlur={this.updateSponsorImage.bind(this)} />
-        </div>
-        <div className="form-group">
-          <label htmlFor>Add tracker</label>
-          <textarea
-            ref = "trackerContent"
-            className="form-control"
-            placeholder="Add your tracker code here...."
-            defaultValue= {this.props.sponsor.tracker}
-            onBlur={this.props.updateSponsorTracker} />
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
+          Sponsor Content
+          <span className="glyphicon glyphicon-plus pull-right" ref='glyphiconClass'></span>
+        </h4>
+        <div className="collapsed-content" ref='articleMetaPannel'>
+          <div className="form-group">
+            <label>Sponsor name</label>
+            <input
+              type="text"
+              className="form-control sponsor-field"
+              defaultValue= {this.props.sponsor.name}
+              onBlur={this.props.updateSponsorName} />
+          </div>
+          <div className="form-group">
+            <label>Sponsor image URL <span className="hint">(Maximum size: 70x48)</span></label>
+            <input
+              ref="sponsorImage"
+              type="text"
+              className="form-control sponsor-field"
+              defaultValue= {this.props.sponsor.image}
+              onBlur={this.updateSponsorImage.bind(this)} />
+          </div>
+          <div className="form-group">
+            <label>Add tracker</label>
+            <textarea
+              ref = "trackerContent"
+              className="form-control"
+              placeholder="Add your tracker code here...."
+              defaultValue= {this.props.sponsor.tracker}
+              onBlur={this.props.updateSponsorTracker} />
+          </div>
         </div>
       </div>
     );
