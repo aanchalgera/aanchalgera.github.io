@@ -19,7 +19,10 @@ class Sponsor extends React.Component {
 
   onToggle(e) {
     e.preventDefault();
-    this.props.onArticleMetaToggle({glyphiconClass: this.refs.glyphiconClass, articleMetaPannel: this.refs.articleMetaPannel});
+    this.props.onArticleMetaToggle({
+      glyphiconClass: this.refs.glyphiconClass,
+      articleMetaPannel: this.refs.articleMetaPannel
+    });
   }
 
   render () {
