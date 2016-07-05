@@ -10,7 +10,7 @@ class Seo extends React.Component{
         </h4>
         <div className="collapsed-content" ref='articleMetaPannel'>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Page Title</label>
+            <label>Page Title</label>
             <input type="text" className="form-control" defaultValue={this.props.seo.title} onBlur={this.props.updateSeoTitle}/>
           </div>
           <div className="form-group">

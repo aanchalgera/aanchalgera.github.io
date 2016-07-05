@@ -34,7 +34,7 @@ class Homepage extends React.Component{
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
       image = (
         <div className="homepage-image-container">
-          <label htmlFor="exampleInputEmail1">Add image</label>
+          <label>Add image</label>
           <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>
             Choose from gallery
           </button>

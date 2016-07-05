@@ -10,7 +10,7 @@ class Microsite extends React.Component {
         </h4>
         <div className="collapsed-content" ref="articleMetaPannel">
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Name</label>
+            <label>Name</label>
             <input
               type="text"
               className="form-control"
@@ -26,7 +26,7 @@ class Microsite extends React.Component {
               onBlur={this.props.updateMicrositeGASnippet} />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">
+            <label>
               <input
                 type="checkbox"
                 className="sponsor-field"
@@ -35,7 +35,7 @@ class Microsite extends React.Component {
               />
               Social Sharing
             </label>
-            <label htmlFor="exampleInputEmail1">
+            <label>
               <input
                 type="checkbox"
                 className="sponsor-field"
