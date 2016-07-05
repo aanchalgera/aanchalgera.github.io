@@ -18,7 +18,7 @@ class Css extends React.Component {
         </h4>
         <div className="collapsed-content" ref="articleMetaPannel">
           <div className="form-group">
-            <label htmlFor>CSS Skinname</label>
+            <label>CSS Skinname</label>
             <input
               type="text"
               className="form-control sponsor-field"

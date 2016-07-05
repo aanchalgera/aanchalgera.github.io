@@ -34,7 +34,7 @@ class Sponsor extends React.Component {
         </h4>
         <div className="collapsed-content" ref='articleMetaPannel'>
           <div className="form-group">
-            <label htmlFor>Sponsor name</label>
+            <label>Sponsor name</label>
             <input
               type="text"
               className="form-control sponsor-field"
@@ -42,7 +42,7 @@ class Sponsor extends React.Component {
               onBlur={this.props.updateSponsorName} />
           </div>
           <div className="form-group">
-            <label htmlFor>Sponsor image URL <span className="hint">(Maximum size: 70x48)</span></label>
+            <label>Sponsor image URL <span className="hint">(Maximum size: 70x48)</span></label>
             <input
               ref="sponsorImage"
               type="text"
@@ -51,7 +51,7 @@ class Sponsor extends React.Component {
               onBlur={this.updateSponsorImage.bind(this)} />
           </div>
           <div className="form-group">
-            <label htmlFor>Add tracker</label>
+            <label>Add tracker</label>
             <textarea
               ref = "trackerContent"
               className="form-control"

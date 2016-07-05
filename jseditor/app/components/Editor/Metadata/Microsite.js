@@ -26,7 +26,7 @@ class Microsite extends React.Component {
               onBlur={this.props.updateMicrositeName} />
           </div>
           <div className="form-group">
-            <label htmlFor>Google Analytics</label>
+            <label>Google Analytics</label>
             <textarea
               className="form-control"
               placeholder="Add google snippet here...."

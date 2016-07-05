@@ -71,7 +71,7 @@ class Homepage extends React.Component{
             {image}
           </div>
           <div className="form-group">
-            <label htmlFor>Add text <span className="hint">(Optional)</span></label>
+            <label>Add text <span className="hint">(Optional)</span></label>
             <textarea
               ref = "homepageContent"
               id = "homepage-content"
