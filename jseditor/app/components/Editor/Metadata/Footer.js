@@ -8,7 +8,7 @@ class Footer extends React.Component{
 
   render () {
     return (
-      <div className="modules expandmodule">
+      <div className="modules">
         <h4 onClick={this.onToggle.bind(this)}>
           Footer Credits
           <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>

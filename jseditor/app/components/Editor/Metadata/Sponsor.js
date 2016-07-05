@@ -24,7 +24,7 @@ class Sponsor extends React.Component {
 
   render () {
     return (
-      <div className="modules module-home expandmodule">
+      <div className="modules module-home">
         <h4 onClick={this.onToggle.bind(this)}>
           Sponsor Content
           <span className="glyphicon glyphicon-plus pull-right" ref='glyphiconClass'></span>

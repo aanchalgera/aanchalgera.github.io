@@ -8,7 +8,7 @@ class Css extends React.Component {
 
   render () {
     return (
-      <div className="modules module-seo expandmodule">
+      <div className="modules module-seo">
         <h4 onClick={this.onToggle.bind(this)}>
           CSS
           <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>

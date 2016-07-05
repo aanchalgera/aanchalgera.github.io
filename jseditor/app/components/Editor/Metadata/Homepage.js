@@ -58,7 +58,7 @@ class Homepage extends React.Component{
       );
     }
     return (
-      <div className="modules module-home expandmodule">
+      <div className="modules module-home">
         <h4 onClick={this.onToggle.bind(this)}>
           Homepage Content
           <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>

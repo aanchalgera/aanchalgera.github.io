@@ -8,7 +8,7 @@ class Index extends React.Component{
 
   render () {
     return (
-      <div className="modules expandmodule">
+      <div className="modules">
         <h4 onClick={this.onToggle.bind(this)}>
           Index
           <span className="glyphicon glyphicon-plus pull-right" ref='glyphiconClass'></span>
