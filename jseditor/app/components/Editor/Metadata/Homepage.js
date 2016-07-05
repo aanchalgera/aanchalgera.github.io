@@ -28,6 +28,12 @@ class Homepage extends React.Component{
       updateHomepageContent(editor.value());
     });
   }
+
+  onToggle(e) {
+    e.preventDefault();
+    this.props.onArticleMetaToggle({glyphiconClass: this.refs.glyphiconClass, articleMetaPannel: this.refs.articleMetaPannel});
+  }
+
   render () {
     var image;
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
@@ -52,19 +58,24 @@ class Homepage extends React.Component{
       );
     }
     return (
-      <div className="modules module-home">
-        <h4>Homepage Content</h4>
-        <div className="form-group">
-          {image}
-        </div>
-        <div className="form-group">
-          <label htmlFor>Add text <span className="hint">(Optional)</span></label>
-          <textarea
-            ref = "homepageContent"
-            id = "homepage-content"
-            className="form-control"
-            defaultValue= {this.props.homepage.content}
-            placeholder="Add your text here...." />
+      <div className="modules module-home expandmodule">
+        <h4 onClick={this.onToggle.bind(this)}>
+          Homepage Content
+          <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>
+        </h4>
+        <div className="collapsed-content" ref="articleMetaPannel">
+          <div className="form-group">
+            {image}
+          </div>
+          <div className="form-group">
+            <label htmlFor>Add text <span className="hint">(Optional)</span></label>
+            <textarea
+              ref = "homepageContent"
+              id = "homepage-content"
+              className="form-control"
+              defaultValue= {this.props.homepage.content}
+              placeholder="Add your text here...." />
+          </div>
         </div>
       </div>
     );
