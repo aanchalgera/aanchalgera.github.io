@@ -1,18 +1,10 @@
 import React from 'react';
 
 class Footer extends React.Component{
-  onToggle(e) {
-    e.preventDefault();
-    this.props.onArticleMetaToggle({
-      glyphiconClass: this.refs.glyphiconClass,
-      articleMetaPannel: this.refs.articleMetaPannel
-    });
-  }
-
   render () {
     return (
       <div className="modules">
-        <h4 onClick={this.onToggle.bind(this)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
           Footer Credits
           <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>
         </h4>

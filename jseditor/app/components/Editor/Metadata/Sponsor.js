@@ -17,18 +17,10 @@ class Sponsor extends React.Component {
     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
 
-  onToggle(e) {
-    e.preventDefault();
-    this.props.onArticleMetaToggle({
-      glyphiconClass: this.refs.glyphiconClass,
-      articleMetaPannel: this.refs.articleMetaPannel
-    });
-  }
-
   render () {
     return (
       <div className="modules module-home">
-        <h4 onClick={this.onToggle.bind(this)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
           Sponsor Content
           <span className="glyphicon glyphicon-plus pull-right" ref='glyphiconClass'></span>
         </h4>

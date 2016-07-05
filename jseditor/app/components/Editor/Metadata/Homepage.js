@@ -29,14 +29,6 @@ class Homepage extends React.Component{
     });
   }
 
-  onToggle(e) {
-    e.preventDefault();
-    this.props.onArticleMetaToggle({
-      glyphiconClass: this.refs.glyphiconClass,
-      articleMetaPannel: this.refs.articleMetaPannel
-    });
-  }
-
   render () {
     var image;
     if (this.props.homepage.image == '' || this.props.homepage.image == undefined) {
@@ -62,7 +54,7 @@ class Homepage extends React.Component{
     }
     return (
       <div className="modules module-home">
-        <h4 onClick={this.onToggle.bind(this)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
           Homepage Content
           <span className="glyphicon glyphicon-plus pull-right" ref="glyphiconClass"></span>
         </h4>
