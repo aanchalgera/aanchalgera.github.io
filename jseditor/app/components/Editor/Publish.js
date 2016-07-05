@@ -55,53 +55,58 @@ class Publish extends React.Component {
   init() {
     this.postname = this.props.params.postname;
     let { query } = this.props.location;
-    this.userId = parseInt(query.userid);
-    if (this.postname != undefined) {
-      this.props.base.fetch('posts', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'status',
-          equalTo: 'publish'
-        },
-        then(data) {
-          if (data != null) {
-            let scheduledPosts = {};
-            data.forEach(result => {
-              let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
-              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
-            });
+    this.userId = query.userid;
+    let regEx = /\D/;
+    if (regEx.test(this.userId)) {
+      this.context.router.goBack();
+    } else {
+      if (this.postname != undefined) {
+        this.props.base.fetch('posts', {
+          context: this,
+          asArray: true,
+          queries: {
+            orderByChild: 'status',
+            equalTo: 'publish'
+          },
+          then(data) {
+            if (data != null) {
+              let scheduledPosts = {};
+              data.forEach(result => {
+                let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
+                scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
+              });
 
-            this.setState({
-              futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false
-            });
+              this.setState({
+                futureProgrammedPosts: scheduledPosts,
+                buttonDisabled: false
+              });
+            }
           }
-        }
-      });
-      this.props.base.fetch('posts/' + this.postname, {
-        context: this,
-        then(data) {
-          if (data != null) {
-            this.setState({
-              id: data.id,
-              fields: data.sections || [],
-              title: data.title,
-              meta: data.meta || this.state.meta,
-              maxId: data.maxId,
-              status: data.publishData.postStatus || 'draft',
-              value: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-              postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-              publishRegion: data.publishData.publishRegion,
-              postId: data.publishData.postId || '',
-              postHash: data.publishData.postHash || '',
-              buttonDisabled: false,
-              loaded: true,
-              userId: data.user_id || 1
-            });
+        });
+        this.props.base.fetch('posts/' + this.postname, {
+          context: this,
+          then(data) {
+            if (data != null) {
+              this.setState({
+                id: data.id,
+                fields: data.sections || [],
+                title: data.title,
+                meta: data.meta || this.state.meta,
+                maxId: data.maxId,
+                status: data.publishData.postStatus || 'draft',
+                value: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+                postRepostBlogNames: data.publishData.postRepostBlogNames || [],
+                publishRegion: data.publishData.publishRegion,
+                postId: data.publishData.postId || '',
+                postHash: data.publishData.postHash || '',
+                buttonDisabled: false,
+                loaded: true,
+                userId: data.user_id || 1
+              });
+            }
           }
-        }
-      });
+        });
+      }
     }
   }
 
