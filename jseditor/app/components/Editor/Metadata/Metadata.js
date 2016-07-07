@@ -8,10 +8,10 @@ import Css from './Css';
 import Microsite from './Microsite';
 
 class Metadata extends React.Component{
-  onArticleMetaToggle ({glyphiconClass, articleMetaPannel}, e) {
+  onArticleMetaToggle (e) {
     e.preventDefault();
-    glyphiconClass.classList.toggle('glyphicon-minus');
-    articleMetaPannel.classList.toggle('collapsed-content');
+    this._glyphiconClass.classList.toggle('glyphicon-minus');
+    this._articleMetaPanel.classList.toggle('collapsed-content');
   }
 
   render () {
@@ -28,13 +28,13 @@ class Metadata extends React.Component{
           updateFooterCredits={this.props.updateFooterCredits}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Homepage
-          homepage={this.props.meta.homepage}
-          updateHomepageContent={this.props.updateHomepageContent}
-          updateHomepageSponsor={this.props.updateHomepageSponsor}
-          updateSponsorImage={this.props.updateSponsorImage}
-          deleteHomepageImage={this.props.deleteHomepageImage}
-          openResourcePanel={this.props.openResourcePanel}
+        <Microsite
+          microsite={this.props.meta.microsite}
+          updateMicrositeName={this.props.updateMicrositeName}
+          updateMicrositeGASnippet={this.props.updateMicrositeGASnippet}
+          updateMicrositeCookiePage={this.props.updateMicrositeCookiePage}
+          toggleWSLLogo={this.props.toggleWSLLogo}
+          toggleSocialSharing={this.props.toggleSocialSharing}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
         <Seo
@@ -55,13 +55,13 @@ class Metadata extends React.Component{
           updateCssSkinName={this.props.updateCssSkinName.bind(this)}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Microsite
-          microsite={this.props.meta.microsite}
-          updateMicrositeName={this.props.updateMicrositeName}
-          updateMicrositeGASnippet={this.props.updateMicrositeGASnippet}
-          updateMicrositeCookiePage={this.props.updateMicrositeCookiePage}
-          toggleWSLLogo={this.props.toggleWSLLogo}
-          toggleSocialSharing={this.props.toggleSocialSharing}
+        <Homepage
+          homepage={this.props.meta.homepage}
+          updateHomepageContent={this.props.updateHomepageContent}
+          updateHomepageSponsor={this.props.updateHomepageSponsor}
+          updateSponsorImage={this.props.updateSponsorImage}
+          deleteHomepageImage={this.props.deleteHomepageImage}
+          openResourcePanel={this.props.openResourcePanel}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
       </div>
