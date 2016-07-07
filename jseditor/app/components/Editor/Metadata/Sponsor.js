@@ -22,9 +22,9 @@ class Sponsor extends React.Component {
       <div className="modules module-home">
         <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
           Sponsor Content
-          <span className="glyphicon glyphicon-plus pull-right" ref='glyphiconClass'></span>
+          <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>
-        <div className="collapsed-content" ref='articleMetaPannel'>
+        <div className="collapsed-content" ref={(c) => this._articleMetaPanel = c}>
           <div className="form-group">
             <label>Sponsor name</label>
             <input
