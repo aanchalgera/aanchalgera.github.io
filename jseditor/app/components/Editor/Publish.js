@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import axios from 'axios';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
@@ -13,7 +12,6 @@ let chooseSlotMsg = 'Select slot ';
 let successMessage = '';
 const SITE_DOMAIN = configParams.blogUrl;
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
-const PARSING_DATA_ERROR_WARNING = 'Error occured while parsing data';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 
@@ -22,7 +20,7 @@ class Publish extends React.Component {
     super(props);
     this.state = {
       fields: [],
-      value: moment().format('DD/MM/YYYY HH:mm'),
+      date: moment().format('DD/MM/YYYY HH:mm'),
       status: 'draft',
       postRepostBlogNames: [],
       publishRegion: [],
@@ -94,7 +92,7 @@ class Publish extends React.Component {
                 meta: data.meta || this.state.meta,
                 maxId: data.maxId,
                 status: data.publishData.postStatus || 'draft',
-                value: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+                date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
                 postRepostBlogNames: data.publishData.postRepostBlogNames || [],
                 publishRegion: data.publishData.publishRegion,
                 postId: data.publishData.postId || '',
@@ -111,72 +109,39 @@ class Publish extends React.Component {
   }
 
   submitPost() {
-    let data = {
-      id: this.postname,
-      title: this.state.title,
-      meta: this.state.meta,
-      sections: this.state.fields,
-      page: 'publish'
-    };
-    data = JSON.stringify(data);
-    axios({
-      url: configParams.host + ':81/parse',
-      method: 'POST',
-      data: data
-    })
-    .then(response => {
-      if (response.data.status == 'success') {
-        this.saveData(JSON.parse(response.data.response));
-      } else {
-        this.setMessage(true, PARSING_DATA_ERROR_WARNING);
-        Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
-      }
-    })
-    .catch(response => {
-      this.setMessage(true, PARSING_DATA_ERROR_WARNING);
-      Rollbar.critical(PARSING_DATA_ERROR_WARNING, response);
-    });
-  }
-
-  saveData(response) {
-    let content = response.parsedData;
-    let metadata = response.meta;
-    if (this.postname == undefined) return;
-    this.validate();
     if (this.state.isError) return;
-    content = content.replace(/(\r\n|\n|\r)/gm, '');
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
-    let data = {
+    let backendData = {
       postform: {
         categoryId: '-1',
         post_title: this.state.title,
         comment_status: 'open',
         post_type: 'normal',
-        post_content: content,
-        postExcerpt: JSON.stringify({'meta' : metadata}),
+        post_content: JSON.stringify(this.state.fields),
+        postExcerpt: JSON.stringify({'meta' : this.state.meta}),
         post_abstract: '',
         post_extended_title: '',
         post_visibility: 0,
         posts_galleries: '',
         post_subtype: 13,
-        postDate: this.state.value,
+        postDate: this.state.date,
         'publish-region': publishRegion,
-        post_status: 'publish',
         postRepostBlogNames: postRepostBlogNames,
-        page: 'publish'
+        page: 'publish',
+        firebase_id: this.state.id
       }
     };
 
-    let formData = {
+    let firebaseData = {
       id: this.state.id,
       title: this.state.title,
       sections: this.state.fields,
       maxId: this.state.maxId,
       status: 'publish',
       publishData: {
-        postDate: this.state.value,
+        postDate: this.state.date,
         publishRegion: publishRegion,
         postStatus: 'publish',
         postRepostBlogNames: postRepostBlogNames
@@ -190,13 +155,15 @@ class Publish extends React.Component {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
-      data.postform.id = this.state.postId;
+      backendData.postform.id = this.state.postId;
+    } else {
+      backendData.postform.post_status = 'future';
     }
     jquery.ajax({
       url: SITE_DOMAIN + 'admin/' + postUrl,
       type: postType,
       dataType: 'json',
-      data: data,
+      data: backendData,
       xhrFields: {
         withCredentials: true
       },
@@ -205,8 +172,8 @@ class Publish extends React.Component {
     .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
     .done(result => {
       if (result.id != undefined) {
-        formData.publishData.postId = result.id;
-        formData.publishData.postHash = result.post_hash;
+        firebaseData.publishData.postId = result.id;
+        firebaseData.publishData.postHash = result.post_hash;
         this.toggleButton();
       }
       try {
@@ -229,7 +196,7 @@ class Publish extends React.Component {
         this.props.base.post(
           'posts/' + this.state.id,
           {
-            data: formData,
+            data: firebaseData,
             then: () => {
               if (result.id != undefined) {
                 this.refs.scheduleSuccess.style.display = 'block';
@@ -273,7 +240,7 @@ class Publish extends React.Component {
     if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
     } else if ('publish' == this.state.status) {
-      if (moment(moment(this.state.value, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
+      if (moment(moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         this.setMessage(true, VALID_DATE_WARNING);
       } else {
         this.setMessage(false);
@@ -359,10 +326,10 @@ class Publish extends React.Component {
             <h3>Publish your post</h3>
           </div>
           {errorField}
-          <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.value, 'DD-MM-YYYY HH:mm').format('LLLL')}</div>
+          <div className="published-messages success" style={{display: 'none'}} ref="scheduleSuccess" id="schedule-success">{successMessage} Post scheduled for {moment(this.state.date, 'DD-MM-YYYY HH:mm').format('LLLL')}</div>
           <SlotWidget
             buttonDisabled={this.state.buttonDisabled}
-            value={this.state.value}
+            value={this.state.date}
             futureProgrammedPosts={this.state.futureProgrammedPosts}
             onChange={this.onChange.bind(this)}
             onPickSlot={this.onPickSlot.bind(this)}

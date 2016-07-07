@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var NODE_ENV = process.env.NODE_ENV;
+var NODE_ENV = process.env.NODE_ENV || 'development';
 
 var configs = {
   production: {
@@ -73,7 +73,12 @@ module.exports = {
         // This has effect on the react lib size
         NODE_ENV: JSON.stringify(NODE_ENV == 'development' ? 'development' : 'production')
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+    })
   ]
 };
+
+if (NODE_ENV != 'development') {
+  module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+  );
+}
