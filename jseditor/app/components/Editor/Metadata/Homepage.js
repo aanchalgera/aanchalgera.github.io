@@ -54,7 +54,7 @@ class Homepage extends React.Component{
     }
     return (
       <div className="modules module-home">
-        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
           Homepage Content
           <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>

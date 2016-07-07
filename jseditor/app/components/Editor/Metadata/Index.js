@@ -4,7 +4,7 @@ class Index extends React.Component{
   render () {
     return (
       <div className="modules">
-        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
           Index
           <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>

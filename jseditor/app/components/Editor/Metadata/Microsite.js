@@ -4,7 +4,7 @@ class Microsite extends React.Component {
   render () {
     return(
       <div className="modules module-home">
-        <h4 onClick={this.props.onArticleMetaToggle.bind(this, this.refs)}>
+        <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
           Microsite
           <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>

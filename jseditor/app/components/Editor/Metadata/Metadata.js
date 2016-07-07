@@ -8,7 +8,7 @@ import Css from './Css';
 import Microsite from './Microsite';
 
 class Metadata extends React.Component{
-  onArticleMetaToggle ({glyphiconClass, articleMetaPanel}, e) {
+  onArticleMetaToggle (e) {
     e.preventDefault();
     this._glyphiconClass.classList.toggle('glyphicon-minus');
     this._articleMetaPanel.classList.toggle('collapsed-content');
