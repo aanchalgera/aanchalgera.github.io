@@ -45,7 +45,7 @@ class Editor extends React.Component{
     this.userId = query.userid;
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.goBack();
+      this.context.router.push('/invalidUser');
     } else if (undefined != postname) {
         try {
           this.props.base.fetch('posts/' + postname, {

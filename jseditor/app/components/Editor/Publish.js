@@ -58,7 +58,7 @@ class Publish extends React.Component {
     this.userId = query.userid;
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.goBack();
+      this.context.router.push('/invalidUser');
     } else {
       if (this.postname != undefined) {
         this.props.base.fetch('posts', {
@@ -376,5 +376,9 @@ class Publish extends React.Component {
     );
   }
 }
+
+Publish.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default Publish;
