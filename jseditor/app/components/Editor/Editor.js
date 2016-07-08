@@ -7,8 +7,8 @@ import Metadata from './Metadata/Metadata';
 import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
-const TITLE_MINLENGTH_WARNING = 'El título debe tener más de 5 caracteres';
-const TITLE_MAXLENGTH_WARNING = 'El título puede ser de 130 caracteres de largo';
+const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
+const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Please add some content';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
