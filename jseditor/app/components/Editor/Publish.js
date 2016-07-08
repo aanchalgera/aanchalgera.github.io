@@ -10,10 +10,11 @@ import PreviewOnSite from './PreviewOnSite';
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'Select slot ';
 let successMessage = '';
-const SITE_DOMAIN = configParams.blogUrl;
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
+const BLOG_EMPTY_WARNING = 'Blog not found';
+const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 
 class Publish extends React.Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class Publish extends React.Component {
   checkUser() {
     let { query } = this.props.location;
     this.userId = query.userid;
+    this.blogName = query.blog;
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
       this.context.router.push('/invalidUser');
@@ -65,6 +67,28 @@ class Publish extends React.Component {
   }
 
   init() {
+    if (this.blogName == undefined) {
+      this.context.router.replace('/invalidBlog');
+    } else {
+      this.props.base.fetch('config', {
+        context: this,
+        asArray: true,
+        queries: {
+          orderByChild: 'site_name',
+          equalTo: this.blogName
+        },
+        then(data) {
+          if (data[0] != null) {
+            this.setState({
+              blogName: this.blogName,
+              blogUrl: data[0].site_url
+            });
+          } else {
+            this.context.router.replace('/invalidBlog');
+          }
+        }
+      });
+    }
     if (this.postname != undefined) {
       this.props.base.fetch('posts', {
         context: this,
@@ -106,7 +130,8 @@ class Publish extends React.Component {
               postHash: data.publishData.postHash || '',
               buttonDisabled: false,
               loaded: true,
-              userId: data.user_id || 1
+              userId: data.user_id || 1,
+              blogName: data.blogName || 'xataka'
             });
           }
         }
@@ -166,7 +191,7 @@ class Publish extends React.Component {
       backendData.postform.post_status = 'future';
     }
     jquery.ajax({
-      url: SITE_DOMAIN + 'admin/' + postUrl,
+      url: this.state.blogUrl + '/admin/' + postUrl,
       type: postType,
       dataType: 'json',
       data: backendData,
@@ -188,7 +213,8 @@ class Publish extends React.Component {
           title: this.state.title,
           status: 'publish',
           user_id: this.userId,
-          user_status: this.userId + '_' + 'publish'
+          blog_name: this.blogName,
+          user_status: this.blogName + '_' + this.userId + '_' + 'publish'
         };
 
         this.props.base.post(
@@ -243,11 +269,19 @@ class Publish extends React.Component {
   }
 
   validate() {
-    if (isNaN(this.userId) || this.userId != this.state.userId) {
+    if (undefined == this.state.blogName) {
+      this.setMessage(true, BLOG_EMPTY_WARNING);
+      return;
+    } else if (this.blogName != this.state.blogName) {
+      this.setMessage(true, BLOG_MISMATCH_WARNING);
+      return;
+    } else if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
+      return;
     } else if ('publish' == this.state.status) {
       if (moment(moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
         this.setMessage(true, VALID_DATE_WARNING);
+        return;
       } else {
         this.setMessage(false);
       }
@@ -324,7 +358,7 @@ class Publish extends React.Component {
     return(
       <div>
         <div className="preview-nav">
-          <Link to={'/edit/post/'+this.postname + '?userid=' + this.userId} className="btn btn-primary">Back to editing</Link>
+          <Link to={'/edit/post/'+ this.postname + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} className="btn btn-primary">Back to editing</Link>
           <PreviewOnSite postId={this.state.id} />
         </div>
         <form className="post-publish" ref="publish-form">
