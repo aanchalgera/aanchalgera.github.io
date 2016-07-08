@@ -12,6 +12,8 @@ const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Please add some content';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
+const BLOG_EMPTY_WARNING = 'Blog not found';
+const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -43,7 +45,29 @@ class Editor extends React.Component{
     this.checkConnectStatus();
     let postname = this.props.params.postname;
     let { query } = this.props.location;
+    this.blogName = query.blog;
     this.userId = query.userid;
+    if (this.blogName == undefined) {
+      this.context.router.replace('/invalidBlog');
+    } else {
+      this.props.base.fetch('config', {
+        context: this,
+        asArray: true,
+        queries: {
+          orderByChild: 'site_name',
+          equalTo: this.blogName
+        },
+        then(data) {
+          if (data[0] != null) {
+            this.setState({
+              blogName: this.blogName
+            });
+          } else {
+            this.context.router.replace('/invalidBlog');
+          }
+        }
+      });
+    }
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
       this.context.router.push('/invalidUser');
@@ -56,6 +80,7 @@ class Editor extends React.Component{
               this.setState({
                 id: data.id,
                 userId: data.user_id || 1,
+                blogName: data.blogName || 'xataka',
                 postId: data.publishData.postId || '',
                 postHash: data.publishData.postHash || '',
                 fields: data.sections || [],
@@ -73,7 +98,7 @@ class Editor extends React.Component{
       }
     } else {
       let hashId = helpers.generatePushID();
-      let postEditUrl = '/edit/post/' + hashId + '?userid=' + this.userId;
+      let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
         meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
@@ -288,12 +313,14 @@ class Editor extends React.Component{
     }, this.saveData());
   }
 
-  saveData (ev) {
-    if (ev != undefined) {
-      ev.preventDefault();
-    }
-
-    if (undefined == this.state.value ||
+  saveData () {
+    if (undefined == this.state.blogName) {
+      this.setMessage(true, BLOG_EMPTY_WARNING);
+      return;
+    } else if (this.blogName != this.state.blogName) {
+      this.setMessage(true, BLOG_MISMATCH_WARNING);
+      return;
+    } else if (undefined == this.state.value ||
       '' == this.state.value.trim() ||
       5 >= this.state.value.length
     ){
@@ -312,11 +339,12 @@ class Editor extends React.Component{
       this.setMessage(false);
     }
 
-    let userStatus = this.userId + '_' + this.state.status;
+    let userStatus = this.blogName + '_' + this.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
       user_id: this.userId,
       user_status: userStatus,
+      blogName: this.state.blogName,
       title: this.state.value,
       sections: this.state.fields,
       maxId: this.state.maxId,
@@ -649,7 +677,7 @@ class Editor extends React.Component{
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} />
-          <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?userid=' + this.userId}><span>Go to Publish</span></Link>
+          <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId}><span>Go to Publish</span></Link>
           {goToConfig}
           {addConfig}
         </div>
