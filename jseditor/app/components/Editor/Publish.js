@@ -50,14 +50,21 @@ class Publish extends React.Component {
     this.init();
   }
 
-  init() {
-    this.postname = this.props.params.postname;
+  componentWillMount() {
+    this.checkUser();
+  }
+
+  checkUser() {
     let { query } = this.props.location;
     this.userId = query.userid;
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
       this.context.router.push('/invalidUser');
-    } else {
+    }
+    this.postname = this.props.params.postname;
+  }
+
+  init() {
       if (this.postname != undefined) {
         this.props.base.fetch('posts', {
           context: this,
@@ -105,7 +112,6 @@ class Publish extends React.Component {
           }
         });
       }
-    }
   }
 
   submitPost() {
