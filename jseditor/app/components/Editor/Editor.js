@@ -734,7 +734,7 @@ class Editor extends React.Component{
     />;
 
     let updateButton;
-    if (this.state.status == 'publish' && moment(this.state.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+    if (this.state.status == 'publish') {
       updateButton = (
         <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>Update</button>
       );
