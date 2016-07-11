@@ -242,7 +242,7 @@ class Publish extends React.Component {
                 setTimeout(() => {
                   this.refs.scheduleSuccess.style.display = 'none';
                   this.navigateToEditor();
-                }, 7000);
+                }, 5000);
                 this.setState({
                   postId: result.id,
                   postHash: result.post_hash,
