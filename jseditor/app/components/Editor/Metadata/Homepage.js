@@ -3,6 +3,7 @@ import React from 'react';
 class Homepage extends React.Component{
   componentDidMount() {
     this.initializeEditor();
+    this._articleMetaPanel.classList.add('collapsed-content');
   }
   initializeEditor() {
     var editor = new SimpleMDE({ element: document.getElementById('homepage-content'),
@@ -58,17 +59,17 @@ class Homepage extends React.Component{
           Homepage Content
           <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>
-        <div className="collapsed-content" ref={(c) => this._articleMetaPanel = c}>
+        <div ref={(c) => this._articleMetaPanel = c}>
           <div className="form-group">
             {image}
           </div>
           <div className="form-group">
             <label>Add text <span className="hint">(Optional)</span></label>
             <textarea
-              ref = "homepageContent"
-              id = "homepage-content"
+              ref="homepageContent"
+              id="homepage-content"
               className="form-control"
-              defaultValue= {this.props.homepage.content}
+              defaultValue={this.props.homepage.content}
               placeholder="Add your text here...." />
           </div>
         </div>
