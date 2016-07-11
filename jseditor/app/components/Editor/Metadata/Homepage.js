@@ -3,7 +3,7 @@ import React from 'react';
 class Homepage extends React.Component{
   componentDidMount() {
     this.initializeEditor();
-    this._articleMetaPanel.classList.add('collapsed-content', 'glyphicon-minus');
+    this._articleMetaPanel.classList.add('collapsed-content');
   }
   initializeEditor() {
     var editor = new SimpleMDE({ element: document.getElementById('homepage-content'),
