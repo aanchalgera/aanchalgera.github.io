@@ -1,4 +1,6 @@
 import React from 'react';
+import jquery from 'jquery';
+import moment from 'moment-timezone';
 import ContentList from './ContentList';
 import PostTitle from './PostTitle';
 import PreviewOnSite from './PreviewOnSite';
@@ -7,6 +9,7 @@ import Metadata from './Metadata/Metadata';
 import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
+moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Please add some content';
@@ -37,7 +40,8 @@ class Editor extends React.Component{
       postId: '',
       postHash: '',
       isConnected: true,
-      status: 'draft'
+      status: 'draft',
+      buttonDisabled: false
     };
   }
 
@@ -60,7 +64,8 @@ class Editor extends React.Component{
         then(data) {
           if (data[0] != null) {
             this.setState({
-              blogName: this.blogName
+              blogName: this.blogName,
+              blogUrl: data[0].site_url
             });
           } else {
             this.context.router.replace('/invalidBlog');
@@ -313,30 +318,37 @@ class Editor extends React.Component{
     }, this.saveData());
   }
 
-  saveData () {
+  isValid() {
     if (undefined == this.state.blogName) {
       this.setMessage(true, BLOG_EMPTY_WARNING);
-      return;
+      return false;
     } else if (this.blogName != this.state.blogName) {
       this.setMessage(true, BLOG_MISMATCH_WARNING);
-      return;
+      return false;
     } else if (undefined == this.state.value ||
       '' == this.state.value.trim() ||
       5 >= this.state.value.length
-    ){
+    ) {
       this.setMessage(true, TITLE_MINLENGTH_WARNING);
-      return;
+      return false;
     } else if (130 <= this.state.value.length) {
       this.setMessage(true, TITLE_MAXLENGTH_WARNING);
-      return;
+      return false;
     } else if (0 == this.state.fields.length) {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
-      return;
+      return false;
     } else if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
+      return false;
+    }
+
+    this.setMessage(false);
+    return true;
+  }
+
+  saveData () {
+    if (!this.isValid()) {
       return;
-    } else {
-      this.setMessage(false);
     }
 
     let userStatus = this.blogName + '_' + this.userId + '_' + this.state.status;
@@ -626,6 +638,54 @@ class Editor extends React.Component{
     this.setState({ fields }, this.saveData());
   }
 
+  updateOnBackend(e) {
+    e.preventDefault();
+    if (!this.isValid()) {
+      return;
+    }
+
+    let backendData = {
+      postform: {
+        categoryId: '-1',
+        post_title: this.state.value,
+        comment_status: 'open',
+        post_type: 'normal',
+        post_content: JSON.stringify(this.state.fields),
+        postExcerpt: JSON.stringify({'meta' : this.state.meta}),
+        post_abstract: '',
+        post_extended_title: '',
+        post_visibility: 0,
+        posts_galleries: '',
+        post_subtype: 13,
+        postDate: this.state.publishData.postDate,
+        'publish-region': this.state.publishData.publishRegion,
+        page: 'publish',
+        firebase_id: this.state.id
+      }
+    };
+
+    this.toggleButton();
+    jquery.ajax({
+      url: this.state.blogUrl + '/admin/posts/' + this.state.postId + '.json',
+      type: 'PUT',
+      dataType: 'json',
+      data: backendData,
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true
+    })
+    .complete(() => {
+      this.toggleButton();
+    });
+  }
+
+  toggleButton() {
+    this.setState({
+      buttonDisabled : !this.state.buttonDisabled
+    });
+  }
+
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -672,12 +732,25 @@ class Editor extends React.Component{
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
       deleteImage={this.deleteImage.bind(this)}
     />;
+
+    let updateButton;
+    if (this.state.status == 'publish' && moment(this.state.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+      updateButton = (
+        <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>Update</button>
+      );
+    } else {
+      updateButton = (
+        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId}>
+          <span>Go to Publish</span>
+        </Link>
+      );
+    }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
           <PreviewOnSite postId={this.state.id} />
-          <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId}><span>Go to Publish</span></Link>
+          {updateButton}
           {goToConfig}
           {addConfig}
         </div>

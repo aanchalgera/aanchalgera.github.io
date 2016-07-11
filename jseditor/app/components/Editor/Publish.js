@@ -140,7 +140,6 @@ class Publish extends React.Component {
   }
 
   submitPost() {
-    if (this.state.isError) return;
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
@@ -186,7 +185,6 @@ class Publish extends React.Component {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
-      backendData.postform.id = this.state.postId;
     } else {
       backendData.postform.post_status = 'future';
     }
@@ -252,14 +250,15 @@ class Publish extends React.Component {
 
   onChange (ev) {
     ev.preventDefault();
-    this.setState({value: ev.currentTarget.value});
+    this.setState({date: ev.currentTarget.value});
   }
 
   onSchedule(ev) {
     ev.preventDefault();
     this.toggleButton();
-    this.validate();
-    this.submitPost();
+    if (this.isValid()) {
+      this.submitPost();
+    }
   }
 
   toggleButton() {
@@ -268,24 +267,26 @@ class Publish extends React.Component {
     });
   }
 
-  validate() {
+  isValid() {
+    let isError = false, message;
     if (undefined == this.state.blogName) {
-      this.setMessage(true, BLOG_EMPTY_WARNING);
-      return;
+      isError = true;
+      message = BLOG_EMPTY_WARNING;
     } else if (this.blogName != this.state.blogName) {
-      this.setMessage(true, BLOG_MISMATCH_WARNING);
-      return;
+      isError = true;
+      message = BLOG_MISMATCH_WARNING;
     } else if (isNaN(this.userId) || this.userId != this.state.userId) {
-      this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
-      return;
+      isError = true;
+      message = EDIT_NOT_ALLOWED_WARNING;
     } else if ('publish' == this.state.status) {
-      if (moment(moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')).isBefore(moment().format('YYYY-MM-DD HH:mm:ss'))) {
-        this.setMessage(true, VALID_DATE_WARNING);
-        return;
-      } else {
-        this.setMessage(false);
+      if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+        isError = true;
+        message = VALID_DATE_WARNING;
       }
     }
+
+    this.setMessage(isError, message);
+    return !isError;
   }
 
   setMessage(isError, message) {
@@ -328,7 +329,7 @@ class Publish extends React.Component {
     currentTarget.innerHTML = 'Elegido';
     currentTarget.classList.add('slot-current');
     this.setState({
-      value: ev.currentTarget.dataset.date
+      date: ev.currentTarget.dataset.date
     });
     document.getElementById('publish-slots').style.display = 'none';
     this.handleDatePickerText();
