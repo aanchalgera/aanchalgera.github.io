@@ -19,7 +19,7 @@ class Slider extends React.Component {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
       return (
-        <li key={i} style={{ backgroundImage: 'url(' + image.url + ')' }}>
+        <li key={i} className={'asset-size-' + this.props.data.layout} style={{ backgroundImage: 'url(' + image.url + ')' }}>
           <ImageCaption
             id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}

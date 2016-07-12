@@ -129,7 +129,7 @@ class Content extends React.Component{
           </div>
         );
       } else {
-        field = <div className="fluid-width-video-wrapper"><iframe src={this.props.data.url}></iframe></div>;
+        field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
       }
     } else if('richContent' == this.props.data.type) {
       field = (
