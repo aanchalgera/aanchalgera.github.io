@@ -19,7 +19,7 @@ class Gallery extends React.Component {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
       return (
-        <li key={i}>
+        <li key={i} className={'asset-size-' + this.props.data.layout}>
           <img alt="" id={image.spid} src={image.url} />
           <ImageCaption
             id={image.spid}
