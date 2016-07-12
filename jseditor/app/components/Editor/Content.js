@@ -81,7 +81,7 @@ class Content extends React.Component{
       </textarea>;
     } else if ('summary' == this.props.data.type) {
       field = (
-        <div>
+        <div className={'asset-size-' + this.props.data.layout}>
           <label className="ptitle">Summary</label>
           <div
             id={this.props.index}
