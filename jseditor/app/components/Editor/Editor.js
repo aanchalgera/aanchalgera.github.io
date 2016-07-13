@@ -84,8 +84,7 @@ class Editor extends React.Component{
             if (null != data) {
               this.setState({
                 id: data.id,
-                userId: data.user_id || 1,
-                blogName: data.blogName || 'xataka',
+                userId: data.user_id,
                 postId: data.publishData.postId || '',
                 postHash: data.publishData.postHash || '',
                 fields: data.sections || [],
@@ -375,7 +374,8 @@ class Editor extends React.Component{
       title: this.state.value,
       status: this.state.status,
       user_id: this.userId,
-      user_status: userStatus
+      user_status: userStatus,
+      blog_name: this.state.blogName
     };
     this.props.base.post(
       'posts_list/' + this.state.id,
