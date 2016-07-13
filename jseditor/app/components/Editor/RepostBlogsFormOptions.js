@@ -7,7 +7,7 @@ let blogs = [
   'genbeta', 'genbetadev', 'motorpasion', 'motorpasionfuturo', 'pequesymas',
   'pymesyautonomos', 'trendencias', 'vayatele', 'vidaextra', 'vitonica',
   'xatakandroid', 'xatakaciencia', 'xatakafoto', 'xatakahome', 'xatakamexico',
-  'xatakamovil', 'xatakawindows', 'xatakaon', 'xatakacolombia'
+  'xatakamovil', 'xatakawindows', 'xatakaon', 'xatakacolombia','xataka'
 ];
 
 class RepostBlogsFormOptions extends React.Component {
@@ -27,10 +27,12 @@ class RepostBlogsFormOptions extends React.Component {
               <div className="field-repost">
                 {
                   blogs.map((blog, index) => (
-                    <label key={index} className="label-inline">
-                      <Checkbox value={blog} />{blog}
-                    </label>)
-                  )
+                    this.props.blogName == blog ? null: (
+                      <label key={index} className="label-inline">
+                        <Checkbox value={blog} />{blog}
+                      </label>
+                    )
+                  ))
                 }
               </div>
             )

@@ -130,8 +130,7 @@ class Publish extends React.Component {
               postHash: data.publishData.postHash || '',
               buttonDisabled: false,
               loaded: true,
-              userId: data.user_id || 1,
-              blogName: data.blogName || 'xataka'
+              userId: data.user_id
             });
           }
         }
@@ -169,6 +168,7 @@ class Publish extends React.Component {
       title: this.state.title,
       sections: this.state.fields,
       maxId: this.state.maxId,
+      blogName: this.state.blogName,
       status: 'publish',
       publishData: {
         postDate: this.state.date,
@@ -377,7 +377,7 @@ class Publish extends React.Component {
             onSchedule={this.onSchedule.bind(this)}
             openSlotWidget={this.openSlotWidget.bind(this)} />
           <CountriesFormOptions setPublishRegions={this.setPublishRegions.bind(this)} publishRegions={this.state.publishRegion} />
-          <RepostBlogsFormOptions setRepostBlogs={this.setRepostBlogs.bind(this)} repostBlogs={this.state.postRepostBlogNames} />
+          <RepostBlogsFormOptions blogName={this.state.blogName} setRepostBlogs={this.setRepostBlogs.bind(this)} repostBlogs={this.state.postRepostBlogNames} />
           {loadingMessage}
         </form>
       </div>
