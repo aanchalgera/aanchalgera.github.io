@@ -7,11 +7,11 @@ class PreviewOnSite extends React.Component{
   }
 
   render() {
-    return <span>
-      <button
-        className="btn btn-primary"
-        onClick={this.submitPost.bind(this)}>Preview on Site</button>
-      </span>;
+    return <button
+        className="btn btn-primary btn-nav"
+        onClick={this.submitPost.bind(this)}>
+        <span className = "glyphicon glyphicon-certificate"></span>Preview on Site
+    </button>;
   }
 }
 
