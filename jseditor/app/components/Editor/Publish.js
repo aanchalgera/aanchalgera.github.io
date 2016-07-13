@@ -116,9 +116,6 @@ class Publish extends React.Component {
         context: this,
         then(data) {
           if (data != null) {
-            if (data.publishData.postStatus == 'publish') {
-              return this.navigateToEditor();
-            }
             this.setState({
               id: data.id,
               fields: data.sections || [],
@@ -140,12 +137,6 @@ class Publish extends React.Component {
         }
       });
     }
-  }
-
-  navigateToEditor() {
-    this.context.router.replace(
-      '/edit/post/'+ this.postname + '?blog=' + this.state.blogName + '&userid=' + this.state.userId
-    );
   }
 
   submitPost() {
@@ -239,10 +230,7 @@ class Publish extends React.Component {
             then: () => {
               if (result.id != undefined) {
                 this.refs.scheduleSuccess.style.display = 'block';
-                setTimeout(() => {
-                  this.refs.scheduleSuccess.style.display = 'none';
-                  this.navigateToEditor();
-                }, 5000);
+                setTimeout(() => this.refs.scheduleSuccess.style.display = 'none', 5000);
                 this.setState({
                   postId: result.id,
                   postHash: result.post_hash,
