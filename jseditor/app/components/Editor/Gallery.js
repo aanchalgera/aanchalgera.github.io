@@ -19,7 +19,7 @@ class Gallery extends React.Component {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
       return (
-        <li key={i} className={'asset-size-' + this.props.data.layout}>
+        <li key={i}>
           <img alt="" id={image.spid} src={image.url} />
           <ImageCaption
             id={image.spid}
@@ -41,7 +41,7 @@ class Gallery extends React.Component {
     });
     return (
       <div className="gallery">
-        <ul>
+        <ul className={'asset-size-' + this.props.data.layout}>
           {images}
           <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this, 'image', this.props.dataId, 'gallery', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
         </ul>

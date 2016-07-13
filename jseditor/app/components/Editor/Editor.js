@@ -234,7 +234,7 @@ class Editor extends React.Component{
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex, 0, { id: this.state.maxId, type: moduleType, images }
+        currentIndex, 0, { id: this.state.maxId, type: moduleType, layout: 'normal', images }
       );
     } else {
       let field = this.getField(currentIndex);
