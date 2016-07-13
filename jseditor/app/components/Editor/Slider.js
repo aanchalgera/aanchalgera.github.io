@@ -19,7 +19,7 @@ class Slider extends React.Component {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
       return (
-        <li key={i} className={'asset-size-' + this.props.data.layout} style={{ backgroundImage: 'url(' + image.url + ')' }}>
+        <li key={i} style={{ backgroundImage: 'url(' + image.url + ')' }}>
           <ImageCaption
             id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
@@ -39,7 +39,7 @@ class Slider extends React.Component {
     });
     return (
       <div className="slider">
-        <ul>
+        <ul className={'asset-size-' + this.props.data.layout}>
           {images}
           <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this, 'image', this.props.dataId, 'slider', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
         </ul>
