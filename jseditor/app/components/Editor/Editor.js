@@ -736,7 +736,9 @@ class Editor extends React.Component{
     let updateButton;
     if (this.state.status == 'publish') {
       updateButton = (
-        <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>Update</button>
+        <button className="btn btn-primary btn-nav" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>
+          <span className= "glyphicon glyphicon-refresh"></span>Update
+        </button>
       );
     } else {
       updateButton = (
