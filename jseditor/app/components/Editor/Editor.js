@@ -570,7 +570,7 @@ class Editor extends React.Component{
   }
 
   updateSponsorName(event) {
-    this.state.meta.sponsor.name = event.target.value;
+    this.state.meta.sponsor.name = event.target.value.trim();
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
