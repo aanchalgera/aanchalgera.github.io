@@ -75,7 +75,7 @@ class Editor extends React.Component{
     }
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.push('/invalidUser');
+      this.context.router.replace('/invalidUser');
     } else if (undefined != postname) {
       try {
         this.props.base.fetch('posts/' + postname, {
@@ -749,7 +749,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <PreviewOnSite postId={this.state.id} />
+          <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} />
           {updateButton}
           {goToConfig}
           {addConfig}
