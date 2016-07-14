@@ -360,7 +360,7 @@ class Publish extends React.Component {
       <div>
         <div className="preview-nav">
           <Link to={'/edit/post/'+ this.postname + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} className="btn btn-primary">Back to editing</Link>
-          <PreviewOnSite postId={this.state.id} />
+          <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl}/>
         </div>
         <form className="post-publish" ref="publish-form">
           <div className="publish-headers">
