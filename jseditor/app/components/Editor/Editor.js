@@ -46,7 +46,7 @@ class Editor extends React.Component{
   }
 
   init() {
-    this.checkConnectStatus();
+    //this.checkConnectStatus();
     let postname = this.props.params.postname;
     let { query } = this.props.location;
     this.blogName = query.blog;

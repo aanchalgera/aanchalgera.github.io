@@ -19,6 +19,7 @@ var configs = {
     timezone: 'Europe/Madrid'
   },
   development: {
+    apiKey: 'ReUUQjcoOpIFc9rJiJ7z5iFp1PrB5PsuslH0gFiL',
     host: 'http://test.admin.weblogssl.com',
     blogUrl: 'http://dev.xataka.com/',
     firebaseUrl: 'https://flickering-fire-6653.firebaseio.com/',
