@@ -62,6 +62,7 @@ class PropertyButton extends React.Component {
       case 'gallery' :
       case 'video':
       case 'summary':
+      case 'title':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
@@ -109,7 +110,7 @@ class PropertyButton extends React.Component {
           {autoPlaySliderButton}
           {groupProperties}
           {this.props.grouped == 'true' ? '' : sizeProperties}
-          {this.props.grouped == 'true' ? '' : deleteButton}
+          {this.props.grouped == 'true' || 'title' == this.props.data.type ? '' : deleteButton}
         </span>
       </ul>
     );

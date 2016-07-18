@@ -32,7 +32,7 @@ class Editor extends React.Component{
       addImageModule: '',
       addMoreImages: false,
       orderMode: false,
-      fields: [],
+      fields: [{id: 0, type:'title', layout:'normal', backgroundClass: 'module-bg-color-neutral-light', foregroundColor: ''}],
       meta: null,
       regions: {
         publishRegion: ['ES', 'US', 'MX', 'PE', 'AR', 'CL', 'EC', 'CR', 'CO', 'CEA', 'ROW']
@@ -75,7 +75,7 @@ class Editor extends React.Component{
     }
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.replace('/invalidUser');
+      this.context.router.push('/invalidUser');
     } else if (undefined != postname) {
       try {
         this.props.base.fetch('posts/' + postname, {
@@ -84,7 +84,8 @@ class Editor extends React.Component{
             if (null != data) {
               this.setState({
                 id: data.id,
-                userId: data.user_id,
+                userId: data.user_id || 1,
+                blogName: data.blogName || 'xataka',
                 postId: data.publishData.postId || '',
                 postHash: data.publishData.postHash || '',
                 fields: data.sections || [],
@@ -233,7 +234,7 @@ class Editor extends React.Component{
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex, 0, { id: this.state.maxId, type: moduleType, layout: 'normal', images }
+        currentIndex, 0, { id: this.state.maxId, type: moduleType, images }
       );
     } else {
       let field = this.getField(currentIndex);
@@ -374,8 +375,7 @@ class Editor extends React.Component{
       title: this.state.value,
       status: this.state.status,
       user_id: this.userId,
-      user_status: userStatus,
-      blog_name: this.state.blogName
+      user_status: userStatus
     };
     this.props.base.post(
       'posts_list/' + this.state.id,
@@ -570,7 +570,7 @@ class Editor extends React.Component{
   }
 
   updateSponsorName(event) {
-    this.state.meta.sponsor.name = event.target.value.trim();
+    this.state.meta.sponsor.name = event.target.value;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -734,11 +734,9 @@ class Editor extends React.Component{
     />;
 
     let updateButton;
-    if (this.state.status == 'publish' && moment(this.state.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+    if (this.state.status == 'publish') {
       updateButton = (
-        <button className="btn btn-primary btn-nav" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>
-          <span className= "glyphicon glyphicon-refresh"></span>Update
-        </button>
+        <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>Update</button>
       );
     } else {
       updateButton = (
@@ -751,7 +749,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} />
+          <PreviewOnSite postId={this.state.id} />
           {updateButton}
           {goToConfig}
           {addConfig}
@@ -761,8 +759,16 @@ class Editor extends React.Component{
         {successField}
         <form id="editor-form">
           <div className="form-group">
-            <label className="col-sm-12 control-label">Title</label>
-            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
+            <PostTitle
+              data={this.state.fields[0]}
+              value={this.state.value}
+              handleBlur={this.handleBlur.bind(this)}
+              handleChange={this.handleChange.bind(this)}
+              deleteResource={this.deleteResource.bind(this)}
+              openResourcePanel={this.openResourcePanel.bind(this)}
+              addLayoutToResource={this.addLayoutToResource.bind(this)}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+            />
             <ContentList
               fields={this.state.fields}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
