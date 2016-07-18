@@ -29,7 +29,7 @@ class ContentList extends React.Component{
       fields[fields.length-1]['show3column'] = false;
     }
     var fieldsHtml = fields.map((field, i) => {
-      if (field.type == 'title') {
+      if ('title' == field.type) {
         return null;
       }
       var index = 'text-area' + field.id;
