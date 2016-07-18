@@ -32,7 +32,7 @@ class Editor extends React.Component{
       addImageModule: '',
       addMoreImages: false,
       orderMode: false,
-      fields: [{id: 0, type:'title', layout:'normal', backgroundClass: 'module-bg-color-neutral-light', foregroundColor: ''}],
+      fields: [],
       meta: null,
       regions: {
         publishRegion: ['ES', 'US', 'MX', 'PE', 'AR', 'CL', 'EC', 'CR', 'CO', 'CEA', 'ROW']
@@ -747,6 +747,11 @@ class Editor extends React.Component{
         </Link>
       );
     }
+    if (undefined == this.state.fields[0]) {
+      this.state.fields.splice(
+        0, 0, {id: 0, type:'title', layout:'normal', backgroundClass: 'module-bg-color-neutral-light', foregroundColor: ''}
+      );
+    }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
@@ -766,7 +771,6 @@ class Editor extends React.Component{
               value={this.state.value}
               handleBlur={this.handleBlur.bind(this)}
               handleChange={this.handleChange.bind(this)}
-              deleteResource={this.deleteResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}

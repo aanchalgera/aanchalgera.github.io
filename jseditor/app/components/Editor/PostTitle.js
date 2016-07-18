@@ -10,7 +10,6 @@ class PostTitle extends React.Component{
           data={this.props.data}
           layout={this.props.data.layout}
           dataId={this.props.data.id}
-          deleteResource={this.props.deleteResource}
           openResourcePanel={this.props.openResourcePanel}
           addLayoutToResource={this.props.addLayoutToResource}
           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
