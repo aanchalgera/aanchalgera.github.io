@@ -2,7 +2,7 @@ import React from 'react';
 
 class PropertyButtonContent extends React.Component {
   render() {
-    var backgroundImageOptions = '', backgroundImage;
+    var backgroundImageOptions = null, backgroundImage;
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       backgroundImage = (
         <span className="input-group">

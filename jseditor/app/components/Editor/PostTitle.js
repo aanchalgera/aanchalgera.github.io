@@ -3,7 +3,7 @@ import PropertyButton from './PropertyButton';
 
 class PostTitle extends React.Component{
   render(){
-    var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '';
+    var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': null;
     return (
       <div className="main-title" data-id={this.props.data.id}>
         <PropertyButton

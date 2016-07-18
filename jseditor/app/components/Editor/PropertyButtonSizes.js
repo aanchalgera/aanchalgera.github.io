@@ -10,7 +10,7 @@ class PropertyButtonSizes extends React.Component{
   }
 
   render () {
-    let extraButtons = '';
+    let extraButtons = null;
     if ('title' == this.props.dataType) {
       extraButtons = (
         <span>

@@ -749,8 +749,10 @@ class Editor extends React.Component{
     }
     if (undefined == this.state.fields[0]) {
       this.state.fields.splice(
-        0, 0, {id: 0, type:'title', layout:'normal', backgroundClass: 'module-bg-color-neutral-light', foregroundColor: ''}
+        0, 0, {id: 0, type:'title', layout:'normal', backgroundClass: 'module-bg-color-neutral-light', foregroundColor: null, text: null}
       );
+    } else if ('title' == this.state.fields[0].type) {
+      this.state.fields[0].text = this.state.value;
     }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
