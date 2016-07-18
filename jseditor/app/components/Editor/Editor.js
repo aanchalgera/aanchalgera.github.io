@@ -750,7 +750,9 @@ class Editor extends React.Component{
     let titleField = this.state.fields[0];
     if (undefined == titleField) {
       this.state.fields.splice(
-        0, 0, {
+        0,
+        0,
+        {
           id: 0,
           type:'title',
           layout:'normal',
@@ -777,7 +779,7 @@ class Editor extends React.Component{
         <form id="editor-form">
           <div className="form-group">
             <PostTitle
-              data={this.state.fields[0]}
+              data={titleField}
               value={this.state.value}
               handleBlur={this.handleBlur.bind(this)}
               handleChange={this.handleChange.bind(this)}
