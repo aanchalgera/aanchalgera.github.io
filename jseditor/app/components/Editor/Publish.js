@@ -203,7 +203,6 @@ class Publish extends React.Component {
       if (result.id != undefined) {
         firebaseData.publishData.postId = result.id;
         firebaseData.publishData.postHash = result.post_hash;
-        this.toggleButton();
       }
       try {
         let listData = {
@@ -236,6 +235,7 @@ class Publish extends React.Component {
                   postHash: result.post_hash,
                   status: 'publish'
                 });
+                this.enableButton();
               }
             }
           }
@@ -243,6 +243,7 @@ class Publish extends React.Component {
       } catch (e) {
         let errorMessage = e.message.substring(0, 100);
         this.setMessage(true, errorMessage);
+        this.enableButton();
         Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
       }
     });
@@ -255,15 +256,21 @@ class Publish extends React.Component {
 
   onSchedule(ev) {
     ev.preventDefault();
-    this.toggleButton();
+    this.disableButton();
     if (this.isValid()) {
       this.submitPost();
     }
   }
 
-  toggleButton() {
+  enableButton() {
     this.setState({
-      buttonDisabled : !this.state.buttonDisabled
+      buttonDisabled : false
+    });
+  }
+
+  disableButton() {
+    this.setState({
+      buttonDisabled : true
     });
   }
 
