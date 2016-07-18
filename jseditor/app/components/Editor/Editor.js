@@ -747,8 +747,7 @@ class Editor extends React.Component{
         </Link>
       );
     }
-    let titleField = this.state.fields[0];
-    if (undefined == titleField) {
+    if (undefined == this.state.fields[0]) {
       this.state.fields.splice(
         0,
         0,
@@ -761,8 +760,8 @@ class Editor extends React.Component{
           text: this.state.value
         }
       );
-    } else if ('title' == titleField.type) {
-      titleField.text = this.state.value;
+    } else if ('title' == this.state.fields[0].type) {
+      this.state.fields[0].text = this.state.value;
     }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
@@ -779,7 +778,7 @@ class Editor extends React.Component{
         <form id="editor-form">
           <div className="form-group">
             <PostTitle
-              data={titleField}
+              data={this.state.fields[0]}
               value={this.state.value}
               handleBlur={this.handleBlur.bind(this)}
               handleChange={this.handleChange.bind(this)}
