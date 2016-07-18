@@ -75,7 +75,7 @@ class Editor extends React.Component{
     }
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.push('/invalidUser');
+      this.context.router.replace('/invalidUser');
     } else if (undefined != postname) {
       try {
         this.props.base.fetch('posts/' + postname, {
@@ -84,8 +84,7 @@ class Editor extends React.Component{
             if (null != data) {
               this.setState({
                 id: data.id,
-                userId: data.user_id || 1,
-                blogName: data.blogName || 'xataka',
+                userId: data.user_id,
                 postId: data.publishData.postId || '',
                 postHash: data.publishData.postHash || '',
                 fields: data.sections || [],
@@ -234,7 +233,7 @@ class Editor extends React.Component{
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
-        currentIndex, 0, { id: this.state.maxId, type: moduleType, images }
+        currentIndex, 0, { id: this.state.maxId, type: moduleType, layout: 'normal', images }
       );
     } else {
       let field = this.getField(currentIndex);
@@ -375,7 +374,8 @@ class Editor extends React.Component{
       title: this.state.value,
       status: this.state.status,
       user_id: this.userId,
-      user_status: userStatus
+      user_status: userStatus,
+      blog_name: this.state.blogName
     };
     this.props.base.post(
       'posts_list/' + this.state.id,
@@ -570,7 +570,7 @@ class Editor extends React.Component{
   }
 
   updateSponsorName(event) {
-    this.state.meta.sponsor.name = event.target.value;
+    this.state.meta.sponsor.name = event.target.value.trim();
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -734,9 +734,11 @@ class Editor extends React.Component{
     />;
 
     let updateButton;
-    if (this.state.status == 'publish') {
+    if (this.state.status == 'publish' && moment(this.state.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
       updateButton = (
-        <button className="btn btn-primary" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>Update</button>
+        <button className="btn btn-primary btn-nav" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>
+          <span className= "glyphicon glyphicon-refresh"></span>Update
+        </button>
       );
     } else {
       updateButton = (
@@ -749,7 +751,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <PreviewOnSite postId={this.state.id} />
+          <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} />
           {updateButton}
           {goToConfig}
           {addConfig}
