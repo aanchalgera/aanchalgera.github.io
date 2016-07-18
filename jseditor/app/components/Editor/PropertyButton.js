@@ -19,13 +19,13 @@ class PropertyButton extends React.Component {
   }
 
   render() {
-    var expandStyle = null;
-    var selected = null;
-    var sizeProperties = null;
+    var expandStyle = '';
+    var selected = '';
+    var sizeProperties = '';
     var showPropertiesBox;
-    var groupProperties = null;
-    var autoPlaySliderButton = null;
-    var deleteButton = null;
+    var groupProperties = '';
+    var autoPlaySliderButton = '';
+    var deleteButton = '';
     if (this.state.box == 'open') {
       expandStyle = { display: 'block' };
       selected = 'selected';
