@@ -14,9 +14,11 @@ class PostTitle extends React.Component{
           addLayoutToResource={this.props.addLayoutToResource}
           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
         />
-        <label className="col-sm-12 control-label">Title</label>
-        <div className="col-sm-12 marbot50">
-          <input type="text" className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor} value={this.props.value} onChange={this.props.handleChange.bind(this)} onBlur={this.props.handleBlur.bind(this)} />
+        <div className={'asset-size-' + this.props.data.layout}>
+          <label className="col-sm-12 control-label">Title</label>
+          <div className="col-sm-12 marbot50">
+            <input type="text" className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor} value={this.props.value} onChange={this.props.handleChange.bind(this)} onBlur={this.props.handleBlur.bind(this)} />
+          </div>
         </div>
       </div>
     );
