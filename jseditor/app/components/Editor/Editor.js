@@ -17,6 +17,7 @@ const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
+const CAPTION_WARNING = 'Only h2 and h3 tags are allowed in image captions';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -321,28 +322,67 @@ class Editor extends React.Component{
     if (undefined == this.state.blogName) {
       this.setMessage(true, BLOG_EMPTY_WARNING);
       return false;
-    } else if (this.blogName != this.state.blogName) {
+    }
+
+    if (this.blogName != this.state.blogName) {
       this.setMessage(true, BLOG_MISMATCH_WARNING);
       return false;
-    } else if (undefined == this.state.value ||
+    }
+
+    if (undefined == this.state.value ||
       '' == this.state.value.trim() ||
       5 >= this.state.value.length
     ) {
       this.setMessage(true, TITLE_MINLENGTH_WARNING);
       return false;
-    } else if (130 <= this.state.value.length) {
+    }
+
+    if (130 <= this.state.value.length) {
       this.setMessage(true, TITLE_MAXLENGTH_WARNING);
       return false;
-    } else if (0 == this.state.fields.length) {
+    }
+
+    if (0 == this.state.fields.length) {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
       return false;
-    } else if (isNaN(this.userId) || this.userId != this.state.userId) {
+    }
+
+    if (isNaN(this.userId) || this.userId != this.state.userId) {
       this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
+      return false;
+    }
+
+    let invalidCaption = false;
+    this.state.fields.forEach(field => {
+      if (field.type == 'grouped') {
+        field.columns.forEach(groupedField => {
+          if (groupedField.description &&
+            groupedField.description.length > 0 &&
+            !this.isValidCaption(groupedField.description)
+          ) {
+            invalidCaption = true;
+          }
+        });
+      } else {
+        if (field.description &&
+          field.description.length > 0 &&
+          !this.isValidCaption(field.description)
+        ) {
+          invalidCaption = true;
+        }
+      }
+    });
+    if (invalidCaption) {
+      this.setMessage(true, CAPTION_WARNING);
       return false;
     }
 
     this.setMessage(false);
     return true;
+  }
+
+  isValidCaption(caption) {
+    return !/\<(?!(h2|h3))[\w\d]+[^\>]*\>/.test(caption);
   }
 
   saveData () {
