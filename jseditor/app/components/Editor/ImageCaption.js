@@ -6,16 +6,16 @@ class ImageCaption extends React.Component {
     super(props);
     this.state = {
       value: this.props.imageCaption,
-      box: 'close'
+      showCaptionForm: false
     };
   }
 
-  toggleBox() {
-    this.setState({ box: this.state.box == 'open' ? 'close' : 'open' });
+  toggleCaptionForm() {
+    this.setState({ showCaptionForm: this.state.showCaptionForm == true ? false : true });
   }
 
-  closeBox() {
-    this.setState({ box:'close' });
+  closeCaptionForm() {
+    this.setState({ showCaptionForm: false });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,29 +41,21 @@ class ImageCaption extends React.Component {
   }
 
   render () {
-    var expandStyle = '';
-    var selected = '';
-    if (this.state.box == 'open') {
-      expandStyle = { display: 'block' };
-      selected = 'selected';
-    } else {
-      expandStyle = { display: 'none' };
-    }
-
-    var propertyButton = '';
-    var captionForm = '';
+    let propertyButton = '';
+    let captionForm = '';
 
     if (this.props.type == 'image') {
+      if (this.state.showCaptionForm) {
+        captionForm = (
+          <ImageCaptionPropertyButton
+            closeCaptionForm={this.closeCaptionForm.bind(this)}
+            {...this.props}
+          />
+        );
+      }
       propertyButton = (
-        <a className="input-group-addon"><span onClick={this.toggleBox.bind(this)} className={'glyphicon glyphicon-cog ' + selected}></span></a>
+        <a className="input-group-addon"><span onClick={this.toggleCaptionForm.bind(this)} className="glyphicon glyphicon-cog"></span></a>
       );
-      captionForm = (
-        <ImageCaptionPropertyButton
-          closeBox={this.closeBox.bind(this)}
-          expandStyle={expandStyle}
-          {...this.props}
-        />
-      )
     }
 
     return (

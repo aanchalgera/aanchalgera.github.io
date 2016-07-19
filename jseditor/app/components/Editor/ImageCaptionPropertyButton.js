@@ -1,41 +1,35 @@
 import React from 'react';
 
-class ImageCaptionPropertyButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+export default class ImageCaptionPropertyButton extends React.Component {
 
   toggleCheck(e) {
-    var data = e.currentTarget.checked;
-    var imageId = e.currentTarget.id;
+    let {checked, id} = e.currentTarget;
     this.setState(
-      this.props.addImageCaptionOverlay.bind(this, imageId, data, this.props.fieldId));
+      this.props.addImageCaptionOverlay.bind(this, id, checked, this.props.fieldId)
+    );
   }
 
   setPosition(e) {
     e.preventDefault();
-    var data = e.currentTarget.value;
-    var imageId = e.currentTarget.id;
+    let {value, id} = e.currentTarget;
     this.setState(
-      this.props.addImageCaptionOverlayPosition.bind(this, imageId, data, this.props.fieldId));
+      this.props.addImageCaptionOverlayPosition.bind(this, id, value, this.props.fieldId)
+    );
   }
 
   setCaptionBackground(e) {
     e.preventDefault();
-    var data = e.currentTarget.value;
-    var imageId = e.currentTarget.id;
+    let {value, id} = e.currentTarget;
     this.setState(
-      this.props.addImageCaptionOverlayBackground.bind(this, imageId, data, this.props.fieldId));
+      this.props.addImageCaptionOverlayBackground.bind(this, id, value, this.props.fieldId)
+    );
   }
 
   render() {
-    var disabled = 'field-disabled';
-    if (this.props.captionOverlay == 'checked') {
-      disabled = '';
-    }
+    let disabled = (this.props.captionOverlay == 'checked') ? '' : 'field-disabled';
 
     return (
-      <span className="caption-form" style={this.props.expandStyle} onMouseLeave={this.props.closeBox.bind(this)}>
+      <span className="caption-form" onMouseLeave={this.props.closeCaptionForm.bind(this)}>
         <div className="checkbox">
           <label><input checked={this.props.captionOverlay} type="checkbox" onClick={this.toggleCheck.bind(this)} />Caption-overlay</label>
         </div>
@@ -59,5 +53,3 @@ class ImageCaptionPropertyButton extends React.Component {
     );
   }
 }
-
-export default ImageCaptionPropertyButton;

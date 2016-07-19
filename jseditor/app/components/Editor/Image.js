@@ -4,9 +4,9 @@ import ImageCaption from './ImageCaption';
 class Image extends React.Component {
   render () {
     var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
-    var captionPosition = this.props.data.captionPosition != 'bottomLeft' ? this.props.data.captionPosition : 'bottomLeft';
-    var captionBackground = this.props.data.captionBackground != 'white' ? this.props.data.captionBackground : 'white';
-    var captionOverlay = this.props.data.captionOverlay != '' ? 'checked' : '';
+    var captionPosition = this.props.data.captionPosition == 'bottomLeft' ? 'bottomLeft' : this.props.data.captionPosition;
+    var captionBackground = this.props.data.captionBackground == 'white' ? 'white' : this.props.data.captionBackground;
+    var captionOverlay = this.props.data.captionOverlay == '' ? '' : 'checked';
 
     return (
       <div className={'asset-size-' + this.props.data.layout}>
