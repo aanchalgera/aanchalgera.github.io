@@ -25,6 +25,7 @@ class PropertyButton extends React.Component {
     var showPropertiesBox;
     var groupProperties = '';
     var autoPlaySliderButton = '';
+    var deleteButton = '';
     if (this.state.box == 'open') {
       expandStyle = { display: 'block' };
       selected = 'selected';
@@ -62,6 +63,7 @@ class PropertyButton extends React.Component {
       case 'gallery' :
       case 'video':
       case 'summary':
+      case 'title':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
@@ -91,11 +93,13 @@ class PropertyButton extends React.Component {
       showPropertiesBox = false;
     }
 
-    var deleteButton = (
-      <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete">
-        Delete Section <span type="button" className="glyphicon glyphicon-trash "></span>
-      </button>
-    );
+    if ('title' != this.props.data.type ) {
+      deleteButton = (
+        <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete">
+          Delete Section <span type="button" className="glyphicon glyphicon-trash "></span>
+        </button>
+      );
+    }
     var propertyButton = (
       <ul className="nav-pills2 js-nav-properties">
         <li><button type="button" onClick={this.toggleBox.bind(this)} className={'btn btn-default glyphicon glyphicon-cog ' + selected}></button></li>

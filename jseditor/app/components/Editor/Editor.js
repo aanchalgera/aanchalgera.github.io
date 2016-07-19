@@ -747,6 +747,22 @@ class Editor extends React.Component{
         </Link>
       );
     }
+    if (undefined == this.state.fields[0]) {
+      this.state.fields.splice(
+        0,
+        0,
+        {
+          id: 0,
+          type:'title',
+          layout:'normal',
+          backgroundClass: 'module-bg-color-neutral-light',
+          foregroundColor: null,
+          text: this.state.value
+        }
+      );
+    } else if ('title' == this.state.fields[0].type) {
+      this.state.fields[0].text = this.state.value;
+    }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
@@ -761,8 +777,15 @@ class Editor extends React.Component{
         {successField}
         <form id="editor-form">
           <div className="form-group">
-            <label className="col-sm-12 control-label">Title</label>
-            <PostTitle value={this.state.value} handleChange={this.handleChange.bind(this)} handleBlur={this.handleBlur.bind(this)}/>
+            <PostTitle
+              data={this.state.fields[0]}
+              value={this.state.value}
+              handleBlur={this.handleBlur.bind(this)}
+              handleChange={this.handleChange.bind(this)}
+              openResourcePanel={this.openResourcePanel.bind(this)}
+              addLayoutToResource={this.addLayoutToResource.bind(this)}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+            />
             <ContentList
               fields={this.state.fields}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
