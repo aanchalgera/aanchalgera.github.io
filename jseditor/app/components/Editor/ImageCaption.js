@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageCaptionPropertyButton from './ImageCaptionPropertyButton';
 
-class ImageCaption extends React.Component {
+export default class ImageCaption extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +11,7 @@ class ImageCaption extends React.Component {
   }
 
   toggleCaptionForm() {
-    this.setState({ showCaptionForm: this.state.showCaptionForm == true ? false : true });
+    this.setState({ showCaptionForm: !this.state.showCaptionForm });
   }
 
   closeCaptionForm() {
@@ -77,5 +77,3 @@ class ImageCaption extends React.Component {
     );
   }
 }
-
-export default ImageCaption;

@@ -26,7 +26,7 @@ export default class ImageCaptionPropertyButton extends React.Component {
   }
 
   render() {
-    let disabled = (this.props.captionOverlay == 'checked') ? '' : 'field-disabled';
+    let disabled = (this.props.captionOverlay) ? '' : 'field-disabled';
 
     return (
       <span className="caption-form" onMouseLeave={this.props.closeCaptionForm.bind(this)}>

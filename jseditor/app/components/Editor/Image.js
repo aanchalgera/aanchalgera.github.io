@@ -4,10 +4,7 @@ import ImageCaption from './ImageCaption';
 class Image extends React.Component {
   render () {
     var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
-    var captionPosition = this.props.data.captionPosition == 'bottomLeft' ? 'bottomLeft' : this.props.data.captionPosition;
-    var captionBackground = this.props.data.captionBackground == 'white' ? 'white' : this.props.data.captionBackground;
-    var captionOverlay = this.props.data.captionOverlay == '' ? '' : 'checked';
-
+    
     return (
       <div className={'asset-size-' + this.props.data.layout}>
         <img
@@ -23,9 +20,9 @@ class Image extends React.Component {
           addImageCaption={this.props.addImageCaption.bind(this)}
           fieldId={this.props.dataId}
           imageCaption={imageCaption}
-          captionOverlay={captionOverlay}
-          captionPosition={captionPosition}
-          captionBackground={captionBackground}
+          captionOverlay={this.props.data.captionOverlay}
+          captionPosition={this.props.data.captionPosition}
+          captionBackground={this.props.data.captionBackground}
           addImageCaptionOverlay={this.props.addImageCaptionOverlay.bind(this)}
           addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition.bind(this)}
           addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground.bind(this)}
