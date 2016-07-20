@@ -41,10 +41,27 @@ export default class ImageCaption extends React.Component {
   }
 
   render () {
+    let textField = (
+      <input
+        type="text"
+        id={this.props.id}
+        className="caption"
+        value={this.state.value}
+        placeholder="Add caption"
+        onChange={this.handleChange.bind(this)}
+        onBlur={this.handleBlur.bind(this)}
+      />
+    );
     let propertyButton = '';
     let captionForm = '';
 
     if (this.props.type == 'image') {
+      propertyButton = (
+        <div className="input-group">
+          {textField}
+          <a className="input-group-addon"><span onClick={this.toggleCaptionForm.bind(this)} className="glyphicon glyphicon-cog"></span></a>
+        </div>
+      );
       if (this.state.showCaptionForm) {
         captionForm = (
           <ImageCaptionPropertyButton
@@ -53,25 +70,13 @@ export default class ImageCaption extends React.Component {
           />
         );
       }
-      propertyButton = (
-        <a className="input-group-addon"><span onClick={this.toggleCaptionForm.bind(this)} className="glyphicon glyphicon-cog"></span></a>
-      );
+    } else {
+      propertyButton = textField;
     }
 
     return (
       <div className="caption-container">
-        <div className="input-group">
-          <input
-            type="text"
-            id={this.props.id}
-            className="caption"
-            value={this.state.value}
-            placeholder="Add caption"
-            onChange={this.handleChange.bind(this)}
-            onBlur={this.handleBlur.bind(this)}
-          />
-          {propertyButton}
-        </div>
+      {propertyButton}
       {captionForm}
     </div>
     );
