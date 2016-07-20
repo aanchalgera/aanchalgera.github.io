@@ -1,11 +1,21 @@
 import React from 'react';
+import ImageCaptionPropertyButton from './ImageCaptionPropertyButton';
 
-class ImageCaption extends React.Component {
+export default class ImageCaption extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.imageCaption
+      value: this.props.imageCaption,
+      showCaptionForm: false
     };
+  }
+
+  toggleCaptionForm() {
+    this.setState({ showCaptionForm: !this.state.showCaptionForm });
+  }
+
+  closeCaptionForm() {
+    this.setState({ showCaptionForm: false });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,18 +41,39 @@ class ImageCaption extends React.Component {
   }
 
   render () {
+    let propertyButton = '';
+    let captionForm = '';
+
+    if (this.props.type == 'image') {
+      if (this.state.showCaptionForm) {
+        captionForm = (
+          <ImageCaptionPropertyButton
+            closeCaptionForm={this.closeCaptionForm.bind(this)}
+            {...this.props}
+          />
+        );
+      }
+      propertyButton = (
+        <a className="input-group-addon"><span onClick={this.toggleCaptionForm.bind(this)} className="glyphicon glyphicon-cog"></span></a>
+      );
+    }
+
     return (
-      <input
-        type="text"
-        id={this.props.id}
-        className="caption"
-        value={this.state.value}
-        placeholder="Add caption"
-        onChange={this.handleChange.bind(this)}
-        onBlur={this.handleBlur.bind(this)}
-      />
+      <div className="caption-container">
+        <div className="input-group">
+          <input
+            type="text"
+            id={this.props.id}
+            className="caption"
+            value={this.state.value}
+            placeholder="Add caption"
+            onChange={this.handleChange.bind(this)}
+            onBlur={this.handleBlur.bind(this)}
+          />
+          {propertyButton}
+        </div>
+      {captionForm}
+    </div>
     );
   }
 }
-
-export default ImageCaption;

@@ -227,6 +227,33 @@ class Editor extends React.Component{
     }
   }
 
+  addImageCaptionOverlay(imageId, captionOverlay, currentIndex) {
+    let field = this.getField(currentIndex);
+    field.altered.captionOverlay = captionOverlay;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({
+      fields: this.state.fields
+    }, this.saveData());
+  }
+
+  addImageCaptionOverlayPosition(imageId, captionPosition, currentIndex) {
+    let field = this.getField(currentIndex);
+    field.altered.captionPosition = captionPosition;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({
+      fields: this.state.fields
+    }, this.saveData());
+  }
+
+  addImageCaptionOverlayBackground(imageId, captionBackground, currentIndex) {
+    let field = this.getField(currentIndex);
+    field.altered.captionBackground = captionBackground;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({
+      fields: this.state.fields
+    }, this.saveData());
+  }
+
   addImages(images, moduleType) {
     let addMoreImages = this.state.addMoreImages;
     let currentIndex = this.state.resourcePanelOpenedBy;
@@ -804,6 +831,9 @@ class Editor extends React.Component{
               moveResourceUp={this.moveResourceUp.bind(this)}
               orderMode={this.state.orderMode}
               addImageCaption={this.addImageCaption.bind(this)}
+              addImageCaptionOverlay={this.addImageCaptionOverlay.bind(this)}
+              addImageCaptionOverlayPosition={this.addImageCaptionOverlayPosition.bind(this)}
+              addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
               setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
               deleteImage={this.deleteImage.bind(this)}
             />
