@@ -19,6 +19,12 @@ export default class ImageCaption extends React.Component {
     this.setState({ showCaptionForm: false });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.imageCaption
+    });
+  }
+
   handleChange(e) {
     e.preventDefault();
 
