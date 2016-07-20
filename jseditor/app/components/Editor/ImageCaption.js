@@ -8,6 +8,7 @@ export default class ImageCaption extends React.Component {
       value: this.props.imageCaption,
       showCaptionForm: false
     };
+    this.props.addImageCaption.bind(this);
   }
 
   toggleCaptionForm() {
@@ -18,26 +19,20 @@ export default class ImageCaption extends React.Component {
     this.setState({ showCaptionForm: false });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: nextProps.imageCaption
-    });
-  }
-
   handleChange(e) {
     e.preventDefault();
+
+    let {id, value} = e.currentTarget;
+
+    // To prevent rapid saving on firebase
+    clearTimeout(this._timeout);
+    this._timeout = setTimeout(() => {
+      this.props.addImageCaption(id, value, this.props.fieldId);
+    }, 1000);
+
     this.setState({
       value: e.currentTarget.value
     });
-  }
-
-  handleBlur(e) {
-    e.preventDefault();
-    var data = e.currentTarget.value.trim();
-    var imageId = e.currentTarget.id;
-    this.setState({
-      value: data
-    }, this.props.addImageCaption.bind(this, imageId, data, this.props.fieldId));
   }
 
   render () {
@@ -49,7 +44,6 @@ export default class ImageCaption extends React.Component {
         value={this.state.value}
         placeholder="Add caption"
         onChange={this.handleChange.bind(this)}
-        onBlur={this.handleBlur.bind(this)}
       />
     );
     let propertyButton = '';
