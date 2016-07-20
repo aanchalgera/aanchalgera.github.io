@@ -19,9 +19,9 @@ export default class ImageCaption extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state = {
+    this.setState({
       value: nextProps.imageCaption
-    };
+    });
   }
 
   handleChange(e) {
