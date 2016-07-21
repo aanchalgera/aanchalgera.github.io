@@ -379,33 +379,37 @@ class Editor extends React.Component{
       return false;
     }
 
-    let invalidCaption = false;
-    this.state.fields.forEach(field => {
-      if (field.type == 'grouped') {
-        field.columns.forEach(groupedField => {
-          if (groupedField.description &&
-            groupedField.description.length > 0 &&
-            !this.isValidCaption(groupedField.description)
-          ) {
-            invalidCaption = true;
-          }
-        });
-      } else {
-        if (field.description &&
-          field.description.length > 0 &&
-          !this.isValidCaption(field.description)
-        ) {
-          invalidCaption = true;
-        }
-      }
-    });
-    if (invalidCaption) {
+    if (!this.isValidFieldCaptions(this.state.fields)) {
       this.setMessage(true, CAPTION_WARNING);
       return false;
     }
 
     this.setMessage(false);
     return true;
+  }
+
+  isValidFieldCaptions(fields) {
+    let validCaptions = true;
+    fields.forEach(field => {
+      switch(field.type) {
+        case 'grouped':
+          if (!this.isValidFieldCaptions(field.columns)) {
+            validCaptions = false;
+          }
+          break;
+
+        case 'gallery':
+        case 'slider':
+          field.images.forEach(({ description }) => {
+            if (description && !this.isValidCaption(description)) {
+              validCaptions = false;
+            }
+          });
+          break;
+      }
+    });
+
+    return validCaptions;
   }
 
   isValidCaption(caption) {
