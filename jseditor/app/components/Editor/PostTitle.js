@@ -5,6 +5,10 @@ class PostTitle extends React.Component{
   render(){
     var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '';
     var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : ''; 
+    var backgroundImageStyle = {};
+    if (this.props.data.backgroundImage) {
+      backgroundImageStyle = { backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' } ;
+    }
     return (
       <div className="col-sm-12">
         <div className="main-title" data-id={this.props.data.id}>
@@ -22,7 +26,7 @@ class PostTitle extends React.Component{
               <input
                 type="text"
                 className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
-                style={{ backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' }}
+                style={backgroundImageStyle}
                 value={this.props.value}
                 onChange={this.props.handleChange.bind(this)}
                 onBlur={this.props.handleBlur.bind(this)}
