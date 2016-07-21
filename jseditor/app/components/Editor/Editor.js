@@ -122,7 +122,7 @@ class Editor extends React.Component{
   }
 
   checkConnectStatus() {
-    let connectedRef = new Firebase(configParams.firebaseUrl + '.info/connected');
+    let connectedRef = firebase.database().ref(".info/connected");
     connectedRef.on('value', (snap) => {
       if (snap.val() === true) {
         this.setState({

@@ -2,7 +2,12 @@ import React, {PropTypes} from 'react';
 import TopBar from './Menu/TopBar';
 import Rebase from 're-base';
 
-var base = Rebase.createClass(configParams.firebaseUrl);
+var base = Rebase.createClass(
+  {
+    'apiKey': configParams.apiKey,
+    'databaseURL': configParams.firebaseUrl
+  }
+);
 
 class Main extends React.Component{
   render(){

@@ -3,6 +3,7 @@ var NODE_ENV = process.env.NODE_ENV || 'development';
 
 var configs = {
   production: {
+    apiKey: 'YJsHk9nHLb0MNnwFCqCFIDH6CCCHUvkOxP9FhX06',
     host: 'http://admin.weblogssl.com',
     blogUrl: 'http://www.xataka.com/',
     firebaseUrl: 'https://brilliant-heat-3614.firebaseio.com/',
@@ -11,6 +12,7 @@ var configs = {
     timezone: 'Europe/Madrid'
   },
   testing: {
+    apiKey: 'JCIDuff5nTLMU6zfXXtcVjIzmvkvgruL573ldNdC',
     host: 'http://test.admin.weblogssl.com',
     blogUrl: 'http://testing.xataka.com/',
     firebaseUrl: 'https://dazzling-torch-3017.firebaseio.com/',
@@ -19,6 +21,7 @@ var configs = {
     timezone: 'Europe/Madrid'
   },
   development: {
+    apiKey: 'ReUUQjcoOpIFc9rJiJ7z5iFp1PrB5PsuslH0gFiL',
     host: 'http://test.admin.weblogssl.com',
     blogUrl: 'http://dev.xataka.com/',
     firebaseUrl: 'https://flickering-fire-6653.firebaseio.com/',
