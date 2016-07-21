@@ -36,10 +36,10 @@ export default class ImageCaptionPropertyButton extends React.Component {
         <div className={'form-group ' + disabled}>
           <label htmlFor="exampleInputEmail">Position</label>
           <select className="form-control" onChange={this.setPosition.bind(this)}>
-            <option value='topLeft' selected={(this.props.captionPosition == 'topLeft' ? 'selected' : '')}>Top left</option>
-            <option value='topRight' selected={(this.props.captionPosition == 'topRight' ? 'selected' : '')}>Top right</option>
-            <option value='bottomLeft' selected={(this.props.captionPosition == 'bottomLeft' ? 'selected' : '')}>Bottom left</option>
-            <option value='bottomRight' selected={(this.props.captionPosition == 'bottomRight' ? 'selected' : '')}>Bottom right</option>
+            <option value='top-left' selected={(this.props.captionPosition == 'top-left' ? 'selected' : '')}>Top left</option>
+            <option value='top-right' selected={(this.props.captionPosition == 'top-right' ? 'selected' : '')}>Top right</option>
+            <option value='bottom-left' selected={(this.props.captionPosition == 'bottom-left' ? 'selected' : '')}>Bottom left</option>
+            <option value='bottom-right' selected={(this.props.captionPosition == 'bottom-right' ? 'selected' : '')}>Bottom right</option>
           </select>
         </div>
         <div className={'form-group ' + disabled}>
