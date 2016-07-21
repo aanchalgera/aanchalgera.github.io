@@ -29,7 +29,7 @@
         "Rollbar": true,
         "cloudinary": true,
         "SimpleMDE": true,
-        "Firebase": true,
+        "firebase": true,
         "configParams": true
     },
     "env": {
