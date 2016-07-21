@@ -93,9 +93,9 @@ class PropertyButton extends React.Component {
       showPropertiesBox = false;
     }
 
-    if ('title' != this.props.data.type ) {
+    if ('title' != this.props.data.type) {
       deleteButton = (
-        <button onClick={this.props.deleteResource.bind(this)} className="btn btn-default btn-block btn-delete">
+        <button onClick={this.props.deleteResource} className="btn btn-default btn-block btn-delete">
           Delete Section <span type="button" className="glyphicon glyphicon-trash "></span>
         </button>
       );
