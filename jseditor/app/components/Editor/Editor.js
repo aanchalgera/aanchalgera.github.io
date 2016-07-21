@@ -401,7 +401,7 @@ class Editor extends React.Component{
         case 'gallery':
         case 'slider':
           field.images.forEach(({ description }) => {
-            if (description && description.length > 0 && !this.isValidCaption(description)) {
+            if (description && !this.isValidCaption(description)) {
               validCaptions = false;
             }
           });
