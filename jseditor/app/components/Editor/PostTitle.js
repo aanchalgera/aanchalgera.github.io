@@ -21,10 +21,10 @@ class PostTitle extends React.Component{
             addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
           />
           <div className={'asset-size-' + this.props.data.layout}>
-            <label className="col-sm-12 control-label">Title</label>
             <div className="col-sm-12 marbot50">
               <input
                 type="text"
+                placeholder="Title..."
                 className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
                 style={backgroundImageStyle}
                 value={this.props.value}
