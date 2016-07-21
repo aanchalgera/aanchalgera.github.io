@@ -4,6 +4,7 @@ import PropertyButton from './PropertyButton';
 class PostTitle extends React.Component{
   render(){
     var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '';
+    var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : ''; 
     return (
       <div className="col-sm-12">
         <div className="main-title" data-id={this.props.data.id}>
@@ -18,7 +19,14 @@ class PostTitle extends React.Component{
           <div className={'asset-size-' + this.props.data.layout}>
             <label className="col-sm-12 control-label">Title</label>
             <div className="col-sm-12 marbot50">
-              <input type="text" className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor} value={this.props.value} onChange={this.props.handleChange.bind(this)} onBlur={this.props.handleBlur.bind(this)} />
+              <input
+                type="text"
+                className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
+                style={{ backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' }}
+                value={this.props.value}
+                onChange={this.props.handleChange.bind(this)}
+                onBlur={this.props.handleBlur.bind(this)}
+              />
             </div>
           </div>
         </div>
