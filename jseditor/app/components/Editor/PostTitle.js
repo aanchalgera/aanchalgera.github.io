@@ -22,8 +22,7 @@ class PostTitle extends React.Component{
           />
           <div className={'asset-size-' + this.props.data.layout}>
             <div className="col-sm-12 marbot50">
-              <input
-                type="text"
+              <textarea
                 placeholder="Title..."
                 className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
                 style={backgroundImageStyle}
