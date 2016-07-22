@@ -22,7 +22,7 @@ class Resource extends React.Component {
     } else {
       repeatOrCover = ';background-size:cover';
     }
-    if (data.backgroundFullscreen && data.backgroundImageHeight) {
+    if (!data.backgroundFullscreen && data.backgroundImageHeight) {
       backgroundImageHeight = ';height:' + data.backgroundImageHeight + 'px';
     }
     return 'background-image:' + backgroundImage + repeatOrCover + backgroundImageHeight;
