@@ -24,7 +24,7 @@ class PostTitle extends React.Component{
             <div className="col-sm-12 marbot50">
               <textarea
                 placeholder="Title..."
-                className={'form-control ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
+                className={'form-control form-control-title ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
                 style={backgroundImageStyle}
                 value={this.props.value}
                 onChange={this.props.handleChange.bind(this)}
