@@ -8,7 +8,7 @@ class MoveControls extends React.Component {
     var minimize = <button onClick={this.props.toggleMaximize.bind(this)} className="btn btn-info btn-sm glyphicon glyphicon-minus" type="button" title="Move own" />;
     return (
       <div className="move-controls btn-group-vertical visible">
-          {this.props.dataId > 0? moveUp : ''}
+          {this.props.dataId > 1? moveUp : ''}
           {this.props.dataId < this.props.totalElements-1 ? moveResourceDown : ''}
           {this.props.minimize == true ? maximize : minimize}
       </div>
