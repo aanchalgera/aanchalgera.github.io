@@ -36,17 +36,17 @@ export default class ImageCaptionPropertyButton extends React.Component {
         <div className={'form-group ' + disabled}>
           <label htmlFor="exampleInputEmail">Position</label>
           <select className="form-control" onChange={this.setPosition.bind(this)}>
-            <option value='top-left' selected={(this.props.captionPosition == 'top-left' ? 'selected' : '')}>Top left</option>
-            <option value='top-right' selected={(this.props.captionPosition == 'top-right' ? 'selected' : '')}>Top right</option>
-            <option value='bottom-left' selected={(this.props.captionPosition == 'bottom-left' ? 'selected' : '')}>Bottom left</option>
-            <option value='bottom-right' selected={(this.props.captionPosition == 'bottom-right' ? 'selected' : '')}>Bottom right</option>
+            <option value='top-left' defaultValue={(this.props.captionPosition == 'top-left' ? 'top-left' : '')}>Top left</option>
+            <option value='top-right' defaultValue={(this.props.captionPosition == 'top-right' ? 'top-right' : '')}>Top right</option>
+            <option value='bottom-left' defaultValue={(this.props.captionPosition == 'bottom-left' ? 'bottom-left' : '')}>Bottom left</option>
+            <option value='bottom-right' defaultValue={(this.props.captionPosition == 'bottom-right' ? 'bottom-right' : '')}>Bottom right</option>
           </select>
         </div>
         <div className={'form-group ' + disabled}>
           <label htmlFor="exampleInputEmail">overlay background</label>
           <select className="form-control" onChange={this.setCaptionBackground.bind(this)}>
-            <option value='white' selected={(this.props.captionBackground == 'white' ? 'selected' : '')}>White</option>
-            <option value='black' selected={(this.props.captionBackground == 'black' ? 'selected' : '')}>Black</option>
+            <option value='white' defaultValue={(this.props.captionBackground == 'white' ? 'white' : '')}>White</option>
+            <option value='black' defaultValue={(this.props.captionBackground == 'black' ? 'black' : '')}>Black</option>
           </select>
         </div>
       </span>
