@@ -153,7 +153,7 @@ class Content extends React.Component{
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
     return (
-      <div className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass}
+      <div className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
        id={'div-'+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
