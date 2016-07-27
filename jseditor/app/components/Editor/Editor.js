@@ -763,7 +763,7 @@ class Editor extends React.Component{
       return true;
     } else {
       e.preventDefault();
-      this.setMessage(true,MAIN_IMAGE_WARNING);
+      this.setMessage(true, MAIN_IMAGE_WARNING);
       return false;
     }
   }
