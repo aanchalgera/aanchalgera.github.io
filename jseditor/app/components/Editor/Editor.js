@@ -43,7 +43,8 @@ class Editor extends React.Component{
       postHash: '',
       isConnected: true,
       status: 'draft',
-      buttonDisabled: false
+      buttonDisabled: false,
+      isSynced: false
     };
   }
 
@@ -94,7 +95,14 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}}
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
+                isSynced: true
+              });
+            } else {
+              this.setState({
+                id: postname,
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}},
+                userId: this.userId
               });
             }
           }
@@ -457,6 +465,7 @@ class Editor extends React.Component{
       }
     );
     try {
+      const _this = this;
       this.props.base.post(
         'posts/' + this.state.id,
         {
@@ -467,6 +476,7 @@ class Editor extends React.Component{
               document.getElementById('successField').style.display = 'block';
               setTimeout(() => document.getElementById('successField').style.display = 'none', 4000);
             }
+            _this.setState({isSynced: true});
           }
         }
       );
@@ -822,7 +832,7 @@ class Editor extends React.Component{
           <span className= "glyphicon glyphicon-refresh"></span>Update
         </button>
       );
-    } else {
+    } else if (this.state.isSynced) {
       updateButton = (
         <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} onClick={this.enablePublish.bind(this)} >
           <span>Go to Publish</span>
@@ -849,7 +859,7 @@ class Editor extends React.Component{
       <div className={this.state.orderMode ? 'bgbody' : '' }>
         <div className="preview-nav">
           <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} />
+          {this.state.isSynced ? <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} /> : null}
           {updateButton}
           {goToConfig}
           {addConfig}
