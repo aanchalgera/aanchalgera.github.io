@@ -18,6 +18,7 @@ const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
+const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -757,6 +758,16 @@ class Editor extends React.Component{
     });
   }
 
+  enablePublish(e) {
+    if (this.state.meta && this.state.meta.homepage.image) {
+      return true;
+    } else {
+      e.preventDefault();
+      this.setMessage(true, MAIN_IMAGE_WARNING);
+      return false;
+    }
+  }
+
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -813,7 +824,7 @@ class Editor extends React.Component{
       );
     } else {
       updateButton = (
-        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId}>
+        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} onClick={this.enablePublish.bind(this)} >
           <span>Go to Publish</span>
         </Link>
       );
