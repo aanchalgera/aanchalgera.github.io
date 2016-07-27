@@ -15,6 +15,7 @@ const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
+const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 
 class Publish extends React.Component {
   constructor(props) {
@@ -290,6 +291,9 @@ class Publish extends React.Component {
         isError = true;
         message = VALID_DATE_WARNING;
       }
+    } else if (!this.state.meta.homepage.image) {
+      isError = true;
+      message = MAIN_IMAGE_WARNING;
     }
 
     this.setMessage(isError, message);
