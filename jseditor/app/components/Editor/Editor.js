@@ -818,12 +818,13 @@ class Editor extends React.Component{
         </Link>
       );
     }
-    if (undefined == this.state.fields[0]) {
+
+    if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
       this.state.fields.splice(
         0,
         0,
         {
-          id: 0,
+          id: ++this.state.maxId,
           type:'title',
           layout:'normal',
           backgroundClass: 'module-bg-color-neutral-light',
@@ -831,7 +832,7 @@ class Editor extends React.Component{
           text: this.state.value
         }
       );
-    } else if ('title' == this.state.fields[0].type) {
+    } else {
       this.state.fields[0].text = this.state.value;
     }
     return (

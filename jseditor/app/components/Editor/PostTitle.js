@@ -11,7 +11,7 @@ class PostTitle extends React.Component{
     }
     return (
       <div className="col-sm-12">
-        <div className="main-title" data-id={this.props.data.id}>
+        <div className="main-title" data-id='0'>
           <PropertyButton
             data={this.props.data}
             layout={this.props.data.layout}
