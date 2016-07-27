@@ -818,7 +818,6 @@ class Editor extends React.Component{
         </Link>
       );
     }
-
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
       this.state.fields.splice(
         0,
