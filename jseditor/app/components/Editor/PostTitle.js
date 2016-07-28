@@ -3,8 +3,8 @@ import PropertyButton from './PropertyButton';
 
 class PostTitle extends React.Component{
   render(){
-    var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '';
-    var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : ''; 
+    var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': 'module-fg-dark';
+    var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : '';
     var backgroundImageStyle = {};
     if (this.props.data.backgroundImage) {
       backgroundImageStyle = { backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' } ;
