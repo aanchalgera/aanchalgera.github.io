@@ -393,11 +393,6 @@ class Editor extends React.Component{
       return false;
     }
 
-    if (!this.state.meta.homepage.image) {
-      this.setMessage(true, MAIN_IMAGE_WARNING);
-      return false;
-    }
-
     this.setMessage(false);
     return true;
   }
@@ -729,6 +724,11 @@ class Editor extends React.Component{
     e.preventDefault();
     if (!this.isValid()) {
       return;
+    }
+
+    if (!this.state.meta.homepage.image) {
+      this.setMessage(true, MAIN_IMAGE_WARNING);
+      return false;
     }
 
     let backendData = {
