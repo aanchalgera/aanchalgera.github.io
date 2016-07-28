@@ -157,7 +157,7 @@ class Content extends React.Component{
        id={'div-'+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
-         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': '')}>
+         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': 'module-fg-dark')}>
            <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
            {field}
          </div></div>
