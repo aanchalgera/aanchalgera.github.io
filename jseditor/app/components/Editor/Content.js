@@ -152,12 +152,19 @@ class Content extends React.Component{
 
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
+    let foregroundColorClass = '';
+    if (this.props.data.foregroundColor == '#FFF') {
+      foregroundColorClass = 'module-fg-light';
+    } else if (this.props.data.foregroundColor == '#000') {
+      foregroundColorClass = 'module-fg-dark';
+    }
+
     return (
       <div className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
        id={'div-'+this.props.index}
        data-id={this.props.dataId}
        key={this.props.data.key}>
-         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+(this.props.data.foregroundColor=='#FFF'? 'module-fg-light': 'module-fg-dark')}>
+         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+foregroundColorClass}>
            <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
            {field}
          </div></div>
