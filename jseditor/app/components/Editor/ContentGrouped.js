@@ -41,7 +41,10 @@ class ContentGrouped extends React.Component{
        data-id={this.props.dataId}
        key={data.key}
       >
-        {fields}
+        <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')}>
+          <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
+          {fields}
+        </div></div>
         <PropertyButton
           align={data.align}
           layout={data.layout}
