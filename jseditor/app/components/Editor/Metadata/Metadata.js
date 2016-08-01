@@ -6,6 +6,7 @@ import Homepage from './Homepage';
 import Sponsor from './Sponsor';
 import Css from './Css';
 import Microsite from './Microsite';
+import Author from './Author';
 
 class Metadata extends React.Component{
   onArticleMetaToggle (e) {
@@ -62,6 +63,11 @@ class Metadata extends React.Component{
           updateSponsorImage={this.props.updateSponsorImage}
           deleteHomepageImage={this.props.deleteHomepageImage}
           openResourcePanel={this.props.openResourcePanel}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+        />
+        <Author
+          author={this.props.meta.author}
+          toggleAuthorInfo={this.props.toggleAuthorInfo}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
       </div>
