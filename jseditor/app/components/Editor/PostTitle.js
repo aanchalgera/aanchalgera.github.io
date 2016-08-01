@@ -15,7 +15,7 @@ class PostTitle extends React.Component{
           <PropertyButton
             data={this.props.data}
             layout={this.props.data.layout}
-            dataId={this.props.data.id}
+            dataId='0'
             openResourcePanel={this.props.openResourcePanel}
             addLayoutToResource={this.props.addLayoutToResource}
             addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
