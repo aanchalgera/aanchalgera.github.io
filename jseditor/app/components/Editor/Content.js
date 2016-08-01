@@ -33,10 +33,8 @@ class Content extends React.Component{
       case 'video':
       case 'gallery':
       case 'slider':
-        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
-        break;
       case 'summary':
-        document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
+        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
   }
