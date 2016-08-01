@@ -726,6 +726,11 @@ class Editor extends React.Component{
       return;
     }
 
+    if (!this.state.meta.homepage.image) {
+      this.setMessage(true, MAIN_IMAGE_WARNING);
+      return false;
+    }
+
     let backendData = {
       postform: {
         categoryId: '-1',
@@ -742,7 +747,8 @@ class Editor extends React.Component{
         postDate: this.state.publishData.postDate,
         'publish-region': this.state.publishData.publishRegion,
         page: 'publish',
-        firebase_id: this.state.id
+        firebase_id: this.state.id,
+        primary_image: this.state.meta.homepage.image.url
       }
     };
 

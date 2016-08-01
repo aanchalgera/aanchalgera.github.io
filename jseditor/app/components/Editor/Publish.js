@@ -160,7 +160,8 @@ class Publish extends React.Component {
         'publish-region': publishRegion,
         postRepostBlogNames: postRepostBlogNames,
         page: 'publish',
-        firebase_id: this.state.id
+        firebase_id: this.state.id,
+        primary_image: this.state.meta.homepage.image.url
       }
     };
 
