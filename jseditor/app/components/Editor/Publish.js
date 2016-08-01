@@ -39,7 +39,8 @@ class Publish extends React.Component {
           gaSnippet: '',
           showWSLLogo: true,
           showSocialButtons: true
-        }
+        },
+        author: { showAuthorInfo: false }
       },
       buttonDisabled: true,
       loaded: false,
