@@ -171,6 +171,11 @@ var CloudinaryUploader = React.createClass({
     var self = this;
     try{
       var options = this.getUploadOptions();
+      if (this.props.addImageModule == 'homepage') {
+        options.client_allowed_formats.splice(
+          options.client_allowed_formats.indexOf('mp4'), 1
+        );
+      }
       cloudinary.openUploadWidget(
         options,
         function(error, result) {

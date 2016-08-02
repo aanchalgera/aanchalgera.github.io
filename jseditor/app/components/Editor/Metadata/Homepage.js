@@ -36,7 +36,7 @@ class Homepage extends React.Component{
       image = (
         <div className="homepage-image-container">
           <label>Add image</label>
-          <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}>
+          <button className="btn" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','homepage',false)}>
             Choose from gallery
           </button>
         </div>
@@ -46,7 +46,7 @@ class Homepage extends React.Component{
         <div className="homepage-image-container">
           <a href={this.props.homepage.image.url} target="_blank">{this.props.homepage.image.name}</a>
           <div aria-label="Extra-small button group" role="group" className="btn-group btn-group-xs pull-right">
-            <button className="btn btn-default" type="button" title="Change Image" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}><span className="glyphicon glyphicon-edit" /></button>
+            <button className="btn btn-default" type="button" title="Change Image" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','homepage',false)}><span className="glyphicon glyphicon-edit" /></button>
             <button className="btn btn-default" type="button" title="Remove Image" onClick={this.props.deleteHomepageImage}><span className="glyphicon glyphicon-remove" /></button>
           </div>
           <img alt src={this.props.homepage.image.url} />
