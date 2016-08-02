@@ -67,6 +67,9 @@ class ResourcePanel extends React.Component {
     }
     var images = [];
     images = this.state.imageList.map(data => {
+      if (data.format == 'mp4' && this.props.addImageModule == 'homepage') {
+        return null;
+      }
       return (
         <Thumbnail
           key={data.public_id}
