@@ -37,7 +37,7 @@ var CloudinaryUploader = React.createClass({
       publicId: null,
       folder: null,
       tags: ['arpit'],
-      resourceType: 'auto',
+      resourceType: 'image',
       contextAlt: null,
       contextCaption: null,
       allowedFormats: ['png', 'gif', 'jpeg'],
