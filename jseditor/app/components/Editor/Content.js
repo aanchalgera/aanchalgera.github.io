@@ -9,9 +9,8 @@ class Content extends React.Component{
     switch (this.props.data.type){
       case 'content':
         this.initializeEditor(this.props.index);
-        var currentRef = 'myInput' + this.props.dataId;
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
-        this.refs[currentRef].focus();
+        this.editor.codemirror.focus();
         break;
       case 'richContent':
       case 'image':
@@ -23,6 +22,10 @@ class Content extends React.Component{
       case 'summary':
         document.querySelector('#div-'+this.props.index+' .blockquote').setAttribute('style',this.props.getStyleText(this.props.data));
         break;
+    }
+    const field = this.refs.field;
+    if (field) {
+      field.focus();
     }
   }
   componentDidUpdate() {
@@ -39,7 +42,7 @@ class Content extends React.Component{
     }
   }
   initializeEditor(editArea) {
-    var editor = new SimpleMDE({
+    this.editor = new SimpleMDE({
       element: document.getElementById(editArea),
       spellChecker : false,
       toolbar: [
@@ -57,10 +60,10 @@ class Content extends React.Component{
         'link'
       ]
     });
-    editor.render();
+    this.editor.render();
     var updateText = this.props.updateText;
-    editor.codemirror.on('blur', function(event){
-      updateText(event, editor.value());
+    this.editor.codemirror.on('blur', event => {
+      updateText(event, this.editor.value());
     });
   }
 
@@ -72,7 +75,6 @@ class Content extends React.Component{
     if('content' == this.props.data.type) {
       field = <textarea
         id={this.props.index}
-        ref={'myInput' + this.props.dataId}
         defaultValue= {this.props.data.text}
         data-id={this.props.dataId}
         >
@@ -84,7 +86,7 @@ class Content extends React.Component{
           <div
             id={this.props.index}
             className="form-control blockquote"
-            ref={'myInput' + this.props.dataId}
+            ref="field"
             onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
             contentEditable="true"
             dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
@@ -119,6 +121,7 @@ class Content extends React.Component{
             </label>
             <input
               type="text"
+              ref="field"
               className="form-control"
               defaultValue={this.props.data.url}
               onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
@@ -138,7 +141,7 @@ class Content extends React.Component{
           <div
             id={this.props.index}
             className="form-control"
-            ref={'myInput' + this.props.dataId}
+            ref="field"
             contentEditable="true"
             onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
           >
