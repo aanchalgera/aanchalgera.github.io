@@ -12,12 +12,13 @@ import helpers from '../../utils/generatehash';
 moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
-const CONTENT_EMPTY_WARNING = 'Please add some content';
+const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
+const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 
 class Editor extends React.Component{
@@ -798,7 +799,7 @@ class Editor extends React.Component{
             isEmpty = false;
           }
           break;
-        case  'video':
+        case 'video':
           if(field.url != '') {
             isEmpty = false;
           }
@@ -816,16 +817,16 @@ class Editor extends React.Component{
     let isError = false;
     let message = '';
     if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
-      message = 'one of the fields should contain some value';
+      message = FIELD_EMPTY_WARNING;
     }
 
     if (!this.state.meta || !this.state.meta.homepage.image) {
-      e.preventDefault();
       message = MAIN_IMAGE_WARNING;
     }
 
     if(message != '') {
       isError = true;
+      e.preventDefault();
     }
 
     this.setState({
