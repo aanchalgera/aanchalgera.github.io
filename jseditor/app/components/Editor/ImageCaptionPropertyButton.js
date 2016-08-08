@@ -41,7 +41,7 @@ export default class ImageCaptionPropertyButton extends React.Component {
           </select>
         </div>
         <div className={'form-group ' + disabled}>
-          <label htmlFor="exampleInputEmail">overlay background</label>
+          <label htmlFor="exampleInputEmail">Overlay Background</label>
           <select className="form-control" defaultValue={this.props.captionBackground} onChange={this.setCaptionBackground.bind(this)}>
             <option value='white'>White</option>
             <option value='black'>Black</option>

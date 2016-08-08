@@ -15,8 +15,10 @@ export default class ImageCaption extends React.Component {
     this.setState({ showCaptionForm: !this.state.showCaptionForm });
   }
 
-  closeCaptionForm() {
-    this.setState({ showCaptionForm: false });
+  closeCaptionForm(e) {
+    if (e.target.tagName.toLowerCase() != 'select') { 
+      this.setState({ showCaptionForm: false });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
