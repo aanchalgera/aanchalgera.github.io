@@ -855,6 +855,7 @@ class Editor extends React.Component{
         <strong>  Post saved </strong>
       </div>
     );
+    let connectStatus = <div className={this.state.isConnected ? 'status status-on' : 'status status-off'}></div>;
     let goToConfig = '';
     let addConfig = '';
     if (this.userId==1) {
@@ -923,6 +924,7 @@ class Editor extends React.Component{
           {goToConfig}
           {addConfig}
         </div>
+        {connectStatus}
         {errorField}
         {successField}
         <form id="editor-form">
