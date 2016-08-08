@@ -378,7 +378,7 @@ class Editor extends React.Component{
       return false;
     }
 
-    if (0 == this.state.fields.length) {
+    if (this.state.fields.length < 2) {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
       return false;
     }
@@ -781,14 +781,60 @@ class Editor extends React.Component{
     });
   }
 
+  isEmptyfield(fields) {
+    let isEmpty = true;
+    fields.forEach(field => {
+      switch(field.type) {
+        case 'grouped':
+          if (!this.isEmptyfield(field.columns)) {
+            isEmpty = false;
+          }
+          break;
+
+        case 'content':
+        case 'richContent':
+        case  'summary':
+          if (field.text != '') {
+            isEmpty = false;
+          }
+          break;
+        case  'video':
+          if(field.url != '') {
+            isEmpty = false;
+          }
+          break;
+        case 'image':
+        case 'gallery':
+        case 'slider':
+          isEmpty = false;
+          break;
+      }
+    });
+    return isEmpty;
+  }
+
   enablePublish(e) {
-    if (this.state.meta && this.state.meta.homepage.image) {
-      return true;
-    } else {
-      e.preventDefault();
-      this.setMessage(true, MAIN_IMAGE_WARNING);
-      return false;
+    let isError = false;
+    let message ='';
+    if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
+      message = 'one of the fields should contain some value';
     }
+
+    if (!this.state.meta || !this.state.meta.homepage.image) {
+      e.preventDefault();
+      message = MAIN_IMAGE_WARNING;
+    }
+
+    if(message != '') {
+      isError = true;
+    }
+
+    this.setState({
+      isError: isError,
+      message: message
+    });
+
+    return !isError;
   }
 
   render() {
@@ -809,7 +855,6 @@ class Editor extends React.Component{
         <strong>  Post saved </strong>
       </div>
     );
-    let connectStatus = <div className={this.state.isConnected ? 'status status-on' : 'status status-off'}></div>;
     let goToConfig = '';
     let addConfig = '';
     if (this.userId==1) {
@@ -878,7 +923,6 @@ class Editor extends React.Component{
           {goToConfig}
           {addConfig}
         </div>
-        {connectStatus}
         {errorField}
         {successField}
         <form id="editor-form">
