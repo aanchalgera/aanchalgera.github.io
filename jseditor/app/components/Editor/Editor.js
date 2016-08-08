@@ -814,7 +814,7 @@ class Editor extends React.Component{
   }
   enablePublish(e) {
     let isError = false;
-    let message ='';
+    let message = '';
     if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
       message = 'one of the fields should contain some value';
     }
