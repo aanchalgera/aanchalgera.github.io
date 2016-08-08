@@ -793,7 +793,7 @@ class Editor extends React.Component{
 
         case 'content':
         case 'richContent':
-        case  'summary':
+        case 'summary':
           if (field.text != '') {
             isEmpty = false;
           }
@@ -812,7 +812,6 @@ class Editor extends React.Component{
     });
     return isEmpty;
   }
-
   enablePublish(e) {
     let isError = false;
     let message ='';
