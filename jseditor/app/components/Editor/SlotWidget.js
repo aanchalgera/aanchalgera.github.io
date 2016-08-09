@@ -13,10 +13,10 @@ class SlotWidget extends React.Component {
     for (var i = 0; i < 7; i++) {
       if (i == 0) {
         var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD');
-        tablehead.push(React.createElement('th', {}, React.createElement('strong', {}, '»'+currentDay.toLowerCase())));
+        tablehead.push(<th key={i}><strong>»{currentDay.toLowerCase()}</strong></th>);
       } else {
         var nextDayTimeStamp = moment.unix(timeStamp).add(i, 'day').locale('es').format('dddd DD');
-        tablehead.push(React.createElement('th', {}, nextDayTimeStamp.toLowerCase()));
+        tablehead.push(<th key={i}>{nextDayTimeStamp.toLowerCase()}</th>);
       }
     }
     for (var j = 7; j < 24; j++) {
@@ -35,14 +35,20 @@ class SlotWidget extends React.Component {
           slot = 'slot-free';
           msg = 'Libre';
         }
-        td.push(React.createElement('td', {}, React.createElement('a', {className: slot,'data-date': formattedDateTime, href: 'javascript:void(0)', onClick: this.props.onPickSlot.bind(this)}, msg)));
+        td.push(
+          <td key={j + '-' + k}>
+            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.props.onPickSlot.bind(this)}>
+              {msg}
+            </a>
+          </td>
+        );
       }
       if (j % 2 == 0) {
-        tr = React.createElement('tr', {className: 'even'}, React.createElement('th', {}, j), td);
+        tr = <tr key={j + '-' + k} className="even"><th>{j}</th>{td}</tr>;
       } else {
-        tr = React.createElement('tr', {}, React.createElement('th', {}, j), td);
+        tr = <tr key={j + '-' + k}><th>{j}</th>{td}</tr>;
       }
-      tablerows.push(React.createElement('div',{},tr));
+      tablerows.push(tr);
       td = [];
     }
     return(
@@ -60,19 +66,11 @@ class SlotWidget extends React.Component {
               <thead>
                 <tr id="table-head">
                   <th><em>{currentMonth.toLowerCase()}</em></th>
-                  {
-                    tablehead.map(function(result) {
-                      return result;
-                    })
-                  }
+                  {tablehead}
                 </tr>
               </thead>
               <tbody id="table-rows">
-                {
-                  tablerows.map(function(result) {
-                    return result;
-                  })
-                }
+                {tablerows}
               </tbody>
             </table>
           </div>
