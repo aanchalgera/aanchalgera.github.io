@@ -16,6 +16,7 @@ const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
+const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 
 class Publish extends React.Component {
   constructor(props) {
@@ -45,7 +46,8 @@ class Publish extends React.Component {
       buttonDisabled: true,
       loaded: false,
       isError: false,
-      message: ''
+      message: '',
+      publishedDate: moment().format('DD/MM/YYYY HH:mm')
     };
   }
 
@@ -126,6 +128,7 @@ class Publish extends React.Component {
               maxId: data.maxId,
               status: data.publishData.postStatus || 'draft',
               date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+              publishedDate: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId || '',
@@ -236,7 +239,8 @@ class Publish extends React.Component {
                 this.setState({
                   postId: result.id,
                   postHash: result.post_hash,
-                  status: 'publish'
+                  status: 'publish',
+                  publishedDate: this.state.publishedDate
                 });
                 this.enableButton();
               }
@@ -261,7 +265,12 @@ class Publish extends React.Component {
     ev.preventDefault();
     this.disableButton();
     if (this.isValid()) {
-      this.submitPost();
+      if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+        this.setMessage(true, PUBLISH_POST_WARNING);
+        return;
+      } else {
+        this.submitPost();
+      }
     }
   }
 
