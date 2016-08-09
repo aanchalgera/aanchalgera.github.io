@@ -809,9 +809,15 @@ class Editor extends React.Component{
         <strong>  Post saved </strong>
       </div>
     );
-    let connectStatus = <div className={this.state.isConnected ? 'status status-on' : 'status status-off'}></div>;
+    let connectStatus = '';
     let goToConfig = '';
     let addConfig = '';
+    if (this.state.isConnected) {
+      connectStatus = <div className='glyphicon glyphicon-ok status status-on'>ON</div>;
+    } else {
+      connectStatus = <div className='glyphicon glyphicon-remove status status-off'>OFF</div>;
+    }
+
     if (this.userId==1) {
       goToConfig = <Link className="glyphicon glyphicon-wrench" to={ '/configs' }><span>Go to Config</span></Link>;
       addConfig = <Link className="glyphicon glyphicon-cog" to={ '/config/new' }><span>Add Config</span></Link>;
