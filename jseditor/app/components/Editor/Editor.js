@@ -13,7 +13,6 @@ moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
-const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
@@ -381,11 +380,6 @@ class Editor extends React.Component{
 
     if (this.state.fields.length < 2) {
       this.setMessage(true, CONTENT_EMPTY_WARNING);
-      return false;
-    }
-
-    if (isNaN(this.userId) || this.userId != this.state.userId) {
-      this.setMessage(true, EDIT_NOT_ALLOWED_WARNING);
       return false;
     }
 
