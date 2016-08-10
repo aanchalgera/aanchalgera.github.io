@@ -859,9 +859,17 @@ class Editor extends React.Component{
     let goToConfig = '';
     let addConfig = '';
     if (this.state.isConnected) {
-      connectStatus = <div className='glyphicon glyphicon-ok status status-on'>ON</div>;
+      connectStatus = (
+        <button className='status status-on'>
+          <span className='glyphicon glyphicon-ok'></span>ON
+        </button>
+      );
     } else {
-      connectStatus = <div className='glyphicon glyphicon-remove status status-off'>OFF</div>;
+      connectStatus = (
+        <button className='status status-off'>
+          <span className='glyphicon glyphicon-remove'></span>OFF
+        </button>
+      );
     }
 
     if (this.userId==1) {
