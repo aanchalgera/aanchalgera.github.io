@@ -47,7 +47,7 @@ class Publish extends React.Component {
       loaded: false,
       isError: false,
       message: '',
-      publishedDate: moment().format('DD/MM/YYYY HH:mm')
+      publishedDate: null
     };
   }
 
@@ -128,7 +128,7 @@ class Publish extends React.Component {
               maxId: data.maxId,
               status: data.publishData.postStatus || 'draft',
               date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-              publishedDate: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+              publishedDate: data.publishData.postDate || null,
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId || '',
@@ -240,7 +240,7 @@ class Publish extends React.Component {
                   postId: result.id,
                   postHash: result.post_hash,
                   status: 'publish',
-                  publishedDate: this.state.publishedDate
+                  publishedDate: this.state.date
                 });
                 this.enableButton();
               }
