@@ -12,7 +12,6 @@ let chooseSlotMsg = 'Select slot ';
 let successMessage = '';
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const EDIT_NOT_ALLOWED_WARNING = 'You don`t have permission to edit the post';
 const BLOG_EMPTY_WARNING = 'Blog not found';
 const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
@@ -295,9 +294,6 @@ class Publish extends React.Component {
     } else if (this.blogName != this.state.blogName) {
       isError = true;
       message = BLOG_MISMATCH_WARNING;
-    } else if (isNaN(this.userId) || this.userId != this.state.userId) {
-      isError = true;
-      message = EDIT_NOT_ALLOWED_WARNING;
     } else if ('publish' == this.state.status) {
       if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         isError = true;
