@@ -436,6 +436,7 @@ class Editor extends React.Component{
       id: this.state.id,
       user_id: this.userId,
       user_status: userStatus,
+      blog_status: this.blogName + '_' + this.state.status,
       blogName: this.state.blogName,
       title: this.state.value,
       sections: this.state.fields,
@@ -456,6 +457,7 @@ class Editor extends React.Component{
       status: this.state.status,
       user_id: this.userId,
       user_status: userStatus,
+      blog_status: this.blogName + '_' + this.state.status,
       blog_name: this.state.blogName
     };
     this.props.base.post(

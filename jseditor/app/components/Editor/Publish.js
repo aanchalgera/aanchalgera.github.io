@@ -217,7 +217,8 @@ class Publish extends React.Component {
           status: 'publish',
           user_id: this.userId,
           blog_name: this.blogName,
-          user_status: this.blogName + '_' + this.userId + '_' + 'publish'
+          user_status: this.blogName + '_' + this.userId + '_' + 'publish',
+          blog_status: this.blogName + '_publish'
         };
 
         this.props.base.post(
