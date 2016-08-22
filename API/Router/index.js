@@ -5,5 +5,6 @@ let Router = module.exports = ExpressRouter();
 
 Router
   .route('/post/:id')
-  .put(PostController.putPost)
+  .post(PostController.updatePost)
+  .get(PostController.getPost)
 ;
