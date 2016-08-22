@@ -8,7 +8,11 @@ var firebaseApp = firebase.initializeApp(
 );
 export default class Controller {
 
-  static putPost(req, res, next) {
+  static getPost(req, res, next) {
+    res.send(req.params);
+  }
+
+  static updatePost(req, res, next) {
     firebaseApp.database().ref('posts/'+ req.params.id).once('value', function(snap) {
       if (snap.val()) {
         var user_status = snap.val().blogname+'_'+ snap.val().user_id + '_' + req.query.status;
