@@ -24,9 +24,6 @@ export default class DraftJSEditor extends React.Component {
   }
 
   onChange(editorState) {
-    window.markdown = markdown;
-    window.editorState = editorState;
-    window.stateToHTML = stateToHTML;
     this.setState({ editorState }, () => {
       clearTimeout(this._timeout);
       this._timeout = setTimeout(() => {
