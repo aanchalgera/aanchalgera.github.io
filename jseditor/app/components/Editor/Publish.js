@@ -214,9 +214,9 @@ class Publish extends React.Component {
           id: this.state.id,
           title: this.state.title,
           status: 'publish',
-          user_id: this.userId,
+          user_id: this.state.userId,
           blog_name: this.blogName,
-          user_status: this.blogName + '_' + this.userId + '_' + 'publish',
+          user_status: this.blogName + '_' + this.state.userId + '_' + 'publish',
           blog_status: this.blogName + '_publish'
         };
 
@@ -378,7 +378,7 @@ class Publish extends React.Component {
     return(
       <div>
         <div className="preview-nav">
-          <Link to={'/edit/post/'+ this.postname + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} className="btn btn-primary">Back to editing</Link>
+          <Link to={'/edit/post/'+ this.postname + '?blog=' + this.state.blogName + '&userid=' + this.userId} className="btn btn-primary">Back to editing</Link>
           <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl}/>
         </div>
         <form className="post-publish" ref="publish-form">

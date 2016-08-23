@@ -425,10 +425,10 @@ class Editor extends React.Component{
       return;
     }
 
-    let userStatus = this.blogName + '_' + this.userId + '_' + this.state.status;
+    let userStatus = this.blogName + '_' + this.state.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
-      user_id: this.userId,
+      user_id: this.state.userId,
       user_status: userStatus,
       blog_status: this.blogName + '_' + this.state.status,
       blogName: this.state.blogName,
@@ -449,7 +449,7 @@ class Editor extends React.Component{
       id: this.state.id,
       title: this.state.value,
       status: this.state.status,
-      user_id: this.userId,
+      user_id: this.state.userId,
       user_status: userStatus,
       blog_status: this.blogName + '_' + this.state.status,
       blog_name: this.state.blogName
@@ -894,7 +894,7 @@ class Editor extends React.Component{
       );
     } else if (this.state.isSynced) {
       updateButton = (
-        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.state.userId} onClick={this.enablePublish.bind(this)} >
+        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.userId} onClick={this.enablePublish.bind(this)} >
           <span>Go to Publish</span>
         </Link>
       );
