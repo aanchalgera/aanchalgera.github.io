@@ -566,19 +566,9 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateText(event, value) {
-    let ta = event.getTextArea();
-    let currentIndex = ta.dataset.id;
+  updateText(currentIndex, value) {
     let field = this.getField(currentIndex);
     field.altered.text = value;
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields }, this.saveData());
-  }
-
-  updateSummaryText(currentIndex, event)
-  {
-    let field = this.getField(currentIndex);
-    field.altered.text = event.target.innerHTML;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -952,7 +942,6 @@ class Editor extends React.Component{
               fields={this.state.fields}
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
-              updateSummaryText={this.updateSummaryText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
