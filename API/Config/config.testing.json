@@ -1,0 +1,9 @@
+{
+  "apiKey": "JCIDuff5nTLMU6zfXXtcVjIzmvkvgruL573ldNdC",
+  "host": "http://test.admin.weblogssl.com",
+  "blogUrl": "http://testing.xataka.com/",
+  "databaseURL": "https://dazzling-torch-3017.firebaseio.com/",
+  "cloudName": "agilemediatest",
+  "uploadPreset": "aras8ztr",
+  "timezone": "Europe/Madrid"
+}

@@ -1,0 +1,9 @@
+{
+  "apiKey": "AIzaSyAsRpwue4AfdX6OuiOz1DyFkoPc201QGW4",
+  "host": "http://test.admin.weblogssl.com",
+  "blogUrl": "http://dev.xataka.com/",
+  "databaseURL": "https://office-editor-c6a69.firebaseio.com/",
+  "cloudName": "agilemediatest",
+  "uploadPreset": "aras8ztr",
+  "timezone": "Europe/Madrid"
+}

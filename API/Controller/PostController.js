@@ -1,19 +1,14 @@
 import firebase from 'firebase';
 
-var firebaseApp = firebase.initializeApp(
-  {
-    'apiKey': 'JCIDuff5nTLMU6zfXXtcVjIzmvkvgruL573ldNdC',
-    'databaseURL': 'https://dazzling-torch-3017.firebaseio.com/'
-  }
-);
+var firebaseApp = firebase.initializeApp(envConfig);
 export default class Controller {
 
   static getPost(req, res, next) {
     firebaseApp.database().ref('posts/'+ req.params.id).once('value', function(snap) {
       if (snap.val()) {
-	res.send(snap.val());
+        res.send(snap.val());
       } else {
-	res.send("No such post");
+        res.send("No such post");
       }
     });
   }
@@ -22,8 +17,8 @@ export default class Controller {
     firebaseApp.database().ref('posts/'+ req.params.id).once('value', function(snap) {
       if (snap.val()) {
         var user_status = snap.val().blogname+'_'+ snap.val().user_id + '_' + req.query.status;
-	var blog_status = snap.val().blogname+'_'+req.query.status;
-        firebaseApp.database().ref('posts/'+ req.params.id).set({'status': req.query.status,'user_status': user_status,'blog_status':blog_status});
+        var blog_status = snap.val().blogname+'_'+req.query.status;
+        firebaseApp.database().ref('posts/'+ req.params.id).update({'status': req.query.status,'user_status': user_status,'blog_status':blog_status});
       }
     });
     res.send("done");
