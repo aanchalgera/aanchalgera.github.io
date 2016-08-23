@@ -35,7 +35,8 @@
     "draft-js": "~0.7.0",
     "draft-js-export-html": "~0.4.0",
     "draft-js-import-html": "~0.2.0",
-    "marked": "~0.3.6"
+    "marked": "~0.3.6",
+    "immutable": "^3.8.1"
   },
   "devDependencies": {
     "redux-devtools": "~3.0.1",
