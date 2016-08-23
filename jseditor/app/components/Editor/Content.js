@@ -3,15 +3,11 @@ import PropertyButton from './PropertyButton';
 import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
+import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
   componentDidMount() {
     switch (this.props.data.type){
-      case 'content':
-        this.initializeEditor(this.props.index);
-        document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
-        this.editor.codemirror.focus();
-        break;
       case 'richContent':
       case 'image':
       case 'video':
@@ -41,57 +37,30 @@ class Content extends React.Component{
         break;
     }
   }
-  initializeEditor(editArea) {
-    this.editor = new SimpleMDE({
-      element: document.getElementById(editArea),
-      spellChecker : false,
-      toolbar: [
-        'bold',
-        'italic',
-        'strikethrough',
-        '|',
-        'heading-1',
-        'heading-2',
-        'heading-3',
-        '|',
-        'quote',
-        'ordered-list',
-        'unordered-list',
-        'link'
-      ]
-    });
-    this.editor.render();
-    var updateText = this.props.updateText;
-    this.editor.codemirror.on('blur', event => {
-      updateText(event, this.editor.value());
-    });
-  }
 
-  getSummary(text) {
-    return {__html: text};
-  }
   render () {
     var field;
     if('content' == this.props.data.type) {
-      field = <textarea
-        id={this.props.index}
-        defaultValue= {this.props.data.text}
-        data-id={this.props.dataId}
-        >
-      </textarea>;
+      field = (
+        <DraftJSEditor
+          ref="field"
+          value={this.props.data.text}
+          updateText={this.props.updateText}
+          dataId={this.props.dataId}
+        />
+      );
     } else if ('summary' == this.props.data.type) {
       field = (
         <div className={'asset-size-' + this.props.data.layout}>
           <label className="ptitle">Summary</label>
-          <div
-            id={this.props.index}
-            className="form-control blockquote"
+          <DraftJSEditor
             ref="field"
-            onBlur = {this.props.updateSummaryText.bind(this, this.props.dataId)}
-            contentEditable="true"
-            dangerouslySetInnerHTML={this.getSummary(this.props.data.text)}
-            >
-          </div>
+            minimal={true}
+            className="form-control blockquote"
+            value={this.props.data.text}
+            updateText={this.props.updateText}
+            dataId={this.props.dataId}
+          />
         </div>
       );
     } else if('image' == this.props.data.type) {

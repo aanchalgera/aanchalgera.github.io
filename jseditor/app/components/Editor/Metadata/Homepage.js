@@ -1,33 +1,9 @@
 import React from 'react';
+import DraftJSEditor from '../DraftJSEditor/DraftJSEditor';
 
 class Homepage extends React.Component{
   componentDidMount() {
-    this.initializeEditor();
     this._articleMetaPanel.classList.add('collapsed-content');
-  }
-  initializeEditor() {
-    var editor = new SimpleMDE({ element: document.getElementById('homepage-content'),
-      spellChecker : false,
-      toolbar: [
-        'bold',
-        'italic',
-        'strikethrough',
-        '|',
-        'heading-1',
-        'heading-2',
-        'heading-3',
-        '|',
-        'quote',
-        'ordered-list',
-        'unordered-list',
-        'link'
-      ]
-    });
-    editor.render();
-    var updateHomepageContent = this.props.updateHomepageContent;
-    editor.codemirror.on('blur', function(){
-      updateHomepageContent(editor.value());
-    });
   }
 
   render () {
@@ -65,12 +41,13 @@ class Homepage extends React.Component{
           </div>
           <div className="form-group">
             <label>Add text <span className="hint">(Optional)</span></label>
-            <textarea
+            <DraftJSEditor
               ref="homepageContent"
-              id="homepage-content"
               className="form-control"
-              defaultValue={this.props.homepage.content}
-              placeholder="Add your text here...." />
+              value={this.props.homepage.content}
+              updateText={(id, value) => this.props.updateHomepageContent(value)}
+              dataId={this.props.dataId}
+            />
           </div>
         </div>
       </div>
