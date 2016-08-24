@@ -1,9 +1,9 @@
 import React from 'react';
 
 const CONTROLS = [
-  {style: 'BOLD', icon: 'fa-bold'},
-  {style: 'ITALIC', icon: 'fa-italic'},
-  {style: 'STRIKETHROUGH', icon: 'fa-strikethrough'}
+  {style: 'BOLD', icon: 'fa-bold', hint: 'Bold (Ctrl-B)'},
+  {style: 'ITALIC', icon: 'fa-italic', hint: 'Italic (Ctrl-I)'},
+  {style: 'STRIKETHROUGH', icon: 'fa-strikethrough', hint: 'Strike'}
 ];
 
 export default function InlineControls(props) {
@@ -14,6 +14,7 @@ export default function InlineControls(props) {
         CONTROLS.map((control, index) => (
           <a
             key={index}
+            title={control.hint}
             className={'fa ' + control.icon + (currentStyle.has(control.style) ? ' active' : '')}
             onClick={(e) => {
               e.preventDefault();

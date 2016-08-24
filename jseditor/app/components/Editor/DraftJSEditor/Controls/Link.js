@@ -20,7 +20,7 @@ export default class Link extends React.Component {
 
     const { url } = this.state;
     if (url == '') {
-      const newUrl = prompt('Link?');
+      const newUrl = prompt('Link');
       if (!newUrl) {
         return false;
       }
@@ -40,6 +40,7 @@ export default class Link extends React.Component {
     return (
       <a
         className="fa fa-link"
+        title="Link"
         onClick={this.toggleLink.bind(this)}
       >
       </a>
