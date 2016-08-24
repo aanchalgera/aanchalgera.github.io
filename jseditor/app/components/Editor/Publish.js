@@ -265,12 +265,7 @@ class Publish extends React.Component {
     ev.preventDefault();
     this.disableButton();
     if (this.isValid()) {
-      if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-        this.setMessage(true, PUBLISH_POST_WARNING);
-        return;
-      } else {
-        this.submitPost();
-      }
+      this.submitPost();
     }
   }
 
@@ -295,7 +290,9 @@ class Publish extends React.Component {
       isError = true;
       message = BLOG_MISMATCH_WARNING;
     } else if ('publish' == this.state.status) {
-      if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+      if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+        this.setMessage(true, PUBLISH_POST_WARNING);
+      } else if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         isError = true;
         message = VALID_DATE_WARNING;
       }
