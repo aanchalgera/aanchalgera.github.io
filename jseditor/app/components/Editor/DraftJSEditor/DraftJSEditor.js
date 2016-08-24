@@ -69,6 +69,7 @@ export default class DraftJSEditor extends React.Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand.bind(this)}
             onChange={this.onChange.bind(this)}
+            stripPastedStyles={true}
           />
         </div>
       </div>

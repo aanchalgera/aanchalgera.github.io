@@ -1,12 +1,12 @@
 import React from 'react';
 
 const CONTROLS = [
-  {style: 'header-one', icon: 'fa-header fa-header-x fa-header-1'},
-  {style: 'header-two', icon: 'fa-header fa-header-x fa-header-2'},
-  {style: 'header-three', icon: 'fa-header fa-header-x fa-header-3'},
-  {style: 'blockquote', icon: 'fa-quote-left'},
-  {style: 'ordered-list-item', icon: 'fa-list-ol'},
-  {style: 'unordered-list-item', icon: 'fa-list-ul'}
+  {style: 'header-one', icon: 'fa-header fa-header-x fa-header-1', hint: 'H1'},
+  {style: 'header-two', icon: 'fa-header fa-header-x fa-header-2', hint: 'H2'},
+  {style: 'header-three', icon: 'fa-header fa-header-x fa-header-3', hint: 'H3'},
+  {style: 'blockquote', icon: 'fa-quote-left', hint: 'Quote'},
+  {style: 'ordered-list-item', icon: 'fa-list-ol', hint: 'Ordered List'},
+  {style: 'unordered-list-item', icon: 'fa-list-ul', hint: 'Unordered List'}
 ];
 
 export default function InlineControls(props) {
@@ -23,6 +23,7 @@ export default function InlineControls(props) {
         CONTROLS.map((control, index) => (
           <a
             key={index}
+            title={control.hint}
             className={'fa ' + control.icon + (control.style == blockType ? ' active' : '')}
             onClick={(e) => {
               e.preventDefault();
