@@ -164,7 +164,7 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames,
         page: 'publish',
         firebase_id: this.state.id,
-	post_status: 'future',
+        post_status: 'future',
         primary_image: this.state.meta.homepage.image.url
       }
     };
