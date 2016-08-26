@@ -164,6 +164,7 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames,
         page: 'publish',
         firebase_id: this.state.id,
+        post_status: 'future',
         primary_image: this.state.meta.homepage.image.url
       }
     };
@@ -190,8 +191,6 @@ class Publish extends React.Component {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
-    } else {
-      backendData.postform.post_status = 'future';
     }
     jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
