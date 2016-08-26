@@ -164,6 +164,7 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames,
         page: 'publish',
         firebase_id: this.state.id,
+	post_status: 'future',
         primary_image: this.state.meta.homepage.image.url
       }
     };
@@ -186,7 +187,6 @@ class Publish extends React.Component {
     };
     let postType = 'POST';
     let postUrl = 'posts.json';
-    backendData.postform.post_status = 'future';
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
