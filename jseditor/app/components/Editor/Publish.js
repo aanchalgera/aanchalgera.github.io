@@ -186,12 +186,11 @@ class Publish extends React.Component {
     };
     let postType = 'POST';
     let postUrl = 'posts.json';
+    backendData.postform.post_status = 'future';
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
       successMessage = 'Changes has been saved.';
-    } else {
-      backendData.postform.post_status = 'future';
     }
     jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
