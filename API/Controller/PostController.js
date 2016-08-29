@@ -37,5 +37,15 @@ export default class Controller {
       }
     });
   }
+
+  static getDraftPosts(req, res) {
+    firebaseApp.database().ref('posts_list/').orderByChild("blog_status").equalTo(req.params.blogName + "_draft").limitToLast(10).once('value', function(snap) {
+      if (snap.val()) {
+        res.send(snap.val());
+      } else {
+        res.send("No Draft post Found");;
+      }
+    });
+  }
 }
 
