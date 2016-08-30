@@ -38,14 +38,19 @@ export default class Controller {
     });
   }
 
-  static getDraftPosts(req, res) {
-    firebaseApp.database().ref('posts_list/').orderByChild("blog_status").equalTo(req.params.blogName + "_draft").limitToLast(10).once('value', function(snap) {
+  static getPosts(req, res, next) {
+    var query = firebaseApp.database().ref('posts_list/');
+    if (req.query.status) {
+      query = firebaseApp.database().ref('posts_list/').orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status).limitToLast(10);
+    }
+
+    query.once('value', function(snap) {
       if (snap.val()) {
         res.send(snap.val());
       } else {
-        res.send("No Draft post Found");;
+        res.send("No Post Found");
       }
     });
   }
-}
 
+}

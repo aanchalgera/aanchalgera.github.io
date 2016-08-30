@@ -10,6 +10,6 @@ Router
 ;
 
 Router
-  .route('/draftposts/:blogName')
-  .get(PostController.getDraftPosts)
+  .route('/posts/:blogName')
+  .get(PostController.getPosts)
 ;
