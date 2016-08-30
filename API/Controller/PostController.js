@@ -41,7 +41,7 @@ export default class Controller {
   static getPosts(req, res, next) {
     var query = firebaseApp.database().ref('posts_list/');
     if (req.query.status) {
-      query = firebaseApp.database().ref('posts_list/').orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status).limitToLast(10);
+      query = query.orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status).limitToLast(10);
     }
 
     query.once('value', function(snap) {
