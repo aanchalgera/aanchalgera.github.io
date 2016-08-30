@@ -45,7 +45,7 @@ export default class Controller {
     }
 
     if (req.query.limit) {
-      query = query.limitToLast(parseInt(req.query.limit))
+      query = query.limitToLast(parseInt(req.query.limit));
     };
 
     query.once('value', function(snap) {
