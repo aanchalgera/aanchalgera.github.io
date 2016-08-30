@@ -165,6 +165,7 @@ class Publish extends React.Component {
         page: 'publish',
         firebase_id: this.state.id,
         post_status: 'future',
+        user_id: this.state.userId,
         primary_image: this.state.meta.homepage.image.url
       }
     };
