@@ -8,3 +8,8 @@ Router
   .post(PostController.updatePost)
   .get(PostController.getPost)
 ;
+
+Router
+  .route('/posts/:blogName')
+  .get(PostController.getPosts)
+;

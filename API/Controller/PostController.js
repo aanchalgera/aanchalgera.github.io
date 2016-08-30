@@ -37,5 +37,24 @@ export default class Controller {
       }
     });
   }
-}
 
+  static getPosts(req, res, next) {
+    var query = firebaseApp.database().ref('posts_list/');
+    if (req.query.status) {
+      query = query.orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status);
+    }
+
+    if (req.query.limit) {
+      query = query.limitToLast(parseInt(req.query.limit));
+    };
+
+    query.once('value', function(snap) {
+      if (snap.val()) {
+        res.send(snap.val());
+      } else {
+        res.send("No Post Found");
+      }
+    });
+  }
+
+}
