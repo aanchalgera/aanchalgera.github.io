@@ -33,6 +33,9 @@ class Gallery extends React.Component {
                 <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
               </button>
             }
+            <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'image', {currentIndex: this.props.dataId, mode: 'edit', imageIndex: i}, 'gallery', true)}>
+              <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
+            </button>
             </div>
           </div>
 
