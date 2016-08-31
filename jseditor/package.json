@@ -15,33 +15,28 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-2": "^6.13.0",
-    "draft-js": "~0.7.0",
+    "draft-js": "^0.8.1",
     "draft-js-export-html": "~0.4.0",
     "draft-js-import-html": "~0.2.0",
     "immutable": "^3.8.1",
     "jquery": "^3.1.0",
     "json-loader": "~0.5.4",
     "marked": "~0.3.6",
-    "moment": "^2.14.1",
     "moment-timezone": "^0.5.5",
     "re-base": "git://github.com/qwales1/re-base.git#firebase-3.x.x",
-    "react": "~0.14.7",
-    "react-checkbox-group": "^1.0.4",
-    "react-dom": "~0.14.6",
-    "react-redux": "~4.0.6",
+    "react": "^15.3.1",
+    "react-checkbox-group": "^3.0.0",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
-    "redux": "~3.0.5",
-    "redux-logger": "~2.4.0",
-    "redux-thunk": "~1.0.3",
-    "webpack": "~1.12.11"
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+    "webpack": "^1.13.2"
   },
   "devDependencies": {
     "eslint": "^3.4.0",
     "eslint-loader": "^1.5.0",
-    "eslint-plugin-react": "^6.2.0",
-    "eslint-plugin-jsx-a11y": "~1.5.3",
-    "eslint-plugin-import": "~1.9.2",
-    "eslint-config-airbnb": "~9.0.1",
-    "redux-devtools": "~3.0.1"
+    "eslint-plugin-react": "^6.2.0"
   }
 }
