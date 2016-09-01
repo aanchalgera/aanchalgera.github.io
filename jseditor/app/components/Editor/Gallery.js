@@ -37,7 +37,7 @@ class Gallery extends React.Component {
       );
 
       var editImageButton = (
-        <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'image', {currentIndex: this.props.dataId, mode: 'edit', imageIndex: i}, 'gallery', true)}>
+        <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'edit', {currentIndex: this.props.dataId, imageIndex: i}, 'gallery', true)}>
           <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
         </button>
       );

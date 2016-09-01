@@ -265,26 +265,14 @@ class Editor extends React.Component{
   }
 
   addImages(images, moduleType) {
-    let currentIndex, mode, imageIndex;
-    const { addMoreImages, resourcePanelOpenedBy } = this.state;
-
-    if (typeof resourcePanelOpenedBy == 'object' && resourcePanelOpenedBy.mode == 'edit') {
-      currentIndex = resourcePanelOpenedBy.currentIndex;
-      mode = resourcePanelOpenedBy.mode;
-      imageIndex = resourcePanelOpenedBy.imageIndex;
-    } else {
-      currentIndex = resourcePanelOpenedBy;
-    }
+    let addMoreImages = this.state.addMoreImages;
+    let currentIndex = this.state.resourcePanelOpenedBy;
 
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
         currentIndex, 0, { id: this.state.maxId, type: moduleType, layout: 'normal', images }
       );
-    } else if (mode == 'edit') {
-      let field = this.getField(currentIndex);
-      field.altered.images.splice(imageIndex, 1, ...images);
-      this.state.fields.splice(field.indexes[0], 0, field.original);
     } else {
       let field = this.getField(currentIndex);
       for (let i = 0; i < images.length; i++) {
@@ -293,6 +281,24 @@ class Editor extends React.Component{
 
       this.state.fields.splice(field.indexes[0], 0, field.original);
     }
+
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId,
+      addMoreImages: false,
+      addImageModule: ''
+    }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
+  }
+
+  editImages(images) {
+    const { resourcePanelOpenedBy } = this.state;
+    let currentIndex = resourcePanelOpenedBy.currentIndex;
+    let imageIndex = resourcePanelOpenedBy.imageIndex;
+
+    let field = this.getField(currentIndex);
+    field.altered.images.splice(imageIndex, 1, ...images);
+    this.state.fields.splice(field.indexes[0], 0, field.original);
 
     this.setState({
       fields: this.state.fields,
@@ -1003,9 +1009,11 @@ class Editor extends React.Component{
           uploadPreset={configParams.uploadPreset}
           addImage={this.addImage.bind(this)}
           addImages={this.addImages.bind(this)}
+          editImages={this.editImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}
           addImageModule={this.state.addImageModule}
+          imageFunction={this.state.imageFunction}
           ref="resourcePanel"
         />
         <div id="preview"></div>
