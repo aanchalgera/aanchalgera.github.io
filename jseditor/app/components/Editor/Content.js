@@ -72,6 +72,7 @@ class Content extends React.Component{
         openResourcePanel={this.props.openResourcePanel.bind(this)}
         addImageCaption={this.props.addImageCaption.bind(this)}
         deleteImage={this.props.deleteImage.bind(this)}
+        moveImage={this.props.moveImage.bind(this)}
       />;
     } else if('slider' == this.props.data.type) {
       field = <Slider
@@ -80,6 +81,7 @@ class Content extends React.Component{
         openResourcePanel={this.props.openResourcePanel.bind(this)}
         addImageCaption={this.props.addImageCaption.bind(this)}
         deleteImage={this.props.deleteImage.bind(this)}
+        moveImage={this.props.moveImage.bind(this)}
       />;
     } else if('video' == this.props.data.type) {
       if ('' == this.props.data.url) {

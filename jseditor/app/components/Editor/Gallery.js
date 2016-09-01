@@ -18,6 +18,30 @@ class Gallery extends React.Component {
     var images = this.state.imageList.map((image, i) => {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
+      var deleteButton = totalImages == 1 ? null : (
+        <button className="btn btn-default" onClick={this.props.deleteImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i})}>
+          <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
+        </button>
+      );
+
+      var moveImageLeft = totalImages == 1 || i == 0 ? null : (
+        <button className="btn btn-default" onClick={this.props.moveImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i, direction: 'left'})}>
+          <span className="glyphicon glyphicon-arrow-left" title="Move Image"></span>
+        </button>
+      );
+
+      var moveImageRight = totalImages == 1 || i == (totalImages - 1) ? null : (
+        <button className="btn btn-default" onClick={this.props.moveImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i, direction: 'right'})}>
+          <span className="glyphicon glyphicon-arrow-right" title="Move Image"></span>
+        </button>
+      );
+
+      var editImageButton = (
+        <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'image', {currentIndex: this.props.dataId, mode: 'edit', imageIndex: i}, 'gallery', true)}>
+          <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
+        </button>
+      );
+
       return (
         <li key={i}>
           <img alt="" id={image.spid} src={image.url} />
@@ -28,14 +52,10 @@ class Gallery extends React.Component {
             imageCaption={imageCaption} />
           <div className="hover-nav">
             <div className="btn-group btn-group-sm" role="group" aria-label="...">
-            { totalImages == 1 ? null :
-              <button className="btn btn-default" onClick={this.props.deleteImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i})}>
-                <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
-              </button>
-            }
-            <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'image', {currentIndex: this.props.dataId, mode: 'edit', imageIndex: i}, 'gallery', true)}>
-              <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
-            </button>
+              {deleteButton}
+              {editImageButton}
+              {moveImageLeft}
+              {moveImageRight}
             </div>
           </div>
 

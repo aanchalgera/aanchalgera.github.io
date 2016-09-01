@@ -722,9 +722,10 @@ class Editor extends React.Component{
 
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
-    let { fields } = this.state;
-    fields[sectionIndex].images.splice(imageIndex, 1);
-    this.setState({ fields }, this.saveData());
+    let field = this.getField(sectionIndex);
+    field.altered.images.splice(imageIndex, 1);
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ field }, this.saveData());
   }
 
   updateOnBackend(e) {
@@ -834,6 +835,25 @@ class Editor extends React.Component{
     });
 
     return !isError;
+  }
+
+  moveImage({sectionIndex, imageIndex, direction}, event) {
+    event.preventDefault();
+    let field = this.getField(sectionIndex);
+
+    if (direction == 'right') {
+      var moveToIndex = imageIndex + 1;
+    } else {
+      moveToIndex = imageIndex - 1;
+    }
+
+    // Normal swapping
+    let temp = field.altered.images[imageIndex];
+    field.altered.images[imageIndex] = field.altered.images[moveToIndex];
+    field.altered.images[moveToIndex] = temp;
+
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ field }, this.saveData());
   }
 
   render() {
@@ -973,6 +993,9 @@ class Editor extends React.Component{
               addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
               setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
               deleteImage={this.deleteImage.bind(this)}
+              // shiftImageRight={this.shiftImageRight.bind(this)}
+              // shiftImageLeft={this.shiftImageLeft.bind(this)}
+              moveImage={this.moveImage.bind(this)}
             />
           </div>
         </form>
