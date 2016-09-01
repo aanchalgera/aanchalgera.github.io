@@ -993,8 +993,6 @@ class Editor extends React.Component{
               addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
               setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
               deleteImage={this.deleteImage.bind(this)}
-              // shiftImageRight={this.shiftImageRight.bind(this)}
-              // shiftImageLeft={this.shiftImageLeft.bind(this)}
               moveImage={this.moveImage.bind(this)}
             />
           </div>
