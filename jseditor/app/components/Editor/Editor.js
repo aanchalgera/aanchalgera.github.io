@@ -267,7 +267,6 @@ class Editor extends React.Component{
   addImages(images, moduleType) {
     let addMoreImages = this.state.addMoreImages;
     let currentIndex = this.state.resourcePanelOpenedBy;
-
     if (!addMoreImages) {
       this.state.maxId++;
       this.state.fields.splice(
