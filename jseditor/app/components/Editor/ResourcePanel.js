@@ -24,7 +24,7 @@ class ResourcePanel extends React.Component {
     return this.refs.resourcePanel;
   }
 
-  addImages() {
+  addImages(e) {
     var selectedImages = this.refs.resourcePanel.querySelectorAll('#imageList img.active');
     var images = [];
     if (selectedImages.length == 0) {
@@ -39,6 +39,7 @@ class ResourcePanel extends React.Component {
     } else {
       this.props.addImages(images, this.props.addImageModule);
     }
+    this.closePanel(e);
   }
   render () {
     var showGalleryButton = '';

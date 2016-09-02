@@ -305,7 +305,6 @@ class Editor extends React.Component{
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
-    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   addVideo(currentIndex) {
