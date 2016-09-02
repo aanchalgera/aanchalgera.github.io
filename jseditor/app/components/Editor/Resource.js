@@ -15,7 +15,7 @@ export default class Resource extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.orderMode == false && this.props.orderMode == true) {
       this.setState({
-        minimize : false
+        minimize : true
       });
     }
   }
