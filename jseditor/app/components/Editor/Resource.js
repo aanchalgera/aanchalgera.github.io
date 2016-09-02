@@ -4,13 +4,22 @@ import ContentGrouped from './ContentGrouped';
 import MoveControls from './MoveControls';
 import MoreOptions from './MoreOptions';
 
-class Resource extends React.Component {
+export default class Resource extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       minimize:true
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.orderMode == false && this.props.orderMode == true) {
+      this.setState({
+        minimize : false
+      });
+    }
+  }
+
   toggleMaximize() {
     this.setState({minimize:!this.state.minimize});
   }
@@ -81,5 +90,3 @@ class Resource extends React.Component {
     );
   }
 }
-
-export default Resource;
