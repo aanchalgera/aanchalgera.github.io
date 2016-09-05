@@ -675,6 +675,10 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  editAuthorInfo(id) {
+    this.setState({ userId: id }, this.saveData());
+  }
+
   deleteHomepageImage() {
     this.state.meta.homepage.image = null;
     this.setState({ meta: this.state.meta }, this.saveData());
@@ -865,6 +869,8 @@ class Editor extends React.Component{
 
     let metadata = <Metadata
       meta={this.state.meta}
+      userId={this.state.userId}
+      blogUrl={this.state.blogUrl}
       updateIndexMetadata={this.updateIndexMetadata.bind(this)}
       updateSeoTitle={this.updateSeoTitle.bind(this)}
       updateSeoDescription={this.updateSeoDescription.bind(this)}
@@ -883,6 +889,7 @@ class Editor extends React.Component{
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
       deleteImage={this.deleteImage.bind(this)}
       toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
+      editAuthorInfo={this.editAuthorInfo.bind(this)}
     />;
 
     let updateButton;

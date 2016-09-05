@@ -1,7 +1,63 @@
 import React from 'react';
+import jquery from 'jquery';
+import Typeahead from 'react-bootstrap-typeahead';
 
 export default class Author extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userList: [],
+      isError: false,
+      message: '',
+      currentUser: null
+    };
+    this.selectUser = this.selectUser.bind(this);
+  }
+
+  setMessage(isError = false, message) {
+    this.setState({
+      isError: isError,
+      message: message
+    });
+  }
+
+  componentDidMount() {
+    jquery.ajax({
+      url: this.props.blogUrl + '/admin/users',
+      crossDomain: true,
+      dataType : 'json',
+      xhrFields: {
+        withCredentials: true
+      }
+    })
+    .fail((jqxhr, textStatus, error) => {
+      this.setMessage(true, error);
+    })
+    .done((data) => {
+      let user = data.users.filter(user => {
+        return user.id == this.props.userId;
+      });
+      this.setState({
+        userList: data.users,
+        currentUser: user[0]
+      });
+    });
+  }
+
+  selectUser(users) {
+    let currentUser = users[0];
+    this.setState({ currentUser }, () => this.props.editAuthorInfo(currentUser.id));
+  }
+
   render() {
+    let style='';
+    if(this.props.author.showAuthorInfo) {
+      style = {display: 'block'};
+    } else {
+      style = {display: 'none'};
+    }
+
+
     return (
       <div className="modules module-seo">
         <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
@@ -17,6 +73,17 @@ export default class Author extends React.Component {
               />
               Show author information
             </label>
+          </div>
+          <div className="form-group" style={style}>
+            <label>Author:</label>
+            <Typeahead
+              className="form-control"
+              placeholder="Type to search for authors"
+              onChange={this.selectUser}
+              options={this.state.userList}
+              labelKey='display_name'
+              selected={[this.state.currentUser]}
+            />
           </div>
         </div>
       </div>
