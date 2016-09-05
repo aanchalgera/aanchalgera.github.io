@@ -69,7 +69,7 @@ class Metadata extends React.Component{
           author={this.props.meta.author}
           userId={this.props.userId}
           blogUrl={this.props.blogUrl}
-          toggleAuthorInfo={this.props.toggleAuthorInfo}
+          updateAuthor={this.props.updateAuthor}
           editAuthorInfo={this.props.editAuthorInfo}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />

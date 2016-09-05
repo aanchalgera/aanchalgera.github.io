@@ -7,11 +7,13 @@ export default class Author extends React.Component {
     super(props);
     this.state = {
       userList: [],
+      showAuthorInfo: props.author.showAuthorInfo,
       isError: false,
       message: '',
       currentUser: null
     };
     this.selectUser = this.selectUser.bind(this);
+    this.toggleAuthorInfo = this.toggleAuthorInfo.bind(this);
   }
 
   setMessage(isError = false, message) {
@@ -19,6 +21,11 @@ export default class Author extends React.Component {
       isError: isError,
       message: message
     });
+  }
+
+  toggleAuthorInfo(event) {
+    const showAuthorInfo = event.currentTarget.checked;
+    this.setState({ showAuthorInfo }, this.props.updateAuthor(showAuthorInfo));
   }
 
   componentDidMount() {
@@ -50,14 +57,6 @@ export default class Author extends React.Component {
   }
 
   render() {
-    let style='';
-    if(this.props.author.showAuthorInfo) {
-      style = {display: 'block'};
-    } else {
-      style = {display: 'none'};
-    }
-
-
     return (
       <div className="modules module-seo">
         <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
@@ -68,23 +67,28 @@ export default class Author extends React.Component {
           <div className="form-group">
             <label>
               <input type="checkbox"
-                checked={this.props.author ? this.props.author.showAuthorInfo : false}
-                onChange={this.props.toggleAuthorInfo}
+                checked={this.props.author ? this.state.showAuthorInfo : false}
+                onChange={this.toggleAuthorInfo}
               />
               Show author information
             </label>
           </div>
-          <div className="form-group" style={style}>
-            <label>Author:</label>
-            <Typeahead
-              className="form-control"
-              placeholder="Type to search for authors"
-              onChange={this.selectUser}
-              options={this.state.userList}
-              labelKey='display_name'
-              selected={[this.state.currentUser]}
-            />
-          </div>
+          {this.state.showAuthorInfo ?
+            (
+              <div className="form-group">
+                <label>Author:</label>
+                <Typeahead
+                  className="form-control"
+                  placeholder="Type to search for authors"
+                  onChange={this.selectUser}
+                  options={this.state.userList}
+                  labelKey='display_name'
+                  selected={[this.state.currentUser]}
+                />
+              </div>
+            )
+            : null
+          }
         </div>
       </div>
     );
