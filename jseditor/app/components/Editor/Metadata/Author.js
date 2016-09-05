@@ -73,22 +73,17 @@ export default class Author extends React.Component {
               Show author information
             </label>
           </div>
-          {this.state.showAuthorInfo ?
-            (
-              <div className="form-group">
-                <label>Author:</label>
-                <Typeahead
-                  className="form-control"
-                  placeholder="Type to search for authors"
-                  onChange={this.selectUser}
-                  options={this.state.userList}
-                  labelKey='display_name'
-                  selected={[this.state.currentUser]}
-                />
-              </div>
-            )
-            : null
-          }
+            <div className="form-group">
+              <label>Author:</label>
+              <Typeahead
+                className="form-control"
+                placeholder="Type to search for authors"
+                onChange={this.selectUser}
+                options={this.state.userList}
+                labelKey='display_name'
+                selected={[this.state.currentUser]}
+              />
+            </div>
         </div>
       </div>
     );
