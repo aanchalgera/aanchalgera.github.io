@@ -7,6 +7,9 @@ class Gallery extends React.Component {
     this.state = {
       imageList: []
     };
+    this.deleteImage = this.props.deleteImage.bind(this);
+    this.moveImage = this.props.moveImage.bind(this);
+    this.openResourcePanel = this.props.openResourcePanel.bind(this);
   }
 
   componentDidMount() {
@@ -19,25 +22,25 @@ class Gallery extends React.Component {
       image.spid = image.public_id + i;
       var imageCaption = image.description != undefined ? image.description : '';
       var deleteButton = totalImages == 1 ? null : (
-        <button className="btn btn-default" onClick={this.props.deleteImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i})}>
+        <button className="btn btn-default" onClick={(e) => this.deleteImage({sectionIndex: this.props.dataId, imageIndex: i}, e)}>
           <span className="glyphicon glyphicon-trash" title="Delete Image"></span>
         </button>
       );
 
       var moveImageLeft = totalImages == 1 || i == 0 ? null : (
-        <button className="btn btn-default" onClick={this.props.moveImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i, direction: 'left'})}>
+        <button className="btn btn-default" onClick={(e) => this.moveImage({sectionIndex: this.props.dataId, imageIndex: i, direction: 'left'}, e)}>
           <span className="glyphicon glyphicon-arrow-left" title="Move Image"></span>
         </button>
       );
 
       var moveImageRight = totalImages == 1 || i == (totalImages - 1) ? null : (
-        <button className="btn btn-default" onClick={this.props.moveImage.bind(this, {sectionIndex: this.props.dataId, imageIndex: i, direction: 'right'})}>
+        <button className="btn btn-default" onClick={(e) => this.moveImage({sectionIndex: this.props.dataId, imageIndex: i, direction: 'right'}, e)}>
           <span className="glyphicon glyphicon-arrow-right" title="Move Image"></span>
         </button>
       );
 
       var editImageButton = (
-        <button className="btn btn-default" onClick={this.props.openResourcePanel.bind(this, 'edit', {currentIndex: this.props.dataId, imageIndex: i}, 'gallery', true)}>
+        <button className="btn btn-default" onClick={(e) => this.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: i}, 'gallery', true, e)}>
           <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
         </button>
       );
@@ -66,7 +69,7 @@ class Gallery extends React.Component {
       <div className="gallery">
         <ul className={'asset-size-' + this.props.data.layout}>
           {images}
-          <li className="slider-plus"><a href="#" onClick={this.props.openResourcePanel.bind(this, 'image', this.props.dataId, 'gallery', true)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
+          <li className="slider-plus"><a href="#" onClick={(e) => this.openResourcePanel('image', this.props.dataId, 'gallery', true, e)}><span className="glyphicon glyphicon-plus"></span><br />Add more images</a></li>
         </ul>
       </div>
     );
