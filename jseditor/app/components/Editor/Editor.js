@@ -668,9 +668,9 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  updateAuthor(showAuthorInfo) {
+  toggleAuthorInfo(event) {
     let author = this.state.meta.author || {};
-    author.showAuthorInfo = showAuthorInfo;
+    author.showAuthorInfo = event.target.checked;
     this.state.meta.author = author;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
@@ -888,7 +888,7 @@ class Editor extends React.Component{
       toggleWSLLogo={this.toggleWSLLogo.bind(this)}
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
       deleteImage={this.deleteImage.bind(this)}
-      updateAuthor={this.updateAuthor.bind(this)}
+      toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
       editAuthorInfo={this.editAuthorInfo.bind(this)}
     />;
 
