@@ -213,12 +213,14 @@ var CloudinaryUploader = React.createClass({
         <ResourcePanel
           addImage={this.props.addImage}
           addImages={this.props.addImages.bind(this)}
+          editImages={this.props.editImages.bind(this)}
           base={this.props.base}
           images={this.state.imageList}
           uploaderId={uploader_id}
           slug={this.props.slug}
           handleClick={this.handleClick}
           addImageModule={this.props.addImageModule}
+          imageFunction={this.props.imageFunction}
           ref="resourcePanel"
         />
       </div>

@@ -290,6 +290,22 @@ class Editor extends React.Component{
     document.getElementById('resourcePanel').style.display = 'none';
   }
 
+  editImages(images) {
+    const { resourcePanelOpenedBy } = this.state;
+    let currentIndex = resourcePanelOpenedBy.currentIndex;
+    let imageIndex = resourcePanelOpenedBy.imageIndex;
+
+    let field = this.getField(currentIndex);
+    field.altered.images.splice(imageIndex, 1, ...images);
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+
+    this.setState({
+      fields: this.state.fields,
+      addMoreImages: false,
+      addImageModule: ''
+    }, this.saveData());
+  }
+
   addVideo(currentIndex) {
     this.state.maxId++;
     this.state.fields.splice(
@@ -713,9 +729,10 @@ class Editor extends React.Component{
 
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
-    let { fields } = this.state;
-    fields[sectionIndex].images.splice(imageIndex, 1);
-    this.setState({ fields }, this.saveData());
+    let field = this.getField(sectionIndex);
+    field.altered.images.splice(imageIndex, 1);
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateOnBackend(e) {
@@ -825,6 +842,25 @@ class Editor extends React.Component{
     });
 
     return !isError;
+  }
+
+  moveImage({sectionIndex, imageIndex, direction}, event) {
+    event.preventDefault();
+    let field = this.getField(sectionIndex);
+
+    if (direction == 'right') {
+      var moveToIndex = imageIndex + 1;
+    } else {
+      moveToIndex = imageIndex - 1;
+    }
+
+    // Normal swapping
+    let temp = field.altered.images[imageIndex];
+    field.altered.images[imageIndex] = field.altered.images[moveToIndex];
+    field.altered.images[moveToIndex] = temp;
+
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields}, this.saveData());
   }
 
   render() {
@@ -967,6 +1003,7 @@ class Editor extends React.Component{
               addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
               setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
               deleteImage={this.deleteImage.bind(this)}
+              moveImage={this.moveImage.bind(this)}
             />
           </div>
         </form>
@@ -976,9 +1013,11 @@ class Editor extends React.Component{
           uploadPreset={configParams.uploadPreset}
           addImage={this.addImage.bind(this)}
           addImages={this.addImages.bind(this)}
+          editImages={this.editImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}
           addImageModule={this.state.addImageModule}
+          imageFunction={this.state.imageFunction}
           ref="resourcePanel"
         />
         <div id="preview"></div>
