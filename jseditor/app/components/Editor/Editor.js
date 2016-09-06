@@ -25,12 +25,12 @@ class Editor extends React.Component{
     super(props);
     this.state = {
       maxId: 0,
-      value: null,
+      value: '',
       isError: false,
       isSubmit: false,
-      message: null,
-      resourcePanelOpenedBy: null,
-      imageFunction: null,
+      message: '',
+      resourcePanelOpenedBy: '',
+      imageFunction: '',
       addImageModule: '',
       addMoreImages: false,
       orderMode: false,
