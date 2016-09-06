@@ -17,6 +17,7 @@
             2,
             "always"
         ],
+        "no-console": 0,
         "react/prop-types": 0,
         "react/no-did-mount-set-state": 0,
         "react/no-direct-mutation-state": 0,
