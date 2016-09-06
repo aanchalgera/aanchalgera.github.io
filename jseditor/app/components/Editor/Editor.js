@@ -301,7 +301,6 @@ class Editor extends React.Component{
 
     this.setState({
       fields: this.state.fields,
-      maxId: this.state.maxId,
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
@@ -729,7 +728,7 @@ class Editor extends React.Component{
     let field = this.getField(sectionIndex);
     field.altered.images.splice(imageIndex, 1);
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ field }, this.saveData());
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateOnBackend(e) {
@@ -857,7 +856,7 @@ class Editor extends React.Component{
     field.altered.images[moveToIndex] = temp;
 
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ field }, this.saveData());
+    this.setState({ fields: this.state.fields}, this.saveData());
   }
 
   render() {
