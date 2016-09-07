@@ -3,16 +3,18 @@ import PropertyButton from './PropertyButton';
 import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
+import Giphy from './Giphy';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
   componentDidMount() {
     switch (this.props.data.type){
-      case 'richContent':
       case 'image':
-      case 'video':
       case 'gallery':
       case 'slider':
+      case 'video':
+      case 'GIF':
+      case 'richContent':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -27,12 +29,13 @@ class Content extends React.Component{
   componentDidUpdate() {
     switch (this.props.data.type) {
       case 'content':
-      case 'richContent':
+      case 'summary':
       case 'image':
-      case 'video':
       case 'gallery':
       case 'slider':
-      case 'summary':
+      case 'video':
+      case 'GIF':
+      case 'richContent':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -103,6 +106,8 @@ class Content extends React.Component{
       } else {
         field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
       }
+    } else if('GIF' == this.props.data.type) {
+      field = <Giphy {...this.props} />;
     } else if('richContent' == this.props.data.type) {
       field = (
         <div>

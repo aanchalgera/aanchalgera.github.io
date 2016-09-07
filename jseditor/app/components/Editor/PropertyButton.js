@@ -64,6 +64,7 @@ class PropertyButton extends React.Component {
       case 'video':
       case 'summary':
       case 'title':
+      case 'GIF':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}

@@ -40,6 +40,7 @@ export default class Resource extends React.Component {
       openResourcePanel={this.props.openResourcePanel}
       addTextArea={this.props.addTextArea}
       addVideo={this.props.addVideo}
+      addGiphy={this.props.addGiphy}
       groupSections={this.props.groupSections}
       show2column={field.show2column}
       show3column={field.show3column}

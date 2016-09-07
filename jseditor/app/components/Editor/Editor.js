@@ -322,6 +322,22 @@ class Editor extends React.Component{
     }, this.saveData());
   }
 
+  addGiphy(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex, 0, {
+      giphyId: this.state.maxId,
+      type: 'GIF',
+      url: '',
+      align: '',
+      layout: 'normal'
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -603,6 +619,14 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
+  updateGiphy(currentIndex, giphyId, event) {
+    let field = this.getField(currentIndex);
+    field.altered.url = event.target.value;
+    field.altered.giphyId = giphyId;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
   addLayoutToResource(event) {
     event.preventDefault();
     let currentIndex = this.parentDiv(event.target).dataset.id;
@@ -807,6 +831,7 @@ class Editor extends React.Component{
           }
           break;
         case 'video':
+        case 'GIF':
           if(field.url != '') {
             isEmpty = false;
           }
@@ -987,9 +1012,11 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
+              updateGiphy={this.updateGiphy.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}
+              addGiphy={this.addGiphy.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
