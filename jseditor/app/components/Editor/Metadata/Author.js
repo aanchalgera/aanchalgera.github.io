@@ -69,7 +69,6 @@ export default class Author extends React.Component {
           <div className="form-group">
             <label>Author:</label>
             <Typeahead
-              className="form-control"
               placeholder="Type to search for authors"
               onChange={this.selectUser}
               options={this.state.userList}

@@ -16,6 +16,15 @@ class Metadata extends React.Component{
   }
 
   render () {
+    let author = <Author
+      author={this.props.meta.author}
+      userId={this.props.userId}
+      blogUrl={this.props.blogUrl}
+      toggleAuthorInfo={this.props.toggleAuthorInfo}
+      editAuthorInfo={this.props.editAuthorInfo}
+      onArticleMetaToggle={this.onArticleMetaToggle}
+    />;
+
     return (
       <div className="article-metadata-container">
         <h3>Article Metadata</h3>
@@ -65,14 +74,7 @@ class Metadata extends React.Component{
           openResourcePanel={this.props.openResourcePanel}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Author
-          author={this.props.meta.author}
-          userId={this.props.userId}
-          blogUrl={this.props.blogUrl}
-          toggleAuthorInfo={this.props.toggleAuthorInfo}
-          editAuthorInfo={this.props.editAuthorInfo}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-        />
+        {this.props.blogUrl ? author : ''}
       </div>
     );
   }
