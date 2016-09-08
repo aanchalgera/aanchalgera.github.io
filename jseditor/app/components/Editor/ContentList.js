@@ -50,7 +50,7 @@ class ContentList extends React.Component{
             addImageCaption={this.props.addImageCaption.bind(this)}
             addTextArea={this.props.addTextArea}
             addVideo={this.props.addVideo}
-            addGiphy={this.props.addGiphy}
+            addResource={this.props.addResource}
             dataId={fieldsHtml.length}
             key={fieldsHtml.length}
             groupSections={this.props.groupSections}

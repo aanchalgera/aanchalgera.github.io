@@ -9,12 +9,12 @@ import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 class Content extends React.Component{
   componentDidMount() {
     switch (this.props.data.type){
+      case 'richContent':
       case 'image':
+      case 'video':
       case 'gallery':
       case 'slider':
-      case 'video':
       case 'GIF':
-      case 'richContent':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -29,13 +29,13 @@ class Content extends React.Component{
   componentDidUpdate() {
     switch (this.props.data.type) {
       case 'content':
-      case 'summary':
+      case 'richContent':
       case 'image':
+      case 'video':
       case 'gallery':
       case 'slider':
-      case 'video':
+      case 'summary':
       case 'GIF':
-      case 'richContent':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }

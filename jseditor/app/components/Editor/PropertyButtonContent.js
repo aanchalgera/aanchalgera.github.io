@@ -3,12 +3,7 @@ import React from 'react';
 class PropertyButtonContent extends React.Component {
   render() {
     var backgroundImageOptions = '', backgroundImage;
-    let textColour = (
-      <li><label> Text </label>
-        <button type="button" onClick={this.props.addBackgroundOptionToResource.bind(this, 'foregroundColor', '#FFF')} className={'btn background-white ' + (this.props.data.foregroundColor == '#FFF' ? 'active' : null)}></button>
-        <button type="button" onClick={this.props.addBackgroundOptionToResource.bind(this, 'foregroundColor', '#000')} className={'btn background-black ' + (this.props.data.foregroundColor == '#000' ? 'active' : null)}></button>
-      </li>
-    );
+    let textColour;
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       backgroundImage = (
         <span className="input-group">
@@ -43,6 +38,13 @@ class PropertyButtonContent extends React.Component {
       case 'GIF':
         textColour='';
         break;
+      default:
+        textColour = (
+          <li><label> Text </label>
+            <button type="button" onClick={this.props.addBackgroundOptionToResource.bind(this, 'foregroundColor', '#FFF')} className={'btn background-white ' + (this.props.data.foregroundColor == '#FFF' ? 'active' : null)}></button>
+            <button type="button" onClick={this.props.addBackgroundOptionToResource.bind(this, 'foregroundColor', '#000')} className={'btn background-black ' + (this.props.data.foregroundColor == '#000' ? 'active' : null)}></button>
+          </li>
+        );
     }
     return (
       <ul className="list-background">

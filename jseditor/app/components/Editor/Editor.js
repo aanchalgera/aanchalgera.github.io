@@ -171,6 +171,14 @@ class Editor extends React.Component{
     return { indexes, original, altered };
   }
 
+  addResource({type,currentIndex}) {
+    switch (type) {
+      case 'GIF':
+        this.addGiphy(currentIndex);
+        break;
+    }
+  }
+
   addImage(image) {
     let currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
@@ -326,7 +334,8 @@ class Editor extends React.Component{
     this.state.maxId++;
     this.state.fields.splice(
     currentIndex, 0, {
-      giphyId: this.state.maxId,
+      id: this.state.maxId,
+      giphyId:'',
       type: 'GIF',
       url: '',
       align: '',
@@ -619,9 +628,11 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateGiphy(currentIndex, giphyId, event) {
+  updateGiphy(currentIndex, event) {
     let field = this.getField(currentIndex);
-    field.altered.url = event.target.value;
+    let url = event.target.value;
+    let giphyId = url.split('-').splice(-1)[0];
+    field.altered.url = url;
     field.altered.giphyId = giphyId;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
@@ -1016,7 +1027,7 @@ class Editor extends React.Component{
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}
-              addGiphy={this.addGiphy.bind(this)}
+              addResource={this.addResource.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
