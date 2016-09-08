@@ -607,10 +607,10 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateResource({type,currentIndex}) {
+  updateResource({type,currentIndex},event) {
     switch (type) {
       case 'giphy':
-        this.updateGiphy(currentIndex);
+        this.updateGiphy(currentIndex, event);
         break;
     }
   }
