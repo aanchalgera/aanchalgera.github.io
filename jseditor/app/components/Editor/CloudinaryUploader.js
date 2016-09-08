@@ -81,8 +81,8 @@ var CloudinaryUploader = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.init();
     if (
-      nextProps.openCloudinaryUploader !== this.props.openCloudinaryUploader &&
-      nextProps.openCloudinaryUploader === true
+      nextProps.isCloudinaryUploaderOpen !== this.props.isCloudinaryUploaderOpen &&
+      nextProps.isCloudinaryUploaderOpen === true
     ) {
       this.openUploader();
     }

@@ -44,7 +44,7 @@ class Editor extends React.Component{
       status: 'draft',
       buttonDisabled: false,
       isSynced: false,
-      openCloudinaryUploader: false
+      isCloudinaryUploaderOpen: false
     };
   }
 
@@ -867,7 +867,7 @@ class Editor extends React.Component{
     if (e) {
       e.preventDefault();
     }
-    this.setState({ openCloudinaryUploader: !this.state.openCloudinaryUploader });
+    this.setState({ isCloudinaryUploaderOpen: !this.state.isCloudinaryUploaderOpen });
   }
 
   render() {
@@ -997,7 +997,7 @@ class Editor extends React.Component{
           slug={this.state.id}
           addImageModule={this.state.addImageModule}
           imageFunction={this.state.imageFunction}
-          openCloudinaryUploader={this.state.openCloudinaryUploader}
+          isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
           toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
           ref="resourcePanel"
         />
