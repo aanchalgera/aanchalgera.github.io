@@ -52,8 +52,6 @@ var CloudinaryUploader = React.createClass({
     var initialState =  {
       cloudName: this.props.cloudName,
       uploadPreset: this.props.uploadPreset,
-      isError: false,
-      errorMessage: null,
       showPoweredBy: false,
       allowedFormats: null,
       uuid: this.uuid(),
@@ -80,8 +78,14 @@ var CloudinaryUploader = React.createClass({
       }
     }
   },
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(nextProps) {
     this.init();
+    if (
+      nextProps.openCloudinaryUploader !== this.props.openCloudinaryUploader &&
+      nextProps.openCloudinaryUploader === true
+    ) {
+      this.openUploader();
+    }
   },
   componentDidMount: function(){
     this.init();
@@ -153,34 +157,24 @@ var CloudinaryUploader = React.createClass({
 
     return options;
   },
-  setError: function(isError, errorMessage){
-    this.setState({
-      isError: true,
-      errorMessage: errorMessage
-    });
-  },
   openResourcePanel: function () {
     this.refs.resourcePanel.getStyle().style.display = 'block';
     this.refs.resourcePanel.getStyle().classList.add('in');
   },
-  handleClick: function(ev){
-    if(this.props.slug == undefined || this.props.slug == '') {
-      this.setError(true, 'Title not set');
+  openUploader: function(ev){
+    if (ev) {
       ev.preventDefault();
     }
+
     var self = this;
     try{
       var options = this.getUploadOptions();
       cloudinary.openUploadWidget(
         options,
         function(error, result) {
-          if (error){
-            self.setError(true, error);
-            ev.preventDefault();
-          }
-          if (!result || result.length === 0){
-            self.setError(true, 'No result from Cloudinary');
-            ev.preventDefault();
+          self.props.toggleCloudinaryUploader();
+          if (error || !result || result.length === 0){
+            return;
           }
           self.props.base.post('images/' + self.props.slug, {
             data: self.state.imageList.concat(result),
@@ -192,38 +186,24 @@ var CloudinaryUploader = React.createClass({
           return true;
         }
       );
-    }catch(e){
+    } catch(e) {
       Rollbar.error('Error occured while uploading image to cloudinary', e);
-      self.setError(true, e);
-      ev.preventDefault();
     }
   },
-  render: function(){
-    var uploader_id = 'uploader_' + this.state.uuid;
+  render: function() {
     return (
-      <div>
-        <div className="nav-btns-top">
-          <button
-            ref='uploader'
-            id={uploader_id}
-            disabled={!this.props.slug}
-            className={this.props.buttonClass}
-            onClick={this.handleClick}>{this.props.buttonCaption}</button>
-        </div>
-        <ResourcePanel
-          addImage={this.props.addImage}
-          addImages={this.props.addImages.bind(this)}
-          editImages={this.props.editImages.bind(this)}
-          base={this.props.base}
-          images={this.state.imageList}
-          uploaderId={uploader_id}
-          slug={this.props.slug}
-          handleClick={this.handleClick}
-          addImageModule={this.props.addImageModule}
-          imageFunction={this.props.imageFunction}
-          ref="resourcePanel"
-        />
-      </div>
+      <ResourcePanel
+        addImage={this.props.addImage}
+        addImages={this.props.addImages.bind(this)}
+        editImages={this.props.editImages.bind(this)}
+        base={this.props.base}
+        images={this.state.imageList}
+        slug={this.props.slug}
+        handleClick={this.openUploader}
+        addImageModule={this.props.addImageModule}
+        imageFunction={this.props.imageFunction}
+        ref="resourcePanel"
+      />
     );
   }
 });

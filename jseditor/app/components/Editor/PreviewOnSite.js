@@ -1,18 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 
-class PreviewOnSite extends React.Component{
-  submitPost() {
-    const sitePreviewUrl = this.props.blogUrl + '/preview-longform/' + this.props.postId;
-    window.open(sitePreviewUrl, 'Site Preview');
-  }
-
-  render() {
-    return <button
-        className="btn btn-primary btn-nav"
-        onClick={this.submitPost.bind(this)}>
-        <span className = "glyphicon glyphicon-certificate"></span>Preview on Site
-    </button>;
-  }
+export default function PreviewOnSite(props) {
+  return (
+    <Link className="glyphicon glyphicon-certificate" target="LFE Preview" to={props.blogUrl + '/preview-longform/' + props.postId}>
+      <span>Preview on Site</span>
+    </Link>
+  );
 }
-
-export default PreviewOnSite;

@@ -1,12 +1,11 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
+import TopNavigation from './TopNavigation';
 import ContentList from './ContentList';
 import PostTitle from './PostTitle';
-import PreviewOnSite from './PreviewOnSite';
 import CloudinaryUploader from './CloudinaryUploader';
 import Metadata from './Metadata/Metadata';
-import { Link } from 'react-router';
 import helpers from '../../utils/generatehash';
 
 moment.tz.setDefault(configParams.timezone);
@@ -44,7 +43,8 @@ class Editor extends React.Component{
       isConnected: true,
       status: 'draft',
       buttonDisabled: false,
-      isSynced: false
+      isSynced: false,
+      openCloudinaryUploader: false
     };
   }
 
@@ -863,6 +863,13 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields}, this.saveData());
   }
 
+  toggleCloudinaryUploader(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    this.setState({ openCloudinaryUploader: !this.state.openCloudinaryUploader });
+  }
+
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -881,27 +888,6 @@ class Editor extends React.Component{
         <strong>  Post saved </strong>
       </div>
     );
-    let connectStatus = '';
-    let goToConfig = '';
-    let addConfig = '';
-    if (this.state.isConnected) {
-      connectStatus = (
-        <button className='status status-on'>
-          <span className='glyphicon glyphicon-ok'></span>ON
-        </button>
-      );
-    } else {
-      connectStatus = (
-        <button className='status status-off'>
-          <span className='glyphicon glyphicon-remove'></span>OFF
-        </button>
-      );
-    }
-
-    if (this.userId==1) {
-      goToConfig = <Link className="glyphicon glyphicon-wrench" to={ '/configs' }><span>Go to Config</span></Link>;
-      addConfig = <Link className="glyphicon glyphicon-cog" to={ '/config/new' }><span>Add Config</span></Link>;
-    }
 
     let metadata = <Metadata
       meta={this.state.meta}
@@ -928,20 +914,6 @@ class Editor extends React.Component{
       editAuthorInfo={this.editAuthorInfo.bind(this)}
     />;
 
-    let updateButton;
-    if (this.state.status == 'publish' && moment(this.state.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-      updateButton = (
-        <button className="btn btn-primary btn-nav" disabled={this.state.buttonDisabled} onClick={this.updateOnBackend.bind(this)}>
-          <span className= "glyphicon glyphicon-refresh"></span>Update
-        </button>
-      );
-    } else if (this.state.isSynced) {
-      updateButton = (
-        <Link className="glyphicon glyphicon-ok" to={'/publish/' + this.state.id + '?blog=' + this.state.blogName + '&userid=' + this.userId} onClick={this.enablePublish.bind(this)} >
-          <span>Go to Publish</span>
-        </Link>
-      );
-    }
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
       this.state.fields.splice(
         0,
@@ -960,14 +932,21 @@ class Editor extends React.Component{
     }
     return (
       <div className={this.state.orderMode ? 'bgbody' : '' }>
-        <div className="preview-nav">
-          <a title="Order Elements" onClick={this.toggleOrderMode.bind(this)} href="#" className="glyphicon glyphicon-move js-minimise"><span>Order Elements</span></a>
-          {this.state.isSynced ? <PreviewOnSite postId={this.state.id} blogUrl={this.state.blogUrl} /> : null}
-          {updateButton}
-          {goToConfig}
-          {addConfig}
-        </div>
-        {connectStatus}
+        <TopNavigation
+          id={this.state.id}
+          blogName={this.state.blogName}
+          blogUrl={this.state.blogUrl}
+          userId={this.userId}
+          status={this.state.status}
+          publishData={this.state.publishData}
+          buttonDisabled={this.state.buttonDisabled}
+          isSynced={this.state.isSynced}
+          isConnected={this.state.isConnected}
+          updateOnBackend={this.updateOnBackend.bind(this)}
+          enablePublish={this.enablePublish.bind(this)}
+          toggleOrderMode={this.toggleOrderMode.bind(this)}
+          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
+        />
         {errorField}
         {successField}
         <form id="editor-form">
@@ -1018,6 +997,8 @@ class Editor extends React.Component{
           slug={this.state.id}
           addImageModule={this.state.addImageModule}
           imageFunction={this.state.imageFunction}
+          openCloudinaryUploader={this.state.openCloudinaryUploader}
+          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
           ref="resourcePanel"
         />
         <div id="preview"></div>
