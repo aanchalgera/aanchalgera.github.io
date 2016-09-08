@@ -14,7 +14,7 @@ class Content extends React.Component{
       case 'video':
       case 'gallery':
       case 'slider':
-      case 'GIF':
+      case 'giphy':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -35,7 +35,7 @@ class Content extends React.Component{
       case 'gallery':
       case 'slider':
       case 'summary':
-      case 'GIF':
+      case 'giphy':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -106,7 +106,7 @@ class Content extends React.Component{
       } else {
         field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
       }
-    } else if('GIF' == this.props.data.type) {
+    } else if('giphy' == this.props.data.type) {
       field = <Giphy {...this.props} />;
     } else if('richContent' == this.props.data.type) {
       field = (

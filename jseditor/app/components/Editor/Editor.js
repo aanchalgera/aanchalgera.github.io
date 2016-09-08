@@ -173,7 +173,7 @@ class Editor extends React.Component{
 
   addResource({type,currentIndex}) {
     switch (type) {
-      case 'GIF':
+      case 'giphy':
         this.addGiphy(currentIndex);
         break;
     }
@@ -336,7 +336,7 @@ class Editor extends React.Component{
     currentIndex, 0, {
       id: this.state.maxId,
       giphyId:'',
-      type: 'GIF',
+      type: 'giphy',
       url: '',
       align: '',
       layout: 'normal'
@@ -607,6 +607,14 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
+  updateResource({type,currentIndex}) {
+    switch (type) {
+      case 'giphy':
+        this.updateGiphy(currentIndex);
+        break;
+    }
+  }
+
   updateText(currentIndex, value) {
     let field = this.getField(currentIndex);
     field.altered.text = value;
@@ -632,6 +640,7 @@ class Editor extends React.Component{
     let field = this.getField(currentIndex);
     let url = event.target.value;
     let giphyId = url.split('-').splice(-1)[0];
+    url = url.replace(/^https?/, '');
     field.altered.url = url;
     field.altered.giphyId = giphyId;
     this.state.fields.splice(field.indexes[0], 0, field.original);
@@ -842,7 +851,7 @@ class Editor extends React.Component{
           }
           break;
         case 'video':
-        case 'GIF':
+        case 'giphy':
           if(field.url != '') {
             isEmpty = false;
           }
@@ -1023,7 +1032,7 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
-              updateGiphy={this.updateGiphy.bind(this)}
+              updateResource={this.updateResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}

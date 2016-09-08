@@ -13,7 +13,7 @@ export default class Giphy extends React.Component {
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={this.props.updateGiphy.bind(this, this.props.dataId)}
+          onBlur={this.props.updateResource.bind(this, {type: 'giphy', currentIndex: this.props.dataId})}
           placeholder="http://giphy.com/gifs/blackgirlmagic-3o72Fdwj7RQ4654q0E">
         </input>
       );
