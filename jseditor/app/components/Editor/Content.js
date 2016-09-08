@@ -3,6 +3,7 @@ import PropertyButton from './PropertyButton';
 import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
+import Giphy from './Giphy';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -13,6 +14,7 @@ class Content extends React.Component{
       case 'video':
       case 'gallery':
       case 'slider':
+      case 'giphy':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -33,6 +35,7 @@ class Content extends React.Component{
       case 'gallery':
       case 'slider':
       case 'summary':
+      case 'giphy':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -103,6 +106,8 @@ class Content extends React.Component{
       } else {
         field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
       }
+    } else if('giphy' == this.props.data.type) {
+      field = <Giphy {...this.props} />;
     } else if('richContent' == this.props.data.type) {
       field = (
         <div>

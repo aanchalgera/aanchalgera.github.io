@@ -171,6 +171,14 @@ class Editor extends React.Component{
     return { indexes, original, altered };
   }
 
+  addResource({type,currentIndex}) {
+    switch (type) {
+      case 'giphy':
+        this.addGiphy(currentIndex);
+        break;
+    }
+  }
+
   addImage(image) {
     let currentIndex = this.state.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
@@ -312,6 +320,23 @@ class Editor extends React.Component{
     currentIndex, 0, {
       id: this.state.maxId,
       type: 'video',
+      url: '',
+      align: '',
+      layout: 'normal'
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
+  addGiphy(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex, 0, {
+      id: this.state.maxId,
+      giphyId:'',
+      type: 'giphy',
       url: '',
       align: '',
       layout: 'normal'
@@ -582,6 +607,14 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
+  updateResource({type,currentIndex},event) {
+    switch (type) {
+      case 'giphy':
+        this.updateGiphy(currentIndex, event);
+        break;
+    }
+  }
+
   updateText(currentIndex, value) {
     let field = this.getField(currentIndex);
     field.altered.text = value;
@@ -599,6 +632,17 @@ class Editor extends React.Component{
   updateVideo(currentIndex, event) {
     let field = this.getField(currentIndex);
     field.altered.url = event.target.value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
+  updateGiphy(currentIndex, event) {
+    let field = this.getField(currentIndex);
+    let url = event.target.value;
+    let giphyId = url.split('-').splice(-1)[0];
+    url = url.replace(/^https?/, '');
+    field.altered.url = url;
+    field.altered.giphyId = giphyId;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -807,6 +851,7 @@ class Editor extends React.Component{
           }
           break;
         case 'video':
+        case 'giphy':
           if(field.url != '') {
             isEmpty = false;
           }
@@ -987,9 +1032,11 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
+              updateResource={this.updateResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}
+              addResource={this.addResource.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
