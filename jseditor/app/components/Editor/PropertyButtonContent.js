@@ -36,6 +36,7 @@ class PropertyButtonContent extends React.Component {
 
     switch (this.props.data.type) {
       case 'giphy':
+      case 'chart':
         textColour='';
         break;
       default:

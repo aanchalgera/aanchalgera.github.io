@@ -4,6 +4,7 @@ import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
 import Giphy from './Giphy';
+import Chart from './Chart';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -15,6 +16,7 @@ class Content extends React.Component{
       case 'gallery':
       case 'slider':
       case 'giphy':
+      case 'chart':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -36,6 +38,7 @@ class Content extends React.Component{
       case 'slider':
       case 'summary':
       case 'giphy':
+      case 'chart':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }

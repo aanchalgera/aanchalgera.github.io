@@ -176,6 +176,9 @@ class Editor extends React.Component{
       case 'giphy':
         this.addGiphy(currentIndex);
         break;
+      case 'chart':
+        this.addChart(currentIndex);
+        break;
     }
   }
 
@@ -339,6 +342,23 @@ class Editor extends React.Component{
       type: 'giphy',
       url: '',
       description: '',
+      layout: 'normal'
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
+  addChart(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex, 0, {
+      id: this.state.maxId,
+      chartId:'',
+      type: 'chart',
+      url: '',
+      align: '',
       layout: 'normal'
     });
     this.setState({
@@ -612,6 +632,9 @@ class Editor extends React.Component{
       case 'giphy':
         this.updateGiphy(currentIndex, event);
         break;
+      case 'chart':
+        this.updateChart(currentIndex, event);
+        break;
     }
   }
 
@@ -643,6 +666,16 @@ class Editor extends React.Component{
     url = url.replace(/^https?:/, '');
     field.altered.url = url;
     field.altered.giphyId = giphyId;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
+  updateChart(currentIndex, event) {
+    let field = this.getField(currentIndex);
+    let url = event.target.value;
+    let chartId = url.match(/\/\/infogr\.am\/.*?([^\/]+)$/)[1];
+    field.altered.url = url;
+    field.altered.chartId = chartId;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -853,6 +886,7 @@ class Editor extends React.Component{
           break;
         case 'video':
         case 'giphy':
+        case 'chart':
           if(field.url != '') {
             isEmpty = false;
           }
