@@ -10,8 +10,6 @@ class Config extends Component {
     this.state = {
       siteName: '',
       siteUrl: '',
-      cloudinaryUrl: '',
-      cdnUrl: '',
       errors: ''
     };
   }
@@ -30,9 +28,7 @@ class Config extends Component {
             this.setState({
               id : data.id,
               siteName: data.site_name,
-              siteUrl: data.site_url,
-              cloudinaryUrl: data.cloudinary_url,
-              cdnUrl: data.cdn_url
+              siteUrl: data.site_url
             });
           }
         }
@@ -52,15 +48,6 @@ class Config extends Component {
   handleSiteUrlChange(event) {
     this.setState({siteUrl: event.target.value});
   }
-
-  handleCloudinaryChange(event) {
-    this.setState({cloudinaryUrl: event.target.value});
-  }
-
-  handleCdnUrlChange(event) {
-    this.setState({cdnUrl: event.target.value});
-  }
-
 
   render() {
     var errorField = '';
@@ -82,8 +69,6 @@ class Config extends Component {
           <div className="col-xs-12 col-md-8 col-md-offset-2 well">
             <div className="form-group">Site Name: <input className="form-control" ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} /></div>
             <div className="form-group">Site Url: <input className="form-control" ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} /></div>
-            <div className="form-group">Cloudinary Url: <input className="form-control" ref="cloudinary_url" type="text" value={this.state.cloudinaryUrl} onChange={this.handleCloudinaryChange.bind(this)} /></div>
-            <div className="form-group">Cdn Url: <input className="form-control" ref="cdn_url" type="text" value={this.state.cdnUrl} onChange={this.handleCdnUrlChange.bind(this)} /></div>
             <button onClick={this.checkDuplicateSiteName.bind(this)} className="btn btn-primary">Save</button>
           </div>
         </div>
