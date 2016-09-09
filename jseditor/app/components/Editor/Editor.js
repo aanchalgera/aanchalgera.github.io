@@ -640,7 +640,7 @@ class Editor extends React.Component{
     let field = this.getField(currentIndex);
     let url = event.target.value;
     let giphyId = url.split('-').splice(-1)[0];
-    url = url.replace(/^https?/, '');
+    url = url.replace(/^https?:/, '');
     field.altered.url = url;
     field.altered.giphyId = giphyId;
     this.state.fields.splice(field.indexes[0], 0, field.original);

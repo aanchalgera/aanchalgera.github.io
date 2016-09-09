@@ -2,6 +2,13 @@ import React from 'react';
 import ImageCaption from './ImageCaption';
 
 export default class Giphy extends React.Component {
+  componentDidMount() {
+    const field = this.refs.field;
+    if (field) {
+      field.focus();
+    }
+  }
+
   render () {
     let giphy='';
     var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
