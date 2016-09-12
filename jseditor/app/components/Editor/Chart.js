@@ -3,12 +3,6 @@ import ImageCaption from './ImageCaption';
 import ChartScript from './ChartScript';
 
 export default class Chart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.updateResource = this.props.updateResource.bind(this);
-    this.addImageCaption = this.props.addImageCaption.bind(this);
-  }
-
   componentDidMount() {
     const field = this.refs.field;
     if (field) {
@@ -28,7 +22,7 @@ export default class Chart extends React.Component {
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={this.updateResource(this, {type: 'infogram', currentIndex: this.props.dataId})}
+          onBlur={this.props.updateResource.bind(this, {type: 'infogram', currentIndex: this.props.dataId})}
           placeholder="https://infogr.am/be7b47aa-3d58-44da-a246-c015889c0459">
         </input>
       );
@@ -47,7 +41,7 @@ export default class Chart extends React.Component {
           {chart}
           <ImageCaption
             type={this.props.data.type}
-            addImageCaption={this.addImageCaption()}
+            addImageCaption={this.props.addImageCaption}
             fieldId={this.props.dataId}
             imageCaption={imageCaption}
           />
