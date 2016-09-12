@@ -110,7 +110,7 @@ class Content extends React.Component{
       field = <Giphy
         data={this.props.data}
         dataId={this.props.dataId}
-        addImageCaption={this.props.addImageCaption.bind(this)}
+        addImageCaption={this.props.addImageCaption}
         updateResource={this.props.updateResource.bind(this)}
       />;
     } else if('richContent' == this.props.data.type) {
