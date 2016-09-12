@@ -43,7 +43,7 @@ export default class Giphy extends React.Component {
           {giphy}
           <ImageCaption
             type={this.props.data.type}
-            addImageCaption={this.props.addImageCaption.bind(this)}
+            addImageCaption={this.props.addImageCaption}
             fieldId={this.props.dataId}
             imageCaption={imageCaption}
           />

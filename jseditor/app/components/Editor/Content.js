@@ -107,7 +107,12 @@ class Content extends React.Component{
         field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
       }
     } else if('giphy' == this.props.data.type) {
-      field = <Giphy {...this.props} />;
+      field = <Giphy
+        data={this.props.data}
+        dataId={this.props.dataId}
+        addImageCaption={this.props.addImageCaption}
+        updateResource={this.props.updateResource.bind(this)}
+      />;
     } else if('richContent' == this.props.data.type) {
       field = (
         <div>
