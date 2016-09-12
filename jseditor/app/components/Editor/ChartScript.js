@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Chart extends React.Component {
+export default class ChartScript extends React.Component {
   infogram(e=document, t='script', n="infogram-async", s="//e.infogr.am/js/dist/embed-loader-min.js") {
     var i = "InfogramEmbeds",
       o = e.getElementsByTagName(t),
