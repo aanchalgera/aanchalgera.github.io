@@ -338,7 +338,7 @@ class Editor extends React.Component{
       giphyId:'',
       type: 'giphy',
       url: '',
-      align: '',
+      description: '',
       layout: 'normal'
     });
     this.setState({

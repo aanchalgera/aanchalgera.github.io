@@ -2,6 +2,11 @@ import React from 'react';
 import ImageCaption from './ImageCaption';
 
 export default class Giphy extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateResource = this.props.updateResource.bind(this);
+  }
+
   componentDidMount() {
     const field = this.refs.field;
     if (field) {
@@ -20,7 +25,7 @@ export default class Giphy extends React.Component {
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={this.props.updateResource.bind(this, {type: 'giphy', currentIndex: this.props.dataId})}
+          onBlur={this.updateResource({type: 'giphy', currentIndex: this.props.dataId})}
           placeholder="http://giphy.com/gifs/blackgirlmagic-3o72Fdwj7RQ4654q0E">
         </input>
       );
