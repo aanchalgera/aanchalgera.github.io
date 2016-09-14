@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageCaption from './ImageCaption';
-import ChartScript from './ChartScript';
+import Infogram from './Infogram';
+import Datawrapper from './Datawrapper';
 
 export default class Chart extends React.Component {
   componentDidMount() {
@@ -15,20 +16,24 @@ export default class Chart extends React.Component {
     var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
 
     if('' == this.props.data.url) {
-
       chart = (
         <input
           type="text"
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={this.props.updateResource.bind(this, {type: 'infogram', currentIndex: this.props.dataId})}
+          onBlur={() => this.props.updateResource({type: 'graph', currentIndex: this.props.dataId})}
           placeholder="https://infogr.am/be7b47aa-3d58-44da-a246-c015889c0459">
         </input>
       );
-    } else {
-      chart = <ChartScript
-        infogramId = {this.props.data.infogramId}
+    } else if(this.props.data.type == 'infogram') {
+      chart = <Infogram
+        graphId = {this.props.data.graphId}
+      />;
+    } else if (this.props.data.type == 'datawrapper') {
+      chart = <Datawrapper
+        graphId = {this.props.data.graphId}
+        url = {this.props.data.url}
       />;
     }
 

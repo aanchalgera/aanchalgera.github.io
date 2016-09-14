@@ -176,8 +176,8 @@ class Editor extends React.Component{
       case 'giphy':
         this.addGiphy(currentIndex);
         break;
-      case 'infogram':
-        this.addChart(currentIndex);
+      case 'graph':
+        this.addGraph(currentIndex);
         break;
     }
   }
@@ -350,17 +350,18 @@ class Editor extends React.Component{
     }, this.saveData());
   }
 
-  addChart(currentIndex) {
+  addGraph(currentIndex) {
     this.state.maxId++;
     this.state.fields.splice(
-    currentIndex, 0, {
-      id: this.state.maxId,
-      chartId:'',
-      type: 'infogram',
-      url: '',
-      layout: 'normal',
-      description: ''
-    });
+      currentIndex, 0, {
+        id: this.state.maxId,
+        graphId: '',
+        type:'infogram',
+        url: '',
+        layout: 'normal',
+        description: ''
+      }
+    );
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
@@ -632,8 +633,8 @@ class Editor extends React.Component{
       case 'giphy':
         this.updateGiphy(currentIndex, event);
         break;
-      case 'infogram':
-        this.updateChart(currentIndex, event);
+      case 'graph':
+        this.updateGraph(currentIndex, event);
         break;
     }
   }
@@ -670,18 +671,32 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateChart(currentIndex, event) {
-    let field = this.getField(currentIndex);
-    let url = event.target.value;
+  updateGraph(currentIndex, event) {
+    let url = event.target.value.trim();
     if ('' != url) {
-      url = url.match(/\/\/infogr\.am\/.*?([^\/]+)$/)[0];
-      let chartId = url.match(/\/\/infogr\.am\/.*?([^\/]+)$/)[1];
-      field.altered.url = url;
-      field.altered.chartId = chartId;
-      field.altered.infogramId = chartId;
+      let field = this.getField(currentIndex);
+      const attributes = this.getGraphAttributes(url);
+      Object.assign(field.altered, attributes);
+      this.state.fields.splice(field.indexes[0], 0, field.original);
+      this.setState({ fields: this.state.fields }, this.saveData());
     }
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
+  getGraphAttributes(url) {
+    let matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
+    if (matches) {
+      if(matches[1] == '//') {
+        url = matches[0];
+      } else {
+        url = '//' + matches[0];
+      }
+      return {
+        url: url,
+        graphId: matches[3],
+        type: matches[2].replace(".", "")
+      };
+    }
+    return {};
   }
 
   addLayoutToResource(event) {

@@ -15,8 +15,8 @@ class MoreOptions extends React.Component {
           <button type="button" className="btn glyphicon glyphicon-camera" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'gallery', false)} title="Add Gallery" ></button>
           <button type="button" className="btn glyphicon glyphicon-console" onClick={this.props.addTextArea.bind(this,this.props.dataId,'richContent')} title="Add rich content snippet"></button>
           <button type="button" className="btn glyphicon glyphicon-tasks" onClick={this.props.openResourcePanel.bind(this,'image', this.props.dataId, 'slider', false)} title="Add Slider" ></button>
-          <button type="button" className="btn" onClick={this.props.addResource.bind(this, {type: 'giphy', currentIndex: this.props.dataId})} title="Add Giphy content">GIF</button>
-          <button type="button" className="btn glyphicon glyphicon-stats"onClick={this.props.addResource.bind(this, {type: 'infogram', currentIndex: this.props.dataId})} title="Add Infogram content"></button>
+          <button type="button" className="btn" onClick={() => this.props.addResource({type: 'giphy', currentIndex: this.props.dataId})} title="Add Giphy content">GIF</button>
+          <button type="button" className="btn glyphicon glyphicon-stats" onClick={() => this.props.addResource({type: 'graph', currentIndex: this.props.dataId})} title="Add Infogram/Datawrapper content"></button>
           {this.props.show2column ? twoColumnButton: ''}
           {this.props.show3column ? threeColumnButton: ''}
         </span>
