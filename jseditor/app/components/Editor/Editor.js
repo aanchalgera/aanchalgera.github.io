@@ -176,6 +176,9 @@ class Editor extends React.Component{
       case 'giphy':
         this.addGiphy(currentIndex);
         break;
+      case 'graph':
+        this.addGraph(currentIndex);
+        break;
     }
   }
 
@@ -341,6 +344,24 @@ class Editor extends React.Component{
       description: '',
       layout: 'normal'
     });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
+  addGraph(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+      currentIndex, 0, {
+        id: this.state.maxId,
+        graphId: '',
+        type:'infogram',
+        url: '',
+        layout: 'normal',
+        description: ''
+      }
+    );
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
@@ -607,10 +628,13 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateResource({type,currentIndex},event) {
+  updateResource({type, currentIndex}, event) {
     switch (type) {
       case 'giphy':
         this.updateGiphy(currentIndex, event);
+        break;
+      case 'graph':
+        this.updateGraph(currentIndex, event);
         break;
     }
   }
@@ -645,6 +669,34 @@ class Editor extends React.Component{
     field.altered.giphyId = giphyId;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
+  updateGraph(currentIndex, event) {
+    let url = event.target.value.trim();
+    if ('' != url) {
+      let field = this.getField(currentIndex);
+      const attributes = this.getGraphAttributes(url);
+      Object.assign(field.altered, attributes);
+      this.state.fields.splice(field.indexes[0], 0, field.original);
+      this.setState({ fields: this.state.fields }, this.saveData());
+    }
+  }
+
+  getGraphAttributes(url) {
+    let matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
+    if (matches) {
+      if(matches[1] == '//') {
+        url = matches[0];
+      } else {
+        url = '//' + matches[0];
+      }
+      return {
+        url: url,
+        graphId: matches[3],
+        type: matches[2].replace('.', '')
+      };
+    }
+    return {};
   }
 
   addLayoutToResource(event) {
@@ -853,6 +905,7 @@ class Editor extends React.Component{
           break;
         case 'video':
         case 'giphy':
+        case 'infogram':
           if(field.url != '') {
             isEmpty = false;
           }

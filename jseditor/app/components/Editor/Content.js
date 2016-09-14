@@ -4,6 +4,7 @@ import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
 import Giphy from './Giphy';
+import Chart from './Chart';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -15,6 +16,8 @@ class Content extends React.Component{
       case 'gallery':
       case 'slider':
       case 'giphy':
+      case 'infogram':
+      case 'datawrapper':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -36,6 +39,8 @@ class Content extends React.Component{
       case 'slider':
       case 'summary':
       case 'giphy':
+      case 'infogram':
+      case 'datawrapper':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -111,6 +116,14 @@ class Content extends React.Component{
         data={this.props.data}
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption}
+        updateResource={this.props.updateResource.bind(this)}
+      />;
+    } else if ('infogram' == this.props.data.type || 'datawrapper' == this.props.data.type){
+      field = <Chart
+        data={this.props.data}
+        ref="field"
+        dataId={this.props.dataId}
+        addImageCaption={this.props.addImageCaption.bind(this)}
         updateResource={this.props.updateResource.bind(this)}
       />;
     } else if('richContent' == this.props.data.type) {
