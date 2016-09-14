@@ -17,7 +17,7 @@ export default class Chart extends React.Component {
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={() => this.props.updateResource({type: 'graph', currentIndex: this.props.dataId})}
+          onBlur={this.props.updateResource.bind(this, {type: 'graph', currentIndex: this.props.dataId})}
           placeholder="https://infogr.am/be7b47aa-3d58-44da-a246-c015889c0459">
         </input>
       );
