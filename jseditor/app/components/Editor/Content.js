@@ -119,6 +119,7 @@ class Content extends React.Component{
     } else if ('infogram' == this.props.data.type || 'datawrapper' == this.props.data.type){
       field = <Chart
         data={this.props.data}
+        ref="field"
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption.bind(this)}
         updateResource={this.props.updateResource.bind(this)}
