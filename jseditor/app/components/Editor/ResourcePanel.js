@@ -96,7 +96,6 @@ class ResourcePanel extends React.Component {
             </div>
             <div className="modal-footer">
               <button
-                id={this.props.uploaderId}
                 type="button"
                 className="btn btn-primary"
                 disabled={!this.props.slug}
