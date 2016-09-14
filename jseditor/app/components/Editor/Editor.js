@@ -693,7 +693,7 @@ class Editor extends React.Component{
       return {
         url: url,
         graphId: matches[3],
-        type: matches[2].replace(".", "")
+        type: matches[2].replace('.', '')
       };
     }
     return {};

@@ -1,7 +1,6 @@
 import React from 'react';
 import ImageCaption from './ImageCaption';
 import Infogram from './Infogram';
-import Datawrapper from './Datawrapper';
 
 export default class Chart extends React.Component {
   focus() {
@@ -26,10 +25,12 @@ export default class Chart extends React.Component {
         graphId = {this.props.data.graphId}
       />;
     } else if (this.props.data.type == 'datawrapper') {
-      chart = <Datawrapper
-        graphId = {this.props.data.graphId}
-        url = {this.props.data.url}
-      />;
+      chart = (
+        <img
+          data-id={this.props.dataId}
+          src={'http://s3.eu-central-1.amazonaws.com/datawrapper-charts/static/'+this.props.data.graphId+'/m.png'}
+        />
+      );
     }
 
     return (
