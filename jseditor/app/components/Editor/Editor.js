@@ -793,7 +793,7 @@ class Editor extends React.Component{
     let backendData = {
       postform: {
         categoryId: '-1',
-        userId: this.state.userId,
+        user_id: this.state.userId,
         post_title: this.state.value,
         comment_status: 'open',
         post_type: 'normal',
