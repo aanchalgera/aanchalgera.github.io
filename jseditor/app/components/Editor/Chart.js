@@ -4,7 +4,7 @@ import Infogram from './Infogram';
 import Datawrapper from './Datawrapper';
 
 export default class Chart extends React.Component {
-  focus() {
+  componentDidMount() {
     this.refs.field.focus();
   }
 

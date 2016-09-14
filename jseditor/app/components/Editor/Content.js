@@ -17,6 +17,7 @@ class Content extends React.Component{
       case 'slider':
       case 'giphy':
       case 'infogram':
+      case 'datawrapper':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -39,6 +40,7 @@ class Content extends React.Component{
       case 'summary':
       case 'giphy':
       case 'infogram':
+      case 'datawrapper':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
