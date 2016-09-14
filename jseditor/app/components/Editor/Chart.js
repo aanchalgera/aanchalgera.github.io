@@ -4,17 +4,12 @@ import Infogram from './Infogram';
 import Datawrapper from './Datawrapper';
 
 export default class Chart extends React.Component {
-  componentDidMount() {
-    const field = this.refs.field;
-    if (field) {
-      field.focus();
-    }
+  focus() {
+    this.refs.field.focus();
   }
 
   render () {
     let chart='';
-    var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
-
     if('' == this.props.data.url) {
       chart = (
         <input
@@ -48,7 +43,7 @@ export default class Chart extends React.Component {
             type={this.props.data.type}
             addImageCaption={this.props.addImageCaption}
             fieldId={this.props.dataId}
-            imageCaption={imageCaption}
+            imageCaption={this.props.data.description}
           />
         </div>
       </div>
