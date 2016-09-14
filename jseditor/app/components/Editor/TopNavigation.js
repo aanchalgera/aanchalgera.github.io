@@ -7,9 +7,9 @@ export default function TopNavigation(props) {
   let updateButton;
   if (props.status == 'publish' && moment(props.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
     updateButton = (
-      <button className="btn btn-primary btn-nav" disabled={props.buttonDisabled} onClick={props.updateOnBackend}>
-        <span className= "glyphicon glyphicon-refresh"></span>Update
-      </button>
+      <Link className= "glyphicon glyphicon-refresh" to="" disabled={props.buttonDisabled} onClick={props.updateOnBackend}>
+        <span>Update</span>
+      </Link>
     );
   } else if (props.isSynced) {
     updateButton = (
