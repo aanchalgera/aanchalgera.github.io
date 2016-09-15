@@ -85,21 +85,11 @@ class Config extends Component {
       this.setState({errors: 'Site Url can not be empty'});
       return false;
     }
-    if ('' === this.refs.cloudinary_url.value.trim()) {
-      this.setState({errors: 'Cloudinary Url can not be empty'});
-      return false;
-    }
-    if ('' === this.refs.cdn_url.value.trim()) {
-      this.setState({errors: 'Cdn Url can not be empty'});
-      return false;
-    }
     this.setState({errors: ''});
     var data = {
       id: this.state.id,
       site_name: this.refs.site_name.value,
       site_url: this.refs.site_url.value,
-      cloudinary_url: this.refs.cloudinary_url.value,
-      cdn_url: this.refs.cdn_url.value
     };
 
     this.props.base.post(
