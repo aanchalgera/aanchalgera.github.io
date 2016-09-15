@@ -5,14 +5,9 @@ import Infogram from './Infogram';
 export default class Chart extends React.Component {
   focus() {
     this.refs.field.focus();
+  }
 
-  componentDidMount() {
-    const field = this.refs.field;
-    if (field) {
-      field.focus();
-    }
-
-  render () {
+  render() {
     let chart='';
     if('' == this.props.data.url) {
       chart = (
@@ -21,7 +16,7 @@ export default class Chart extends React.Component {
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={() => this.props.updateResource({type: 'graph', currentIndex: this.props.dataId})}
+          onBlur={this.props.updateResource.bind(this, {type: 'graph', currentIndex: this.props.dataId})}
           placeholder="https://infogr.am/be7b47aa-3d58-44da-a246-c015889c0459">
         </input>
       );
@@ -33,7 +28,7 @@ export default class Chart extends React.Component {
       chart = (
         <img
           data-id={this.props.dataId}
-          src={'http://s3.eu-central-1.amazonaws.com/datawrapper-charts/static/'+this.props.data.graphId+'/m.png'}
+          src={'http://s3.eu-central-1.amazonaws.com/datawrapper-charts/static/'+this.props.data.datawrapperId+'/m.png'}
         />
       );
     }

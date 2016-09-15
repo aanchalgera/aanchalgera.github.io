@@ -171,7 +171,7 @@ class Editor extends React.Component{
     return { indexes, original, altered };
   }
 
-  getAttributes(url) {
+  getAttributes(url, type) {
     let matches;
     if(type == 'giphy') {
       matches = url.match(/(\/\/)?giphy\.com.+?([^\/\-]+)$/i);
