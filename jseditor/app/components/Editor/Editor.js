@@ -194,19 +194,13 @@ class Editor extends React.Component{
         } else {
           url = '//' + matches[0];
         }
-        if(matches[2] == 'datawrapper') {
-          return {
-            url: url,
-            datawrapperId: matches[3],
-            type: matches[2]
-          };
-        } else {
-          return {
-            url: url,
-            infogramId: matches[3],
-            type: matches[2].replace('.', '')
-          };
-        }
+        let type = matches[2].replace('.', '');
+        let attributes = {
+          url: url,
+          type: type
+        };
+        attributes[type+'Id'] = matches[3];
+        return attributes;
       }
     }
     return {};
