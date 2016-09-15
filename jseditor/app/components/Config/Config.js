@@ -89,7 +89,7 @@ class Config extends Component {
     var data = {
       id: this.state.id,
       site_name: this.refs.site_name.value,
-      site_url: this.refs.site_url.value,
+      site_url: this.refs.site_url.value
     };
 
     this.props.base.post(
