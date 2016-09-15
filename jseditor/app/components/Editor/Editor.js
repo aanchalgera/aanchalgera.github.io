@@ -171,6 +171,47 @@ class Editor extends React.Component{
     return { indexes, original, altered };
   }
 
+  getAttributes(url) {
+    let matches;
+    if(type == 'giphy') {
+      matches = url.match(/(\/\/)?giphy\.com.+?([^\/\-]+)$/i);
+      if(matches) {
+        if(matches[1] == '//') {
+          url = matches[0];
+        } else {
+          url = '//' + matches[0];
+        }
+        return {
+          url: url,
+          giphyId: matches[2]
+        };
+      }
+    } else if(type == 'graph') {
+      matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
+      if (matches) {
+        if(matches[1] == '//') {
+          url = matches[0];
+        } else {
+          url = '//' + matches[0];
+        }
+        if(matches[2] == 'datawrapper') {
+          return {
+            url: url,
+            datawrapperId: matches[3],
+            type: matches[2]
+          };
+        } else {
+          return {
+            url: url,
+            infogramId: matches[3],
+            type: matches[2].replace('.', '')
+          };
+        }
+      }
+    }
+    return {};
+  }
+
   addResource({type,currentIndex}) {
     switch (type) {
       case 'giphy':
@@ -355,7 +396,6 @@ class Editor extends React.Component{
     this.state.fields.splice(
       currentIndex, 0, {
         id: this.state.maxId,
-        graphId: '',
         type:'infogram',
         url: '',
         layout: 'normal',
@@ -629,13 +669,13 @@ class Editor extends React.Component{
   }
 
   updateResource({type, currentIndex}, event) {
-    switch (type) {
-      case 'giphy':
-        this.updateGiphy(currentIndex, event);
-        break;
-      case 'graph':
-        this.updateGraph(currentIndex, event);
-        break;
+    let url = event.target.value.trim();
+    if ('' != url) {
+      let field = this.getField(currentIndex);
+      const attributes = this.getAttributes(url, type);
+      Object.assign(field.altered, attributes);
+      this.state.fields.splice(field.indexes[0], 0, field.original);
+      this.setState({ fields: this.state.fields }, this.saveData());
     }
   }
 
@@ -658,45 +698,6 @@ class Editor extends React.Component{
     field.altered.url = event.target.value;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
-  }
-
-  updateGiphy(currentIndex, event) {
-    let field = this.getField(currentIndex);
-    let url = event.target.value;
-    let giphyId = url.split('-').splice(-1)[0];
-    url = url.replace(/^https?:/, '');
-    field.altered.url = url;
-    field.altered.giphyId = giphyId;
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields }, this.saveData());
-  }
-
-  updateGraph(currentIndex, event) {
-    let url = event.target.value.trim();
-    if ('' != url) {
-      let field = this.getField(currentIndex);
-      const attributes = this.getGraphAttributes(url);
-      Object.assign(field.altered, attributes);
-      this.state.fields.splice(field.indexes[0], 0, field.original);
-      this.setState({ fields: this.state.fields }, this.saveData());
-    }
-  }
-
-  getGraphAttributes(url) {
-    let matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
-    if (matches) {
-      if(matches[1] == '//') {
-        url = matches[0];
-      } else {
-        url = '//' + matches[0];
-      }
-      return {
-        url: url,
-        graphId: matches[3],
-        type: matches[2].replace('.', '')
-      };
-    }
-    return {};
   }
 
   addLayoutToResource(event) {

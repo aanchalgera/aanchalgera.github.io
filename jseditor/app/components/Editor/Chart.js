@@ -27,7 +27,7 @@ export default class Chart extends React.Component {
       );
     } else if(this.props.data.type == 'infogram') {
       chart = <Infogram
-        graphId = {this.props.data.graphId}
+        infogramId = {this.props.data.infogramId}
       />;
     } else if (this.props.data.type == 'datawrapper') {
       chart = (
