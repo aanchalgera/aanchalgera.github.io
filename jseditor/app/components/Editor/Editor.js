@@ -174,34 +174,23 @@ class Editor extends React.Component{
   getAttributes(url, type) {
     let matches;
     if(type == 'giphy') {
-      matches = url.match(/(\/\/)?giphy\.com.+?([^\/\-]+)$/i);
-      if(matches) {
-        if(matches[1] == '//') {
-          url = matches[0];
-        } else {
-          url = '//' + matches[0];
-        }
-        return {
-          url: url,
-          giphyId: matches[2]
-        };
-      }
+      matches = url.match(/(\/\/)?(giphy)\.com.+?([^\/\-]+)$/i);
     } else if(type == 'graph') {
       matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
-      if (matches) {
-        if(matches[1] == '//') {
-          url = matches[0];
-        } else {
-          url = '//' + matches[0];
-        }
-        let type = matches[2].replace('.', '');
-        let attributes = {
-          url: url,
-          type: type
-        };
-        attributes[type+'Id'] = matches[3];
-        return attributes;
+    }
+    if(matches) {
+      if(matches[1] == '//') {
+        url = matches[0];
+      } else {
+        url = '//' + matches[0];
       }
+      let type = matches[2].replace('.', '');
+      let attributes = {
+        url: url,
+        type: type
+      };
+      attributes[type+'Id'] = matches[3];
+      return attributes;
     }
     return {};
   }
