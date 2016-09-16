@@ -7,7 +7,7 @@ export default class Chart extends React.Component {
     this.refs.field.focus();
   }
 
-  render () {
+  render() {
     let chart='';
     if('' == this.props.data.url) {
       chart = (
@@ -22,13 +22,13 @@ export default class Chart extends React.Component {
       );
     } else if(this.props.data.type == 'infogram') {
       chart = <Infogram
-        graphId = {this.props.data.graphId}
+        infogramId = {this.props.data.infogramId}
       />;
     } else if (this.props.data.type == 'datawrapper') {
       chart = (
         <img
           data-id={this.props.dataId}
-          src={'http://s3.eu-central-1.amazonaws.com/datawrapper-charts/static/'+this.props.data.graphId+'/m.png'}
+          src={'http://s3.eu-central-1.amazonaws.com/datawrapper-charts/static/'+this.props.data.datawrapperId+'/m.png'}
         />
       );
     }
