@@ -196,14 +196,25 @@ class Editor extends React.Component{
   }
 
   addResource({type,currentIndex}) {
-    switch (type) {
-      case 'giphy':
-        this.addGiphy(currentIndex);
-        break;
-      case 'graph':
-        this.addGraph(currentIndex);
-        break;
+    this.state.maxId++;
+    let attributes = {
+      id: this.state.maxId,
+      url: '',
+      description: '',
+      layout: 'normal'
+    };
+    if(type == 'giphy'){
+      attributes['type'] = 'giphy';
+    } else if (type == 'graph') {
+      attributes['type'] = 'infogram';
     }
+    this.state.fields.splice(
+      currentIndex, 0, attributes
+    );
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
   }
 
   addImage(image) {
@@ -351,40 +362,6 @@ class Editor extends React.Component{
       align: '',
       layout: 'normal'
     });
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    }, this.saveData());
-  }
-
-  addGiphy(currentIndex) {
-    this.state.maxId++;
-    this.state.fields.splice(
-    currentIndex, 0, {
-      id: this.state.maxId,
-      giphyId:'',
-      type: 'giphy',
-      url: '',
-      description: '',
-      layout: 'normal'
-    });
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    }, this.saveData());
-  }
-
-  addGraph(currentIndex) {
-    this.state.maxId++;
-    this.state.fields.splice(
-      currentIndex, 0, {
-        id: this.state.maxId,
-        type:'infogram',
-        url: '',
-        layout: 'normal',
-        description: ''
-      }
-    );
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
