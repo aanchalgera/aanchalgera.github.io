@@ -2,7 +2,7 @@ import React from 'react';
 import ImageCaption from './ImageCaption';
 
 export default class Giphy extends React.Component {
-  componentDidMount() {
+  focus() {
     const field = this.refs.field;
     if (field) {
       field.focus();

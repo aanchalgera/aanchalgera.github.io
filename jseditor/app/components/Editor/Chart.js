@@ -3,7 +3,7 @@ import ImageCaption from './ImageCaption';
 import Infogram from './Infogram';
 
 export default class Chart extends React.Component {
-  componentDidMount() {
+  focus() {
     const field = this.refs.field;
     if (field) {
       field.focus();
