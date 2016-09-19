@@ -265,7 +265,7 @@ class Editor extends React.Component{
       if (imageSet.length > 0) {
         for (let image of imageSet) {
           if (image.spid == imageId) {
-            image.description = caption;
+            image.description = caption.trim();
           }
         }
 
@@ -275,7 +275,7 @@ class Editor extends React.Component{
         }, this.saveData());
       }
     } else {
-      field.altered.description = caption;
+      field.altered.description = caption.trim();
       this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({
         fields: this.state.fields
