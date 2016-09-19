@@ -114,6 +114,7 @@ class Content extends React.Component{
     } else if('giphy' == this.props.data.type) {
       field = <Giphy
         data={this.props.data}
+        ref="field"
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption}
         updateResource={this.props.updateResource.bind(this)}

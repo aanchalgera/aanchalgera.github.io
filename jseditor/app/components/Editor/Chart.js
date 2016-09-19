@@ -4,7 +4,10 @@ import Infogram from './Infogram';
 
 export default class Chart extends React.Component {
   focus() {
-    this.refs.field.focus();
+    const field = this.refs.field;
+    if (field) {
+      field.focus();
+    }
   }
 
   render() {
