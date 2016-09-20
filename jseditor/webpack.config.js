@@ -7,7 +7,7 @@ var configs = {
     host: 'http://admin.weblogssl.com',
     blogUrl: 'http://www.xataka.com/',
     firebaseUrl: process.env.FIREBASE_URL || 'https://brilliant-heat-3614.firebaseio.com/',
-    cloudName: 'realarpit',
+    cloudName: 'weblogssl',
     uploadPreset: 'h2sbmprz',
     timezone: 'Europe/Madrid'
   },
