@@ -601,10 +601,18 @@ class Editor extends React.Component{
     this.state.maxId++;
     let objects = this.state.fields.splice(currentIndex, group);
     for (let object of objects) {
-      if (object.type == 'image' || object.type == 'video' || object.type == 'gallery' || object.type == 'slider') {
-        object.backgroundFade = '';
-        object.backgroundClass = '';
-        object.backgroundImage = '';
+      switch (object.type) {
+        case 'image':
+        case 'video':
+        case 'gallery':
+        case 'slider':
+        case 'giphy':
+        case 'infogram':
+        case 'datawrapper':
+          object.backgroundFade = '';
+          object.backgroundClass = '';
+          object.backgroundImage = '';
+          break;
       }
     }
 
