@@ -30,7 +30,7 @@ export default function TopNavigation(props) {
         <Link className="glyphicon glyphicon-move js-minimise" to="" onClick={props.toggleOrderMode}><span>Order Elements</span></Link>
         {props.isSynced ? <PreviewOnSite postId={props.id} blogUrl={props.blogUrl} /> : null}
         {updateButton}
-        <span className={'glyphicon glyphicon-signal status-' + (props.isConnected ? 'on' : 'off')}></span>
+        <span title={props.isConnected ? 'Connected' : 'No connection'} className={'glyphicon glyphicon-signal status-' + (props.isConnected ? 'on' : 'off')}></span>
       </div>
     </div>
 
