@@ -11,6 +11,7 @@ class PropertyButtonSizes extends React.Component{
 
   render () {
     let extraButtons = null;
+    let smallButton = null;
     if ('title' == this.props.dataType) {
       extraButtons = (
         <span>
@@ -25,11 +26,15 @@ class PropertyButtonSizes extends React.Component{
         </span>
       );
     }
+    if ('table' != this.props.dataType) {
+      smallButton = <p className="size-small"><button type='button' data-layout="small" onClick={this.handleClick.bind(this)} className={'btn btn-default selected ' + (this.props.layout == 'small' ? 'active' : '')}>Small</button></p>;
+
+    }
     return (
       <ul className="list-size">
         <h5>Size</h5>
         <li>
-          <p className="size-small"><button type='button' data-layout="small" onClick={this.handleClick.bind(this)} className={'btn btn-default selected ' + (this.props.layout == 'small' ? 'active' : '')}>Small</button></p>
+          {smallButton}
           <p className="size-normal"><button type='button' data-layout="normal" onClick={this.handleClick.bind(this)} className={'btn  btn-default selected ' + (this.props.layout == 'normal' ? 'active' : '')}>Normal</button></p>
           {extraButtons}
         </li>
