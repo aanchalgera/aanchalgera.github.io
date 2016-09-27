@@ -5,6 +5,7 @@ import Gallery from './Gallery';
 import Slider from './Slider';
 import Giphy from './Giphy';
 import Chart from './Chart';
+import Table from './Table';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -18,6 +19,7 @@ class Content extends React.Component{
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
+      case 'table':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -41,6 +43,7 @@ class Content extends React.Component{
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
+      case 'table':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -144,6 +147,12 @@ class Content extends React.Component{
           </div>
         </div>
       );
+    } else if ('table' == this.props.data.type) {
+      field = <Table
+        ref="field"
+        data={this.props.data}
+        dataId={this.props.dataId}
+      />;
     }
 
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';

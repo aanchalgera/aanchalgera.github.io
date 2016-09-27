@@ -2,6 +2,7 @@ import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonSizes from './PropertyButtonSizes';
+import PropertyButtonTable from './PropertyButtonTable';
 import AutoplaySliderButton from './AutoplaySliderButton';
 
 class PropertyButton extends React.Component {
@@ -24,6 +25,7 @@ class PropertyButton extends React.Component {
     var sizeProperties = '';
     var showPropertiesBox;
     var groupProperties = '';
+    var tableProperties = '';
     var autoPlaySliderButton = '';
     var deleteButton = '';
     if (this.state.box == 'open') {
@@ -67,6 +69,7 @@ class PropertyButton extends React.Component {
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
+      case 'table':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
@@ -103,6 +106,13 @@ class PropertyButton extends React.Component {
         </button>
       );
     }
+    if ('table' == this.props.data.type) {
+      tableProperties = (
+        <PropertyButtonTable
+        dataId={this.props.dataId}
+        />
+      );
+    }
     var propertyButton = (
       <ul className="nav-pills2 js-nav-properties">
         <li><button type="button" onClick={this.toggleBox.bind(this)} className={'btn btn-default glyphicon glyphicon-cog ' + selected}></button></li>
@@ -116,6 +126,7 @@ class PropertyButton extends React.Component {
           {autoPlaySliderButton}
           {groupProperties}
           {this.props.grouped == 'true' ? '' : sizeProperties}
+          {tableProperties}
           {this.props.grouped == 'true' ? '' : deleteButton}
         </span>
       </ul>

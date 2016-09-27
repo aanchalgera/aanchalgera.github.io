@@ -51,6 +51,7 @@ class ContentList extends React.Component{
             addTextArea={this.props.addTextArea}
             addVideo={this.props.addVideo}
             addResource={this.props.addResource}
+            addTable={this.props.addTable}
             dataId={fieldsHtml.length}
             key={fieldsHtml.length}
             groupSections={this.props.groupSections}
