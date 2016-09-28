@@ -248,10 +248,6 @@ class Editor extends React.Component{
         alt: image.alt || '',
         name: image.original_filename
       };
-    } else if (this.state.imageFunction == 'edit') {
-      let field = this.getField(currentIndex);
-      field.altered.url = image.url;
-      this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
     this.setState({
@@ -346,7 +342,11 @@ class Editor extends React.Component{
     let imageIndex = resourcePanelOpenedBy.imageIndex;
 
     let field = this.getField(currentIndex);
-    field.altered.images.splice(imageIndex, 1, ...images);
+    if (imageIndex) {
+      field.altered.images.splice(imageIndex, 1, ...images);
+    } else {
+      field.altered.url = images.url;
+    }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
     this.setState({
@@ -354,6 +354,7 @@ class Editor extends React.Component{
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   addVideo(currentIndex) {
@@ -679,9 +680,13 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateVideo(currentIndex, event) {
+  updateVideo(videoFunction, currentIndex, event) {
     let field = this.getField(currentIndex);
-    field.altered.url = event.target.value;
+    if(videoFunction == 'edit') {
+      field.altered.url = '';
+    } else {
+      field.altered.url = event.target.value;
+    }
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }

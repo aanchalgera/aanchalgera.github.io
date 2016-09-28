@@ -78,6 +78,7 @@ class ResourcePanel extends React.Component {
           data={data}
           addImage={this.props.addImage}
           addImageModule={this.props.addImageModule}
+          editImages={this.props.editImages}
         />
       );
     });
