@@ -248,6 +248,10 @@ class Editor extends React.Component{
         alt: image.alt || '',
         name: image.original_filename
       };
+    } else if (this.state.imageFunction == 'edit') {
+      let field = this.getField(currentIndex);
+      field.altered.url = image.url;
+      this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
     this.setState({

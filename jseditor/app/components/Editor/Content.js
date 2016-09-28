@@ -1,5 +1,6 @@
 import React from 'react';
 import PropertyButton from './PropertyButton';
+import EditButton from './EditButton';
 import Image from './Image';
 import Gallery from './Gallery';
 import Slider from './Slider';
@@ -51,6 +52,7 @@ class Content extends React.Component{
 
   render () {
     var field;
+    let editButton='';
     if('content' == this.props.data.type) {
       field = (
         <DraftJSEditor
@@ -155,6 +157,17 @@ class Content extends React.Component{
       />;
     }
 
+    switch (this.props.data.type) {
+      case 'image':
+      case 'video':
+        editButton = <EditButton
+          data={this.props.data}
+          dataId={this.props.dataId}
+          openResourcePanel={this.props.openResourcePanel.bind(this)}
+        />;
+        break;
+    }
+
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     var backgroundClass = this.props.data.backgroundClass ? this.props.data.backgroundClass : '';
     let foregroundColorClass = '';
@@ -173,6 +186,7 @@ class Content extends React.Component{
            <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
            {field}
          </div></div>
+         {editButton}
          <PropertyButton
            align={this.props.data.align}
            layout={this.props.data.layout}
