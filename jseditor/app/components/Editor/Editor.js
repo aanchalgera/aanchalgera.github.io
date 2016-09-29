@@ -342,7 +342,11 @@ class Editor extends React.Component{
     let imageIndex = resourcePanelOpenedBy.imageIndex;
 
     let field = this.getField(currentIndex);
-    field.altered.images.splice(imageIndex, 1, ...images);
+    if (imageIndex) {
+      field.altered.images.splice(imageIndex, 1, ...images);
+    } else {
+      field.altered.url = images.url;
+    }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
     this.setState({
@@ -350,6 +354,7 @@ class Editor extends React.Component{
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
+    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   addVideo(currentIndex) {
@@ -659,6 +664,13 @@ class Editor extends React.Component{
       this.state.fields.splice(field.indexes[0], 0, field.original);
       this.setState({ fields: this.state.fields }, this.saveData());
     }
+  }
+
+  editResource(currentIndex) {
+    let field = this.getField(currentIndex);
+    field.altered.url = '';
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   updateText(currentIndex, value) {
@@ -1049,6 +1061,7 @@ class Editor extends React.Component{
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
               updateResource={this.updateResource.bind(this)}
+              editResource={this.editResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}

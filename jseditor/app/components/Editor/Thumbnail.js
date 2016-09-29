@@ -5,6 +5,8 @@ export default class Thumbnail extends React.Component {
     if ('' == this.props.addImageModule) {
       this.props.addImage(data);
       return;
+    } else if ('image' == this.props.addImageModule) {
+      this.props.editImages(data);
     }
     e.currentTarget.className = e.currentTarget.className == 'active' ? '' : 'active';
   }
