@@ -666,6 +666,13 @@ class Editor extends React.Component{
     }
   }
 
+  editResource(currentIndex) {
+    let field = this.getField(currentIndex);
+    field.altered.url = '';
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
   updateText(currentIndex, value) {
     let field = this.getField(currentIndex);
     field.altered.text = value;
@@ -680,13 +687,9 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateVideo(videoFunction, currentIndex, event) {
+  updateVideo(currentIndex, event) {
     let field = this.getField(currentIndex);
-    if(videoFunction == 'edit') {
-      field.altered.url = '';
-    } else {
-      field.altered.url = event.target.value;
-    }
+    field.altered.url = event.target.value;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -1058,6 +1061,7 @@ class Editor extends React.Component{
               updateRichContent={this.updateRichContent.bind(this)}
               updateVideo={this.updateVideo.bind(this)}
               updateResource={this.updateResource.bind(this)}
+              editResource={this.editResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addVideo={this.addVideo.bind(this)}

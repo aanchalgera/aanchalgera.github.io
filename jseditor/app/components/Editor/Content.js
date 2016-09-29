@@ -108,7 +108,7 @@ class Content extends React.Component{
               ref="field"
               className="form-control"
               defaultValue={this.props.data.url}
-              onBlur={this.props.updateVideo.bind(this, '', this.props.dataId)}
+              onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
               placeholder="https://www.youtube.com/embed/azxoVRTwlNg">
             </input>
           </div>
@@ -160,11 +160,14 @@ class Content extends React.Component{
     switch (this.props.data.type) {
       case 'image':
       case 'video':
+      case 'giphy':
+      case 'infogram':
+      case 'datawrapper':
         editButton = <EditButton
           data={this.props.data}
           dataId={this.props.dataId}
           openResourcePanel={this.props.openResourcePanel.bind(this)}
-          updateVideo={this.props.updateVideo.bind(this)}
+          editResource={this.props.editResource.bind(this)}
         />;
         break;
     }

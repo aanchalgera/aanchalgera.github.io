@@ -1,28 +1,27 @@
 import React from 'react';
 
 export default class EditButton extends React.Component {
-  render() {
-    let editButton;
+  editResource(currentIndex, e) {
     switch (this.props.data.type) {
       case 'image':
-        editButton = (
-          <button type="button" className="btn btn-default" onClick={(e) => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId}, 'image', false, e)}>
-            <span className="glyphicon glyphicon-pencil" title="Edit Image"></span>
-          </button>
-        );
+        this.props.openResourcePanel('edit', {currentIndex}, 'image', false, e);
         break;
       case 'video':
-        editButton = (
-          <button type="button" className="btn btn-default" onClick={(e) => this.props.updateVideo('edit', this.props.dataId, e)}>
-            <span className="glyphicon glyphicon-pencil" title="Edit Video"></span>
-          </button>
-        );
+      case 'giphy':
+      case 'infogram':
+      case 'datawrapper':
+        this.props.editResource(currentIndex);
         break;
     }
+  }
+
+  render() {
     return (
       <div className="hover-nav hover-nav-single">
         <div aria-label="..." role="group" className="btn-group btn-group-sm">
-          {editButton}
+          <button type="button" className="btn btn-default" onClick={this.editResource.bind(this, this.props.dataId)}>
+            <span className="glyphicon glyphicon-pencil" title={'Edit ' + this.props.data.type}></span>
+          </button>
         </div>
       </div>
     );
