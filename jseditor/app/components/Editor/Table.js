@@ -27,9 +27,12 @@ export default class Table extends React.Component {
                   <span className="glyphicon glyphicon-arrow-right"></span>
                 </button>
             }
-            <button className="btn btn-default" title="Delete column">
-              <span className="glyphicon glyphicon-trash"></span>
-            </button>
+            {
+              (totalColumns == 1) ? null :
+                <button className="btn btn-default" title="Delete column">
+                  <span className="glyphicon glyphicon-trash"></span>
+                </button>
+            }
           </div>
         </td>
       );
@@ -57,9 +60,12 @@ export default class Table extends React.Component {
                             <span className="glyphicon glyphicon-arrow-down"></span>
                           </button>
                       }
-                      <button className="btn btn-default" title="Delete row">
-                        <span className="glyphicon glyphicon-trash"></span>
-                      </button>
+                      {
+                        (totalRows == 1) ? null :
+                          <button className="btn btn-default" title="Delete row">
+                            <span className="glyphicon glyphicon-trash"></span>
+                          </button>
+                      }
                     </div>
                   </td>
                   {
