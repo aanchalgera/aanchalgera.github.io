@@ -10,6 +10,13 @@ import Table from './Table';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      edit: true
+    };
+  }
+
   componentDidMount() {
     switch (this.props.data.type){
       case 'richContent':
@@ -48,6 +55,15 @@ class Content extends React.Component{
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
+  }
+
+  editResource() {
+    this.setState({ edit: true });
+  }
+
+  updateResource({type, currentIndex}, event) {
+    this.setState({ edit: false });
+    this.props.updateResource({type, currentIndex}, event);
   }
 
   render () {
@@ -97,7 +113,7 @@ class Content extends React.Component{
         moveImage={this.props.moveImage.bind(this)}
       />;
     } else if('video' == this.props.data.type) {
-      if ('' == this.props.data.url) {
+      if ('' == this.props.data.url || this.state.edit) {
         field = (
           <div>
             <label className="ptitle">
@@ -108,7 +124,7 @@ class Content extends React.Component{
               ref="field"
               className="form-control"
               defaultValue={this.props.data.url}
-              onBlur={this.props.updateVideo.bind(this, this.props.dataId)}
+              onBlur={this.updateResource.bind(this, {type: 'video', currentIndex: this.props.dataId})}
               placeholder="https://www.youtube.com/embed/azxoVRTwlNg">
             </input>
           </div>
@@ -121,16 +137,18 @@ class Content extends React.Component{
         data={this.props.data}
         ref="field"
         dataId={this.props.dataId}
+        edit={this.state.edit}
         addImageCaption={this.props.addImageCaption}
-        updateResource={this.props.updateResource.bind(this)}
+        updateResource={this.updateResource.bind(this)}
       />;
     } else if ('infogram' == this.props.data.type || 'datawrapper' == this.props.data.type){
       field = <Chart
         data={this.props.data}
         ref="field"
+        edit={this.state.edit}
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption.bind(this)}
-        updateResource={this.props.updateResource.bind(this)}
+        updateResource={this.updateResource.bind(this)}
       />;
     } else if('richContent' == this.props.data.type) {
       field = (
@@ -167,7 +185,7 @@ class Content extends React.Component{
           data={this.props.data}
           dataId={this.props.dataId}
           openResourcePanel={this.props.openResourcePanel.bind(this)}
-          editResource={this.props.editResource.bind(this)}
+          editResource={this.editResource.bind(this)}
         />;
         break;
     }

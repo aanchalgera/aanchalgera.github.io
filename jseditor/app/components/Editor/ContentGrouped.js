@@ -36,7 +36,7 @@ class ContentGrouped extends React.Component{
 
     var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
     return (
-      <div className={'container-ul-inner ' + groupedClass + ' '+minimized + ' ' + data.backgroundClass}
+      <div className={'container-ul-inner ' + groupedClass + ' '+minimized + ' ' + data.backgroundClass + ' ' + (this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
        id={'div-' + index}
        data-id={this.props.dataId}
        key={data.key}

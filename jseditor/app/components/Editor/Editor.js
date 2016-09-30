@@ -201,13 +201,16 @@ class Editor extends React.Component{
     let attributes = {
       id: this.state.maxId,
       url: '',
-      description: '',
       layout: 'normal'
     };
     if(type == 'giphy'){
+      attributes['description'] = '';
       attributes['type'] = 'giphy';
     } else if (type == 'graph') {
+      attributes['description'] = '';
       attributes['type'] = 'infogram';
+    } else if (type == 'video') {
+      attributes['type'] = 'video';
     }
     this.state.fields.splice(
       currentIndex, 0, attributes
@@ -353,22 +356,6 @@ class Editor extends React.Component{
       fields: this.state.fields,
       addMoreImages: false,
       addImageModule: ''
-    }, this.saveData());
-  }
-
-  addVideo(currentIndex) {
-    this.state.maxId++;
-    this.state.fields.splice(
-    currentIndex, 0, {
-      id: this.state.maxId,
-      type: 'video',
-      url: '',
-      align: '',
-      layout: 'normal'
-    });
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
     }, this.saveData());
   }
 
@@ -656,18 +643,22 @@ class Editor extends React.Component{
 
   updateResource({type, currentIndex}, event) {
     let url = event.target.value.trim();
-    if ('' != url) {
-      let field = this.getField(currentIndex);
-      const attributes = this.getAttributes(url, type);
-      Object.assign(field.altered, attributes);
-      this.state.fields.splice(field.indexes[0], 0, field.original);
-      this.setState({ fields: this.state.fields }, this.saveData());
-    }
-  }
-
-  editResource(currentIndex) {
     let field = this.getField(currentIndex);
-    field.altered.url = '';
+    let attributes;
+    if ('' != url) {
+      switch(type) {
+        case 'giphy':
+        case 'graph':
+          attributes = this.getAttributes(url, type);
+          break;
+        case 'video':
+          attributes = { url: url };
+          break;
+      }
+    } else {
+      attributes = {url: url};
+    }
+    Object.assign(field.altered, attributes);
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -682,13 +673,6 @@ class Editor extends React.Component{
   updateRichContent(currentIndex, event) {
     let field = this.getField(currentIndex);
     field.altered.text = event.target.textContent;
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields }, this.saveData());
-  }
-
-  updateVideo(currentIndex, event) {
-    let field = this.getField(currentIndex);
-    field.altered.url = event.target.value;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -1058,12 +1042,9 @@ class Editor extends React.Component{
               addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
-              updateVideo={this.updateVideo.bind(this)}
               updateResource={this.updateResource.bind(this)}
-              editResource={this.editResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
-              addVideo={this.addVideo.bind(this)}
               addResource={this.addResource.bind(this)}
               addTable={this.addTable.bind(this)}
               deleteResource={this.deleteResource.bind(this)}

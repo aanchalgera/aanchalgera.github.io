@@ -12,7 +12,7 @@ class MoreOptions extends React.Component {
           <button type="button" className="btn glyphicon glyphicon-text" onClick={() => this.props.addTextArea(this.props.dataId, 'content')} title="Add new section">T</button>
           <button type="button" className="btn glyphicon glyphicon-picture" onClick={() => this.props.openResourcePanel('image', this.props.dataId, '', false)} title="Add Image" ></button>
           <button type="button" className="btn glyphicon glyphicon-file" onClick={() => this.props.addTextArea(this.props.dataId, 'summary')} title="Add Summary"></button>
-          <button type="button" className="btn glyphicon glyphicon-facetime-video" onClick={() => this.props.addVideo(this.props.dataId)} title="Add Video"></button>
+          <button type="button" className="btn glyphicon glyphicon-facetime-video" onClick={() => this.props.addResource({type: 'video', currentIndex: this.props.dataId})} title="Add Video"></button>
           <button type="button" className="btn glyphicon glyphicon-camera" onClick={() => this.props.openResourcePanel('image', this.props.dataId, 'gallery', false)} title="Add Gallery" ></button>
           <button type="button" className="btn glyphicon glyphicon-console" onClick={() => this.props.addTextArea(this.props.dataId, 'richContent')} title="Add rich content snippet"></button>
           <button type="button" className="btn glyphicon glyphicon-tasks" onClick={() => this.props.openResourcePanel('image', this.props.dataId, 'slider', false)} title="Add Slider" ></button>
