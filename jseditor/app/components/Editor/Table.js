@@ -2,12 +2,96 @@ import React from 'react';
 import MoreOptions from './MoreOptions';
 
 export default class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({}, props.data, {
+      rows: props.data.rows || [
+        [{ type: 'none' }, { type: 'none' }],
+        [{ type: 'none' }, { type: 'none' }]
+      ]
+    });
+  }
+
   focus() {
     this.refs.field.focus();
   }
 
+  add(e, type) {
+    e.preventDefault();
+    let { rows } = this.state, count = 0, newRows;
+    const totalColumns = rows[0].length;
+
+    switch(type) {
+      case 'column':
+        count = this.refs.addColumns.value;
+        rows = rows.map(row => {
+          for (let i = 0; i < count; i++) {
+            row.push({ type: 'none' });
+          }
+          return row;
+        });
+        break;
+
+      case 'row':
+        newRows = [];
+        count = this.refs.addRows.value;
+        for (let i = 0; i < count; i++) {
+          newRows[i] = [];
+          for (let j = 0; j < totalColumns; j++) {
+            newRows[i][j] = { type: 'none' };
+          }
+        }
+        rows.push(...newRows);
+        break;
+    }
+
+    this.setState({ rows });
+  }
+
+  move(e, type, index) {
+    e.preventDefault();
+    let { rows } = this.state;
+
+    switch(type) {
+      case 'left':
+        rows.forEach(row => row[index - 1] = row.splice(index, 1, row[index - 1])[0]);
+        break;
+
+      case 'right':
+        rows.forEach(row => row[index + 1] = row.splice(index, 1, row[index + 1])[0]);
+        break;
+
+      case 'up':
+        rows[index - 1] = rows.splice(index, 1, rows[index - 1])[0];
+        break;
+
+      case 'down':
+        rows[index + 1] = rows.splice(index, 1, rows[index + 1])[0];
+        break;
+    }
+
+    this.setState({ rows });
+  }
+
+  delete(e, type, index) {
+    e.preventDefault();
+    let { rows } = this.state;
+
+    switch(type) {
+      case 'column':
+        rows.forEach(row => row.splice(index, 1));
+        break;
+
+      case 'row':
+        rows.splice(index, 1);
+        break;
+    }
+
+    this.setState({ rows });
+  }
+
   render() {
-    const rows = this.props.data.rows || [[{}, {}], [{}, {}]]; // Defaults to 2x2 table
+    const { rows } = this.state;
     const totalRows = rows.length, totalColumns = rows[0].length;
 
     const controls = [<td key="0"></td>];
@@ -17,19 +101,19 @@ export default class Table extends React.Component {
           <div className="btn-group btn-group-xs">
             {
               (i == 0 || totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Move column left">
+                <button className="btn btn-default" title="Move column left" onClick={e => this.move(e, 'left', i)}>
                   <span className="glyphicon glyphicon-arrow-left"></span>
                 </button>
             }
             {
               (i == totalColumns - 1) ? null :
-                <button className="btn btn-default" title="Move column right">
+                <button className="btn btn-default" title="Move column right" onClick={e => this.move(e, 'right', i)}>
                   <span className="glyphicon glyphicon-arrow-right"></span>
                 </button>
             }
             {
               (totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Delete column">
+                <button className="btn btn-default" title="Delete column" onClick={e => this.delete(e, 'column', i)}>
                   <span className="glyphicon glyphicon-trash"></span>
                 </button>
             }
@@ -50,19 +134,19 @@ export default class Table extends React.Component {
                     <div className="btn-group btn-group-xs btn-group-vertical">
                       {
                         (i == 0 || totalRows == 1) ? null :
-                          <button className="btn btn-default" title="Move row up">
+                          <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
                             <span className="glyphicon glyphicon-arrow-up"></span>
                           </button>
                       }
                       {
                         (i == totalRows - 1) ? null :
-                          <button className="btn btn-default" title="Move row down">
+                          <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
                             <span className="glyphicon glyphicon-arrow-down"></span>
                           </button>
                       }
                       {
                         (totalRows == 1) ? null :
-                          <button className="btn btn-default" title="Delete row">
+                          <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', i)}>
                             <span className="glyphicon glyphicon-trash"></span>
                           </button>
                       }
@@ -123,8 +207,8 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-columns">
             <div className="form-group pull-right">
               <label>Add more columns</label>
-              <input type="number" defaultValue="1" className="form-control input-sm" />
-              <button type="submit" className="btn btn-default btn-sm">
+              <input type="number" ref="addColumns" defaultValue="1" className="form-control input-sm" />
+              <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'column')}>
                 <span className="glyphicon glyphicon-plus"></span>
               </button>
             </div>
@@ -133,8 +217,8 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-rows">
             <div className="form-group pull-left">
               <label>Add more rows</label>
-              <input type="number" defaultValue="1" className="form-control input-sm" />
-              <button type="submit" className="btn btn-default btn-sm">
+              <input type="number" ref="addRows" defaultValue="1" className="form-control input-sm" />
+              <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'row')}>
                 <span className="glyphicon glyphicon-plus"></span>
               </button>
             </div>
