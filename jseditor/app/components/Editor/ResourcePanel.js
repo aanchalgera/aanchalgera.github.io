@@ -1,12 +1,16 @@
 import React from 'react';
 import Thumbnail from './Thumbnail';
+import AddAltText from './AddAltText';
 
 class ResourcePanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      imageList: []
+      imageList: [],
+      resourcePanelSelectedImages: []
     };
+    this.addResourcePanelSelectedImages = this.addResourcePanelSelectedImages.bind(this);
+    this.closePanel = this.closePanel.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -15,9 +19,15 @@ class ResourcePanel extends React.Component {
     }
   }
 
+  addResourcePanelSelectedImages(images, e) {
+    e.preventDefault();
+    this.setState({resourcePanelSelectedImages: images });
+  }
+
   closePanel(event) {
     event.preventDefault();
     this.refs.resourcePanel.style.display = 'none';
+    this.setState({ resourcePanelSelectedImages: [] });
   }
 
   getStyle() {
@@ -79,33 +89,48 @@ class ResourcePanel extends React.Component {
           addImage={this.props.addImage}
           addImageModule={this.props.addImageModule}
           editImages={this.props.editImages}
+          addResourcePanelSelectedImages={this.addResourcePanelSelectedImages}
         />
       );
     });
+    let addAltText = null;
+    if (this.state.resourcePanelSelectedImages.length > 0) {
+      addAltText = (
+        <AddAltText
+          selectedImages={this.state.resourcePanelSelectedImages}
+          addImageModule={this.props.addImageModule}
+          addImage={this.props.addImage}
+          closePanel={this.closePanel}
+        />
+      );
+    }
     return (
-      <div className="modal fade" ref="resourcePanel" id="resourcePanel" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" style={{display: 'none'}}>
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" id="closePanel" onClick={this.closePanel.bind(this)} className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-              <h4 className="modal-title" id="myModalLabel">Resources</h4>
-            </div>
-            <div className="modal-body">
-             <div className="resources-panel-images">
-               <ul ref="imageList" id="imageList">{images}</ul>
-             </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={!this.props.slug}
-                onClick={this.props.handleClick}>Upload Images</button>
-              {showGalleryButton}
-              {showSliderButton}
+      <div>
+        <div className="modal fade" ref="resourcePanel" id="resourcePanel" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" style={{display: 'none'}}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" id="closePanel" onClick={this.closePanel.bind(this)} className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 className="modal-title" id="myModalLabel">Resources</h4>
+              </div>
+              <div className="modal-body">
+               <div className="resources-panel-images">
+                 <ul ref="imageList" id="imageList">{images}</ul>
+               </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={!this.props.slug}
+                  onClick={this.props.handleClick}>Upload Images</button>
+                {showGalleryButton}
+                {showSliderButton}
+              </div>
             </div>
           </div>
         </div>
+        {addAltText}
       </div>
     );
   }

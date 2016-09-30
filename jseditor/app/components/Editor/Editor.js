@@ -224,6 +224,7 @@ class Editor extends React.Component{
       field.altered.backgroundImage = image.url;
       field.altered.backgroundImageName = image.original_filename;
       field.altered.backgroundImageHeight = image.height;
+      field.altered.alt = image.alt;
       this.state.fields.splice(field.indexes[0], 0, field.original);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -255,7 +256,6 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       meta: this.state.meta
     }, this.saveData());
-    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   addImageCaption(imageId, caption, currentIndex) {

@@ -13,6 +13,7 @@ class Image extends React.Component {
           src={this.props.data.url}
           height={this.props.data.height}
           width={this.props.data.width}
+          alt={this.props.data.alt}
         />
         <ImageCaption
           id={'img' + this.props.data.id}
