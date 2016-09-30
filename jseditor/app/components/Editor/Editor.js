@@ -203,14 +203,9 @@ class Editor extends React.Component{
       url: '',
       layout: 'normal'
     };
-    if(type == 'giphy'){
+    attributes['type'] = type;
+    if (type == 'giphy' || type == 'infogram') {
       attributes['description'] = '';
-      attributes['type'] = 'giphy';
-    } else if (type == 'graph') {
-      attributes['description'] = '';
-      attributes['type'] = 'infogram';
-    } else if (type == 'video') {
-      attributes['type'] = 'video';
     }
     this.state.fields.splice(
       currentIndex, 0, attributes
