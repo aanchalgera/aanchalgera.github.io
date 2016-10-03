@@ -11,6 +11,7 @@ class ResourcePanel extends React.Component {
     };
     this.addResourcePanelSelectedImages = this.addResourcePanelSelectedImages.bind(this);
     this.closePanel = this.closePanel.bind(this);
+    this.addImagesToAltPanel = this.addImagesToAltPanel.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -26,7 +27,9 @@ class ResourcePanel extends React.Component {
 
   closePanel(event) {
     event.preventDefault();
-    this.refs.resourcePanel.style.display = 'none';
+    if (this.refs.resourcePanel) {
+      this.refs.resourcePanel.style.display = 'none';
+    }
     this.setState({ resourcePanelSelectedImages: [] });
   }
 
@@ -34,22 +37,17 @@ class ResourcePanel extends React.Component {
     return this.refs.resourcePanel;
   }
 
-  addImages(e) {
+  addImagesToAltPanel() {
     var selectedImages = this.refs.resourcePanel.querySelectorAll('#imageList img.active');
-    var images = [];
     if (selectedImages.length == 0) {
       return;
     }
+    var images = [];
     for (var i = 0; i < selectedImages.length; i++) {
       images.push(JSON.parse(selectedImages[i].dataset.image));
       selectedImages[i].className = '';
     }
-    if (this.props.imageFunction == 'edit') {
-      this.props.editImages(images);
-    } else {
-      this.props.addImages(images, this.props.addImageModule);
-    }
-    this.closePanel(e);
+    this.setState({resourcePanelSelectedImages: images });
   }
   render () {
     var showGalleryButton = '';
@@ -60,7 +58,7 @@ class ResourcePanel extends React.Component {
           type="button"
           className="btn btn-primary add-gallery"
           disabled={!this.props.slug}
-          onClick={this.addImages.bind(this)}
+          onClick={this.addImagesToAltPanel}
         >
           Add gallery to post
         </button>
@@ -74,7 +72,7 @@ class ResourcePanel extends React.Component {
           type="button"
           className="btn btn-primary add-slider"
           disabled={!this.props.slug}
-          onClick={this.addImages.bind(this)}
+          onClick={this.addImagesToAltPanel}
         >
           Add slider to post
         </button>
@@ -93,14 +91,16 @@ class ResourcePanel extends React.Component {
         />
       );
     });
-    let addAltText = null;
     if (this.state.resourcePanelSelectedImages.length > 0) {
-      addAltText = (
+      return (
         <AddAltText
           selectedImages={this.state.resourcePanelSelectedImages}
           addImageModule={this.props.addImageModule}
           addImage={this.props.addImage}
           closePanel={this.closePanel}
+          addImages={this.props.addImages}
+          imageFunction={this.props.imageFunction}
+          editImages={this.props.editImages}
         />
       );
     }
@@ -110,7 +110,7 @@ class ResourcePanel extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" id="closePanel" onClick={this.closePanel.bind(this)} className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button" id="closePanel" onClick={this.closePanel} className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 className="modal-title" id="myModalLabel">Resources</h4>
               </div>
               <div className="modal-body">
@@ -130,7 +130,6 @@ class ResourcePanel extends React.Component {
             </div>
           </div>
         </div>
-        {addAltText}
       </div>
     );
   }

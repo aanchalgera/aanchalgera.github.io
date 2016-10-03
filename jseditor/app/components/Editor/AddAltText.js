@@ -1,24 +1,45 @@
 import React from 'react';
 
 class AddAltText extends React.Component {
+  constructor(props) {
+    super(props);
+    this.attachImages = this.attachImages.bind(this);
+  }
+
   attachImages(e) {
     e.preventDefault();
-    if ('' == this.props.addImageModule) {
-      let image = this.props.selectedImages[0];
-      image.alt = this.refs.alt.value;
-      this.props.addImage(image);
+    let images = this.props.selectedImages, isEmptyAltVal = false;
+
+    images.map((image, i) => {
+      if ('' == this._altElements[i].value.trim()) {
+        isEmptyAltVal = true;
+      }
+      image.alt = this._altElements[i].value;
+    });
+
+    if (isEmptyAltVal) {
+      return this.refs.altError.style.display = 'block';
     }
+
+    if ('' == this.props.addImageModule) {
+      this.props.addImage(images[0]);
+    } else if ('edit' == this.props.imageFunction) {
+      this.props.editImages(images);
+    } else {
+      this.props.addImages(images, this.props.addImageModule);
+    }
+
     return this.props.closePanel(e);
   }
 
   render () {
-    var thumbnails = [];
-    thumbnails = this.props.selectedImages.map(image => {
+    this._altElements = [];
+    const thumbnails = this.props.selectedImages.map((image, i) => {
       return (
-        <img
-          key={image['public_id']}
-          src={image['thumbnail_url']}
-        />
+        <li key={image.public_id}>
+          <input type="text" ref={c => this._altElements[i] = c} placeholder="Add alternate text" className="form-control" />
+          <img src={image.thumbnail_url} />
+        </li>
       );
     }); 
     return (
@@ -34,16 +55,14 @@ class AddAltText extends React.Component {
               <div className="resources-panel-images">
                 <div className="alt-container show">
                   <ul>
-                    <li>
-                      <input type="text" ref="alt" placeholder="Add alternate text" className="form-control" />
-                      {thumbnails}
-                    </li>
+                    {thumbnails}
                   </ul>
                 </div>
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary show-alt" onClick={this.attachImages.bind(this)}>Insert images</button>
+              <span className="text-danger" ref="altError" style={{display: 'none'}}> Add alternate value before inserting image(s) </span>
+              <button type="button" className="btn btn-primary show-alt" onClick={this.attachImages}>Insert image(s)</button>
             </div>
           </div>
         </div>

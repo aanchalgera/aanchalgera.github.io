@@ -46,6 +46,7 @@ class Editor extends React.Component{
       isSynced: false,
       isCloudinaryUploaderOpen: false
     };
+    this.addImages = this.addImages.bind(this);
   }
 
   init() {
@@ -333,7 +334,6 @@ class Editor extends React.Component{
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
-    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   editImages(images) {
@@ -342,10 +342,10 @@ class Editor extends React.Component{
     let imageIndex = resourcePanelOpenedBy.imageIndex;
 
     let field = this.getField(currentIndex);
-    if (imageIndex) {
+    if (typeof imageIndex != 'undefined') {
       field.altered.images.splice(imageIndex, 1, ...images);
     } else {
-      field.altered.url = images.url;
+      field.altered.url = images[0].url;
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
@@ -354,7 +354,6 @@ class Editor extends React.Component{
       addMoreImages: false,
       addImageModule: ''
     }, this.saveData());
-    document.getElementById('resourcePanel').style.display = 'none';
   }
 
   addVideo(currentIndex) {
@@ -1089,7 +1088,7 @@ class Editor extends React.Component{
           cloudName={configParams.cloudName}
           uploadPreset={configParams.uploadPreset}
           addImage={this.addImage.bind(this)}
-          addImages={this.addImages.bind(this)}
+          addImages={this.addImages}
           editImages={this.editImages.bind(this)}
           base={this.props.base}
           slug={this.state.id}

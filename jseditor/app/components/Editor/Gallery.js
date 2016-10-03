@@ -47,7 +47,7 @@ class Gallery extends React.Component {
 
       return (
         <li key={i}>
-          <img alt="" id={image.spid} src={image.url} />
+          <img alt={image.alt} id={image.spid} src={image.url} />
           <ImageCaption
             id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}

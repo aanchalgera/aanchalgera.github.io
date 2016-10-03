@@ -7,11 +7,12 @@ export default class Thumbnail extends React.Component {
   }
 
   selectImage(e) {
-    if ('' == this.props.addImageModule) {
-      return this.props.addResourcePanelSelectedImages([this.props.data], e);
-    } else if ('image' == this.props.addImageModule) {
-      this.props.editImages(this.props.data);
+    switch(this.props.addImageModule) {
+      case '':
+      case 'image':
+        return this.props.addResourcePanelSelectedImages([this.props.data], e);
     }
+
     e.currentTarget.className = e.currentTarget.className == 'active' ? '' : 'active';
   }
   render () {
