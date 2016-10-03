@@ -10,7 +10,7 @@ export default class EditButton extends React.Component {
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
-        this.props.editResource(currentIndex);
+        this.props.editResource();
         break;
     }
   }
