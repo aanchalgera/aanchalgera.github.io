@@ -1,5 +1,7 @@
 import React from 'react';
 import MoreOptions from './MoreOptions';
+import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
+import Video from './Video';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -10,6 +12,9 @@ export default class Table extends React.Component {
         [{ type: 'none' }, { type: 'none' }]
       ]
     });
+
+    this.addCellContent = this.addCellContent.bind(this);
+    this.update = this.update.bind(this);
   }
 
   focus() {
@@ -90,6 +95,68 @@ export default class Table extends React.Component {
     this.setState({ rows });
   }
 
+  addCellContent({ row, column }, type) {
+    const { rows } = this.state;
+    switch(type) {
+      case 'content':
+        rows[row][column] = { type, text: '' };
+        break;
+      case 'video':
+        rows[row][column] = { type, url: '' };
+        break;
+    }
+
+    this.setState({ rows });
+  }
+
+  inflate(row, rowIndex) {
+    return row.map((cell, columnIndex) => {
+      let Component, dataId = {row: rowIndex, column: columnIndex};
+      switch(cell.type) {
+        case 'content':
+          Component = DraftJSEditor;
+          break;
+        case 'video':
+          Component = Video;
+          break;
+
+        default:
+          return (
+            <td key={columnIndex}>
+              <MoreOptions
+                addTextArea={this.addCellContent}
+                openResourcePanel={() => {}}
+                addVideo={() => this.addCellContent(dataId, 'video')}
+                addResource={() => {}}
+                dataId={dataId}
+                show2column={false}
+                show3column={false}
+                showTableButton={false}
+              />
+            </td>
+          );
+      }
+
+      return (
+        <td key={columnIndex}>
+          <Component
+            dataId={dataId}
+            data={cell}
+            value={cell.text}
+            updateText={(dataId, text) => this.update(dataId, { text })}
+            updateVideo={(dataId, url) => this.update(dataId, { url })}
+          />
+        </td>
+      );
+    });
+  }
+
+  update({ row, column }, data) {
+    const { rows } = this.state;
+    Object.assign(rows[row][column], data);
+    this.setState({ rows });
+  }
+
   render() {
     const { rows } = this.state;
     const totalRows = rows.length, totalColumns = rows[0].length;
@@ -152,26 +219,7 @@ export default class Table extends React.Component {
                       }
                     </div>
                   </td>
-                  {
-                    row.map((cell, j) => (
-                      <td key={j}>
-                        <MoreOptions
-                          openResourcePanel={() => {}}
-                          addImageCaption={() => {}}
-                          addTextArea={() => {}}
-                          addVideo={() => {}}
-                          addResource={() => {}}
-                          addTable={() => {}}
-                          dataId={() => {}}
-                          key={() => {}}
-                          groupSections={() => {}}
-                          show2column={false}
-                          show3column={false}
-                          showTableButton={false}
-                        />
-                      </td>
-                    ))
-                  }
+                  {this.inflate(row, i)}
                 </tr>
               );
             })
@@ -207,7 +255,7 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-columns">
             <div className="form-group pull-right">
               <label>Add more columns</label>
-              <input type="number" ref="addColumns" defaultValue="1" className="form-control input-sm" />
+              <input type="number" ref="addColumns" defaultValue="1" min="1" className="form-control input-sm" />
               <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'column')}>
                 <span className="glyphicon glyphicon-plus"></span>
               </button>
@@ -217,7 +265,7 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-rows">
             <div className="form-group pull-left">
               <label>Add more rows</label>
-              <input type="number" ref="addRows" defaultValue="1" className="form-control input-sm" />
+              <input type="number" ref="addRows" defaultValue="1" min="1" className="form-control input-sm" />
               <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'row')}>
                 <span className="glyphicon glyphicon-plus"></span>
               </button>
