@@ -18,29 +18,42 @@ export default class DraftJSEditor extends React.Component {
       editorState: EditorState.createWithContent(contentState, decorator),
       value: this.props.value
     };
+  }
 
-    this.update = this.update.bind(this);
+  componentWillReceiveProps(nextProps) {
+    const { value } = nextProps;
+    if (value != this.state.value) {
+      const decorator = new CompositeDecorator([LinkDecorator]);
+      const contentState = stateFromHTML(markdown(value));
+      this.setState({
+        editorState: EditorState.createWithContent(contentState, decorator),
+        value
+      });
+    }
   }
 
   focus() {
     this._editor.focus();
   }
 
-  update(editorState) {
+  onChange(editorState) {
     this.setState({ editorState }, () => {
-      const value = markdown(stateToHTML(editorState.getCurrentContent()));
-      this.props.updateText(this.props.dataId, value);
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(() => {
+        const value = markdown(stateToHTML(editorState.getCurrentContent()));
+        this.props.updateText(this.props.dataId, value);
+      }, 1000);
     });
   }
 
   onControlToggle(method, command) {
-    this.update(RichUtils[method](this.state.editorState, command));
+    this.onChange(RichUtils[method](this.state.editorState, command));
   }
 
   handleKeyCommand(command) {
     const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
     if (newState) {
-      this.update(newState);
+      this.onChange(newState);
       return true;
     }
     return false;
@@ -56,7 +69,7 @@ export default class DraftJSEditor extends React.Component {
           <i className="separator">|</i>
           <BlockControls editorState={editorState} onToggle={this.onControlToggle.bind(this, 'toggleBlockType')} />
           <i className="separator">|</i>
-          <CustomControls editorState={editorState} onToggle={this.update} />
+          <CustomControls editorState={editorState} onToggle={this.onChange.bind(this)} />
         </div>
       );
     }
@@ -68,8 +81,7 @@ export default class DraftJSEditor extends React.Component {
             ref={(c) => this._editor = c}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand.bind(this)}
-            onChange={editorState => this.setState({ editorState })}
-            onBlur={() => this.update(this.state.editorState)}
+            onChange={this.onChange.bind(this)}
             stripPastedStyles={true}
           />
         </div>

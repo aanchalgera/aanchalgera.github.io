@@ -1,8 +1,20 @@
 import React from 'react';
 
 export default class Video extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateVideo = this.updateVideo.bind(this);
+  }
+
   focus() {
     this.refs.field.focus();
+  }
+
+  updateVideo() {
+    clearTimeout(this._timeout);
+    this._timeout = setTimeout(() => {
+      this.props.updateVideo(this.props.dataId, this.refs.field.value);
+    }, 1000);
   }
 
   render() {
@@ -10,15 +22,14 @@ export default class Video extends React.Component {
       return (
         <div>
           <label className="ptitle">
-            URL of video
-            {this.props.showHints === false ? null : <span className="hint">(Please add video url from youtube share tab.)</span>}
+            URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
           </label>
           <input
             type="text"
             ref="field"
             className="form-control"
             defaultValue={this.props.data.url}
-            onBlur={() => this.props.updateVideo(this.props.dataId, this.refs.field.value)}
+            onChange={this.updateVideo}
             placeholder="https://www.youtube.com/embed/azxoVRTwlNg"
           />
         </div>
@@ -26,7 +37,7 @@ export default class Video extends React.Component {
     }
 
     return (
-      <div className={'fluid-width-video-wrapper' + (this.props.data.layout ? ' asset-size-' + this.props.data.layout : '')}>
+      <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}>
         <iframe src={this.props.data.url}></iframe>
       </div>
     );
