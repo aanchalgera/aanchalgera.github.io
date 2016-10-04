@@ -173,27 +173,29 @@ class Editor extends React.Component{
   }
 
   getAttributes(url, type) {
-    let matches;
-    if(type == 'giphy') {
-      matches = url.match(/(\/\/)?(giphy)\.com.+?([^\/\-]+)$/i);
-    } else if(type == 'graph') {
-      matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
-    }
-    if(matches) {
-      if(matches[1] == '//') {
-        url = matches[0];
-      } else {
-        url = '//' + matches[0];
+    if ('' != url) {
+      let matches;
+      if(type == 'giphy') {
+        matches = url.match(/(\/\/)?(giphy)\.com.+?([^\/\-]+)$/i);
+      } else if(type == 'graph') {
+        matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
       }
-      let type = matches[2].replace('.', '');
-      let attributes = {
-        url: url,
-        type: type
-      };
-      attributes[type+'Id'] = matches[3];
-      return attributes;
+      if(matches) {
+        if(matches[1] == '//') {
+          url = matches[0];
+        } else {
+          url = '//' + matches[0];
+        }
+        let type = matches[2].replace('.', '');
+        let attributes = {
+          url: url,
+          type: type
+        };
+        attributes[type+'Id'] = matches[3];
+        return attributes;
+      }
     }
-    return {};
+    return {url: url};
   }
 
   addResource({type,currentIndex}) {
@@ -639,20 +641,7 @@ class Editor extends React.Component{
   updateResource({type, currentIndex}, event) {
     let url = event.target.value.trim();
     let field = this.getField(currentIndex);
-    let attributes;
-    if ('' != url) {
-      switch(type) {
-        case 'giphy':
-        case 'graph':
-          attributes = this.getAttributes(url, type);
-          break;
-        case 'video':
-          attributes = { url: url };
-          break;
-      }
-    } else {
-      attributes = {url: url};
-    }
+    let attributes = this.getAttributes(url, type);
     Object.assign(field.altered, attributes);
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
