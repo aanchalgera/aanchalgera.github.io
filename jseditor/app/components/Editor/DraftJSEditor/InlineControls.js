@@ -18,7 +18,7 @@ export default function InlineControls(props) {
             className={'fa ' + control.icon + (currentStyle.has(control.style) ? ' active' : '')}
             onClick={(e) => {
               e.preventDefault();
-              props.onToggle(control.style);
+              props.onToggle('toggleInlineStyle', control.style);
             }}
           >
           </a>

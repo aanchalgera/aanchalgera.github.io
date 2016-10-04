@@ -27,7 +27,7 @@ export default function InlineControls(props) {
             className={'fa ' + control.icon + (control.style == blockType ? ' active' : '')}
             onClick={(e) => {
               e.preventDefault();
-              props.onToggle(control.style);
+              props.onToggle('toggleBlockType', control.style);
             }}
           >
           </a>
