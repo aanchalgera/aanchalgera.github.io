@@ -55,9 +55,6 @@ class Content extends React.Component{
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
-    if (this.refs.field) {
-      this.refs.field.focus();
-    }
   }
 
   editResource() {
