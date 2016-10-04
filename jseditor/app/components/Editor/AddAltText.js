@@ -38,7 +38,7 @@ class AddAltText extends React.Component {
       return (
         <li key={image.public_id}>
           <input type="text" ref={c => this._altElements[i] = c} placeholder="Add alternate text" className="form-control" />
-          <img src={image.thumbnail_url} />
+          <img src={image.url} />
         </li>
       );
     }); 
@@ -49,7 +49,7 @@ class AddAltText extends React.Component {
             <div className="modal-header">
               <button type="button" className="close" onClick={(e) => this.props.closePanel(e)}><span>×</span></button>
               <h4 className="modal-title">Resources</h4>
-              <span className="hint">Click to select each image you want to add to the slider</span>
+              <span className="hint">Add alternate value for each image</span>
             </div>
             <div className="modal-body">
               <div className="resources-panel-images">
