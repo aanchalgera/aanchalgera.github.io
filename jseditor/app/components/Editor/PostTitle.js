@@ -7,7 +7,11 @@ class PostTitle extends React.Component{
     var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : '';
     var backgroundImageStyle = {};
     if (this.props.data.backgroundImage) {
-      backgroundImageStyle = { backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' } ;
+      if (this.props.data.backgroundRepeat) {
+        backgroundImageStyle = { backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundRepeat: 'repeat' } ;
+      } else {
+        backgroundImageStyle = { backgroundImage: 'url(' + this.props.data.backgroundImage + ')', backgroundSize: 'cover' } ;
+      }
     }
     return (
       <div className="col-sm-12">
