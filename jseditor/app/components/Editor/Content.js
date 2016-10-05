@@ -15,6 +15,7 @@ class Content extends React.Component{
     this.state = {
       edit: false
     };
+    this.updateResource = this.updateResource.bind(this);
   }
 
   componentDidMount() {
@@ -64,9 +65,37 @@ class Content extends React.Component{
     this.setState({ edit: true });
   }
 
-  updateResource({type, currentIndex}, event) {
+  getAttributes(type, value) {
+    if ('' != value) {
+      let matches;
+      if(type == 'giphy') {
+        matches = value.match(/(\/\/)?(giphy)\.com.+?([^\/\-]+)$/i);
+      } else if(type == 'graph') {
+        matches = value.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
+      }
+      if(matches) {
+        let url = '';
+        if(matches[1] == '//') {
+          url = matches[0];
+        } else {
+          url = '//' + matches[0];
+        }
+        let type = matches[2].replace('.', '');
+        let attributes = {
+          url: url,
+          type: type
+        };
+        attributes[type+'Id'] = matches[3];
+        return attributes;
+      }
+    }
+    return {url: value};
+  }
+
+  updateResource(currentIndex, type, value) {
     this.setState({ edit: false });
-    this.props.updateResource({type, currentIndex}, event);
+    let attributes = this.getAttributes(type, value);
+    this.props.updateResource(currentIndex, attributes);
   }
 
   render () {
@@ -127,7 +156,7 @@ class Content extends React.Component{
               ref="field"
               className="form-control"
               defaultValue={this.props.data.url}
-              onBlur={this.updateResource.bind(this, {type: 'video', currentIndex: this.props.dataId})}
+              onBlur={() => this.updateResource(this.props.dataId, 'video', this.refs.field.value)}
               placeholder="https://www.youtube.com/embed/azxoVRTwlNg">
             </input>
           </div>
@@ -142,7 +171,7 @@ class Content extends React.Component{
         dataId={this.props.dataId}
         edit={this.state.edit}
         addImageCaption={this.props.addImageCaption}
-        updateResource={this.updateResource.bind(this)}
+        updateResource={this.updateResource}
       />;
     } else if ('infogram' == this.props.data.type || 'datawrapper' == this.props.data.type){
       field = <Chart
@@ -151,7 +180,7 @@ class Content extends React.Component{
         edit={this.state.edit}
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption.bind(this)}
-        updateResource={this.updateResource.bind(this)}
+        updateResource={this.updateResource}
       />;
     } else if('richContent' == this.props.data.type) {
       field = (
@@ -175,7 +204,7 @@ class Content extends React.Component{
         ref="field"
         data={this.props.data}
         dataId={this.props.dataId}
-        update={content => this.props.updateTable(this.props.dataId, content)}
+        update={content => this.props.updateResource(this.props.dataId, content)}
       />;
     }
 

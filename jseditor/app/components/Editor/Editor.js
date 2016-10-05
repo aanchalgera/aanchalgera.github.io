@@ -47,7 +47,6 @@ class Editor extends React.Component{
       isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
-    this.updateTable = this.updateTable.bind(this);
   }
 
   init() {
@@ -171,32 +170,6 @@ class Editor extends React.Component{
     }
 
     return { indexes, original, altered };
-  }
-
-  getAttributes(url, type) {
-    if ('' != url) {
-      let matches;
-      if(type == 'giphy') {
-        matches = url.match(/(\/\/)?(giphy)\.com.+?([^\/\-]+)$/i);
-      } else if(type == 'graph') {
-        matches = url.match(/(\/\/)?(infogr\.am|datawrapper)[^\/]*\/([^\/]+).*/i);
-      }
-      if(matches) {
-        if(matches[1] == '//') {
-          url = matches[0];
-        } else {
-          url = '//' + matches[0];
-        }
-        let type = matches[2].replace('.', '');
-        let attributes = {
-          url: url,
-          type: type
-        };
-        attributes[type+'Id'] = matches[3];
-        return attributes;
-      }
-    }
-    return {url: url};
   }
 
   addResource({type,currentIndex}) {
@@ -639,10 +612,8 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateResource({type, currentIndex}, event) {
-    let url = event.target.value.trim();
+  updateResource(currentIndex, attributes) {
     let field = this.getField(currentIndex);
-    let attributes = this.getAttributes(url, type);
     Object.assign(field.altered, attributes);
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
@@ -658,13 +629,6 @@ class Editor extends React.Component{
   updateRichContent(currentIndex, event) {
     let field = this.getField(currentIndex);
     field.altered.text = event.target.textContent;
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields }, this.saveData());
-  }
-
-  updateTable(currentIndex, value) {
-    let field = this.getField(currentIndex);
-    Object.assign(field.altered, value);
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -1035,7 +999,6 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateResource={this.updateResource.bind(this)}
-              updateTable={this.updateTable}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addResource={this.addResource.bind(this)}
