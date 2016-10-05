@@ -18,17 +18,16 @@ export default class DraftJSEditor extends React.Component {
       editorState: EditorState.createWithContent(contentState, decorator),
       value: this.props.value
     };
+
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onControlToggle = this.onControlToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     const { value } = nextProps;
     if (value != this.state.value) {
-      const decorator = new CompositeDecorator([LinkDecorator]);
-      const contentState = stateFromHTML(markdown(value));
-      this.setState({
-        editorState: EditorState.createWithContent(contentState, decorator),
-        value
-      });
+      this.setState({ value });
     }
   }
 
@@ -65,11 +64,11 @@ export default class DraftJSEditor extends React.Component {
     if (this.props.minimal !== true) {
       toolbar = (
         <div className="editor-toolbar">
-          <InlineControls editorState={editorState} onToggle={this.onControlToggle.bind(this, 'toggleInlineStyle')} />
+          <InlineControls editorState={editorState} onToggle={this.onControlToggle} />
           <i className="separator">|</i>
-          <BlockControls editorState={editorState} onToggle={this.onControlToggle.bind(this, 'toggleBlockType')} />
+          <BlockControls editorState={editorState} onToggle={this.onControlToggle} />
           <i className="separator">|</i>
-          <CustomControls editorState={editorState} onToggle={this.onChange.bind(this)} />
+          <CustomControls editorState={editorState} onToggle={this.onChange} />
         </div>
       );
     }
@@ -80,8 +79,8 @@ export default class DraftJSEditor extends React.Component {
           <Editor
             ref={(c) => this._editor = c}
             editorState={editorState}
-            handleKeyCommand={this.handleKeyCommand.bind(this)}
-            onChange={this.onChange.bind(this)}
+            handleKeyCommand={this.handleKeyCommand}
+            onChange={this.onChange}
             stripPastedStyles={true}
           />
         </div>

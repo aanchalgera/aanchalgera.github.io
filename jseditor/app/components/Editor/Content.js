@@ -175,6 +175,7 @@ class Content extends React.Component{
         ref="field"
         data={this.props.data}
         dataId={this.props.dataId}
+        update={content => this.props.updateTable(this.props.dataId, content)}
       />;
     }
 

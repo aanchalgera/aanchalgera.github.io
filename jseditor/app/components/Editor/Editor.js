@@ -47,6 +47,7 @@ class Editor extends React.Component{
       isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
+    this.updateTable = this.updateTable.bind(this);
   }
 
   init() {
@@ -661,6 +662,13 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
+  updateTable(currentIndex, value) {
+    let field = this.getField(currentIndex);
+    Object.assign(field.altered, value);
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
   addLayoutToResource(event) {
     event.preventDefault();
     let currentIndex = this.parentDiv(event.target).dataset.id;
@@ -1027,6 +1035,7 @@ class Editor extends React.Component{
               updateText={this.updateText.bind(this)}
               updateRichContent={this.updateRichContent.bind(this)}
               updateResource={this.updateResource.bind(this)}
+              updateTable={this.updateTable}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
               addResource={this.addResource.bind(this)}
