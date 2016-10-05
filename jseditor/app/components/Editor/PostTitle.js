@@ -26,14 +26,19 @@ class PostTitle extends React.Component{
           />
           <div className={'asset-size-' + this.props.data.layout}>
             <div className="col-sm-12 marbot50">
-              <textarea
-                placeholder="Title..."
-                className={'form-control form-control-title ' + this.props.data.backgroundClass + ' ' + foregroundColor + ' ' + backgroundFullscreen}
-                style={backgroundImageStyle}
-                value={this.props.value}
-                onChange={this.props.handleChange.bind(this)}
-                onBlur={this.props.handleBlur.bind(this)}
-              />
+              <div className={this.props.data.backgroundClass + ' ' + foregroundColor} style={backgroundImageStyle}>
+                <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')}>
+                  <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
+                    <textarea
+                    placeholder="Title..."
+                    className={'form-control form-control-title ' + backgroundFullscreen}
+                    value={this.props.value}
+                    onChange={this.props.handleChange.bind(this)}
+                    onBlur={this.props.handleBlur.bind(this)}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
