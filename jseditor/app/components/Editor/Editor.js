@@ -320,6 +320,7 @@ class Editor extends React.Component{
       field.altered.images.splice(imageIndex, 1, ...images);
     } else {
       field.altered.url = images[0].url;
+      field.altered.alt = images[0].alt;
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
