@@ -586,8 +586,11 @@ class Editor extends React.Component{
         case 'infogram':
         case 'datawrapper':
           object.backgroundFade = '';
+          object.backgroundRepeat = '';
+          object.backgroundFullscreen = '';
           object.backgroundClass = '';
           object.backgroundImage = '';
+          object.parallax = '';
           break;
       }
     }
