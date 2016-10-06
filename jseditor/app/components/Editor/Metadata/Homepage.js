@@ -25,7 +25,7 @@ class Homepage extends React.Component{
             <button className="btn btn-default" type="button" title="Change Image" onClick={this.props.openResourcePanel.bind(this,'homepage','homepage','',false)}><span className="glyphicon glyphicon-edit" /></button>
             <button className="btn btn-default" type="button" title="Remove Image" onClick={this.props.deleteHomepageImage}><span className="glyphicon glyphicon-remove" /></button>
           </div>
-          <img alt src={this.props.homepage.image.url} />
+          <img alt={this.props.homepage.image.alt} src={this.props.homepage.image.url} />
         </div>
       );
     }
