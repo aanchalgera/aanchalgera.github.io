@@ -4,7 +4,11 @@ import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component{
   isGroupable(type){
-    return type == 'grouped' ? false : true;
+    if (type == 'table' || type == 'grouped') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   render(){
