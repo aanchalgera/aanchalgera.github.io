@@ -7,6 +7,11 @@ export default class Thumbnail extends React.Component {
   }
 
   selectImage(e) {
+    if ('backgroundImage' == this.props.imageFunction) {
+      this.props.addImage(this.props.data);
+      return this.props.closePanel(e);
+    }
+
     switch(this.props.addImageModule) {
       case '':
       case 'image':

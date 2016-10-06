@@ -88,6 +88,8 @@ class ResourcePanel extends React.Component {
           addImageModule={this.props.addImageModule}
           editImages={this.props.editImages}
           addResourcePanelSelectedImages={this.addResourcePanelSelectedImages}
+          imageFunction={this.props.imageFunction}
+          closePanel={this.closePanel}
         />
       );
     });
