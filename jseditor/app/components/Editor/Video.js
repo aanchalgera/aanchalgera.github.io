@@ -13,7 +13,7 @@ export default class Video extends React.Component {
   updateVideo() {
     clearTimeout(this._timeout);
     this._timeout = setTimeout(() => {
-      this.props.updateVideo(this.props.dataId, this.refs.field.value);
+      this.props.updateResource(this.props.dataId, 'video', this.refs.field.value);
     }, 1000);
   }
 

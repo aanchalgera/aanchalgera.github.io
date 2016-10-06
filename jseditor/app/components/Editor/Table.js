@@ -1,9 +1,12 @@
 import React from 'react';
 import MoreOptions from './MoreOptions';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
+import Image from './Image';
 import Video from './Video';
 import RichContent from './RichContent';
 import Summary from './Summary';
+import Gallery from './Gallery';
+import Slider from './Slider';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -14,9 +17,10 @@ export default class Table extends React.Component {
         [{ type: 'none' }, { type: 'none' }]
       ]
     });
+  }
 
-    this.addCellContent = this.addCellContent.bind(this);
-    this.updateCellContent = this.updateCellContent.bind(this);
+  componentDidMount() {
+    this.props.update(this.state);
   }
 
   focus() {
@@ -101,25 +105,9 @@ export default class Table extends React.Component {
     this.update({ rows });
   }
 
-  addCellContent({ row, column }, type) {
-    const { rows } = this.state;
-    switch(type) {
-      case 'content':
-      case 'summary':
-      case 'richContent':
-        rows[row][column] = { type, text: '' };
-        break;
-      case 'video':
-        rows[row][column] = { type, url: '' };
-        break;
-    }
-
-    this.update({ rows });
-  }
-
   inflate(row, rowIndex) {
     return row.map((cell, columnIndex) => {
-      let Component, dataId = {row: rowIndex, column: columnIndex};
+      let Component, dataId = `${this.props.dataId}#${rowIndex}-${columnIndex}`;
       switch(cell.type) {
         case 'content':
           Component = DraftJSEditor;
@@ -133,15 +121,24 @@ export default class Table extends React.Component {
         case 'video':
           Component = Video;
           break;
+        case 'image':
+          Component = Image;
+          break;
+        case 'gallery':
+          Component = Gallery;
+          break;
+        case 'slider':
+          Component = Slider;
+          break;
 
         default:
           return (
             <td key={columnIndex}>
               <MoreOptions
-                addTextArea={(dataId, type) => this.addCellContent(dataId, type)}
-                openResourcePanel={() => {}}
-                addResource={({currentIndex, type}) => this.addCellContent(currentIndex, type)}
+                addResource={this.props.addResource}
+                addTextArea={this.props.addTextArea}
                 dataId={dataId}
+                openResourcePanel={this.props.openResourcePanel}
                 show2column={false}
                 show3column={false}
                 showTableButton={false}
@@ -156,18 +153,18 @@ export default class Table extends React.Component {
             dataId={dataId}
             data={cell}
             value={cell.text}
-            updateText={(dataId, text) => this.updateCellContent(dataId, { text })}
-            updateVideo={(dataId, url) => this.updateCellContent(dataId, { url })}
+            updateResource={this.props.updateResource}
+            openResourcePanel={this.props.openResourcePanel}
+            addImageCaption={this.props.addImageCaption}
+            deleteImage={this.props.deleteImage}
+            moveImage={this.props.moveImage}
+            addImageCaptionOverlay={this.props.addImageCaptionOverlay}
+            addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition}
+            addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground}
           />
         </td>
       );
     });
-  }
-
-  updateCellContent({ row, column }, data) {
-    const { rows } = this.state;
-    Object.assign(rows[row][column], data);
-    this.update({ rows });
   }
 
   render() {

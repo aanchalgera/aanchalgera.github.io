@@ -16,7 +16,7 @@ export default class RichContent extends React.Component {
           className="form-control"
           ref="field"
           contentEditable="true"
-          onBlur={() => this.props.updateText(this.props.dataId, this.refs.field.textContent)}
+          onBlur={() => this.props.updateResource(this.props.dataId, 'text', this.refs.field.textContent)}
         >
           {this.props.data.text}
         </div>

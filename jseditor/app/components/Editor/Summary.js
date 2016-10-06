@@ -15,7 +15,7 @@ export default class Summary extends React.Component {
           minimal={true}
           className="form-control blockquote"
           value={this.props.data.text}
-          updateText={(dataId, value) => this.props.updateText(dataId, value)}
+          updateResource={this.props.updateResource}
           dataId={this.props.dataId}
         />
       </div>
