@@ -184,7 +184,6 @@ class Content extends React.Component{
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption.bind(this)}
         updateResource={this.updateResource}
-        deleteImage={this.deleteImage}
       />;
     } else if('richContent' == this.props.data.type) {
       field = (
