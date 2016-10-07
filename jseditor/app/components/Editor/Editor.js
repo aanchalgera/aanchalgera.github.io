@@ -123,7 +123,7 @@ class Editor extends React.Component{
   }
 
   componentDidMount() {
-    // this.timerId = setInterval(() => this.saveData(), 20000);
+    this.timerId = setInterval(() => this.saveData(), 20000);
     this.init();
   }
 
@@ -169,11 +169,7 @@ class Editor extends React.Component{
     if (delimiterIndex >= 0) {
       indexes = currentIndex.substr(0, delimiterIndex).split('-');
       componentIndexes = currentIndex.substr(delimiterIndex + 1).split('-');
-      if (indexes[1]) {
-        altered = fields[indexes[0]].columns[indexes[1]].rows[componentIndexes[0]][componentIndexes[1]];
-      } else {
-        altered = fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
-      }
+      altered = fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
     } else {
       indexes = currentIndex.split('-');
       if (indexes[1]) {
@@ -208,7 +204,6 @@ class Editor extends React.Component{
     } else {
       return this.updateResource(currentIndex, attributes);
     }
-
 
     this.setState({
       fields: this.state.fields,
