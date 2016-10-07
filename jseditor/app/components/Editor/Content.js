@@ -7,6 +7,8 @@ import Slider from './Slider';
 import Giphy from './Giphy';
 import Chart from './Chart';
 import Table from './Table';
+import Video from './Video';
+import RichContent from './RichContent';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -148,25 +150,12 @@ class Content extends React.Component{
         moveImage={this.props.moveImage.bind(this)}
       />;
     } else if('video' == this.props.data.type) {
-      if ('' == this.props.data.url || this.state.edit) {
-        field = (
-          <div>
-            <label className="ptitle">
-              URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
-            </label>
-            <input
-              type="text"
-              ref="field"
-              className="form-control"
-              defaultValue={this.props.data.url}
-              onBlur={() => this.updateResource(this.props.dataId, 'video', this.refs.field.value)}
-              placeholder="https://www.youtube.com/embed/azxoVRTwlNg">
-            </input>
-          </div>
-        );
-      } else {
-        field = <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}><iframe src={this.props.data.url}></iframe></div>;
-      }
+      field = <Video
+        data={this.props.data}
+        edit={this.state.edit}
+        dataId={this.props.dataId}
+        updateResource={this.updateResource}
+      />;
     } else if('giphy' == this.props.data.type) {
       field = <Giphy
         data={this.props.data}
@@ -186,22 +175,11 @@ class Content extends React.Component{
         updateResource={this.updateResource}
       />;
     } else if('richContent' == this.props.data.type) {
-      field = (
-        <div>
-          <label className="ptitle">
-            Rich content snippet <span className="hint">(You can use HTML, CSS and Javascript here)</span>
-          </label>
-          <div
-            id={this.props.index}
-            className="form-control"
-            ref="field"
-            contentEditable="true"
-            onBlur = {this.props.updateRichContent.bind(this, this.props.dataId)}
-          >
-            {this.props.data.text}
-          </div>
-        </div>
-      );
+      field = <RichContent
+        data={this.props.data}
+        dataId={this.props.dataId}
+        updateResource={this.updateResource}
+      />;
     } else if ('table' == this.props.data.type) {
       field = <Table
         addImageCaption={this.props.addImageCaption}
