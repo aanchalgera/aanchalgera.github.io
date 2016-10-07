@@ -40,7 +40,7 @@ export default class DraftJSEditor extends React.Component {
       clearTimeout(this._timeout);
       this._timeout = setTimeout(() => {
         const value = markdown(stateToHTML(editorState.getCurrentContent()));
-        this.props.updateText(this.props.dataId, value);
+        this.props.updateResource(this.props.dataId, 'text', value);
       }, 1000);
     });
   }

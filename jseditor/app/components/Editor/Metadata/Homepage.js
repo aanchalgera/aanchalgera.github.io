@@ -45,7 +45,7 @@ class Homepage extends React.Component{
               ref="homepageContent"
               className="form-control"
               value={this.props.homepage.content}
-              updateText={(id, value) => this.props.updateHomepageContent(value)}
+              updateResource={(id, type, value) => this.props.updateHomepageContent(value)}
               dataId={this.props.dataId}
             />
           </div>

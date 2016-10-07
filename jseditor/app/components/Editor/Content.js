@@ -66,6 +66,9 @@ class Content extends React.Component{
   }
 
   getAttributes(type, value) {
+    if (type == 'text') {
+      return { text: value };
+    }
     if ('' != value) {
       let matches;
       if(type == 'giphy') {
@@ -106,7 +109,7 @@ class Content extends React.Component{
         <DraftJSEditor
           ref="field"
           value={this.props.data.text}
-          updateText={this.props.updateText}
+          updateResource={this.updateResource}
           dataId={this.props.dataId}
         />
       );
@@ -119,7 +122,7 @@ class Content extends React.Component{
             minimal={true}
             className="form-control blockquote"
             value={this.props.data.text}
-            updateText={this.props.updateText}
+            updateResource={this.updateResource}
             dataId={this.props.dataId}
           />
         </div>
@@ -181,6 +184,7 @@ class Content extends React.Component{
         dataId={this.props.dataId}
         addImageCaption={this.props.addImageCaption.bind(this)}
         updateResource={this.updateResource}
+        deleteImage={this.deleteImage}
       />;
     } else if('richContent' == this.props.data.type) {
       field = (
@@ -201,10 +205,20 @@ class Content extends React.Component{
       );
     } else if ('table' == this.props.data.type) {
       field = <Table
-        ref="field"
+        addImageCaption={this.props.addImageCaption}
+        addImageCaptionOverlay={this.props.addImageCaptionOverlay}
+        addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground}
+        addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition}
+        addResource={this.props.addResource}
+        addTextArea={this.props.addTextArea}
         data={this.props.data}
         dataId={this.props.dataId}
+        deleteImage={this.props.deleteImage}
+        moveImage={this.props.moveImage}
+        openResourcePanel={this.props.openResourcePanel}
+        ref="field"
         update={content => this.props.updateResource(this.props.dataId, content)}
+        updateResource={this.updateResource}
       />;
     }
 

@@ -162,14 +162,29 @@ class Editor extends React.Component{
   }
 
   getField(currentIndex) {
-    let indexes = currentIndex.toString().split('-');
-    let original = this.state.fields.splice(indexes[0], 1)[0];
-    let altered = original;
-    if (undefined != indexes[1]) {
-      altered = original.columns[indexes[1]];
+    currentIndex = currentIndex.toString();
+    let { fields } = this.state, indexes, altered, componentIndexes;
+
+    let delimiterIndex = currentIndex.indexOf('#');
+    if (delimiterIndex >= 0) {
+      indexes = currentIndex.substr(0, delimiterIndex).split('-');
+      componentIndexes = currentIndex.substr(delimiterIndex + 1).split('-');
+      altered = fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
+    } else {
+      indexes = currentIndex.split('-');
+      if (indexes[1]) {
+        altered = fields[indexes[0]].columns[indexes[1]];
+      } else {
+        altered = fields[indexes[0]];
+      }
     }
 
+    let original = fields.splice(indexes[0], 1)[0];
     return { indexes, original, altered };
+  }
+
+  isRootComponent(currentIndex) {
+    return /^\d+$/.test(currentIndex);
   }
 
   addResource({type,currentIndex}) {
@@ -183,9 +198,13 @@ class Editor extends React.Component{
     if (type == 'giphy' || type == 'infogram') {
       attributes['description'] = '';
     }
-    this.state.fields.splice(
-      currentIndex, 0, attributes
-    );
+
+    if (this.isRootComponent(currentIndex)) {
+      this.state.fields.splice(currentIndex, 0, attributes);
+    } else {
+      return this.updateResource(currentIndex, attributes);
+    }
+
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
@@ -202,8 +221,7 @@ class Editor extends React.Component{
       this.state.fields.splice(field.indexes[0], 0, field.original);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
-      this.state.fields.splice(
-      currentIndex, 0, {
+      const attributes = {
         id: this.state.maxId,
         type: 'image',
         url: image.url,
@@ -214,7 +232,14 @@ class Editor extends React.Component{
         parallax: false,
         align: '',
         layout: 'normal'
-      });
+      };
+
+      if (this.isRootComponent(currentIndex)) {
+        this.state.fields.splice(currentIndex, 0, attributes);
+      } else {
+        return this.updateResource(currentIndex, attributes);
+      }
+
     } else if (this.state.imageFunction == 'homepage') {
       this.state.meta.homepage.image = {
         url: image.url,
@@ -289,9 +314,13 @@ class Editor extends React.Component{
     let currentIndex = this.state.resourcePanelOpenedBy;
     if (!addMoreImages) {
       this.state.maxId++;
-      this.state.fields.splice(
-        currentIndex, 0, { id: this.state.maxId, type: moduleType, layout: 'normal', images }
-      );
+      let attributes = { id: this.state.maxId, type: moduleType, layout: 'normal', images };
+      if (this.isRootComponent(currentIndex)) {
+        this.state.fields.splice(currentIndex, 0, attributes);
+      } else {
+        return this.updateResource(currentIndex, attributes);
+      }
+
     } else {
       let field = this.getField(currentIndex);
       for (let i = 0; i < images.length; i++) {
@@ -355,17 +384,22 @@ class Editor extends React.Component{
 
   createNewTextArea(currentIndex, type = 'content') {
     this.state.maxId++;
-    let field = {
+    let attributes = {
       id: this.state.maxId,
       type: type,
       text: ''
     };
 
     if (type == 'summary') {
-      field.layout = 'normal';
+      attributes.layout = 'normal';
     }
 
-    this.state.fields.splice(currentIndex, 0, field);
+    if (this.isRootComponent(currentIndex)) {
+      this.state.fields.splice(currentIndex, 0, attributes);
+    } else {
+      return this.updateResource(currentIndex, attributes);
+    }
+
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId
