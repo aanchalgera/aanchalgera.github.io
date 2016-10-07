@@ -7,6 +7,8 @@ import RichContent from './RichContent';
 import Summary from './Summary';
 import Gallery from './Gallery';
 import Slider from './Slider';
+import Giphy from './Giphy';
+import Chart from './Chart';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -137,6 +139,13 @@ export default class Table extends React.Component {
           break;
         case 'slider':
           Component = Slider;
+          break;
+        case 'giphy':
+          Component = Giphy;
+          break;
+        case 'infogram':
+        case 'datawrapper':
+          Component = Chart;
           break;
 
         default:
