@@ -11,12 +11,15 @@ import Slider from './Slider';
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props.data, {
+    this.state = {
+      title: props.data.title || '',
+      summary: props.data.summary || '',
+      headers: props.data.headers || '',
       rows: props.data.rows || [
         [{ type: 'none' }, { type: 'none' }],
         [{ type: 'none' }, { type: 'none' }]
       ]
-    });
+    };
   }
 
   componentDidMount() {
@@ -24,11 +27,16 @@ export default class Table extends React.Component {
   }
 
   focus() {
-    this.refs.field.focus();
+    this.refs.title.focus();
   }
 
   update(params) {
-    this.setState(params, () => this.props.update(this.state));
+    this.setState(params, () => {
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(() => {
+        this.props.update(this.state);
+      }, 1000);
+    });
   }
 
   add(e, type) {
@@ -244,21 +252,37 @@ export default class Table extends React.Component {
           <div className="form-group">
             <label>Table title</label>
             <span className="hint"> (Optional)</span>
-            <input ref="field" type="text" className="form-control" />
+            <input
+              ref="title"
+              type="text"
+              className="form-control"
+              defaultValue={this.state.title}
+              onChange={() => this.update({ title: this.refs.title.value })}
+            />
           </div>
           <div className="form-group">
             <label>Table summary</label>
             <span className="hint"> (Optional, this field improves accesibility, but not displayed at sight.)</span>
-            <textarea className="form-control" />
+            <textarea
+              ref="summary"
+              className="form-control"
+              defaultValue={this.state.summary}
+              onChange={() => this.update({ summary: this.refs.summary.value })}
+            />
           </div>
           <div className="form-inline">
             <div className="form-group">
               <label>Table cell headers</label>
-              <select className="form-control">
-                <option value="row-heading">First row for table headings</option>
-                <option value="column-heading">First column for table headings</option>
-                <option value="row-column-heading">First row and first column for table headings</option>
-                <option value="no-heading">No table headings</option>
+              <select
+                ref="headers"
+                className="form-control"
+                defaultValue={this.state.headers}
+                onChange={() => this.update({ headers: this.refs.headers.value })}
+              >
+                <option value="row">First row for table headings</option>
+                <option value="column">First column for table headings</option>
+                <option value="both">First row and first column for table headings</option>
+                <option value="">No table headings</option>
               </select>
             </div>
           </div>
