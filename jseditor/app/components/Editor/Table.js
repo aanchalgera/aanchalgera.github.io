@@ -115,6 +115,12 @@ export default class Table extends React.Component {
     this.update({ rows });
   }
 
+  clearCell(e, {rowIndex, columnIndex}) {
+    let { rows } = this.state;
+    rows[rowIndex][columnIndex] = { type: 'none' };
+    this.update({ rows });
+  }
+
   inflate(row, rowIndex) {
     return row.map((cell, columnIndex) => {
       let Component, dataId = `${this.props.dataId}#${rowIndex}-${columnIndex}`;
@@ -165,7 +171,16 @@ export default class Table extends React.Component {
       }
 
       return (
-        <td key={columnIndex}>
+        <td key={cell.id ? cell.id : columnIndex}>
+          {
+            this.props.edit ?
+              <div className="btn-group btn-group-xs cells-control">
+                <button className="btn btn-default" title="Delete cell data" onClick={e => this.clearCell(e, {rowIndex, columnIndex})}>
+                  <span aria-hidden="true" className="glyphicon glyphicon-pencil"></span>
+                </button>
+              </div>
+            : null
+          }
           <Component
             dataId={dataId}
             data={cell}
@@ -188,7 +203,7 @@ export default class Table extends React.Component {
     const { rows } = this.state;
     const totalRows = rows.length, totalColumns = rows[0].length;
 
-    const controls = [<td key="0"></td>];
+    const controls = [<td key="0" className="cell-empty"></td>];
     for (let i = 0; i < totalColumns; i++) {
       controls.push(
         <td key={i + 1}>
@@ -219,33 +234,37 @@ export default class Table extends React.Component {
     const table = (
       <table className="table-data">
         <tbody>
-          <tr className="columns-control">{controls}</tr>
+          {this.props.edit ? <tr className="columns-control">{controls}</tr> : null}
           {
             rows.map((row, i) => {
               return (
                 <tr key={i}>
-                  <td className="rows-control">
-                    <div className="btn-group btn-group-xs btn-group-vertical">
-                      {
-                        (i == 0 || totalRows == 1) ? null :
-                          <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
-                            <span className="glyphicon glyphicon-arrow-up"></span>
-                          </button>
-                      }
-                      {
-                        (i == totalRows - 1) ? null :
-                          <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
-                            <span className="glyphicon glyphicon-arrow-down"></span>
-                          </button>
-                      }
-                      {
-                        (totalRows == 1) ? null :
-                          <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', i)}>
-                            <span className="glyphicon glyphicon-trash"></span>
-                          </button>
-                      }
-                    </div>
-                  </td>
+                  {
+                    this.props.edit ?
+                      <td className="rows-control">
+                        <div className="btn-group btn-group-xs btn-group-vertical">
+                          {
+                            (i == 0 || totalRows == 1) ? null :
+                              <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
+                                <span className="glyphicon glyphicon-arrow-up"></span>
+                              </button>
+                          }
+                          {
+                            (i == totalRows - 1) ? null :
+                              <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
+                                <span className="glyphicon glyphicon-arrow-down"></span>
+                              </button>
+                          }
+                          {
+                            (totalRows == 1) ? null :
+                              <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', i)}>
+                                <span className="glyphicon glyphicon-trash"></span>
+                              </button>
+                          }
+                        </div>
+                      </td>
+                    : null
+                  }
                   {this.inflate(row, i)}
                 </tr>
               );
