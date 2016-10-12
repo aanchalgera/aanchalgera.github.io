@@ -204,25 +204,25 @@ export default class Table extends React.Component {
     const totalRows = rows.length, totalColumns = rows[0].length;
 
     const controls = [<td key="0" className="cell-empty"></td>];
-    for (let i = 0; i < totalColumns; i++) {
+    for (let index = 0; index < totalColumns; index++) {
       controls.push(
-        <td key={i + 1}>
+        <td key={index + 1}>
           <div className="btn-group btn-group-xs">
             {
-              (i == 0 || totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Move column left" onClick={e => this.move(e, 'left', i)}>
+              (index == 0 || totalColumns == 1) ? null :
+                <button className="btn btn-default" title="Move column left" onClick={e => this.move(e, 'left', index)}>
                   <span className="glyphicon glyphicon-arrow-left"></span>
                 </button>
             }
             {
-              (i == totalColumns - 1) ? null :
-                <button className="btn btn-default" title="Move column right" onClick={e => this.move(e, 'right', i)}>
+              (index == totalColumns - 1) ? null :
+                <button className="btn btn-default" title="Move column right" onClick={e => this.move(e, 'right', index)}>
                   <span className="glyphicon glyphicon-arrow-right"></span>
                 </button>
             }
             {
               (totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Delete column" onClick={e => this.delete(e, 'column', i)}>
+                <button className="btn btn-default" title="Delete column" onClick={e => this.delete(e, 'column', index)}>
                   <span className="glyphicon glyphicon-trash"></span>
                 </button>
             }
@@ -236,28 +236,28 @@ export default class Table extends React.Component {
         <tbody>
           {this.props.edit ? <tr className="columns-control">{controls}</tr> : null}
           {
-            rows.map((row, i) => {
+            rows.map((row, index) => {
               return (
-                <tr key={i}>
+                <tr key={index}>
                   {
                     this.props.edit ?
                       <td className="rows-control">
                         <div className="btn-group btn-group-xs btn-group-vertical">
                           {
-                            (i == 0 || totalRows == 1) ? null :
-                              <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
+                            (index == 0 || totalRows == 1) ? null :
+                              <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', index)}>
                                 <span className="glyphicon glyphicon-arrow-up"></span>
                               </button>
                           }
                           {
-                            (i == totalRows - 1) ? null :
-                              <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
+                            (index == totalRows - 1) ? null :
+                              <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', index)}>
                                 <span className="glyphicon glyphicon-arrow-down"></span>
                               </button>
                           }
                           {
                             (totalRows == 1) ? null :
-                              <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', i)}>
+                              <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', index)}>
                                 <span className="glyphicon glyphicon-trash"></span>
                               </button>
                           }
@@ -265,7 +265,7 @@ export default class Table extends React.Component {
                       </td>
                     : null
                   }
-                  {this.inflate(row, i)}
+                  {this.inflate(row, index)}
                 </tr>
               );
             })
