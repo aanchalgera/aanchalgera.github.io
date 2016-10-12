@@ -18,6 +18,7 @@ class Content extends React.Component{
       edit: false
     };
     this.updateResource = this.updateResource.bind(this);
+    this.toggleEditMode = this.toggleEditMode.bind(this);
   }
 
   componentDidMount() {
@@ -58,13 +59,10 @@ class Content extends React.Component{
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
-    if (this.refs.field && this.state.edit) {
-      this.refs.field.focus();
-    }
   }
 
-  editResource() {
-    this.setState({ edit: true });
+  toggleEditMode() {
+    this.setState({ edit: !this.state.edit });
   }
 
   getAttributes(type, value) {
@@ -98,7 +96,9 @@ class Content extends React.Component{
   }
 
   updateResource(currentIndex, type, value) {
-    this.setState({ edit: false });
+    if (this.props.data.type != 'table'){
+      this.setState({ edit: false });
+    }
     let attributes = this.getAttributes(type, value);
     this.props.updateResource(currentIndex, attributes);
   }
@@ -191,6 +191,7 @@ class Content extends React.Component{
         data={this.props.data}
         dataId={this.props.dataId}
         deleteImage={this.props.deleteImage}
+        edit={this.state.edit}
         moveImage={this.props.moveImage}
         openResourcePanel={this.props.openResourcePanel}
         ref="field"
@@ -205,11 +206,13 @@ class Content extends React.Component{
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
+      case 'table':
         editButton = <EditButton
-          data={this.props.data}
+          edit={this.state.edit}
+          type={this.props.data.type}
           dataId={this.props.dataId}
-          openResourcePanel={this.props.openResourcePanel.bind(this)}
-          editResource={this.editResource.bind(this)}
+          openResourcePanel={this.props.openResourcePanel}
+          toggleEditMode={this.toggleEditMode}
         />;
         break;
     }

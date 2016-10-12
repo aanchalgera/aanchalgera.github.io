@@ -15,20 +15,12 @@ export default class DraftJSEditor extends React.Component {
     const decorator = new CompositeDecorator([LinkDecorator]);
     const contentState = stateFromHTML(markdown(this.props.value));
     this.state = {
-      editorState: EditorState.createWithContent(contentState, decorator),
-      value: this.props.value
+      editorState: EditorState.createWithContent(contentState, decorator)
     };
 
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onControlToggle = this.onControlToggle.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-    if (value != this.state.value) {
-      this.setState({ value });
-    }
   }
 
   focus() {
