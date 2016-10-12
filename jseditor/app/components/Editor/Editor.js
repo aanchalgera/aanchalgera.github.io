@@ -373,6 +373,20 @@ class Editor extends React.Component{
     }, this.saveData());
   }
 
+  addReview(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex, 0, {
+      id: this.state.maxId,
+      type: 'review',
+      layout: 'normal'
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
   parentDiv(el) {
     while (el && el.parentNode) {
       el = el.parentNode;
@@ -1040,6 +1054,7 @@ class Editor extends React.Component{
               addTextArea={this.createNewTextArea.bind(this)}
               addResource={this.addResource.bind(this)}
               addTable={this.addTable.bind(this)}
+              addReview={this.addReview.bind(this)}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}

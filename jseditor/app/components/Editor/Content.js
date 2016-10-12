@@ -9,6 +9,7 @@ import Chart from './Chart';
 import Table from './Table';
 import Video from './Video';
 import RichContent from './RichContent';
+import FichaDeReview from './FichaDeReview';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -32,6 +33,7 @@ class Content extends React.Component{
       case 'infogram':
       case 'datawrapper':
       case 'table':
+      case 'review':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -56,6 +58,7 @@ class Content extends React.Component{
       case 'infogram':
       case 'datawrapper':
       case 'table':
+      case 'review':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -194,6 +197,14 @@ class Content extends React.Component{
         edit={this.state.edit}
         moveImage={this.props.moveImage}
         openResourcePanel={this.props.openResourcePanel}
+        ref="field"
+        update={content => this.props.updateResource(this.props.dataId, content)}
+        updateResource={this.updateResource}
+      />;
+    } else if ('review' == this.props.data.type) {
+      field = <FichaDeReview
+        data={this.props.data}
+        dataId={this.props.dataId}
         ref="field"
         update={content => this.props.updateResource(this.props.dataId, content)}
         updateResource={this.updateResource}

@@ -42,6 +42,7 @@ export default class Resource extends React.Component {
       addVideo={this.props.addVideo}
       addResource={this.props.addResource}
       addTable={this.props.addTable}
+      addReview={this.props.addReview}
       groupSections={this.props.groupSections}
       show2column={field.show2column}
       show3column={field.show3column}
