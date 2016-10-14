@@ -109,7 +109,9 @@ class PropertyButton extends React.Component {
     if ('table' == this.props.data.type) {
       tableProperties = (
         <PropertyButtonTable
-        dataId={this.props.dataId}
+          dataId={this.props.dataId}
+          useEqualWidth={this.props.data.useEqualWidth}
+          updateResource={value => this.props.updateResource(this.props.dataId, { useEqualWidth: value })}
         />
       );
     }

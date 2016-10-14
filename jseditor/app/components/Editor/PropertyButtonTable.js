@@ -7,7 +7,12 @@ export default class PropertyButtonTable extends React.Component {
         <h5>Columns</h5>
         <li>
           <label className="full-line">
-            <input type="checkbox" />
+            <input
+              ref="equalWidth"
+              type="checkbox"
+              defaultChecked={this.props.useEqualWidth}
+              onChange={() => this.props.updateResource(this.refs.equalWidth.checked)}
+            />
             Make all cells equal in width
           </label>
         </li>

@@ -20,12 +20,20 @@ export default class Table extends React.Component {
       rows: props.data.rows || [
         [{ type: 'none' }, { type: 'none' }],
         [{ type: 'none' }, { type: 'none' }]
-      ]
+      ],
+      useEqualWidth: props.data.useEqualWidth || false
     };
   }
 
   componentDidMount() {
     this.props.update(this.state);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { useEqualWidth } = nextProps.data;
+    if (useEqualWidth != this.state.useEqualWidth) {
+      this.setState({ useEqualWidth });
+    }
   }
 
   focus() {
