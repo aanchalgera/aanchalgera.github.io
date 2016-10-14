@@ -80,7 +80,7 @@ export default class FichaDeReview extends React.Component {
     partialScores[rowIndex][columnIndex].value = e.target.value;
 
     this.update({ partialScores });
-    if (this.refs.calculatePartial.checked) {
+    if (this.refs.calculatePartial.checked && columnIndex == 1) {
       this.calculatePartial();
     }
   }
