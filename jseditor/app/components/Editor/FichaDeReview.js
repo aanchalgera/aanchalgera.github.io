@@ -4,13 +4,15 @@ export default class FichaDeReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      maxId: 0,
       positive: props.data.positive || '',
       negative: props.data.negative || '',
       summary: props.data.summary || '',
-      totalMark: props.data.totalMark || '',
-      rows: props.data.rows || [
-        [{ value: '' }, { value: '' }],
-        [{ value: '' }, { value: '' }]
+      totalScore: props.data.totalScore || '',
+      calculatePartial: props.data.calculatePartial || false,
+      partialScores: props.data.partialScores || [
+        [{ value: '', id: '' }, { value: '', id: '' }],
+        [{ value: '', id: '' }, { value: '', id: '' }]
       ]
     };
   }
@@ -30,73 +32,104 @@ export default class FichaDeReview extends React.Component {
 
   add(e) {
     e.preventDefault();
-    let { rows } = this.state, count = 0, newRows = [];
-    const totalColumns = rows[0].length;
+    let { partialScores } = this.state, count = 0, newScores = [];
+    const totalColumns = partialScores[0].length;
 
     count = this.refs.addNotes.value;
     for (let i = 0; i < count; i++) {
-      newRows[i] = [];
+      newScores[i] = [];
       for (let j = 0; j < totalColumns; j++) {
-        newRows[i][j] = {value: ''};
+        newScores[i][j] = {value: '', id: ''};
       }
     }
-    rows.push(...newRows);
+    partialScores.push(...newScores);
 
-    this.update({ rows });
+    this.update({ partialScores });
   }
 
   move(e, type, index) {
     e.preventDefault();
-    let { rows } = this.state;
+    let { partialScores } = this.state;
 
     switch(type) {
       case 'up':
-        rows[index - 1] = rows.splice(index, 1, rows[index - 1])[0];
+        partialScores[index - 1] = partialScores.splice(index, 1, partialScores[index - 1])[0];
         break;
 
       case 'down':
-        rows[index + 1] = rows.splice(index, 1, rows[index + 1])[0];
+        partialScores[index + 1] = partialScores.splice(index, 1, partialScores[index + 1])[0];
         break;
     }
 
-    this.update({ rows });
+    this.update({ partialScores });
   }
 
   delete(e, index) {
     e.preventDefault();
-    let { rows } = this.state;
-    rows.splice(index, 1);
+    let { partialScores } = this.state;
+    partialScores.splice(index, 1);
 
-    this.update({ rows });
+    this.update({ partialScores });
   }
 
   updateCell({rowIndex, columnIndex}, e) {
     e.preventDefault();
-    let { rows } = this.state;
-    rows[rowIndex][columnIndex].value = e.target.value;
+    let { partialScores } = this.state;
+    partialScores[rowIndex][columnIndex].value = e.target.value;
 
-    this.update({ rows });
+    this.update({ partialScores });
+    this.updateTotalScore();
   }
 
-  inflate(row, rowIndex) {
-    return row.map((cell, columnIndex) => {
+  calculatePartial(e) {
+    this.update({ calculatePartial: e.target.checked });
+    this.updateTotalScore();
+  }
+
+  getFloat(value) {
+    let floatVal = parseFloat(value.replace(',', '.'));
+    return isNaN(floatVal) ? 0 : floatVal;
+  }
+
+  updateTotalScore() {
+    if (this.state.calculatePartial) {
+      let { partialScores } = this.state;
+      let totalScore = 0, totalRows = partialScores.length;
+      for (let i = 0; i < totalRows; i++) {
+        totalScore += this.getFloat(partialScores[i][1].value);
+      }
+      let averageScore = (totalScore / totalRows).toFixed(1);
+      this.refs.field.value = averageScore;
+    }
+    this.update({ totalScore: this.refs.field.value });
+  }
+
+  inflate(partialScore, maxId, rowIndex) {
+    return partialScore.map((cell, columnIndex) => {
+      if (cell.id == '') {
+        maxId++;
+        cell.id = maxId;
+        this.update({ maxId });
+      }
+
       return(
-        <td key={columnIndex}>
+        <td key={cell.id}>
           <input
             type="text"
             defaultValue={cell.value}
             className="form-control"
-            onChange={e => this.updateCell({ rowIndex, columnIndex}, e)} />
+            onChange={e => this.updateCell({ rowIndex, columnIndex}, e)}
+          />
         </td>
       );
     });
   }
 
   render() {
-    const { rows } = this.state;
-    const totalRows = rows.length;
+    const { partialScores, maxId } = this.state;
+    const totalRows = partialScores.length;
     const table = (
-      rows.map((row, i) => {
+      partialScores.map((partialScore, i) => {
         return (
           <tr key={i}>
             <td className="rows-control">
@@ -121,7 +154,7 @@ export default class FichaDeReview extends React.Component {
                 }
               </div>
             </td>
-            {this.inflate(row, i)}
+            {this.inflate(partialScore, maxId, i)}
           </tr>
         );
       })
@@ -134,18 +167,22 @@ export default class FichaDeReview extends React.Component {
           <div className={'asset-size-' + this.props.data.layout}>
             <div className="form-inline">
               <div className="form-group">
-                <label htmlFor="exampleInputName2">Total Mark:</label>
+                <label htmlFor="exampleInputName2">Total Score:</label>
                 <span className="hint"> (Always use a decimal) </span>
                 <input
                   type="text"
                   className="form-control"
                   ref="field"
-                  placeholder="7.0"
+                  placeholder="7,0"
                   style={{width:'50px'}}
-                  defaultValue={this.state.totalMark}
-                  onChange={() => this.update({ totalMark: this.refs.field.value })}
+                  defaultValue={this.state.totalScore}
+                  onChange={() => this.updateTotalScore()}
                 />
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={this.state.calculatePartial}
+                  onChange={e => this.calculatePartial(e)}
+                />
                 Calculate partial
               </div>
             </div>
