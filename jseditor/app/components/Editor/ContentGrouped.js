@@ -56,6 +56,7 @@ class ContentGrouped extends React.Component{
           addLayoutToResource={this.props.addLayoutToResource}
           groupSections={this.props.groupSections}
           ungroupSections={this.props.ungroupSections}
+          updateResource={this.props.updateResource}
         />
       </div>
     );

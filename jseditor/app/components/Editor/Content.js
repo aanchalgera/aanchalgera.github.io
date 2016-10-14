@@ -227,29 +227,31 @@ class Content extends React.Component{
     }
 
     return (
-      <div className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
-       id={'div-'+this.props.index}
-       data-id={this.props.dataId}
-       key={this.props.data.key}>
-         <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+foregroundColorClass}>
-           <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
-           {field}
-         </div></div>
-         {editButton}
-         <PropertyButton
-           align={this.props.data.align}
-           layout={this.props.data.layout}
-           autoplay={this.props.data.autoplay}
-           setAutoPlaySlider={this.props.setAutoPlaySlider}
-           addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
-           openResourcePanel={this.props.openResourcePanel}
-           deleteResource={this.props.deleteResource}
-           data={this.props.data}
-           dataId={this.props.dataId}
-           addLayoutToResource={this.props.addLayoutToResource}
-           ungroupSections={this.props.ungroupSections}
-           grouped={this.props.grouped}
-         />
+      <div
+        className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
+        id={'div-'+this.props.index}
+        data-id={this.props.dataId}
+        key={this.props.data.key}
+      >
+        <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')+foregroundColorClass}>
+          <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>{field}</div>
+        </div>
+        {editButton}
+        <PropertyButton
+          align={this.props.data.align}
+          layout={this.props.data.layout}
+          autoplay={this.props.data.autoplay}
+          setAutoPlaySlider={this.props.setAutoPlaySlider}
+          addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
+          openResourcePanel={this.props.openResourcePanel}
+          deleteResource={this.props.deleteResource}
+          data={this.props.data}
+          dataId={this.props.dataId}
+          addLayoutToResource={this.props.addLayoutToResource}
+          ungroupSections={this.props.ungroupSections}
+          grouped={this.props.grouped}
+          updateResource={this.props.updateResource}
+        />
       </div>
     );
   }
