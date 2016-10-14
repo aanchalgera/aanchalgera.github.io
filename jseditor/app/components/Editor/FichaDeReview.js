@@ -4,15 +4,16 @@ export default class FichaDeReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxId: 0,
+      maxId: props.data.maxId || 6,
       positive: props.data.positive || '',
       negative: props.data.negative || '',
       summary: props.data.summary || '',
       totalScore: props.data.totalScore || '',
       calculatePartial: props.data.calculatePartial || false,
       partialScores: props.data.partialScores || [
-        [{ value: '', id: '' }, { value: '', id: '' }],
-        [{ value: '', id: '' }, { value: '', id: '' }]
+        [{ value: '', id: 0 }, { value: '', id: 1 }],
+        [{ value: '', id: 2 }, { value: '', id: 3 }],
+        [{ value: '', id: 4 }, { value: '', id: 5 }]
       ]
     };
   }
@@ -32,19 +33,17 @@ export default class FichaDeReview extends React.Component {
 
   add(e) {
     e.preventDefault();
-    let { partialScores } = this.state, count = 0, newScores = [];
-    const totalColumns = partialScores[0].length;
+    let { partialScores, maxId } = this.state, count = 0, newScores = [];
 
     count = this.refs.addNotes.value;
     for (let i = 0; i < count; i++) {
       newScores[i] = [];
-      for (let j = 0; j < totalColumns; j++) {
-        newScores[i][j] = {value: '', id: ''};
-      }
+      newScores[i][0] = {value: '', id: maxId++};
+      newScores[i][1] = {value: '', id: maxId++};
     }
     partialScores.push(...newScores);
 
-    this.update({ partialScores });
+    this.update({ partialScores, maxId });
   }
 
   move(e, type, index) {
@@ -70,20 +69,29 @@ export default class FichaDeReview extends React.Component {
     partialScores.splice(index, 1);
 
     this.update({ partialScores });
+    if (this.refs.calculatePartial.checked) {
+      this.calculatePartial();
+    }
   }
 
-  updateCell({rowIndex, columnIndex}, e) {
+  updateCell(rowIndex, columnIndex, e) {
     e.preventDefault();
     let { partialScores } = this.state;
     partialScores[rowIndex][columnIndex].value = e.target.value;
 
     this.update({ partialScores });
-    this.updateTotalScore();
+    if (this.refs.calculatePartial.checked) {
+      this.calculatePartial();
+    }
   }
 
-  calculatePartial(e) {
-    this.update({ calculatePartial: e.target.checked });
-    this.updateTotalScore();
+  calculatePartial() {
+    let { totalScore } = this.state;
+    if (this.refs.calculatePartial.checked) {
+      totalScore = this.getTotalScore();
+    }
+
+    this.update({ calculatePartial: this.refs.calculatePartial.checked, totalScore });
   }
 
   getFloat(value) {
@@ -91,43 +99,29 @@ export default class FichaDeReview extends React.Component {
     return isNaN(floatVal) ? 0 : floatVal;
   }
 
-  updateTotalScore() {
-    if (this.state.calculatePartial) {
-      let { partialScores } = this.state;
-      let totalScore = 0, totalRows = partialScores.length;
-      for (let i = 0; i < totalRows; i++) {
-        totalScore += this.getFloat(partialScores[i][1].value);
+  getTotalScore() {
+    let { partialScores } = this.state;
+    let totalScore = 0, count = 0, totalRows = partialScores.length;
+    for (let i = 0; i < totalRows; i++) {
+      let partialScore = this.getFloat(partialScores[i][1].value);
+      if (partialScore) {
+        totalScore += partialScore;
+        count++;
       }
-      let averageScore = (totalScore / totalRows).toFixed(1);
-      this.refs.field.value = averageScore;
     }
-    this.update({ totalScore: this.refs.field.value });
-  }
-
-  inflate(partialScore, maxId, rowIndex) {
-    return partialScore.map((cell, columnIndex) => {
-      if (cell.id == '') {
-        maxId++;
-        cell.id = maxId;
-        this.update({ maxId });
-      }
-
-      return(
-        <td key={cell.id}>
-          <input
-            type="text"
-            defaultValue={cell.value}
-            className="form-control"
-            onChange={e => this.updateCell({ rowIndex, columnIndex}, e)}
-          />
-        </td>
-      );
-    });
+    let averageScore = count > 0 ? (totalScore / count).toFixed(1) : 0;
+    this.refs.field.value = averageScore;
+    return(averageScore);
   }
 
   render() {
-    const { partialScores, maxId } = this.state;
+    const { partialScores } = this.state;
     const totalRows = partialScores.length;
+    const placeholder = [
+      [{text: 'Design'}, {value: '7,0'}],
+      [{text: 'Autonomy'}, {value: '6,0'}],
+      [{text: 'Performance'}, {value: '6,0'}]
+    ];
     const table = (
       partialScores.map((partialScore, i) => {
         return (
@@ -154,7 +148,24 @@ export default class FichaDeReview extends React.Component {
                 }
               </div>
             </td>
-            {this.inflate(partialScore, maxId, i)}
+            <td key={partialScore[0].id}>
+              <input
+                type="text"
+                placeholder={i<3 ? placeholder[i][0].text : ''}
+                defaultValue={partialScore[0].value}
+                className="form-control"
+                onChange={e => this.updateCell(i, 0, e)}
+              />
+            </td>
+            <td key={partialScore[1].id}>
+             <input
+               type="text"
+               placeholder={i<3 ? placeholder[i][1].value : ''}
+               defaultValue={partialScore[1].value}
+               className="form-control"
+               onChange={e => this.updateCell(i, 1, e)}
+             />
+            </td>
           </tr>
         );
       })
@@ -174,14 +185,16 @@ export default class FichaDeReview extends React.Component {
                   className="form-control"
                   ref="field"
                   placeholder="7,0"
-                  style={{width:'50px'}}
+                  style={{width:'60px'}}
                   defaultValue={this.state.totalScore}
-                  onChange={() => this.updateTotalScore()}
+                  onChange={() => this.update({ totalScore: this.refs.field.value })}
+                  disabled={this.state.calculatePartial}
                 />
                 <input
                   type="checkbox"
+                  ref="calculatePartial"
                   checked={this.state.calculatePartial}
-                  onChange={e => this.calculatePartial(e)}
+                  onChange={() => this.calculatePartial()}
                 />
                 Calculate partial
               </div>
