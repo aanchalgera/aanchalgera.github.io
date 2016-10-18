@@ -11,9 +11,9 @@ export default class FichaDeReview extends React.Component {
       totalScore: props.data.totalScore || '',
       calculatePartial: props.data.calculatePartial || false,
       partialScores: props.data.partialScores || [
-        [{ value: '', id: 0 }, { value: '', id: 1 }],
-        [{ value: '', id: 2 }, { value: '', id: 3 }],
-        [{ value: '', id: 4 }, { value: '', id: 5 }]
+        { valuedAspect: '', partialNote: '', id: 0 },
+        { valuedAspect: '', partialNote: '', id: 2 },
+        { valuedAspect: '', partialNote: '', id: 4 }
       ]
     };
   }
@@ -37,9 +37,8 @@ export default class FichaDeReview extends React.Component {
 
     count = this.refs.addNotes.value;
     for (let i = 0; i < count; i++) {
-      newScores[i] = [];
-      newScores[i][0] = {value: '', id: maxId++};
-      newScores[i][1] = {value: '', id: maxId++};
+      newScores[i] = { valuedAspect: '', partialNote: '', id: maxId };
+      maxId += 2;
     }
     partialScores.push(...newScores);
 
@@ -77,18 +76,22 @@ export default class FichaDeReview extends React.Component {
   updateCell(rowIndex, columnIndex, e) {
     e.preventDefault();
     let { partialScores } = this.state;
-    partialScores[rowIndex][columnIndex].value = e.target.value;
+    if (columnIndex == 0) {
+      partialScores[rowIndex].valuedAspect = e.target.value;
+    } else {
+      partialScores[rowIndex].partialNote = e.target.value;
+      if (this.refs.calculatePartial.checked) {
+        this.calculatePartial();
+      }
+    }
 
     this.update({ partialScores });
-    if (this.refs.calculatePartial.checked && columnIndex == 1) {
-      this.calculatePartial();
-    }
   }
 
   calculatePartial() {
     let { totalScore } = this.state;
     if (this.refs.calculatePartial.checked) {
-      totalScore = this.getTotalScore();
+      totalScore = this.getAverageScore();
     }
 
     this.update({ calculatePartial: this.refs.calculatePartial.checked, totalScore });
@@ -99,11 +102,11 @@ export default class FichaDeReview extends React.Component {
     return isNaN(floatVal) ? 0 : floatVal;
   }
 
-  getTotalScore() {
+  getAverageScore() {
     let { partialScores } = this.state;
     let totalScore = 0, count = 0, totalRows = partialScores.length;
     for (let i = 0; i < totalRows; i++) {
-      let partialScore = this.getFloat(partialScores[i][1].value);
+      let partialScore = this.getFloat(partialScores[i].partialNote);
       if (partialScore) {
         totalScore += partialScore;
         count++;
@@ -148,20 +151,20 @@ export default class FichaDeReview extends React.Component {
                 }
               </div>
             </td>
-            <td key={partialScore[0].id}>
+            <td key={partialScore.id}>
               <input
                 type="text"
                 placeholder={i<3 ? placeholder[i][0].text : ''}
-                defaultValue={partialScore[0].value}
+                defaultValue={partialScore.valuedAspect}
                 className="form-control"
                 onChange={e => this.updateCell(i, 0, e)}
               />
             </td>
-            <td key={partialScore[1].id}>
+            <td key={partialScore.id + 1}>
              <input
                type="text"
                placeholder={i<3 ? placeholder[i][1].value : ''}
-               defaultValue={partialScore[1].value}
+               defaultValue={partialScore.partialNote}
                className="form-control"
                onChange={e => this.updateCell(i, 1, e)}
              />
