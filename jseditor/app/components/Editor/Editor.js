@@ -47,6 +47,7 @@ class Editor extends React.Component{
       isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
+    this.addReview = this.addReview.bind(this);
   }
 
   init() {
@@ -365,6 +366,20 @@ class Editor extends React.Component{
     currentIndex, 0, {
       id: this.state.maxId,
       type: 'table',
+      layout: 'normal'
+    });
+    this.setState({
+      fields: this.state.fields,
+      maxId: this.state.maxId
+    }, this.saveData());
+  }
+
+  addReview(currentIndex) {
+    this.state.maxId++;
+    this.state.fields.splice(
+    currentIndex, 0, {
+      id: this.state.maxId,
+      type: 'review',
       layout: 'normal'
     });
     this.setState({
@@ -1040,6 +1055,7 @@ class Editor extends React.Component{
               addTextArea={this.createNewTextArea.bind(this)}
               addResource={this.addResource.bind(this)}
               addTable={this.addTable.bind(this)}
+              addReview={this.addReview}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
