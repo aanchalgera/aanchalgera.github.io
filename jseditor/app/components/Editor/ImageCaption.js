@@ -16,7 +16,7 @@ export default class ImageCaption extends React.Component {
   }
 
   closeCaptionForm(e) {
-    if (e.target.tagName.toLowerCase() != 'select') { 
+    if (e.target.tagName.toLowerCase() != 'select') {
       this.setState({ showCaptionForm: false });
     }
   }
@@ -49,7 +49,7 @@ export default class ImageCaption extends React.Component {
         type="text"
         id={this.props.id}
         className="caption"
-        value={this.state.value}
+        defaultValue={this.state.value}
         placeholder="Add caption"
         onChange={this.handleChange.bind(this)}
       />
