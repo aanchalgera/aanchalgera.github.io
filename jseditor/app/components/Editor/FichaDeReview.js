@@ -4,7 +4,7 @@ export default class FichaDeReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxId: props.data.maxId || 6,
+      maxId: props.data.maxId || 3,
       positive: props.data.positive || '',
       negative: props.data.negative || '',
       summary: props.data.summary || '',
@@ -12,8 +12,8 @@ export default class FichaDeReview extends React.Component {
       calculatePartial: props.data.calculatePartial || false,
       partialScores: props.data.partialScores || [
         { valuedAspect: '', partialNote: '', id: 0 },
-        { valuedAspect: '', partialNote: '', id: 2 },
-        { valuedAspect: '', partialNote: '', id: 4 }
+        { valuedAspect: '', partialNote: '', id: 1 },
+        { valuedAspect: '', partialNote: '', id: 2 }
       ]
     };
   }
@@ -37,8 +37,7 @@ export default class FichaDeReview extends React.Component {
 
     count = this.refs.addNotes.value;
     for (let i = 0; i < count; i++) {
-      newScores[i] = { valuedAspect: '', partialNote: '', id: maxId };
-      maxId += 2;
+      newScores[i] = { valuedAspect: '', partialNote: '', id: maxId++ };
     }
     partialScores.push(...newScores);
 
@@ -128,7 +127,7 @@ export default class FichaDeReview extends React.Component {
     const table = (
       partialScores.map((partialScore, i) => {
         return (
-          <tr key={i}>
+          <tr key={partialScore.id}>
             <td className="rows-control">
               <div className="btn-group btn-group-xs btn-group-vertical">
                 {
@@ -151,7 +150,7 @@ export default class FichaDeReview extends React.Component {
                 }
               </div>
             </td>
-            <td key={partialScore.id}>
+            <td>
               <input
                 type="text"
                 placeholder={i<3 ? placeholder[i][0].text : ''}
@@ -160,7 +159,7 @@ export default class FichaDeReview extends React.Component {
                 onChange={e => this.updateCell(i, 0, e)}
               />
             </td>
-            <td key={partialScore.id + 1}>
+            <td>
              <input
                type="text"
                placeholder={i<3 ? placeholder[i][1].value : ''}
