@@ -70,7 +70,6 @@ class PropertyButton extends React.Component {
       case 'infogram':
       case 'datawrapper':
       case 'table':
-      case 'review':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
@@ -107,17 +106,14 @@ class PropertyButton extends React.Component {
         </button>
       );
     }
-    switch (this.props.data.type) {
-      case 'table':
-      case 'review':
-        tableProperties = (
-          <PropertyButtonTable
-            dataId={this.props.dataId}
-            useEqualWidth={this.props.data.useEqualWidth}
-            updateResource={value => this.props.updateResource(this.props.dataId, { useEqualWidth: value })}
-          />
-        );
-        break;
+    if ('table' == this.props.data.type) {
+      tableProperties = (
+        <PropertyButtonTable
+          dataId={this.props.dataId}
+          useEqualWidth={this.props.data.useEqualWidth}
+          updateResource={value => this.props.updateResource(this.props.dataId, { useEqualWidth: value })}
+        />
+      );
     }
     var propertyButton = (
       <ul className="nav-pills2 js-nav-properties">
