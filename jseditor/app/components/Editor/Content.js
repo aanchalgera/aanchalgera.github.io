@@ -10,6 +10,7 @@ import Table from './Table';
 import Video from './Video';
 import RichContent from './RichContent';
 import FichaDeReview from './FichaDeReview';
+import FichaTechnica from './FichaTechnica';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{
@@ -34,6 +35,7 @@ class Content extends React.Component{
       case 'datawrapper':
       case 'table':
       case 'fichaReview':
+      case 'technica':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -59,6 +61,7 @@ class Content extends React.Component{
       case 'datawrapper':
       case 'table':
       case 'fichaReview':
+      case 'technica':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -203,6 +206,13 @@ class Content extends React.Component{
       />;
     } else if ('fichaReview' == this.props.data.type) {
       field = <FichaDeReview
+        data={this.props.data}
+        dataId={this.props.dataId}
+        ref="field"
+        update={content => this.props.updateResource(this.props.dataId, content)}
+      />;
+    } else if ('technica' == this.props.data.type) {
+      field = <FichaTechnica
         data={this.props.data}
         dataId={this.props.dataId}
         ref="field"
