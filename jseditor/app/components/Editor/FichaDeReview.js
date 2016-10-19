@@ -105,8 +105,8 @@ export default class FichaDeReview extends React.Component {
     let { partialScores } = this.state;
     let totalScore = 0, count = 0, totalRows = partialScores.length;
     for (let i = 0; i < totalRows; i++) {
-      let partialScore = this.getFloat(partialScores[i].partialNote);
-      if (partialScore) {
+      if (partialScores[i].partialNote) {
+        let partialScore = this.getFloat(partialScores[i].partialNote);
         totalScore += partialScore;
         count++;
       }
@@ -189,6 +189,7 @@ export default class FichaDeReview extends React.Component {
                   placeholder="7,0"
                   style={{width:'60px'}}
                   defaultValue={this.state.totalScore}
+                  maxLength="3"
                   onChange={() => this.update({ totalScore: this.refs.field.value })}
                   disabled={this.state.calculatePartial}
                 />
