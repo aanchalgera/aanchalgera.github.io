@@ -49,7 +49,7 @@ class Gallery extends React.Component {
         <li key={i}>
           <img alt={image.alt} id={image.spid} src={image.url} />
           <ImageCaption
-            id={image.spid}
+            key={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
             imageCaption={imageCaption} />
