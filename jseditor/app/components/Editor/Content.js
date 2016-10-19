@@ -72,6 +72,9 @@ class Content extends React.Component{
     if (type == 'text') {
       return { text: value };
     }
+    if ('video' == type) {
+      return {url: value};
+    }
     if ('' != value) {
       let matches;
       if(type == 'giphy') {
@@ -89,13 +92,14 @@ class Content extends React.Component{
         let type = matches[2].replace('.', '');
         let attributes = {
           url: url,
+          description:'',
           type: type
         };
         attributes[type+'Id'] = matches[3];
         return attributes;
       }
     }
-    return {url: value};
+    return {description:'', url: ''};
   }
 
   updateResource(currentIndex, type, value) {

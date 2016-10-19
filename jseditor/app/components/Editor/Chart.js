@@ -12,7 +12,7 @@ export default class Chart extends React.Component {
 
   render() {
     let chart='';
-    if('' == this.props.data.url || this.props.edit) {
+    if('' == this.props.data.url || undefined == this.props.data.url || this.props.edit) {
       chart = (
         <input
           type="text"
