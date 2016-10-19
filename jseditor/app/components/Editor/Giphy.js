@@ -13,7 +13,7 @@ export default class Giphy extends React.Component {
     let giphy='';
     var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
 
-    if('' == this.props.data.url || this.props.edit) {
+    if('' == this.props.data.url || undefined == this.props.data.url || this.props.edit) {
       giphy = (
         <input
           type="text"

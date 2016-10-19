@@ -47,7 +47,7 @@ class Editor extends React.Component{
       isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
-    this.addReview = this.addReview.bind(this);
+    this.addResource = this.addResource.bind(this);
   }
 
   init() {
@@ -192,10 +192,9 @@ class Editor extends React.Component{
     this.state.maxId++;
     let attributes = {
       id: this.state.maxId,
-      url: '',
+      type: type,
       layout: 'normal'
     };
-    attributes['type'] = type;
     if (type == 'giphy' || type == 'infogram') {
       attributes['description'] = '';
     }
@@ -366,20 +365,6 @@ class Editor extends React.Component{
     currentIndex, 0, {
       id: this.state.maxId,
       type: 'table',
-      layout: 'normal'
-    });
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    }, this.saveData());
-  }
-
-  addReview(currentIndex) {
-    this.state.maxId++;
-    this.state.fields.splice(
-    currentIndex, 0, {
-      id: this.state.maxId,
-      type: 'review',
       layout: 'normal'
     });
     this.setState({
@@ -1053,9 +1038,8 @@ class Editor extends React.Component{
               updateResource={this.updateResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
               addTextArea={this.createNewTextArea.bind(this)}
-              addResource={this.addResource.bind(this)}
+              addResource={this.addResource}
               addTable={this.addTable.bind(this)}
-              addReview={this.addReview}
               deleteResource={this.deleteResource.bind(this)}
               addLayoutToResource={this.addLayoutToResource.bind(this)}
               groupSections={this.groupSections.bind(this)}
