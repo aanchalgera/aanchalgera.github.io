@@ -195,6 +195,9 @@ class Editor extends React.Component{
       type: type,
       layout: 'normal'
     };
+    if (type == 'giphy' || type == 'infogram') {
+      attributes['description'] = '';
+    }
 
     if (this.isRootComponent(currentIndex)) {
       this.state.fields.splice(currentIndex, 0, attributes);
