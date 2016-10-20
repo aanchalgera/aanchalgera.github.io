@@ -154,7 +154,7 @@ export default class FichaTechnica extends React.Component {
           <div className={'asset-size-' + this.props.data.layout}>
             <div className="form-group">
               <label>Product name</label>
-              <span className="hint">(Required)</span>
+              <span className="hint"> (Required) </span>
               <input
                 type="text"
                 className="form-control"
@@ -176,7 +176,7 @@ export default class FichaTechnica extends React.Component {
             </div>
             <div className="form-group">
               <label>Url of product image</label>
-              <span className="hint">(Size should be 64x64)</span>
+              <span className="hint"> (Size should be 64x64) </span>
               <input
                 type="text"
                 className="form-control"
@@ -213,7 +213,7 @@ export default class FichaTechnica extends React.Component {
             </div>
             <div className="form-group">
               <label>Other details</label>
-              <span className="hint">(Optional, you can use html.)</span>
+              <span className="hint"> (Optional, you can use html) </span>
               <textarea
                 className="form-control"
                 ref="otherDetail"

@@ -6,7 +6,7 @@ class MoreOptions extends React.Component {
     const threeColumnButton = <button type="button" className="btn" onClick={() => this.props.groupSections(this.props.dataId, 3)} title="3 Columns"> 3 Columns</button>;
     const tableButton = <button type="button" className="btn fa fa-table" onClick={() => this.props.addTable(this.props.dataId)} title='Add Tables'></button>;
     const fichaDeReviewButton = <button type="button" className="btn fa fa-star-half-empty" onClick={() => this.props.addResource({type: 'fichaReview', currentIndex: this.props.dataId})} title='Add Ficha de review'></button>;
-    const fichaTechnicaButton = <button type="button" className="btn fa fa-folder-o" onClick={() => this.props.addResource({type: 'technica', currentIndex: this.props.dataId})} title='Add Ficha tecnica'></button>;
+    const fichaTechnicaButton = <button type="button" className="btn fa fa-folder-o" onClick={() => this.props.addResource({type: 'ficha', currentIndex: this.props.dataId})} title='Add Ficha tecnica'></button>;
     return (
       <div className="add-more-options">
         <button type="button" className="btn glyphicon glyphicon-plus" title="Add image, video, slider, new section" ></button>

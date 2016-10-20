@@ -35,7 +35,7 @@ class Content extends React.Component{
       case 'datawrapper':
       case 'table':
       case 'fichaReview':
-      case 'technica':
+      case 'ficha':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
       case 'summary':
@@ -61,7 +61,7 @@ class Content extends React.Component{
       case 'datawrapper':
       case 'table':
       case 'fichaReview':
-      case 'technica':
+      case 'ficha':
         document.querySelector('#div-'+this.props.index).setAttribute('style',this.props.getStyleText(this.props.data));
         break;
     }
@@ -211,7 +211,7 @@ class Content extends React.Component{
         ref="field"
         update={content => this.props.updateResource(this.props.dataId, content)}
       />;
-    } else if ('technica' == this.props.data.type) {
+    } else if ('ficha' == this.props.data.type) {
       field = <FichaTechnica
         data={this.props.data}
         dataId={this.props.dataId}
