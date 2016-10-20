@@ -48,9 +48,11 @@ class Slider extends React.Component {
         <li key={i} style={{ backgroundImage: 'url(' + image.url + ')' }}>
           <ImageCaption
             key={image.spid}
+            id={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
-            imageCaption={imageCaption} />
+            imageCaption={imageCaption}
+          />
           <div className="hover-nav">
             <div className="btn-group btn-group-sm" role="group" aria-label="...">
               {deleteButton}
