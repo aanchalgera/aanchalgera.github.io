@@ -30,12 +30,12 @@ export default class ImageCaption extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
-    let {id, value} = e.currentTarget;
+    let {value} = e.currentTarget;
 
     // To prevent rapid saving on firebase
     clearTimeout(this._timeout);
     this._timeout = setTimeout(() => {
-      this.props.addImageCaption(id, value, this.props.fieldId);
+      this.props.addImageCaption(this.props.imageId, value, this.props.fieldId);
     }, 1000);
 
     this.setState({

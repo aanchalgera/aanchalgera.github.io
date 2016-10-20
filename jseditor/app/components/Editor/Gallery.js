@@ -50,9 +50,11 @@ class Gallery extends React.Component {
           <img alt={image.alt} id={image.spid} src={image.url} />
           <ImageCaption
             key={image.spid}
+            imageId={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
-            imageCaption={imageCaption} />
+            imageCaption={imageCaption}
+          />
           <div className="hover-nav">
             <div className="btn-group btn-group-sm" role="group" aria-label="...">
               {deleteButton}
