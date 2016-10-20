@@ -26,7 +26,7 @@ class PropertyButtonSizes extends React.Component{
         </span>
       );
     }
-    if ('table' != this.props.dataType || 'fichaReview' != this.props.dataType) {
+    if ('table' != this.props.dataType) {
       smallButton = <p className="size-small"><button type='button' data-layout="small" onClick={this.handleClick.bind(this)} className={'btn btn-default selected ' + (this.props.layout == 'small' ? 'active' : '')}>Small</button></p>;
 
     }
