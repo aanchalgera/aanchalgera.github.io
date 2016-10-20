@@ -46,7 +46,7 @@ export default class ImageCaption extends React.Component {
   render () {
     let textField = (
       <input
-        id={this.props.id}
+        id={this.props.imageId}
         type="text"
         className="caption"
         defaultValue={this.state.value}

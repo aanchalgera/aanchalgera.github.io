@@ -48,7 +48,7 @@ class Slider extends React.Component {
         <li key={i} style={{ backgroundImage: 'url(' + image.url + ')' }}>
           <ImageCaption
             key={image.spid}
-            id={image.spid}
+            imageId={image.spid}
             addImageCaption={this.props.addImageCaption.bind(this)}
             fieldId={this.props.dataId}
             imageCaption={imageCaption}
