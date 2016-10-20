@@ -89,8 +89,8 @@ class PropertyButton extends React.Component {
       />
     );
 
-    var bgOptionsAllowedForGroupedTypes = { content: true, summary: true, richContent: true, review: true };
-    var showPropertiesBoxForGroupedTypes = { content: true, summary: true, richContent: true, slider: true, review: true };
+    var bgOptionsAllowedForGroupedTypes = { content: true, summary: true, richContent: true, fichaReview: true };
+    var showPropertiesBoxForGroupedTypes = { content: true, summary: true, richContent: true, slider: true, fichaReview: true };
     if (this.props.grouped != 'true') {
       showPropertiesBox = true;
     } else if (showPropertiesBoxForGroupedTypes[this.props.data.type] == true) {
