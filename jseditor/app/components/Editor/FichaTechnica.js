@@ -7,6 +7,8 @@ export default class FichaTechnica extends React.Component {
       maxId: props.data.maxId || 3,
       name: props.data.name || '',
       productDetail: props.data.productDetail || '',
+      productImageUrl: props.data.productImageUrl || '',
+      otherImageUrl: props.data.otherImageUrl || '',
       otherDetail: props.data.otherDetail || '',
       dataRows: props.data.dataRows || [
         { dataSheet: '', text: '', link: '', id: 0 },
@@ -180,7 +182,10 @@ export default class FichaTechnica extends React.Component {
               <input
                 type="text"
                 className="form-control"
+                ref="productImageUrl"
                 placeholder="Example: application icon"
+                defaultValue={this.state.productImageUrl}
+                onChange={() => this.update({ productImageUrl: this.refs.productImageUrl.value })}
               />
             </div>
             <div className="form-group">
@@ -188,7 +193,10 @@ export default class FichaTechnica extends React.Component {
               <input
                 type="text"
                 className="form-control"
+                ref="otherImageUrl"
                 placeholder="Example: QR code download"
+                defaultValue={this.state.otherImageUrl}
+                onChange={() => this.update({ otherImageUrl: this.refs.otherImageUrl.value })}
               />
             </div>
             <table className="table-data">
