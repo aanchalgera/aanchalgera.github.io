@@ -174,6 +174,7 @@ export default class Table extends React.Component {
                 show3column={false}
                 showTableButton={false}
                 showReviewButton={false}
+                showTechnicaButton={false}
               />
             </td>
           );
