@@ -216,6 +216,7 @@ class Content extends React.Component{
         data={this.props.data}
         dataId={this.props.dataId}
         ref="field"
+        openResourcePanel={this.props.openResourcePanel}
         update={content => this.props.updateResource(this.props.dataId, content)}
       />;
     }

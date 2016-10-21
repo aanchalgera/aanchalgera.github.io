@@ -179,24 +179,28 @@ export default class FichaTechnica extends React.Component {
             <div className="form-group">
               <label>Url of product image</label>
               <span className="hint"> (Size should be 64x64) </span>
+              <button type="button" className="btn btn-primary" onClick={() => this.props.openResourcePanel('productImage', this.props.dataId, '', false)}>Edit</button>
               <input
                 type="text"
                 className="form-control"
                 ref="productImageUrl"
                 placeholder="Example: application icon"
-                defaultValue={this.state.productImageUrl}
+                value={this.props.data.productImageUrl}
                 onChange={() => this.update({ productImageUrl: this.refs.productImageUrl.value })}
+                disabled
               />
             </div>
             <div className="form-group">
               <label>Optional image</label>
+              <button type="button" className="btn btn-primary" onClick={() => this.props.openResourcePanel('otherImage', this.props.dataId, '', false)}>Edit</button>
               <input
                 type="text"
                 className="form-control"
                 ref="otherImageUrl"
                 placeholder="Example: QR code download"
-                defaultValue={this.state.otherImageUrl}
+                value={this.props.data.otherImageUrl}
                 onChange={() => this.update({ otherImageUrl: this.refs.otherImageUrl.value })}
+                disabled
               />
             </div>
             <table className="table-data">

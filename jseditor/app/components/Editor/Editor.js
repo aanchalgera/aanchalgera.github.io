@@ -248,6 +248,14 @@ class Editor extends React.Component{
         alt: image.alt || '',
         name: image.original_filename
       };
+    } else if (this.state.imageFunction == 'productImage') {
+      let field = this.getField(currentIndex);
+      field.altered.productImageUrl = image.url;
+      this.state.fields.splice(field.indexes[0], 0, field.original);
+    } else if (this.state.imageFunction == 'otherImage') {
+      let field = this.getField(currentIndex);
+      field.altered.otherImageUrl = image.url;
+      this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
     this.setState({
