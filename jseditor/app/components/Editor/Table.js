@@ -185,7 +185,7 @@ export default class Table extends React.Component {
           {
             this.props.edit ?
               <div className="btn-group btn-group-xs cells-control">
-                <button className="btn btn-default" title="Delete cell data" onClick={e => this.clearCell(e, {rowIndex, columnIndex})}>
+                <button className="btn btn-default" title="Edit cell data" onClick={e => this.clearCell(e, {rowIndex, columnIndex})}>
                   <span aria-hidden="true" className="glyphicon glyphicon-pencil"></span>
                 </button>
               </div>
