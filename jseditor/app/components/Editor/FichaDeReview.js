@@ -225,7 +225,7 @@ export default class FichaDeReview extends React.Component {
               <span className="hint">(One aspect per line)</span>
               <textarea
                 ref="positive"
-                className="form-control"
+                className="form-control ficha-positive"
                 defaultValue={this.state.positive}
                 onChange={() => this.update({ positive: this.refs.positive.value })}
               />
@@ -234,7 +234,7 @@ export default class FichaDeReview extends React.Component {
               <label>Negative</label>
               <textarea
                 ref="negative"
-                className="form-control"
+                className="form-control ficha-negative"
                 defaultValue={this.state.negative}
                 onChange={() => this.update({ negative: this.refs.negative.value })}
               />
