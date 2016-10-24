@@ -184,10 +184,9 @@ export default class FichaDeReview extends React.Component {
                 <span className="hint"> (Always use a decimal) </span>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control ficha-score-input"
                   ref="field"
                   placeholder="7,0"
-                  style={{width:'60px'}}
                   defaultValue={this.state.totalScore}
                   maxLength="3"
                   onChange={() => this.update({ totalScore: this.refs.field.value })}
