@@ -181,7 +181,7 @@ export default class Table extends React.Component {
       }
 
       return (
-        <td key={cell.id ? cell.id : columnIndex}>
+        <td key={cell.id ? 'c' + cell.id : columnIndex}>
           {
             this.props.edit ?
               <div className="btn-group btn-group-xs cells-control">
