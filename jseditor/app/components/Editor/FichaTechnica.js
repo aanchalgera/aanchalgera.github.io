@@ -225,6 +225,7 @@ export default class FichaTechnica extends React.Component {
             </div>
             <div className="form-group">
               <label>Product image</label>
+              <span className="hint"> (Size should be 64x64) </span>
               {productImage}
             </div>
             <div className="form-group">
