@@ -212,7 +212,7 @@ class Content extends React.Component{
         update={content => this.props.updateResource(this.props.dataId, content)}
       />;
     } else if ('ficha' == this.props.data.type) {
-      field = <FichaTechnica
+      field = <FichaTecnica
         data={this.props.data}
         dataId={this.props.dataId}
         ref="field"
