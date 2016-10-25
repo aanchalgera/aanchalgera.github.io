@@ -10,7 +10,7 @@ import Table from './Table';
 import Video from './Video';
 import RichContent from './RichContent';
 import FichaDeReview from './FichaDeReview';
-import FichaTechnica from './FichaTechnica';
+import FichaTecnica from './FichaTecnica';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component{

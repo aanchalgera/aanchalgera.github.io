@@ -96,15 +96,15 @@ export default class FichaTechnica extends React.Component {
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">
             {`${this.state.productImage.original_filename}.${this.state.productImage.format}`}
-            <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
-              <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'productImage'}, 'image', false, e)}>
-                <span className="glyphicon glyphicon-pencil"></span>
-              </button>
-              <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'productImage'}, e)}>
-                <span className="glyphicon glyphicon-trash"></span>
-              </button>
-            </div>
           </span>
+          <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
+            <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'productImage'}, 'image', false, e)}>
+              <span className="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'productImage'}, e)}>
+              <span className="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
         </div>
       );
     } else {
@@ -116,16 +116,16 @@ export default class FichaTechnica extends React.Component {
       otherImage = (
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">
-          {`${this.state.otherImage.original_filename}.${this.state.otherImage.format}`}
-            <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
-              <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'otherImage'}, 'image', false, e)}>
-                <span className="glyphicon glyphicon-pencil"></span>
-              </button>
-              <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'otherImage'}, e)}>
-                <span className="glyphicon glyphicon-trash"></span>
-              </button>
-            </div>
+            {`${this.state.otherImage.original_filename}.${this.state.otherImage.format}`}
           </span>
+          <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
+            <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'otherImage'}, 'image', false, e)}>
+              <span className="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'otherImage'}, e)}>
+              <span className="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
         </div>
       );
     } else {
@@ -198,7 +198,7 @@ export default class FichaTechnica extends React.Component {
 
     return (
       <div>
-        <label className="ptitle">Ficha technica</label>
+        <label className="ptitle">Ficha tecnica</label>
         <div className="table-data-container">
           <div className={'asset-size-' + this.props.data.layout}>
             <div className="form-group">
