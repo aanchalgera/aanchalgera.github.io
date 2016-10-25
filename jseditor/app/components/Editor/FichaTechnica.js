@@ -7,8 +7,8 @@ export default class FichaTechnica extends React.Component {
       maxId: props.data.maxId || 3,
       name: props.data.name || '',
       productDetail: props.data.productDetail || '',
-      productImageUrl: props.data.productImageUrl || '',
-      otherImageUrl: props.data.otherImageUrl || '',
+      productImage: props.data.productImage || null,
+      otherImage: props.data.otherImage || null,
       otherDetail: props.data.otherDetail || '',
       dataRows: props.data.dataRows || [
         { dataSheet: '', text: '', link: '', id: 0 },
@@ -16,6 +16,10 @@ export default class FichaTechnica extends React.Component {
         { dataSheet: '', text: '', link: '', id: 2 }
       ]
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ productImage: nextProps.data.productImage, otherImage: nextProps.data.otherImage });
   }
 
   focus() {
@@ -86,6 +90,49 @@ export default class FichaTechnica extends React.Component {
   render() {
     const { dataRows } = this.state;
     const totalRows = dataRows.length;
+    let productImage, otherImage;
+    if (this.state.productImage) {
+      productImage = (
+        <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
+          <span className="hint">
+            {`${this.state.productImage.original_filename}.${this.state.productImage.format}`}
+            <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
+              <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'productImage'}, 'image', false, e)}>
+                <span className="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'productImage'}, e)}>
+                <span className="glyphicon glyphicon-trash"></span>
+              </button>
+            </div>
+          </span>
+        </div>
+      );
+    } else {
+      productImage = (
+        <button className="btn btn-default" onClick={e => this.props.openResourcePanel('productImage', this.props.dataId, '', false, e)}>Add Image</button>
+      );
+    }
+    if (this.state.otherImage) {
+      otherImage = (
+        <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
+          <span className="hint">
+          {`${this.state.otherImage.original_filename}.${this.state.otherImage.format}`}
+            <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
+              <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'otherImage'}, 'image', false, e)}>
+                <span className="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'otherImage'}, e)}>
+                <span className="glyphicon glyphicon-trash"></span>
+              </button>
+            </div>
+          </span>
+        </div>
+      );
+    } else {
+      otherImage = (
+        <button className="btn btn-default" onClick={e => this.props.openResourcePanel('otherImage', this.props.dataId, '', false, e)}>Add Image</button>
+      );
+    }
     const placeholder = [
       [{dataSheet: 'Price'}, {text: '1.99€'}, {link: ''}],
       [{dataSheet: 'Developer'}, {text: 'Rovio'}, {link: 'http://epi.angrybirds.com/'}],
@@ -177,27 +224,13 @@ export default class FichaTechnica extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label>Url of product image</label>
+              <label>Product image</label>
               <span className="hint"> (Size should be 64x64) </span>
-              <input
-                type="text"
-                className="form-control"
-                ref="productImageUrl"
-                placeholder="Example: application icon"
-                defaultValue={this.state.productImageUrl}
-                onChange={() => this.update({ productImageUrl: this.refs.productImageUrl.value })}
-              />
+              {productImage}
             </div>
             <div className="form-group">
               <label>Optional image</label>
-              <input
-                type="text"
-                className="form-control"
-                ref="otherImageUrl"
-                placeholder="Example: QR code download"
-                defaultValue={this.state.otherImageUrl}
-                onChange={() => this.update({ otherImageUrl: this.refs.otherImageUrl.value })}
-              />
+              {otherImage}
             </div>
             <table className="table-data">
               <tbody>

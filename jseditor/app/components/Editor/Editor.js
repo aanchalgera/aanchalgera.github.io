@@ -248,6 +248,10 @@ class Editor extends React.Component{
         alt: image.alt || '',
         name: image.original_filename
       };
+    } else if ('otherImage' == this.state.imageFunction || 'productImage' == this.state.imageFunction) {
+      let field = this.getField(currentIndex);
+      field.altered[this.state.imageFunction] = image;
+      this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
     this.setState({
@@ -344,11 +348,16 @@ class Editor extends React.Component{
     let imageIndex = resourcePanelOpenedBy.imageIndex;
 
     let field = this.getField(currentIndex);
-    if (typeof imageIndex != 'undefined') {
-      field.altered.images.splice(imageIndex, 1, ...images);
-    } else {
-      field.altered.url = images[0].url;
-      field.altered.alt = images[0].alt;
+    switch (typeof imageIndex) {
+      case 'string':
+        field.altered[imageIndex] = images[0];
+        break;
+      case 'number':
+        field.altered.images.splice(imageIndex, 1, ...images);
+        break;
+      default:
+        field.altered.url = images[0].url;
+        field.altered.alt = images[0].alt;
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
@@ -797,7 +806,13 @@ class Editor extends React.Component{
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
-    field.altered.images.splice(imageIndex, 1);
+    switch (typeof imageIndex) {
+      case 'number':
+        field.altered.images.splice(imageIndex, 1);
+        break;
+      case 'string':
+        field.altered[imageIndex] = null;
+    }
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
