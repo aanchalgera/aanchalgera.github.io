@@ -4,6 +4,9 @@ import {Router, browserHistory} from 'react-router';
 import Routes from './app/config/routes';
 import { Provider } from 'react-redux';
 import store from './app/stores/ConfigureStore';
+import CSS from './app/utils/css';
+
+CSS.prepare();
 
 if (process.env.NODE_ENV == 'development') {
   Rollbar.configure({enabled: false});
