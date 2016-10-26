@@ -91,7 +91,7 @@ export default class FichaTechnica extends React.Component {
     const { dataRows } = this.state;
     const totalRows = dataRows.length;
     let productImage, otherImage;
-    if (this.state.productImage) {
+    if (this.state.productImage.original_filename) {
       productImage = (
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">
@@ -112,7 +112,7 @@ export default class FichaTechnica extends React.Component {
         <button className="btn btn-default" onClick={e => this.props.openResourcePanel('productImage', this.props.dataId, '', false, e)}>Add Image</button>
       );
     }
-    if (this.state.otherImage) {
+    if (this.state.otherImage.original_filename) {
       otherImage = (
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">
