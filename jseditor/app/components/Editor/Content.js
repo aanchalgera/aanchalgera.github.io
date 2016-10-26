@@ -250,7 +250,7 @@ class Content extends React.Component{
 
     return (
       <div
-        className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
+        className={(this.props.grouped=='true'?'cloumn-content ':'container-ul-inner ')+minimized+' '+backgroundClass+' '+(this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')+' '+(this.props.data.actualizacion ? 'actualizacion' : '')}
         id={'div-'+this.props.index}
         data-id={this.props.dataId}
         key={this.props.data.key}
