@@ -7,8 +7,8 @@ export default class FichaTechnica extends React.Component {
       maxId: props.data.maxId || 3,
       name: props.data.name || '',
       productDetail: props.data.productDetail || '',
-      productImage: props.data.productImage || null,
-      otherImage: props.data.otherImage || null,
+      productImage: props.data.productImage || {},
+      otherImage: props.data.otherImage || {},
       otherDetail: props.data.otherDetail || '',
       dataRows: props.data.dataRows || [
         { dataSheet: '', text: '', link: '', id: 0 },
@@ -19,7 +19,7 @@ export default class FichaTechnica extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ productImage: nextProps.data.productImage, otherImage: nextProps.data.otherImage });
+    this.setState({ productImage: nextProps.data.productImage || {}, otherImage: nextProps.data.otherImage || {} });
   }
 
   focus() {
