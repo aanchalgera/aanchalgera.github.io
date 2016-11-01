@@ -38,7 +38,6 @@ export default class Resource extends React.Component {
     var index = 'text-area' + field.id;
     var moreOptions = <MoreOptions
       openResourcePanel={this.props.openResourcePanel}
-      addTextArea={this.props.addTextArea}
       addVideo={this.props.addVideo}
       addResource={this.props.addResource}
       addTable={this.props.addTable}

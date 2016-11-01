@@ -195,10 +195,17 @@ class Editor extends React.Component{
       type: type,
       layout: 'normal'
     };
-    if (type == 'giphy' || type == 'infogram') {
-      attributes['description'] = '';
+    switch (type) {
+      case 'giphy':
+      case 'infogram':
+        attributes['description'] = '';
+        break;
+      case 'content':
+      case 'richContent':
+      case 'summary':
+        attributes['text'] = '';
+        break;
     }
-
     if (this.isRootComponent(currentIndex)) {
       this.state.fields.splice(currentIndex, 0, attributes);
     } else {
@@ -389,30 +396,6 @@ class Editor extends React.Component{
         return el;
       }
     }
-  }
-
-  createNewTextArea(currentIndex, type = 'content') {
-    this.state.maxId++;
-    let attributes = {
-      id: this.state.maxId,
-      type: type,
-      text: ''
-    };
-
-    if (type == 'summary') {
-      attributes.layout = 'normal';
-    }
-
-    if (this.isRootComponent(currentIndex)) {
-      this.state.fields.splice(currentIndex, 0, attributes);
-    } else {
-      return this.updateResource(currentIndex, attributes);
-    }
-
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    });
   }
 
   handleChange (ev) {
@@ -1052,7 +1035,6 @@ class Editor extends React.Component{
               updateRichContent={this.updateRichContent.bind(this)}
               updateResource={this.updateResource.bind(this)}
               openResourcePanel={this.openResourcePanel.bind(this)}
-              addTextArea={this.createNewTextArea.bind(this)}
               addResource={this.addResource}
               addTable={this.addTable.bind(this)}
               deleteResource={this.deleteResource.bind(this)}

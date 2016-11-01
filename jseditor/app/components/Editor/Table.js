@@ -167,7 +167,6 @@ export default class Table extends React.Component {
             <td key={columnIndex}>
               <MoreOptions
                 addResource={this.props.addResource}
-                addTextArea={this.props.addTextArea}
                 dataId={dataId}
                 openResourcePanel={this.props.openResourcePanel}
                 show2column={false}
