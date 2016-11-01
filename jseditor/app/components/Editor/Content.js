@@ -193,7 +193,6 @@ class Content extends React.Component{
         addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground}
         addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition}
         addResource={this.props.addResource}
-        addTextArea={this.props.addTextArea}
         data={this.props.data}
         dataId={this.props.dataId}
         deleteImage={this.props.deleteImage}

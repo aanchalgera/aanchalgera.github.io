@@ -52,7 +52,6 @@ class ContentList extends React.Component{
           <MoreOptions
             openResourcePanel={this.props.openResourcePanel}
             addImageCaption={this.props.addImageCaption.bind(this)}
-            addTextArea={this.props.addTextArea}
             addVideo={this.props.addVideo}
             addResource={this.props.addResource}
             addTable={this.props.addTable}
