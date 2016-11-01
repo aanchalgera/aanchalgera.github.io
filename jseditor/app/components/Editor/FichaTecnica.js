@@ -200,7 +200,7 @@ export default class FichaTechnica extends React.Component {
       <div>
         <label className="ptitle">Ficha tecnica</label>
         <div className="table-data-container">
-          <div className={'asset-size-' + this.props.data.layout}>
+          <div className="ficha-tecnica">
             <div className="form-group">
               <label>Product name</label>
               <span className="hint"> (Required) </span>
