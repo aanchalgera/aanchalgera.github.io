@@ -177,7 +177,7 @@ export default class FichaDeReview extends React.Component {
       <div>
         <label className="ptitle">Ficha de review</label>
         <div className="table-data-container">
-          <div className={'asset-size-' + this.props.data.layout}>
+          <div className="ficha-review">
             <div className="form-inline">
               <div className="form-group">
                 <label htmlFor="exampleInputName2">Total Score:</label>
