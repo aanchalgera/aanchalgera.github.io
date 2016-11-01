@@ -192,18 +192,21 @@ class Editor extends React.Component{
     this.state.maxId++;
     let attributes = {
       id: this.state.maxId,
-      type: type,
-      layout: 'normal'
+      type: type
     };
     switch (type) {
-      case 'giphy':
-      case 'infogram':
-        attributes['description'] = '';
-        break;
       case 'content':
       case 'richContent':
-      case 'summary':
         attributes['text'] = '';
+        break;
+      case 'summary':
+        attributes['layout'] = 'normal';
+        attributes['text'] = '';
+        break;
+      case 'giphy':
+      case 'infogram':
+        attributes['layout'] = 'normal';
+        attributes['description'] = '';
         break;
     }
     if (this.isRootComponent(currentIndex)) {
