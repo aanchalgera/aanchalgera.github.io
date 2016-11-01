@@ -45,6 +45,7 @@ class PropertyButtonContent extends React.Component {
       case 'giphy':
       case 'infogram':
       case 'datawrapper':
+      case 'ficha':
         textColour='';
         break;
       default:
