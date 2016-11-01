@@ -3,7 +3,7 @@ import React from 'react';
 class PropertyButtonContent extends React.Component {
   render() {
     var backgroundImageOptions = '', backgroundImage;
-    let textColour;
+    let textColour, actualizacion;
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       backgroundImage = (
         <span className="input-group">
@@ -34,6 +34,13 @@ class PropertyButtonContent extends React.Component {
       );
     }
 
+    if('content' == this.props.data.type) {
+      actualizacion = (
+        <li><label> Format </label>
+          <button onClick={this.props.addBackgroundOptionToResource.bind(this,'actualizacion', null)} className={'btn btn-default ' + (this.props.data.actualizacion ? 'active' : '')}>Actualizacion</button>
+        </li>
+      );
+    }
     switch (this.props.data.type) {
       case 'giphy':
       case 'infogram':
@@ -62,6 +69,7 @@ class PropertyButtonContent extends React.Component {
           {backgroundImage}
         </li>
         {backgroundImageOptions}
+        {actualizacion}
       </ul>
     );
   }

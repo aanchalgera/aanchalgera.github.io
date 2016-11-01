@@ -588,6 +588,10 @@ class Editor extends React.Component{
       case 'backgroundFullscreen' :
         field.altered.backgroundFullscreen = !field.altered.backgroundFullscreen;
         break;
+      case 'actualizacion':
+        field.altered.actualizacion = !field.altered.actualizacion;
+        event.target.className = 'active';
+        break;
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
