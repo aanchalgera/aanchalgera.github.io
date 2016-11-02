@@ -7,8 +7,8 @@ export default class FichaTechnica extends React.Component {
       maxId: props.data.maxId || 3,
       name: props.data.name || '',
       productDetail: props.data.productDetail || '',
-      productImage: props.data.productImage || {},
-      otherImage: props.data.otherImage || {},
+      productImage: props.data.productImage || '',
+      otherImage: props.data.otherImage || '',
       otherDetail: props.data.otherDetail || '',
       dataRows: props.data.dataRows || [
         { dataSheet: '', text: '', link: '', id: 0 },
@@ -19,7 +19,7 @@ export default class FichaTechnica extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ productImage: nextProps.data.productImage || {}, otherImage: nextProps.data.otherImage || {} });
+    this.setState({ productImage: nextProps.data.productImage || '', otherImage: nextProps.data.otherImage || '' });
   }
 
   focus() {
@@ -91,7 +91,7 @@ export default class FichaTechnica extends React.Component {
     const { dataRows } = this.state;
     const totalRows = dataRows.length;
     let productImage, otherImage;
-    if (this.state.productImage.original_filename) {
+    if (this.state.productImage) {
       productImage = (
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">
@@ -112,7 +112,7 @@ export default class FichaTechnica extends React.Component {
         <button className="btn btn-default" onClick={e => this.props.openResourcePanel('productImage', this.props.dataId, '', false, e)}>Add Image</button>
       );
     }
-    if (this.state.otherImage.original_filename) {
+    if (this.state.otherImage) {
       otherImage = (
         <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
           <span className="hint">

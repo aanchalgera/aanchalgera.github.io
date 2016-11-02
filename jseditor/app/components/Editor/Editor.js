@@ -801,7 +801,7 @@ class Editor extends React.Component{
         field.altered.images.splice(imageIndex, 1);
         break;
       case 'string':
-        field.altered[imageIndex] = {};
+        field.altered[imageIndex] = '';
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
