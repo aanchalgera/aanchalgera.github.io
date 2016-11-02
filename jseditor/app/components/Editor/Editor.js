@@ -42,7 +42,6 @@ class Editor extends React.Component{
       postHash: '',
       isConnected: true,
       status: 'draft',
-      buttonDisabled: false,
       isSynced: false,
       isCloudinaryUploaderOpen: false
     };
@@ -840,7 +839,6 @@ class Editor extends React.Component{
       }
     };
 
-    this.toggleButton();
     jquery.ajax({
       url: this.state.blogUrl + '/admin/posts/' + this.state.postId + '.json',
       type: 'PUT',
@@ -852,13 +850,7 @@ class Editor extends React.Component{
       crossDomain: true
     })
     .complete(() => {
-      this.toggleButton();
-    });
-  }
-
-  toggleButton() {
-    this.setState({
-      buttonDisabled : !this.state.buttonDisabled
+      this.setMessage(true, 'Post Updated');
     });
   }
 
@@ -1014,7 +1006,6 @@ class Editor extends React.Component{
           userId={this.userId}
           status={this.state.status}
           publishData={this.state.publishData}
-          buttonDisabled={this.state.buttonDisabled}
           isSynced={this.state.isSynced}
           isConnected={this.state.isConnected}
           updateOnBackend={this.updateOnBackend.bind(this)}
