@@ -207,6 +207,10 @@ class Editor extends React.Component{
         attributes['layout'] = 'normal';
         attributes['description'] = '';
         break;
+      case 'video':
+        attributes['layout'] = 'normal';
+        attributes['url'] = '';
+        break;
     }
     if (this.isRootComponent(currentIndex)) {
       this.state.fields.splice(currentIndex, 0, attributes);
