@@ -18,7 +18,7 @@ export default class Video extends React.Component {
   }
 
   render() {
-    if ('' == this.props.data.url || undefined == this.props.data.url || this.props.edit) {
+    if ('' == this.props.data.url || this.props.edit) {
       return (
         <div>
           <label className="ptitle">
