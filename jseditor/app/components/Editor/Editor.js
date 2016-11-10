@@ -82,7 +82,7 @@ class Editor extends React.Component{
       this.context.router.replace('/invalidUser');
     } else if (undefined != postname) {
       try {
-        this.props.base.listenTo('posts/' + postname, {
+        this.props.base.fetch('posts/' + postname, {
           context: this,
           then(data) {
             if (null != data) {
