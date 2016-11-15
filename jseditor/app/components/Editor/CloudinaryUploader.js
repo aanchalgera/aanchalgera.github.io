@@ -41,7 +41,7 @@ var CloudinaryUploader = React.createClass({
       contextAlt: null,
       contextCaption: null,
       allowedFormats: ['png', 'gif', 'jpeg'],
-      maxFileSize: null,
+      maxFileSize: 8000000,
       maxImageWidth: null,
       maxImageHeight: null,
       buttonClass: 'btn btn-primary',
@@ -109,6 +109,7 @@ var CloudinaryUploader = React.createClass({
     };
     options.sources = this.props.sources;
     options.multiple = this.props.multiple;
+    options.max_file_size = this.props.maxFileSize;
 
     if(this.props.maxFiles){
       options.max_files = this.props.maxFiles;
