@@ -93,7 +93,7 @@ class Publish extends React.Component {
       });
     }
     if (this.postname != undefined) {
-      this.props.base.listenTo('posts', {
+      this.props.base.fetch('posts', {
         context: this,
         asArray: true,
         queries: {
