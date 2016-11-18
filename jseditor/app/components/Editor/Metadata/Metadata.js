@@ -35,6 +35,7 @@ class Metadata extends React.Component{
         />
         <Footer
           footer={this.props.meta.footer}
+          toggleFooter={this.props.toggleFooter}
           updateFooterCredits={this.props.updateFooterCredits}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />

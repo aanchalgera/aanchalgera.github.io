@@ -47,6 +47,7 @@ class Editor extends React.Component{
     };
     this.addImages = this.addImages.bind(this);
     this.addResource = this.addResource.bind(this);
+    this.toggleFooter = this.toggleFooter.bind(this);
   }
 
   init() {
@@ -96,13 +97,13 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, footer: {hideFooter: false, content: ''}},
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, footer: {hideFooter: false, content: ''}},
                 userId: this.userId
               });
             }
@@ -116,7 +117,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, footer: {hideFooter: false, content: ''}},
         userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
@@ -507,7 +508,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, footer: {hideFooter: false, content: ''}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -714,7 +715,7 @@ class Editor extends React.Component{
   }
 
   updateFooterCredits(event) {
-    this.state.meta.footer = event.target.value;
+    this.state.meta.footer.content = event.target.value;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -750,6 +751,11 @@ class Editor extends React.Component{
 
   toggleWSLLogo(event) {
     this.state.meta.microsite.showWSLLogo = event.target.checked;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  toggleFooter(event) {
+    this.state.meta.footer.hideFooter = event.target.checked;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -980,6 +986,7 @@ class Editor extends React.Component{
       updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
       toggleWSLLogo={this.toggleWSLLogo.bind(this)}
       toggleSocialSharing={this.toggleSocialSharing.bind(this)}
+      toggleFooter={this.toggleFooter}
       deleteImage={this.deleteImage.bind(this)}
       toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
       editAuthorInfo={this.editAuthorInfo.bind(this)}
