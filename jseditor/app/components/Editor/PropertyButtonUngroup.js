@@ -9,7 +9,7 @@ class PropertyButtonUngroup extends React.Component {
           <button type='button' onClick={this.props.ungroupSections.bind(this, this.props.dataId)} className="btn btn-default">Ungroup </button>
         </li>
       </ul>
-      );
+    );
   }
 }
 
