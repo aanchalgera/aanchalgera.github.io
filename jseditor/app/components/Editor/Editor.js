@@ -13,8 +13,6 @@ const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
-const BLOG_EMPTY_WARNING = 'Blog not found';
-const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
@@ -123,12 +121,7 @@ class Editor extends React.Component{
   }
 
   componentDidMount() {
-    this.timerId = setInterval(() => this.saveData(), 20000);
     this.init();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
   }
 
   checkConnectStatus() {
@@ -425,16 +418,6 @@ class Editor extends React.Component{
   }
 
   isValid() {
-    if (undefined == this.state.blogName) {
-      this.setMessage(true, BLOG_EMPTY_WARNING);
-      return false;
-    }
-
-    if (this.blogName != this.state.blogName) {
-      this.setMessage(true, BLOG_MISMATCH_WARNING);
-      return false;
-    }
-
     if (undefined == this.state.value ||
       '' == this.state.value.trim() ||
       5 >= this.state.value.length
