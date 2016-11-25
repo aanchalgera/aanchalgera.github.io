@@ -12,8 +12,6 @@ let chooseSlotMsg = 'Select slot ';
 let successMessage = '';
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const BLOG_EMPTY_WARNING = 'Blog not found';
-const BLOG_MISMATCH_WARNING = 'Post does not belongs to this blog';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 
@@ -283,13 +281,7 @@ class Publish extends React.Component {
 
   isValid() {
     let isError = false, message;
-    if (undefined == this.state.blogName) {
-      isError = true;
-      message = BLOG_EMPTY_WARNING;
-    } else if (this.blogName != this.state.blogName) {
-      isError = true;
-      message = BLOG_MISMATCH_WARNING;
-    } else if ('publish' == this.state.status) {
+    if ('publish' == this.state.status) {
       if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         this.setMessage(true, PUBLISH_POST_WARNING);
       } else if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
