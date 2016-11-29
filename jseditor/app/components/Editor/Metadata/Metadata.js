@@ -7,6 +7,7 @@ import Sponsor from './Sponsor';
 import Css from './Css';
 import Microsite from './Microsite';
 import Author from './Author';
+import Social from './Social';
 
 class Metadata extends React.Component{
   onArticleMetaToggle (e) {
@@ -75,6 +76,7 @@ class Metadata extends React.Component{
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
         {this.props.blogUrl ? author : ''}
+        <Social />
       </div>
     );
   }
