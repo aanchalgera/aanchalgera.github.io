@@ -779,6 +779,16 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  updateSocialFacebookText(event) {
+    this.state.meta.social.facebook = event.target.value.trim();
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  updateSocialTwitterText(event) {
+    this.state.meta.social.twitter = event.target.value.trim();
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
@@ -966,6 +976,8 @@ class Editor extends React.Component{
       deleteImage={this.deleteImage.bind(this)}
       toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
       editAuthorInfo={this.editAuthorInfo.bind(this)}
+      updateSocialFacebookText={this.updateSocialFacebookText.bind(this)}
+      updateSocialTwitterText={this.updateSocialTwitterText.bind(this)}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {

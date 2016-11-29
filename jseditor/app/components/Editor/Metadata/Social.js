@@ -11,11 +11,11 @@ class Social extends React.Component {
         <div ref={(c) => this._articleMetaPanel = c}>
           <div className="form-group">
             <label>Text for twitter</label>
-            <textarea className="form-control"></textarea>
+            <textarea className="form-control" maxLength="116" onBlur={this.props.updateSocialTwitterText}></textarea>
           </div>
           <div className="form-group">
             <label>Text for facebook</label>
-            <textarea className="form-control"></textarea>
+            <textarea className="form-control" onBlur={this.props.updateSocialFacebookText}></textarea>
           </div>
         </div>
       </div>

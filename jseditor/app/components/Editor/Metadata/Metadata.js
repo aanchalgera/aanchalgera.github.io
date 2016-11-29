@@ -78,6 +78,8 @@ class Metadata extends React.Component{
         />
         {this.props.blogUrl ? author : ''}
         <Social
+          updateSocialFacebookText={this.props.updateSocialFacebookText}
+          updateSocialTwitterText={this.props.updateSocialTwitterText}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
       </div>
