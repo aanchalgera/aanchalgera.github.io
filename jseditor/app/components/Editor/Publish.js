@@ -38,7 +38,11 @@ class Publish extends React.Component {
           showWSLLogo: true,
           showSocialButtons: true
         },
-        author: { showAuthorInfo: false }
+        author: { showAuthorInfo: false },
+        social: {
+          twitter: '',
+          facebook: ''
+        }
       },
       buttonDisabled: true,
       loaded: false,
