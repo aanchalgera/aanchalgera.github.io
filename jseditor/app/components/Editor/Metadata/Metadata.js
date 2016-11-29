@@ -13,6 +13,7 @@ class Metadata extends React.Component{
   onArticleMetaToggle (e) {
     e.preventDefault();
     this._glyphiconClass.classList.toggle('glyphicon-minus');
+    this._glyphiconClass.classList.toggle('glyphicon-plus');
     this._articleMetaPanel.classList.toggle('collapsed-content');
   }
 
@@ -76,7 +77,9 @@ class Metadata extends React.Component{
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
         {this.props.blogUrl ? author : ''}
-        <Social />
+        <Social
+          onArticleMetaToggle={this.onArticleMetaToggle}
+        />
       </div>
     );
   }
