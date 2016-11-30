@@ -785,7 +785,7 @@ class Editor extends React.Component{
   }
 
   updateSocialTwitterText(event) {
-    this.state.meta.social.twitter = event.target.value.trim();
+    this.state.meta.social.twitter = event.target.value;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
