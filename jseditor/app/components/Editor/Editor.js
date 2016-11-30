@@ -16,6 +16,8 @@ const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
+const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
+const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -45,6 +47,8 @@ class Editor extends React.Component{
     };
     this.addImages = this.addImages.bind(this);
     this.addResource = this.addResource.bind(this);
+    this.updateSocialFacebookText = this.updateSocialFacebookText.bind(this);
+    this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
   }
 
   init() {
@@ -887,6 +891,15 @@ class Editor extends React.Component{
   enablePublish(e) {
     let isError = false;
     let message = '';
+
+    if ('' == this.state.meta.social.facebook) {
+      message = FACEBOOK_FIELD_EMPTY;
+    }
+
+    if ('' == this.state.meta.social.twitter) {
+      message = TWITTER_FIELD_EMPTY;
+    }
+
     if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
       message = FIELD_EMPTY_WARNING;
     }
@@ -976,8 +989,8 @@ class Editor extends React.Component{
       deleteImage={this.deleteImage.bind(this)}
       toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
       editAuthorInfo={this.editAuthorInfo.bind(this)}
-      updateSocialFacebookText={this.updateSocialFacebookText.bind(this)}
-      updateSocialTwitterText={this.updateSocialTwitterText.bind(this)}
+      updateSocialFacebookText={this.updateSocialFacebookText}
+      updateSocialTwitterText={this.updateSocialTwitterText}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
