@@ -7,11 +7,13 @@ import Sponsor from './Sponsor';
 import Css from './Css';
 import Microsite from './Microsite';
 import Author from './Author';
+import Social from './Social';
 
 class Metadata extends React.Component{
   onArticleMetaToggle (e) {
     e.preventDefault();
     this._glyphiconClass.classList.toggle('glyphicon-minus');
+    this._glyphiconClass.classList.toggle('glyphicon-plus');
     this._articleMetaPanel.classList.toggle('collapsed-content');
   }
 
@@ -75,6 +77,12 @@ class Metadata extends React.Component{
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
         {this.props.blogUrl ? author : ''}
+        <Social
+          updateSocialFacebookText={this.props.updateSocialFacebookText}
+          updateSocialTwitterText={this.props.updateSocialTwitterText}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+          social={this.props.meta.social}
+        />
       </div>
     );
   }

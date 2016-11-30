@@ -16,6 +16,8 @@ const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
+const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
+const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -45,6 +47,8 @@ class Editor extends React.Component{
     };
     this.addImages = this.addImages.bind(this);
     this.addResource = this.addResource.bind(this);
+    this.updateSocialFacebookText = this.updateSocialFacebookText.bind(this);
+    this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
   }
 
   init() {
@@ -94,13 +98,13 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
                 userId: this.userId
               });
             }
@@ -114,7 +118,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
         userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
@@ -490,7 +494,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -779,6 +783,16 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  updateSocialFacebookText(event) {
+    this.state.meta.social.facebook = event.target.value.trim();
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  updateSocialTwitterText(event) {
+    this.state.meta.social.twitter = event.target.value;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
@@ -877,6 +891,15 @@ class Editor extends React.Component{
   enablePublish(e) {
     let isError = false;
     let message = '';
+
+    if ('' == this.state.meta.social.facebook) {
+      message = FACEBOOK_FIELD_EMPTY;
+    }
+
+    if ('' == this.state.meta.social.twitter) {
+      message = TWITTER_FIELD_EMPTY;
+    }
+
     if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
       message = FIELD_EMPTY_WARNING;
     }
@@ -966,6 +989,8 @@ class Editor extends React.Component{
       deleteImage={this.deleteImage.bind(this)}
       toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
       editAuthorInfo={this.editAuthorInfo.bind(this)}
+      updateSocialFacebookText={this.updateSocialFacebookText}
+      updateSocialTwitterText={this.updateSocialTwitterText}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
