@@ -3,10 +3,15 @@ import React from 'react';
 const TWITTER_CHAR_LIMIT = 116;
 
 class Social extends React.Component {
+  constructor (props) {
+    super(props);
+    this.onArticleMetaToggle = this.props.onArticleMetaToggle.bind(this);
+  }
+
   render () {
     return (
       <div className="modules module-home expandmodule expandmodule9">
-        <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
+        <h4 onClick={this.onArticleMetaToggle}>
           Twitter and Facebook publishing text
           <span className="glyphicon glyphicon-minus pull-right" ref={(c) => this._glyphiconClass = c}></span>
         </h4>
