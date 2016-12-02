@@ -88,6 +88,12 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data) {
+              if (data.meta && 'undefined' === typeof data.meta.social) {
+                data.meta.social = {
+                  facebook: '',
+                  twitter: ''
+                };
+              }
               this.setState({
                 id: data.id,
                 userId: data.user_id,
