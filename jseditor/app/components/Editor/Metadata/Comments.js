@@ -29,11 +29,11 @@ class Comments extends React.Component {
               <input
                 type="checkbox"
                 onChange={this.props.toggleCommentStatus}
-                checked={this.props.comment.status == 'open'}
+                checked={this.props.comment.status == 'closed'}
               />
               Close comments
             </label>
-            <div className="alert alert-info" style={{display: this.props.comment.status == 'open' ? 'none' : 'block'}}>Comments are closed </div>
+            <div className="alert alert-info" style={{display: this.props.comment.status == 'closed' ? 'block' : 'none'}}>Comments are closed </div>
           </div>
         </div>
       </div>
