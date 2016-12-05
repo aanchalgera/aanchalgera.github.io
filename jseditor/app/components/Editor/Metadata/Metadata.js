@@ -8,6 +8,7 @@ import Css from './Css';
 import Microsite from './Microsite';
 import Author from './Author';
 import Social from './Social';
+import Comments from './Comments';
 
 class Metadata extends React.Component{
   onArticleMetaToggle (e) {
@@ -82,6 +83,12 @@ class Metadata extends React.Component{
           updateSocialTwitterText={this.props.updateSocialTwitterText}
           onArticleMetaToggle={this.onArticleMetaToggle}
           social={this.props.meta.social}
+        />
+        <Comments
+          comment={this.props.meta.comment}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+          toggleAllowComments={this.props.toggleAllowComments}
+          toggleCommentStatus={this.props.toggleCommentStatus}
         />
       </div>
     );

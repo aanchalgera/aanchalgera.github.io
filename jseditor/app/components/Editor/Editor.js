@@ -49,6 +49,8 @@ class Editor extends React.Component{
     this.addResource = this.addResource.bind(this);
     this.updateSocialFacebookText = this.updateSocialFacebookText.bind(this);
     this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
+    this.toggleAllowComments = this.toggleAllowComments.bind(this);
+    this.toggleCommentStatus = this.toggleCommentStatus.bind(this);
   }
 
   init() {
@@ -88,12 +90,21 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data) {
-              if (data.meta && 'undefined' === typeof data.meta.social) {
-                data.meta.social = {
-                  facebook: '',
-                  twitter: ''
-                };
+              if (data.meta) {
+                if ('undefined' === typeof data.meta.social) {
+                  data.meta.social = {
+                    facebook: '',
+                    twitter: ''
+                  };
+                }
+                if ('undefined' === typeof data.meta.comment) {
+                  data.meta.comment = {
+                    allow: false,
+                    status: 'open'
+                  };
+                }
               }
+
               this.setState({
                 id: data.id,
                 userId: data.user_id,
@@ -104,13 +115,13 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
                 userId: this.userId
               });
             }
@@ -124,7 +135,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
         userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
@@ -500,7 +511,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -799,6 +810,16 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  toggleAllowComments() {
+    this.state.meta.comment.allow = !this.state.meta.comment.allow;
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
+  toggleCommentStatus() {
+    this.state.meta.comment.status = this.state.meta.comment.status == 'open' ? 'closed' : 'open';
+    this.setState({ meta: this.state.meta }, this.saveData());
+  }
+
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
@@ -829,7 +850,7 @@ class Editor extends React.Component{
         categoryId: '-1',
         user_id: this.state.userId,
         post_title: this.state.value,
-        comment_status: 'open',
+        comment_status: this.state.meta.comment.status,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
         postExcerpt: JSON.stringify({'meta' : this.state.meta}),
@@ -997,6 +1018,8 @@ class Editor extends React.Component{
       editAuthorInfo={this.editAuthorInfo.bind(this)}
       updateSocialFacebookText={this.updateSocialFacebookText}
       updateSocialTwitterText={this.updateSocialTwitterText}
+      toggleAllowComments={this.toggleAllowComments}
+      toggleCommentStatus={this.toggleCommentStatus}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {

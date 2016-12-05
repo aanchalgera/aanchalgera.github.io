@@ -152,7 +152,7 @@ class Publish extends React.Component {
       postform: {
         categoryId: '-1',
         post_title: this.state.title,
-        comment_status: 'open',
+        comment_status: this.state.meta.comment.status,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
         postExcerpt: JSON.stringify({'meta' : this.state.meta}),
