@@ -14,8 +14,6 @@ export default class Author extends React.Component {
       dateVisibility: false
     };
     this.selectUser = this.selectUser.bind(this);
-    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
-    this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
   }
 
   setMessage(isError = false, message) {
@@ -53,14 +51,6 @@ export default class Author extends React.Component {
     this.setState({ currentUser }, () => this.props.editAuthorInfo(currentUser.id));
   }
 
-  toggleSocialShareVisibility () {
-    this.setState({socialShareVisibility: !this.state.socialShareVisibility});
-  }
-
-  toggleDateVisibility () {
-    this.setState({dateVisibility: !this.state.dateVisibility});
-  }
-
   render() {
     return (
       <div className="modules module-seo">
@@ -72,8 +62,8 @@ export default class Author extends React.Component {
           <div className="form-group">
             <label>
               <input type="checkbox"
-                onChange={this.toggleSocialShareVisibility}
-                checked={!this.state.socialShareVisibility}
+                onChange={this.props.toggleSocialShareVisibility}
+                checked={!this.props.showSocialShareButtons}
               />
               Hide social share <span className="hint">(from top)</span>
             </label>
@@ -81,8 +71,8 @@ export default class Author extends React.Component {
           <div className="form-group">
             <label>
               <input type="checkbox"
-                onChange={this.toggleDateVisibility}
-                checked={this.state.dateVisibility}
+                onChange={this.props.toggleDateVisibility}
+                checked={this.props.showDate}
               />
               Show date
             </label>

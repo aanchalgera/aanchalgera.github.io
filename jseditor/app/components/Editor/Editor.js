@@ -51,6 +51,31 @@ class Editor extends React.Component{
     this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
     this.toggleAllowComments = this.toggleAllowComments.bind(this);
     this.toggleCommentStatus = this.toggleCommentStatus.bind(this);
+    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
+    this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
+  }
+
+  addMissingMetaFields(data) {
+    if (data.meta) {
+      if ('undefined' === typeof data.meta.social) {
+        data.meta.social = {
+          facebook: '',
+          twitter: ''
+        };
+      }
+      if ('undefined' === typeof data.meta.comment) {
+        data.meta.comment = {
+          allow: false,
+          status: 'open'
+        };
+      }
+      if ('undefined' === typeof data.meta.showSocialShareButtons) {
+        data.meta.showSocialShareButtons = true;
+      }
+      if ('undefined' === typeof data.meta.showDate) {
+        data.meta.showDate = false;
+      }
+    }
   }
 
   init() {
@@ -90,20 +115,7 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data) {
-              if (data.meta) {
-                if ('undefined' === typeof data.meta.social) {
-                  data.meta.social = {
-                    facebook: '',
-                    twitter: ''
-                  };
-                }
-                if ('undefined' === typeof data.meta.comment) {
-                  data.meta.comment = {
-                    allow: false,
-                    status: 'open'
-                  };
-                }
-              }
+              this.addMissingMetaFields(data);
 
               this.setState({
                 id: data.id,
@@ -115,13 +127,13 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
                 userId: this.userId
               });
             }
@@ -135,7 +147,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
         userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
@@ -511,7 +523,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -820,6 +832,16 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  toggleSocialShareVisibility() {
+    this.state.meta.showSocialShareButtons = !this.state.meta.showSocialShareButtons;
+    this.setState({ meta: this.state.meta}, this.saveData());
+  }
+
+  toggleDateVisibility () {
+    this.state.meta.showDate = !this.state.meta.showDate;
+    this.setState({ meta: this.state.meta}, this.saveData());
+  }
+
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
@@ -1020,6 +1042,8 @@ class Editor extends React.Component{
       updateSocialTwitterText={this.updateSocialTwitterText}
       toggleAllowComments={this.toggleAllowComments}
       toggleCommentStatus={this.toggleCommentStatus}
+      toggleSocialShareVisibility={this.toggleSocialShareVisibility}
+      toggleDateVisibility={this.toggleDateVisibility}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
