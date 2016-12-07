@@ -9,9 +9,7 @@ export default class Author extends React.Component {
       userList: [],
       isError: false,
       message: '',
-      currentUser: null,
-      socialShareVisibility: true,
-      dateVisibility: false
+      currentUser: null
     };
     this.selectUser = this.selectUser.bind(this);
   }
