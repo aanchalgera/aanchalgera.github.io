@@ -9,9 +9,13 @@ export default class Author extends React.Component {
       userList: [],
       isError: false,
       message: '',
-      currentUser: null
+      currentUser: null,
+      socialShareVisibility: true,
+      dateVisibility: false
     };
     this.selectUser = this.selectUser.bind(this);
+    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
+    this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
   }
 
   setMessage(isError = false, message) {
@@ -49,6 +53,14 @@ export default class Author extends React.Component {
     this.setState({ currentUser }, () => this.props.editAuthorInfo(currentUser.id));
   }
 
+  toggleSocialShareVisibility () {
+    this.setState({socialShareVisibility: !this.state.socialShareVisibility});
+  }
+
+  toggleDateVisibility () {
+    this.setState({dateVisibility: !this.state.dateVisibility});
+  }
+
   render() {
     return (
       <div className="modules module-seo">
@@ -59,13 +71,19 @@ export default class Author extends React.Component {
         <div className="collapsed-content" ref={(c) => this._articleMetaPanel = c}>
           <div className="form-group">
             <label>
-              <input type="checkbox" />
+              <input type="checkbox"
+                onChange={this.toggleSocialShareVisibility}
+                checked={!this.state.socialShareVisibility}
+              />
               Hide social share <span className="hint">(from top)</span>
             </label>
           </div>
           <div className="form-group">
             <label>
-              <input type="checkbox" />
+              <input type="checkbox"
+                onChange={this.toggleDateVisibility}
+                checked={this.state.dateVisibility}
+              />
               Show date
             </label>
           </div>
