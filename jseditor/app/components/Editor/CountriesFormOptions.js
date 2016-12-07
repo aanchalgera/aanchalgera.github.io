@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckboxGroup from 'react-checkbox-group';
+import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 
 let regions = {
   ES: 'España',
@@ -23,23 +23,18 @@ class CountriesFormOptions extends React.Component {
           <legend>Publicar en los países</legend>
           <CheckboxGroup
             name="countries"
+            className="field-repost"
             value={this.props.publishRegions}
             ref="countryOptions"
             onChange={this.props.setPublishRegions}
           >
-          {
-            Checkbox => (
-              <div className="field-repost">
-                {
-                  Object.keys(regions).map((key) => (
-                    <label key={key} className="label-inline">
-                      <Checkbox value={key} />{regions[key]}
-                    </label>
-                  ))
-                }
-              </div>
-            )
-          }
+            {
+              Object.keys(regions).map((key) => (
+                <label key={key} className="label-inline">
+                  <Checkbox value={key} />{regions[key]}
+                </label>
+              ))
+            }
           </CheckboxGroup>
         </fieldset>
       </div>

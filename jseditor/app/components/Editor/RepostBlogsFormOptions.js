@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckboxGroup from 'react-checkbox-group';
+import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 
 let blogs = [
   'decoesfera', 'ahorrodiario', 'applesfera', 'bebesymas',
@@ -18,25 +18,20 @@ class RepostBlogsFormOptions extends React.Component {
           <legend>Repost en otros blogs</legend>
           <CheckboxGroup
             name="repostblogs"
+            className="field-repost"
             value={this.props.repostBlogs}
             ref="repostBlogOptions"
             onChange={this.props.setRepostBlogs.bind(this)}
           >
-          {
-            Checkbox => (
-              <div className="field-repost">
-                {
-                  blogs.map((blog, index) => (
-                    this.props.blogName == blog ? null: (
-                      <label key={index} className="label-inline">
-                        <Checkbox value={blog} />{blog}
-                      </label>
-                    )
-                  ))
-                }
-              </div>
-            )
-          }
+            { 
+              blogs.map((blog, index) => (
+                this.props.blogName == blog ? null: (
+                  <label key={index} className="label-inline">
+                    <Checkbox value={blog} />{blog}
+                  </label>
+                )
+              ))
+            }
           </CheckboxGroup>
         </fieldset>
       </div>
