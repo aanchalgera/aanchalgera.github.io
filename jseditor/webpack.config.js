@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var NODE_ENV = 'development';
+var NODE_ENV = process.env.NODE_ENV || 'development';
 
 var configs = {
   production: {
