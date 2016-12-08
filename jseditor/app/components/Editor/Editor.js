@@ -55,7 +55,7 @@ class Editor extends React.Component{
     this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
   }
 
-  addMissingMetaFields(data) {
+  addFieldsForExistingPosts(data) {
     if (data.meta) {
       if ('undefined' === typeof data.meta.social) {
         data.meta.social = {
@@ -115,7 +115,7 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data) {
-              this.addMissingMetaFields(data);
+              this.addFieldsForExistingPosts(data);
 
               this.setState({
                 id: data.id,
