@@ -18,6 +18,7 @@ const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
 const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
+const FACEBOOK_TEXT_SAME_POST_TITLE = 'Facebook text cannot be same as post title';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -925,6 +926,10 @@ class Editor extends React.Component{
 
     if ('' == this.state.meta.social.twitter) {
       message = TWITTER_FIELD_EMPTY;
+    }
+
+    if (this.state.meta.social.facebook == this.state.value) {
+      message = FACEBOOK_TEXT_SAME_POST_TITLE;
     }
 
     if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
