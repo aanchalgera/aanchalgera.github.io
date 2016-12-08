@@ -877,7 +877,7 @@ class Editor extends React.Component{
       },
       crossDomain: true
     })
-    .complete(() => {
+    .done(() => {
       this.setMessage(true, 'Post Updated');
     });
   }
