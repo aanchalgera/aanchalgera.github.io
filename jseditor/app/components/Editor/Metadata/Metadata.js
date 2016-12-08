@@ -26,6 +26,10 @@ class Metadata extends React.Component{
       toggleAuthorInfo={this.props.toggleAuthorInfo}
       editAuthorInfo={this.props.editAuthorInfo}
       onArticleMetaToggle={this.onArticleMetaToggle}
+      toggleSocialShareVisibility={this.props.toggleSocialShareVisibility}
+      toggleDateVisibility={this.props.toggleDateVisibility}
+      showSocialShareButtons={this.props.meta.showSocialShareButtons}
+      showDate={this.props.meta.showDate}
     />;
 
     return (
