@@ -29,7 +29,8 @@ class PostTitle extends React.Component{
               <div className={this.props.data.backgroundClass + ' ' + foregroundColor} style={backgroundImageStyle}>
                 <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')}>
                   <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
-                    <textarea
+                    <input
+                    type="text"
                     placeholder="Title..."
                     className={'form-control form-control-title ' + backgroundFullscreen}
                     value={this.props.value}

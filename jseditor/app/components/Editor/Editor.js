@@ -1085,43 +1085,41 @@ class Editor extends React.Component{
         />
         {errorField}
         {successField}
-        <form id="editor-form">
-          <div className="form-group">
-            <PostTitle
-              data={this.state.fields[0]}
-              value={this.state.value}
-              handleBlur={this.handleBlur.bind(this)}
-              handleChange={this.handleChange.bind(this)}
-              openResourcePanel={this.openResourcePanel.bind(this)}
-              addLayoutToResource={this.addLayoutToResource.bind(this)}
-              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
-            />
-            <ContentList
-              fields={this.state.fields}
-              addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
-              updateText={this.updateText.bind(this)}
-              updateRichContent={this.updateRichContent.bind(this)}
-              updateResource={this.updateResource.bind(this)}
-              openResourcePanel={this.openResourcePanel.bind(this)}
-              addResource={this.addResource}
-              addTable={this.addTable.bind(this)}
-              deleteResource={this.deleteResource.bind(this)}
-              addLayoutToResource={this.addLayoutToResource.bind(this)}
-              groupSections={this.groupSections.bind(this)}
-              ungroupSections={this.ungroupSections.bind(this)}
-              moveResourceDown={this.moveResourceDown.bind(this)}
-              moveResourceUp={this.moveResourceUp.bind(this)}
-              orderMode={this.state.orderMode}
-              addImageCaption={this.addImageCaption.bind(this)}
-              addImageCaptionOverlay={this.addImageCaptionOverlay.bind(this)}
-              addImageCaptionOverlayPosition={this.addImageCaptionOverlayPosition.bind(this)}
-              addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
-              setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
-              deleteImage={this.deleteImage.bind(this)}
-              moveImage={this.moveImage.bind(this)}
-            />
-          </div>
-        </form>
+        <div className="form-group">
+          <PostTitle
+            data={this.state.fields[0]}
+            value={this.state.value}
+            handleBlur={this.handleBlur.bind(this)}
+            handleChange={this.handleChange.bind(this)}
+            openResourcePanel={this.openResourcePanel.bind(this)}
+            addLayoutToResource={this.addLayoutToResource.bind(this)}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+          />
+          <ContentList
+            fields={this.state.fields}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+            updateText={this.updateText.bind(this)}
+            updateRichContent={this.updateRichContent.bind(this)}
+            updateResource={this.updateResource.bind(this)}
+            openResourcePanel={this.openResourcePanel.bind(this)}
+            addResource={this.addResource}
+            addTable={this.addTable.bind(this)}
+            deleteResource={this.deleteResource.bind(this)}
+            addLayoutToResource={this.addLayoutToResource.bind(this)}
+            groupSections={this.groupSections.bind(this)}
+            ungroupSections={this.ungroupSections.bind(this)}
+            moveResourceDown={this.moveResourceDown.bind(this)}
+            moveResourceUp={this.moveResourceUp.bind(this)}
+            orderMode={this.state.orderMode}
+            addImageCaption={this.addImageCaption.bind(this)}
+            addImageCaptionOverlay={this.addImageCaptionOverlay.bind(this)}
+            addImageCaptionOverlayPosition={this.addImageCaptionOverlayPosition.bind(this)}
+            addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
+            setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
+            deleteImage={this.deleteImage.bind(this)}
+            moveImage={this.moveImage.bind(this)}
+          />
+        </div>
         {this.state.meta ? metadata : ''}
         <CloudinaryUploader
           cloudName={configParams.cloudName}
