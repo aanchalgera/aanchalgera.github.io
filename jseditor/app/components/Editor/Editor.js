@@ -439,11 +439,15 @@ class Editor extends React.Component{
 
   handleBlur (ev) {
     let title = ev.currentTarget.value.trim();
-    if (undefined == title || '' == title) {
+    if (undefined == title || '' == title || 5 >= title.length) {
       this.setMessage(true, TITLE_MINLENGTH_WARNING);
       return;
     } else {
       this.setMessage(false);
+    }
+
+    if (this.state.fields.length < 2) {
+      this.addResource({type: 'content', currentIndex: 1});
     }
 
     this.setState({
@@ -1058,7 +1062,7 @@ class Editor extends React.Component{
         {
           id: ++this.state.maxId,
           type:'title',
-          layout:'normal',
+          layout:'big',
           backgroundClass: 'module-bg-color-neutral-light',
           foregroundColor: null,
           text: this.state.value

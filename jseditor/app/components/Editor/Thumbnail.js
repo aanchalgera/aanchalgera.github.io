@@ -7,15 +7,15 @@ export default class Thumbnail extends React.Component {
   }
 
   selectImage(e) {
-    if ('backgroundImage' == this.props.imageFunction) {
-      this.props.addImage(this.props.data);
-      return this.props.closePanel(e);
+    if ('image' == this.props.imageFunction) {
+      return this.props.addResourcePanelSelectedImages([this.props.data], e);
     }
 
     switch(this.props.addImageModule) {
       case '':
-      case 'image':
-        return this.props.addResourcePanelSelectedImages([this.props.data], e);
+      case 'backgroundImage':
+        this.props.addImage(this.props.data);
+        return this.props.closePanel(e);
     }
 
     e.currentTarget.className = e.currentTarget.className == 'active' ? '' : 'active';

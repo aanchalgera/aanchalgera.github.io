@@ -21,10 +21,6 @@ export default function TopNavigation(props) {
 
   return (
     <div>
-      <div className="preview-nav">
-        <Link className="glyphicon glyphicon-wrench" to="/configs"><span>Go to Config</span></Link>
-        <Link className="glyphicon glyphicon-cog" to="/config/new"><span>Add Config</span></Link>
-      </div>
       <div className="nav-btns-top">
         {props.id ? <Link className="glyphicon glyphicon-upload" to="" onClick={props.toggleCloudinaryUploader}><span>Upload Images</span></Link> : null}
         <Link className="glyphicon glyphicon-move js-minimise" to="" onClick={props.toggleOrderMode}><span>Order Elements</span></Link>
