@@ -127,7 +127,7 @@ class Publish extends React.Component {
               title: data.title,
               meta: data.meta || this.state.meta,
               maxId: data.maxId,
-              status: data.publishData.postStatus || 'draft',
+              status: data.status || 'draft',
               date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
               publishedDate: data.publishData.postDate || null,
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
@@ -182,7 +182,6 @@ class Publish extends React.Component {
       publishData: {
         postDate: this.state.date,
         publishRegion: publishRegion,
-        postStatus: 'publish',
         postRepostBlogNames: postRepostBlogNames
       },
       meta: this.state.meta,
