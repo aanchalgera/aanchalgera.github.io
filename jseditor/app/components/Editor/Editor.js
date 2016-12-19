@@ -73,8 +73,8 @@ class Editor extends React.Component{
       if ('undefined' === typeof data.meta.showSocialShareButtons) {
         data.meta.showSocialShareButtons = true;
       }
-      if ('undefined' === typeof data.meta.showAuthorInfo) {
-        data.meta.showAuthorInfo = false;
+      if ('undefined' === typeof data.meta.author.showAuthorInfo) {
+        data.meta.author.showAuthorInfo = false;
       }
       if ('undefined' === typeof data.meta.showDate) {
         data.meta.showDate = data.meta.author.showAuthorInfo;
