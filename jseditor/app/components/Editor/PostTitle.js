@@ -2,6 +2,10 @@ import React from 'react';
 import PropertyButton from './PropertyButton';
 
 class PostTitle extends React.Component{
+  componentDidMount() {
+    this.refs.title.focus();
+  }
+
   render(){
     var foregroundColor = this.props.data.foregroundColor=='#FFF'? 'module-fg-light': 'module-fg-dark';
     var backgroundFullscreen = this.props.data.backgroundFullscreen ? 'fullscreen-background' : '';
@@ -31,6 +35,7 @@ class PostTitle extends React.Component{
                   <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
                     <input
                     type="text"
+                    ref="title"
                     placeholder="Title..."
                     className={'form-control form-control-title ' + backgroundFullscreen}
                     value={this.props.value}
