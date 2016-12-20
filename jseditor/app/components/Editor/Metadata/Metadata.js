@@ -44,6 +44,7 @@ class Metadata extends React.Component{
           footer={this.props.meta.footer}
           updateFooterCredits={this.props.updateFooterCredits}
           onArticleMetaToggle={this.onArticleMetaToggle}
+          toggleFooter={this.props.toggleFooter}
         />
         <Microsite
           microsite={this.props.meta.microsite}

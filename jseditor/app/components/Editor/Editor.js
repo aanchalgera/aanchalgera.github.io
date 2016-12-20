@@ -54,32 +54,7 @@ class Editor extends React.Component{
     this.toggleCommentStatus = this.toggleCommentStatus.bind(this);
     this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
     this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
-  }
-
-  addFieldsForExistingPosts(data) {
-    if (data.meta) {
-      if ('undefined' === typeof data.meta.social) {
-        data.meta.social = {
-          facebook: '',
-          twitter: ''
-        };
-      }
-      if ('undefined' === typeof data.meta.comment) {
-        data.meta.comment = {
-          allow: false,
-          status: 'open'
-        };
-      }
-      if ('undefined' === typeof data.meta.showSocialShareButtons) {
-        data.meta.showSocialShareButtons = true;
-      }
-      if ('undefined' === typeof data.meta.author.showAuthorInfo) {
-        data.meta.author.showAuthorInfo = false;
-      }
-      if ('undefined' === typeof data.meta.showDate) {
-        data.meta.showDate = data.meta.author.showAuthorInfo;
-      }
-    }
+    this.toggleFooter = this.toggleFooter.bind(this);
   }
 
   init() {
@@ -119,8 +94,6 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data) {
-              this.addFieldsForExistingPosts(data);
-
               this.setState({
                 id: data.id,
                 userId: data.user_id,
@@ -131,13 +104,13 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
+                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
+                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
                 userId: this.userId
               });
             }
@@ -151,7 +124,7 @@ class Editor extends React.Component{
       let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
       this.setState({
         id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true},
+        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
         userId: this.userId
       }, this.context.router.push(postEditUrl));
     }
@@ -531,7 +504,7 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true}
+      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}}
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -738,7 +711,7 @@ class Editor extends React.Component{
   }
 
   updateFooterCredits(event) {
-    this.state.meta.footer = event.target.value;
+    this.state.meta.footer.content = event.target.value;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -848,6 +821,11 @@ class Editor extends React.Component{
   toggleDateVisibility () {
     this.state.meta.showDate = !this.state.meta.showDate;
     this.setState({ meta: this.state.meta}, this.saveData());
+  }
+
+  toggleFooter() {
+    this.state.meta.footer.hideFooter = !this.state.meta.footer.hideFooter;
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   deleteImage({sectionIndex, imageIndex}, event) {
@@ -1056,6 +1034,7 @@ class Editor extends React.Component{
       toggleCommentStatus={this.toggleCommentStatus}
       toggleSocialShareVisibility={this.toggleSocialShareVisibility}
       toggleDateVisibility={this.toggleDateVisibility}
+      toggleFooter={this.toggleFooter}
     />;
 
     if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
