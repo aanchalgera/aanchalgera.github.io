@@ -3,7 +3,7 @@ import React from 'react';
 class PropertyButtonContent extends React.Component {
   render() {
     var backgroundImageOptions = '', backgroundImage;
-    let textColour, actualizacion;
+    let textColour, actualizacion, showSocialShareIcon;
     if (this.props.data.backgroundImage != '' && this.props.data.backgroundImage != undefined) {
       backgroundImage = (
         <span className="input-group">
@@ -48,6 +48,23 @@ class PropertyButtonContent extends React.Component {
       case 'ficha':
         textColour='';
         break;
+      case 'summary':
+        showSocialShareIcon = (
+          <div>
+            <h5>Share</h5>
+            <li>
+              <label className="full-line">
+                <input type="checkbox"
+                  data-id={this.props.dataId}
+                  checked={this.props.data.showSummarySocialShareButtons}
+                  onChange={this.props.toggleSummarySocialShareButtons}
+                />
+                Display social sharing buttons here
+              </label>
+            </li>
+          </div>
+        );
+        break;
       default:
         textColour = (
           <li><label> Text </label>
@@ -56,6 +73,7 @@ class PropertyButtonContent extends React.Component {
           </li>
         );
     }
+
     return (
       <ul className="list-background">
         <h5>Background</h5>
@@ -71,6 +89,7 @@ class PropertyButtonContent extends React.Component {
         </li>
         {backgroundImageOptions}
         {actualizacion}
+        {showSocialShareIcon}
       </ul>
     );
   }

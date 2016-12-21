@@ -76,6 +76,8 @@ class PropertyButton extends React.Component {
             layout={this.props.layout}
             addLayoutToResource={this.props.addLayoutToResource}
             dataType={this.props.data.type}
+            showSummarySocialShareButtons={this.props.data.showSummarySocialShareButtons}
+            toggleSummarySocialShareButtons={this.props.toggleSummarySocialShareButtons}
           />
         );
         break;
@@ -86,6 +88,7 @@ class PropertyButton extends React.Component {
         data={this.props.data}
         openResourcePanel={this.props.openResourcePanel}
         dataId={this.props.dataId}
+        toggleSummarySocialShareButtons={this.props.toggleSummarySocialShareButtons}
       />
     );
 

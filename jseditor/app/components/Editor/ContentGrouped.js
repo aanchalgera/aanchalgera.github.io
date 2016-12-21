@@ -57,6 +57,7 @@ class ContentGrouped extends React.Component{
           groupSections={this.props.groupSections}
           ungroupSections={this.props.ungroupSections}
           updateResource={this.props.updateResource}
+          toggleSummarySocialShareButtons={this.props.toggleSummarySocialShareButtons}
         />
       </div>
     );

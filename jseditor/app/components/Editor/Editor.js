@@ -55,6 +55,7 @@ class Editor extends React.Component{
     this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
     this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
     this.toggleFooter = this.toggleFooter.bind(this);
+    this.toggleSummarySocialShareButtons = this.toggleSummarySocialShareButtons.bind(this);
   }
 
   init() {
@@ -204,6 +205,7 @@ class Editor extends React.Component{
       case 'summary':
         attributes['layout'] = 'normal';
         attributes['text'] = '';
+        attributes['showSummarySocialShareButtons'] = false;
         break;
       case 'giphy':
       case 'infogram':
@@ -828,6 +830,15 @@ class Editor extends React.Component{
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
+  toggleSummarySocialShareButtons(event) {
+    event.preventDefault();
+    let currentIndex = event.target.dataset.id;
+    let field = this.getField(currentIndex);
+    field.altered.showSummarySocialShareButtons = event.target.checked;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
   deleteImage({sectionIndex, imageIndex}, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
@@ -1104,6 +1115,7 @@ class Editor extends React.Component{
             setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
             deleteImage={this.deleteImage.bind(this)}
             moveImage={this.moveImage.bind(this)}
+            toggleSummarySocialShareButtons={this.toggleSummarySocialShareButtons}
           />
         </div>
         {this.state.meta ? metadata : ''}

@@ -12,6 +12,7 @@ class PropertyButtonSizes extends React.Component{
   render () {
     let extraButtons = null;
     let smallButton = null;
+    let showSocialShareIcon;
     if ('title' == this.props.dataType) {
       extraButtons = (
         <span>
@@ -28,7 +29,23 @@ class PropertyButtonSizes extends React.Component{
     }
     if ('table' != this.props.dataType) {
       smallButton = <p className="size-small"><button type='button' data-layout="small" onClick={this.handleClick.bind(this)} className={'btn btn-default selected ' + (this.props.layout == 'small' ? 'active' : '')}>Small</button></p>;
-
+    }
+    if('summary' == this.props.dataType) {
+      showSocialShareIcon = (
+        <div>
+          <h5>Share</h5>
+          <li>
+            <label className="full-line">
+              <input type="checkbox"
+                data-id={this.props.dataId}
+                checked={this.props.showSummarySocialShareButtons}
+                onChange={this.props.toggleSummarySocialShareButtons}
+              />
+              Display social sharing buttons here
+            </label>
+          </li>
+        </div>
+      );
     }
     return (
       <ul className="list-size">
@@ -38,6 +55,7 @@ class PropertyButtonSizes extends React.Component{
           <p className="size-normal"><button type='button' data-layout="normal" onClick={this.handleClick.bind(this)} className={'btn  btn-default selected ' + (this.props.layout == 'normal' ? 'active' : '')}>Normal</button></p>
           {extraButtons}
         </li>
+        {showSocialShareIcon}
       </ul>
     );
   }
