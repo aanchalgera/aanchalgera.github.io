@@ -275,7 +275,9 @@ class Editor extends React.Component{
     this.setState({
       fields: this.state.fields,
       maxId: this.state.maxId,
-      meta: this.state.meta
+      meta: this.state.meta,
+      addImageModule: '',
+      imageFunction: ''
     }, this.saveData());
   }
 
@@ -356,7 +358,8 @@ class Editor extends React.Component{
       fields: this.state.fields,
       maxId: this.state.maxId,
       addMoreImages: false,
-      addImageModule: ''
+      addImageModule: '',
+      imageFunction: ''
     }, this.saveData());
   }
 
