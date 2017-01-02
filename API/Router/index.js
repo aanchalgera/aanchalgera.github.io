@@ -7,6 +7,7 @@ Router
   .route('/post/:id')
   .post(PostController.updatePost)
   .get(PostController.getPost)
+  .delete(PostController.deletePost)
 ;
 
 Router
