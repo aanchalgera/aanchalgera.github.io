@@ -13,6 +13,12 @@ export default class Controller {
     });
   }
 
+  static deletePost(req, res, next) {
+    firebaseApp.database().ref('posts/'+ req.params.id).remove();
+    firebaseApp.database().ref('posts_list/'+ req.params.id).remove();
+    res.send("done");
+  }
+
   static updatePost(req, res, next) {
     firebaseApp.database().ref('posts/'+ req.params.id).once('value', function(snap) {
       if (snap.val()) {
