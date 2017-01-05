@@ -1125,6 +1125,7 @@ class Editor extends React.Component{
         <CloudinaryUploader
           cloudName={configParams.cloudName}
           uploadPreset={configParams.uploadPreset}
+          folder={configParams.folder}
           addImage={this.addImage.bind(this)}
           addImages={this.addImages}
           editImages={this.editImages.bind(this)}

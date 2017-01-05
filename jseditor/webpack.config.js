@@ -17,8 +17,9 @@ var configs = {
     host: 'http://test.admin.weblogssl.com',
     blogUrl: 'http://testing.xataka.com/',
     firebaseUrl: process.env.FIREBASE_URL || 'https://dazzling-torch-3017.firebaseio.com/',
-    cloudName: 'agilemediatest',
-    uploadPreset: 'aras8ztr',
+    cloudName: 'weblogssl',
+    uploadPreset: 'h2sbmprz',
+    folder: 'testing',
     timezone: 'Europe/Madrid',
     cssPath: 'http://testblogwp.weblogssl.com/temp/devel/2011-template/editor/css/admin.css'
   },
@@ -27,8 +28,9 @@ var configs = {
     host: 'http://test.admin.weblogssl.com',
     blogUrl: 'http://dev.xataka.com/',
     firebaseUrl: process.env.FIREBASE_URL || 'https://flickering-fire-6653.firebaseio.com/',
-    cloudName: 'agilemediatest',
-    uploadPreset: 'aras8ztr',
+    cloudName: 'weblogssl',
+    uploadPreset: 'h2sbmprz',
+    folder: 'testing',
     timezone: 'Europe/Madrid',
     cssPath: 'http://testblogwp.weblogssl.com/temp/devel/2011-template/editor/css/admin.css'
   }
