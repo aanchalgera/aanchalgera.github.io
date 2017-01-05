@@ -1,7 +1,6 @@
 import React from 'react';
 
 const CONTROLS = [
-  {style: 'header-one', icon: 'fa-header fa-header-x fa-header-1', hint: 'H1'},
   {style: 'header-two', icon: 'fa-header fa-header-x fa-header-2', hint: 'H2'},
   {style: 'header-three', icon: 'fa-header fa-header-x fa-header-3', hint: 'H3'},
   {style: 'blockquote', icon: 'fa-quote-left', hint: 'Quote'},
