@@ -211,6 +211,12 @@ class Publish extends React.Component {
         firebaseData.publishData.postHash = result.post_hash;
       }
       try {
+        let postType = 'normal';
+        let blogStatus = this.blogName + '_publish';
+        if (this.state.meta.sponsor.image) {
+          postType = 'club';
+        }
+
         let listData = {
           id: this.state.id,
           title: this.state.title,
@@ -218,7 +224,8 @@ class Publish extends React.Component {
           user_id: this.state.userId,
           blog_name: this.blogName,
           user_status: this.blogName + '_' + this.state.userId + '_' + 'publish',
-          blog_status: this.blogName + '_publish'
+          blog_status: blogStatus,
+          blog_post_type: blogStatus + '_' + postType
         };
 
         this.props.base.post(

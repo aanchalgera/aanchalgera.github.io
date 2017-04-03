@@ -517,15 +517,23 @@ class Editor extends React.Component{
       data.publishData.postHash = this.state.postHash;
     }
 
+    let postType = 'normal';
+    let blogStatus = this.blogName + '_' + this.state.status;
+    if (this.state.meta.sponsor.image) {
+      postType = 'club';
+    }
+
     let listData = {
       id: this.state.id,
       title: this.state.value,
       status: this.state.status,
       user_id: this.state.userId,
       user_status: userStatus,
-      blog_status: this.blogName + '_' + this.state.status,
-      blog_name: this.state.blogName
+      blog_status: blogStatus,
+      blog_name: this.state.blogName,
+      blog_post_type: blogStatus + '_' + postType
     };
+
     this.props.base.post(
       'posts_list/' + this.state.id,
       {
