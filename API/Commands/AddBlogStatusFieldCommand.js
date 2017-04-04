@@ -4,6 +4,18 @@ let firebase    = require('firebase')
 ,   firebaseApp = firebase.initializeApp(envConfig)
 ;
 
+firebaseApp.database().ref('posts/').once('value', function(snap) {
+  snap.forEach(function(data) {
+    let dataVal = data.val();
+    let postType = 'normal';
+    if (dataVal.meta.sponsor.image) {
+      postType = 'club';
+    }
+    let blogPostType = dataVal.blog_status + '_' + postType;
+    firebaseApp.database().ref('posts_list/'+ dataVal.id).update({blog_post_type: blogPostType});
+  });
+});
+
 firebaseApp.database().ref('posts_list/').once('value', function(snap) {
   snap.forEach(function(data) {
     let dataVal = data.val();
