@@ -19,6 +19,7 @@ const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
 const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 const FACEBOOK_TEXT_SAME_POST_TITLE = 'Facebook text cannot be same as post title';
+const SPONSOR_IMAGE_WARNING = 'Sponsor image URL cannot be empty';
 
 class Editor extends React.Component{
   constructor(props) {
@@ -76,9 +77,24 @@ class Editor extends React.Component{
         },
         then(data) {
           if (data[0] != null) {
-            this.setState({
-              blogName: this.blogName,
-              blogUrl: data[0].site_url
+            let siteUrl = data[0].site_url;
+            jquery.ajax({
+              url: siteUrl + '/admin/users/' + this.userId + '.json',
+              crossDomain: true,
+              type: 'GET',
+              xhrFields: {
+                withCredentials: true
+              }
+            })
+            .fail((jqxhr, textStatus, error) => {
+              this.setMessage(true, error);
+            })
+            .done((data) => {
+              this.setState({
+                blogName: this.blogName,
+                blogUrl: siteUrl,
+                userRole: data.roles[0]
+              });
             });
           } else {
             this.context.router.replace('/invalidBlog');
@@ -967,6 +983,13 @@ class Editor extends React.Component{
 
     if (!this.state.meta || !this.state.meta.homepage.image) {
       message = MAIN_IMAGE_WARNING;
+    }
+
+    if (
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COLLABORATOR'].indexOf(this.state.userRole) > -1
+      && !this.state.meta.sponsor.image
+    ) {
+      message = SPONSOR_IMAGE_WARNING;
     }
 
     if(message != '') {
