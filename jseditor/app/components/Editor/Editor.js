@@ -986,7 +986,7 @@ class Editor extends React.Component{
     }
 
     if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COLLABORATOR'].indexOf(this.state.userRole) > -1
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
       && !this.state.meta.sponsor.image
     ) {
       message = SPONSOR_IMAGE_WARNING;
