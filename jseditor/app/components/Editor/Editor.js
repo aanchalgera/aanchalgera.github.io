@@ -886,6 +886,14 @@ class Editor extends React.Component{
       return;
     }
 
+    if (
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
+      && !this.state.meta.sponsor.image
+    ) {
+      this.setMessage(true, SPONSOR_IMAGE_WARNING);
+      return false;
+    }
+
     if (!this.state.meta.homepage.image) {
       this.setMessage(true, MAIN_IMAGE_WARNING);
       return false;
