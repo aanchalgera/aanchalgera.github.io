@@ -45,10 +45,15 @@ export default class Controller {
 
   static getPosts(req, res, next) {
     var query = firebaseApp.database().ref('posts_list/');
-    if (req.query.type) {
-      query = query.orderByChild("blog_post_type").equalTo(req.params.blogName + '_' + req.query.status + '_' + req.query.type);
-    } else if (req.query.status) {
-      query = query.orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status);
+
+    if (req.query.status) {
+      if (req.query.userId) {
+        query = query.orderByChild("user_status").equalTo(req.params.blogName + '_' + req.query.userId + '_' + req.query.status);
+      } else if (req.query.type) {
+        query = query.orderByChild("blog_post_type").equalTo(req.params.blogName + '_' + req.query.status + '_' + req.query.type);
+      } else {
+        query = query.orderByChild("blog_status").equalTo(req.params.blogName + '_' + req.query.status);
+      }
     }
 
     if (req.query.limit) {
