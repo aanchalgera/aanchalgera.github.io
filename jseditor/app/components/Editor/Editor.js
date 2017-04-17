@@ -476,6 +476,14 @@ class Editor extends React.Component{
       return false;
     }
 
+    if (
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
+      && !this.state.meta.sponsor.image
+    ) {
+      this.setMessage(true, SPONSOR_IMAGE_WARNING);
+      return false;
+    }
+
     this.setMessage(false);
     return true;
   }
@@ -993,10 +1001,7 @@ class Editor extends React.Component{
       message = MAIN_IMAGE_WARNING;
     }
 
-    if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
-      && !this.state.meta.sponsor.image
-    ) {
+    if ('ROLE_BRANDED_COORDINATOR' == this.state.userRole && !this.state.meta.sponsor.image) {
       message = SPONSOR_IMAGE_WARNING;
     }
 
@@ -1121,6 +1126,7 @@ class Editor extends React.Component{
           enablePublish={this.enablePublish.bind(this)}
           toggleOrderMode={this.toggleOrderMode.bind(this)}
           toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
+          userRole={this.state.userRole}
         />
         {errorField}
         {successField}
