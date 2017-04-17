@@ -476,14 +476,6 @@ class Editor extends React.Component{
       return false;
     }
 
-    if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
-      && !this.state.meta.sponsor.image
-    ) {
-      this.setMessage(true, SPONSOR_IMAGE_WARNING);
-      return false;
-    }
-
     this.setMessage(false);
     return true;
   }
@@ -543,7 +535,10 @@ class Editor extends React.Component{
 
     let postType = 'normal';
     let blogStatus = this.blogName + '_' + this.state.status;
-    if (this.state.meta.sponsor.image) {
+    if (
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
+      || this.state.meta.sponsor.image
+    ) {
       postType = 'club';
     }
 
