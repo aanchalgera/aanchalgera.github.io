@@ -5,20 +5,18 @@ import PreviewOnSite from './PreviewOnSite';
 
 export default function TopNavigation(props) {
   let updateButton = null;
-  if (props.userRole && ('ROLE_BRANDED_COLLABORATOR' != props.userRole)) {
-    if (props.status == 'publish' && moment(props.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-      updateButton = (
-        <Link className= "glyphicon glyphicon-refresh" to="" onClick={props.updateOnBackend}>
-          <span>Update</span>
-        </Link>
-      );
-    } else if (props.isSynced) {
-      updateButton = (
-        <Link className="glyphicon glyphicon-ok" to={'/publish/' + props.id + '?blog=' + props.blogName + '&userid=' + props.userId} onClick={props.enablePublish} >
-          <span>Go to Publish</span>
-        </Link>
-      );
-    }
+  if (props.status == 'publish' && moment(props.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+    updateButton = (
+      <Link className= "glyphicon glyphicon-refresh" to="" onClick={props.updateOnBackend}>
+        <span>Update</span>
+      </Link>
+    );
+  } else if (props.isSynced && props.userRole && ('ROLE_BRANDED_COLLABORATOR' != props.userRole)) {
+    updateButton = (
+      <Link className="glyphicon glyphicon-ok" to={'/publish/' + props.id + '?blog=' + props.blogName + '&userid=' + props.userId} onClick={props.enablePublish} >
+        <span>Go to Publish</span>
+      </Link>
+    );
   }
 
   return (
