@@ -1,5 +1,5 @@
 import React from 'react';
-import { Entity, RichUtils } from 'draft-js';
+import { RichUtils } from 'draft-js';
 
 const TYPE = 'LINK';
 
@@ -25,7 +25,11 @@ export default class Link extends React.Component {
         return false;
       }
       return this.setState({ url: newUrl }, () => {
-        const entityKey = Entity.create(TYPE, 'MUTABLE', { url: newUrl });
+        const entityKey = editorState
+          .getCurrentContent()
+          .createEntity(TYPE, 'MUTABLE', { url: newUrl })
+          .getLastCreatedEntityKey()
+        ;
         this.props.onToggle(RichUtils.toggleLink(editorState, selection, entityKey));
       });
     }
@@ -50,25 +54,25 @@ export default class Link extends React.Component {
 
 export const LinkDecorator = {
   component: (props) => {
-    const { url } = Entity.get(props.entityKey).getData();
+    const { contentState, entityKey, children } = props;
+    const { url } = contentState.getEntity(entityKey).getData();
     return (
       <a href={url}>
-        {props.children}
+        {children}
       </a>
     );
   },
 
-  strategy: (contentBlock, callback) => {
+  strategy: (contentBlock, callback, contentState) => {
     contentBlock.findEntityRanges(
       (character) => {
         const entityKey = character.getEntity();
         return (
           entityKey !== null &&
-          Entity.get(entityKey).getType() === TYPE
+          contentState.getEntity(entityKey).getType() === TYPE
         );
       },
       callback
     );
   }
 };
-
