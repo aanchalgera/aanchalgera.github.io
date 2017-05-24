@@ -76,11 +76,12 @@ module.exports = {
         NODE_ENV: JSON.stringify(NODE_ENV == 'development' ? 'development' : 'production')
       }
     })
-  ]
+  ],
+  devtool: 'source-map'
 };
 
 if (NODE_ENV != 'development') {
   module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, minimize: true })
+    new webpack.optimize.UglifyJsPlugin({ minimize: true })
   );
 }
