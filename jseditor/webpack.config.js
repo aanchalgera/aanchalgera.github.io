@@ -47,18 +47,14 @@ module.exports = {
     filename: 'public/bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
+        loader: 'babel-loader',
+        options: {
           presets:['es2015', 'stage-0', 'stage-2', 'react']
         }
-      },
-      {
-        include: /\.json$/,
-        loader: 'json-loader'
       },
       {
         test: /(\.jsx|\.js)$/,
@@ -68,10 +64,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.json', '.jsx', '.js']
+    extensions: ['.json', '.jsx', '.js']
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|es/),
     new webpack.DefinePlugin({
       configParams: JSON.stringify(configParams),
@@ -80,11 +76,12 @@ module.exports = {
         NODE_ENV: JSON.stringify(NODE_ENV == 'development' ? 'development' : 'production')
       }
     })
-  ]
+  ],
+  devtool: 'source-map'
 };
 
 if (NODE_ENV != 'development') {
   module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+    new webpack.optimize.UglifyJsPlugin({ minimize: true })
   );
 }
