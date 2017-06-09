@@ -711,6 +711,16 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
+  addGroupToResource(event) {
+    event.preventDefault();
+    let currentIndex = this.parentDiv(event.target).dataset.id;
+    let value = event.target.dataset.group;
+    let field = this.getField(currentIndex);
+    field.altered.group = (field.altered.group == value) ? '' : value;
+    this.state.fields.splice(field.indexes[0], 0, field.original);
+    this.setState({ fields: this.state.fields }, this.saveData());
+  }
+
   moveResourceDown(currentIndex) {
     let obj = this.state.fields.splice(currentIndex, 1);
     this.state.fields.splice(currentIndex + 1, 0, obj[0]);
@@ -1146,6 +1156,7 @@ class Editor extends React.Component{
             addTable={this.addTable.bind(this)}
             deleteResource={this.deleteResource.bind(this)}
             addLayoutToResource={this.addLayoutToResource.bind(this)}
+            addGroupToResource={this.addGroupToResource.bind(this)}
             groupSections={this.groupSections.bind(this)}
             ungroupSections={this.ungroupSections.bind(this)}
             moveResourceDown={this.moveResourceDown.bind(this)}
