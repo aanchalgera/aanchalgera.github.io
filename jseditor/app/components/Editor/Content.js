@@ -269,6 +269,7 @@ class Content extends React.Component{
           data={this.props.data}
           dataId={this.props.dataId}
           addLayoutToResource={this.props.addLayoutToResource}
+          addGroupToResource={this.props.addGroupToResource}
           ungroupSections={this.props.ungroupSections}
           grouped={this.props.grouped}
           updateResource={this.props.updateResource}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
 import PropertyButtonSizes from './PropertyButtonSizes';
+import PropertyButtonCssClass from './PropertyButtonCssClass';
 import PropertyButtonTable from './PropertyButtonTable';
 import AutoplaySliderButton from './AutoplaySliderButton';
 
@@ -106,6 +107,7 @@ class PropertyButton extends React.Component {
           Delete Section <span type="button" className="glyphicon glyphicon-trash "></span>
         </button>
       );
+
     }
     if ('table' == this.props.data.type) {
       tableProperties = (
@@ -121,6 +123,14 @@ class PropertyButton extends React.Component {
         <li><button type="button" onClick={this.toggleBox.bind(this)} className={'btn btn-default glyphicon glyphicon-cog ' + selected}></button></li>
       </ul>
     );
+    var cssClassButton = (
+      <PropertyButtonCssClass
+        dataId={this.props.dataId}
+        group={this.props.data.group}
+        addGroupToResource={this.props.addGroupToResource}
+        dataType={this.props.data.type}
+      />
+    );
     return (
       <ul>
         {showPropertiesBox == true ? propertyButton : ''}
@@ -130,6 +140,7 @@ class PropertyButton extends React.Component {
           {groupProperties}
           {this.props.grouped == 'true' ? '' : sizeProperties}
           {tableProperties}
+          {(this.props.grouped == 'true' || 'title'== this.props.data.type) ? '' : cssClassButton}
           {this.props.grouped == 'true' ? '' : deleteButton}
         </span>
       </ul>
