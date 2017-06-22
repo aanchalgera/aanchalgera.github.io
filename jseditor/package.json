@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint app/components/*"
+    "build": "webpack",
+    "test": "eslint app/components/*",
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "BSD-2-Clause",
@@ -40,12 +42,13 @@
     "webpack": "2.6.0"
   },
   "devDependencies": {
-    "redux-devtools": "^3.3.1",
     "eslint": "~3.10.2",
+    "eslint-config-airbnb": "~13.0.0",
     "eslint-loader": "~1.6.1",
-    "eslint-plugin-react": "~6.7.1",
-    "eslint-plugin-jsx-a11y": "~2.2.3",
     "eslint-plugin-import": "~2.2.0",
-    "eslint-config-airbnb": "~13.0.0"
+    "eslint-plugin-jsx-a11y": "~2.2.3",
+    "eslint-plugin-react": "~6.7.1",
+    "redux-devtools": "^3.3.1",
+    "webpack-dev-server": "^2.5.0"
   }
 }

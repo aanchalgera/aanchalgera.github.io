@@ -77,7 +77,11 @@ module.exports = {
       }
     })
   ],
-  devtool: 'source-map'
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: './public',
+    historyApiFallback: true
+  }
 };
 
 if (NODE_ENV != 'development') {
