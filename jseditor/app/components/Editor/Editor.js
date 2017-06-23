@@ -111,7 +111,6 @@ class Editor extends React.Component{
           context: this,
           then(data) {
             if (null != data && data.id) {
-              // This is new
               this.setState({
                 id: data.id,
                 userId: data.user_id,
