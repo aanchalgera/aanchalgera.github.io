@@ -110,7 +110,8 @@ class Editor extends React.Component{
         this.props.base.fetch('posts/' + postname, {
           context: this,
           then(data) {
-            if (null != data) {
+            if (null != data && data.id) {
+              // This is new
               this.setState({
                 id: data.id,
                 userId: data.user_id,

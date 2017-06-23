@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 var NODE_ENV = process.env.NODE_ENV || 'development';
 
 var configs = {
@@ -44,7 +45,8 @@ if (typeof configs[NODE_ENV] == 'undefined') {
 module.exports = {
   entry: './App.js',
   output: {
-    filename: 'public/bundle.js'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public/')
   },
   module: {
     rules: [
@@ -75,12 +77,15 @@ module.exports = {
         // This has effect on the react lib size
         NODE_ENV: JSON.stringify(NODE_ENV == 'development' ? 'development' : 'production')
       }
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devtool: "inline-source-map",
   devServer: {
-    contentBase: './public',
-    historyApiFallback: true
+    contentBase: path.resolve(__dirname, 'public'),
+    historyApiFallback: true,
+    disableHostCheck: true,
+    hot: true
   }
 };
 

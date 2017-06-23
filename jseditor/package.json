@@ -39,7 +39,7 @@
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
-    "webpack": "2.6.0"
+    "webpack": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "~3.10.2",
