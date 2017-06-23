@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import helpers from '../../utils/generatehash';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
 let hashId = helpers.generatePushID();
 
@@ -19,7 +19,11 @@ class Config extends Component {
   }
 
   init() {
-    var configId = this.props.routeParams.configId;
+    const {
+      match: { params: { configId } },
+      history
+    } = this.props;
+
     if (undefined != configId) {
       this.props.base.fetch('config/' + configId, {
         context: this,
@@ -37,7 +41,7 @@ class Config extends Component {
       hashId = helpers.generatePushID();
       this.setState({
         id : hashId
-      }, this.context.router.push('/config/'+hashId));
+      }, history.push('/config/'+hashId));
     }
   }
 

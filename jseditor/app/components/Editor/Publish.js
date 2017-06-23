@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
@@ -61,14 +61,21 @@ class Publish extends React.Component {
   }
 
   checkUser() {
-    let { query } = this.props.location;
-    this.userId = query.userid;
-    this.blogName = query.blog;
+    const {
+      match: { params: { postname } },
+      location: { search },
+      history
+    } = this.props;
+
+    const query = new URLSearchParams(search);
+
+    this.userId = query.get('userid');
+    this.blogName = query.get('blog');
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.push('/invalidUser');
+      history.push('/invalidUser');
     }
-    this.postname = this.props.params.postname;
+    this.postname = postname;
   }
 
   init() {

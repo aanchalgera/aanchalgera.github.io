@@ -61,10 +61,16 @@ class Editor extends React.Component{
 
   init() {
     this.checkConnectStatus();
-    let postname = this.props.params.postname;
-    let { query } = this.props.location;
-    this.blogName = query.blog;
-    this.userId = query.userid;
+    const {
+      match: { params: { postname } },
+      location: { search },
+      history
+    } = this.props;
+
+    const query = new URLSearchParams(search);
+
+    this.blogName = query.get('blog');
+    this.userId = query.get('userid');
     if (this.blogName == undefined) {
       this.context.router.replace('/invalidBlog');
     } else {
@@ -110,7 +116,7 @@ class Editor extends React.Component{
         this.props.base.fetch('posts/' + postname, {
           context: this,
           then(data) {
-            if (null != data) {
+            if (data.hasOwnProperty('id')) {
               this.setState({
                 id: data.id,
                 userId: data.user_id,
@@ -143,7 +149,7 @@ class Editor extends React.Component{
         id: hashId,
         meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
         userId: this.userId
-      }, this.context.router.push(postEditUrl));
+      }, history.push(postEditUrl));
     }
   }
 
