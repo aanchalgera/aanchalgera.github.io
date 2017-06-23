@@ -153,8 +153,4 @@ class Config extends Component {
   }
 }
 
-Config.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
 export default Config;

@@ -79,8 +79,10 @@ class Publish extends React.Component {
   }
 
   init() {
+    const { history } = this.props;
+
     if (this.blogName == undefined) {
-      this.context.router.replace('/invalidBlog');
+      history.replace('/invalidBlog');
     } else {
       this.props.base.fetch('config', {
         context: this,
@@ -96,7 +98,7 @@ class Publish extends React.Component {
               blogUrl: data[0].site_url
             });
           } else {
-            this.context.router.replace('/invalidBlog');
+            history.replace('/invalidBlog');
           }
         }
       });
@@ -409,9 +411,5 @@ class Publish extends React.Component {
     );
   }
 }
-
-Publish.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
 
 export default Publish;

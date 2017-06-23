@@ -72,7 +72,7 @@ class Editor extends React.Component{
     this.blogName = query.get('blog');
     this.userId = query.get('userid');
     if (this.blogName == undefined) {
-      this.context.router.replace('/invalidBlog');
+      history.replace('/invalidBlog');
     } else {
       this.props.base.fetch('config', {
         context: this,
@@ -103,14 +103,14 @@ class Editor extends React.Component{
               });
             });
           } else {
-            this.context.router.replace('/invalidBlog');
+            history.replace('/invalidBlog');
           }
         }
       });
     }
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.replace('/invalidUser');
+      history.replace('/invalidUser');
     } else if (undefined != postname) {
       try {
         this.props.base.fetch('posts/' + postname, {
@@ -1199,9 +1199,5 @@ class Editor extends React.Component{
     );
   }
 }
-
-Editor.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
 
 export default Editor;
