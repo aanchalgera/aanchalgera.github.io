@@ -85,7 +85,11 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
     disableHostCheck: true,
-    hot: true
+    hot: true,
+    host: "0.0.0.0",
+    allowedHosts: [
+      'devadmin.weblogssl.com'
+    ]
   }
 };
 
