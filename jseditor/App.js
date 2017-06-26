@@ -1,6 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Router, browserHistory} from 'react-router';
+import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import 'url-search-params-polyfill';
 import Routes from './app/config/routes';
 import { Provider } from 'react-redux';
 import store from './app/stores/ConfigureStore';
@@ -25,7 +26,9 @@ if (process.env.NODE_ENV == 'development') {
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>{Routes}</Router>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('app')
 );

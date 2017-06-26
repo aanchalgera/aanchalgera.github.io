@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SlotWidget from './SlotWidget';
@@ -61,19 +61,28 @@ class Publish extends React.Component {
   }
 
   checkUser() {
-    let { query } = this.props.location;
-    this.userId = query.userid;
-    this.blogName = query.blog;
+    const {
+      match: { params: { postname } },
+      location: { search },
+      history
+    } = this.props;
+
+    const query = new URLSearchParams(search);
+
+    this.userId = query.get('userid');
+    this.blogName = query.get('blog');
     let regEx = /\D/;
     if (regEx.test(this.userId)) {
-      this.context.router.push('/invalidUser');
+      history.push('/invalidUser');
     }
-    this.postname = this.props.params.postname;
+    this.postname = postname;
   }
 
   init() {
+    const { history } = this.props;
+
     if (this.blogName == undefined) {
-      this.context.router.replace('/invalidBlog');
+      history.replace('/invalidBlog');
     } else {
       this.props.base.fetch('config', {
         context: this,
@@ -89,7 +98,7 @@ class Publish extends React.Component {
               blogUrl: data[0].site_url
             });
           } else {
-            this.context.router.replace('/invalidBlog');
+            history.replace('/invalidBlog');
           }
         }
       });
@@ -402,9 +411,5 @@ class Publish extends React.Component {
     );
   }
 }
-
-Publish.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
 
 export default Publish;
