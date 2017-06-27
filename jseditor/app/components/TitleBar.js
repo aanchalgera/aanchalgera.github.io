@@ -1,25 +1,31 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
+const styles = {
+  previewButton: {
+    marginTop: '8px'
+  },
+  publishButton: {
+    marginTop: '16px'
+  }
+};
+
 const TitleBar = () => (
-  <MuiThemeProvider>
-    <view>
-      <Row>
-        <Col xs={12}>
-          <AppBar title={<TitleContent />}>
-            <PublishButton />
-            <PreviewButton />
-          </AppBar>
-        </Col>
-      </Row>
-    </view>
-  </MuiThemeProvider>
+  <view>
+    <Row>
+      <Col xs={12}>
+        <AppBar title={<TitleContent />}>
+          <PublishButton />
+          <PreviewButton />
+        </AppBar>
+      </Col>
+    </Row>
+  </view>
 );
 
 const TitleContent = () => (
@@ -32,17 +38,13 @@ const TitleContent = () => (
 );
 
 const PreviewButton = () => (
-  <div>
-    <IconButton style={{marginTop: 10}}>
-      <ActionHome />
-    </IconButton>
-  </div>
+  <IconButton style={styles.previewButton}>
+    <ActionHome />
+  </IconButton>
 );
 
 const PublishButton = () => (
-  <div>
-    <FlatButton label="Publicado" style={{marginTop: 15}} />
-  </div>
+  <FlatButton label="Publicado" style={styles.publishButton} />
 );
 
 const TabsButton = () => (
