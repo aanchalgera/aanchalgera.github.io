@@ -4,7 +4,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
+import FontIcon from 'material-ui/FontIcon';
+import Visibility from 'material-ui/svg-icons/action/visibility';
 
 const styles = {
   previewButton: {
@@ -39,7 +40,7 @@ const TitleContent = () => (
 
 const PreviewButton = () => (
   <IconButton style={styles.previewButton}>
-    <ActionHome />
+    <FontIcon className="material-icons" ><Visibility/></FontIcon>
   </IconButton>
 );
 
