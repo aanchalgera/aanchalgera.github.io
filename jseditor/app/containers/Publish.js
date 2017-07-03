@@ -3,6 +3,7 @@ import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SchedulePost from '../components/Editor/SchedulePost';
 import Snackbar from 'material-ui/Snackbar';
+import CountriesFormOptions from './components/Editor/CountriesFormOptions';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
@@ -365,6 +366,12 @@ class Publish extends React.Component {
     });
   }
 
+  setPublishRegions (newRegions) {
+    this.setState({
+      publishRegion: newRegions
+    });
+  }
+
   render () {
     return(
       <div>
@@ -382,6 +389,10 @@ class Publish extends React.Component {
           onChange={this.onChange.bind(this)}
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
+        />
+        <CountriesFormOptions
+          setPublishRegions={this.setPublishRegions.bind(this)}
+          publishRegions={this.state.publishRegion}
         />
       </div>
     );
