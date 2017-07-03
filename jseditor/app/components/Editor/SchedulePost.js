@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Apps from 'material-ui/svg-icons/navigation/apps';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { grey900, white, pink400 } from 'material-ui/styles/colors';
 import { Row, Col } from 'react-flexbox-grid';
@@ -11,11 +10,7 @@ import { Row, Col } from 'react-flexbox-grid';
 var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
 
-class SlotWidget extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class SchedulePost extends React.Component {
   render () {
     var tablehead = [], tablerows = [];
     var td = [];
@@ -110,4 +105,4 @@ class SlotWidget extends React.Component {
   }
 }
 
-export default muiThemeable()(SlotWidget);
+export default SchedulePost;
