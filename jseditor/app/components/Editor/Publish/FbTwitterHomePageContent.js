@@ -89,5 +89,4 @@ const TextContainer = (props) => (
   />
 );
 
-
 export default FbTwitterHomePageContent;
