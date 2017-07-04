@@ -4,6 +4,7 @@ import Rebase from 're-base';
 import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
 import Publicar from '../containers/Publish';
+import Difundir from '../containers/Difundir';
 import Config from '../components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
@@ -50,13 +51,16 @@ class Main extends React.Component{
   render(){
     const { match: { url }, location: { pathname } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
-    if (pathname.indexOf('publicar') > -1) {
+    if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
             <TitleBar />
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
+            )} />
+            <Route path={`${url}difundir/:postname`} render={(props) => (
+              <Difundir {...props} base={base} />
             )} />
           </view>
         </MuiThemeProvider>
