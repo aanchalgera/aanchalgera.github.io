@@ -3,7 +3,7 @@ import jquery from 'jquery';
 import moment from 'moment-timezone';
 import SchedulePost from '../components/Editor/SchedulePost';
 import Snackbar from 'material-ui/Snackbar';
-import CountriesFormOptions from './components/Editor/CountriesFormOptions';
+import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
