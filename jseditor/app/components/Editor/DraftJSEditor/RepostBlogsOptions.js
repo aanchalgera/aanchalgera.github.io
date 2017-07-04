@@ -52,6 +52,13 @@ let formatedBlogs = {
 
 class RepostBlogsOptions extends React.Component {
 
+  static propTypes = {
+    repostBlogs: React.PropTypes.array.isRequired,
+    setRepostBlogs: React.PropTypes.func.isRequired,
+    blogName: React.PropTypes.string,
+    submitRepostedBlogs: React.PropTypes.func.isRequired,
+  }
+
   handleCheck = (e, isChecked) => {
     this.props.setRepostBlogs(e.target.value, isChecked);
   }
@@ -89,7 +96,10 @@ class RepostBlogsOptions extends React.Component {
           </Row>
           <Row>
             <Col>
-              <FlatButton label="Enviar Crosspost" style={styles.button}/>
+              <FlatButton 
+                label="Enviar Crosspost"
+                style={styles.button}
+                onTouchTap={this.props.submitRepostedBlogs}/>
             </Col>
           </Row>
       </fieldset>
