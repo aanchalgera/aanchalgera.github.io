@@ -18,16 +18,16 @@ let regions = {
 };
 
 class CountriesFormOptions extends React.Component {
-  onCheck(e, isChecked) {
+  onCheck(e, checked) {
     const region = e.target.value;
     let publishRegions = this.props.publishRegions;
     const index = publishRegions.indexOf(region);
     if (-1 === index) {
-      if (isChecked) {
+      if (checked) {
         publishRegions.push(region);
       }
     } else {
-      if (!isChecked) {
+      if (!checked) {
         publishRegions.splice(index, 1);
       }
     }
