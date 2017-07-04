@@ -1,7 +1,8 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
-import SchedulePost from '../components/Editor/SchedulePost';
+import SchedulePost from '../components/Editor/Publish/SchedulePost';
+import FbTwitterHomePageContent from '../components/Editor/Publish/FbTwitterHomePageContent';
 import Snackbar from 'material-ui/Snackbar';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 
@@ -372,6 +373,27 @@ class Publish extends React.Component {
     });
   }
 
+  handleHomePageTwitterChanges(event) {
+    event.preventDefault();
+    let name = event.target.name;
+    let value = event.target.value;
+    let meta = this.state.meta;
+    switch(name) {
+      case 'facebook':
+        meta.social.facebook = value;
+        this.setState({meta: meta});
+        break;
+      case 'homePage':
+        meta.homepage.content = value;
+        this.setState({meta: meta});
+        break;
+      case 'twitter':
+        meta.social.twitter = value;
+        this.setState({meta: meta});
+        break;
+    }
+  }
+
   render () {
     return(
       <div>
@@ -393,6 +415,12 @@ class Publish extends React.Component {
         <CountriesFormOptions
           setPublishRegions={this.setPublishRegions.bind(this)}
           publishRegions={this.state.publishRegion}
+        />
+        <FbTwitterHomePageContent
+          homePage={this.state.meta.homepage.content}
+          twitter={this.state.meta.social.twitter}
+          facebook={this.state.meta.social.facebook}
+          homePageTwitterFbChange={this.handleHomePageTwitterChanges.bind(this)}
         />
       </div>
     );
