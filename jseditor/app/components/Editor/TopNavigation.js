@@ -13,7 +13,7 @@ export default function TopNavigation(props) {
     );
   } else if (props.isSynced && props.userRole && ('ROLE_BRANDED_COLLABORATOR' != props.userRole)) {
     updateButton = (
-      <Link className="glyphicon glyphicon-ok" to={'/publish/' + props.id + '?blog=' + props.blogName + '&userid=' + props.userId} onClick={props.enablePublish} >
+      <Link className="glyphicon glyphicon-ok" to={'/publicar/' + props.id + '?blog=' + props.blogName + '&userid=' + props.userId} onClick={props.enablePublish} >
         <span>Go to Publish</span>
       </Link>
     );
