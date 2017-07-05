@@ -1,4 +1,5 @@
 import React from 'react';
+import jquery from 'jquery';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostBlogsOptions from '../components/Editor/DraftJSEditor/RepostBlogsOptions';
@@ -14,11 +15,13 @@ class Difundir extends React.Component {
     super(props);
     this.state = {
       id: '',
+      postId: '',
       postRepostBlogNames: [],
       postDate: '',
       publishRegion: [],
       blogName: '',
-      snackbarOpen: false
+      snackbarOpen: false,
+      snackbarMessage: ''
     };
   }
 
@@ -84,6 +87,7 @@ class Difundir extends React.Component {
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion || '',
               postDate: data.publishData.postDate || '',
+              postId: data.publishData.postId,
             });
           }
         }
@@ -111,17 +115,50 @@ class Difundir extends React.Component {
       postRepostBlogNames: this.state.postRepostBlogNames,
       publishRegion: this.state.publishRegion,
       postDate: this.state.postDate,
+      postId: this.state.postId,
     };
 
-    this.props.base.update(
-      'posts/' + this.state.id,
-      {
-        data: {publishData},
-        then: () => {
-          this.setState({snackbarOpen: true});
-        }
+    const backendData = {
+      postform: {
+        postRepostBlogNames:this.state.postRepostBlogNames,
+        postId: this.state.postId,
       }
-    );
+    };
+
+    jquery.ajax({
+      url: `${this.state.blogUrl}/admin/postsrepostings.json`,
+      type: 'post',
+      dataType: 'json',
+      data: backendData,
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true
+    }).done(result => {
+      if (result.id != undefined) {
+        this.props.base.update(
+          'posts/' + this.state.id,
+          {
+            data: {publishData},
+            then: () => {
+              this.setState(
+                {
+                  snackbarOpen: true,
+                  snackbarMessage: 'Data Saved Successfully'
+                }
+              );
+            }
+          }
+        );
+      } else {
+        this.setState(
+          {
+            snackbarOpen: true,
+            snackbarMessage: 'Something Went Wrong'
+          }
+        );
+      }
+    });
   }
 
   handleSnackbarClose = () => {
@@ -133,7 +170,7 @@ class Difundir extends React.Component {
       <div style={styles.bodyContent}>
         <Snackbar
           open={this.state.snackbarOpen}
-          message="Data Saved Successfully"
+          message={this.state.snackbarMessage}
           autoHideDuration={5000}
           onRequestClose={this.handleSnackbarClose}
         />
