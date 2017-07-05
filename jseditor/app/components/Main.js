@@ -9,7 +9,7 @@ import Config from '../components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
-import TitleBar from '../components/TitleBar';
+import TitleBar from '../components/Menu/TitleBar';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -49,13 +49,14 @@ var base = Rebase.createClass(
 
 class Main extends React.Component{
   render(){
-    const { match: { url }, location: { pathname } } = this.props;
+    const { match: { url }, location: { pathname, search } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
+      const matches = pathname.match('\/(.+)\/(.+)');
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
-            <TitleBar />
+            <TitleBar pathName={matches[2]} activeTab={matches[1]} queryPath={search} />
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
             )} />
