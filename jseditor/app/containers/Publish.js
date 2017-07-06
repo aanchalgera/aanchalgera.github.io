@@ -295,11 +295,6 @@ class Publish extends React.Component {
     this.setState({userId});
   }
 
-  onChange (ev) {
-    ev.preventDefault();
-    this.setState({date: ev.currentTarget.value});
-  }
-
   handleSensitivePost = (e, isSensitive) => {
     this.setState({isSensitive});
   }
@@ -435,7 +430,6 @@ class Publish extends React.Component {
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.date}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
-          onChange={this.onChange.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
         <div>

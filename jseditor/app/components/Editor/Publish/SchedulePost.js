@@ -15,7 +15,7 @@ class SchedulePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ''
+      date: null
     };
   }
 
@@ -52,6 +52,11 @@ class SchedulePost extends React.Component {
     });
     document.getElementById('publish-slots').style.display = 'none';
     this.handleDatePickerText();
+  }
+
+  onChange (ev) {
+    ev.preventDefault();
+    this.setState({date: ev.currentTarget.value});
   }
 
   render () {
@@ -106,8 +111,8 @@ class SchedulePost extends React.Component {
           <Col xs={3}>
             <TextField
               floatingLabelText="Fecha y hora"
-              value={this.state.date ? this.state.date : this.props.value}
-              onChange={this.props.onChange.bind(this)}
+              value={this.state.date !== null ? this.state.date : this.props.value}
+              onChange={this.onChange.bind(this)}
               style={{textColor: grey900}}
             />
           </Col>
