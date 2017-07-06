@@ -357,14 +357,6 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    let visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
-    chooseSlotMsg = 'Close';
-    this.handleDatePickerText();
-  }
-
   handleDatePickerText() {
     if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
       document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
@@ -459,7 +451,6 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose.bind(this)}
         />
         <SchedulePost
-          openSlotWidget={this.openSlotWidget.bind(this)}
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.date}
           futureProgrammedPosts={this.state.futureProgrammedPosts}

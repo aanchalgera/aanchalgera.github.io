@@ -9,8 +9,25 @@ import { Row, Col } from 'react-flexbox-grid';
 
 var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
+let chooseSlotMsg = 'ELEGIR HUECO ';
 
 class SchedulePost extends React.Component {
+  openSlotWidget(ev) {
+    ev.preventDefault();
+    let visible = document.getElementById('publish-slots').style.display;
+    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
+    chooseSlotMsg = 'Close';
+    this.handleDatePickerText();
+  }
+
+  handleDatePickerText() {
+    if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
+      document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
+    } else {
+      document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
+    }
+  }
+
   render () {
     var tablehead = [], tablerows = [];
     var td = [];
@@ -72,7 +89,7 @@ class SchedulePost extends React.Component {
             <RaisedButton
               label="ELEGIR HUECO"
               icon={<Apps />}
-              onClick={this.props.openSlotWidget.bind(this)}
+              onClick={this.openSlotWidget.bind(this)}
               id="toggle-publish-slots"
             />
           </Col>
