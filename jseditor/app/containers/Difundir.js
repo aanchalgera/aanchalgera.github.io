@@ -2,7 +2,7 @@ import React from 'react';
 import jquery from 'jquery';
 import Snackbar from 'material-ui/Snackbar';
 
-import RepostBlogsOptions from '../components/Editor/DraftJSEditor/RepostBlogsOptions';
+import RepostBlogsOptions from '../components/Editor/Difundir/RepostBlogsOptions';
 
 const styles = {
   bodyContent: {
@@ -141,24 +141,23 @@ class Difundir extends React.Component {
           {
             data: {publishData},
             then: () => {
-              this.setState(
-                {
-                  snackbarOpen: true,
-                  snackbarMessage: 'Data Saved Successfully'
-                }
-              );
+              this.showSnackbarMsg('Data Saved Successfully');
             }
           }
         );
       } else {
-        this.setState(
-          {
-            snackbarOpen: true,
-            snackbarMessage: 'Something Went Wrong'
-          }
-        );
+        this.showSnackbarMsg('Something Went Wrong.');
       }
     });
+  }
+
+  showSnackbarMsg = (snackbarMessage) => {
+    this.setState(
+      {
+        snackbarOpen: true,
+        snackbarMessage
+      }
+    );
   }
 
   handleSnackbarClose = () => {

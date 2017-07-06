@@ -1,10 +1,13 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
+import Snackbar from 'material-ui/Snackbar';
+import { Row, Col } from 'react-flexbox-grid';
+
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
 import FbTwitterHomePageContent from '../components/Editor/Publish/FbTwitterHomePageContent';
-import Snackbar from 'material-ui/Snackbar';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
+import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
@@ -422,6 +425,17 @@ class Publish extends React.Component {
           facebook={this.state.meta.social.facebook}
           homePageTwitterFbChange={this.handleHomePageTwitterChanges.bind(this)}
         />
+        <Row>
+          <Col xs>
+            Seo place holder
+          </Col>
+          <Col xs>
+            Pulicar place holder
+          </Col>
+          <Col xs>
+            <AdvancedOptions />
+          </Col>
+        </Row>
       </div>
     );
   }
