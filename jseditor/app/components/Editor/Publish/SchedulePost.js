@@ -12,6 +12,13 @@ var currentMonth = moment().locale('es').format('MMMM');
 let chooseSlotMsg = 'ELEGIR HUECO ';
 
 class SchedulePost extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: ''
+    };
+  }
+
   openSlotWidget(ev) {
     ev.preventDefault();
     let visible = document.getElementById('publish-slots').style.display;
@@ -26,6 +33,25 @@ class SchedulePost extends React.Component {
     } else {
       document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
     }
+  }
+
+  onPickSlot (ev) {
+    let currentTarget = ev.currentTarget;
+    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
+    let currentSlot = document.getElementsByClassName('slot-current');
+    if (currentSlot.length > 0) {
+      currentSlot[0].classList.add('slot-free');
+      currentSlot[0].innerHTML = 'Libre';
+      currentSlot[0].classList.remove('slot-current');
+    }
+    currentTarget.classList.remove('slot-free');
+    currentTarget.innerHTML = 'Elegido';
+    currentTarget.classList.add('slot-current');
+    this.setState({
+      date: ev.currentTarget.dataset.date
+    });
+    document.getElementById('publish-slots').style.display = 'none';
+    this.handleDatePickerText();
   }
 
   render () {
@@ -60,7 +86,7 @@ class SchedulePost extends React.Component {
         }
         td.push(
           <td key={j + '-' + k}>
-            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.props.onPickSlot.bind(this)}>
+            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.onPickSlot.bind(this)}>
               {msg}
             </a>
           </td>
@@ -80,7 +106,7 @@ class SchedulePost extends React.Component {
           <Col xs={3}>
             <TextField
               floatingLabelText="Fecha y hora"
-              value={this.props.value}
+              value={this.state.date ? this.state.date : this.props.value}
               onChange={this.props.onChange.bind(this)}
               style={{textColor: grey900}}
             />

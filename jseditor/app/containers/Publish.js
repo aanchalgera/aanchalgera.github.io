@@ -365,25 +365,6 @@ class Publish extends React.Component {
     }
   }
 
-  onPickSlot (ev) {
-    let currentTarget = ev.currentTarget;
-    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
-    let currentSlot = document.getElementsByClassName('slot-current');
-    if (currentSlot.length > 0) {
-      currentSlot[0].classList.add('slot-free');
-      currentSlot[0].innerHTML = 'Libre';
-      currentSlot[0].classList.remove('slot-current');
-    }
-    currentTarget.classList.remove('slot-free');
-    currentTarget.innerHTML = 'Elegido';
-    currentTarget.classList.add('slot-current');
-    this.setState({
-      date: ev.currentTarget.dataset.date
-    });
-    document.getElementById('publish-slots').style.display = 'none';
-    this.handleDatePickerText();
-  }
-
   updateSeoTitle = (event) => {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.title = event.target.value;
@@ -428,7 +409,7 @@ class Publish extends React.Component {
       return null;
     }
 
-    return <AdvancedOptions 
+    return <AdvancedOptions
       blogUrl={this.state.blogUrl}
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
@@ -455,7 +436,6 @@ class Publish extends React.Component {
           value={this.state.date}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
           onChange={this.onChange.bind(this)}
-          onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
         <div>
