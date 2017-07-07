@@ -278,6 +278,16 @@ class Publish extends React.Component {
     });
   }
 
+  setPostMeta = (key, value) => {
+    let meta = this.state.meta;
+    meta[key] = value;
+    this.setState({meta});
+  }
+
+  setPostAuthor = (userId) => {
+    this.setState({userId});
+  }
+
   onChange (ev) {
     ev.preventDefault();
     this.setState({date: ev.currentTarget.value});
@@ -406,6 +416,19 @@ class Publish extends React.Component {
     this.setState({ meta: this.state.meta });
   }
 
+  getAdvancedOptions = () => {
+    if (this.state.blogUrl == undefined) {
+      return null;
+    }
+
+    return <AdvancedOptions 
+      blogUrl={this.state.blogUrl}
+      userId={this.state.userId}
+      setPostMeta={this.setPostMeta}
+      setPostAuthor={this.setPostAuthor}
+    />;
+  }
+
   render () {
     return(
       <div>
@@ -459,7 +482,7 @@ class Publish extends React.Component {
             />
           </Col>
           <Col xs>
-            <AdvancedOptions />
+            {this.getAdvancedOptions()}
           </Col>
         </Row>
       </div>
