@@ -3,6 +3,7 @@ import jquery from 'jquery';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
+import RepublishScheduler from '../components/Editor/Difundir/RepublishScheduler';
 
 const styles = {
   bodyContent: {
@@ -178,6 +179,9 @@ class Difundir extends React.Component {
           repostBlogs={this.state.postRepostBlogNames}
           blogName={this.state.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
+        />
+        <RepublishScheduler
+          postDate={this.state.postDate}
         />
       </div>
     );
