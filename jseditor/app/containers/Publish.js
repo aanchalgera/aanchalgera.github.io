@@ -293,6 +293,10 @@ class Publish extends React.Component {
 
   setPostAuthor = (userId) => {
     this.setState({userId});
+
+  onChange (ev) {
+    ev.preventDefault();
+    this.setState({date: ev.currentTarget.value});
   }
 
   handleSensitivePost = (e, isSensitive) => {
@@ -352,6 +356,14 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
+  openSlotWidget(ev) {
+    ev.preventDefault();
+    let visible = document.getElementById('publish-slots').style.display;
+    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
+    chooseSlotMsg = 'Close';
+    this.handleDatePickerText();
+  }
+
   handleDatePickerText() {
     if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
       document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
@@ -370,6 +382,24 @@ class Publish extends React.Component {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.description = event.target.value;
     this.setState({ meta: this.state.meta });
+
+  onPickSlot (ev) {
+    let currentTarget = ev.currentTarget;
+    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
+    let currentSlot = document.getElementsByClassName('slot-current');
+    if (currentSlot.length > 0) {
+      currentSlot[0].classList.add('slot-free');
+      currentSlot[0].innerHTML = 'Libre';
+      currentSlot[0].classList.remove('slot-current');
+    }
+    currentTarget.classList.remove('slot-free');
+    currentTarget.innerHTML = 'Elegido';
+    currentTarget.classList.add('slot-current');
+    this.setState({
+      date: ev.currentTarget.dataset.date
+    });
+    document.getElementById('publish-slots').style.display = 'none';
+    this.handleDatePickerText();
   }
 
   handleRequestClose() {
@@ -427,9 +457,12 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose.bind(this)}
         />
         <SchedulePost
+          openSlotWidget={this.openSlotWidget.bind(this)}
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.date}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
+          onChange={this.onChange.bind(this)}
+          onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
         <div>

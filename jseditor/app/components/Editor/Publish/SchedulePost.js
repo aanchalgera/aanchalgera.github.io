@@ -9,56 +9,8 @@ import { Row, Col } from 'react-flexbox-grid';
 
 var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
-let chooseSlotMsg = 'ELEGIR HUECO ';
 
 class SchedulePost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: null
-    };
-  }
-
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    let visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
-    chooseSlotMsg = 'Close';
-    this.handleDatePickerText();
-  }
-
-  handleDatePickerText() {
-    if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
-      document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
-    } else {
-      document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
-    }
-  }
-
-  onPickSlot (ev) {
-    let currentTarget = ev.currentTarget;
-    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
-    let currentSlot = document.getElementsByClassName('slot-current');
-    if (currentSlot.length > 0) {
-      currentSlot[0].classList.add('slot-free');
-      currentSlot[0].innerHTML = 'Libre';
-      currentSlot[0].classList.remove('slot-current');
-    }
-    currentTarget.classList.remove('slot-free');
-    currentTarget.innerHTML = 'Elegido';
-    currentTarget.classList.add('slot-current');
-    this.setState({
-      date: ev.currentTarget.dataset.date
-    });
-    document.getElementById('publish-slots').style.display = 'none';
-    this.handleDatePickerText();
-  }
-
-  onChange (ev) {
-    ev.preventDefault();
-    this.setState({date: ev.currentTarget.value});
-  }
-
   render () {
     var tablehead = [], tablerows = [];
     var td = [];
@@ -91,7 +43,7 @@ class SchedulePost extends React.Component {
         }
         td.push(
           <td key={j + '-' + k}>
-            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.onPickSlot.bind(this)}>
+            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.props.onPickSlot.bind(this)}>
               {msg}
             </a>
           </td>
@@ -111,8 +63,8 @@ class SchedulePost extends React.Component {
           <Col xs={3}>
             <TextField
               floatingLabelText="Fecha y hora"
-              value={this.state.date !== null ? this.state.date : this.props.value}
-              onChange={this.onChange.bind(this)}
+              value={this.props.value}
+              onChange={this.props.onChange.bind(this)}
               style={{textColor: grey900}}
             />
           </Col>
@@ -120,7 +72,7 @@ class SchedulePost extends React.Component {
             <RaisedButton
               label="ELEGIR HUECO"
               icon={<Apps />}
-              onClick={this.openSlotWidget.bind(this)}
+              onClick={this.props.openSlotWidget.bind(this)}
               id="toggle-publish-slots"
             />
           </Col>
