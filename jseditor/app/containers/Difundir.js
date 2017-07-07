@@ -1,5 +1,6 @@
 import React from 'react';
 import jquery from 'jquery';
+import moment from 'moment-timezone';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
@@ -79,6 +80,29 @@ class Difundir extends React.Component {
     }
 
     if (this.postname != undefined) {
+      this.props.base.fetch('posts', {
+        context: this,
+        asArray: true,
+        queries: {
+          orderByChild: 'status',
+          equalTo: 'publish'
+        },
+        then(data) {
+          if (data != null) {
+            let scheduledPosts = {};
+            data.forEach(result => {
+              let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
+              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
+            });
+
+            this.setState({
+              futureProgrammedPosts: scheduledPosts,
+              buttonDisabled: false
+            });
+          }
+        }
+      });
+
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
         then(data) {
@@ -182,6 +206,7 @@ class Difundir extends React.Component {
         />
         <RepublishScheduler
           postDate={this.state.postDate}
+          futureProgrammedPosts={this.state.futureProgrammedPosts}
         />
       </div>
     );
