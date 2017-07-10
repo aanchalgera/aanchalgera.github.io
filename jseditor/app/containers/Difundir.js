@@ -3,7 +3,7 @@ import jquery from 'jquery';
 import moment from 'moment-timezone';
 import Snackbar from 'material-ui/Snackbar';
 
-import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
+import RepostBlogsOptions from '../components/Editor/Difundir/RepostBlogsOptions';
 import RepublishScheduler from '../components/Editor/Difundir/RepublishScheduler';
 
 const styles = {
@@ -189,6 +189,32 @@ class Difundir extends React.Component {
     this.setState({snackbarOpen: false});
   }
 
+  onRepublishSchedule(date) {
+    const republishInterval = 0;
+    jquery.ajax({
+      url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        date: date,
+        republish_interval: republishInterval,
+      },
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      success: (data) => {
+        if ('already_scheduled' == data.status) {
+          return this.showSnackbarMsg(`El Post ya esta programado para republicarse el ${data.date}`);
+        }
+        this.showSnackbarMsg(`Post programado correctamente para republicarse el ${date}`);
+      },
+      error: () => {
+        return this.showSnackbarMsg('Se ha producido un error al volver a publicar en portada, por favor, inténtalo de nuevo.');
+      }
+    });
+  }
+
   render() {
     return (
       <div style={styles.bodyContent}>
@@ -198,15 +224,15 @@ class Difundir extends React.Component {
           autoHideDuration={5000}
           onRequestClose={this.handleSnackbarClose}
         />
-        <RepostSiteOptions
+        <RepostBlogsOptions
           setRepostBlogs={this.setRepostBlogs}
           repostBlogs={this.state.postRepostBlogNames}
           blogName={this.state.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <RepublishScheduler
-          postDate={this.state.postDate}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
+          onRepublishSchedule={this.onRepublishSchedule.bind(this)}
         />
       </div>
     );

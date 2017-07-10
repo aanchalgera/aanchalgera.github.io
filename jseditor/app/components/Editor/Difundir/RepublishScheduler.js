@@ -9,13 +9,14 @@ class RepublishScheduler extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: null,
-      schedulerOpened: false
+      date: moment().add(1, 'hours').format('DD/MM/YYYY HH:00'),
+      schedulerOpened: false,
+      buttonDisabled: false
     };
   }
 
   onChange(e) {
-    this.setState({ date: e.target.value });
+    this.setState({ date: e.target.value.trim() });
   }
 
   onPickSlot (ev) {
@@ -31,6 +32,17 @@ class RepublishScheduler extends React.Component {
 
   toggleSlotScheduler() {
     this.setState({ schedulerOpened: !this.state.schedulerOpened });
+  }
+
+  onRepublishSchedule() {
+    const date = moment(this.state.date, 'DD/MM/YYYY HH:mm', true);
+    if (!date.isValid() || date.isBefore(moment())) {
+      console.log('Invalid date');
+      return;
+    }
+    this.setState({ buttonDisabled: true });
+    this.props.onRepublishSchedule(this.state.date);
+    this.setState({ buttonDisabled: false });
   }
 
   renderScheduler() {
@@ -52,7 +64,7 @@ class RepublishScheduler extends React.Component {
         slot = '';
         msg = '';
         dateTime = moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        formattedDateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') + ' ' + j + ':00';
+        formattedDateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') + ' ' + (j < 10 ? `0${j}` : j) + ':00';
         if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
           slot = 'slot-past';
           msg = 'Pasado';
@@ -105,16 +117,18 @@ class RepublishScheduler extends React.Component {
       <div>
         <input
           type="text"
-          value={this.state.date === null ? this.props.postDate : this.state.date}
+          value={this.state.date}
           onChange={this.onChange.bind(this)}
         />
-        <button
-          id="toggle-publish-slots"
-          onClick={this.toggleSlotScheduler.bind(this)}
-        >
+        <button onClick={this.toggleSlotScheduler.bind(this)} >
           {this.state.schedulerOpened ? 'Close' : 'Select slot'}
         </button>
-        <button>Schedule</button>
+        <button
+          disabled={this.state.buttonDisabled}
+          onClick={this.onRepublishSchedule.bind(this)}
+        >
+          Schedule
+        </button>
         {this.state.schedulerOpened && this.renderScheduler()}
       </div>
     );
