@@ -415,10 +415,6 @@ class Publish extends React.Component {
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
-        <CountriesFormOptions
-          setPublishRegions={this.setPublishRegions.bind(this)}
-          publishRegions={this.state.publishRegion}
-        />
         <FbTwitterHomePageContent
           homePage={this.state.meta.homepage.content}
           twitter={this.state.meta.social.twitter}
@@ -430,7 +426,10 @@ class Publish extends React.Component {
             Seo place holder
           </Col>
           <Col xs>
-            Pulicar place holder
+            <CountriesFormOptions
+              setPublishRegions={this.setPublishRegions.bind(this)}
+              publishRegions={this.state.publishRegion}
+            />
           </Col>
           <Col xs>
             <AdvancedOptions />
