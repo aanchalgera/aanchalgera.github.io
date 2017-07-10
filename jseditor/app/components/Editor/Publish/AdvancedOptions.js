@@ -1,10 +1,13 @@
 import React from 'react';
+import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+import Subheader from 'material-ui/Subheader';
 import AutoComplete from 'material-ui/AutoComplete';
 
 const AdvancedOptions = () => (
-  <fieldset className="country">
-    <legend>Avanzado</legend>
+  <div>
+    <Subheader className="subheader">Avanzado</Subheader>
+    <Divider className="divider" />
     <ul>
       <li>
         <Checkbox
@@ -49,7 +52,7 @@ const AdvancedOptions = () => (
         />
       </li>
     </ul>
-  </fieldset>
+  </div>
 );
 
 export default AdvancedOptions;

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Row, Col } from 'react-flexbox-grid';
+import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+import Subheader from 'material-ui/Subheader';
+import { Row, Col } from 'react-flexbox-grid';
 import FlatButton from 'material-ui/FlatButton';
 import { pinkA200 } from 'material-ui/styles/colors';
 
@@ -81,8 +83,9 @@ class RepostBlogsOptions extends React.Component {
 
   render () {
     return (
-      <fieldset className="country">
-        <legend>Crosspost a otros medios</legend>
+      <div>
+        <Subheader className="subheader">Crosspost a otros medios</Subheader>
+        <Divider className="divider" />
           <Row>
             {
               Object.keys(formatedBlogs).map((key) => (
@@ -102,7 +105,7 @@ class RepostBlogsOptions extends React.Component {
                 onTouchTap={this.props.submitRepostedBlogs}/>
             </Col>
           </Row>
-      </fieldset>
+      </div>
     );
   }
 }
