@@ -23,7 +23,8 @@ class Difundir extends React.Component {
       publishRegion: [],
       blogName: '',
       snackbarOpen: false,
-      snackbarMessage: ''
+      snackbarMessage: '',
+      buttonDisabled: true
     };
   }
 
@@ -190,6 +191,12 @@ class Difundir extends React.Component {
   }
 
   onRepublishSchedule(date) {
+    this.setState({ buttonDisabled : true }, () => {
+      this.scheduleRepublishPost(date);
+    });
+  }
+
+  scheduleRepublishPost(date) {
     const republishInterval = 0;
     jquery.ajax({
       url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
@@ -211,6 +218,9 @@ class Difundir extends React.Component {
       },
       error: () => {
         return this.showSnackbarMsg('Se ha producido un error al volver a publicar en portada, por favor, inténtalo de nuevo.');
+      },
+      complete: () => {
+        this.setState({ buttonDisabled : false });
       }
     });
   }
@@ -231,6 +241,7 @@ class Difundir extends React.Component {
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <RepublishScheduler
+          buttonDisabled={this.state.buttonDisabled}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
           onRepublishSchedule={this.onRepublishSchedule.bind(this)}
         />

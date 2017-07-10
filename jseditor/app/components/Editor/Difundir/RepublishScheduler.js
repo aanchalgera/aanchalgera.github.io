@@ -10,8 +10,7 @@ class RepublishScheduler extends React.Component {
     super(props);
     this.state = {
       date: moment().add(1, 'hours').format('DD/MM/YYYY HH:00'),
-      schedulerOpened: false,
-      buttonDisabled: false
+      schedulerOpened: false
     };
   }
 
@@ -40,9 +39,7 @@ class RepublishScheduler extends React.Component {
       console.log('Invalid date');
       return;
     }
-    this.setState({ buttonDisabled: true });
     this.props.onRepublishSchedule(this.state.date);
-    this.setState({ buttonDisabled: false });
   }
 
   renderScheduler() {
@@ -124,7 +121,7 @@ class RepublishScheduler extends React.Component {
           {this.state.schedulerOpened ? 'Close' : 'Select slot'}
         </button>
         <button
-          disabled={this.state.buttonDisabled}
+          disabled={this.props.buttonDisabled}
           onClick={this.onRepublishSchedule.bind(this)}
         >
           Schedule
