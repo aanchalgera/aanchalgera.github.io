@@ -84,7 +84,7 @@ class RepostBlogsOptions extends React.Component {
   render () {
     return (
       <div>
-        <Subheader className="subheader">Avanzado</Subheader>
+        <Subheader className="subheader">Crosspost a otros medios</Subheader>
         <Divider className="divider" />
           <Row>
             {
