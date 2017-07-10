@@ -9,7 +9,6 @@ import HomePage from '../components/Editor/Publish/HomePage';
 import Social from '../components/Editor/Publish/Social';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
-import CloudinaryUploader from '../components/Editor/CloudinaryUploader';
 import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);
@@ -588,6 +587,10 @@ class Publish extends React.Component {
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
+        <CountriesFormOptions
+          setPublishRegions={this.setPublishRegions.bind(this)}
+          publishRegions={this.state.publishRegion}
+        />
         <div>
           <h4>portada y redes sociales</h4>
           <Divider />
@@ -616,30 +619,12 @@ class Publish extends React.Component {
             Seo place holder
           </Col>
           <Col xs>
-            <CountriesFormOptions
-              setPublishRegions={this.setPublishRegions.bind(this)}
-              publishRegions={this.state.publishRegion}
-            />
+            Pulicar place holder
           </Col>
           <Col xs>
             <AdvancedOptions />
           </Col>
         </Row>
-        <CloudinaryUploader
-          cloudName={configParams.cloudName}
-          uploadPreset={configParams.uploadPreset}
-          folder={configParams.folder}
-          addImage={this.addImage.bind(this)}
-          addImages={this.addImages}
-          editImages={this.editImages.bind(this)}
-          base={this.props.base}
-          slug={this.state.id}
-          addImageModule={this.state.addImageModule}
-          imageFunction={this.state.imageFunction}
-          isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
-          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
-          ref="resourcePanel"
-        />
       </div>
     );
   }

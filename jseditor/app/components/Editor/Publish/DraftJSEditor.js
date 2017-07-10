@@ -6,7 +6,7 @@ import markdown from 'marked';
 import InlineControls from '../DraftJSEditor/InlineControls';
 import BlockControls from '../DraftJSEditor/BlockControls';
 import CustomControls from '../DraftJSEditor/CustomControls';
-import { LinkDecorator } from './Controls/Link';
+import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
 
 export default class DraftJSEditor extends React.Component {
   constructor(props) {
@@ -22,6 +22,16 @@ export default class DraftJSEditor extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onControlToggle = this.onControlToggle.bind(this);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props.value) {
+      const contentState = stateFromHTML(markdown(nextProps.value));
+      this.state = {
+        editorState: EditorState.createWithContent(contentState, this.decorator)
+      };
+    }
+  }
+
 
   focus() {
     this._editor.focus();
@@ -55,11 +65,11 @@ export default class DraftJSEditor extends React.Component {
     let toolbar;
     if (this.props.minimal !== true) {
       toolbar = (
-        <div className="editor-toolbar">
+        <div>
           <InlineControls editorState={editorState} onToggle={this.onControlToggle} />
-          <i className="separator">|</i>
+          <i>|</i>
           <BlockControls editorState={editorState} onToggle={this.onControlToggle} />
-          <i className="separator">|</i>
+          <i>|</i>
           <CustomControls editorState={editorState} onToggle={this.onChange} />
         </div>
       );
@@ -67,7 +77,7 @@ export default class DraftJSEditor extends React.Component {
     return (
       <div>
         {toolbar}
-        <div className={this.props.className ? this.props.className : 'CodeMirror'} onClick={() => this._editor.focus()}>
+        <div onClick={() => this._editor.focus()}>
           <Editor
             ref={(c) => this._editor = c}
             editorState={editorState}
