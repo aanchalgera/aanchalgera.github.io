@@ -25,7 +25,7 @@ class RepublishScheduler extends React.Component {
     });
   }
 
-  toggleSlotScheduler() {
+  toggleScheduler() {
     this.setState({ schedulerOpened: !this.state.schedulerOpened });
   }
 
@@ -92,15 +92,15 @@ class RepublishScheduler extends React.Component {
     }
 
     return (
-      <div id="publish-slots">
+      <div>
         <table summary="Huecos disponibles para publicar">
           <thead>
-            <tr id="table-head">
+            <tr>
               <th><em>{currentMonth.toLowerCase()}</em></th>
               {tablehead}
             </tr>
           </thead>
-          <tbody id="table-rows">
+          <tbody>
             {tablerows}
           </tbody>
         </table>
@@ -116,7 +116,7 @@ class RepublishScheduler extends React.Component {
           value={this.state.date}
           onChange={this.onChange.bind(this)}
         />
-        <button onClick={this.toggleSlotScheduler.bind(this)} >
+        <button onClick={this.toggleScheduler.bind(this)} >
           {this.state.schedulerOpened ? 'Close' : 'Select slot'}
         </button>
         <button
