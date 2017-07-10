@@ -11,6 +11,7 @@ const styles = {
     padding: '24px',
   }
 };
+moment.tz.setDefault(configParams.timezone);
 
 class Difundir extends React.Component {
   constructor(props) {

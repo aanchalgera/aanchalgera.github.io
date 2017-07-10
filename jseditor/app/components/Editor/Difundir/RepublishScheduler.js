@@ -1,10 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
 
-moment.tz.setDefault(configParams.timezone);
-var timeStamp = moment().format('X');
-var currentMonth = moment().locale('es').format('MMMM');
-
 class RepublishScheduler extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +43,9 @@ class RepublishScheduler extends React.Component {
     var td = [];
     var tr = '';
     var slot, msg, dateTime, formattedDateTime;
+    var timeStamp = moment().format('X');
+    var currentMonth = moment().locale('es').format('MMMM');
+
     for (var i = 0; i < 7; i++) {
       if (i == 0) {
         var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD');
