@@ -8,6 +8,7 @@ import SchedulePost from '../components/Editor/Publish/SchedulePost';
 import FbTwitterHomePageContent from '../components/Editor/Publish/FbTwitterHomePageContent';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
+import ImageCropper from './ImageCropper';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
@@ -51,7 +52,8 @@ class Publish extends React.Component {
       isError: false,
       message: '',
       publishedDate: null,
-      snackbarOpen: false
+      snackbarOpen: false,
+      crop: {}
     };
   }
 
@@ -397,6 +399,10 @@ class Publish extends React.Component {
     }
   }
 
+  onCropValidate(shape, crop) {
+    console.log(shape, crop);
+  }
+
   render () {
     return(
       <div>
@@ -436,6 +442,13 @@ class Publish extends React.Component {
             <AdvancedOptions />
           </Col>
         </Row>
+        { this.state.meta.homepage.image
+          ? <ImageCropper
+              imageSrc={this.state.meta.homepage.image.url}
+              onCropValidate={this.onCropValidate.bind(this)}
+            />
+          : ''
+        }
       </div>
     );
   }
