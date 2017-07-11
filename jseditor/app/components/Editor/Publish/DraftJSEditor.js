@@ -32,7 +32,6 @@ export default class DraftJSEditor extends React.Component {
     }
   }
 
-
   focus() {
     this._editor.focus();
   }
