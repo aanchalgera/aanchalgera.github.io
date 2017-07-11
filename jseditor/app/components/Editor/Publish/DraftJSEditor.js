@@ -9,6 +9,13 @@ import CustomControls from '../DraftJSEditor/CustomControls';
 import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
 
 export default class DraftJSEditor extends React.Component {
+  static propTypes = {
+    value: React.PropTypes.string.isRequired,
+    minimal: React.PropTypes.bool,
+    dataId: React.PropTypes.number,
+    updateResource: React.PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
 
@@ -56,9 +63,8 @@ export default class DraftJSEditor extends React.Component {
     return false;
   }
 
-  render() {
-    const { editorState } = this.state;
-    let toolbar;
+  toolBar(editorState) {
+    let toolbar = null;
     if (this.props.minimal !== true) {
       toolbar = (
         <div>
@@ -70,9 +76,14 @@ export default class DraftJSEditor extends React.Component {
         </div>
       );
     }
+    return toolbar;
+  }
+
+  render() {
+    const { editorState } = this.state;
     return (
       <div>
-        {toolbar}
+        {this.toolBar(editorState)}
         <div onClick={() => this._editor.focus()}>
           <Editor
             ref={(c) => this._editor = c}

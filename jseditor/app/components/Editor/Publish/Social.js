@@ -44,9 +44,16 @@ const Social = (props) => (
         onChange={props.updateSocialFacebookText.bind(this)}
         floatingLabelText='Texto para facebook'
       />
-      <Divider/>
+      <Divider />
     </Col>
   </Row>
 );
+
+Social.propTypes = {
+  twitter: React.PropTypes.string.isRequired,
+  facebook: React.PropTypes.string.isRequired,
+  updateSocialTwitterText: React.PropTypes.func.isRequired,
+  updateSocialFacebookText: React.PropTypes.func.isRequired
+};
 
 export default Social;

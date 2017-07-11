@@ -3,6 +3,11 @@ import DraftJSEditor from './DraftJSEditor';
 import Divider from 'material-ui/Divider';
 
 class Homepage extends React.Component{
+  static propTypes = {
+    homepage: React.PropTypes.object.isRequired,
+    updateHomepageContent: React.PropTypes.func.isRequired,
+    dataId: React.PropTypes.number,
+  }
   render () {
     return (
       <div>
