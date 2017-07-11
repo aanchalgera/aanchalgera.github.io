@@ -55,7 +55,6 @@ class Publish extends React.Component {
       publishedDate: null,
       snackbarOpen: false
     };
-    this.addImages = this.addImages.bind(this);
   }
 
   componentDidMount() {
@@ -389,184 +388,9 @@ class Publish extends React.Component {
     this.setState({ meta: this.state.meta });
   }
 
-  toggleCloudinaryUploader(e) {
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({ isCloudinaryUploaderOpen: !this.state.isCloudinaryUploaderOpen });
-  }
-
-  editImages(images) {
-    const { resourcePanelOpenedBy } = this.state;
-    let currentIndex = resourcePanelOpenedBy.currentIndex;
-    let imageIndex = resourcePanelOpenedBy.imageIndex;
-
-    let field = this.getField(currentIndex);
-    switch (typeof imageIndex) {
-      case 'string':
-        field.altered[imageIndex] = images[0];
-        break;
-      case 'number':
-        field.altered.images.splice(imageIndex, 1, ...images);
-        break;
-      default:
-        field.altered.url = images[0].url;
-        field.altered.alt = images[0].alt;
-    }
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-
-    this.setState({
-      fields: this.state.fields,
-      addMoreImages: false,
-      addImageModule: ''
-    });
-  }
-
-  addImages(images, moduleType) {
-    let addMoreImages = this.state.addMoreImages;
-    let currentIndex = this.state.resourcePanelOpenedBy;
-    if (!addMoreImages) {
-      this.state.maxId++;
-      let attributes = { id: this.state.maxId, type: moduleType, layout: 'normal', images };
-      if (this.isRootComponent(currentIndex)) {
-        this.state.fields.splice(currentIndex, 0, attributes);
-      } else {
-        return this.updateResource(currentIndex, attributes);
-      }
-
-    } else {
-      let field = this.getField(currentIndex);
-      for (let i = 0; i < images.length; i++) {
-        field.altered.images.push(images[i]);
-      }
-
-      this.state.fields.splice(field.indexes[0], 0, field.original);
-    }
-
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId,
-      addMoreImages: false,
-      addImageModule: '',
-      imageFunction: ''
-    });
-  }
-
-  addImage(image) {
-    let currentIndex = this.state.resourcePanelOpenedBy;
-    if (this.state.imageFunction == 'backgroundImage') {
-      let field = this.getField(currentIndex);
-      field.altered.backgroundImage = image.url;
-      field.altered.backgroundImageName = image.original_filename;
-      field.altered.backgroundImageHeight = image.height;
-      this.state.fields.splice(field.indexes[0], 0, field.original);
-    } else if (this.state.imageFunction == 'image') {
-      this.state.maxId++;
-      const attributes = {
-        id: this.state.maxId,
-        type: 'image',
-        url: image.url,
-        height: image.height || '',
-        width: image.width || '',
-        alt: image.alt || '',
-        banner: false,
-        parallax: false,
-        align: '',
-        layout: 'normal'
-      };
-
-      if (this.isRootComponent(currentIndex)) {
-        this.state.fields.splice(currentIndex, 0, attributes);
-      } else {
-        return this.updateResource(currentIndex, attributes);
-      }
-
-    } else if (this.state.imageFunction == 'homepage') {
-      this.state.meta.homepage.image = {
-        url: image.url,
-        height: image.height || '',
-        width: image.width || '',
-        alt: image.alt || '',
-        name: image.original_filename
-      };
-    } else if ('otherImage' == this.state.imageFunction || 'productImage' == this.state.imageFunction) {
-      let field = this.getField(currentIndex);
-      field.altered[this.state.imageFunction] = image;
-      this.state.fields.splice(field.indexes[0], 0, field.original);
-    }
-
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId,
-      meta: this.state.meta,
-      addImageModule: '',
-      imageFunction: ''
-    });
-  }
-
-  getField(currentIndex) {
-    currentIndex = currentIndex.toString();
-    let { fields } = this.state, indexes, altered, componentIndexes;
-
-    let delimiterIndex = currentIndex.indexOf('#');
-    if (delimiterIndex >= 0) {
-      indexes = currentIndex.substr(0, delimiterIndex).split('-');
-      componentIndexes = currentIndex.substr(delimiterIndex + 1).split('-');
-      altered = fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
-    } else {
-      indexes = currentIndex.split('-');
-      if (indexes[1]) {
-        altered = fields[indexes[0]].columns[indexes[1]];
-      } else {
-        altered = fields[indexes[0]];
-      }
-    }
-
-    let original = fields.splice(indexes[0], 1)[0];
-    return { indexes, original, altered };
-  }
-
-  isRootComponent(currentIndex) {
-    return /^\d+$/.test(currentIndex);
-  }
-
-  updateResource(currentIndex, attributes) {
-    let field = this.getField(currentIndex);
-    Object.assign(field.altered, attributes);
-    this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields });
-  }
-
-  openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
-    if (undefined != event) {
-      event.preventDefault();
-    }
-
-    this.setState({
-      resourcePanelOpenedBy: currentIndex,
-      imageFunction: imageFunction,
-      addImageModule: addImageModule,
-      addMoreImages: addMoreImages
-    });
-    document.getElementById('resourcePanel').style.display = 'block';
-    document.getElementById('resourcePanel').classList.add('in');
-  }
-
   updateHomepageContent(value) {
     this.state.meta.homepage.content = value;
     this.setState({ meta: this.state.meta });
-  }
-
-  deleteHomepageImage() {
-    this.state.meta.homepage.image = null;
-    this.setState({ meta: this.state.meta });
-  }
-
-  onArticleMetaToggle (e) {
-    e.preventDefault();
-    this._glyphiconClass.classList.toggle('glyphicon-minus');
-    this._glyphiconClass.classList.toggle('glyphicon-plus');
-    this._articleMetaPanel.classList.toggle('collapsed-content');
   }
 
   render () {
@@ -587,10 +411,6 @@ class Publish extends React.Component {
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
-        <CountriesFormOptions
-          setPublishRegions={this.setPublishRegions.bind(this)}
-          publishRegions={this.state.publishRegion}
-        />
         <div>
           <h4>portada y redes sociales</h4>
           <Divider />
@@ -599,9 +419,6 @@ class Publish extends React.Component {
               <HomePage
                 homepage={this.state.meta.homepage}
                 updateHomepageContent={this.updateHomepageContent.bind(this)}
-                deleteHomepageImage={this.deleteHomepageImage.bind(this)}
-                openResourcePanel={this.openResourcePanel.bind(this)}
-                onArticleMetaToggle={this.onArticleMetaToggle}
               />
             </Col>
             <Col xs ={6}>
@@ -619,7 +436,10 @@ class Publish extends React.Component {
             Seo place holder
           </Col>
           <Col xs>
-            Pulicar place holder
+            <CountriesFormOptions
+              setPublishRegions={this.setPublishRegions.bind(this)}
+              publishRegions={this.state.publishRegion}
+            />
           </Col>
           <Col xs>
             <AdvancedOptions />
