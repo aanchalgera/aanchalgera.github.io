@@ -24,11 +24,11 @@ export default class DraftJSEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props.value) {
+    if (nextProps.value !== this.props.value) {
       const contentState = stateFromHTML(markdown(nextProps.value));
-      this.state = {
+      this.setState({
         editorState: EditorState.createWithContent(contentState, this.decorator)
-      };
+      });
     }
   }
 
