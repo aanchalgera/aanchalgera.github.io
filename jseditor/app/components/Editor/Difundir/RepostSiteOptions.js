@@ -57,7 +57,7 @@ export default class RepostSiteOptions extends React.Component {
   static propTypes = {
     repostBlogs: React.PropTypes.array.isRequired,
     setRepostBlogs: React.PropTypes.func.isRequired,
-    siteName: React.PropTypes.string,
+    blogName: React.PropTypes.string,
     submitRepostedBlogs: React.PropTypes.func.isRequired,
   }
 
@@ -66,9 +66,9 @@ export default class RepostSiteOptions extends React.Component {
   }
 
   getSitesListing = (blogs) => {
-    const { siteName } = this.props;
+    const { blogName } = this.props;
     return blogs.map((blog) => (
-      siteName == blog ? null: (
+      blogName == blog ? null: (
         <Checkbox
           checked={this.props.repostBlogs.indexOf(blog) !== -1}
           key={blog}
