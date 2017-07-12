@@ -16,7 +16,7 @@ const styles = {
   }
 };
   
-const Seo = (props) => (
+const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
   <div>
     <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
     <Divider className="divider" />
@@ -31,8 +31,8 @@ const Seo = (props) => (
           rowsMax={3}
           underlineShow={false}
           fullWidth={true}
-          value={props.seo.title}
-          onChange={props.updateSeoTitle.bind(this)}
+          value={seo.title}
+          onChange={updateSeoTitle}
           floatingLabelText={<span>Titulo SEO</span>}
         />
         <Divider/>
@@ -49,8 +49,8 @@ const Seo = (props) => (
           rowsMax={3}
           underlineShow={false}
           fullWidth={true}
-          value={props.seo.description}
-          onChange={props.updateSeoDescription.bind(this)}
+          value={seo.description}
+          onChange={updateSeoDescription}
           floatingLabelText='Descripcion SEO'
         />
         <Divider />
