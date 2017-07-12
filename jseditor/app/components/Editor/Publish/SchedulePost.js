@@ -59,8 +59,8 @@ class SchedulePost extends React.Component {
     }
     return(
       <div>
-        <Row style={{ paddingRight: '2rem', paddingLeft: '2rem', marginTop: '50px' }}>
-          <Col xs={3}>
+        <Row>
+          <Col xs={4}>
             <TextField
               floatingLabelText="Fecha y hora"
               value={this.props.value}
@@ -68,7 +68,7 @@ class SchedulePost extends React.Component {
               style={{textColor: grey900}}
             />
           </Col>
-          <Col xs={2}>
+          <Col xs={4}>
             <RaisedButton
               label="ELEGIR HUECO"
               icon={<Apps />}
@@ -76,7 +76,7 @@ class SchedulePost extends React.Component {
               id="toggle-publish-slots"
             />
           </Col>
-          <Col xs={2}>
+          <Col xs={4}>
             <RaisedButton
               label="PROGRAMAR"
               disabled={this.props.buttonDisabled}
