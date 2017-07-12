@@ -24,8 +24,7 @@ class Difundir extends React.Component {
       publishRegion: [],
       blogName: '',
       snackbarOpen: false,
-      snackbarMessage: '',
-      buttonDisabled: true
+      snackbarMessage: ''
     };
   }
 
@@ -82,29 +81,6 @@ class Difundir extends React.Component {
     }
 
     if (this.postname != undefined) {
-      this.props.base.fetch('posts', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'status',
-          equalTo: 'publish'
-        },
-        then(data) {
-          if (data != null) {
-            let scheduledPosts = {};
-            data.forEach(result => {
-              let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
-              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
-            });
-
-            this.setState({
-              futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false
-            });
-          }
-        }
-      });
-
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
         then(data) {
@@ -192,14 +168,8 @@ class Difundir extends React.Component {
   }
 
   onRepublishSchedule(date) {
-    this.setState({ buttonDisabled : true }, () => {
-      this.scheduleRepublishPost(date);
-    });
-  }
-
-  scheduleRepublishPost(date) {
     const republishInterval = 0;
-    jquery.ajax({
+    return jquery.ajax({
       url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
       type: 'POST',
       dataType: 'json',
@@ -211,18 +181,15 @@ class Difundir extends React.Component {
         withCredentials: true
       },
       crossDomain: true,
-      success: (data) => {
-        if ('already_scheduled' == data.status) {
-          return this.showSnackbarMsg(`El Post ya esta programado para republicarse el ${data.date}`);
-        }
-        this.showSnackbarMsg(`Post programado correctamente para republicarse el ${date}`);
-      },
-      error: () => {
-        return this.showSnackbarMsg('Se ha producido un error al volver a publicar en portada, por favor, inténtalo de nuevo.');
-      },
-      complete: () => {
-        this.setState({ buttonDisabled : false });
+    })
+    .done(data => {
+      if ('already_scheduled' == data.status) {
+        return this.showSnackbarMsg(`El Post ya esta programado para republicarse el ${data.date}`);
       }
+      this.showSnackbarMsg(`Post programado correctamente para republicarse el ${date}`);
+    })
+    .fail(() => {
+      return this.showSnackbarMsg('Se ha producido un error al volver a publicar en portada, por favor, inténtalo de nuevo.');
     });
   }
 
@@ -242,8 +209,7 @@ class Difundir extends React.Component {
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <RepublishScheduler
-          buttonDisabled={this.state.buttonDisabled}
-          futureProgrammedPosts={this.state.futureProgrammedPosts}
+          base={this.props.base}
           onSchedule={this.onRepublishSchedule.bind(this)}
         />
       </div>

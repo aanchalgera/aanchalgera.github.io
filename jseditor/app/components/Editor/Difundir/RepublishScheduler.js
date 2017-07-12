@@ -11,8 +11,35 @@ class RepublishScheduler extends React.Component {
     super(props);
     this.state = {
       date: moment().add(1, 'hours').format('DD/MM/YYYY HH:00'),
-      schedulerOpened: false
+      schedulerOpened: false,
+      buttonDisabled: true,
+      futureProgrammedPosts: []
     };
+  }
+
+  componentDidMount() {
+    this.props.base.fetch('posts', {
+      context: this,
+      asArray: true,
+      queries: {
+        orderByChild: 'status',
+        equalTo: 'publish'
+      },
+      then(data) {
+        if (data != null) {
+          let scheduledPosts = {};
+          data.forEach(result => {
+            let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
+            scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
+          });
+
+          this.setState({
+            futureProgrammedPosts: scheduledPosts,
+            buttonDisabled: false
+          });
+        }
+      }
+    });
   }
 
   onChange(e) {
@@ -40,7 +67,12 @@ class RepublishScheduler extends React.Component {
       console.log('Invalid date');
       return;
     }
-    this.props.onSchedule(this.state.date);
+    this.setState({ buttonDisabled : true }, () => {
+      this.props.onSchedule(this.state.date)
+      .done(() => {
+        this.setState({ buttonDisabled : false });
+      });
+    });
   }
 
   renderScheduler() {
@@ -69,7 +101,7 @@ class RepublishScheduler extends React.Component {
         if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
           slot = 'slot-past';
           msg = 'Pasado';
-        } else if (this.props.futureProgrammedPosts != undefined && this.props.futureProgrammedPosts[dateTime] != undefined) {
+        } else if (this.state.futureProgrammedPosts != undefined && this.state.futureProgrammedPosts[dateTime] != undefined) {
           slot = 'slot-busy';
           msg = 'Ocupado';
         } else if (this.state.date == formattedDateTime) {
@@ -136,7 +168,7 @@ class RepublishScheduler extends React.Component {
           <Col xs={2}>
             <RaisedButton
               label="PROGRAMAR"
-              disabled={this.props.buttonDisabled}
+              disabled={this.state.buttonDisabled}
               onClick={this.onRepublishSchedule.bind(this)}
               backgroundColor={pink400}
               labelColor={white}
