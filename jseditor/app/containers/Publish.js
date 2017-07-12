@@ -10,7 +10,7 @@ import Seo from '../components/Editor/Publish/Seo';
 import Social from '../components/Editor/Publish/Social';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
-import ImageCropper from './ImageCropper';
+import ImageCropper from '../components/Editor/Publish/ImageCropper';
 import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);

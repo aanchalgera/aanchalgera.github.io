@@ -1,5 +1,5 @@
 import React from 'react';
-import CropWidget from '../components/Editor/Publish/CropWidget';
+import CropWidget from './CropWidget';
 import { Row, Col } from 'react-flexbox-grid';
 import { grey400 } from 'material-ui/styles/colors';
 
