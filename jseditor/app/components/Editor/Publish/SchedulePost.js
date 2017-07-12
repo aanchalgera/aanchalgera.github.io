@@ -59,7 +59,7 @@ class SchedulePost extends React.Component {
     }
     return(
       <div>
-        <div style={{ paddingRight: '2rem', paddingLeft: '2rem', marginTop: '50px', maxWidth: '50%' }}>
+        <div style={{ paddingRight: '2rem', paddingLeft: '2rem', marginTop: '50px', maxWidth: '70%' }}>
           <Row>
             <Col xs={6}>
               <TextField

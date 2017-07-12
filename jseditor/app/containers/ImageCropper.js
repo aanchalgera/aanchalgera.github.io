@@ -6,26 +6,6 @@ import { grey400 } from 'material-ui/styles/colors';
 class ImageCropper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      square: {
-        aspect: 1,
-        x: 10,
-        height: 100,
-        validate: false
-      },
-      golden: {
-        aspect: 1.618,
-        y: 5,
-        width: 100,
-        validate: false
-      },
-      panoramic: {
-        aspect: 2.618,
-        y: 20,
-        width: 100,
-        validate: false
-      }
-    };
 
     this.style = {
       img: {
@@ -41,22 +21,6 @@ class ImageCropper extends React.Component {
         color: grey400,
       }
     };
-  }
-
-  onCropChange(shape, crop) {
-    this.setState({
-      [shape]: crop
-    });
-  }
-
-  onCropValidate(shape, validate) {
-    this.setState(prevState => {
-      prevState[shape]['validate'] = validate;
-      return {
-        [shape]: prevState[shape]
-      };
-    });
-    this.props.onCropValidate(shape, this.state[shape]);
   }
 
   render() {
@@ -77,10 +41,10 @@ class ImageCropper extends React.Component {
           <div style={this.style.cropperWidth}>
             <CropWidget
               imageSrc={this.props.imageSrc}
-              crop={this.state.square}
+              crop={this.props.crop.square}
               shape="square"
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
+              onCropChange={this.props.onCropChange}
+              onCropValidate={this.props.onCropValidate}
             />
           </div>
         </Col>
@@ -91,10 +55,10 @@ class ImageCropper extends React.Component {
           <div style={this.style.cropperWidth}>
             <CropWidget
               imageSrc={this.props.imageSrc}
-              crop={this.state.golden}
+              crop={this.props.crop.golden}
               shape="golden"
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
+              onCropChange={this.props.onCropChange}
+              onCropValidate={this.props.onCropValidate}
             />
           </div>
         </Col>
@@ -105,10 +69,10 @@ class ImageCropper extends React.Component {
           <div style={this.style.cropperWidth}>
             <CropWidget
               imageSrc={this.props.imageSrc}
-              crop={this.state.panoramic}
+              crop={this.props.crop.panoramic}
               shape="panoramic"
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
+              onCropChange={this.props.onCropChange}
+              onCropValidate={this.props.onCropValidate}
             />
           </div>
         </Col>

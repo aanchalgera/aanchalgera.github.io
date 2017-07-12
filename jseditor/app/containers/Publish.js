@@ -12,11 +12,11 @@ import ImageCropper from './ImageCropper';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
-let successMessage = '';
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
+const IMAGE_CROP_WARNING = 'Es necesario validar los recortes de las imágenes para poder publicar';
 
 class Publish extends React.Component {
   constructor(props) {
@@ -53,7 +53,27 @@ class Publish extends React.Component {
       message: '',
       publishedDate: null,
       snackbarOpen: false,
-      crop: {}
+      SnackbarMessage: '',
+      crop: {
+        square: {
+          aspect: 1,
+          x: 10,
+          height: 100,
+          validate: false
+        },
+        golden: {
+          aspect: 1.618,
+          y: 5,
+          width: 100,
+          validate: false
+        },
+        panoramic: {
+          aspect: 2.618,
+          y: 20,
+          width: 100,
+          validate: false
+        }
+      }
     };
   }
 
@@ -135,6 +155,10 @@ class Publish extends React.Component {
         context: this,
         then(data) {
           if (data != null) {
+            if (!data.crop) {
+              data.crop = this.state.crop;
+            }
+
             this.setState({
               id: data.id,
               fields: data.sections || [],
@@ -150,7 +174,8 @@ class Publish extends React.Component {
               postHash: data.publishData.postHash || '',
               buttonDisabled: false,
               loaded: true,
-              userId: data.user_id
+              userId: data.user_id,
+              crop: data.crop
             });
           }
         }
@@ -161,6 +186,15 @@ class Publish extends React.Component {
   submitPost() {
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
+    let imageValidated = {
+      square: {...this.state.crop.square},
+      golden: {...this.state.crop.golden},
+      panoramic: {...this.state.crop.panoramic},
+    };
+
+    for (let key in imageValidated) {
+      delete imageValidated[key]['validate'];
+    }
 
     let backendData = {
       postform: {
@@ -182,9 +216,11 @@ class Publish extends React.Component {
         firebase_id: this.state.id,
         post_status: 'future',
         user_id: this.state.userId,
-        primary_image: this.state.meta.homepage.image.url
+        primary_image: this.state.meta.homepage.image.url,
+        image_validated: imageValidated
       }
     };
+    console.log(backendData);
 
     let firebaseData = {
       id: this.state.id,
@@ -199,14 +235,14 @@ class Publish extends React.Component {
         postRepostBlogNames: postRepostBlogNames
       },
       meta: this.state.meta,
-      user_id: this.state.userId
+      user_id: this.state.userId,
+      crop: this.state.crop
     };
     let postType = 'POST';
     let postUrl = 'posts.json';
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
       postUrl = 'posts/' + this.state.postId + '.json';
-      successMessage = 'Changes has been saved.';
     }
     jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
@@ -250,6 +286,8 @@ class Publish extends React.Component {
           }
         );
 
+        console.log('I am hererererrere');
+        console.log(firebaseData);
         this.props.base.post(
           'posts/' + this.state.id,
           {
@@ -261,7 +299,8 @@ class Publish extends React.Component {
                   postHash: result.post_hash,
                   status: 'publish',
                   publishedDate: this.state.date,
-                  snackbarOpen: true
+                  snackbarOpen: true,
+                  SnackbarMessage: 'Changes has been saved. Post scheduled for ' + moment(this.state.date, 'DD-MM-YYYY HH:mm').format('LLLL')
                 });
                 this.enableButton();
               }
@@ -316,7 +355,20 @@ class Publish extends React.Component {
       message = MAIN_IMAGE_WARNING;
     }
 
+    for (let key in this.state.crop) {
+      if (!this.state.crop[key]['validate']) {
+        isError = true;
+        message = IMAGE_CROP_WARNING;
+      }
+    }
+
     this.setMessage(isError, message);
+    if (isError) {
+      this.setState({
+        snackbarOpen: true,
+        SnackbarMessage: message
+      });
+    }
     return !isError;
   }
 
@@ -399,8 +451,22 @@ class Publish extends React.Component {
     }
   }
 
-  onCropValidate(shape, crop) {
-    console.log(shape, crop);
+  onCropChange(shape, crop) {
+    this.setState(prevState => {
+      prevState['crop'][shape] = crop;
+      return {
+        crop: prevState['crop']
+      };
+    });
+  }
+
+  onCropValidate(shape, validate) {
+    this.setState(prevState => {
+      prevState['crop'][shape]['validate'] = validate;
+      return {
+        crop: prevState['crop']
+      };
+    });
   }
 
   render () {
@@ -408,7 +474,7 @@ class Publish extends React.Component {
       <div>
         <Snackbar
           open={this.state.snackbarOpen}
-          message={ successMessage + ' Post scheduled for ' + moment(this.state.date, 'DD-MM-YYYY HH:mm').format('LLLL') }
+          message={ this.state.SnackbarMessage }
           autoHideDuration={5000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />
@@ -445,7 +511,9 @@ class Publish extends React.Component {
         { this.state.meta.homepage.image
           ? <ImageCropper
               imageSrc={this.state.meta.homepage.image.url}
+              onCropChange={this.onCropChange.bind(this)}
               onCropValidate={this.onCropValidate.bind(this)}
+              crop={this.state.crop}
             />
           : ''
         }
