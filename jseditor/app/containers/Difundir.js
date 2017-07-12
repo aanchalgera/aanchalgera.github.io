@@ -5,6 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import RepostBlogsOptions from '../components/Editor/Difundir/RepostBlogsOptions';
 import RepublishScheduler from '../components/Editor/Difundir/RepublishScheduler';
+import SchedulePost from '../components/Editor/Difundir/SchedulePost';
 
 const styles = {
   bodyContent: {
@@ -245,6 +246,11 @@ class Difundir extends React.Component {
           buttonDisabled={this.state.buttonDisabled}
           futureProgrammedPosts={this.state.futureProgrammedPosts}
           onRepublishSchedule={this.onRepublishSchedule.bind(this)}
+        />
+        <SchedulePost
+          buttonDisabled={this.state.buttonDisabled}
+          futureProgrammedPosts={this.state.futureProgrammedPosts}
+          onSchedule={this.onRepublishSchedule.bind(this)}
         />
       </div>
     );
