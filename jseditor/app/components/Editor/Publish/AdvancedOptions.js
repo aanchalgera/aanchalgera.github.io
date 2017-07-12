@@ -47,77 +47,64 @@ export default class Publish extends React.Component {
   }
 
   setShowAuthor = (e, isChecked) => {
-    const value = {
+    const checked = {
       showAuthorInfo: isChecked
     };
-    this.props.setPostMeta('author', value);
+    this.props.setPostMeta('author', checked);
   }
 
   setCommentStatus = (e, isChecked) => {
-    const value = {
+    const checked = {
       allow: isChecked,
       status: 'open',
     };
-    this.props.setPostMeta('comment', value); 
+    this.props.setPostMeta('comment', checked); 
   }
 
   render () {
-    const { setPostMeta, setPostAuthor } = this.props;
+    const { setPostMeta, setPostAuthor, postMeta } = this.props;
+
     return(
       <div>
         <Subheader className="subheader">Avanzado</Subheader>
         <Divider className="divider" />
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Artículo especial"
-            onCheck={(e, isChecked) => {setPostMeta('specialPost', isChecked);}}
-          />
-        </div>
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Tiene contenido sensible"
-            onCheck={(e, isChecked) => {setPostMeta('sensitivePost', isChecked);}}
-          />
-        </div>
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Comentarios abiertos"
-            onCheck={this.setCommentStatus}
-          />
-        </div>
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Mostrar fecha de publicación"
-            onCheck={(e, isChecked) => {setPostMeta('showDate', isChecked);}}
-          />
-        </div>
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Mostrar botones de compartir en redes"
-            onCheck={(e, isChecked) => {setPostMeta('showSocialShareButtons', isChecked);}}
-          />
-        </div>
-        <div>
-          <Checkbox
-            defaultChecked={false}
-            label="Mostrar author"
-            onCheck={this.setShowAuthor}
-          />
-        </div>
-        <div>
-          <AutoComplete
-            floatingLabelText="Autor"
-            dataSource={this.state.userList}
-            dataSourceConfig={{ text: 'display_name', value: 'id' }}
-            openOnFocus={true}
-            onNewRequest={(request) => {setPostAuthor(request.id);}}
-          />
-        </div>
+        <Checkbox
+          checked={postMeta.specialPost}
+          label="Artículo especial"
+          onCheck={(e, isChecked) => {setPostMeta('specialPost', isChecked);}}
+        />
+        <Checkbox
+          checked={postMeta.sensitivePost}
+          label="Tiene contenido sensible"
+          onCheck={(e, isChecked) => {setPostMeta('sensitivePost', isChecked);}}
+        />
+        <Checkbox
+          checked={postMeta.comment.allow}
+          label="Comentarios abiertos"
+          onCheck={this.setCommentStatus}
+        />
+        <Checkbox
+          checked={postMeta.showDate}
+          label="Mostrar fecha de publicación"
+          onCheck={(e, isChecked) => {setPostMeta('showDate', isChecked);}}
+        />
+        <Checkbox
+          checked={postMeta.showSocialShareButtons}
+          label="Mostrar botones de compartir en redes"
+          onCheck={(e, isChecked) => {setPostMeta('showSocialShareButtons', isChecked);}}
+        />
+        <Checkbox
+          checked={postMeta.author.showAuthorInfo}
+          label="Mostrar author"
+          onCheck={this.setShowAuthor}
+        />
+        <AutoComplete
+          floatingLabelText="Autor"
+          dataSource={this.state.userList}
+          dataSourceConfig={{ text: 'display_name', checked: 'id' }}
+          openOnFocus={true}
+          onNewRequest={(request) => {setPostAuthor(request.id);}}
+        />
       </div>
     );
   }

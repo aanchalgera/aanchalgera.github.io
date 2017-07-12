@@ -47,7 +47,9 @@ class Publish extends React.Component {
         social: {
           twitter: '',
           facebook: ''
-        }
+        },
+        comment: { allowed: true },
+        sensitivePost: false,
       },
       buttonDisabled: true,
       loaded: false,
@@ -423,9 +425,10 @@ class Publish extends React.Component {
 
     return <AdvancedOptions 
       blogUrl={this.state.blogUrl}
-      userId={this.state.userId}
+      userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
       setPostAuthor={this.setPostAuthor}
+      postMeta={this.state.meta}
     />;
   }
 
