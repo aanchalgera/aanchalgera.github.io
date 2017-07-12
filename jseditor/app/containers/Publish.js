@@ -6,6 +6,7 @@ import { Row, Col } from 'react-flexbox-grid';
 
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
 import HomePage from '../components/Editor/Publish/HomePage';
+import Seo from '../components/Editor/Publish/Seo';
 import Social from '../components/Editor/Publish/Social';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
@@ -366,6 +367,18 @@ class Publish extends React.Component {
     this.handleDatePickerText();
   }
 
+  updateSeoTitle = (event) => {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.title = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateSeoDescription = (event) => {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.description = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
   handleRequestClose() {
     this.setState({
       snackbarOpen: false,
@@ -433,7 +446,11 @@ class Publish extends React.Component {
         </div>
         <Row>
           <Col xs>
-            Seo place holder
+            <Seo
+              seo={this.state.meta.seo ? this.state.meta.seo : {title:'', description:''} }
+              updateSeoTitle={this.updateSeoTitle}
+              updateSeoDescription={this.updateSeoDescription}
+            />
           </Col>
           <Col xs>
             <CountriesFormOptions
