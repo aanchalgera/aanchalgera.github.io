@@ -2,6 +2,7 @@ import React from 'react';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+import { Row, Col } from 'react-flexbox-grid';
 
 let regions = {
   ES: 'España',
@@ -35,21 +36,31 @@ class CountriesFormOptions extends React.Component {
   }
 
   render() {
+    const checkboxes = { 0: [], 1: [] };
+    Object.keys(regions).map((key, index) => {
+      checkboxes[index % 2].push((
+        <Checkbox
+          key={index}
+          value={key}
+          label={regions[key]}
+          checked={-1 !== this.props.publishRegions.indexOf(key)}
+          onCheck={this.onCheck.bind(this)}
+        />
+      ));
+    });
+
     return (
       <div>
         <Subheader>Países donde publicar</Subheader>
         <Divider />
-        {
-          Object.keys(regions).map((key, index) => (
-            <Checkbox
-              key={index}
-              value={key}
-              label={regions[key]}
-              checked={-1 !== this.props.publishRegions.indexOf(key)}
-              onCheck={this.onCheck.bind(this)}
-            />
-          ))
-        }
+        <Row>
+          <Col xs>
+            {checkboxes[0]}
+          </Col>
+          <Col xs>
+            {checkboxes[1]}
+          </Col>
+        </Row>
       </div>
     );
   }

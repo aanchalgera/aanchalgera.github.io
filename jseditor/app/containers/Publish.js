@@ -5,10 +5,13 @@ import Snackbar from 'material-ui/Snackbar';
 import { Row, Col } from 'react-flexbox-grid';
 
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
-import FbTwitterHomePageContent from '../components/Editor/Publish/FbTwitterHomePageContent';
+import HomePage from '../components/Editor/Publish/HomePage';
+import Seo from '../components/Editor/Publish/Seo';
+import Social from '../components/Editor/Publish/Social';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 import ImageCropper from './ImageCropper';
+import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
@@ -45,7 +48,9 @@ class Publish extends React.Component {
         social: {
           twitter: '',
           facebook: ''
-        }
+        },
+        comment: { allowed: true },
+        sensitivePost: false,
       },
       buttonDisabled: true,
       loaded: false,
@@ -316,6 +321,16 @@ class Publish extends React.Component {
     });
   }
 
+  setPostMeta = (key, value) => {
+    let meta = this.state.meta;
+    meta[key] = value;
+    this.setState({meta});
+  }
+
+  setPostAuthor = (userId) => {
+    this.setState({userId});
+  }
+
   onChange (ev) {
     ev.preventDefault();
     this.setState({date: ev.currentTarget.value});
@@ -418,6 +433,18 @@ class Publish extends React.Component {
     this.handleDatePickerText();
   }
 
+  updateSeoTitle = (event) => {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.title = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateSeoDescription = (event) => {
+    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
+    this.state.meta.seo.description = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
   handleRequestClose() {
     this.setState({
       snackbarOpen: false,
@@ -430,25 +457,33 @@ class Publish extends React.Component {
     });
   }
 
-  handleHomePageTwitterChanges(event) {
-    event.preventDefault();
-    let name = event.target.name;
-    let value = event.target.value;
-    let meta = this.state.meta;
-    switch(name) {
-      case 'facebook':
-        meta.social.facebook = value;
-        this.setState({meta: meta});
-        break;
-      case 'homePage':
-        meta.homepage.content = value;
-        this.setState({meta: meta});
-        break;
-      case 'twitter':
-        meta.social.twitter = value;
-        this.setState({meta: meta});
-        break;
+  updateSocialFacebookText = (event) => {
+    this.state.meta.social.facebook = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateSocialTwitterText = (event) => {
+    this.state.meta.social.twitter = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateHomepageContent = (value) => {
+    this.state.meta.homepage.content = value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  getAdvancedOptions = () => {
+    if (this.state.blogUrl == undefined) {
+      return null;
     }
+
+    return <AdvancedOptions 
+      blogUrl={this.state.blogUrl}
+      userId={parseInt(this.state.userId)}
+      setPostMeta={this.setPostMeta}
+      setPostAuthor={this.setPostAuthor}
+      postMeta={this.state.meta}
+    />;
   }
 
   onCropChange(shape, crop) {
@@ -487,25 +522,42 @@ class Publish extends React.Component {
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
-        <CountriesFormOptions
-          setPublishRegions={this.setPublishRegions.bind(this)}
-          publishRegions={this.state.publishRegion}
-        />
-        <FbTwitterHomePageContent
-          homePage={this.state.meta.homepage.content}
-          twitter={this.state.meta.social.twitter}
-          facebook={this.state.meta.social.facebook}
-          homePageTwitterFbChange={this.handleHomePageTwitterChanges.bind(this)}
-        />
+        <div>
+          <h4>portada y redes sociales</h4>
+          <Divider />
+          <Row>
+            <Col xs={6}>
+              <HomePage
+                homepage={this.state.meta.homepage}
+                updateHomepageContent={this.updateHomepageContent}
+              />
+            </Col>
+            <Col xs ={6}>
+              <Social
+                twitter={this.state.meta.social.twitter}
+                facebook={this.state.meta.social.facebook}
+                updateSocialFacebookText={this.updateSocialFacebookText}
+                updateSocialTwitterText={this.updateSocialTwitterText}
+              />
+            </Col>
+          </Row>
+        </div>
         <Row>
           <Col xs>
-            Seo place holder
+            <Seo
+              seo={this.state.meta.seo ? this.state.meta.seo : {title:'', description:''} }
+              updateSeoTitle={this.updateSeoTitle}
+              updateSeoDescription={this.updateSeoDescription}
+            />
           </Col>
           <Col xs>
-            Pulicar place holder
+            <CountriesFormOptions
+              setPublishRegions={this.setPublishRegions.bind(this)}
+              publishRegions={this.state.publishRegion}
+            />
           </Col>
           <Col xs>
-            <AdvancedOptions />
+            {this.getAdvancedOptions()}
           </Col>
         </Row>
         { this.state.meta.homepage.image

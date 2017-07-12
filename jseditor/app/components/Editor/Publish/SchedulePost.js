@@ -59,35 +59,33 @@ class SchedulePost extends React.Component {
     }
     return(
       <div>
-        <div style={{ paddingRight: '2rem', paddingLeft: '2rem', marginTop: '50px', maxWidth: '70%' }}>
-          <Row>
-            <Col xs={6}>
-              <TextField
-                floatingLabelText="Fecha y hora"
-                value={this.props.value}
-                onChange={this.props.onChange.bind(this)}
-                style={{textColor: grey900}}
-              />
-            </Col>
-            <Col xs={3}>
-              <RaisedButton
-                label="ELEGIR HUECO"
-                icon={<Apps />}
-                onClick={this.props.openSlotWidget.bind(this)}
-                id="toggle-publish-slots"
-              />
-            </Col>
-            <Col xs={3}>
-              <RaisedButton
-                label="PROGRAMAR"
-                disabled={this.props.buttonDisabled}
-                onClick={this.props.onSchedule.bind(this)}
-                backgroundColor={pink400}
-                labelColor={white}
-              />
-            </Col>
-          </Row>
-        </div>
+        <Row>
+          <Col xs={3}>
+            <TextField
+              floatingLabelText="Fecha y hora"
+              value={this.props.value}
+              onChange={this.props.onChange.bind(this)}
+              style={{textColor: grey900}}
+            />
+          </Col>
+          <Col xs={2}>
+            <RaisedButton
+              label="ELEGIR HUECO"
+              icon={<Apps />}
+              onClick={this.props.openSlotWidget.bind(this)}
+              id="toggle-publish-slots"
+            />
+          </Col>
+          <Col xs={1}>
+            <RaisedButton
+              label="PROGRAMAR"
+              disabled={this.props.buttonDisabled}
+              onClick={this.props.onSchedule.bind(this)}
+              backgroundColor={pink400}
+              labelColor={white}
+            />
+          </Col>
+        </Row>
         <div className="publish-slots" id="publish-slots" style={{display: 'none'}}>
           <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
           <table summary="Huecos disponibles para publicar">
