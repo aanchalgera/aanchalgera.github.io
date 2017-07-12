@@ -18,41 +18,41 @@ const styles = {
 
 let formatedBlogs = {
   tecnologiaColA : {
-    blogs: [
+    sites: [
       'xataka', 'xatakamovil', 'xatakafoto', 'xatakandroid', 'xatakahome',
       'xatakawindows', 'xatakaciencia', 'xatakamagnet', 'xatakamexico',
       'xatakacolombia'
     ]
   },
   tecnologiaColB : {
-    blogs: [
+    sites: [
       'applesfera', 'vidaextra', 'genbeta', 'genbetadev', 'compradiccion'
     ]
   },
   estilodevida : {
-    blogs: [
+    sites: [
       'trendencias', 'trendenciasbelleza', 'trendenciashombre', 'directoalpaladar',
       'bebesymas', 'vitonica', 'decoesfera', 'poprosa', 'directoalpaladarmexico'
     ]
   },
   motor : {
-    blogs: [
+    sites: [
       'motorpasion', 'motorpasionmoto', 'motorpasionfuturo', 'motorpasionmexico'
     ]
   },
   economia : {
-    blogs : [
+    sites : [
       'elblogsalmon', 'pymesyautonomos'
     ]
   },
   ocio : {
-    blogs : [
+    sites : [
       'espinof', 'papelenblanco', 'diariodelviajero'
     ]
   }
 };
 
-class RepostBlogsOptions extends React.Component {
+export default class RepostSiteOptions extends React.Component {
 
   static propTypes = {
     repostBlogs: React.PropTypes.array.isRequired,
@@ -65,12 +65,12 @@ class RepostBlogsOptions extends React.Component {
     this.props.setRepostBlogs(e.target.value, isChecked);
   }
 
-  getBlogsListing = (blogs) => {
+  getSitesListing = (blogs) => {
     const { blogName } = this.props;
     return blogs.map((blog) => (
       blogName == blog ? null: (
         <Checkbox
-          defaultChecked={this.props.repostBlogs.indexOf(blog) !== -1}
+          checked={this.props.repostBlogs.indexOf(blog) !== -1}
           key={blog}
           label={blog}
           value={blog}
@@ -90,9 +90,7 @@ class RepostBlogsOptions extends React.Component {
             {
               Object.keys(formatedBlogs).map((key) => (
                 <Col xs key={key}>
-                  <ul>
-                    {this.getBlogsListing(formatedBlogs[key].blogs)}
-                  </ul>
+                  {this.getSitesListing(formatedBlogs[key].sites)}
                 </Col>
               ))
             }
@@ -109,5 +107,3 @@ class RepostBlogsOptions extends React.Component {
     );
   }
 }
-
-export default RepostBlogsOptions;

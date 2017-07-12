@@ -2,7 +2,7 @@ import React from 'react';
 import jquery from 'jquery';
 import Snackbar from 'material-ui/Snackbar';
 
-import RepostBlogsOptions from '../components/Editor/Difundir/RepostBlogsOptions';
+import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 
 const styles = {
   bodyContent: {
@@ -173,7 +173,7 @@ class Difundir extends React.Component {
           autoHideDuration={5000}
           onRequestClose={this.handleSnackbarClose}
         />
-        <RepostBlogsOptions 
+        <RepostSiteOptions
           setRepostBlogs={this.setRepostBlogs}
           repostBlogs={this.state.postRepostBlogNames}
           blogName={this.state.blogName}
