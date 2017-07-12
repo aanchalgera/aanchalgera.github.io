@@ -1,5 +1,10 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Apps from 'material-ui/svg-icons/navigation/apps';
+import { grey900, white, pink400 } from 'material-ui/styles/colors';
+import { Row, Col } from 'react-flexbox-grid';
 
 class RepublishScheduler extends React.Component {
   constructor(props) {
@@ -14,8 +19,8 @@ class RepublishScheduler extends React.Component {
     this.setState({ date: e.target.value.trim() });
   }
 
-  onPickSlot (ev) {
-    let currentTarget = ev.currentTarget;
+  onPickSlot (e) {
+    const currentTarget = e.currentTarget;
     if (currentTarget.className == 'slot-past' || currentTarget.className == 'slot-busy') {
       return;
     }
@@ -35,7 +40,7 @@ class RepublishScheduler extends React.Component {
       console.log('Invalid date');
       return;
     }
-    this.props.onRepublishSchedule(this.state.date);
+    this.props.onSchedule(this.state.date);
   }
 
   renderScheduler() {
@@ -60,7 +65,7 @@ class RepublishScheduler extends React.Component {
         slot = '';
         msg = '';
         dateTime = moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') + ' ' + j + ':00:00';
-        formattedDateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') + ' ' + (j < 10 ? `0${j}` : j) + ':00';
+        formattedDateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') + ' ' +  (j < 10 ? `0${j}` : j) + ':00';
         if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
           slot = 'slot-past';
           msg = 'Pasado';
@@ -93,6 +98,7 @@ class RepublishScheduler extends React.Component {
 
     return (
       <div>
+        <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
         <table summary="Huecos disponibles para publicar">
           <thead>
             <tr>
@@ -108,27 +114,39 @@ class RepublishScheduler extends React.Component {
     );
   }
 
-  render() {
-    return (
+  render () {
+    return(
       <div>
-        <input
-          type="text"
-          value={this.state.date}
-          onChange={this.onChange.bind(this)}
-        />
-        <button onClick={this.toggleScheduler.bind(this)} >
-          {this.state.schedulerOpened ? 'Close' : 'Select slot'}
-        </button>
-        <button
-          disabled={this.props.buttonDisabled}
-          onClick={this.onRepublishSchedule.bind(this)}
-        >
-          Schedule
-        </button>
+        <Row style={{ paddingRight: '2rem', paddingLeft: '2rem', marginTop: '50px' }}>
+          <Col xs={3}>
+            <TextField
+              floatingLabelText="Fecha y hora"
+              value={this.state.date}
+              onChange={this.onChange.bind(this)}
+              style={{textColor: grey900}}
+            />
+          </Col>
+          <Col xs={2}>
+            <RaisedButton
+              label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
+              icon={<Apps />}
+              onClick={this.toggleScheduler.bind(this)}
+            />
+          </Col>
+          <Col xs={2}>
+            <RaisedButton
+              label="PROGRAMAR"
+              disabled={this.props.buttonDisabled}
+              onClick={this.onRepublishSchedule.bind(this)}
+              backgroundColor={pink400}
+              labelColor={white}
+            />
+          </Col>
+        </Row>
         {this.state.schedulerOpened && this.renderScheduler()}
       </div>
     );
   }
 }
 
-export default RepublishScheduler;
+export default SchedulePost;
