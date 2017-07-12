@@ -60,7 +60,7 @@ class SchedulePost extends React.Component {
     return(
       <div>
         <Row>
-          <Col xs={4}>
+          <Col xs={3}>
             <TextField
               floatingLabelText="Fecha y hora"
               value={this.props.value}
@@ -68,7 +68,7 @@ class SchedulePost extends React.Component {
               style={{textColor: grey900}}
             />
           </Col>
-          <Col xs={4}>
+          <Col xs={2}>
             <RaisedButton
               label="ELEGIR HUECO"
               icon={<Apps />}
@@ -76,7 +76,7 @@ class SchedulePost extends React.Component {
               id="toggle-publish-slots"
             />
           </Col>
-          <Col xs={4}>
+          <Col xs={1}>
             <RaisedButton
               label="PROGRAMAR"
               disabled={this.props.buttonDisabled}
