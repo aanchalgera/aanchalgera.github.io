@@ -24,10 +24,6 @@ export default class DraftJSEditor extends React.Component {
     this.state = {
       editorState: EditorState.createWithContent(contentState, decorator)
     };
-
-    this.handleKeyCommand = this.handleKeyCommand.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onControlToggle = this.onControlToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,18 +39,18 @@ export default class DraftJSEditor extends React.Component {
     this._editor.focus();
   }
 
-  onChange(editorState) {
+  onChange = (editorState) => {
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(editorState.getCurrentContent()));
       this.props.updateResource(this.props.dataId, 'text', value);
     });
   }
 
-  onControlToggle(method, command) {
+  onControlToggle = (method, command) => {
     this.onChange(RichUtils[method](this.state.editorState, command));
   }
 
-  handleKeyCommand(command) {
+  handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
     if (newState) {
       this.onChange(newState);
