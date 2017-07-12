@@ -149,4 +149,4 @@ class RepublishScheduler extends React.Component {
   }
 }
 
-export default SchedulePost;
+export default RepublishScheduler;
