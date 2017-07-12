@@ -5,6 +5,13 @@ import Divider from 'material-ui/Divider';
 
 const TWITTER_CHAR_LIMIT = 116;
 
+const propValidate = {
+  twitter: React.PropTypes.string.isRequired,
+  facebook: React.PropTypes.string.isRequired,
+  updateSocialTwitterText: React.PropTypes.func.isRequired,
+  updateSocialFacebookText: React.PropTypes.func.isRequired
+};
+
 const styles = {
   hintStyle:{
     bottom: '60px'
@@ -49,11 +56,6 @@ const Social = (props) => (
   </Row>
 );
 
-Social.propTypes = {
-  twitter: React.PropTypes.string.isRequired,
-  facebook: React.PropTypes.string.isRequired,
-  updateSocialTwitterText: React.PropTypes.func.isRequired,
-  updateSocialFacebookText: React.PropTypes.func.isRequired
-};
+Social.propTypes = propValidate;
 
 export default Social;

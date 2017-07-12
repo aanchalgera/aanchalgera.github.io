@@ -378,17 +378,17 @@ class Publish extends React.Component {
     });
   }
 
-  updateSocialFacebookText(event) {
+  updateSocialFacebookText = (event) => {
     this.state.meta.social.facebook = event.target.value;
     this.setState({ meta: this.state.meta });
   }
 
-  updateSocialTwitterText(event) {
+  updateSocialTwitterText = (event) => {
     this.state.meta.social.twitter = event.target.value;
     this.setState({ meta: this.state.meta });
   }
 
-  updateHomepageContent(value) {
+  updateHomepageContent = (value) => {
     this.state.meta.homepage.content = value;
     this.setState({ meta: this.state.meta });
   }
@@ -418,15 +418,15 @@ class Publish extends React.Component {
             <Col xs={6}>
               <HomePage
                 homepage={this.state.meta.homepage}
-                updateHomepageContent={this.updateHomepageContent.bind(this)}
+                updateHomepageContent={this.updateHomepageContent}
               />
             </Col>
             <Col xs ={6}>
               <Social
                 twitter={this.state.meta.social.twitter}
                 facebook={this.state.meta.social.facebook}
-                updateSocialFacebookText={this.updateSocialFacebookText.bind(this)}
-                updateSocialTwitterText={this.updateSocialTwitterText.bind(this)}
+                updateSocialFacebookText={this.updateSocialFacebookText}
+                updateSocialTwitterText={this.updateSocialTwitterText}
               />
             </Col>
           </Row>
