@@ -5,9 +5,11 @@ import Snackbar from 'material-ui/Snackbar';
 import { Row, Col } from 'react-flexbox-grid';
 
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
-import FbTwitterHomePageContent from '../components/Editor/Publish/FbTwitterHomePageContent';
+import HomePage from '../components/Editor/Publish/HomePage';
+import Social from '../components/Editor/Publish/Social';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
+import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'ELEGIR HUECO ';
@@ -376,25 +378,19 @@ class Publish extends React.Component {
     });
   }
 
-  handleHomePageTwitterChanges(event) {
-    event.preventDefault();
-    let name = event.target.name;
-    let value = event.target.value;
-    let meta = this.state.meta;
-    switch(name) {
-      case 'facebook':
-        meta.social.facebook = value;
-        this.setState({meta: meta});
-        break;
-      case 'homePage':
-        meta.homepage.content = value;
-        this.setState({meta: meta});
-        break;
-      case 'twitter':
-        meta.social.twitter = value;
-        this.setState({meta: meta});
-        break;
-    }
+  updateSocialFacebookText = (event) => {
+    this.state.meta.social.facebook = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateSocialTwitterText = (event) => {
+    this.state.meta.social.twitter = event.target.value;
+    this.setState({ meta: this.state.meta });
+  }
+
+  updateHomepageContent = (value) => {
+    this.state.meta.homepage.content = value;
+    this.setState({ meta: this.state.meta });
   }
 
   render () {
@@ -415,12 +411,26 @@ class Publish extends React.Component {
           onPickSlot={this.onPickSlot.bind(this)}
           onSchedule={this.onSchedule.bind(this)}
         />
-        <FbTwitterHomePageContent
-          homePage={this.state.meta.homepage.content}
-          twitter={this.state.meta.social.twitter}
-          facebook={this.state.meta.social.facebook}
-          homePageTwitterFbChange={this.handleHomePageTwitterChanges.bind(this)}
-        />
+        <div>
+          <h4>portada y redes sociales</h4>
+          <Divider />
+          <Row>
+            <Col xs={6}>
+              <HomePage
+                homepage={this.state.meta.homepage}
+                updateHomepageContent={this.updateHomepageContent}
+              />
+            </Col>
+            <Col xs ={6}>
+              <Social
+                twitter={this.state.meta.social.twitter}
+                facebook={this.state.meta.social.facebook}
+                updateSocialFacebookText={this.updateSocialFacebookText}
+                updateSocialTwitterText={this.updateSocialTwitterText}
+              />
+            </Col>
+          </Row>
+        </div>
         <Row>
           <Col xs>
             Seo place holder
