@@ -225,7 +225,6 @@ class Publish extends React.Component {
         image_validated: imageValidated
       }
     };
-    console.log(backendData);
 
     let firebaseData = {
       id: this.state.id,
@@ -291,8 +290,6 @@ class Publish extends React.Component {
           }
         );
 
-        console.log('I am hererererrere');
-        console.log(firebaseData);
         this.props.base.post(
           'posts/' + this.state.id,
           {

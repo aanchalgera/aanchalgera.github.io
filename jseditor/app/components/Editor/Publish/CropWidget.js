@@ -38,7 +38,6 @@ const CropWidget = ({ imageSrc, crop, shape, onCropChange, onCropValidate }) => 
         />
     }
   </div>
-  
 );
 
 export default CropWidget;
