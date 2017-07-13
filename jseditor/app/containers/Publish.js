@@ -113,28 +113,6 @@ class Publish extends React.Component {
       });
     }
     if (this.postname != undefined) {
-      this.props.base.fetch('posts', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'status',
-          equalTo: 'publish'
-        },
-        then(data) {
-          if (data != null) {
-            let scheduledPosts = {};
-            data.forEach(result => {
-              let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
-              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
-            });
-
-            this.setState({
-              futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false
-            });
-          }
-        }
-      });
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
         then(data) {
@@ -164,7 +142,7 @@ class Publish extends React.Component {
     }
   }
 
-  submitPost() {
+  submitPost(date) {
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
@@ -180,7 +158,7 @@ class Publish extends React.Component {
       post_visibility: 0,
       posts_galleries: '',
       post_subtype: 13,
-      postDate: this.state.date,
+      postDate: date,
       'publish-region': publishRegion,
       postRepostBlogNames: postRepostBlogNames,
       page: 'publish',
@@ -200,7 +178,7 @@ class Publish extends React.Component {
       blogName: this.state.blogName,
       status: 'publish',
       publishData: {
-        postDate: this.state.date,
+        postDate: date,
         publishRegion: publishRegion,
         postRepostBlogNames: postRepostBlogNames
       },
@@ -216,7 +194,7 @@ class Publish extends React.Component {
       postUrl = 'postpage/' + this.state.postId;
       successMessage = 'Changes has been saved.';
     }
-    jquery.ajax({
+    return jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
       type: postType,
       dataType: 'json',
@@ -268,7 +246,7 @@ class Publish extends React.Component {
                   postId: result.id,
                   postHash: result.post_hash,
                   status: 'publish',
-                  publishedDate: this.state.date,
+                  publishedDate: date,
                   snackbarOpen: true
                 });
                 this.enableButton();
@@ -307,11 +285,9 @@ class Publish extends React.Component {
     this.setState({specialPost});
   }
 
-  onSchedule(ev) {
-    ev.preventDefault();
-    this.disableButton();
+  onSchedule(date) {
     if (this.isValid()) {
-      this.submitPost();
+      return this.submitPost(date);
     }
   }
 
@@ -321,20 +297,11 @@ class Publish extends React.Component {
     });
   }
 
-  disableButton() {
-    this.setState({
-      buttonDisabled : true
-    });
-  }
-
   isValid() {
     let isError = false, message;
     if ('publish' == this.state.status) {
       if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         this.setMessage(true, PUBLISH_POST_WARNING);
-      } else if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-        isError = true;
-        message = VALID_DATE_WARNING;
       }
     } else if (!this.state.meta.homepage.image) {
       isError = true;
@@ -343,6 +310,10 @@ class Publish extends React.Component {
 
     this.setMessage(isError, message);
     return !isError;
+  }
+
+  onInvalidDate() {
+    this.setMessage(true, VALID_DATE_WARNING);
   }
 
   setMessage(isError, message) {
@@ -457,13 +428,11 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose.bind(this)}
         />
         <SchedulePost
-          openSlotWidget={this.openSlotWidget.bind(this)}
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.date}
-          futureProgrammedPosts={this.state.futureProgrammedPosts}
-          onChange={this.onChange.bind(this)}
-          onPickSlot={this.onPickSlot.bind(this)}
+          base={this.props.base}
           onSchedule={this.onSchedule.bind(this)}
+          onInvalidDate={this.onInvalidDate.bind(this)}
         />
         <div>
           <h4>portada y redes sociales</h4>
