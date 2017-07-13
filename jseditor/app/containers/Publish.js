@@ -13,7 +13,6 @@ import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);
-let chooseSlotMsg = 'ELEGIR HUECO ';
 let successMessage = '';
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
@@ -25,7 +24,6 @@ class Publish extends React.Component {
     super(props);
     this.state = {
       fields: [],
-      date: moment().format('DD/MM/YYYY HH:mm'),
       status: 'draft',
       postRepostBlogNames: [],
       publishRegion: [],
@@ -56,7 +54,7 @@ class Publish extends React.Component {
       loaded: false,
       isError: false,
       message: '',
-      publishedDate: null,
+      publishedDate: '',
       snackbarOpen: false
     };
   }
@@ -124,8 +122,7 @@ class Publish extends React.Component {
               meta: data.meta || this.state.meta,
               maxId: data.maxId,
               status: data.status || 'draft',
-              date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-              publishedDate: data.publishData.postDate || null,
+              publishedDate: data.publishData.postDate,
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId || '',
@@ -271,10 +268,6 @@ class Publish extends React.Component {
 
   setPostAuthor = (userId) => {
     this.setState({userId});
-
-  onChange (ev) {
-    ev.preventDefault();
-    this.setState({date: ev.currentTarget.value});
   }
 
   handleSensitivePost = (e, isSensitive) => {
@@ -327,22 +320,6 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    let visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
-    chooseSlotMsg = 'Close';
-    this.handleDatePickerText();
-  }
-
-  handleDatePickerText() {
-    if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
-      document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
-    } else {
-      document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
-    }
-  }
-
   updateSeoTitle = (event) => {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.title = event.target.value;
@@ -353,25 +330,6 @@ class Publish extends React.Component {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.description = event.target.value;
     this.setState({ meta: this.state.meta });
-
-  onPickSlot (ev) {
-    let currentTarget = ev.currentTarget;
-    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
-    let currentSlot = document.getElementsByClassName('slot-current');
-    if (currentSlot.length > 0) {
-      currentSlot[0].classList.add('slot-free');
-      currentSlot[0].innerHTML = 'Libre';
-      currentSlot[0].classList.remove('slot-current');
-    }
-    currentTarget.classList.remove('slot-free');
-    currentTarget.innerHTML = 'Elegido';
-    currentTarget.classList.add('slot-current');
-    this.setState({
-      date: ev.currentTarget.dataset.date
-    });
-    document.getElementById('publish-slots').style.display = 'none';
-    this.handleDatePickerText();
-  }
 
   handleRequestClose() {
     this.setState({
@@ -423,13 +381,13 @@ class Publish extends React.Component {
       <div>
         <Snackbar
           open={this.state.snackbarOpen}
-          message={ successMessage + ' Post scheduled for ' + moment(this.state.date, 'DD-MM-YYYY HH:mm').format('LLLL') }
+          message={ successMessage + ' Post scheduled for ' + moment(this.state.publishedDate, 'DD-MM-YYYY HH:mm').format('LLLL') }
           autoHideDuration={5000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />
         <SchedulePost
           buttonDisabled={this.state.buttonDisabled}
-          value={this.state.date}
+          value={this.state.publishedDate}
           base={this.props.base}
           onSchedule={this.onSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
