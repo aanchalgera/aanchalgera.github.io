@@ -224,7 +224,6 @@ class Publish extends React.Component {
     })
     .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
     .done(result => {
-      console.log(result);
       if (result.id != undefined) {
         firebaseData.publishData.postId = result.id;
         firebaseData.publishData.postHash = result.post_hash;
