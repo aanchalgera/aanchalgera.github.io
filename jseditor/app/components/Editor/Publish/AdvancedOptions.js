@@ -55,8 +55,8 @@ export default class Publish extends React.Component {
 
   setCommentStatus = (e, isChecked) => {
     const checked = {
-      allow: isChecked,
-      status: 'open',
+      allow: true,
+      status: isChecked ? 'closed' : 'open',
     };
     this.props.setPostMeta('comment', checked); 
   }
@@ -79,7 +79,7 @@ export default class Publish extends React.Component {
           onCheck={(e, isChecked) => {setPostMeta('sensitivePost', isChecked);}}
         />
         <Checkbox
-          checked={postMeta.comment.allow}
+          checked={postMeta.comment.status == 'closed'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
         />
