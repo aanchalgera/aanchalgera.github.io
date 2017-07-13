@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostBlogsOptions from '../components/Editor/Difundir/RepostBlogsOptions';
-import RepublishScheduler from '../components/Editor/Difundir/RepublishScheduler';
+import SchedulePost from '../components/Editor/Publish/SchedulePost';
 
 const styles = {
   bodyContent: {
@@ -12,6 +12,7 @@ const styles = {
   }
 };
 moment.tz.setDefault(configParams.timezone);
+const VALID_DATE_WARNING = 'Please select a valid date, future date';
 
 class Difundir extends React.Component {
   constructor(props) {
@@ -184,13 +185,17 @@ class Difundir extends React.Component {
     })
     .done(data => {
       if ('already_scheduled' == data.status) {
-        return this.showSnackbarMsg(`El Post ya esta programado para republicarse el ${data.date}`);
+        return this.showSnackbarMsg(`Post already scheduled to republish at ${data.date}`);
       }
-      this.showSnackbarMsg(`Post programado correctamente para republicarse el ${date}`);
+      this.showSnackbarMsg(`Post successfully scheduled to republish at  ${date}`);
     })
     .fail(() => {
-      return this.showSnackbarMsg('Se ha producido un error al volver a publicar en portada, por favor, inténtalo de nuevo.');
+      return this.showSnackbarMsg('Error occured while republishing. Please try again');
     });
+  }
+
+  onInvalidDate() {
+    this.showSnackbarMsg(VALID_DATE_WARNING);
   }
 
   render() {
@@ -208,9 +213,11 @@ class Difundir extends React.Component {
           blogName={this.state.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
-        <RepublishScheduler
+        <SchedulePost
+          value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
           base={this.props.base}
           onSchedule={this.onRepublishSchedule.bind(this)}
+          onInvalidDate={this.onInvalidDate.bind(this)}
         />
       </div>
     );

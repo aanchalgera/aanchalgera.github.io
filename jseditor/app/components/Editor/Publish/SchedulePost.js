@@ -11,10 +11,22 @@ var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
 
 class SchedulePost extends React.Component {
+  static defaultProps = {
+    buttonDisabled: false
+  };
+
+  static propTypes = {
+    base: React.PropTypes.object.isRequired,
+    onInvalidDate: React.PropTypes.func.isRequired,
+    onSchedule: React.PropTypes.func.isRequired,
+    value: React.PropTypes.string,
+    buttonDisabled: React.PropTypes.bool
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      date: null,
+      date: props.value,
       schedulerOpened: false,
       buttonDisabled: true,
       futureProgrammedPosts: []
@@ -49,6 +61,14 @@ class SchedulePost extends React.Component {
         }
       }
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      if (!this.state.date && nextProps.value) {
+        this.setState({ date: nextProps.value });
+      }
+    }
   }
 
   onChange(e) {
@@ -106,7 +126,7 @@ class SchedulePost extends React.Component {
         if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
           slot = 'slot-past';
           msg = 'Pasado';
-        } else if (this.props.futureProgrammedPosts != undefined && this.props.futureProgrammedPosts[dateTime] != undefined) {
+        } else if (this.state.futureProgrammedPosts != undefined && this.state.futureProgrammedPosts[dateTime] != undefined) {
           slot = 'slot-busy';
           msg = 'Ocupado';
         } else if (this.state.date == formattedDateTime) {
@@ -158,7 +178,7 @@ class SchedulePost extends React.Component {
           <Col xs={3}>
             <TextField
               floatingLabelText="Fecha y hora"
-              value={this.state.date === null ? this.props.value : this.state.date}
+              value={this.state.date}
               onChange={this.onChange.bind(this)}
               style={{textColor: grey900}}
             />
