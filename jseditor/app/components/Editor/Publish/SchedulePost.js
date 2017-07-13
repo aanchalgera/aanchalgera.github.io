@@ -77,7 +77,7 @@ class SchedulePost extends React.Component {
     }
     this.setState({ buttonDisabled : true }, () => {
       this.props.onSchedule(this.state.date)
-      .done(() => {
+      .always(() => {
         this.setState({ buttonDisabled : false });
       });
     });
