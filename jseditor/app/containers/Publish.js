@@ -48,8 +48,9 @@ class Publish extends React.Component {
           twitter: '',
           facebook: ''
         },
-        comment: { allowed: true },
+        comment: { allowed: true, status: 'open' },
         sensitivePost: false,
+        specialPost:false,
       },
       buttonDisabled: true,
       loaded: false,
@@ -166,27 +167,27 @@ class Publish extends React.Component {
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
     let backendData = {
-      postform: {
-        categoryId: '-1',
-        post_title: this.state.title,
-        comment_status: this.state.meta.comment.status,
-        post_type: 'normal',
-        post_content: JSON.stringify(this.state.fields),
-        postExcerpt: JSON.stringify({'meta' : this.state.meta}),
-        post_abstract: '',
-        post_extended_title: '',
-        post_visibility: 0,
-        posts_galleries: '',
-        post_subtype: 13,
-        postDate: this.state.date,
-        'publish-region': publishRegion,
-        postRepostBlogNames: postRepostBlogNames,
-        page: 'publish',
-        firebase_id: this.state.id,
-        post_status: 'future',
-        user_id: this.state.userId,
-        primary_image: this.state.meta.homepage.image.url
-      }
+      categoryId: '-1',
+      post_title: this.state.title,
+      comment_status: this.state.meta.comment.status,
+      post_type: 'normal',
+      post_content: JSON.stringify(this.state.fields),
+      postExcerpt: JSON.stringify({'meta' : this.state.meta}),
+      post_abstract: '',
+      post_extended_title: '',
+      post_visibility: 0,
+      posts_galleries: '',
+      post_subtype: 13,
+      postDate: this.state.date,
+      'publish-region': publishRegion,
+      postRepostBlogNames: postRepostBlogNames,
+      page: 'publish',
+      firebase_id: this.state.id,
+      post_status: 'future',
+      user_id: this.state.userId,
+      primary_image: this.state.meta.homepage.image.url,
+      is_sensitive: this.state.meta.sensitivePost,
+      long_post: this.state.meta.specialPost,
     };
 
     let firebaseData = {
@@ -205,10 +206,10 @@ class Publish extends React.Component {
       user_id: this.state.userId
     };
     let postType = 'POST';
-    let postUrl = 'posts.json';
+    let postUrl = 'postpage';
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
-      postUrl = 'posts/' + this.state.postId + '.json';
+      postUrl = 'postpage/' + this.state.postId;
       successMessage = 'Changes has been saved.';
     }
     jquery.ajax({
