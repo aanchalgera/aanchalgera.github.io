@@ -11,7 +11,11 @@ export default class Publish extends React.Component {
     userId: React.PropTypes.number,
     blogUrl: React.PropTypes.string,
     setPostAuthor: React.PropTypes.func.isRequired,
+    handleSpecialPost: React.PropTypes.func.isRequired,
+    handleSensitivePost: React.PropTypes.func.isRequired,
     setPostMeta: React.PropTypes.func.isRequired,
+    isSensitive: React.PropTypes.bool.isRequired,
+    specialPost: React.PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -62,21 +66,29 @@ export default class Publish extends React.Component {
   }
 
   render () {
-    const { setPostMeta, setPostAuthor, postMeta } = this.props;
+    const { 
+      setPostMeta,
+      setPostAuthor,
+      handleSpecialPost,
+      handleSensitivePost,
+      postMeta,
+      specialPost,
+      isSensitive
+    } = this.props;
 
     return(
       <div>
         <Subheader className="subheader">Avanzado</Subheader>
         <Divider className="divider" />
         <Checkbox
-          checked={postMeta.specialPost}
+          checked={specialPost}
           label="Artículo especial"
-          onCheck={(e, isChecked) => {setPostMeta('specialPost', isChecked);}}
+          onCheck={handleSpecialPost}
         />
         <Checkbox
-          checked={postMeta.sensitivePost}
+          checked={isSensitive}
           label="Tiene contenido sensible"
-          onCheck={(e, isChecked) => {setPostMeta('sensitivePost', isChecked);}}
+          onCheck={handleSensitivePost}
         />
         <Checkbox
           checked={postMeta.comment.status == 'closed'}
