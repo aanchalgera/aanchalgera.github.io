@@ -330,6 +330,7 @@ class Publish extends React.Component {
     this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
     this.state.meta.seo.description = event.target.value;
     this.setState({ meta: this.state.meta });
+  }
 
   handleRequestClose() {
     this.setState({
@@ -363,7 +364,7 @@ class Publish extends React.Component {
       return null;
     }
 
-    return <AdvancedOptions
+    return <AdvancedOptions 
       blogUrl={this.state.blogUrl}
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
