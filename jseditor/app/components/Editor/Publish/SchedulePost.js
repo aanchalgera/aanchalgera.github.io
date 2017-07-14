@@ -193,7 +193,7 @@ class SchedulePost extends React.Component {
               onClick={this.onSchedule.bind(this)}
               primary={true}
             />
-          </Col>  
+          </Col>
         </Row>
         {this.state.schedulerOpened && this.renderScheduler()}
       </div>
