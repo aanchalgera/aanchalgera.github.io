@@ -32,7 +32,7 @@ class Publish extends React.Component {
       postHash: '',
       meta: {
         index: '',
-        homepage: { content: '' },
+        homepage: { content: null },
         sponsor: { name: '', image: '', tracker: '' },
         css: { skinName: '' },
         seo: {},
@@ -140,25 +140,25 @@ class Publish extends React.Component {
             if (!data.crop) {
               data.crop = this.state.crop;
             }
-
-            this.setState({
-              id: data.id,
-              fields: data.sections || [],
-              title: data.title,
-              meta: data.meta || this.state.meta,
-              maxId: data.maxId,
-              status: data.status || 'draft',
-              publishedDate: data.publishData.postDate,
-              postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-              publishRegion: data.publishData.publishRegion,
-              postId: data.publishData.postId || '',
-              postHash: data.publishData.postHash || '',
-              buttonDisabled: false,
-              loaded: true,
-              userId: data.user_id,
-              crop: data.crop,
-              specialPost: data.specialPost || false,
-              isSensitive: data.isSensitive || false,
+            this.setState(prevState => {
+              prevState.meta.homepage.content = '';
+              return {
+                id: data.id,
+                fields: data.sections || [],
+                title: data.title,
+                meta: data.meta || prevState.meta,
+                maxId: data.maxId,
+                status: data.status || 'draft',
+                date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+                publishedDate: data.publishData.postDate || null,
+                postRepostBlogNames: data.publishData.postRepostBlogNames || [],
+                publishRegion: data.publishData.publishRegion,
+                postId: data.publishData.postId || '',
+                postHash: data.publishData.postHash || '',
+                buttonDisabled: false,
+                loaded: true,
+                userId: data.user_id
+              };
             });
           }
         }

@@ -8,9 +8,11 @@ class Homepage extends React.Component{
     updateHomepageContent: React.PropTypes.func.isRequired,
     dataId: React.PropTypes.number,
   }
-  render () {
-    return (
-      <div>
+
+  getDraftJSEditor() {
+    let editor = '';
+    if (this.props.homepage.content !== null) {
+      editor = <div>
         <label>Texto para portado<span>(opcional)</span></label>
         <DraftJSEditor
           ref="homepageContent"
@@ -19,6 +21,15 @@ class Homepage extends React.Component{
           dataId={this.props.dataId}
         />
         <Divider />
+      </div>;
+    }
+    return editor;
+  }
+
+  render () {
+    return (
+      <div>
+        {this.getDraftJSEditor()}
       </div>
     );
   }
