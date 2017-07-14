@@ -10,7 +10,7 @@ class Homepage extends React.Component{
   }
 
   getDraftJSEditor() {
-    let editor = '';
+    let editor = null;
     if (this.props.homepage.content !== null) {
       editor = <div>
         <label>Texto para portado<span>(opcional)</span></label>
