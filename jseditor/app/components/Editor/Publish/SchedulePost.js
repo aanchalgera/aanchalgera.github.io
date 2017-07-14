@@ -80,7 +80,7 @@ class SchedulePost extends React.Component {
     this.setState({ date: e.target.value.trim() });
   }
 
-  onPickSlot (e) {
+  onPickSlot (x, y, e) {
     const currentTarget = e.currentTarget;
     if (currentTarget.className == 'slot-past' || currentTarget.className == 'slot-busy') {
       return;
@@ -141,10 +141,8 @@ class SchedulePost extends React.Component {
           msg = 'Libre';
         }
         td.push(
-          <TableRowColumn key={j + '-' + k}>
-            <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.onPickSlot.bind(this)}>
-              {msg}
-            </a>
+          <TableRowColumn key={j + '-' + k} className={slot} data-date={formattedDateTime}>
+            {msg}
           </TableRowColumn>
         );
       }
@@ -160,7 +158,7 @@ class SchedulePost extends React.Component {
     return (
       <div>
         <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
-        <Table summary="Huecos disponibles para publicar">
+        <Table summary="Huecos disponibles para publicar" onCellClick={this.onPickSlot.bind(this)}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn><em>{currentMonth.toLowerCase()}</em></TableHeaderColumn>
