@@ -483,6 +483,15 @@ class Publish extends React.Component {
               />
             </Col>
           </Row>
+          { this.state.meta.homepage.image
+            ? <ImageCropper
+                imageSrc={this.state.meta.homepage.image.url}
+                onCropChange={this.onCropChange.bind(this)}
+                onCropValidate={this.onCropValidate.bind(this)}
+                crop={this.state.crop}
+              />
+            : ''
+          }
         </div>
         <Row>
           <Col xs>
@@ -502,15 +511,6 @@ class Publish extends React.Component {
             {this.getAdvancedOptions()}
           </Col>
         </Row>
-        { this.state.meta.homepage.image
-          ? <ImageCropper
-              imageSrc={this.state.meta.homepage.image.url}
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
-              crop={this.state.crop}
-            />
-          : ''
-        }
       </div>
     );
   }
