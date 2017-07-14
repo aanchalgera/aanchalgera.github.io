@@ -181,7 +181,7 @@ class Publish extends React.Component {
               buttonDisabled: false,
               loaded: true,
               userId: data.user_id,
-              crop: data.crop
+              crop: data.crop,
               specialPost: data.specialPost || false,
               isSensitive: data.isSensitive || false,
             });
@@ -252,7 +252,6 @@ class Publish extends React.Component {
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
       postUrl = 'postpage/' + this.state.postId;
-      successMessage = 'Changes has been saved.';
     }
     jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
