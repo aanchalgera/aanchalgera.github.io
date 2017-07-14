@@ -8,17 +8,27 @@ class Homepage extends React.Component{
     updateHomepageContent: React.PropTypes.func.isRequired,
     dataId: React.PropTypes.number,
   }
+
+  getDraftJSEditor() {
+    if (this.props.homepage.content === null) {
+      return null;
+    }
+    return <div>
+      <label>Texto para portado<span>(opcional)</span></label>
+      <DraftJSEditor
+        ref="homepageContent"
+        value={this.props.homepage.content}
+        updateResource={(id, type, value) => this.props.updateHomepageContent(value)}
+        dataId={this.props.dataId}
+      />
+      <Divider />
+    </div>;
+  }
+
   render () {
     return (
       <div>
-        <label>Texto para portado<span>(opcional)</span></label>
-        <DraftJSEditor
-          ref="homepageContent"
-          value={this.props.homepage.content}
-          updateResource={(id, type, value) => this.props.updateHomepageContent(value)}
-          dataId={this.props.dataId}
-        />
-        <Divider />
+        {this.getDraftJSEditor()}
       </div>
     );
   }

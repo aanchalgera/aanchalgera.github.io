@@ -26,23 +26,17 @@ export default class DraftJSEditor extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      const contentState = stateFromHTML(markdown(nextProps.value));
-      this.setState({
-        editorState: EditorState.createWithContent(contentState, this.decorator)
-      });
-    }
-  }
-
   focus() {
     this._editor.focus();
   }
 
   onChange = (editorState) => {
     this.setState({ editorState }, () => {
-      const value = markdown(stateToHTML(editorState.getCurrentContent()));
-      this.props.updateResource(this.props.dataId, 'text', value);
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(() => {
+        const value = markdown(stateToHTML(editorState.getCurrentContent()));
+        this.props.updateResource(this.props.dataId, 'text', value);
+      }, 1000);
     });
   }
 
@@ -87,6 +81,7 @@ export default class DraftJSEditor extends React.Component {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             stripPastedStyles={true}
+            placeholder='...'
           />
         </div>
       </div>
