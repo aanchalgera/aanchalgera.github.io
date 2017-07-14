@@ -49,9 +49,10 @@ class Publish extends React.Component {
           twitter: '',
           facebook: ''
         },
-        comment: { allowed: true },
-        sensitivePost: false,
+        comment: { allowed: true, status: 'open' },
       },
+      isSensitive: false,
+      specialPost:false,
       buttonDisabled: true,
       loaded: false,
       isError: false,
@@ -181,6 +182,8 @@ class Publish extends React.Component {
               loaded: true,
               userId: data.user_id,
               crop: data.crop
+              specialPost: data.specialPost || false,
+              isSensitive: data.isSensitive || false,
             });
           }
         }
@@ -202,28 +205,28 @@ class Publish extends React.Component {
     }
 
     let backendData = {
-      postform: {
-        categoryId: '-1',
-        post_title: this.state.title,
-        comment_status: this.state.meta.comment.status,
-        post_type: 'normal',
-        post_content: JSON.stringify(this.state.fields),
-        postExcerpt: JSON.stringify({'meta' : this.state.meta}),
-        post_abstract: '',
-        post_extended_title: '',
-        post_visibility: 0,
-        posts_galleries: '',
-        post_subtype: 13,
-        postDate: this.state.date,
-        'publish-region': publishRegion,
-        postRepostBlogNames: postRepostBlogNames,
-        page: 'publish',
-        firebase_id: this.state.id,
-        post_status: 'future',
-        user_id: this.state.userId,
-        primary_image: this.state.meta.homepage.image.url,
-        image_validated: imageValidated
-      }
+      categoryId: '-1',
+      post_title: this.state.title,
+      comment_status: this.state.meta.comment.status,
+      post_type: 'normal',
+      post_content: JSON.stringify(this.state.fields),
+      postExcerpt: JSON.stringify({'meta' : this.state.meta}),
+      post_abstract: '',
+      post_extended_title: '',
+      post_visibility: 0,
+      posts_galleries: '',
+      post_subtype: 13,
+      postDate: this.state.date,
+      'publish-region': publishRegion,
+      postRepostBlogNames: postRepostBlogNames,
+      page: 'publish',
+      firebase_id: this.state.id,
+      post_status: 'future',
+      user_id: this.state.userId,
+      primary_image: this.state.meta.homepage.image.url,
+      is_sensitive: this.state.isSensitive,
+      long_post: this.state.specialPost,
+      image_validated: imageValidated
     };
 
     let firebaseData = {
@@ -240,13 +243,16 @@ class Publish extends React.Component {
       },
       meta: this.state.meta,
       user_id: this.state.userId,
-      crop: this.state.crop
+      crop: this.state.crop,
+      isSensitive: this.state.isSensitive,
+      specialPost: this.state.specialPost,
     };
     let postType = 'POST';
-    let postUrl = 'posts.json';
+    let postUrl = 'postpage';
     if (this.state.postId != undefined && this.state.postId != '') {
       postType = 'PUT';
-      postUrl = 'posts/' + this.state.postId + '.json';
+      postUrl = 'postpage/' + this.state.postId;
+      successMessage = 'Changes has been saved.';
     }
     jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
@@ -331,6 +337,14 @@ class Publish extends React.Component {
   onChange (ev) {
     ev.preventDefault();
     this.setState({date: ev.currentTarget.value});
+  }
+
+  handleSensitivePost = (e, isSensitive) => {
+    this.setState({isSensitive});
+  }
+
+  handleSpecialPost = (e, specialPost) => {
+    this.setState({specialPost});
   }
 
   onSchedule(ev) {
@@ -479,7 +493,11 @@ class Publish extends React.Component {
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
       setPostAuthor={this.setPostAuthor}
+      handleSensitivePost={this.handleSensitivePost}
+      handleSpecialPost={this.handleSpecialPost}
       postMeta={this.state.meta}
+      specialPost={this.state.specialPost}
+      isSensitive={this.state.isSensitive}
     />;
   }
 
