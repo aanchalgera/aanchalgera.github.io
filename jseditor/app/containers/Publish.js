@@ -7,7 +7,8 @@ import { Row, Col } from 'react-flexbox-grid';
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
 import HomePage from '../components/Editor/Publish/HomePage';
 import Seo from '../components/Editor/Publish/Seo';
-import Social from '../components/Editor/Publish/Social';
+import Twitter from '../components/Editor/Publish/Twitter';
+import Facebook from '../components/Editor/Publish/Facebook';
 import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 import ImageCropper from '../components/Editor/Publish/ImageCropper';
@@ -474,12 +475,16 @@ class Publish extends React.Component {
                 updateHomepageContent={this.updateHomepageContent}
               />
             </Col>
-            <Col xs ={6}>
-              <Social
+            <Col xs ={3}>
+              <Twitter
                 twitter={this.state.meta.social.twitter}
+                updateSocialTwitterText={this.updateSocialTwitterText}
+              />
+            </Col>
+            <Col xs ={3}>
+              <Facebook
                 facebook={this.state.meta.social.facebook}
                 updateSocialFacebookText={this.updateSocialFacebookText}
-                updateSocialTwitterText={this.updateSocialTwitterText}
               />
             </Col>
           </Row>
