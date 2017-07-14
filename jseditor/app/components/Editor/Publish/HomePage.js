@@ -10,20 +10,19 @@ class Homepage extends React.Component{
   }
 
   getDraftJSEditor() {
-    let editor = null;
-    if (this.props.homepage.content !== null) {
-      editor = <div>
-        <label>Texto para portado<span>(opcional)</span></label>
-        <DraftJSEditor
-          ref="homepageContent"
-          value={this.props.homepage.content}
-          updateResource={(id, type, value) => this.props.updateHomepageContent(value)}
-          dataId={this.props.dataId}
-        />
-        <Divider />
-      </div>;
+    if (this.props.homepage.content === null) {
+      return null;
     }
-    return editor;
+    return <div>
+      <label>Texto para portado<span>(opcional)</span></label>
+      <DraftJSEditor
+        ref="homepageContent"
+        value={this.props.homepage.content}
+        updateResource={(id, type, value) => this.props.updateHomepageContent(value)}
+        dataId={this.props.dataId}
+      />
+      <Divider />
+    </div>;
   }
 
   render () {
