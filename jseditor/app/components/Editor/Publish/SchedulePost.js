@@ -5,6 +5,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import { Row, Col } from 'react-flexbox-grid';
 
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+
 var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
 
@@ -106,10 +115,10 @@ class SchedulePost extends React.Component {
     for (var i = 0; i < 7; i++) {
       if (i == 0) {
         var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD');
-        tablehead.push(<th key={i}><strong>»{currentDay.toLowerCase()}</strong></th>);
+        tablehead.push(<TableHeaderColumn key={i}><strong>»{currentDay.toLowerCase()}</strong></TableHeaderColumn>);
       } else {
         var nextDayTimeStamp = moment.unix(timeStamp).add(i, 'day').locale('es').format('dddd DD');
-        tablehead.push(<th key={i}>{nextDayTimeStamp.toLowerCase()}</th>);
+        tablehead.push(<TableHeaderColumn key={i}>{nextDayTimeStamp.toLowerCase()}</TableHeaderColumn>);
       }
     }
     for (var j = 7; j < 24; j++) {
@@ -132,17 +141,17 @@ class SchedulePost extends React.Component {
           msg = 'Libre';
         }
         td.push(
-          <td key={j + '-' + k}>
+          <TableRowColumn key={j + '-' + k}>
             <a className={slot} data-date={formattedDateTime} href="javascript:void(0)" onClick={this.onPickSlot.bind(this)}>
               {msg}
             </a>
-          </td>
+          </TableRowColumn>
         );
       }
       if (j % 2 == 0) {
-        tr = <tr key={j + '-' + k} className="even"><th>{j}</th>{td}</tr>;
+        tr = <TableRow key={j + '-' + k} className="even"><TableHeaderColumn>{j}</TableHeaderColumn>{td}</TableRow>;
       } else {
-        tr = <tr key={j + '-' + k}><th>{j}</th>{td}</tr>;
+        tr = <TableRow key={j + '-' + k}><TableHeaderColumn>{j}</TableHeaderColumn>{td}</TableRow>;
       }
       tablerows.push(tr);
       td = [];
@@ -151,17 +160,17 @@ class SchedulePost extends React.Component {
     return (
       <div>
         <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
-        <table summary="Huecos disponibles para publicar">
-          <thead>
-            <tr>
-              <th><em>{currentMonth.toLowerCase()}</em></th>
+        <Table summary="Huecos disponibles para publicar">
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn><em>{currentMonth.toLowerCase()}</em></TableHeaderColumn>
               {tablehead}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
             {tablerows}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     );
   }
