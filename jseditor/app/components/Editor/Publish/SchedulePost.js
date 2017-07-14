@@ -96,8 +96,7 @@ class SchedulePost extends React.Component {
       return this.props.onInvalidDate();
     }
     this.setState({ buttonDisabled : true }, () => {
-      this.props.onSchedule(this.state.date)
-      .always(() => {
+      this.props.onSchedule(this.state.date, () => {
         this.setState({ buttonDisabled : false });
       });
     });

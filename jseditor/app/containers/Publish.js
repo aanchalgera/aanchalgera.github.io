@@ -139,7 +139,7 @@ class Publish extends React.Component {
     }
   }
 
-  submitPost(date) {
+  submitPost(date, postSchedule) {
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
 
@@ -191,7 +191,7 @@ class Publish extends React.Component {
       postUrl = 'postpage/' + this.state.postId;
       successMessage = 'Changes has been saved.';
     }
-    return jquery.ajax({
+    jquery.ajax({
       url: this.state.blogUrl + '/admin/' + postUrl,
       type: postType,
       dataType: 'json',
@@ -257,7 +257,8 @@ class Publish extends React.Component {
         this.enableButton();
         Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
       }
-    });
+    })
+    .always(postSchedule);
   }
 
   setPostMeta = (key, value) => {
@@ -278,10 +279,11 @@ class Publish extends React.Component {
     this.setState({specialPost});
   }
 
-  onSchedule(date) {
+  onSchedule(date, postSchedule) {
     if (this.isValid()) {
-      return this.submitPost(date);
+      return this.submitPost(date, postSchedule);
     }
+    postSchedule();
   }
 
   enableButton() {
@@ -364,7 +366,7 @@ class Publish extends React.Component {
       return null;
     }
 
-    return <AdvancedOptions 
+    return <AdvancedOptions
       blogUrl={this.state.blogUrl}
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}

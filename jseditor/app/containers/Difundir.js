@@ -168,9 +168,9 @@ class Difundir extends React.Component {
     this.setState({snackbarOpen: false});
   }
 
-  onRepublishSchedule(date) {
+  onRepublishSchedule(date, postSchedule) {
     const republishInterval = 0;
-    return jquery.ajax({
+    jquery.ajax({
       url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
       type: 'POST',
       dataType: 'json',
@@ -191,7 +191,8 @@ class Difundir extends React.Component {
     })
     .fail(() => {
       return this.showSnackbarMsg('Error occured while republishing. Please try again');
-    });
+    })
+    .always(postSchedule);
   }
 
   onInvalidDate() {
