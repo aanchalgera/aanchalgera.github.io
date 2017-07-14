@@ -18,16 +18,33 @@ export default class Publish extends React.Component {
     specialPost: React.PropTypes.bool.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      userList: [],
-      currentUser: null
-    };
+  state = {
+    userList: [],
+    currentUser: {},
   }
 
   componentDidMount() {
     this.init();
+  }
+
+  onUpdateInput = (searchText) => {
+    if ('' != searchText && this.state.userList.length > 0) {
+      this.state.userList.map((currentUser) => {
+        if (currentUser.display_name == searchText) {
+          this.setState(
+            {currentUser},
+            this.props.setPostAuthor(currentUser.id)
+          );
+        }
+      });
+    }
+  };
+
+  onNewRequest = (currentUser) => {
+    this.setState(
+      {currentUser},
+      this.props.setPostAuthor(currentUser.id)
+    );
   }
 
   init = () => {
@@ -68,7 +85,6 @@ export default class Publish extends React.Component {
   render () {
     const { 
       setPostMeta,
-      setPostAuthor,
       handleSpecialPost,
       handleSensitivePost,
       postMeta,
@@ -111,11 +127,13 @@ export default class Publish extends React.Component {
           onCheck={this.setShowAuthor}
         />
         <AutoComplete
+          searchText={this.state.currentUser.display_name ? this.state.currentUser.display_name : ''}
           floatingLabelText="Autor"
           dataSource={this.state.userList}
-          dataSourceConfig={{ text: 'display_name', checked: 'id' }}
+          dataSourceConfig={{ text: 'display_name', value: 'id' }}
           openOnFocus={true}
-          onNewRequest={(request) => {setPostAuthor(request.id);}}
+          onNewRequest={this.onNewRequest}
+          onUpdateInput={this.onUpdateInput}
         />
       </div>
     );
