@@ -3,8 +3,6 @@ import moment from 'moment-timezone';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Apps from 'material-ui/svg-icons/navigation/apps';
-
-import { grey900, white, pink400 } from 'material-ui/styles/colors';
 import { Row, Col } from 'react-flexbox-grid';
 
 var timeStamp = moment().format('X');
@@ -179,7 +177,6 @@ class SchedulePost extends React.Component {
               floatingLabelText="Fecha y hora"
               value={this.state.date}
               onChange={this.onChange.bind(this)}
-              style={{textColor: grey900}}
             />
           </Col>
           <Col xs={2}>
@@ -194,10 +191,9 @@ class SchedulePost extends React.Component {
               label="PROGRAMAR"
               disabled={this.state.buttonDisabled || this.props.buttonDisabled}
               onClick={this.onSchedule.bind(this)}
-              backgroundColor={pink400}
-              labelColor={white}
+              primary={true}
             />
-          </Col>
+          </Col>  
         </Row>
         {this.state.schedulerOpened && this.renderScheduler()}
       </div>

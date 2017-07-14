@@ -3,16 +3,14 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Subheader from 'material-ui/Subheader';
 import { Row, Col } from 'react-flexbox-grid';
-import FlatButton from 'material-ui/FlatButton';
-import { pinkA200 } from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   checkbox: {
     marginBottom: '16px',
   },
   button: {
-    marginTop: '16px',
-    backgroundColor: pinkA200
+    marginTop: '16px'
   }
 };
 
@@ -97,10 +95,12 @@ export default class RepostSiteOptions extends React.Component {
           </Row>
           <Row>
             <Col>
-              <FlatButton 
+              <RaisedButton 
                 label="Enviar Crosspost"
                 style={styles.button}
-                onTouchTap={this.props.submitRepostedBlogs}/>
+                onTouchTap={this.props.submitRepostedBlogs}
+                primary={true}
+              />
             </Col>
           </Row>
       </div>

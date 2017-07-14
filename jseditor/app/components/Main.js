@@ -14,29 +14,43 @@ import TitleBar from '../components/Menu/TitleBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { white, grey900, grey500, grey300 } from 'material-ui/styles/colors';
+import { white, grey900, grey500, grey300, indigo500, pink500 } from 'material-ui/styles/colors';
 import { Switch, Route } from 'react-router-dom';
 
 injectTapEventPlugin();
 
+const palette = {
+  primary1Color: grey900,
+  primaryButtonColor: pink500,
+  textColor: white,
+  disabledColor: grey300,
+  disabledTextColor: grey500,
+  checkedColor: indigo500,
+};
+
 const customTheme = getMuiTheme({
   appBar: {
-    color: grey900,
-    textColor: white
+    color: palette.primary1Color,
+    textColor: palette.textColor
   },
   tabs: {
-    backgroundColor: grey900,
-    textColor: white
+    backgroundColor: palette.primary1Color,
+    textColor: palette.textColor
   },
   flatButton: {
-    textColor: white
+    textColor: palette.textColor
   },
   svgIcon: {
-    color: white
+    textColor: palette.textColor
   },
   raisedButton: {
-    disabledColor: grey300,
-    disabledTextColor: grey500,
+    disabledColor: palette.disabledColor,
+    disabledTextColor: palette.disabledTextColor,
+    primaryColor: palette.primaryButtonColor,
+    primaryTextColor: palette.textColor,
+  },
+  checkbox: {
+    checkedColor: palette.checkedColor
   }
 });
 
