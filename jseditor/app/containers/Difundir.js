@@ -1,14 +1,18 @@
 import React from 'react';
 import jquery from 'jquery';
+import moment from 'moment-timezone';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
+import SchedulePost from '../components/Editor/Publish/SchedulePost';
 
 const styles = {
   bodyContent: {
     padding: '24px',
   }
 };
+moment.tz.setDefault(configParams.timezone);
+const VALID_DATE_WARNING = 'Please select a valid date, future date';
 
 class Difundir extends React.Component {
   constructor(props) {
@@ -164,6 +168,37 @@ class Difundir extends React.Component {
     this.setState({snackbarOpen: false});
   }
 
+  onRepublishSchedule(date, postSchedule) {
+    const republishInterval = 0;
+    jquery.ajax({
+      url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        date: date,
+        republish_interval: republishInterval,
+      },
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+    })
+    .done(data => {
+      if ('already_scheduled' == data.status) {
+        return this.showSnackbarMsg(`Post already scheduled to republish at ${data.date}`);
+      }
+      this.showSnackbarMsg(`Post successfully scheduled to republish at  ${date}`);
+    })
+    .fail(() => {
+      return this.showSnackbarMsg('Error occured while republishing. Please try again');
+    })
+    .always(postSchedule);
+  }
+
+  onInvalidDate() {
+    this.showSnackbarMsg(VALID_DATE_WARNING);
+  }
+
   render() {
     return (
       <div style={styles.bodyContent}>
@@ -178,6 +213,12 @@ class Difundir extends React.Component {
           repostBlogs={this.state.postRepostBlogNames}
           blogName={this.state.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
+        />
+        <SchedulePost
+          value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
+          base={this.props.base}
+          onSchedule={this.onRepublishSchedule.bind(this)}
+          onInvalidDate={this.onInvalidDate.bind(this)}
         />
       </div>
     );

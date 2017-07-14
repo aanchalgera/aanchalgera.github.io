@@ -14,7 +14,6 @@ import ImageCropper from '../components/Editor/Publish/ImageCropper';
 import Divider from 'material-ui/Divider';
 
 moment.tz.setDefault(configParams.timezone);
-let chooseSlotMsg = 'ELEGIR HUECO ';
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
@@ -26,7 +25,6 @@ class Publish extends React.Component {
     super(props);
     this.state = {
       fields: [],
-      date: moment().format('DD/MM/YYYY HH:mm'),
       status: 'draft',
       postRepostBlogNames: [],
       publishRegion: [],
@@ -57,7 +55,7 @@ class Publish extends React.Component {
       loaded: false,
       isError: false,
       message: '',
-      publishedDate: null,
+      publishedDate: '',
       snackbarOpen: false,
       SnackbarMessage: '',
       crop: {
@@ -135,28 +133,6 @@ class Publish extends React.Component {
       });
     }
     if (this.postname != undefined) {
-      this.props.base.fetch('posts', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'status',
-          equalTo: 'publish'
-        },
-        then(data) {
-          if (data != null) {
-            let scheduledPosts = {};
-            data.forEach(result => {
-              let formatDate = moment(result.publishData.postDate, 'DD/MM/YYYY H:00:00').format('YYYY-MM-DD H:00:00');
-              scheduledPosts[formatDate] = {'id' : result.id, 'status': result.status, 'date': result.date, 'title' : result.title};
-            });
-
-            this.setState({
-              futureProgrammedPosts: scheduledPosts,
-              buttonDisabled: false
-            });
-          }
-        }
-      });
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
         then(data) {
@@ -172,8 +148,7 @@ class Publish extends React.Component {
               meta: data.meta || this.state.meta,
               maxId: data.maxId,
               status: data.status || 'draft',
-              date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-              publishedDate: data.publishData.postDate || null,
+              publishedDate: data.publishData.postDate,
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion,
               postId: data.publishData.postId || '',
@@ -191,7 +166,7 @@ class Publish extends React.Component {
     }
   }
 
-  submitPost() {
+  submitPost(date, postSchedule) {
     let publishRegion = this.state.publishRegion;
     let postRepostBlogNames = this.state.postRepostBlogNames;
     let imageValidated = {
@@ -216,7 +191,7 @@ class Publish extends React.Component {
       post_visibility: 0,
       posts_galleries: '',
       post_subtype: 13,
-      postDate: this.state.date,
+      postDate: date,
       'publish-region': publishRegion,
       postRepostBlogNames: postRepostBlogNames,
       page: 'publish',
@@ -237,7 +212,7 @@ class Publish extends React.Component {
       blogName: this.state.blogName,
       status: 'publish',
       publishData: {
-        postDate: this.state.date,
+        postDate: date,
         publishRegion: publishRegion,
         postRepostBlogNames: postRepostBlogNames
       },
@@ -305,9 +280,9 @@ class Publish extends React.Component {
                   postId: result.id,
                   postHash: result.post_hash,
                   status: 'publish',
-                  publishedDate: this.state.date,
+                  publishedDate: date,
                   snackbarOpen: true,
-                  SnackbarMessage: 'Changes has been saved. Post scheduled for ' + moment(this.state.date, 'DD-MM-YYYY HH:mm').format('LLLL')
+                  SnackbarMessage: 'Changes has been saved. Post scheduled for ' + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
                 });
                 this.enableButton();
               }
@@ -320,7 +295,8 @@ class Publish extends React.Component {
         this.enableButton();
         Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
       }
-    });
+    })
+    .always(postSchedule);
   }
 
   setPostMeta = (key, value) => {
@@ -333,11 +309,6 @@ class Publish extends React.Component {
     this.setState({userId});
   }
 
-  onChange (ev) {
-    ev.preventDefault();
-    this.setState({date: ev.currentTarget.value});
-  }
-
   handleSensitivePost = (e, isSensitive) => {
     this.setState({isSensitive});
   }
@@ -346,12 +317,11 @@ class Publish extends React.Component {
     this.setState({specialPost});
   }
 
-  onSchedule(ev) {
-    ev.preventDefault();
-    this.disableButton();
+  onSchedule(date, postSchedule) {
     if (this.isValid()) {
-      this.submitPost();
+      return this.submitPost(date, postSchedule);
     }
+    postSchedule();
   }
 
   enableButton() {
@@ -360,20 +330,11 @@ class Publish extends React.Component {
     });
   }
 
-  disableButton() {
-    this.setState({
-      buttonDisabled : true
-    });
-  }
-
   isValid() {
     let isError = false, message;
     if ('publish' == this.state.status) {
       if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         this.setMessage(true, PUBLISH_POST_WARNING);
-      } else if (moment(this.state.date, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-        isError = true;
-        message = VALID_DATE_WARNING;
       }
     } else if (!this.state.meta.homepage.image) {
       isError = true;
@@ -397,6 +358,10 @@ class Publish extends React.Component {
     return !isError;
   }
 
+  onInvalidDate() {
+    this.setMessage(true, VALID_DATE_WARNING);
+  }
+
   setMessage(isError, message) {
     let params = {
       isError: isError,
@@ -406,41 +371,6 @@ class Publish extends React.Component {
       params.buttonDisabled = false;
     }
     this.setState(params);
-  }
-
-  openSlotWidget(ev) {
-    ev.preventDefault();
-    let visible = document.getElementById('publish-slots').style.display;
-    document.getElementById('publish-slots').style.display = visible == 'none' ? 'block': 'none';
-    chooseSlotMsg = 'Close';
-    this.handleDatePickerText();
-  }
-
-  handleDatePickerText() {
-    if (chooseSlotMsg == document.getElementById('toggle-publish-slots').text) {
-      document.getElementById('toggle-publish-slots').text = 'ELEGIR HUECO';
-    } else {
-      document.getElementById('toggle-publish-slots').text = chooseSlotMsg;
-    }
-  }
-
-  onPickSlot (ev) {
-    let currentTarget = ev.currentTarget;
-    if (ev.currentTarget.className == 'slot-past' || ev.currentTarget.className == 'slot-busy') return;
-    let currentSlot = document.getElementsByClassName('slot-current');
-    if (currentSlot.length > 0) {
-      currentSlot[0].classList.add('slot-free');
-      currentSlot[0].innerHTML = 'Libre';
-      currentSlot[0].classList.remove('slot-current');
-    }
-    currentTarget.classList.remove('slot-free');
-    currentTarget.innerHTML = 'Elegido';
-    currentTarget.classList.add('slot-current');
-    this.setState({
-      date: ev.currentTarget.dataset.date
-    });
-    document.getElementById('publish-slots').style.display = 'none';
-    this.handleDatePickerText();
   }
 
   updateSeoTitle = (event) => {
@@ -487,7 +417,7 @@ class Publish extends React.Component {
       return null;
     }
 
-    return <AdvancedOptions 
+    return <AdvancedOptions
       blogUrl={this.state.blogUrl}
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
@@ -528,13 +458,11 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose.bind(this)}
         />
         <SchedulePost
-          openSlotWidget={this.openSlotWidget.bind(this)}
           buttonDisabled={this.state.buttonDisabled}
-          value={this.state.date}
-          futureProgrammedPosts={this.state.futureProgrammedPosts}
-          onChange={this.onChange.bind(this)}
-          onPickSlot={this.onPickSlot.bind(this)}
+          value={this.state.publishedDate}
+          base={this.props.base}
           onSchedule={this.onSchedule.bind(this)}
+          onInvalidDate={this.onInvalidDate.bind(this)}
         />
         <div>
           <h4>portada y redes sociales</h4>
