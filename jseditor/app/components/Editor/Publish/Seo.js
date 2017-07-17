@@ -17,11 +17,12 @@ const styles = {
 };
   
 const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
-  <div>
-    <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
-    <Divider className="divider" />
     <Row>
-      <Col xs={12}>
+      <Col lg={12}>
+        <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
+        <Divider className="divider" />
+      </Col>
+      <Col lg={12}>
         <TextField
           hintText="..."
           hintStyle={styles.hintStyle}
@@ -37,9 +38,7 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
         />
         <Divider/>
       </Col>
-    </Row>
-    <Row>
-      <Col xs={12}>
+      <Col lg={12}>
         <TextField
           hintText="..."
           hintStyle={styles.hintStyle}
@@ -56,7 +55,6 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
         <Divider />
       </Col>
     </Row>
-  </div>
 );
 
 Seo.propTypes = propValidate;
