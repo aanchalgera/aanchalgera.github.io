@@ -460,7 +460,7 @@ class Publish extends React.Component {
         />
         <SchedulePost
           buttonDisabled={this.state.buttonDisabled}
-          value={this.state.publishedDate}
+          value={this.state.publishedDate || moment().format('DD/MM/YYYY HH:mm')}
           base={this.props.base}
           onSchedule={this.onSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
