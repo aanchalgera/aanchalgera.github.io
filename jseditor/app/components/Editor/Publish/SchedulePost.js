@@ -63,9 +63,7 @@ class SchedulePost extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.value !== nextProps.value) {
-      if (!this.state.date && nextProps.value) {
-        this.setState({ date: nextProps.value });
-      }
+      this.setState({ date: nextProps.value });
     }
   }
 
