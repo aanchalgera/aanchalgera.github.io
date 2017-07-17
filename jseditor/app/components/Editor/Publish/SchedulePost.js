@@ -82,13 +82,12 @@ class SchedulePost extends React.Component {
 
   onPickSlot (x, y, e) {
     const currentTarget = e.currentTarget;
-    if (currentTarget.className == 'slot-past' || currentTarget.className == 'slot-busy') {
-      return;
+    if (currentTarget.className == 'slot-current' || currentTarget.className == 'slot-free') {
+      this.setState({
+        date: currentTarget.dataset.date,
+        schedulerOpened: false
+      });
     }
-    this.setState({
-      date: currentTarget.dataset.date,
-      schedulerOpened: false
-    });
   }
 
   toggleScheduler() {
