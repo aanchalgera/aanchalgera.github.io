@@ -477,13 +477,13 @@ class Publish extends React.Component {
               updateHomepageContent={this.updateHomepageContent}
             />
           </Col>
-          <Col lg ={3}>
+          <Col lg={3}>
             <Twitter
               twitter={this.state.meta.social.twitter}
               updateSocialTwitterText={this.updateSocialTwitterText}
             />
           </Col>
-          <Col lg ={3}>
+          <Col lg={3}>
             <Facebook
               facebook={this.state.meta.social.facebook}
               updateSocialFacebookText={this.updateSocialFacebookText}
