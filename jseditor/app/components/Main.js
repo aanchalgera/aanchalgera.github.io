@@ -63,17 +63,24 @@ var base = Rebase.createClass(
 );
 
 class Main extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {blogUrl: null};
-    this.search = this.props.location.search;
-    this.blogName = this.search.match(/[\\?&]blog=([^&#]*)/);
+  state = {
+    blogUrl: null,
+  }
+
+  componentWillMount() {
+    this.init();
+  }
+
+  init = () => {
+    const search = this.props.location.search;
+    const query = new URLSearchParams(search);
+    const blogName = query.get('blog');
     base.fetch('config', {
       context: this,
       asArray: true,
       queries: {
         orderByChild: 'site_name',
-        equalTo: this.blogName[1]
+        equalTo: blogName
       },
       then(data) {
         if (data[0] != null) {
@@ -84,7 +91,7 @@ class Main extends React.Component{
   }
 
   render(){
-    const { match: { url }, location: { pathname} } = this.props;
+    const { match: { url }, location: { pathname, search} } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       const matches = pathname.match('\/(.+)\/(.+)');
@@ -96,7 +103,7 @@ class Main extends React.Component{
                 pathName={matches[2]}
                 blogUrl={this.state.blogUrl}
                 activeTab={matches[1]}
-                queryPath={this.search}
+                queryPath={search}
               />
               : null
             }
