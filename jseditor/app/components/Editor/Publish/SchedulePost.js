@@ -4,7 +4,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import { Row, Col } from 'react-flexbox-grid';
-
 import {
   Table,
   TableBody,
@@ -13,9 +12,17 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import Popover from 'material-ui/Popover';
 
 var timeStamp = moment().format('X');
 var currentMonth = moment().locale('es').format('MMMM');
+
+const styles = {
+  popover: {
+    width: '50%',
+    height: '50%'
+  }
+};
 
 class SchedulePost extends React.Component {
   static defaultProps = {
@@ -90,8 +97,11 @@ class SchedulePost extends React.Component {
     }
   }
 
-  toggleScheduler() {
-    this.setState({ schedulerOpened: !this.state.schedulerOpened });
+  toggleScheduler(e) {
+    this.setState({
+      schedulerOpened: !this.state.schedulerOpened,
+      anchorEl: e.currentTarget
+    });
   }
 
   onSchedule() {
@@ -155,20 +165,29 @@ class SchedulePost extends React.Component {
     }
 
     return (
-      <div>
-        <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
-        <Table summary="Huecos disponibles para publicar" onCellClick={this.onPickSlot.bind(this)}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-              <TableHeaderColumn><em>{currentMonth.toLowerCase()}</em></TableHeaderColumn>
-              {tablehead}
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-            {tablerows}
-          </TableBody>
-        </Table>
-      </div>
+      <Popover
+        open={this.state.schedulerOpened}
+        anchorEl={this.state.anchorEl}
+        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+        onRequestClose={this.toggleScheduler.bind(this)}
+        style={styles.popover}
+      >
+        <div>
+          <span className="hint">Selecciona un hueco, o pon la fecha que quieras en el cuadro de &lt;em&gt;fecha y hora&lt;/em&gt;</span>
+          <Table summary="Huecos disponibles para publicar" onCellClick={this.onPickSlot.bind(this)}>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn><em>{currentMonth.toLowerCase()}</em></TableHeaderColumn>
+                {tablehead}
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {tablerows}
+            </TableBody>
+          </Table>
+        </div>
+      </Popover>
     );
   }
 
