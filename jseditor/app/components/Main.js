@@ -90,6 +90,18 @@ class Main extends React.Component{
     });
   }
 
+  getTitleBar = (pathName,activeTab, search) => {
+    if (this.state.blogUrl === null) {
+      return null;
+    }
+    return <TitleBar
+      pathName={pathName}
+      blogUrl={this.state.blogUrl}
+      activeTab={activeTab}
+      queryPath={search}
+    />;
+  }
+
   render(){
     const { match: { url }, location: { pathname, search } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
@@ -98,15 +110,7 @@ class Main extends React.Component{
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
-            { this.state.blogUrl
-              ? <TitleBar
-                pathName={matches[2]}
-                blogUrl={this.state.blogUrl}
-                activeTab={matches[1]}
-                queryPath={search}
-              />
-              : null
-            }
+            { this.getTitleBar(matches[2], matches[1], search)}
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
             )} />
