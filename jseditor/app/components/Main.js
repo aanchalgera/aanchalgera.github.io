@@ -91,7 +91,7 @@ class Main extends React.Component{
   }
 
   render(){
-    const { match: { url }, location: { pathname, search} } = this.props;
+    const { match: { url }, location: { pathname, search } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       const matches = pathname.match('\/(.+)\/(.+)');
