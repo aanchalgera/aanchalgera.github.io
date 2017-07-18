@@ -4,7 +4,6 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +38,7 @@ const TitleBar = ({pathName, blogUrl, queryPath, activeTab}) => (
         >
           <FlatButton label="Publicado" style={styles.publishButton} />
             <IconButton target="_blank" href={ blogUrl + '/preview-longform/' + pathName } style={styles.previewButton} disabled={activeTab === 'difundir'}>
-              <FontIcon className="material-icons" ><Visibility/></FontIcon>
+              <Visibility />
             </IconButton>
         </AppBar>
       </Col>
