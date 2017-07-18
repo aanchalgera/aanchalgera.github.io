@@ -17,7 +17,7 @@ const styles = {
   }
 };
 
-const TitleBar = ({pathName, queryPath, activeTab}) => (
+const TitleBar = ({pathName, blogUrl, queryPath, activeTab}) => (
   <view>
     <Row>
       <Col xs={12}>
@@ -38,9 +38,9 @@ const TitleBar = ({pathName, queryPath, activeTab}) => (
           }
         >
           <FlatButton label="Publicado" style={styles.publishButton} />
-          <IconButton style={styles.previewButton}>
-            <FontIcon className="material-icons" ><Visibility/></FontIcon>
-          </IconButton>
+            <IconButton target="_blank" href={ blogUrl + '/preview-longform/' + pathName } style={styles.previewButton} disabled={activeTab === 'difundir'}>
+              <FontIcon className="material-icons" ><Visibility/></FontIcon>
+            </IconButton>
         </AppBar>
       </Col>
     </Row>
