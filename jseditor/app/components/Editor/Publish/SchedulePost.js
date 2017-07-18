@@ -155,11 +155,7 @@ class SchedulePost extends React.Component {
           </TableRowColumn>
         );
       }
-      if (j % 2 == 0) {
-        tr = <TableRow key={j + '-' + k} className="even"><TableHeaderColumn>{j}</TableHeaderColumn>{td}</TableRow>;
-      } else {
-        tr = <TableRow key={j + '-' + k}><TableHeaderColumn>{j}</TableHeaderColumn>{td}</TableRow>;
-      }
+      tr = <TableRow key={j + '-' + k} className="even"><TableHeaderColumn>{j}</TableHeaderColumn>{td}</TableRow>;
       tablerows.push(tr);
       td = [];
     }
