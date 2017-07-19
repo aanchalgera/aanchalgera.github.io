@@ -90,12 +90,17 @@ class Main extends React.Component{
     });
   }
 
-  getTitleBar = (pathName,activeTab, search) => {
+  getTitleBar = () => {
     if (this.state.blogUrl === null) {
       return null;
     }
+    const pathName = this.props.location.pathname;
+    const search = this.props.location.search;
+    const matches = pathName.match('\/(.+)\/(.+)');
+    const postId = matches[2];
+    const activeTab = matches[1];
     return <TitleBar
-      pathName={pathName}
+      pathName={postId}
       blogUrl={this.state.blogUrl}
       activeTab={activeTab}
       queryPath={search}
@@ -103,16 +108,13 @@ class Main extends React.Component{
   }
 
   render(){
-    const { match: { url }, location: { pathname, search } } = this.props;
+    const { match: { url }, location: { pathname } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
-      const matches = pathname.match('\/(.+)\/(.+)');
-      const postId = matches[2];
-      const activeTab = matches[1];
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
-            { this.getTitleBar(postId, activeTab, search)}
+            { this.getTitleBar()}
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
             )} />
