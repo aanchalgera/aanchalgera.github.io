@@ -5,6 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import SchedulePost from '../components/Editor/Publish/SchedulePost';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   bodyContent: {
@@ -199,6 +200,23 @@ class Difundir extends React.Component {
     this.showSnackbarMsg(VALID_DATE_WARNING);
   }
 
+  onRepublishNow() {
+    jquery.ajax({
+      url: `${this.state.blogUrl}/admin/overlay/republish/${this.state.postId}`,
+      type: 'POST',
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+    })
+    .done(() => {
+      this.showSnackbarMsg('Post successfully republished again');
+    })
+    .fail(() => {
+      return this.showSnackbarMsg('Error occured while republishing. Please try again');
+    });
+  }
+
   render() {
     return (
       <div style={styles.bodyContent}>
@@ -220,6 +238,7 @@ class Difundir extends React.Component {
           onSchedule={this.onRepublishSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
+        <RaisedButton label="PASAR POR PORTADA AHORA MISMO!" secondary={true} onTouchTap={this.onRepublishNow.bind(this)} />
       </div>
     );
   }
