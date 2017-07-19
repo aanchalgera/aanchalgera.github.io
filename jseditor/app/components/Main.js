@@ -107,10 +107,12 @@ class Main extends React.Component{
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       const matches = pathname.match('\/(.+)\/(.+)');
+      const postId = matches[2];
+      const activeTab = matches[1];
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
-            { this.getTitleBar(matches[2], matches[1], search)}
+            { this.getTitleBar(postId, activeTab, search)}
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
             )} />
