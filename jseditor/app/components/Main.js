@@ -97,12 +97,10 @@ class Main extends React.Component{
     const pathName = this.props.location.pathname;
     const search = this.props.location.search;
     const matches = pathName.match('\/(.+)\/(.+)');
-    const postId = matches[2];
-    const activeTab = matches[1];
     return <TitleBar
-      pathName={postId}
+      pathName={matches[2]}
       blogUrl={this.state.blogUrl}
-      activeTab={activeTab}
+      activeTab={matches[1]}
       queryPath={search}
     />;
   }
