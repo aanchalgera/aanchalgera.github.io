@@ -41,7 +41,8 @@ const customTheme = getMuiTheme({
     textColor: palette.textColor
   },
   svgIcon: {
-    textColor: palette.textColor
+    textColor: palette.textColor,
+    color: palette.textColor
   },
   raisedButton: {
     disabledColor: palette.disabledColor,
@@ -62,15 +63,56 @@ var base = Rebase.createClass(
 );
 
 class Main extends React.Component{
+  state = {
+    blogUrl: null,
+  }
+
+  componentWillMount() {
+    this.init();
+  }
+
+  init = () => {
+    const search = this.props.location.search;
+    const query = new URLSearchParams(search);
+    const blogName = query.get('blog');
+    base.fetch('config', {
+      context: this,
+      asArray: true,
+      queries: {
+        orderByChild: 'site_name',
+        equalTo: blogName
+      },
+      then(data) {
+        if (data[0] != null) {
+          this.setState({blogUrl: data[0].site_url});
+        }
+      }
+    });
+  }
+
+  getTitleBar = () => {
+    if (this.state.blogUrl === null) {
+      return null;
+    }
+    const pathName = this.props.location.pathname;
+    const search = this.props.location.search;
+    const matches = pathName.match('\/(.+)\/(.+)');
+    return <TitleBar
+      pathName={matches[2]}
+      blogUrl={this.state.blogUrl}
+      activeTab={matches[1]}
+      queryPath={search}
+    />;
+  }
+
   render(){
-    const { match: { url }, location: { pathname, search } } = this.props;
+    const { match: { url }, location: { pathname } } = this.props;
     Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
-      const matches = pathname.match('\/(.+)\/(.+)');
       return (
         <MuiThemeProvider muiTheme={customTheme}>
           <view>
-            <TitleBar pathName={matches[2]} activeTab={matches[1]} queryPath={search} />
+            { this.getTitleBar()}
             <Route path={`${url}publicar/:postname`} render={(props) => (
               <Publicar {...props} base={base} />
             )} />
