@@ -525,7 +525,7 @@ class Editor extends React.Component{
       user_id: this.state.userId,
       user_status: userStatus,
       blog_status: this.blogName + '_' + this.state.status,
-      blogName: this.state.blogName,
+      blogName: this.blogName,
       title: this.state.value,
       sections: this.state.fields,
       maxId: this.state.maxId,
@@ -555,7 +555,7 @@ class Editor extends React.Component{
       user_id: this.state.userId,
       user_status: userStatus,
       blog_status: blogStatus,
-      blog_name: this.state.blogName,
+      blog_name: this.blogName,
       blog_post_type: blogStatus + '_' + postType
     };
 
