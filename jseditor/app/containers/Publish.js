@@ -307,7 +307,6 @@ class Publish extends React.Component {
   }
 
   setPostAuthor = (userId) => {
-    console.log(this.state);
     this.setState({userId});
   }
 
@@ -461,34 +460,33 @@ class Publish extends React.Component {
         />
         <SchedulePost
           buttonDisabled={this.state.buttonDisabled}
-          value={this.state.publishedDate || moment().format('DD/MM/YYYY HH:mm')}
+          value={this.state.publishedDate}
           base={this.props.base}
           onSchedule={this.onSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
-        <Row>
+        <div>
           <h4>Portada y redes sociales</h4>
           <Divider />
-        </Row>
-        <Row>
-          <Col lg={6}>
-            <HomePage
-              homepage={this.state.meta.homepage}
-              updateHomepageContent={this.updateHomepageContent}
-            />
-          </Col>
-          <Col lg={3}>
-            <Twitter
-              twitter={this.state.meta.social.twitter}
-              updateSocialTwitterText={this.updateSocialTwitterText}
-            />
-          </Col>
-          <Col lg={3}>
-            <Facebook
-              facebook={this.state.meta.social.facebook}
-              updateSocialFacebookText={this.updateSocialFacebookText}
-            />
-          </Col>
+          <Row>
+            <Col xs={6}>
+              <HomePage
+                homepage={this.state.meta.homepage}
+                updateHomepageContent={this.updateHomepageContent}
+              />
+            </Col>
+            <Col xs ={3}>
+              <Twitter
+                twitter={this.state.meta.social.twitter}
+                updateSocialTwitterText={this.updateSocialTwitterText}
+              />
+            </Col>
+            <Col xs ={3}>
+              <Facebook
+                facebook={this.state.meta.social.facebook}
+                updateSocialFacebookText={this.updateSocialFacebookText}
+              />
+            </Col>
           </Row>
           { this.state.meta.homepage.image
             ? <ImageCropper
@@ -499,8 +497,9 @@ class Publish extends React.Component {
               />
             : ''
           }
+        </div>
         <Row>
-          <Col lg>
+          <Col xs>
             <Seo
               seo={this.state.meta.seo ? this.state.meta.seo : {title:'', description:''} }
               updateSeoTitle={this.updateSeoTitle}
@@ -513,7 +512,7 @@ class Publish extends React.Component {
               publishRegions={this.state.publishRegion}
             />
           </Col>
-          <Col lg>
+          <Col xs>
             {this.getAdvancedOptions()}
           </Col>
         </Row>
