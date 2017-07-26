@@ -1,6 +1,5 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
+import { TextField, Divider } from 'material-ui';
 
 const TWITTER_CHAR_LIMIT = 116;
 
@@ -14,7 +13,7 @@ const styles = {
     bottom: '60px'
   }
 };
-  
+
 const Twitter = (props) => (
   <div>
     <TextField

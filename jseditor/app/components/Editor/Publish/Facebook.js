@@ -12,7 +12,7 @@ const styles = {
     bottom: '60px'
   }
 };
-  
+
 const Facebook = (props) => (
   <div>
     <TextField

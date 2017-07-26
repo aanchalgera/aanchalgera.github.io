@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
+import { TextField, Divider, Subheader } from 'material-ui';
 
 const propValidate = {
   seo: React.PropTypes.object.isRequired,
@@ -15,7 +13,7 @@ const styles = {
     bottom: '60px'
   }
 };
-  
+
 const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
     <Row>
       <Col lg={12}>
@@ -50,7 +48,7 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
           fullWidth={true}
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText='Descripcion SEO'
+          floatingLabelText='Descripcion 123mdmdm'
         />
         <Divider />
       </Col>

@@ -307,6 +307,7 @@ class Publish extends React.Component {
   }
 
   setPostAuthor = (userId) => {
+    console.log(this.state);
     this.setState({userId});
   }
 
