@@ -1,9 +1,7 @@
 import React from 'react';
-import jquery from 'jquery';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import Subheader from 'material-ui/Subheader';
-import AutoComplete from 'material-ui/AutoComplete';
+import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
+import {loadUsers} from './lib/publishService';
+import { findById } from './lib/publishHelpers';
 
 export default class Publish extends React.Component {
 
@@ -20,58 +18,35 @@ export default class Publish extends React.Component {
 
   state = {
     userList: [],
-    currentUser: {},
+    currentUser: '',
   }
 
   componentDidMount() {
     this.init();
   }
 
-  onUpdateInput = (searchText) => {
-    if ('' != searchText && this.state.userList.length > 0) {
-      this.state.userList.map((currentUser) => {
-        if (currentUser.display_name == searchText) {
-          this.setState(
-            {currentUser},
-            this.props.setPostAuthor(currentUser.id)
-          );
-        }
-      });
-    }
-  };
-
-  onNewRequest = (currentUser) => {
+  onNewRequest = (user) => {
     this.setState(
-      {currentUser},
-      this.props.setPostAuthor(currentUser.id)
+      {currentUser : user.display_name},
+      this.props.setPostAuthor(user.id)
     );
   }
 
   init = () => {
-    jquery.ajax({
-      url: this.props.blogUrl + '/admin/users',
-      crossDomain: true,
-      dataType : 'json',
-      xhrFields: {
-        withCredentials: true
-      }
-    })
+    loadUsers(this.props.blogUrl)
     .done((data) => {
-      let user = data.users.filter(user => {
-        return user.id == this.props.userId;
-      });
+      let user = findById(this.props.userId, data.users);
       this.setState({
         userList: data.users,
-        currentUser: user[0]
+        currentUser: user.display_name
       });
     });
   }
 
   setShowAuthor = (e, isChecked) => {
-    const checked = {
+    this.props.setPostMeta('author', {
       showAuthorInfo: isChecked
-    };
-    this.props.setPostMeta('author', checked);
+    });
   }
 
   setCommentStatus = (e, isChecked) => {
@@ -79,11 +54,11 @@ export default class Publish extends React.Component {
       allow: true,
       status: isChecked ? 'closed' : 'open',
     };
-    this.props.setPostMeta('comment', checked); 
+    this.props.setPostMeta('comment', checked);
   }
 
   render () {
-    const { 
+    const {
       setPostMeta,
       handleSpecialPost,
       handleSensitivePost,
@@ -127,13 +102,12 @@ export default class Publish extends React.Component {
           onCheck={this.setShowAuthor}
         />
         <AutoComplete
-          searchText={this.state.currentUser.display_name ? this.state.currentUser.display_name : ''}
+          searchText={this.state.currentUser}
           floatingLabelText="Autor"
           dataSource={this.state.userList}
           dataSourceConfig={{ text: 'display_name', value: 'id' }}
           openOnFocus={true}
           onNewRequest={this.onNewRequest}
-          onUpdateInput={this.onUpdateInput}
         />
       </div>
     );

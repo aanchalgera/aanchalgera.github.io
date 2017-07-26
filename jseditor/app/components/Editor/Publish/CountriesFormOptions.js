@@ -1,8 +1,7 @@
 import React from 'react';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
+import { Subheader, Divider, Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
+import { toggleItem } from './lib/publishHelpers';
 
 let regions = {
   ES: 'España',
@@ -19,19 +18,10 @@ let regions = {
 };
 
 class CountriesFormOptions extends React.Component {
-  onCheck(e, checked) {
+  onCheck(e) {
     const region = e.target.value;
     let publishRegions = this.props.publishRegions;
-    const index = publishRegions.indexOf(region);
-    if (-1 === index) {
-      if (checked) {
-        publishRegions.push(region);
-      }
-    } else {
-      if (!checked) {
-        publishRegions.splice(index, 1);
-      }
-    }
+    toggleItem(region, publishRegions);
     this.props.setPublishRegions(publishRegions);
   }
 
