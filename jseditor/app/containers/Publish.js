@@ -307,6 +307,7 @@ class Publish extends React.Component {
   }
 
   setPostAuthor = (userId) => {
+    console.log(this.state);
     this.setState({userId});
   }
 
@@ -466,7 +467,7 @@ class Publish extends React.Component {
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
         <div>
-          <h4>portada y redes sociales</h4>
+          <h4>Portada y redes sociales</h4>
           <Divider />
           <Row>
             <Col xs={6}>
