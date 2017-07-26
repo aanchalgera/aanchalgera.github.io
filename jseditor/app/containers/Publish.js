@@ -466,7 +466,6 @@ class Publish extends React.Component {
           onSchedule={this.onSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
-
         <Row>
           <h4>Portada y redes sociales</h4>
           <Divider />

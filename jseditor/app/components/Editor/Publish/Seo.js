@@ -48,7 +48,7 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
           fullWidth={true}
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText='Descripcion SEO'
+          floatingLabelText='Descripcion 123mdmdm'
         />
         <Divider />
       </Col>
