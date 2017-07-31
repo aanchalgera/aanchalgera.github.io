@@ -13,11 +13,9 @@ import TitleBar from '../components/Menu/TitleBar';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { white, grey900, grey500, grey300, indigo500, pink500 } from 'material-ui/styles/colors';
 import { Switch, Route } from 'react-router-dom';
-
-injectTapEventPlugin();
+import configParams from '../config/configs.js';
 
 const palette = {
   primary1Color: grey900,
@@ -107,7 +105,6 @@ class Main extends React.Component{
 
   render(){
     const { match: { url }, location: { pathname } } = this.props;
-    Rollbar.info('User Navigation Info', {path: pathname});
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       return (
         <MuiThemeProvider muiTheme={customTheme}>
@@ -130,7 +127,6 @@ class Main extends React.Component{
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
-        <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
         <TopBar />
         <div className="col-sm-12 main">
           <div className="container-fluid">

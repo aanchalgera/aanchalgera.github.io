@@ -7,6 +7,7 @@ import PostTitle from './PostTitle';
 import CloudinaryUploader from './CloudinaryUploader';
 import Metadata from './Metadata/Metadata';
 import helpers from '../../utils/generatehash';
+import configParams from '../../config/configs.js';
 
 moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
@@ -140,7 +141,7 @@ class Editor extends React.Component{
           }
         });
       } catch (e) {
-        Rollbar.critical('Error occured while fetching post data from Firebase', e);
+  //      Rollbar.critical('Error occured while fetching post data from Firebase', e);
       }
     } else {
       let hashId = helpers.generatePushID();
@@ -583,7 +584,7 @@ class Editor extends React.Component{
         }
       );
     } catch (e) {
-      Rollbar.critical('Error occured on saving data to Firebase', e);
+//      Rollbar.critical('Error occured on saving data to Firebase', e);
       let errorMessage = e.message.substring(0, 100);
       this.setMessage(true, errorMessage);
     }
@@ -637,11 +638,12 @@ class Editor extends React.Component{
 
   deleteResource(event) {
     event.preventDefault();
-    if (confirm(DELETE_SECTION_WARNING)) {
+//    TODO: fix
+//    if (confirm(DELETE_SECTION_WARNING)) {
       let currentIndex = this.parentDiv(event.target).dataset.id;
       this.state.fields.splice(currentIndex, 1);
       this.setState({ fields: this.state.fields }, this.saveData());
-    }
+//    }
   }
 
   groupSections(currentIndex, group) {

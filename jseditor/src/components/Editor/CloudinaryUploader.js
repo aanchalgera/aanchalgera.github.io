@@ -74,7 +74,7 @@ var CloudinaryUploader = React.createClass({
           }
         });
       } catch (e) {
-        Rollbar.critical('Error while fetching image data from firebase', e);
+      //  Rollbar.critical('Error while fetching image data from firebase', e);
       }
     }
   },
@@ -170,7 +170,7 @@ var CloudinaryUploader = React.createClass({
     var self = this;
     try{
       var options = this.getUploadOptions();
-      cloudinary.openUploadWidget(
+      window.cloudinary.openUploadWidget(
         options,
         function(error, result) {
           self.props.toggleCloudinaryUploader();
@@ -188,7 +188,7 @@ var CloudinaryUploader = React.createClass({
         }
       );
     } catch(e) {
-      Rollbar.error('Error occured while uploading image to cloudinary', e);
+    //  Rollbar.error('Error occured while uploading image to cloudinary', e);
     }
   },
   render: function() {

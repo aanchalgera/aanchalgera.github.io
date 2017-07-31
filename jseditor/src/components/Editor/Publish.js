@@ -6,6 +6,7 @@ import SlotWidget from './SlotWidget';
 import RepostBlogsFormOptions from './RepostBlogsFormOptions';
 import CountriesFormOptions from './CountriesFormOptions';
 import PreviewOnSite from './PreviewOnSite';
+import configParams from '../../config/configs.js';
 
 moment.tz.setDefault(configParams.timezone);
 let chooseSlotMsg = 'Select slot ';
@@ -265,10 +266,10 @@ class Publish extends React.Component {
           }
         );
       } catch (e) {
+        //      Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
         let errorMessage = e.message.substring(0, 100);
         this.setMessage(true, errorMessage);
         this.enableButton();
-        Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
       }
     });
   }

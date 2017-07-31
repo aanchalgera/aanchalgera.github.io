@@ -13,6 +13,7 @@ import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOpti
 import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 import ImageCropper from '../components/Editor/Publish/ImageCropper';
 import Divider from 'material-ui/Divider';
+import configParams from '../config/configs.js';
 
 moment.tz.setDefault(configParams.timezone);
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
@@ -294,7 +295,7 @@ class Publish extends React.Component {
         let errorMessage = e.message.substring(0, 100);
         this.setMessage(true, errorMessage);
         this.enableButton();
-        Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
+  //      Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
       }
     })
     .always(postSchedule);
