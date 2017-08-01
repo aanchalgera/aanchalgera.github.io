@@ -460,7 +460,6 @@ class Publish extends React.Component {
 
     return (
       <Categories
-        category={this.state.category}
         setCategory={this.setCategory}
         blogUrl={this.state.blogUrl}
       />

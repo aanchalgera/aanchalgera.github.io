@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import { loadCategories } from './lib/publishService';
+import { getCategories } from './lib/publishHelpers';
+import { PropTypes } from 'prop-types';
 
 const POST_TYPE = 'normal';
 
@@ -15,25 +17,12 @@ class Categories extends Component
   }
 
   setCategories = () => {
-    let categories = [];
     loadCategories(this.props.blogUrl, POST_TYPE)
     .done((data) => {
-      for (let key in data) {
-        let categoryGroup = data[key]['children'];
-        if (undefined !== categoryGroup) {
-          categoryGroup.forEach(function (category) {
-            categories.push({categoryName: category['cat_name'], id: category['id']});
-          });
-        } else {
-          let category = data[key];
-          categories.push({id: category['id'], categoryName: category['name']});
-        }
-      }
-
+      let categories = getCategories(data);
       this.setState({
         categories: categories
       });
-
     });
   }
 
@@ -54,6 +43,11 @@ class Categories extends Component
       />
     );
   }
+}
+
+Categories.propTypes = {
+  blogUrl: PropTypes.string.isRequired,
+  setCategory: PropTypes.func
 }
 
 export default Categories;
