@@ -10,3 +10,14 @@ export const loadUsers = (blogUrl) => {
     }
   });
 };
+
+export const loadCategories = (blogUrl, postType) => {
+  return jquery.ajax({
+	url: `${blogUrl}/admin/api/categories/${postType}`,
+    crossDomain: true,
+    dataType : 'json',
+    xhrFields: {
+      withCredentials: true
+	  }
+  });
+};

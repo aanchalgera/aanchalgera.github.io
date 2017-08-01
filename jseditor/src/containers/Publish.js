@@ -14,6 +14,7 @@ import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
 import ImageCropper from '../components/Editor/Publish/ImageCropper';
 import Divider from 'material-ui/Divider';
 import configParams from '../config/configs.js';
+import Categories from '../components/Editor/Publish/Categories';
 
 moment.tz.setDefault(configParams.timezone);
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
@@ -79,7 +80,8 @@ class Publish extends React.Component {
           width: 100,
           validate: false
         }
-      }
+      },
+      category: ''
     };
   }
 
@@ -203,7 +205,8 @@ class Publish extends React.Component {
       primary_image: this.state.meta.homepage.image.url,
       is_sensitive: this.state.isSensitive,
       long_post: this.state.specialPost,
-      image_validated: imageValidated
+      image_validated: imageValidated,
+      post_category: this.state.category
     };
 
     let firebaseData = {
@@ -450,6 +453,28 @@ class Publish extends React.Component {
     });
   }
 
+  getCategoryTag = () => {
+    if (undefined === this.state.blogUrl) {
+      return null;
+    }
+
+    return (
+      <Categories
+        category={this.state.category}
+        setCategory={this.setCategory}
+        blogUrl={this.state.blogUrl}
+      />
+    );
+  }
+
+  setCategory = (categorySelected) => {
+    this.setState(() => {
+      return {
+        category: categorySelected
+      };
+    });
+  }
+
   render () {
     return(
       <div>
@@ -469,6 +494,11 @@ class Publish extends React.Component {
         <div>
           <h4>Portada y redes sociales</h4>
           <Divider />
+           <Row>
+             <Col xs={6}>
+              {this.getCategoryTag()}
+            </Col>
+          </Row>
           <Row>
             <Col xs={6}>
               <HomePage
