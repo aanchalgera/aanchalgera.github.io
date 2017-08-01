@@ -494,8 +494,8 @@ class Publish extends React.Component {
         <div>
           <h4>Portada y redes sociales</h4>
           <Divider />
-           <Row>
-             <Col xs={6}>
+          <Row>
+            <Col xs={6}>
               {this.getCategoryTag()}
             </Col>
           </Row>
