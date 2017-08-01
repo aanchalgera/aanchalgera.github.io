@@ -1,3 +1,6 @@
+// @flow
+type User = {|id: number, display_name: string|}
+
 import React from 'react';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
 import {loadUsers} from './lib/publishService';
@@ -25,7 +28,7 @@ export default class Publish extends React.Component {
     this.init();
   }
 
-  onNewRequest = (user) => {
+  onNewRequest = (user: {id: number, display_name: string}) => {
     this.setState(
       {currentUser : user.display_name},
       this.props.setPostAuthor(user.id)
@@ -35,21 +38,21 @@ export default class Publish extends React.Component {
   init = () => {
     loadUsers(this.props.blogUrl)
     .done((data) => {
-      let user = findById(this.props.userId, data.users);
+      let user: User|void = findById(this.props.userId, data.users);
       this.setState({
         userList: data.users,
-        currentUser: user.display_name
+        currentUser: user? user.display_name : ''
       });
     });
   }
 
-  setShowAuthor = (e, isChecked) => {
+  setShowAuthor = (e: SyntheticKeyboardEvent, isChecked: boolean) => {
     this.props.setPostMeta('author', {
       showAuthorInfo: isChecked
     });
   }
 
-  setCommentStatus = (e, isChecked) => {
+  setCommentStatus = (e: {}, isChecked: boolean) => {
     const checked = {
       allow: true,
       status: isChecked ? 'closed' : 'open',
