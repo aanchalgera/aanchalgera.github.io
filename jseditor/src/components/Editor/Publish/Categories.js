@@ -47,7 +47,7 @@ class Categories extends Component
 
 Categories.propTypes = {
   blogUrl: PropTypes.string.isRequired,
-  setCategory: PropTypes.func
+  setCategory: PropTypes.func.isRequired
 }
 
 export default Categories;
