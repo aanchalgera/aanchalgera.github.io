@@ -184,7 +184,7 @@ class Publish extends React.Component {
     }
 
     let backendData = {
-      categoryId: '-1',
+      categoryId: this.state.category,
       post_title: this.state.title,
       comment_status: this.state.meta.comment.status,
       post_type: 'normal',
@@ -206,7 +206,6 @@ class Publish extends React.Component {
       is_sensitive: this.state.isSensitive,
       long_post: this.state.specialPost,
       image_validated: imageValidated,
-      post_category: this.state.category
     };
 
     let firebaseData = {
