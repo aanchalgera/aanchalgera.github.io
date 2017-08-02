@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import TopBar from './Menu/TopBar';
+import PropTypes from 'prop-types';
 import Rebase from 're-base';
 import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
