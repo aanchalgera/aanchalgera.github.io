@@ -1,5 +1,5 @@
 // @flow
-type User = {|id: number, display_name: string|}
+type User = {id: number, display_name: string}
 
 import React from 'react';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
