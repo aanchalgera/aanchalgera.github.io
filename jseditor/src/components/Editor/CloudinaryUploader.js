@@ -1,65 +1,68 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ResourcePanel from './ResourcePanel';
 
-var CloudinaryUploader = React.createClass({
-  propTypes:{
-    cloudName: React.PropTypes.string.isRequired,
-    uploadPreset: React.PropTypes.string.isRequired,
-    showPoweredBy: React.PropTypes.bool,
-    allowedFormats: React.PropTypes.array,
-    maxFileSize: React.PropTypes.number,
-    maxImageWidth: React.PropTypes.number,
-    maxImageHeight: React.PropTypes.number,
-    sources: React.PropTypes.arrayOf(React.PropTypes.string),
-    defaultSource: React.PropTypes.string,
-    multiple: React.PropTypes.bool,
-    maxFiles: React.PropTypes.number,
-    cropping: React.PropTypes.string,
-    croppingAspectRatio: React.PropTypes.number,
-    publicId: React.PropTypes.string,
-    folder: React.PropTypes.string,
-    tags: React.PropTypes.arrayOf(React.PropTypes.string),
-    resourceType: React.PropTypes.string,
-    contextAlt: React.PropTypes.string,
-    contextCaption: React.PropTypes.string,
-    buttonClass: React.PropTypes.string,
-    buttonCaption: React.PropTypes.string
-  },
-  getDefaultProps: function(){
-    return {
-      showPoweredBy: false,
-      sources: ['local', 'url'],
-      defaultSource: 'local',
-      multiple: true,
-      maxFiles: null,
-      cropping: null,
-      croppingAspectRation: null,
-      publicId: null,
-      folder: null,
-      tags: ['arpit'],
-      resourceType: 'image',
-      contextAlt: null,
-      contextCaption: null,
-      allowedFormats: ['png', 'gif', 'jpeg'],
-      maxFileSize: 8000000,
-      maxImageWidth: null,
-      maxImageHeight: null,
-      buttonClass: 'btn btn-primary',
-      buttonCaption: 'Upload Images'
-    };
-  },
-  getInitialState: function(){
+class CloudinaryUploader extends React.Component {
+  static propTypes = {
+    cloudName: PropTypes.string.isRequired,
+    uploadPreset: PropTypes.string.isRequired,
+    showPoweredBy: PropTypes.bool,
+    allowedFormats: PropTypes.array,
+    maxFileSize: PropTypes.number,
+    maxImageWidth: PropTypes.number,
+    maxImageHeight: PropTypes.number,
+    sources: PropTypes.arrayOf(PropTypes.string),
+    defaultSource: PropTypes.string,
+    multiple: PropTypes.bool,
+    maxFiles: PropTypes.number,
+    cropping: PropTypes.string,
+    croppingAspectRatio: PropTypes.number,
+    publicId: PropTypes.string,
+    folder: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    resourceType: PropTypes.string,
+    contextAlt: PropTypes.string,
+    contextCaption: PropTypes.string,
+    buttonClass: PropTypes.string,
+    buttonCaption: PropTypes.string
+  };
+
+  static defaultProps = {
+    showPoweredBy: false,
+    sources: ['local', 'url'],
+    defaultSource: 'local',
+    multiple: true,
+    maxFiles: null,
+    cropping: null,
+    croppingAspectRation: null,
+    publicId: null,
+    folder: null,
+    tags: ['arpit'],
+    resourceType: 'image',
+    contextAlt: null,
+    contextCaption: null,
+    allowedFormats: ['png', 'gif', 'jpeg'],
+    maxFileSize: 8000000,
+    maxImageWidth: null,
+    maxImageHeight: null,
+    buttonClass: 'btn btn-primary',
+    buttonCaption: 'Upload Images'
+  };
+
+  constructor(props, context) {
+    super(props, context);
     var initialState =  {
-      cloudName: this.props.cloudName,
-      uploadPreset: this.props.uploadPreset,
+      cloudName: props.cloudName,
+      uploadPreset: props.uploadPreset,
       showPoweredBy: false,
       allowedFormats: null,
       uuid: this.uuid(),
       imageList: []
     };
-    return initialState;
-  },
-  init: function(){
+    this.state = initialState;
+  }
+
+  init = () => {
     if (this.props.slug != undefined && this.props.slug != '') {
       try {
         this.props.base.fetch('images/' + this.props.slug, {
@@ -77,8 +80,9 @@ var CloudinaryUploader = React.createClass({
       //  Rollbar.critical('Error while fetching image data from firebase', e);
       }
     }
-  },
-  componentWillReceiveProps: function(nextProps) {
+  };
+
+  componentWillReceiveProps(nextProps) {
     this.init();
     if (
       nextProps.isCloudinaryUploaderOpen !== this.props.isCloudinaryUploaderOpen &&
@@ -86,11 +90,13 @@ var CloudinaryUploader = React.createClass({
     ) {
       this.openUploader();
     }
-  },
-  componentDidMount: function(){
+  }
+
+  componentDidMount() {
     this.init();
-  },
-  uuid: function(){
+  }
+
+  uuid = () => {
     function guid() {
       function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -101,8 +107,9 @@ var CloudinaryUploader = React.createClass({
       s4() + '-' + s4() + s4() + s4();
     }
     return guid();
-  },
-  getUploadOptions: function(){
+  };
+
+  getUploadOptions = () => {
     var options = {
       cloud_name: this.state.cloudName,
       upload_preset: this.state.uploadPreset
@@ -157,12 +164,14 @@ var CloudinaryUploader = React.createClass({
     }
 
     return options;
-  },
-  openResourcePanel: function () {
+  };
+
+  openResourcePanel = () => {
     this.refs.resourcePanel.getStyle().style.display = 'block';
     this.refs.resourcePanel.getStyle().classList.add('in');
-  },
-  openUploader: function(ev){
+  };
+
+  openUploader = (ev) => {
     if (ev) {
       ev.preventDefault();
     }
@@ -190,8 +199,9 @@ var CloudinaryUploader = React.createClass({
     } catch(e) {
     //  Rollbar.error('Error occured while uploading image to cloudinary', e);
     }
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <ResourcePanel
         addImage={this.props.addImage}
@@ -207,6 +217,6 @@ var CloudinaryUploader = React.createClass({
       />
     );
   }
-});
+}
 
 export default CloudinaryUploader;
