@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import DraftJSEditor from './DraftJSEditor';
 import Divider from 'material-ui/Divider';
 
 class Homepage extends React.Component{
   static propTypes = {
-    homepage: React.PropTypes.object.isRequired,
-    updateHomepageContent: React.PropTypes.func.isRequired,
-    dataId: React.PropTypes.number,
+    homepage: PropTypes.object.isRequired,
+    updateHomepageContent: PropTypes.func.isRequired,
+    dataId: PropTypes.number,
   }
 
   getDraftJSEditor() {

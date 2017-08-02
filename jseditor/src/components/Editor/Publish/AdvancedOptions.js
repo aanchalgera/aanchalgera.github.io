@@ -1,5 +1,7 @@
+type User = {id: number, display_name: string};
+
 // @flow
-type User = {id: number, display_name: string}
+import PropTypes from 'prop-types';
 
 import React from 'react';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
@@ -9,14 +11,14 @@ import { findById } from './lib/publishHelpers';
 export default class Publish extends React.Component {
 
   static propTypes = {
-    userId: React.PropTypes.number,
-    blogUrl: React.PropTypes.string,
-    setPostAuthor: React.PropTypes.func.isRequired,
-    handleSpecialPost: React.PropTypes.func.isRequired,
-    handleSensitivePost: React.PropTypes.func.isRequired,
-    setPostMeta: React.PropTypes.func.isRequired,
-    isSensitive: React.PropTypes.bool.isRequired,
-    specialPost: React.PropTypes.bool.isRequired,
+    userId: PropTypes.number,
+    blogUrl: PropTypes.string,
+    setPostAuthor: PropTypes.func.isRequired,
+    handleSpecialPost: PropTypes.func.isRequired,
+    handleSensitivePost: PropTypes.func.isRequired,
+    setPostMeta: PropTypes.func.isRequired,
+    isSensitive: PropTypes.bool.isRequired,
+    specialPost: PropTypes.bool.isRequired,
   }
 
   state = {

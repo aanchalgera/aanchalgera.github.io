@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { TextField, Divider } from 'material-ui';
 
 const TWITTER_CHAR_LIMIT = 116;
 
 const propValidate = {
-  twitter: React.PropTypes.string.isRequired,
-  updateSocialTwitterText: React.PropTypes.func.isRequired,
+  twitter: PropTypes.string.isRequired,
+  updateSocialTwitterText: PropTypes.func.isRequired,
 };
 
 const styles = {

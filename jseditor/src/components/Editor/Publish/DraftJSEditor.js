@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Editor, EditorState, RichUtils, CompositeDecorator } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
@@ -10,10 +11,10 @@ import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
 
 export default class DraftJSEditor extends React.Component {
   static propTypes = {
-    value: React.PropTypes.string.isRequired,
-    minimal: React.PropTypes.bool,
-    dataId: React.PropTypes.number,
-    updateResource: React.PropTypes.func.isRequired
+    value: PropTypes.string.isRequired,
+    minimal: PropTypes.bool,
+    dataId: PropTypes.number,
+    updateResource: PropTypes.func.isRequired
   }
 
   constructor(props) {

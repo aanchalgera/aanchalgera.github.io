@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
 import TextField from 'material-ui/TextField';
@@ -30,11 +31,11 @@ class SchedulePost extends React.Component {
   };
 
   static propTypes = {
-    base: React.PropTypes.object.isRequired,
-    onInvalidDate: React.PropTypes.func.isRequired,
-    onSchedule: React.PropTypes.func.isRequired,
-    value: React.PropTypes.string,
-    buttonDisabled: React.PropTypes.bool
+    base: PropTypes.object.isRequired,
+    onInvalidDate: PropTypes.func.isRequired,
+    onSchedule: PropTypes.func.isRequired,
+    value: PropTypes.string,
+    buttonDisabled: PropTypes.bool
   };
 
   constructor(props) {

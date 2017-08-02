@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import { loadCategories } from './lib/publishService';
 import { getCategories } from './lib/publishHelpers';
-import { PropTypes } from 'prop-types';
+import 'prop-types';
 
 const POST_TYPE = 'normal';
 

@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { TextField, Divider, Subheader } from 'material-ui';
 
 const propValidate = {
-  seo: React.PropTypes.object.isRequired,
-  updateSeoTitle: React.PropTypes.func.isRequired,
-  updateSeoDescription: React.PropTypes.func.isRequired
+  seo: PropTypes.object.isRequired,
+  updateSeoTitle: PropTypes.func.isRequired,
+  updateSeoDescription: PropTypes.func.isRequired
 };
 
 const styles = {
