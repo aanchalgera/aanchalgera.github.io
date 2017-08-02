@@ -47,7 +47,7 @@ class SponsoredContent extends Component {
 }
 
 SponsoredContent.propTypes = {
-  customerName: PropTypes.string.isRequired
+  customerName: PropTypes.string.isRequired,
   setCustomerName: PropTypes.func.isRequired,
   urlTracker: PropTypes.string.isRequired,
   setUrlTracker: PropTypes.func.isRequired,
