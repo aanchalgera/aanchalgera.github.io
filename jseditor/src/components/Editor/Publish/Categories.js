@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
+import PropTypes from 'prop-types';
+
 import { loadCategories } from './lib/publishService';
 import { getCategories } from './lib/publishHelpers';
-import { PropTypes } from 'prop-types';
 
 const POST_TYPE = 'normal';
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
@@ -53,10 +54,10 @@ let formatedBlogs = {
 export default class RepostSiteOptions extends React.Component {
 
   static propTypes = {
-    repostBlogs: React.PropTypes.array.isRequired,
-    setRepostBlogs: React.PropTypes.func.isRequired,
-    blogName: React.PropTypes.string,
-    submitRepostedBlogs: React.PropTypes.func.isRequired,
+    repostBlogs: PropTypes.array.isRequired,
+    setRepostBlogs: PropTypes.func.isRequired,
+    blogName: PropTypes.string,
+    submitRepostedBlogs: PropTypes.func.isRequired,
   }
 
   handleCheck = (e, isChecked) => {

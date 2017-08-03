@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
 const propValidate = {
-  facebook: React.PropTypes.string.isRequired,
-  updateSocialFacebookText: React.PropTypes.func.isRequired
+  facebook: PropTypes.string.isRequired,
+  updateSocialFacebookText: PropTypes.func.isRequired
 };
 
 const styles = {
