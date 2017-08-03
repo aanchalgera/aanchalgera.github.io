@@ -1,6 +1,7 @@
 // @flow
-import PropTypes from 'prop-types';
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
 
 import {loadUsers} from './lib/publishService';
