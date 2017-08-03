@@ -1,12 +1,12 @@
-type User = {id: number, display_name: string};
-
 // @flow
 import PropTypes from 'prop-types';
-
 import React from 'react';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
+
 import {loadUsers} from './lib/publishService';
 import { findById } from './lib/publishHelpers';
+
+type User = {id: number, display_name: string};
 
 export default class Publish extends React.Component {
 
