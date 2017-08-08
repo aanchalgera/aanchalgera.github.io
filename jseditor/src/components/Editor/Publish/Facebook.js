@@ -1,24 +1,22 @@
+//@flow
 import PropTypes from 'prop-types';
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
+import { TextField, Divider} from 'material-ui';
+
+type Props = {
+  facebook: string,
+  updateSocialFacebookText: string
+}
 
 const propValidate = {
   facebook: PropTypes.string.isRequired,
   updateSocialFacebookText: PropTypes.func.isRequired
 };
 
-const styles = {
-  hintStyle:{
-    bottom: '60px'
-  }
-};
-
-const Facebook = (props) => (
+const Facebook = (props : Props) => (
   <div>
     <TextField
       hintText="..."
-      hintStyle={styles.hintStyle}
       floatingLabelFixed={true}
       multiLine={true}
       rows={3}
