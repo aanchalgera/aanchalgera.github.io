@@ -33,6 +33,6 @@ development: {
 }
 };
 
-configParams = configs[process.env.NODE_ENV];
+configParams = configs[process.env.REACT_APP_ENV];
 
 export default configParams;

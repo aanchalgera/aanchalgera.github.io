@@ -9,12 +9,6 @@ const propValidate = {
   updateSeoDescription: PropTypes.func.isRequired
 };
 
-const styles = {
-  hintStyle:{
-    bottom: '60px'
-  }
-};
-
 const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
     <Row>
       <Col lg={12}>
@@ -24,7 +18,6 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
       <Col lg={12}>
         <TextField
           hintText="..."
-          hintStyle={styles.hintStyle}
           floatingLabelFixed={true}
           multiLine={true}
           rows={3}
@@ -40,7 +33,6 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
       <Col lg={12}>
         <TextField
           hintText="..."
-          hintStyle={styles.hintStyle}
           floatingLabelFixed={true}
           multiLine={true}
           rows={3}
@@ -49,7 +41,7 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
           fullWidth={true}
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText='Descripcion 123mdmdm'
+          floatingLabelText='Descripcion SEO'
         />
         <Divider />
       </Col>
