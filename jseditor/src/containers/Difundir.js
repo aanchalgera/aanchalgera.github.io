@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import Snackbar from 'material-ui/Snackbar';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
-import SchedulePost from '../components/Editor/Publish/SchedulePost';
+import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
 import RaisedButton from 'material-ui/RaisedButton';
 import configParams from '../config/configs.js';
 

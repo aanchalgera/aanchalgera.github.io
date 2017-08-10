@@ -1,20 +1,12 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
-import Snackbar from 'material-ui/Snackbar';
+import { Snackbar, Divider } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
-import SchedulePost from '../components/Editor/Publish/SchedulePost';
-import HomePage from '../components/Editor/Publish/HomePage';
-import Seo from '../components/Editor/Publish/Seo';
-import Twitter from '../components/Editor/Publish/Twitter';
-import Facebook from '../components/Editor/Publish/Facebook';
-import CountriesFormOptions from '../components/Editor/Publish/CountriesFormOptions';
-import AdvancedOptions from '../components/Editor/Publish/AdvancedOptions';
-import ImageCropper from '../components/Editor/Publish/ImageCropper';
-import Divider from 'material-ui/Divider';
+import { AdvancedOptions, Categories, ImageCropper, SchedulePost, HomePage, Seo, Twitter, Facebook, CountriesFormOptions } from '../components/Editor/Publish/index.js';
 import configParams from '../config/configs.js';
-import Categories from '../components/Editor/Publish/Categories';
+import { getConfig, getPost } from './lib/service.js';
 
 moment.tz.setDefault(configParams.timezone);
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
@@ -83,6 +75,8 @@ class Publish extends React.Component {
       },
       category: ''
     };
+
+    this.setInitialVariables()
   }
 
   componentDidMount() {
@@ -90,10 +84,10 @@ class Publish extends React.Component {
   }
 
   componentWillMount() {
-    this.checkUser();
+    this.setInitialVariables();
   }
 
-  checkUser() {
+  setInitialVariables() {
     const {
       match: { params: { postname } },
       location: { search },
@@ -113,62 +107,47 @@ class Publish extends React.Component {
 
   init() {
     const { history } = this.props;
+    getConfig(this.blogName, this.props.base)
+    .then((data) => {
+        if (data != null) {
+          this.setState({
+            blogName: this.blogName,
+            blogUrl: data.site_url
+          });
+        } else {
+          history.replace('/invalidBlog');
+        }
+    });
 
-    if (this.blogName == undefined) {
-      history.replace('/invalidBlog');
-    } else {
-      this.props.base.fetch('config', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'site_name',
-          equalTo: this.blogName
-        },
-        then(data) {
-          if (data[0] != null) {
-            this.setState({
-              blogName: this.blogName,
-              blogUrl: data[0].site_url
-            });
-          } else {
-            history.replace('/invalidBlog');
+    getPost(this.postname, this.props.base)
+    .then((data) => {
+        if (data != null) {
+          if (!data.crop) {
+            data.crop = this.state.crop;
           }
+          this.setState(prevState => {
+            prevState.meta.homepage.content = '';
+            return {
+              id: data.id,
+              fields: data.sections || [],
+              title: data.title,
+              meta: data.meta || prevState.meta,
+              maxId: data.maxId,
+              status: data.status || 'draft',
+              date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
+              publishedDate: data.publishData.postDate || null,
+              postRepostBlogNames: data.publishData.postRepostBlogNames || [],
+              publishRegion: data.publishData.publishRegion,
+              postId: data.publishData.postId || '',
+              postHash: data.publishData.postHash || '',
+              buttonDisabled: false,
+              loaded: true,
+              userId: data.user_id
+            };
+          });
         }
-      });
-    }
-    if (this.postname != undefined) {
-      this.props.base.fetch('posts/' + this.postname, {
-        context: this,
-        then(data) {
-          if (data != null) {
-            if (!data.crop) {
-              data.crop = this.state.crop;
-            }
-            this.setState(prevState => {
-              prevState.meta.homepage.content = '';
-              return {
-                id: data.id,
-                fields: data.sections || [],
-                title: data.title,
-                meta: data.meta || prevState.meta,
-                maxId: data.maxId,
-                status: data.status || 'draft',
-                date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-                publishedDate: data.publishData.postDate || null,
-                postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-                publishRegion: data.publishData.publishRegion,
-                postId: data.publishData.postId || '',
-                postHash: data.publishData.postHash || '',
-                buttonDisabled: false,
-                loaded: true,
-                userId: data.user_id
-              };
-            });
-          }
-        }
-      });
-    }
-  }
+    });
+}
 
   submitPost(date, postSchedule) {
     let publishRegion = this.state.publishRegion;
@@ -509,7 +488,7 @@ class Publish extends React.Component {
                 twitter={this.state.meta.social.twitter}
                 updateSocialTwitterText={this.updateSocialTwitterText}
               />
-            </Col>
+              </Col>
             <Col xs ={3}>
               <Facebook
                 facebook={this.state.meta.social.facebook}
