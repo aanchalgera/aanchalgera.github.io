@@ -33,15 +33,11 @@ class Categories extends Component
 
   handleUpdate = (category) => {
     if (undefined !== category.id) {
-      this.setState(
-        {currentCategory: category.categoryName},
-        this.props.setCategory(category.id)
-      )
+      this.props.setCategory(category.id)
     }
   }
 
   componentWillReceiveProps = (nextProps) => {
-
     if (undefined !== this.props.blogUrl & this.props.category !== nextProps.category) {
       this.setCategories();
     }
