@@ -52,7 +52,7 @@ class Publish extends React.Component {
         if (data != null) {
           this.setState({
             blogName: this.blogName,
-            blogUrl: data.site_url
+            blogUrl: data[0].site_url
           });
         } else {
           history.replace('/invalidBlog');
