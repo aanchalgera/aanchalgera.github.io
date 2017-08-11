@@ -9,7 +9,7 @@ import { findById } from './lib/publishHelpers';
 
 type User = {id: number, display_name: string};
 
-export default class Publish extends React.Component {
+export class AdvancedOptions extends React.Component {
 
   static propTypes = {
     userId: PropTypes.number,
@@ -88,7 +88,7 @@ export default class Publish extends React.Component {
           onCheck={handleSensitivePost}
         />
         <Checkbox
-          checked={postMeta.comment.status == 'closed'}
+          checked={postMeta.comment.status === 'closed'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
         />

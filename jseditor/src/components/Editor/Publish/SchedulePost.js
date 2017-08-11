@@ -25,7 +25,7 @@ const styles = {
   }
 };
 
-class SchedulePost extends React.Component {
+export class SchedulePost extends React.Component {
   static defaultProps = {
     buttonDisabled: false
   };
@@ -220,5 +220,3 @@ class SchedulePost extends React.Component {
     );
   }
 }
-
-export default SchedulePost;

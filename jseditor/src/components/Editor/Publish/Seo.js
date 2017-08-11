@@ -9,7 +9,7 @@ const propValidate = {
   updateSeoDescription: PropTypes.func.isRequired
 };
 
-const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
+export const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
     <Row>
       <Col lg={12}>
         <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
@@ -49,5 +49,3 @@ const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
 );
 
 Seo.propTypes = propValidate;
-
-export default Seo;
