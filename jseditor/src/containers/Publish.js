@@ -81,7 +81,7 @@ class Publish extends React.Component {
           validate: false
         }
       },
-      category: ''
+      category: -1,
     };
   }
 
@@ -161,7 +161,8 @@ class Publish extends React.Component {
                 postHash: data.publishData.postHash || '',
                 buttonDisabled: false,
                 loaded: true,
-                userId: data.user_id
+                userId: data.user_id,
+                category: data.category,
               };
             });
           }
@@ -452,18 +453,7 @@ class Publish extends React.Component {
     });
   }
 
-  getCategoryTag = () => {
-    if (undefined === this.state.blogUrl) {
-      return null;
-    }
 
-    return (
-      <Categories
-        setCategory={this.setCategory}
-        blogUrl={this.state.blogUrl}
-      />
-    );
-  }
 
   setCategory = (categorySelected) => {
     this.setState(() => {
@@ -494,7 +484,11 @@ class Publish extends React.Component {
           <Divider />
           <Row>
             <Col xs={6}>
-              {this.getCategoryTag()}
+              <Categories
+                category={this.state.category}
+                setCategory={this.setCategory}
+                blogUrl={this.state.blogUrl}
+              />
             </Col>
           </Row>
           <Row>
