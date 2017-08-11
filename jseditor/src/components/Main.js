@@ -67,7 +67,6 @@ class Main extends React.Component{
   }
 
   componentWillMount() {
-    console.log(process.env);
     this.init();
   }
 

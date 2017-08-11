@@ -17,11 +17,11 @@ export const getCategories = (data: {}) => {
     let categoryGroup = data[key]['children'];
     if (undefined !== categoryGroup) {
       categoryGroup.forEach(function (category) {
-        categories.push({categoryName: category['cat_name'], id: category['id']});
+        categories.push({categoryName: category['cat_name'], id: Number(category['id'])});
       });
     } else {
       let category = data[key];
-      categories.push({id: category['id'], categoryName: category['name']});
+      categories.push({id: Number(category['id']), categoryName: category['name']});
     }
   }
   return categories;

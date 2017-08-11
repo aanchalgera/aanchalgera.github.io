@@ -20,10 +20,10 @@ testing: {
   cssPath: 'http://testblogwp.weblogssl.com/temp/devel/2011-template/editor/css/admin.css'
 },
 development: {
-  apiKey: process.env.FIREBASE_KEY || 'ReUUQjcoOpIFc9rJiJ7z5iFp1PrB5PsuslH0gFiL',
+  apiKey: process.env.FIREBASE_KEY || 'AIzaSyAsRpwue4AfdX6OuiOz1DyFkoPc201QGW4',
   host: 'http://test.admin.weblogssl.com',
   blogUrl: 'http://dev.xataka.com/',
-  firebaseUrl: process.env.FIREBASE_URL || 'https://flickering-fire-6653.firebaseio.com/',
+  firebaseUrl: process.env.FIREBASE_URL || 'https://office-editor-c6a69.firebaseio.com/',
   cloudName: 'weblogssl',
   uploadPreset: 'h2sbmprz',
   timezone: 'Europe/Madrid',
