@@ -7,6 +7,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { AdvancedOptions, Categories, ImageCropper, SchedulePost, HomePage, Seo, Twitter, Facebook, CountriesFormOptions } from '../components/Editor/Publish/index.js';
 import configParams from '../config/configs.js';
 import { getConfig, getPost } from './lib/service.js';
+import { initialState, loadStatefromData } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
@@ -16,68 +17,7 @@ const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const IMAGE_CROP_WARNING = 'Es necesario validar los recortes de las imágenes para poder publicar';
 
 class Publish extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fields: [],
-      status: 'draft',
-      postRepostBlogNames: [],
-      publishRegion: [],
-      postId: '',
-      postHash: '',
-      meta: {
-        index: '',
-        homepage: { content: null },
-        sponsor: { name: '', image: '', tracker: '' },
-        css: { skinName: '' },
-        seo: {},
-        microsite: {
-          name:'',
-          gaSnippet: '',
-          showWSLLogo: true,
-          showSocialButtons: true
-        },
-        author: { showAuthorInfo: false },
-        social: {
-          twitter: '',
-          facebook: ''
-        },
-        comment: { allowed: true, status: 'open' },
-      },
-      isSensitive: false,
-      specialPost:false,
-      buttonDisabled: true,
-      loaded: false,
-      isError: false,
-      message: '',
-      publishedDate: '',
-      snackbarOpen: false,
-      SnackbarMessage: '',
-      crop: {
-        square: {
-          aspect: 1,
-          x: 10,
-          height: 100,
-          validate: false
-        },
-        golden: {
-          aspect: 1.618,
-          y: 5,
-          width: 100,
-          validate: false
-        },
-        panoramic: {
-          aspect: 2.618,
-          y: 20,
-          width: 100,
-          validate: false
-        }
-      },
-      category: -1,
-    };
-
-    this.setInitialVariables()
-  }
+  state = initialState;
 
   componentDidMount() {
     this.init();
@@ -122,6 +62,7 @@ class Publish extends React.Component {
     getPost(this.postname, this.props.base)
     .then((data) => {
         if (data != null) {
+<<<<<<< HEAD
           if (!data.crop) {
             data.crop = this.state.crop;
           }
@@ -146,6 +87,9 @@ class Publish extends React.Component {
               category: data.category,
             };
           });
+=======
+          this.setState(loadStatefromData(data));
+>>>>>>> move functions to helpers
         }
     });
   }
