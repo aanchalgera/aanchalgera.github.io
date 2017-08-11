@@ -62,37 +62,10 @@ class Publish extends React.Component {
     getPost(this.postname, this.props.base)
     .then((data) => {
         if (data != null) {
-<<<<<<< HEAD
-          if (!data.crop) {
-            data.crop = this.state.crop;
-          }
-          this.setState(prevState => {
-            prevState.meta.homepage.content = '';
-            return {
-              id: data.id,
-              fields: data.sections || [],
-              title: data.title,
-              meta: data.meta || prevState.meta,
-              maxId: data.maxId,
-              status: data.status || 'draft',
-              date: data.publishData.postDate || moment().format('DD/MM/YYYY HH:mm'),
-              publishedDate: data.publishData.postDate || null,
-              postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-              publishRegion: data.publishData.publishRegion,
-              postId: data.publishData.postId || '',
-              postHash: data.publishData.postHash || '',
-              buttonDisabled: false,
-              loaded: true,
-              userId: data.user_id,
-              category: data.category,
-            };
-          });
-=======
           this.setState(loadStatefromData(data));
->>>>>>> move functions to helpers
         }
     });
-  }
+}
 
   submitPost(date, postSchedule) {
     let publishRegion = this.state.publishRegion;
@@ -376,7 +349,18 @@ class Publish extends React.Component {
     });
   }
 
+  getCategoryTag = () => {
+    if (undefined === this.state.blogUrl) {
+      return null;
+    }
 
+    return (
+      <Categories
+        setCategory={this.setCategory}
+        blogUrl={this.state.blogUrl}
+      />
+    );
+  }
 
   setCategory = (categorySelected) => {
     this.setState(() => {
@@ -407,11 +391,7 @@ class Publish extends React.Component {
           <Divider />
           <Row>
             <Col xs={6}>
-              <Categories
-                category={this.state.category}
-                setCategory={this.setCategory}
-                blogUrl={this.state.blogUrl}
-              />
+              {this.getCategoryTag()}
             </Col>
           </Row>
           <Row>
