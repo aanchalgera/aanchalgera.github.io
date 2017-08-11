@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "babel-plugin-idx": "^1.5.1",
     "draft-js": "^0.10.1",
     "draft-js-export-html": "^0.5.4",
     "draft-js-import-html": "^0.3.2",

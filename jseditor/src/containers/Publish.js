@@ -349,19 +349,6 @@ class Publish extends React.Component {
     });
   }
 
-  getCategoryTag = () => {
-    if (undefined === this.state.blogUrl) {
-      return null;
-    }
-
-    return (
-      <Categories
-        setCategory={this.setCategory}
-        blogUrl={this.state.blogUrl}
-      />
-    );
-  }
-
   setCategory = (categorySelected) => {
     this.setState(() => {
       return {
@@ -391,7 +378,11 @@ class Publish extends React.Component {
           <Divider />
           <Row>
             <Col xs={6}>
-              {this.getCategoryTag()}
+              <Categories
+                category={this.state.category}
+                setCategory={this.setCategory}
+                blogUrl={this.state.blogUrl}
+              />
             </Col>
           </Row>
           <Row>
