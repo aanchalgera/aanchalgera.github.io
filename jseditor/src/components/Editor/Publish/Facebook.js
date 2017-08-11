@@ -13,7 +13,7 @@ const propValidate = {
   updateSocialFacebookText: PropTypes.func.isRequired
 };
 
-const Facebook = (props : Props) => (
+export const Facebook = (props : Props) => (
   <div>
     <TextField
       hintText="..."
@@ -32,5 +32,3 @@ const Facebook = (props : Props) => (
 );
 
 Facebook.propTypes = propValidate;
-
-export default Facebook;

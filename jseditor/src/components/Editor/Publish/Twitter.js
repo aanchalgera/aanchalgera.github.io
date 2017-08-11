@@ -15,7 +15,7 @@ const styles = {
   }
 };
 
-const Twitter = (props) => (
+export const Twitter = (props) => (
   <div>
     <TextField
       hintText="..."
@@ -36,5 +36,3 @@ const Twitter = (props) => (
 );
 
 Twitter.propTypes = propValidate;
-
-export default Twitter;

@@ -1,6 +1,4 @@
-let configParams = {};
-
-var configs = {
+const configs = {
 production: {
   apiKey: process.env.FIREBASE_KEY || 'YJsHk9nHLb0MNnwFCqCFIDH6CCCHUvkOxP9FhX06',
   host: 'http://admin.weblogssl.com',
@@ -33,6 +31,6 @@ development: {
 }
 };
 
-configParams = configs[process.env.REACT_APP_ENV];
+const configParams = configs[process.env.REACT_APP_ENV];
 
 export default configParams;
