@@ -1,7 +1,10 @@
 import React from 'react';
-import TopBar from './Menu/TopBar';
 import PropTypes from 'prop-types';
 import Rebase from 're-base';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Switch, Route } from 'react-router-dom';
+
+import TopBar from './Menu/TopBar';
 import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
 import Publicar from '../containers/Publish';
@@ -11,48 +14,8 @@ import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
 import TitleBar from '../components/Menu/TitleBar';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { white, grey900, grey500, grey300, indigo500, pink500 } from 'material-ui/styles/colors';
-import { Switch, Route } from 'react-router-dom';
 import configParams from '../config/configs.js';
-
-const palette = {
-  primary1Color: grey900,
-  primaryButtonColor: pink500,
-  textColor: white,
-  disabledColor: grey300,
-  disabledTextColor: grey500,
-  checkedColor: indigo500,
-};
-
-const customTheme = getMuiTheme({
-  appBar: {
-    color: palette.primary1Color,
-    textColor: palette.textColor
-  },
-  tabs: {
-    backgroundColor: palette.primary1Color,
-    textColor: palette.textColor
-  },
-  flatButton: {
-    textColor: palette.textColor
-  },
-  svgIcon: {
-    textColor: palette.textColor,
-    color: palette.textColor
-  },
-  raisedButton: {
-    disabledColor: palette.disabledColor,
-    disabledTextColor: palette.disabledTextColor,
-    primaryColor: palette.primaryButtonColor,
-    primaryTextColor: palette.textColor,
-  },
-  checkbox: {
-    checkedColor: palette.checkedColor
-  }
-});
+import  { customTheme } from './styles/customTheme.js'
 
 var base = Rebase.createClass(
   {
