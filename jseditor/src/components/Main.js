@@ -1,7 +1,10 @@
 import React from 'react';
-import TopBar from './Menu/TopBar';
 import PropTypes from 'prop-types';
 import Rebase from 're-base';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Switch, Route } from 'react-router-dom';
+
+import TopBar from './Menu/TopBar';
 import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
 import Publicar from '../containers/Publish';
@@ -11,10 +14,6 @@ import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
 import TitleBar from '../components/Menu/TitleBar';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Switch, Route } from 'react-router-dom';
-
 import configParams from '../config/configs.js';
 import  { customTheme } from './styles/customTheme.js'
 
@@ -69,7 +68,6 @@ class Main extends React.Component{
   }
 
   render(){
-    console.log(customTheme.palette);
     const { match: { url }, location: { pathname } } = this.props;
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       return (
