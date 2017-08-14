@@ -13,46 +13,10 @@ import Home from '../components/Home';
 import TitleBar from '../components/Menu/TitleBar';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { white, grey900, grey500, grey300, indigo500, pink500 } from 'material-ui/styles/colors';
 import { Switch, Route } from 'react-router-dom';
+
 import configParams from '../config/configs.js';
-
-const palette = {
-  primary1Color: grey900,
-  primaryButtonColor: pink500,
-  textColor: white,
-  disabledColor: grey300,
-  disabledTextColor: grey500,
-  checkedColor: indigo500,
-};
-
-const customTheme = getMuiTheme({
-  appBar: {
-    color: palette.primary1Color,
-    textColor: palette.textColor
-  },
-  tabs: {
-    backgroundColor: palette.primary1Color,
-    textColor: palette.textColor
-  },
-  flatButton: {
-    textColor: palette.textColor
-  },
-  svgIcon: {
-    textColor: palette.textColor,
-    color: palette.textColor
-  },
-  raisedButton: {
-    disabledColor: palette.disabledColor,
-    disabledTextColor: palette.disabledTextColor,
-    primaryColor: palette.primaryButtonColor,
-    primaryTextColor: palette.textColor,
-  },
-  checkbox: {
-    checkedColor: palette.checkedColor
-  }
-});
+import  { customTheme } from './styles/customTheme.js'
 
 var base = Rebase.createClass(
   {
@@ -105,6 +69,7 @@ class Main extends React.Component{
   }
 
   render(){
+    console.log(customTheme.palette);
     const { match: { url }, location: { pathname } } = this.props;
     if (pathname.indexOf('/publicar/') > -1 || pathname.indexOf('/difundir/') > -1) {
       return (
