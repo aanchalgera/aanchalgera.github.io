@@ -16,7 +16,8 @@ export const loadStatefromData = (data: {}) => {
     postId: idx(data, _ => _.publishData.postId) || '',
     postHash: idx(data, _ => _.publishData.postHash) || '',
     buttonDisabled: false,
-    userId: data.user_id
+    userId: data.user_id,
+    category: data.category,
   };
 }
 
@@ -74,5 +75,5 @@ export const initialState = {
       validate: false
     }
   },
-  category: ''
+  category: -1
 };
