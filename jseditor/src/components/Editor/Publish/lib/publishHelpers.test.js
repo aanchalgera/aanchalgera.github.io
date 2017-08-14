@@ -1,4 +1,4 @@
-import { findById, findByName, toggleItem } from './publishHelpers'
+import { findById, findByName, toggleItem, getCategories } from './publishHelpers'
 
 const users = [
     {id:1, display_name: 'one'},
@@ -31,4 +31,26 @@ test('toggleItem should remove the item in an array if it exists', () => {
   const expected = ['ES']
   toggleItem('IN', countries)
   expect(countries).toEqual(expected)
+})
+
+test('getCategories should create an array of category objects', () => {
+  const categoryTree = {
+      4: {
+        children: [
+          {
+            id: 1, cat_name:'First', category_nicename: 'first'
+          },
+          {
+            id: 2, cat_name:'Second', category_nicename: 'second'
+          }
+        ]
+      }
+    }
+  const expectedResult = [
+      {id: 1, categoryName: 'First'},
+      {id: 2, categoryName: 'Second'}
+    ]
+
+  const actualResult = getCategories(categoryTree)
+  expect(actualResult).toEqual(expectedResult)
 })
