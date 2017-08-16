@@ -89,7 +89,7 @@ class Publish extends React.Component {
   setPostMeta = (key, value) => {
     let meta = this.state.meta;
     meta[key] = value;
-    this.setState({meta});
+    this.setState({meta}, savePost(this.state, this.props.base));
   }
 
   onSchedule(date, postSchedule) {
@@ -124,12 +124,6 @@ class Publish extends React.Component {
     }
 
     this.setMessage(isError, message);
-    if (isError) {
-      this.setState({
-        snackbarOpen: true,
-        SnackbarMessage: message
-      });
-    }
     return !isError;
   }
 
