@@ -1,12 +1,11 @@
 import React from 'react';
-import jquery from 'jquery';
 import moment from 'moment-timezone';
 import { Snackbar, Divider } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
 import { AdvancedOptions, Categories, ImageCropper, SchedulePost, HomePage, Seo, Twitter, Facebook, CountriesFormOptions } from '../components/Editor/Publish/index.js';
 import configParams from '../config/configs.js';
-import { getConfig, getPost } from './lib/service.js';
+import { getConfig, getPost, submitPostToBackend, savePostsList, savePost } from './lib/service.js';
 import { initialState, loadStatefromData } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
@@ -59,143 +58,30 @@ class Publish extends React.Component {
         }
     });
 
-    getPost(this.postname, this.props.base)
+   getPost(this.postname, this.props.base)
     .then((data) => {
-        if (data != null) {
-          this.setState(loadStatefromData(data));
-        }
+      if (data != null) {
+        this.setState(loadStatefromData(data));
+      }
     });
-}
+  }
 
   submitPost(date, postSchedule) {
-    let publishRegion = this.state.publishRegion;
-    let postRepostBlogNames = this.state.postRepostBlogNames;
-    let imageValidated = {
-      square: {...this.state.crop.square},
-      golden: {...this.state.crop.golden},
-      panoramic: {...this.state.crop.panoramic},
-    };
-
-    for (let key in imageValidated) {
-      delete imageValidated[key]['validate'];
-    }
-
-    let backendData = {
-      categoryId: this.state.category,
-      post_title: this.state.title,
-      comment_status: this.state.meta.comment.status,
-      post_type: 'normal',
-      post_content: JSON.stringify(this.state.fields),
-      postExcerpt: JSON.stringify({'meta' : this.state.meta}),
-      post_abstract: '',
-      post_extended_title: '',
-      post_visibility: 0,
-      posts_galleries: '',
-      post_subtype: 13,
-      postDate: date,
-      'publish-region': publishRegion,
-      postRepostBlogNames: postRepostBlogNames,
-      page: 'publish',
-      firebase_id: this.state.id,
-      post_status: 'future',
-      user_id: this.state.userId,
-      primary_image: this.state.meta.homepage.image.url,
-      is_sensitive: this.state.isSensitive,
-      long_post: this.state.specialPost,
-      image_validated: imageValidated,
-    };
-
-    let firebaseData = {
-      id: this.state.id,
-      title: this.state.title,
-      sections: this.state.fields,
-      maxId: this.state.maxId,
-      blogName: this.state.blogName,
-      status: 'publish',
-      publishData: {
-        postDate: date,
-        publishRegion: publishRegion,
-        postRepostBlogNames: postRepostBlogNames
-      },
-      meta: this.state.meta,
-      user_id: this.state.userId,
-      crop: this.state.crop,
-      isSensitive: this.state.isSensitive,
-      specialPost: this.state.specialPost,
-    };
-    let postType = 'POST';
-    let postUrl = 'postpage';
-    if (this.state.postId != undefined && this.state.postId != '') {
-      postType = 'PUT';
-      postUrl = 'postpage/' + this.state.postId;
-    }
-    jquery.ajax({
-      url: this.state.blogUrl + '/admin/' + postUrl,
-      type: postType,
-      dataType: 'json',
-      data: backendData,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true
-    })
+    submitPostToBackend(this.state, date)
     .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
-    .done(result => {
-      if (result.id != undefined) {
-        firebaseData.publishData.postId = result.id;
-        firebaseData.publishData.postHash = result.post_hash;
-      }
-      try {
-        let postType = 'normal';
-        let blogStatus = this.blogName + '_publish';
-        if (this.state.meta.sponsor.image) {
-          postType = 'club';
-        }
-
-        let listData = {
-          id: this.state.id,
-          title: this.state.title,
+    .then((result) => {
+      if (result.id !== undefined) {
+        this.setState({
+          postId: result.id,
+          postHash: result.post_hash,
           status: 'publish',
-          user_id: this.state.userId,
-          blog_name: this.blogName,
-          user_status: this.blogName + '_' + this.state.userId + '_' + 'publish',
-          blog_status: blogStatus,
-          blog_post_type: blogStatus + '_' + postType
-        };
-
-        this.props.base.post(
-          'posts_list/' + this.state.id,
-          {
-            data: listData,
-            then() {}
-          }
-        );
-
-        this.props.base.post(
-          'posts/' + this.state.id,
-          {
-            data: firebaseData,
-            then: () => {
-              if (result.id != undefined) {
-                this.setState({
-                  postId: result.id,
-                  postHash: result.post_hash,
-                  status: 'publish',
-                  publishedDate: date,
-                  snackbarOpen: true,
-                  SnackbarMessage: 'Changes has been saved. Post scheduled for ' + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
-                });
-                this.enableButton();
-              }
-            }
-          }
-        );
-      } catch (e) {
-        let errorMessage = e.message.substring(0, 100);
-        this.setMessage(true, errorMessage);
-        this.enableButton();
-  //      Rollbar.critical(SAVING_DATA_ERROR_WARNING, e);
+          publishedDate: date,
+          snackbarOpen: true,
+          SnackbarMessage: 'Changes has been saved. Post scheduled for ' + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
+        }, savePost(this.state, this.props.base));
       }
+      savePostsList(this.state, this.props.base, this.blogName);
+      this.enableButton();
     })
     .always(postSchedule);
   }
@@ -233,7 +119,7 @@ class Publish extends React.Component {
 
   isValid() {
     let isError = false, message;
-    if ('publish' == this.state.status) {
+    if ('publish' === this.state.status) {
       if (moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
         this.setMessage(true, PUBLISH_POST_WARNING);
       }
@@ -314,7 +200,7 @@ class Publish extends React.Component {
   }
 
   getAdvancedOptions = () => {
-    if (this.state.blogUrl == undefined) {
+    if (this.state.blogUrl === undefined) {
       return null;
     }
 
@@ -374,17 +260,17 @@ class Publish extends React.Component {
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
         <div>
+        <Row>
+          <Col xs={6}>
+            <Categories
+              category={this.state.category}
+              setCategory={this.setCategory}
+              blogUrl={this.state.blogUrl}
+            />
+          </Col>
+        </Row>
           <h4>Portada y redes sociales</h4>
           <Divider />
-          <Row>
-            <Col xs={6}>
-              <Categories
-                category={this.state.category}
-                setCategory={this.setCategory}
-                blogUrl={this.state.blogUrl}
-              />
-            </Col>
-          </Row>
           <Row>
             <Col xs={6}>
               <HomePage
