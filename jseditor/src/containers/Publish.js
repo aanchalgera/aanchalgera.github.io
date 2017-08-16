@@ -92,18 +92,6 @@ class Publish extends React.Component {
     this.setState({meta});
   }
 
-  setPostAuthor = (userId) => {
-    this.setState({userId});
-  }
-
-  handleSensitivePost = (e, isSensitive) => {
-    this.setState({isSensitive});
-  }
-
-  handleSpecialPost = (e, specialPost) => {
-    this.setState({specialPost});
-  }
-
   onSchedule(date, postSchedule) {
     if (this.isValid()) {
       return this.submitPost(date, postSchedule);
@@ -160,38 +148,26 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
-  updateSeoTitle = (event) => {
-    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
-    this.state.meta.seo.title = event.target.value;
-    this.setState({ meta: this.state.meta });
-  }
-
-  updateSeoDescription = (event) => {
-    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
-    this.state.meta.seo.description = event.target.value;
-    this.setState({ meta: this.state.meta });
-  }
-
   handleRequestClose() {
     this.setState({
       snackbarOpen: false,
     });
   }
 
-  setPublishRegions (newRegions) {
-    this.setState({
-      publishRegion: newRegions
-    });
+  updateParent = (data) => {
+    this.setState(data, savePost(this.state, this.props.base));
   }
 
   updateSocialFacebookText = (event) => {
-    this.state.meta.social.facebook = event.target.value;
-    this.setState({ meta: this.state.meta });
+    let meta = this.state.meta;
+    meta.social.facebook = event.target.value;
+    this.setState({ meta });
   }
 
   updateSocialTwitterText = (event) => {
-    this.state.meta.social.twitter = event.target.value;
-    this.setState({ meta: this.state.meta });
+    let meta = this.state.meta;
+    meta.social.twitter = event.target.value;
+    this.setState({ meta });
   }
 
   updateHomepageContent = (value) => {
@@ -208,9 +184,7 @@ class Publish extends React.Component {
       blogUrl={this.state.blogUrl}
       userId={parseInt(this.state.userId)}
       setPostMeta={this.setPostMeta}
-      setPostAuthor={this.setPostAuthor}
-      handleSensitivePost={this.handleSensitivePost}
-      handleSpecialPost={this.handleSpecialPost}
+      updateParent={this.updateParent}
       postMeta={this.state.meta}
       specialPost={this.state.specialPost}
       isSensitive={this.state.isSensitive}
@@ -305,13 +279,12 @@ class Publish extends React.Component {
           <Col xs>
             <Seo
               seo={this.state.meta.seo ? this.state.meta.seo : {title:'', description:''} }
-              updateSeoTitle={this.updateSeoTitle}
-              updateSeoDescription={this.updateSeoDescription}
+              setPostMeta={this.setPostMeta}
             />
           </Col>
           <Col xs>
             <CountriesFormOptions
-              setPublishRegions={this.setPublishRegions.bind(this)}
+              updateParent={this.updateParent}
               publishRegions={this.state.publishRegion}
             />
           </Col>

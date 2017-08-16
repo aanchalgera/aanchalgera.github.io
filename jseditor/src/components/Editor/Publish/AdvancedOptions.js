@@ -14,9 +14,7 @@ export class AdvancedOptions extends React.Component {
   static propTypes = {
     userId: PropTypes.number,
     blogUrl: PropTypes.string,
-    setPostAuthor: PropTypes.func.isRequired,
-    handleSpecialPost: PropTypes.func.isRequired,
-    handleSensitivePost: PropTypes.func.isRequired,
+    updateParent: PropTypes.func.isRequired,
     setPostMeta: PropTypes.func.isRequired,
     isSensitive: PropTypes.bool.isRequired,
     specialPost: PropTypes.bool.isRequired,
@@ -34,7 +32,7 @@ export class AdvancedOptions extends React.Component {
   onNewRequest = (user: {id: number, display_name: string}) => {
     this.setState(
       {currentUser : user.display_name},
-      this.props.setPostAuthor(user.id)
+      this.props.updateParent({userId: user.id})
     );
   }
 
@@ -63,11 +61,17 @@ export class AdvancedOptions extends React.Component {
     this.props.setPostMeta('comment', checked);
   }
 
+  handleSensitivePost = (e, isSensitive) => {
+     this.props.updateParent({isSensitive: isSensitive});
+  }
+
+  handleSpecialPost = (e, specialPost) => {
+      this.props.updateParent({specialPost: specialPost});
+  }
+
   render () {
     const {
       setPostMeta,
-      handleSpecialPost,
-      handleSensitivePost,
       postMeta,
       specialPost,
       isSensitive
@@ -80,12 +84,12 @@ export class AdvancedOptions extends React.Component {
         <Checkbox
           checked={specialPost}
           label="Artículo especial"
-          onCheck={handleSpecialPost}
+          onCheck={this.handleSpecialPost}
         />
         <Checkbox
           checked={isSensitive}
           label="Tiene contenido sensible"
-          onCheck={handleSensitivePost}
+          onCheck={this.handleSensitivePost}
         />
         <Checkbox
           checked={postMeta.comment.status === 'closed'}
