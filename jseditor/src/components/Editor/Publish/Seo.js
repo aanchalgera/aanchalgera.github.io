@@ -5,11 +5,24 @@ import { TextField, Divider, Subheader } from 'material-ui';
 
 const propValidate = {
   seo: PropTypes.object.isRequired,
-  updateSeoTitle: PropTypes.func.isRequired,
-  updateSeoDescription: PropTypes.func.isRequired
+  setPostMeta: PropTypes.func.isRequired
 };
 
-export const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
+export const Seo = ({seo, setPostMeta}) => {
+  const  updateSeoTitle = (e: SyntheticEvent) => {
+    setPostMeta('seo', {
+      title: e.target.value,
+      description: seo.description
+    });
+  }
+
+  const updateSeoDescription = (e: SyntheticEvent) => {
+      setPostMeta('seo', {
+        title: seo.title,
+        description: e.target.value
+      });
+  }
+return(
     <Row>
       <Col lg={12}>
         <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
@@ -47,5 +60,6 @@ export const Seo = ({seo, updateSeoTitle, updateSeoDescription}) => (
       </Col>
     </Row>
 );
+};
 
 Seo.propTypes = propValidate;

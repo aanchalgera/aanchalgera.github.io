@@ -22,7 +22,7 @@ class CountriesFormOptions extends React.Component {
     const region = e.target.value;
     let publishRegions = this.props.publishRegions;
     toggleItem(region, publishRegions);
-    this.props.setPublishRegions(publishRegions);
+    this.props.updateParent({publishRegion: publishRegions});
   }
 
   render() {
