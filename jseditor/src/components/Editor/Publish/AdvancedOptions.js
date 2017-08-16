@@ -47,12 +47,12 @@ export class AdvancedOptions extends React.Component {
     });
   }
 
-  setShowAuthor = (e: SyntheticMouseEvent, isChecked: boolean) => {
+  setShowAuthor = (e: SyntheticKeyboardEvent, isChecked: boolean) => {
     this.props.setPostMeta('author', {
       showAuthorInfo: isChecked
     });
   }
-
+ 
   setCommentStatus = (e: {}, isChecked: boolean) => {
     const checked = {
       allow: true,
