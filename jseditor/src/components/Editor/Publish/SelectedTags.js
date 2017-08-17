@@ -5,8 +5,10 @@ import { Row, Col } from 'react-flexbox-grid';
 export default class SelectedTags extends Component
 {
   handleDelete = (id) => {
-    delete this.props.tags[id];
-    this.prop.updateParent({tags: this.props.tags});
+    let updatedTags = this.props.tags;
+    const chipToDelete = updatedTags.map((chip) => chip.id).indexOf(id);
+    updatedTags.splice(chipToDelete, 1);
+    this.props.updateParent({tags: updatedTags});
   }
 
   render () {
@@ -14,8 +16,8 @@ export default class SelectedTags extends Component
     this.props.tags.map((tag) => {
       let tagChip = (
         <Chip
-        key={tag.id}
-        onRequestDelete={() => this.handleDelete(tag.key)}
+          key={tag.id}
+          onRequestDelete={() => this.handleDelete(tag.id)}
         >
           {tag.name}
         </Chip>

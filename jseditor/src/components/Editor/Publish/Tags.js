@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import { loadTags } from './lib/publishService';
+import { findById } from './lib/publishHelpers'
 
 class Tags extends Component
 {
@@ -19,10 +20,17 @@ class Tags extends Component
   }
 
   handleNewRequest = (tag) => {
-    if (undefined !== tag.id) {
-      let updatedTags = [...this.props.tags, {id: tag.id, name: tag.name}];
+    if (undefined !== tag.id && !this.isDuplicateEntry(tag)) {
+      let updatedTags = [...this.props.tags, {id: Number(tag.id), name: tag.name}];
       this.props.updateParent({tags: updatedTags});
+    } else {
+      console.log('tag already selected');
     }
+  }
+
+  isDuplicateEntry = (tag) => {
+    let tagAlreadyExist = findById(Number(tag.id), this.props.tags) ? true : false;
+    return tagAlreadyExist;
   }
 
   render () {
