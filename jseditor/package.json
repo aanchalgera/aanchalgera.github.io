@@ -31,10 +31,7 @@
   },
   "lint-staged": {
     "gitDir": "../",
-    "src/**/*.{js,jsx,json,css}": [
-    "prettier --single-quote --write",
-    "git add"
-   ]
+    "*.{js,jsx,json,css}": ["prettier --single-quote --write", "git add"]
   },
   "scripts": {
     "start": "react-scripts start",
