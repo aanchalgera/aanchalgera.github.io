@@ -51,6 +51,7 @@ class Categories extends Component
         dataSource={this.state.categories}
         dataSourceConfig={{text: 'categoryName', value: 'id'}}
         openOnFocus={true}
+        filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText="Categoria"
       />
     );

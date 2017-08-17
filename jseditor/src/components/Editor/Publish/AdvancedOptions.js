@@ -118,6 +118,7 @@ export class AdvancedOptions extends React.Component {
           dataSourceConfig={{ text: 'display_name', value: 'id' }}
           openOnFocus={true}
           onNewRequest={this.onNewRequest}
+          filter={AutoComplete.caseInsensitiveFilter}
         />
       </div>
     );

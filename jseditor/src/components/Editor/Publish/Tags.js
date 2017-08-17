@@ -41,6 +41,7 @@ class Tags extends Component
         onUpdateInput={this.handleUpdate}
         onNewRequest={this.handleNewRequest}
         openOnFocus={true}
+        filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText="Etiquetas"
       />
     );
