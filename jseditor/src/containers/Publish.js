@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import { Snackbar, Divider } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
-
 import { AdvancedOptions, Categories, ImageCropper, SchedulePost, HomePage, Seo, Twitter, Facebook, CountriesFormOptions, Tags, SelectedTags } from '../components/Editor/Publish/index.js';
 import configParams from '../config/configs.js';
 import { getConfig, getPost, submitPostToBackend, savePostsList, savePost } from './lib/service.js';
