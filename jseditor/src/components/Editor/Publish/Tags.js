@@ -4,12 +4,12 @@ import { loadTags } from './lib/publishService';
 
 class Tags extends Component
 {
-	constructor (props) {	
-		super(props);
+  constructor (props) {	
+    super(props);
     this.state = {
       tags: [],
     }
-	}
+  }
 
   handleUpdate = (searchText) => {
     loadTags(this.props.blogUrl, searchText)
@@ -36,7 +36,7 @@ class Tags extends Component
         floatingLabelText="Etiquetas"
       />
     );
-	}
+  }
 }
 
 export default Tags;
