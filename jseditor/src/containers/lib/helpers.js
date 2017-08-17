@@ -2,17 +2,24 @@ import idx from 'idx';
 import moment from 'moment-timezone';
 
 export const loadStatefromData = (data: {}) => {
-
   return {
     id: data.id,
     fields: data.sections || [],
     title: data.title,
-    meta: data.meta || {homepage:{content : ''}, social:{twitter:'', facebook:''},comment: {status: 'open'},author: {showAuthorInfo: false}},
+    meta: data.meta || {
+      homepage: { content: '' },
+      social: { twitter: '', facebook: '' },
+      comment: { status: 'open' },
+      author: { showAuthorInfo: false }
+    },
     maxId: data.maxId,
     status: data.status || 'draft',
-    date: idx(data, _ => _.publishData.postDate) || moment().format('DD/MM/YYYY HH:mm'),
+    date:
+      idx(data, _ => _.publishData.postDate) ||
+      moment().format('DD/MM/YYYY HH:mm'),
     publishedDate: idx(data, _ => _.publishData.postDate) || null,
-    postRepostBlogNames: idx(data, _ => _.publishData.postRepostBlogNames) || [],
+    postRepostBlogNames:
+      idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
     postId: idx(data, _ => _.publishData.postId) || '',
     postHash: idx(data, _ => _.publishData.postHash) || '',
@@ -20,10 +27,10 @@ export const loadStatefromData = (data: {}) => {
     userId: data.user_id,
     category: data.category,
     isSensitive: data.isSensitive ? data.isSensitive : false,
-    specialPost: data.specialPost ? data.specialPost; false,
-    tags: data.tags,
+    specialPost: data.specialPost ? data.specialPost : false,
+    tags: data.tags
   };
-}
+};
 
 export const initialState = {
   fields: [],
@@ -39,7 +46,7 @@ export const initialState = {
     css: { skinName: '' },
     seo: {},
     microsite: {
-      name:'',
+      name: '',
       gaSnippet: '',
       showWSLLogo: true,
       showSocialButtons: true
@@ -49,10 +56,10 @@ export const initialState = {
       twitter: '',
       facebook: ''
     },
-    comment: { allowed: true, status: 'open' },
+    comment: { allowed: true, status: 'open' }
   },
   isSensitive: false,
-  specialPost:false,
+  specialPost: false,
   buttonDisabled: true,
   isError: false,
   message: '',
@@ -80,5 +87,5 @@ export const initialState = {
     }
   },
   category: -1,
-  tags: [],
+  tags: []
 };
