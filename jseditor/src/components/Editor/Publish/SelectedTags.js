@@ -12,21 +12,21 @@ export default class SelectedTags extends Component
   render () {
     let tags = [];
     this.props.tags.map((tag) => {
-	    	let tagChip = (
-		    	  <Chip
-		          key={tag.id}
-		          onRequestDelete={() => this.handleDelete(tag.key)}
-		    	  >
-		          {tag.name}
-		        </Chip>
-	    	);
-	    	tags.push(tagChip);
-      }
-    )
-  	return (
-  		<Row>
-	      {tags}
+      let tagChip = (
+        <Chip
+        key={tag.id}
+        onRequestDelete={() => this.handleDelete(tag.key)}
+        >
+          {tag.name}
+        </Chip>
+      );
+      tags.push(tagChip);
+    });
+
+    return (
+      <Row>
+        {tags}
       </Row>
-  	)
+    );
   }
 }

@@ -25,7 +25,7 @@ class Tags extends Component
     }
   }
 
-	render () {
+  render () {
     return (
       <AutoComplete
         dataSource={this.state.tags}
