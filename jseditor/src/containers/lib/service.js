@@ -108,7 +108,6 @@ export const submitPostToBackend = (state, date) => {
     postDate: date,
     'publish-region': publishRegion,
     postRepostBlogNames: postRepostBlogNames,
-    page: 'publish',
     firebase_id: state.id,
     post_status: 'future',
     user_id: state.userId,

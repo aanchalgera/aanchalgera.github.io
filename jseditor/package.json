@@ -34,7 +34,7 @@
     "prettier --single-quote --write",
     "git add"
    ]
-  }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

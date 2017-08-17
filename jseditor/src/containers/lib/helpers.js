@@ -19,8 +19,8 @@ export const loadStatefromData = (data: {}) => {
     buttonDisabled: false,
     userId: data.user_id,
     category: data.category,
-    isSensitive: data.isSensitive,
-    specialPost: data.specialPost,
+    isSensitive: data.isSensitive ? data.isSensitive : false,
+    specialPost: data.specialPost ? data.specialPost; false,
     tags: data.tags,
   };
 }
