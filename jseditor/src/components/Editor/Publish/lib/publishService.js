@@ -21,3 +21,14 @@ export const loadCategories = (blogUrl, postType) => {
     }
   });
 };
+
+export const loadTags = (blogUrl, keyword) => {
+  return jquery.ajax({
+  url: `${blogUrl}/admin/api/tags?keyword=${keyword}`,
+    crossDomain: true,
+    dataType : 'json',
+    xhrFields: {
+      withCredentials: true
+    }
+  });
+}

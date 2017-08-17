@@ -2,6 +2,7 @@ import idx from 'idx';
 import moment from 'moment-timezone';
 
 export const loadStatefromData = (data: {}) => {
+
   return {
     id: data.id,
     fields: data.sections || [],
@@ -19,7 +20,8 @@ export const loadStatefromData = (data: {}) => {
     userId: data.user_id,
     category: data.category,
     isSensitive: data.isSensitive,
-    specialPost: data.specialPost
+    specialPost: data.specialPost,
+    tags: data.tags,
   };
 }
 
@@ -77,5 +79,6 @@ export const initialState = {
       validate: false
     }
   },
-  category: -1
+  category: -1,
+  tags: [],
 };
