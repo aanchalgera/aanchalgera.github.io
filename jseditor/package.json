@@ -7,11 +7,14 @@
     "draft-js-export-html": "^0.5.4",
     "draft-js-import-html": "^0.3.2",
     "flow-bin": "^0.51.1",
+    "husky": "^0.14.3",
     "idx": "^1.5.0",
     "jquery": "^3.2.1",
+    "lint-staged": "^4.0.3",
     "marked": "^0.3.6",
     "material-ui": "^0.18.7",
     "moment-timezone": "^0.5.13",
+    "prettier": "^1.5.3",
     "re-base": "^2.3.2",
     "react": "^15.6.1",
     "react-bootstrap-typeahead": "^2.0.0-alpha.2",
@@ -26,11 +29,18 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+    "prettier --single-quote --write",
+    "git add"
+   ]
+  }
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "precommit": "lint-staged"
   }
 }
