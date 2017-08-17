@@ -5,8 +5,8 @@ import { Row, Col } from 'react-flexbox-grid';
 export default class SelectedTags extends Component
 {
   handleDelete = (id) => {
-  	delete this.props.tags[id];
-  	this.prop.updateParent({tags: this.props.tags});
+    delete this.props.tags[id];
+    this.prop.updateParent({tags: this.props.tags});
   }
 
   render () {
