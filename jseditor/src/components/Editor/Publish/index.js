@@ -1,22 +1,17 @@
-import HomePage from './HomePage.js'
-import CountriesFormOptions from './CountriesFormOptions.js'
-import Categories from './Categories.js'
-import Tags from './Tags.js'
-import SelectedTags from './SelectedTags.js'
-import ImageCropper from './ImageCropper.js'
-export { AdvancedOptions } from './AdvancedOptions.js'
-export { Categories }
-export { Tags }
-export { SelectedTags }
-export { CountriesFormOptions }
-export { CropWidget } from './CropWidget.js'
-export { DraftJSEditor } from './DraftJSEditor.js'
-export { Facebook } from './Facebook.js'
-export { HomePage }
-export { ImageCropper }
-export { Label } from './Label.js'
-export { SchedulePost } from './SchedulePost.js'
-export { Seo } from './Seo.js'
-export { SponsoredContent } from './SponsoredContent.js'
-export { TextArea } from './TextArea.js'
-export { Twitter } from './Twitter.js'
+import HomePage from './HomePage';
+export { AdvancedOptions } from './AdvancedOptions';
+export { Categories } from './Categories';
+export { Tags } from './Tags';
+export { SelectedTags } from './SelectedTags';
+export { CountriesFormOptions } from './CountriesFormOptions';
+export { CropWidget } from './CropWidget';
+export { DraftJSEditor } from './DraftJSEditor';
+export { Facebook } from './Facebook';
+export { HomePage };
+export { ImageCropper } from './ImageCropper';
+export { Label } from './Label';
+export { SchedulePost } from './SchedulePost';
+export { Seo } from './Seo';
+export { SponsoredContent } from './SponsoredContent';
+export { TextArea } from './TextArea';
+export { Twitter } from './Twitter';

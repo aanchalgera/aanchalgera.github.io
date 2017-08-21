@@ -3,7 +3,7 @@ import CropWidget from './CropWidget';
 import { Row, Col } from 'react-flexbox-grid';
 import { grey400 } from 'material-ui/styles/colors';
 
-class ImageCropper extends React.Component {
+export class ImageCropper extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class ImageCropper extends React.Component {
         lineHeight: '22px',
         top: '38px',
         transformOrigin: 'left top 0px',
-        color: grey400,
+        color: grey400
       }
     };
   }
@@ -36,7 +36,9 @@ class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>Recorte para portada móvil, crosspost, instagram</label>
+            <label style={this.style.label}>
+              Recorte para portada móvil, crosspost, instagram
+            </label>
           </p>
           <div style={this.style.cropperWidth}>
             <CropWidget
@@ -50,7 +52,9 @@ class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>Recorte para portada escritorio, Twitter, Facebook</label>
+            <label style={this.style.label}>
+              Recorte para portada escritorio, Twitter, Facebook
+            </label>
           </p>
           <div style={this.style.cropperWidth}>
             <CropWidget
@@ -64,7 +68,9 @@ class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>Recorte para top story, destacados</label>
+            <label style={this.style.label}>
+              Recorte para top story, destacados
+            </label>
           </p>
           <div style={this.style.cropperWidth}>
             <CropWidget
@@ -80,5 +86,3 @@ class ImageCropper extends React.Component {
     );
   }
 }
-
-export default ImageCropper;

@@ -15,7 +15,7 @@ import {
   CountriesFormOptions,
   Tags,
   SelectedTags
-} from '../components/Editor/Publish/index.js';
+} from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
   getConfig,
@@ -271,12 +271,13 @@ class Publish extends React.Component {
                 tags={this.state.tags}
                 updateParent={this.updateParent}
               />
+              <SelectedTags
+                tags={this.state.tags}
+                updateParent={this.updateParent}
+              />
             </Col>
           </Row>
-          <SelectedTags
-            tags={this.state.tags}
-            updateParent={this.updateParent}
-          />
+
           <h4>Portada y redes sociales</h4>
           <Divider />
           <Row>
