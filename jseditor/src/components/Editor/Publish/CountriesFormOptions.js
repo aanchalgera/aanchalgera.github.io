@@ -17,18 +17,18 @@ let regions = {
   ROW: 'Resto del mundo'
 };
 
-class CountriesFormOptions extends React.Component {
+export class CountriesFormOptions extends React.Component {
   onCheck(e) {
     const region = e.target.value;
     let publishRegions = this.props.publishRegions;
     toggleItem(region, publishRegions);
-    this.props.updateParent({publishRegion: publishRegions});
+    this.props.updateParent({ publishRegion: publishRegions });
   }
 
   render() {
     const checkboxes = { 0: [], 1: [] };
     Object.keys(regions).map((key, index) => {
-      checkboxes[index % 2].push((
+      checkboxes[index % 2].push(
         <Checkbox
           key={index}
           value={key}
@@ -36,7 +36,7 @@ class CountriesFormOptions extends React.Component {
           checked={-1 !== this.props.publishRegions.indexOf(key)}
           onCheck={this.onCheck.bind(this)}
         />
-      ));
+      );
     });
 
     return (
@@ -55,5 +55,3 @@ class CountriesFormOptions extends React.Component {
     );
   }
 }
-
-export default CountriesFormOptions;
