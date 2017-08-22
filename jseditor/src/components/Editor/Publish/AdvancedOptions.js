@@ -36,16 +36,12 @@ export class AdvancedOptions extends React.Component {
   };
 
   init = async () => {
-    try {
-      const users = await loadUsers(this.props.blogUrl);
-      let user: User | void = findById(this.props.userId, users);
-      this.setState({
-        userList: users,
-        currentUser: user ? user.display_name : ''
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    const users = await loadUsers(this.props.blogUrl);
+    let user: User | void = findById(this.props.userId, users);
+    this.setState({
+      userList: users,
+      currentUser: user ? user.display_name : ''
+    });
   };
 
   setShowAuthor = (e: SyntheticKeyboardEvent, isChecked: boolean) => {
