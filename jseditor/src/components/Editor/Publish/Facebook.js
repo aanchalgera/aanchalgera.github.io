@@ -1,19 +1,19 @@
 //@flow
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TextField, Divider} from 'material-ui';
+import { TextField, Divider } from 'material-ui';
 
 type Props = {
   facebook: string,
-  updateSocialFacebookText: string
-}
+  updateSocialFacebookText: Function
+};
 
 const propValidate = {
   facebook: PropTypes.string.isRequired,
   updateSocialFacebookText: PropTypes.func.isRequired
 };
 
-export const Facebook = (props : Props) => (
+export const Facebook = (props: Props) =>
   <div>
     <TextField
       hintText="..."
@@ -25,10 +25,9 @@ export const Facebook = (props : Props) => (
       fullWidth={true}
       value={props.facebook}
       onChange={props.updateSocialFacebookText.bind(this)}
-      floatingLabelText='Texto para facebook'
+      floatingLabelText="Texto para facebook"
     />
     <Divider />
-  </div>
-);
+  </div>;
 
 Facebook.propTypes = propValidate;

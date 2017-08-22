@@ -65,16 +65,6 @@ class Publish extends React.Component {
 
   init() {
     const { history } = this.props;
-    getConfig(this.blogName, this.props.base).then(data => {
-      if (data != null) {
-        this.setState({
-          blogName: this.blogName,
-          blogUrl: data[0].site_url
-        });
-      } else {
-        history.replace('/invalidBlog');
-      }
-    });
 
     getPost(this.postname, this.props.base).then(data => {
       if (data != null) {
@@ -197,13 +187,13 @@ class Publish extends React.Component {
   };
 
   getAdvancedOptions = () => {
-    if (this.state.blogUrl === undefined) {
+    if (this.props.blogUrl === undefined) {
       return null;
     }
 
     return (
       <AdvancedOptions
-        blogUrl={this.state.blogUrl}
+        blogUrl={this.props.blogUrl}
         userId={parseInt(this.state.userId)}
         setPostMeta={this.setPostMeta}
         updateParent={this.updateParent}
@@ -262,12 +252,12 @@ class Publish extends React.Component {
               <Categories
                 category={this.state.category}
                 setCategory={this.setCategory}
-                blogUrl={this.state.blogUrl}
+                blogUrl={this.props.blogUrl}
               />
             </Col>
             <Col xs={6}>
               <Tags
-                blogUrl={this.state.blogUrl}
+                blogUrl={this.props.blogUrl}
                 tags={this.state.tags}
                 updateParent={this.updateParent}
               />

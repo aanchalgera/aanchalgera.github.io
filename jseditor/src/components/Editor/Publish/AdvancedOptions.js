@@ -44,13 +44,13 @@ export class AdvancedOptions extends React.Component {
     });
   };
 
-  setShowAuthor = (e: SyntheticKeyboardEvent, isChecked: boolean) => {
+  setShowAuthor = (e: SyntheticEvent, isChecked: boolean) => {
     this.props.setPostMeta('author', {
       showAuthorInfo: isChecked
     });
   };
 
-  setCommentStatus = (e: {}, isChecked: boolean) => {
+  setCommentStatus = (e: SyntheticEvent, isChecked: boolean) => {
     const checked = {
       allow: true,
       status: isChecked ? 'closed' : 'open'
@@ -58,11 +58,11 @@ export class AdvancedOptions extends React.Component {
     this.props.setPostMeta('comment', checked);
   };
 
-  handleSensitivePost = (e, isSensitive) => {
+  handleSensitivePost = (e: SyntheticEvent, isSensitive: boolean) => {
     this.props.updateParent({ isSensitive: isSensitive });
   };
 
-  handleSpecialPost = (e, specialPost) => {
+  handleSpecialPost = (e: SyntheticEvent, specialPost: boolean) => {
     this.props.updateParent({ specialPost: specialPost });
   };
 
