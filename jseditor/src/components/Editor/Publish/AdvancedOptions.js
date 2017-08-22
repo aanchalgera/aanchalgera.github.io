@@ -35,13 +35,12 @@ export class AdvancedOptions extends React.Component {
     );
   };
 
-  init = () => {
-    loadUsers(this.props.blogUrl).done(data => {
-      let user: User | void = findById(this.props.userId, data.users);
-      this.setState({
-        userList: data.users,
-        currentUser: user ? user.display_name : ''
-      });
+  init = async () => {
+    const users = await loadUsers(this.props.blogUrl);
+    let user: User | void = findById(this.props.userId, users);
+    this.setState({
+      userList: users,
+      currentUser: user ? user.display_name : ''
     });
   };
 
