@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
 
 import { loadUsers } from './lib/publishService';
@@ -9,15 +8,18 @@ import { findById } from './lib/publishHelpers';
 
 type User = { id: number, display_name: string };
 
+type Props = {
+  userId: number,
+  blogUrl?: string,
+  updateParent: (data: Object) => void,
+  setPostMeta: (key: string, value: Object) => void,
+  isSensitive: boolean,
+  specialPost: boolean,
+  postMeta: Object
+};
+
 export class AdvancedOptions extends React.Component {
-  static propTypes = {
-    userId: PropTypes.number,
-    blogUrl: PropTypes.string,
-    updateParent: PropTypes.func.isRequired,
-    setPostMeta: PropTypes.func.isRequired,
-    isSensitive: PropTypes.bool.isRequired,
-    specialPost: PropTypes.bool.isRequired
-  };
+  props: Props;
 
   state = {
     userList: [],

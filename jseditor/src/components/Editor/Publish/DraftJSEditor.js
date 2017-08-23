@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Editor, EditorState, RichUtils, CompositeDecorator } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
@@ -9,15 +8,15 @@ import BlockControls from '../DraftJSEditor/BlockControls';
 import CustomControls from '../DraftJSEditor/CustomControls';
 import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
 
-export default class DraftJSEditor extends React.Component {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    minimal: PropTypes.bool,
-    dataId: PropTypes.number,
-    updateResource: PropTypes.func.isRequired
-  }
+export type Props = {
+  value: string,
+  minimal?: boolean,
+  dataId?: number,
+  updateResource: Function
+};
 
-  constructor(props) {
+export default class DraftJSEditor extends React.Component {
+  constructor(props: Props) {
     super(props);
 
     const decorator = new CompositeDecorator([LinkDecorator]);
@@ -27,11 +26,13 @@ export default class DraftJSEditor extends React.Component {
     };
   }
 
+  props: Props;
+
   focus() {
     this._editor.focus();
   }
 
-  onChange = (editorState) => {
+  onChange = editorState => {
     this.setState({ editorState }, () => {
       clearTimeout(this._timeout);
       this._timeout = setTimeout(() => {
@@ -39,29 +40,38 @@ export default class DraftJSEditor extends React.Component {
         this.props.updateResource(this.props.dataId, 'text', value);
       }, 1000);
     });
-  }
+  };
 
   onControlToggle = (method, command) => {
     this.onChange(RichUtils[method](this.state.editorState, command));
-  }
+  };
 
-  handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+  handleKeyCommand = command => {
+    const newState = RichUtils.handleKeyCommand(
+      this.state.editorState,
+      command
+    );
     if (newState) {
       this.onChange(newState);
       return true;
     }
     return false;
-  }
+  };
 
   toolBar(editorState) {
     let toolbar = null;
     if (this.props.minimal !== true) {
       toolbar = (
         <div>
-          <InlineControls editorState={editorState} onToggle={this.onControlToggle} />
+          <InlineControls
+            editorState={editorState}
+            onToggle={this.onControlToggle}
+          />
           <i>|</i>
-          <BlockControls editorState={editorState} onToggle={this.onControlToggle} />
+          <BlockControls
+            editorState={editorState}
+            onToggle={this.onControlToggle}
+          />
           <i>|</i>
           <CustomControls editorState={editorState} onToggle={this.onChange} />
         </div>
@@ -77,12 +87,12 @@ export default class DraftJSEditor extends React.Component {
         {this.toolBar(editorState)}
         <div onClick={() => this._editor.focus()}>
           <Editor
-            ref={(c) => this._editor = c}
+            ref={c => (this._editor = c)}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             stripPastedStyles={true}
-            placeholder='...'
+            placeholder="..."
           />
         </div>
       </div>

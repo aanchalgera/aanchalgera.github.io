@@ -1,31 +1,35 @@
-import PropTypes from 'prop-types';
+/* @flow */
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { TextField, Divider, Subheader } from 'material-ui';
 
-const propValidate = {
-  seo: PropTypes.object.isRequired,
-  setPostMeta: PropTypes.func.isRequired
+declare type InputEvent = Event & { target: HTMLInputElement };
+
+type Props = {
+  seo: { title: string, description: string },
+  setPostMeta: (string, {}) => void
 };
 
-export const Seo = ({seo, setPostMeta}) => {
-  const  updateSeoTitle = (e: SyntheticEvent) => {
+export const Seo = ({ seo, setPostMeta }: Props) => {
+  const updateSeoTitle = (e: InputEvent) => {
     setPostMeta('seo', {
       title: e.target.value,
       description: seo.description
     });
-  }
+  };
 
-  const updateSeoDescription = (e: SyntheticEvent) => {
-      setPostMeta('seo', {
-        title: seo.title,
-        description: e.target.value
-      });
-  }
-return(
+  const updateSeoDescription = (e: InputEvent) => {
+    setPostMeta('seo', {
+      title: seo.title,
+      description: e.target.value
+    });
+  };
+  return (
     <Row>
       <Col lg={12}>
-        <Subheader className="subheader">SEO <span>Titulo y descripcion que aparece al buscar en Google</span></Subheader>
+        <Subheader className="subheader">
+          SEO <span>Titulo y descripcion que aparece al buscar en Google</span>
+        </Subheader>
         <Divider className="divider" />
       </Col>
       <Col lg={12}>
@@ -41,7 +45,7 @@ return(
           onChange={updateSeoTitle}
           floatingLabelText={<span>Titulo SEO</span>}
         />
-        <Divider/>
+        <Divider />
       </Col>
       <Col lg={12}>
         <TextField
@@ -54,12 +58,10 @@ return(
           fullWidth={true}
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText='Descripcion SEO'
+          floatingLabelText="Descripcion SEO"
         />
         <Divider />
       </Col>
     </Row>
-);
+  );
 };
-
-Seo.propTypes = propValidate;

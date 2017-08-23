@@ -18,7 +18,6 @@ import {
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
-  getConfig,
   getPost,
   submitPostToBackend,
   savePostsList,
@@ -64,8 +63,6 @@ class Publish extends React.Component {
   }
 
   init() {
-    const { history } = this.props;
-
     getPost(this.postname, this.props.base).then(data => {
       if (data != null) {
         this.setState(loadStatefromData(data));

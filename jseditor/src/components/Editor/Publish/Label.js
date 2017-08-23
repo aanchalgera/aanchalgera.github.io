@@ -1,18 +1,18 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 
-const Label = (props) => {
+type Props = { label: string };
+
+const Label = (props: Props) => {
   return (
     <div>
-      <h2>{props.label}</h2>
+      <h2>
+        {props.label}
+      </h2>
       <Divider />
     </div>
   );
-}
-
-Label.propTypes = {
-  label: PropTypes.string.isRequired
 };
 
 export default Label;
