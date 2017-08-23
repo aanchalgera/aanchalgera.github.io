@@ -1,7 +1,10 @@
+/* @flow */
 import React from 'react';
 import { Subheader, Divider, Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import { toggleItem } from './lib/publishHelpers';
+
+declare type InputEvent = Event & { currentTarget: HTMLInputElement };
 
 let regions = {
   ES: 'España',
@@ -17,16 +20,22 @@ let regions = {
   ROW: 'Resto del mundo'
 };
 
+type Props = {
+  updateParent: (data: Object) => void,
+  publishRegions: Array<string>
+};
+
 export class CountriesFormOptions extends React.Component {
-  onCheck(e) {
-    const region = e.target.value;
+  props: Props;
+  onCheck = (e: InputEvent) => {
+    const region = e.currentTarget.value;
     let publishRegions = this.props.publishRegions;
     toggleItem(region, publishRegions);
     this.props.updateParent({ publishRegion: publishRegions });
-  }
+  };
 
   render() {
-    const checkboxes = { 0: [], 1: [] };
+    const checkboxes = [[], []];
     Object.keys(regions).map((key, index) => {
       checkboxes[index % 2].push(
         <Checkbox
@@ -34,7 +43,7 @@ export class CountriesFormOptions extends React.Component {
           value={key}
           label={regions[key]}
           checked={-1 !== this.props.publishRegions.indexOf(key)}
-          onCheck={this.onCheck.bind(this)}
+          onCheck={this.onCheck}
         />
       );
     });

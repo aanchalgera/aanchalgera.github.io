@@ -1,12 +1,19 @@
+/* @flow */
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
-import PropTypes from 'prop-types';
 
-class TextArea extends Component
-{
-  handleChange = (e, newValue) => {
+type Props = {
+  floatingLabel: string,
+  hintText: string,
+  savedValue: string,
+  setValue: Function
+};
+
+class TextArea extends Component {
+  props: Props;
+  handleChange = (e: SyntheticEvent, newValue: string) => {
     this.props.setValue(newValue);
-  }
+  };
 
   render() {
     return (
@@ -20,13 +27,6 @@ class TextArea extends Component
       />
     );
   }
-}
-
-TextArea.propTypes = {
-  floatingLabel: PropTypes.string.isRequired,
-  hintText: PropTypes.string.isRequired,
-  savedValue: PropTypes.string.isRequired,
-  setValue: PropTypes.func.isRequired
 }
 
 export default TextArea;

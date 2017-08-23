@@ -3,8 +3,10 @@ import CropWidget from './CropWidget';
 import { Row, Col } from 'react-flexbox-grid';
 import { grey400 } from 'material-ui/styles/colors';
 
+export type Props = {};
+
 export class ImageCropper extends React.Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.style = {
@@ -22,6 +24,8 @@ export class ImageCropper extends React.Component {
       }
     };
   }
+
+  props: Props;
 
   render() {
     return (

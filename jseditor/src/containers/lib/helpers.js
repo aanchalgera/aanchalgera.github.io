@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 export const loadStatefromData = (data: {}) => {
   return {
     id: data.id,
+    blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
     meta: data.meta || {
@@ -17,7 +18,7 @@ export const loadStatefromData = (data: {}) => {
     date:
       idx(data, _ => _.publishData.postDate) ||
       moment().format('DD/MM/YYYY HH:mm'),
-    publishedDate: idx(data, _ => _.publishData.postDate) || null,
+    publishedDate: idx(data, _ => _.publishData.postDate) || '',
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
@@ -28,7 +29,7 @@ export const loadStatefromData = (data: {}) => {
     category: data.category,
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
-    tags: data.tags || [],
+    tags: data.tags || []
   };
 };
 
@@ -39,6 +40,7 @@ export const initialState = {
   publishRegion: [],
   postId: '',
   postHash: '',
+  publishedDate: '',
   meta: {
     homepage: { content: null },
     index: '',

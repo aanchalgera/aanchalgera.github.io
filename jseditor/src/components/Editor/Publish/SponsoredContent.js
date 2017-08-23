@@ -1,18 +1,26 @@
+/* @flow */
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import PropTypes from 'prop-types';
 import TextArea from './TextArea';
 import Label from './Label';
 
+type Props = {
+  customerName: string,
+  setCustomerName: Function,
+  urlTracker: string,
+  setUrlTracker: Function,
+  logo: string,
+  setLogo: Function
+};
+
 class SponsoredContent extends Component {
+  props: Props;
   render() {
     return (
       <div>
         <Row>
           <Col xs>
-            <Label
-              label="Contenido Patrocinado"
-            />
+            <Label label="Contenido Patrocinado" />
           </Col>
         </Row>
         <Row>
@@ -44,15 +52,6 @@ class SponsoredContent extends Component {
       </div>
     );
   }
-}
-
-SponsoredContent.propTypes = {
-  customerName: PropTypes.string.isRequired,
-  setCustomerName: PropTypes.func.isRequired,
-  urlTracker: PropTypes.string.isRequired,
-  setUrlTracker: PropTypes.func.isRequired,
-  logo: PropTypes.string.isRequired,
-  setLogo: PropTypes.func.isRequired,
 }
 
 export default SponsoredContent;
