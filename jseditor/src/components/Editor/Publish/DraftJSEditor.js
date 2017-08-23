@@ -8,7 +8,7 @@ import BlockControls from '../DraftJSEditor/BlockControls';
 import CustomControls from '../DraftJSEditor/CustomControls';
 import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
 
-export type Props = {
+type Props = {
   value: string,
   minimal?: boolean,
   dataId?: number,

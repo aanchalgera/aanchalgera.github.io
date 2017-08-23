@@ -21,7 +21,7 @@ let regions = {
 };
 
 type Props = {
-  updateParent: (obj: {}) => void,
+  updateParent: (data: Object) => void,
   publishRegions: Array<string>
 };
 
@@ -35,9 +35,7 @@ export class CountriesFormOptions extends React.Component {
   };
 
   render() {
-    const checkboxes = {};
-    checkboxes[0] = [];
-    checkboxes[1] = [];
+    const checkboxes = [[], []];
     Object.keys(regions).map((key, index) => {
       checkboxes[index % 2].push(
         <Checkbox
