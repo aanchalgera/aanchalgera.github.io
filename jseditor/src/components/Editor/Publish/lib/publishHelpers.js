@@ -1,5 +1,5 @@
 // @flow
-type User = { id: number, display_name: string };
+import { User, UpdatedTag, Tag } from './flowTypes';
 
 export const findById = <T: { id: number }>(
   id: number,
@@ -34,4 +34,12 @@ export const getCategories = (data: {}) => {
     }
   }
   return categories;
+};
+
+export const filterTags = (tags: Array<Tag>): Array<UpdatedTag> => {
+  let updatedTags = [];
+  tags.forEach(tag => {
+    updatedTags.push({ id: Number(tag.id), label: tag.name });
+  });
+  return updatedTags;
 };
