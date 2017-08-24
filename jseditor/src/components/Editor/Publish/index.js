@@ -2,7 +2,6 @@ import HomePage from './HomePage';
 export { AdvancedOptions } from './AdvancedOptions';
 export { Categories } from './Categories';
 export { Tags } from './Tags';
-export { SelectedTags } from './SelectedTags';
 export { CountriesFormOptions } from './CountriesFormOptions';
 export { CropWidget } from './CropWidget';
 export { DraftJSEditor } from './DraftJSEditor';
