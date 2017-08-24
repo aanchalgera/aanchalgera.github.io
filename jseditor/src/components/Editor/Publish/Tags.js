@@ -15,13 +15,13 @@ type Props = {
 export class Tags extends Component {
   props: Props;
 
-  getTags = async (input: string): { options: Array<UpdatedTags> } => {
+  getTags = async (input: string): {} => {
     let tags = await loadTags(this.props.blogUrl, input);
     let updatedTags = filterTags(tags);
     return { options: updatedTags };
   };
 
-  handleOnChange = selectedTags => {
+  handleOnChange = (selectedTags: Array<UpdatedTags>) => {
     this.props.updateParent({ tags: selectedTags });
   };
 
