@@ -1,51 +1,40 @@
+// @flow
 import React, { Component } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
 import { loadTags } from './lib/publishService';
-import { findById } from './lib/publishHelpers';
+import { filterTags } from './lib/publishHelpers';
+import { UpdatedTags } from './lib/flowTypes';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
+type Props = {
+  blogUrl?: string,
+  tags: Array<UpdatedTags>,
+  updateParent: (data: Object) => void
+};
 
 export class Tags extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tags: []
-    };
-  }
+  props: Props;
 
-  handleUpdate = searchText => {
-    loadTags(this.props.blogUrl, searchText).done(data => {
-      this.setState({ tags: data });
-    });
+  getTags = async (input: string): { options: Array<UpdatedTags> } => {
+    let tags = await loadTags(this.props.blogUrl, input);
+    let updatedTags = filterTags(tags);
+    return { options: updatedTags };
   };
 
-  handleNewRequest = tag => {
-    if (undefined !== tag.id && !this.isDuplicateEntry(tag)) {
-      let updatedTags = [
-        ...this.props.tags,
-        { id: Number(tag.id), name: tag.name }
-      ];
-      this.props.updateParent({ tags: updatedTags });
-    } else {
-      console.log('tag already selected');
-    }
-  };
-
-  isDuplicateEntry = tag => {
-    let tagAlreadyExist = findById(Number(tag.id), this.props.tags)
-      ? true
-      : false;
-    return tagAlreadyExist;
+  handleOnChange = selectedTags => {
+    this.props.updateParent({ tags: selectedTags });
   };
 
   render() {
     return (
-      <AutoComplete
-        dataSource={this.state.tags}
-        dataSourceConfig={{ text: 'name', value: 'id' }}
-        onUpdateInput={this.handleUpdate}
-        onNewRequest={this.handleNewRequest}
-        openOnFocus={true}
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText="Etiquetas"
+      <Select.Async
+        placeholder="Etiquetas..."
+        loadOptions={this.getTags}
+        onChange={this.handleOnChange}
+        multi={true}
+        joinValues={true}
+        value={this.props.tags}
+        valueKey={'id'}
       />
     );
   }

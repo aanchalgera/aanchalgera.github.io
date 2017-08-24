@@ -13,8 +13,7 @@ import {
   Twitter,
   Facebook,
   CountriesFormOptions,
-  Tags,
-  SelectedTags
+  Tags
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
@@ -245,20 +244,16 @@ class Publish extends React.Component {
         />
         <div>
           <Row>
-            <Col xs={6}>
+            <Col xs={3}>
               <Categories
                 category={this.state.category}
                 setCategory={this.setCategory}
                 blogUrl={this.props.blogUrl}
               />
             </Col>
-            <Col xs={6}>
+            <Col xs={3}>
               <Tags
                 blogUrl={this.props.blogUrl}
-                tags={this.state.tags}
-                updateParent={this.updateParent}
-              />
-              <SelectedTags
                 tags={this.state.tags}
                 updateParent={this.updateParent}
               />
