@@ -19,9 +19,9 @@ export const getPost = (postname, base) => {
 
 export const savePost = (state, base) => {
   let imageValidated = {
-    square: {...state.crop.square},
-    golden: {...state.crop.golden},
-    panoramic: {...state.crop.panoramic},
+    square: { ...state.crop.square },
+    golden: { ...state.crop.golden },
+    panoramic: { ...state.crop.panoramic }
   };
 
   let firebaseData = {
@@ -44,16 +44,13 @@ export const savePost = (state, base) => {
       postHash: state.postHash
     },
     imageValidated: imageValidated,
-    tags: state.tags,
+    tags: state.tags
   };
 
-  base.post(
-    'posts/' + state.id,
-    {
-      data: firebaseData,
-    }
-  );
-}
+  base.post('posts/' + state.id, {
+    data: firebaseData
+  });
+};
 
 export const savePostsList = (state, base, blogName) => {
   let blogStatus = blogName + '_publish';
@@ -72,22 +69,19 @@ export const savePostsList = (state, base, blogName) => {
     blog_post_type: blogStatus + '_' + postType
   };
 
-  base.post(
-    'posts_list/' + state.id,
-    {
-      data: listData,
-      then() {}
-    }
-  );
+  base.post('posts_list/' + state.id, {
+    data: listData,
+    then() {}
+  });
 };
 
-export const submitPostToBackend = (state, date) => {
+export const submitPostToBackend = (state, date, blogUrl) => {
   let publishRegion = state.publishRegion;
   let postRepostBlogNames = state.postRepostBlogNames;
   let imageValidated = {
-    square: {...state.crop.square},
-    golden: {...state.crop.golden},
-    panoramic: {...state.crop.panoramic},
+    square: { ...state.crop.square },
+    golden: { ...state.crop.golden },
+    panoramic: { ...state.crop.panoramic }
   };
 
   for (let key in imageValidated) {
@@ -99,7 +93,7 @@ export const submitPostToBackend = (state, date) => {
     comment_status: state.meta.comment.status,
     post_type: 'normal',
     post_content: JSON.stringify(state.fields),
-    postExcerpt: JSON.stringify({'meta' : state.meta}),
+    postExcerpt: JSON.stringify({ meta: state.meta }),
     post_abstract: '',
     post_extended_title: '',
     post_visibility: 0,
@@ -114,7 +108,7 @@ export const submitPostToBackend = (state, date) => {
     primary_image: state.meta.homepage.image.url,
     is_sensitive: state.isSensitive,
     long_post: state.specialPost,
-    image_validated: imageValidated,
+    image_validated: imageValidated
   };
   let postType = 'POST';
   let postUrl = 'postpage';
@@ -123,7 +117,7 @@ export const submitPostToBackend = (state, date) => {
     postUrl = 'postpage/' + state.postId;
   }
   return jquery.ajax({
-    url: state.blogUrl + '/admin/' + postUrl,
+    url: blogUrl + '/admin/' + postUrl,
     type: postType,
     dataType: 'json',
     data: backendData,

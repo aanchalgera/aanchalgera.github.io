@@ -71,7 +71,7 @@ class Publish extends React.Component {
   }
 
   submitPost(date, postSchedule) {
-    submitPostToBackend(this.state, date)
+    submitPostToBackend(this.state, date, this.props.blogUrl)
       .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
         if (result.id !== undefined) {

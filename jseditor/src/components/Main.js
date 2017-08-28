@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rebase from 're-base';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './Menu/TopBar';
 import Editor from '../components/Editor/Editor';
 import Publish from '../components/Editor/Publish';
+import Layout from '../containers/Layout';
 import Publicar from '../containers/Publish';
 import Difundir from '../containers/Difundir';
 import Config from '../components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
-import TitleBar from '../components/Menu/TitleBar';
 import configParams from '../config/configs.js';
-import { customTheme } from './styles/customTheme.js';
 
 var base = Rebase.createClass({
   apiKey: configParams.apiKey,
@@ -23,50 +21,6 @@ var base = Rebase.createClass({
 });
 
 class Main extends React.Component {
-  state = {
-    blogUrl: null
-  };
-
-  componentWillMount() {
-    this.init();
-  }
-
-  init = () => {
-    const search = this.props.location.search;
-    const query = new URLSearchParams(search);
-    const blogName = query.get('blog');
-    base.fetch('config', {
-      context: this,
-      asArray: true,
-      queries: {
-        orderByChild: 'site_name',
-        equalTo: blogName
-      },
-      then(data) {
-        if (data[0] != null) {
-          this.setState({ blogUrl: data[0].site_url });
-        }
-      }
-    });
-  };
-
-  getTitleBar = () => {
-    if (this.state.blogUrl === null) {
-      return null;
-    }
-    const pathName = this.props.location.pathname;
-    const search = this.props.location.search;
-    const matches = pathName.match('/(.+)/(.+)');
-    return (
-      <TitleBar
-        pathName={matches[2]}
-        blogUrl={this.state.blogUrl}
-        activeTab={matches[1]}
-        queryPath={search}
-      />
-    );
-  };
-
   render() {
     const { match: { url }, location: { pathname } } = this.props;
     if (
@@ -74,24 +28,18 @@ class Main extends React.Component {
       pathname.indexOf('/difundir/') > -1
     ) {
       return (
-        <MuiThemeProvider muiTheme={customTheme}>
-          <view>
-            {this.getTitleBar()}
-            <Route
-              path={`${url}publicar/:postname`}
-              render={props =>
-                <Publicar
-                  {...props}
-                  base={base}
-                  blogUrl={this.state.blogUrl}
-                />}
-            />
-            <Route
-              path={`${url}difundir/:postname`}
-              render={props => <Difundir {...props} base={base} />}
-            />
-          </view>
-        </MuiThemeProvider>
+        <div>
+          <Route
+            path="/publicar/:postname"
+            render={props =>
+              <Layout {...props} component={Publicar} base={base} />}
+          />
+          <Route
+            path="/difundir/:postname"
+            render={props =>
+              <Layout {...props} component={Difundir} base={base} />}
+          />
+        </div>
       );
     }
 
