@@ -61,7 +61,6 @@ class Difundir extends React.Component {
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
         then(data) {
-          console.log(data);
           if (data.hasOwnProperty('id')) {
             this.setState({
               id: data.id,
