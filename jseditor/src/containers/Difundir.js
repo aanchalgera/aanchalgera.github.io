@@ -10,7 +10,7 @@ import configParams from '../config/configs.js';
 
 const styles = {
   bodyContent: {
-    padding: '24px',
+    padding: '24px'
   }
 };
 moment.tz.setDefault(configParams.timezone);
@@ -25,7 +25,6 @@ class Difundir extends React.Component {
       postRepostBlogNames: [],
       postDate: '',
       publishRegion: [],
-      blogName: '',
       snackbarOpen: false,
       snackbarMessage: ''
     };
@@ -58,31 +57,6 @@ class Difundir extends React.Component {
   }
 
   init() {
-    const { history } = this.props;
-
-    if (this.blogName == undefined) {
-      history.replace('/invalidBlog');
-    } else {
-      this.props.base.fetch('config', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'site_name',
-          equalTo: this.blogName
-        },
-        then(data) {
-          if (data[0] != null) {
-            this.setState({
-              blogName: this.blogName,
-              blogUrl: data[0].site_url
-            });
-          } else {
-            history.replace('/invalidBlog');
-          }
-        }
-      });
-    }
-
     if (this.postname != undefined) {
       this.props.base.fetch('posts/' + this.postname, {
         context: this,
@@ -93,7 +67,7 @@ class Difundir extends React.Component {
               postRepostBlogNames: data.publishData.postRepostBlogNames || [],
               publishRegion: data.publishData.publishRegion || '',
               postDate: data.publishData.postDate || '',
-              postId: data.publishData.postId,
+              postId: data.publishData.postId
             });
           }
         }
@@ -113,88 +87,93 @@ class Difundir extends React.Component {
         ...postRepostBlogNames.slice(index + 1)
       ];
     }
-    this.setState({postRepostBlogNames});
-  }
+    this.setState({ postRepostBlogNames });
+  };
 
   submitRepostedBlogs = () => {
     const publishData = {
       postRepostBlogNames: this.state.postRepostBlogNames,
       publishRegion: this.state.publishRegion,
       postDate: this.state.postDate,
-      postId: this.state.postId,
+      postId: this.state.postId
     };
 
     const backendData = {
       postform: {
-        postRepostBlogNames:this.state.postRepostBlogNames,
-        postId: this.state.postId,
+        postRepostBlogNames: this.state.postRepostBlogNames,
+        postId: this.state.postId
       }
     };
 
-    jquery.ajax({
-      url: `${this.state.blogUrl}/admin/postsrepostings.json`,
-      type: 'post',
-      dataType: 'json',
-      data: backendData,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true
-    }).done(result => {
-      if (result.id != undefined) {
-        this.props.base.update(
-          'posts/' + this.state.id,
-          {
-            data: {publishData},
+    jquery
+      .ajax({
+        url: `${this.props.blogUrl}/admin/postsrepostings.json`,
+        type: 'post',
+        dataType: 'json',
+        data: backendData,
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true
+      })
+      .done(result => {
+        if (result.id != undefined) {
+          this.props.base.update('posts/' + this.state.id, {
+            data: { publishData },
             then: () => {
               this.showSnackbarMsg('Data Saved Successfully');
             }
-          }
-        );
-      } else {
-        this.showSnackbarMsg('Something Went Wrong.');
-      }
-    });
-  }
+          });
+        } else {
+          this.showSnackbarMsg('Something Went Wrong.');
+        }
+      });
+  };
 
-  showSnackbarMsg = (snackbarMessage) => {
-    this.setState(
-      {
-        snackbarOpen: true,
-        snackbarMessage
-      }
-    );
-  }
+  showSnackbarMsg = snackbarMessage => {
+    this.setState({
+      snackbarOpen: true,
+      snackbarMessage
+    });
+  };
 
   handleSnackbarClose = () => {
-    this.setState({snackbarOpen: false});
-  }
+    this.setState({ snackbarOpen: false });
+  };
 
   onRepublishSchedule(date, postSchedule) {
     const republishInterval = 0;
-    jquery.ajax({
-      url: `${this.state.blogUrl}/admin/republish/schedule/${this.state.postId}`,
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        date: date,
-        republish_interval: republishInterval,
-      },
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-    })
-    .done(data => {
-      if ('already_scheduled' == data.status) {
-        return this.showSnackbarMsg(`Post already scheduled to republish at ${data.date}`);
-      }
-      this.showSnackbarMsg(`Post successfully scheduled to republish at  ${date}`);
-    })
-    .fail(() => {
-      return this.showSnackbarMsg('Error occured while republishing. Please try again');
-    })
-    .always(postSchedule);
+    jquery
+      .ajax({
+        url: `${this.props.blogUrl}/admin/republish/schedule/${this.state
+          .postId}`,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          date: date,
+          republish_interval: republishInterval
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true
+      })
+      .done(data => {
+        if ('already_scheduled' == data.status) {
+          return this.showSnackbarMsg(
+            `Post already scheduled to republish at ${data.date}`
+          );
+        }
+        this.showSnackbarMsg(
+          `Post successfully scheduled to republish at  ${date}`
+        );
+      })
+      .fail(() => {
+        return this.showSnackbarMsg(
+          'Error occured while republishing. Please try again'
+        );
+      })
+      .always(postSchedule);
   }
 
   onInvalidDate() {
@@ -202,20 +181,24 @@ class Difundir extends React.Component {
   }
 
   onRepublishNow() {
-    jquery.ajax({
-      url: `${this.state.blogUrl}/admin/overlay/republish/${this.state.postId}`,
-      type: 'POST',
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-    })
-    .done(() => {
-      this.showSnackbarMsg('Post successfully republished again');
-    })
-    .fail(() => {
-      return this.showSnackbarMsg('Error occured while republishing. Please try again');
-    });
+    jquery
+      .ajax({
+        url: `${this.props.blogUrl}/admin/overlay/republish/${this.state
+          .postId}`,
+        type: 'POST',
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true
+      })
+      .done(() => {
+        this.showSnackbarMsg('Post successfully republished again');
+      })
+      .fail(() => {
+        return this.showSnackbarMsg(
+          'Error occured while republishing. Please try again'
+        );
+      });
   }
 
   render() {
@@ -230,7 +213,7 @@ class Difundir extends React.Component {
         <RepostSiteOptions
           setRepostBlogs={this.setRepostBlogs}
           repostBlogs={this.state.postRepostBlogNames}
-          blogName={this.state.blogName}
+          blogName={this.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <SchedulePost
@@ -239,7 +222,11 @@ class Difundir extends React.Component {
           onSchedule={this.onRepublishSchedule.bind(this)}
           onInvalidDate={this.onInvalidDate.bind(this)}
         />
-        <RaisedButton label="PASAR POR PORTADA AHORA MISMO!" secondary={true} onTouchTap={this.onRepublishNow.bind(this)} />
+        <RaisedButton
+          label="PASAR POR PORTADA AHORA MISMO!"
+          secondary={true}
+          onTouchTap={this.onRepublishNow.bind(this)}
+        />
       </div>
     );
   }
