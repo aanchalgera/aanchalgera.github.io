@@ -44,7 +44,8 @@ export const savePost = (state, base) => {
       postHash: state.postHash
     },
     imageValidated: imageValidated,
-    tags: state.tags
+    tags: state.tags,
+    category: state.category
   };
 
   base.post('posts/' + state.id, {

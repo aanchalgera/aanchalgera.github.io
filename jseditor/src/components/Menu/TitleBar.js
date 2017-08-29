@@ -1,9 +1,7 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { AppBar, IconButton, FlatButton } from 'material-ui';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +14,7 @@ const styles = {
   }
 };
 
-const TitleBar = ({pathName, blogUrl, queryPath, activeTab}) => (
+const TitleBar = ({ postName, blogUrl, queryPath, activeTab }) =>
   <view>
     <Row>
       <Col xs={12}>
@@ -24,26 +22,46 @@ const TitleBar = ({pathName, blogUrl, queryPath, activeTab}) => (
           title={
             <Row bottom="xs">
               <Col xs={5}>Xataka</Col>
-              <Col xs={3} >
-                <Tabs
-                  value={activeTab}
-                >
-                  <Tab label="ESCRIBIR" value="escribir" containerElement={<Link to={`/edit/post/${pathName}${queryPath}`}/>} />
-                  <Tab label="PUBLICAR" value="publicar" containerElement={<Link to={`/publicar/${pathName}${queryPath}`} />} />
-                  <Tab label="DIFUNDIR" value="difundir" containerElement={<Link to={`/difundir/${pathName}${queryPath}`} />} />
+              <Col xs={3}>
+                <Tabs value={activeTab}>
+                  <Tab
+                    label="ESCRIBIR"
+                    value="escribir"
+                    containerElement={
+                      <Link to={`/edit/post/${postName}${queryPath}`} />
+                    }
+                  />
+                  <Tab
+                    label="PUBLICAR"
+                    value="publicar"
+                    containerElement={
+                      <Link to={`/publicar/${postName}${queryPath}`} />
+                    }
+                  />
+                  <Tab
+                    label="DIFUNDIR"
+                    value="difundir"
+                    containerElement={
+                      <Link to={`/difundir/${postName}${queryPath}`} />
+                    }
+                  />
                 </Tabs>
               </Col>
             </Row>
           }
         >
           <FlatButton label="Publicado" style={styles.publishButton} />
-            <IconButton target="_blank" href={ blogUrl + '/preview-longform/' + pathName } style={styles.previewButton} disabled={activeTab === 'difundir'}>
-              <Visibility />
-            </IconButton>
+          <IconButton
+            target="_blank"
+            href={blogUrl + '/preview-longform/' + postName}
+            style={styles.previewButton}
+            disabled={activeTab === 'difundir'}
+          >
+            <Visibility />
+          </IconButton>
         </AppBar>
       </Col>
     </Row>
-  </view>
-);
+  </view>;
 
 export default TitleBar;
