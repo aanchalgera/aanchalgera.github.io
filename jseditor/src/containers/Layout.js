@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import TitleBar from '../components/Menu/TitleBar';
@@ -15,18 +14,33 @@ export default class Layout extends React.Component {
     this.init();
   }
 
+  validateUserId(userId, history) {
+    let regEx = /\D/;
+    if (regEx.test(userId)) {
+      history.push('/invalidUser');
+    }
+  }
+
   init = () => {
-    const search = this.props.location.search;
+    const {
+      match: { params: { postname } },
+      location: { search },
+      history
+    } = this.props;
     const query = new URLSearchParams(search);
     const blogName = query.get('blog');
+    const userId = query.get('userid');
+    this.validateUserId(userId, history);
+
     getConfig(blogName, this.props.base).then(data => {
       if (data[0] != null) {
         this.setState({
-          blogName: this.blogName,
-          blogUrl: data[0].site_url
+          blogUrl: data[0].site_url,
+          userId: userId,
+          postname: postname
         });
       } else {
-        this.props.history.replace('/invalidBlog');
+        history.replace('/invalidBlog');
       }
     });
   };
@@ -37,7 +51,7 @@ export default class Layout extends React.Component {
     const matches = pathName.match('/(.+)/(.+)');
     return (
       <TitleBar
-        pathName={matches[2]}
+        postName={matches[2]}
         blogUrl={this.state.blogUrl}
         activeTab={matches[1]}
         queryPath={search}
@@ -46,7 +60,7 @@ export default class Layout extends React.Component {
   };
 
   render() {
-    const { component: Component, ...rest } = this.props;
+    const { component: Component, base } = this.props;
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
@@ -54,10 +68,7 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={customTheme}>
         <view>
           {this.getTitleBar()}
-          <Route
-            render={props =>
-              <Component props blogUrl={this.state.blogUrl} {...rest} />}
-          />
+          <Component {...this.state} base={base} />}
         </view>
       </MuiThemeProvider>
     );

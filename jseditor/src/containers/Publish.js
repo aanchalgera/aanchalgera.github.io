@@ -35,34 +35,12 @@ const IMAGE_CROP_WARNING =
 class Publish extends React.Component {
   state = initialState;
 
-  componentDidMount() {
+  componentWillMount() {
     this.init();
   }
 
-  componentWillMount() {
-    this.setInitialVariables();
-  }
-
-  setInitialVariables() {
-    const {
-      match: { params: { postname } },
-      location: { search },
-      history
-    } = this.props;
-
-    const query = new URLSearchParams(search);
-
-    this.userId = query.get('userid');
-    this.blogName = query.get('blog');
-    let regEx = /\D/;
-    if (regEx.test(this.userId)) {
-      history.push('/invalidUser');
-    }
-    this.postname = postname;
-  }
-
   init() {
-    getPost(this.postname, this.props.base).then(data => {
+    getPost(this.props.postname, this.props.base).then(data => {
       if (data != null) {
         this.setState(loadStatefromData(data));
       }
@@ -85,7 +63,7 @@ class Publish extends React.Component {
                 'Changes has been saved. Post scheduled for ' +
                 moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
             },
-            savePost(this.state, this.props.base)
+            this.savePostData
           );
         }
         savePostsList(this.state, this.props.base, this.blogName);
@@ -97,7 +75,7 @@ class Publish extends React.Component {
   setPostMeta = (key, value) => {
     let meta = this.state.meta;
     meta[key] = value;
-    this.setState({ meta }, savePost(this.state, this.props.base));
+    this.setState({ meta }, this.savePostData);
   };
 
   onSchedule(date, postSchedule) {
@@ -162,7 +140,7 @@ class Publish extends React.Component {
   }
 
   updateParent = data => {
-    this.setState(data, savePost(this.state, this.props.base));
+    this.setState(data, this.savePostData);
   };
 
   updateSocialFacebookText = event => {
@@ -182,22 +160,8 @@ class Publish extends React.Component {
     this.setState({ meta: this.state.meta });
   };
 
-  getAdvancedOptions = () => {
-    if (this.props.blogUrl === undefined) {
-      return null;
-    }
-
-    return (
-      <AdvancedOptions
-        blogUrl={this.props.blogUrl}
-        userId={parseInt(this.state.userId)}
-        setPostMeta={this.setPostMeta}
-        updateParent={this.updateParent}
-        postMeta={this.state.meta}
-        specialPost={this.state.specialPost}
-        isSensitive={this.state.isSensitive}
-      />
-    );
+  savePostData = () => {
+    savePost(this.state, this.props.base);
   };
 
   onCropChange(shape, crop) {
@@ -215,7 +179,7 @@ class Publish extends React.Component {
       return {
         crop: prevState['crop']
       };
-    });
+    }, this.savePostData);
   }
 
   setCategory = categorySelected => {
@@ -282,14 +246,13 @@ class Publish extends React.Component {
               />
             </Col>
           </Row>
-          {this.state.meta.homepage.image
-            ? <ImageCropper
-                imageSrc={this.state.meta.homepage.image.url}
-                onCropChange={this.onCropChange.bind(this)}
-                onCropValidate={this.onCropValidate.bind(this)}
-                crop={this.state.crop}
-              />
-            : ''}
+          {this.state.meta.homepage.image &&
+            <ImageCropper
+              imageSrc={this.state.meta.homepage.image.url}
+              onCropChange={this.onCropChange.bind(this)}
+              onCropValidate={this.onCropValidate.bind(this)}
+              crop={this.state.crop}
+            />}
         </div>
         <Row>
           <Col xs>
@@ -309,7 +272,15 @@ class Publish extends React.Component {
             />
           </Col>
           <Col xs>
-            {this.getAdvancedOptions()}
+            <AdvancedOptions
+              blogUrl={this.props.blogUrl}
+              userId={parseInt(this.props.userId)}
+              setPostMeta={this.setPostMeta}
+              updateParent={this.updateParent}
+              postMeta={this.state.meta}
+              specialPost={this.state.specialPost}
+              isSensitive={this.state.isSensitive}
+            />
           </Col>
         </Row>
       </div>

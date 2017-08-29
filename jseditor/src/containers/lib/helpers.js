@@ -65,7 +65,6 @@ export const initialState = {
   buttonDisabled: true,
   isError: false,
   message: '',
-  publishedDate: '',
   snackbarOpen: false,
   SnackbarMessage: '',
   crop: {

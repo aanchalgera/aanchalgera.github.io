@@ -8,57 +8,27 @@ import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
 import RaisedButton from 'material-ui/RaisedButton';
 import configParams from '../config/configs.js';
 
-const styles = {
-  bodyContent: {
-    padding: '24px'
-  }
-};
 moment.tz.setDefault(configParams.timezone);
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
 
 class Difundir extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: '',
-      postId: '',
-      postRepostBlogNames: [],
-      postDate: '',
-      publishRegion: [],
-      snackbarOpen: false,
-      snackbarMessage: ''
-    };
-  }
+  state = {
+    id: '',
+    postId: '',
+    postRepostBlogNames: [],
+    postDate: '',
+    publishRegion: [],
+    snackbarOpen: false,
+    snackbarMessage: ''
+  };
 
-  componentDidMount() {
+  componentWillMount() {
     this.init();
   }
 
-  componentWillMount() {
-    this.checkUser();
-  }
-
-  checkUser() {
-    const {
-      match: { params: { postname } },
-      location: { search },
-      history
-    } = this.props;
-
-    const query = new URLSearchParams(search);
-
-    this.userId = query.get('userid');
-    this.blogName = query.get('blog');
-    let regEx = /\D/;
-    if (regEx.test(this.userId)) {
-      history.push('/invalidUser');
-    }
-    this.postname = postname;
-  }
-
   init() {
-    if (this.postname != undefined) {
-      this.props.base.fetch('posts/' + this.postname, {
+    if (this.props.postname != undefined) {
+      this.props.base.fetch('posts/' + this.props.postname, {
         context: this,
         then(data) {
           if (data.hasOwnProperty('id')) {
@@ -203,7 +173,7 @@ class Difundir extends React.Component {
 
   render() {
     return (
-      <div style={styles.bodyContent}>
+      <div>
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}
@@ -213,7 +183,7 @@ class Difundir extends React.Component {
         <RepostSiteOptions
           setRepostBlogs={this.setRepostBlogs}
           repostBlogs={this.state.postRepostBlogNames}
-          blogName={this.blogName}
+          blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <SchedulePost
