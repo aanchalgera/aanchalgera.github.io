@@ -26,7 +26,7 @@ export const loadStatefromData = (data: {}) => {
     postHash: idx(data, _ => _.publishData.postHash) || '',
     buttonDisabled: false,
     userId: data.user_id,
-    category: data.category,
+    category: data.category || '',
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
