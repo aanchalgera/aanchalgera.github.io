@@ -19,10 +19,11 @@ const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
 const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
-const FACEBOOK_TEXT_SAME_POST_TITLE = 'Facebook text cannot be same as post title';
+const FACEBOOK_TEXT_SAME_POST_TITLE =
+  'Facebook text cannot be same as post title';
 const SPONSOR_IMAGE_WARNING = 'Sponsor image URL cannot be empty';
 
-class Editor extends React.Component{
+class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +40,19 @@ class Editor extends React.Component{
       fields: [],
       meta: null,
       regions: {
-        publishRegion: ['ES', 'US', 'MX', 'PE', 'AR', 'CL', 'EC', 'CR', 'CO', 'CEA', 'ROW']
+        publishRegion: [
+          'ES',
+          'US',
+          'MX',
+          'PE',
+          'AR',
+          'CL',
+          'EC',
+          'CR',
+          'CO',
+          'CEA',
+          'ROW'
+        ]
       },
       postId: '',
       postHash: '',
@@ -54,10 +67,14 @@ class Editor extends React.Component{
     this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
     this.toggleAllowComments = this.toggleAllowComments.bind(this);
     this.toggleCommentStatus = this.toggleCommentStatus.bind(this);
-    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(this);
+    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(
+      this
+    );
     this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
     this.toggleFooter = this.toggleFooter.bind(this);
-    this.toggleSummarySocialShareButtons = this.toggleSummarySocialShareButtons.bind(this);
+    this.toggleSummarySocialShareButtons = this.toggleSummarySocialShareButtons.bind(
+      this
+    );
   }
 
   init() {
@@ -85,24 +102,25 @@ class Editor extends React.Component{
         then(data) {
           if (data[0] != null) {
             let siteUrl = data[0].site_url;
-            jquery.ajax({
-              url: siteUrl + '/admin/users/' + this.userId + '.json',
-              crossDomain: true,
-              type: 'GET',
-              xhrFields: {
-                withCredentials: true
-              }
-            })
-            .fail((jqxhr, textStatus, error) => {
-              this.setMessage(true, error);
-            })
-            .done((data) => {
-              this.setState({
-                blogName: this.blogName,
-                blogUrl: siteUrl,
-                userRole: data.roles[0]
+            jquery
+              .ajax({
+                url: siteUrl + '/admin/users/' + this.userId + '.json',
+                crossDomain: true,
+                type: 'GET',
+                xhrFields: {
+                  withCredentials: true
+                }
+              })
+              .fail((jqxhr, textStatus, error) => {
+                this.setMessage(true, error);
+              })
+              .done(data => {
+                this.setState({
+                  blogName: this.blogName,
+                  blogUrl: siteUrl,
+                  userRole: data.roles[0]
+                });
               });
-            });
           } else {
             history.replace('/invalidBlog');
           }
@@ -128,29 +146,92 @@ class Editor extends React.Component{
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
+                meta: data.meta || {
+                  index: '',
+                  homepage: { content: '' },
+                  sponsor: { name: '', image: '', tracker: '' },
+                  css: { skinName: '' },
+                  seo: {},
+                  microsite: {
+                    name: '',
+                    gaSnippet: '',
+                    showWSLLogo: true,
+                    showSocialButtons: true
+                  },
+                  author: { showAuthorInfo: false },
+                  social: { facebook: '', twitter: '' },
+                  comment: { allow: false, status: 'open' },
+                  showDate: false,
+                  showSocialShareButtons: true,
+                  footer: { hideFooter: false, content: '' }
+                },
                 isSynced: true
               });
             } else {
               this.setState({
                 id: postname,
-                meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
+                meta: {
+                  index: '',
+                  homepage: { content: '' },
+                  sponsor: { name: '', image: '', tracker: '' },
+                  css: { skinName: '' },
+                  seo: {},
+                  microsite: {
+                    name: '',
+                    gaSnippet: '',
+                    showWSLLogo: true,
+                    showSocialButtons: true
+                  },
+                  author: { showAuthorInfo: false },
+                  social: { facebook: '', twitter: '' },
+                  comment: { allow: false, status: 'open' },
+                  showDate: false,
+                  showSocialShareButtons: true,
+                  footer: { hideFooter: false, content: '' }
+                },
                 userId: this.userId
               });
             }
           }
         });
       } catch (e) {
-  //      Rollbar.critical('Error occured while fetching post data from Firebase', e);
+        //      Rollbar.critical('Error occured while fetching post data from Firebase', e);
       }
     } else {
       let hashId = helpers.generatePushID();
-      let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName + '&userid=' + this.userId;
-      this.setState({
-        id: hashId,
-        meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}},
-        userId: this.userId
-      }, history.push(postEditUrl));
+      let postEditUrl =
+        '/edit/post/' +
+        hashId +
+        '?blog=' +
+        this.blogName +
+        '&userid=' +
+        this.userId;
+      this.setState(
+        {
+          id: hashId,
+          meta: {
+            index: '',
+            homepage: { content: '' },
+            sponsor: { name: '', image: '', tracker: '' },
+            css: { skinName: '' },
+            seo: {},
+            microsite: {
+              name: '',
+              gaSnippet: '',
+              showWSLLogo: true,
+              showSocialButtons: true
+            },
+            author: { showAuthorInfo: false },
+            social: { facebook: '', twitter: '' },
+            comment: { allow: false, status: 'open' },
+            showDate: false,
+            showSocialShareButtons: true,
+            footer: { hideFooter: false, content: '' }
+          },
+          userId: this.userId
+        },
+        history.push(postEditUrl)
+      );
     }
   }
 
@@ -160,7 +241,7 @@ class Editor extends React.Component{
 
   checkConnectStatus() {
     let connectedRef = this.props.base.database().ref('.info/connected');
-    connectedRef.on('value', (snap) => {
+    connectedRef.on('value', snap => {
       if (snap.val() === true) {
         this.setState({
           isConnected: true
@@ -173,7 +254,13 @@ class Editor extends React.Component{
     });
   }
 
-  openResourcePanel(imageFunction, currentIndex, addImageModule = '', addMoreImages = false, event) {
+  openResourcePanel(
+    imageFunction,
+    currentIndex,
+    addImageModule = '',
+    addMoreImages = false,
+    event
+  ) {
     if (undefined != event) {
       event.preventDefault();
     }
@@ -190,13 +277,17 @@ class Editor extends React.Component{
 
   getField(currentIndex) {
     currentIndex = currentIndex.toString();
-    let { fields } = this.state, indexes, altered, componentIndexes;
+    let { fields } = this.state,
+      indexes,
+      altered,
+      componentIndexes;
 
     let delimiterIndex = currentIndex.indexOf('#');
     if (delimiterIndex >= 0) {
       indexes = currentIndex.substr(0, delimiterIndex).split('-');
       componentIndexes = currentIndex.substr(delimiterIndex + 1).split('-');
-      altered = fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
+      altered =
+        fields[indexes[0]].rows[componentIndexes[0]][componentIndexes[1]];
     } else {
       indexes = currentIndex.split('-');
       if (indexes[1]) {
@@ -214,7 +305,7 @@ class Editor extends React.Component{
     return /^\d+$/.test(currentIndex);
   }
 
-  addResource({type,currentIndex}) {
+  addResource({ type, currentIndex }) {
     this.state.maxId++;
     let attributes = {
       id: this.state.maxId,
@@ -246,10 +337,13 @@ class Editor extends React.Component{
       return this.updateResource(currentIndex, attributes);
     }
 
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields,
+        maxId: this.state.maxId
+      },
+      this.saveData()
+    );
   }
 
   addImage(image) {
@@ -280,7 +374,6 @@ class Editor extends React.Component{
       } else {
         return this.updateResource(currentIndex, attributes);
       }
-
     } else if (this.state.imageFunction == 'homepage') {
       this.state.meta.homepage.image = {
         url: image.url,
@@ -289,19 +382,25 @@ class Editor extends React.Component{
         alt: image.alt || '',
         name: image.original_filename
       };
-    } else if ('otherImage' == this.state.imageFunction || 'productImage' == this.state.imageFunction) {
+    } else if (
+      'otherImage' == this.state.imageFunction ||
+      'productImage' == this.state.imageFunction
+    ) {
       let field = this.getField(currentIndex);
       field.altered[this.state.imageFunction] = image;
       this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId,
-      meta: this.state.meta,
-      addImageModule: '',
-      imageFunction: ''
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields,
+        maxId: this.state.maxId,
+        meta: this.state.meta,
+        addImageModule: '',
+        imageFunction: ''
+      },
+      this.saveData()
+    );
   }
 
   addImageCaption(imageId, caption, currentIndex) {
@@ -316,16 +415,22 @@ class Editor extends React.Component{
         }
 
         this.state.fields.splice(field.indexes[0], 0, field.original);
-        this.setState({
-          fields: this.state.fields
-        }, this.saveData());
+        this.setState(
+          {
+            fields: this.state.fields
+          },
+          this.saveData()
+        );
       }
     } else {
       field.altered.description = caption;
       this.state.fields.splice(field.indexes[0], 0, field.original);
-      this.setState({
-        fields: this.state.fields
-      }, this.saveData());
+      this.setState(
+        {
+          fields: this.state.fields
+        },
+        this.saveData()
+      );
     }
   }
 
@@ -333,27 +438,36 @@ class Editor extends React.Component{
     let field = this.getField(currentIndex);
     field.altered.captionOverlay = captionOverlay;
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({
-      fields: this.state.fields
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields
+      },
+      this.saveData()
+    );
   }
 
   addImageCaptionOverlayPosition(imageId, captionPosition, currentIndex) {
     let field = this.getField(currentIndex);
     field.altered.captionPosition = captionPosition;
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({
-      fields: this.state.fields
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields
+      },
+      this.saveData()
+    );
   }
 
   addImageCaptionOverlayBackground(imageId, captionBackground, currentIndex) {
     let field = this.getField(currentIndex);
     field.altered.captionBackground = captionBackground;
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({
-      fields: this.state.fields
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields
+      },
+      this.saveData()
+    );
   }
 
   addImages(images, moduleType) {
@@ -361,13 +475,17 @@ class Editor extends React.Component{
     let currentIndex = this.state.resourcePanelOpenedBy;
     if (!addMoreImages) {
       this.state.maxId++;
-      let attributes = { id: this.state.maxId, type: moduleType, layout: 'normal', images };
+      let attributes = {
+        id: this.state.maxId,
+        type: moduleType,
+        layout: 'normal',
+        images
+      };
       if (this.isRootComponent(currentIndex)) {
         this.state.fields.splice(currentIndex, 0, attributes);
       } else {
         return this.updateResource(currentIndex, attributes);
       }
-
     } else {
       let field = this.getField(currentIndex);
       for (let i = 0; i < images.length; i++) {
@@ -377,13 +495,16 @@ class Editor extends React.Component{
       this.state.fields.splice(field.indexes[0], 0, field.original);
     }
 
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId,
-      addMoreImages: false,
-      addImageModule: '',
-      imageFunction: ''
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields,
+        maxId: this.state.maxId,
+        addMoreImages: false,
+        addImageModule: '',
+        imageFunction: ''
+      },
+      this.saveData()
+    );
   }
 
   editImages(images) {
@@ -405,25 +526,30 @@ class Editor extends React.Component{
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
 
-    this.setState({
-      fields: this.state.fields,
-      addMoreImages: false,
-      addImageModule: ''
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields,
+        addMoreImages: false,
+        addImageModule: ''
+      },
+      this.saveData()
+    );
   }
 
   addTable(currentIndex) {
     this.state.maxId++;
-    this.state.fields.splice(
-    currentIndex, 0, {
+    this.state.fields.splice(currentIndex, 0, {
       id: this.state.maxId,
       type: 'table',
       layout: 'normal'
     });
-    this.setState({
-      fields: this.state.fields,
-      maxId: this.state.maxId
-    }, this.saveData());
+    this.setState(
+      {
+        fields: this.state.fields,
+        maxId: this.state.maxId
+      },
+      this.saveData()
+    );
   }
 
   parentDiv(el) {
@@ -435,13 +561,13 @@ class Editor extends React.Component{
     }
   }
 
-  handleChange (ev) {
+  handleChange(ev) {
     this.setState({
       value: ev.currentTarget.value
     });
   }
 
-  handleBlur (ev) {
+  handleBlur(ev) {
     let title = ev.currentTarget.value.trim();
     if (undefined == title || '' == title || 5 >= title.length) {
       this.setMessage(true, TITLE_MINLENGTH_WARNING);
@@ -451,16 +577,20 @@ class Editor extends React.Component{
     }
 
     if (this.state.fields.length < 2) {
-      this.addResource({type: 'content', currentIndex: 1});
+      this.addResource({ type: 'content', currentIndex: 1 });
     }
 
-    this.setState({
-      value: title
-    }, this.saveData());
+    this.setState(
+      {
+        value: title
+      },
+      this.saveData()
+    );
   }
 
   isValid() {
-    if (undefined == this.state.value ||
+    if (
+      undefined == this.state.value ||
       '' == this.state.value.trim() ||
       5 >= this.state.value.length
     ) {
@@ -490,7 +620,7 @@ class Editor extends React.Component{
   isValidFieldCaptions(fields) {
     let validCaptions = true;
     fields.forEach(field => {
-      switch(field.type) {
+      switch (field.type) {
         case 'grouped':
           if (!this.isValidFieldCaptions(field.columns)) {
             validCaptions = false;
@@ -515,12 +645,13 @@ class Editor extends React.Component{
     return !/\<(?=(a[\s\>]))[\w\d]+[^\>]*\>/.test(caption);
   }
 
-  saveData () {
+  saveData() {
     if (!this.isValid()) {
       return;
     }
 
-    let userStatus = this.blogName + '_' + this.state.userId + '_' + this.state.status;
+    let userStatus =
+      this.blogName + '_' + this.state.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
       user_id: this.state.userId,
@@ -532,7 +663,28 @@ class Editor extends React.Component{
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta != undefined ? this.state.meta : {index : '', homepage : {content:''}, sponsor: {name:'', image:'',tracker:''}, css:{skinName:''}, seo:{}, microsite: {name:'', gaSnippet: '', showWSLLogo: true, showSocialButtons: true}, author: {showAuthorInfo: false}, social: {facebook: '', twitter: ''}, comment: {allow: false, status: 'open'}, showDate: false, showSocialShareButtons: true, footer: {hideFooter: false, content: ''}}
+      meta:
+        this.state.meta != undefined
+          ? this.state.meta
+          : {
+              index: '',
+              homepage: { content: '' },
+              sponsor: { name: '', image: '', tracker: '' },
+              css: { skinName: '' },
+              seo: {},
+              microsite: {
+                name: '',
+                gaSnippet: '',
+                showWSLLogo: true,
+                showSocialButtons: true
+              },
+              author: { showAuthorInfo: false },
+              social: { facebook: '', twitter: '' },
+              comment: { allow: false, status: 'open' },
+              showDate: false,
+              showSocialShareButtons: true,
+              footer: { hideFooter: false, content: '' }
+            }
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
@@ -543,8 +695,10 @@ class Editor extends React.Component{
     let postType = 'normal';
     let blogStatus = this.blogName + '_' + this.state.status;
     if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
-      || this.state.meta.sponsor.image
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
+        this.state.userRole
+      ) > -1 ||
+      this.state.meta.sponsor.image
     ) {
       postType = 'club';
     }
@@ -560,31 +714,30 @@ class Editor extends React.Component{
       blog_post_type: blogStatus + '_' + postType
     };
 
-    this.props.base.post(
-      'posts_list/' + this.state.id,
-      {
-        data: listData,
-        then() {}
-      }
-    );
+    this.props.base.post('posts_list/' + this.state.id, {
+      data: listData,
+      then() {}
+    });
     try {
       const _this = this;
-      this.props.base.post(
-        'posts/' + this.state.id,
-        {
-          data: data,
-          then() {
-            let successField = document.getElementById('successField');
-            if (undefined != typeof successField) {
-              document.getElementById('successField').style.display = 'block';
-              setTimeout(() => document.getElementById('successField').style.display = 'none', 4000);
-            }
-            _this.setState({isSynced: true});
+      this.props.base.post('posts/' + this.state.id, {
+        data: data,
+        then() {
+          let successField = document.getElementById('successField');
+          if (undefined != typeof successField) {
+            document.getElementById('successField').style.display = 'block';
+            setTimeout(
+              () =>
+                (document.getElementById('successField').style.display =
+                  'none'),
+              4000
+            );
           }
+          _this.setState({ isSynced: true });
         }
-      );
+      });
     } catch (e) {
-//      Rollbar.critical('Error occured on saving data to Firebase', e);
+      //      Rollbar.critical('Error occured on saving data to Firebase', e);
       let errorMessage = e.message.substring(0, 100);
       this.setMessage(true, errorMessage);
     }
@@ -602,30 +755,33 @@ class Editor extends React.Component{
     let currentIndex = this.parentDiv(event.target).dataset.id;
     let field = this.getField(currentIndex);
     switch (property) {
-      case 'backgroundClass' :
-        field.altered.backgroundClass = (field.altered.backgroundClass == value) ? '' : value;
+      case 'backgroundClass':
+        field.altered.backgroundClass =
+          field.altered.backgroundClass == value ? '' : value;
         break;
-      case 'foregroundColor' :
-        field.altered.foregroundColor = (field.altered.foregroundColor == value) ? '' : value;
+      case 'foregroundColor':
+        field.altered.foregroundColor =
+          field.altered.foregroundColor == value ? '' : value;
         break;
-      case 'parallax' :
+      case 'parallax':
         field.altered.parallax = !field.altered.parallax;
         event.target.className = 'active';
         break;
-      case 'backgroundRepeat' :
+      case 'backgroundRepeat':
         field.altered.backgroundRepeat = !field.altered.backgroundRepeat;
         break;
-      case 'backgroundFade' :
+      case 'backgroundFade':
         field.altered.backgroundFade = !field.altered.backgroundFade;
         break;
-      case 'removeBackgroundImage' :
+      case 'removeBackgroundImage':
         field.altered.backgroundImage = '';
         field.altered.backgroundFade = '';
         field.altered.backgroundRepeat = '';
         field.altered.backgroundFullscreen = '';
         break;
-      case 'backgroundFullscreen' :
-        field.altered.backgroundFullscreen = !field.altered.backgroundFullscreen;
+      case 'backgroundFullscreen':
+        field.altered.backgroundFullscreen = !field.altered
+          .backgroundFullscreen;
         break;
       case 'actualizacion':
         field.altered.actualizacion = !field.altered.actualizacion;
@@ -638,12 +794,12 @@ class Editor extends React.Component{
 
   deleteResource(event) {
     event.preventDefault();
-//    TODO: fix
-//    if (confirm(DELETE_SECTION_WARNING)) {
-      let currentIndex = this.parentDiv(event.target).dataset.id;
-      this.state.fields.splice(currentIndex, 1);
-      this.setState({ fields: this.state.fields }, this.saveData());
-//    }
+    //    TODO: fix
+    //    if (confirm(DELETE_SECTION_WARNING)) {
+    let currentIndex = this.parentDiv(event.target).dataset.id;
+    this.state.fields.splice(currentIndex, 1);
+    this.setState({ fields: this.state.fields }, this.saveData());
+    //    }
   }
 
   groupSections(currentIndex, group) {
@@ -682,7 +838,13 @@ class Editor extends React.Component{
     if (obj.length == 2) {
       this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1]);
     } else if (obj.length == 3) {
-      this.state.fields.splice(currentIndex, 0, obj.columns[0], obj.columns[1], obj.columns[2]);
+      this.state.fields.splice(
+        currentIndex,
+        0,
+        obj.columns[0],
+        obj.columns[1],
+        obj.columns[2]
+      );
     }
 
     this.setState({ fields: this.state.fields }, this.saveData());
@@ -724,7 +886,7 @@ class Editor extends React.Component{
     let currentIndex = this.parentDiv(event.target).dataset.id;
     let value = event.target.dataset.group;
     let field = this.getField(currentIndex);
-    field.altered.group = (field.altered.group == value) ? '' : value;
+    field.altered.group = field.altered.group == value ? '' : value;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
   }
@@ -859,18 +1021,20 @@ class Editor extends React.Component{
   }
 
   toggleCommentStatus() {
-    this.state.meta.comment.status = this.state.meta.comment.status == 'open' ? 'closed' : 'open';
+    this.state.meta.comment.status =
+      this.state.meta.comment.status == 'open' ? 'closed' : 'open';
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   toggleSocialShareVisibility() {
-    this.state.meta.showSocialShareButtons = !this.state.meta.showSocialShareButtons;
-    this.setState({ meta: this.state.meta}, this.saveData());
+    this.state.meta.showSocialShareButtons = !this.state.meta
+      .showSocialShareButtons;
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  toggleDateVisibility () {
+  toggleDateVisibility() {
     this.state.meta.showDate = !this.state.meta.showDate;
-    this.setState({ meta: this.state.meta}, this.saveData());
+    this.setState({ meta: this.state.meta }, this.saveData());
   }
 
   toggleFooter() {
@@ -887,7 +1051,7 @@ class Editor extends React.Component{
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  deleteImage({sectionIndex, imageIndex}, event) {
+  deleteImage({ sectionIndex, imageIndex }, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
     switch (typeof imageIndex) {
@@ -908,8 +1072,10 @@ class Editor extends React.Component{
     }
 
     if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(this.state.userRole) > -1
-      && !this.state.meta.sponsor.image
+      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
+        this.state.userRole
+      ) > -1 &&
+      !this.state.meta.sponsor.image
     ) {
       this.setMessage(true, SPONSOR_IMAGE_WARNING);
       return false;
@@ -928,7 +1094,7 @@ class Editor extends React.Component{
         comment_status: this.state.meta.comment.status,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
-        postExcerpt: JSON.stringify({'meta' : this.state.meta}),
+        postExcerpt: JSON.stringify({ meta: this.state.meta }),
         post_abstract: '',
         post_extended_title: '',
         post_visibility: 0,
@@ -942,25 +1108,26 @@ class Editor extends React.Component{
       }
     };
 
-    jquery.ajax({
-      url: this.state.blogUrl + '/admin/posts/' + this.state.postId + '.json',
-      type: 'PUT',
-      dataType: 'json',
-      data: backendData,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true
-    })
-    .done(() => {
-      this.setMessage(true, 'Post Updated');
-    });
+    jquery
+      .ajax({
+        url: this.state.blogUrl + '/admin/posts/' + this.state.postId + '.json',
+        type: 'PUT',
+        dataType: 'json',
+        data: backendData,
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true
+      })
+      .done(() => {
+        this.setMessage(true, 'Post Updated');
+      });
   }
 
   isEmptyfield(fields) {
     let isEmpty = true;
     fields.forEach(field => {
-      switch(field.type) {
+      switch (field.type) {
         case 'grouped':
           if (!this.isEmptyfield(field.columns)) {
             isEmpty = false;
@@ -977,7 +1144,7 @@ class Editor extends React.Component{
         case 'video':
         case 'giphy':
         case 'infogram':
-          if(field.url != '') {
+          if (field.url != '') {
             isEmpty = false;
           }
           break;
@@ -994,19 +1161,7 @@ class Editor extends React.Component{
     let isError = false;
     let message = '';
 
-    if ('' == this.state.meta.social.facebook) {
-      message = FACEBOOK_FIELD_EMPTY;
-    }
-
-    if ('' == this.state.meta.social.twitter) {
-      message = TWITTER_FIELD_EMPTY;
-    }
-
-    if (this.state.meta.social.facebook == this.state.value) {
-      message = FACEBOOK_TEXT_SAME_POST_TITLE;
-    }
-
-    if(this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
+    if (this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
       message = FIELD_EMPTY_WARNING;
     }
 
@@ -1014,11 +1169,14 @@ class Editor extends React.Component{
       message = MAIN_IMAGE_WARNING;
     }
 
-    if ('ROLE_BRANDED_COORDINATOR' == this.state.userRole && !this.state.meta.sponsor.image) {
+    if (
+      'ROLE_BRANDED_COORDINATOR' == this.state.userRole &&
+      !this.state.meta.sponsor.image
+    ) {
       message = SPONSOR_IMAGE_WARNING;
     }
 
-    if(message != '') {
+    if (message != '') {
       isError = true;
       e.preventDefault();
     }
@@ -1031,7 +1189,7 @@ class Editor extends React.Component{
     return !isError;
   }
 
-  moveImage({sectionIndex, imageIndex, direction}, event) {
+  moveImage({ sectionIndex, imageIndex, direction }, event) {
     event.preventDefault();
     let field = this.getField(sectionIndex);
 
@@ -1047,14 +1205,16 @@ class Editor extends React.Component{
     field.altered.images[moveToIndex] = temp;
 
     this.state.fields.splice(field.indexes[0], 0, field.original);
-    this.setState({ fields: this.state.fields}, this.saveData());
+    this.setState({ fields: this.state.fields }, this.saveData());
   }
 
   toggleCloudinaryUploader(e) {
     if (e) {
       e.preventDefault();
     }
-    this.setState({ isCloudinaryUploaderOpen: !this.state.isCloudinaryUploaderOpen });
+    this.setState({
+      isCloudinaryUploaderOpen: !this.state.isCloudinaryUploaderOpen
+    });
   }
 
   render() {
@@ -1063,69 +1223,76 @@ class Editor extends React.Component{
       errorField = (
         <div className="top-messages">
           <div className="alert alert-danger">
-            <span>{this.state.message}</span>
+            <span>
+              {this.state.message}
+            </span>
           </div>
         </div>
       );
     }
 
     let successField = (
-      <div id="successField" className="alert alert-info auto-saved" style={{ display: 'none' }}>
-        <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-        <strong>  Post saved </strong>
+      <div
+        id="successField"
+        className="alert alert-info auto-saved"
+        style={{ display: 'none' }}
+      >
+        <span className="glyphicon glyphicon-floppy-save" aria-hidden="true" />
+        <strong> Post saved </strong>
       </div>
     );
 
-    let metadata = <Metadata
-      meta={this.state.meta}
-      userId={this.state.userId}
-      blogUrl={this.state.blogUrl}
-      updateIndexMetadata={this.updateIndexMetadata.bind(this)}
-      updateSeoTitle={this.updateSeoTitle.bind(this)}
-      updateSeoDescription={this.updateSeoDescription.bind(this)}
-      updateFooterCredits={this.updateFooterCredits.bind(this)}
-      updateHomepageContent={this.updateHomepageContent.bind(this)}
-      updateSponsorName={this.updateSponsorName.bind(this)}
-      updateSponsorImage={this.updateSponsorImage.bind(this)}
-      updateSponsorTracker={this.updateSponsorTracker.bind(this)}
-      updateCssSkinName={this.updateCssSkinName.bind(this)}
-      deleteHomepageImage={this.deleteHomepageImage.bind(this)}
-      openResourcePanel={this.openResourcePanel.bind(this)}
-      updateMicrositeName={this.updateMicrositeName.bind(this)}
-      updateMicrositeGASnippet={this.updateMicrositeGASnippet.bind(this)}
-      updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
-      toggleWSLLogo={this.toggleWSLLogo.bind(this)}
-      toggleSocialSharing={this.toggleSocialSharing.bind(this)}
-      deleteImage={this.deleteImage.bind(this)}
-      toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
-      editAuthorInfo={this.editAuthorInfo.bind(this)}
-      updateSocialFacebookText={this.updateSocialFacebookText}
-      updateSocialTwitterText={this.updateSocialTwitterText}
-      toggleAllowComments={this.toggleAllowComments}
-      toggleCommentStatus={this.toggleCommentStatus}
-      toggleSocialShareVisibility={this.toggleSocialShareVisibility}
-      toggleDateVisibility={this.toggleDateVisibility}
-      toggleFooter={this.toggleFooter}
-    />;
+    let metadata = (
+      <Metadata
+        meta={this.state.meta}
+        userId={this.state.userId}
+        blogUrl={this.state.blogUrl}
+        updateIndexMetadata={this.updateIndexMetadata.bind(this)}
+        updateSeoTitle={this.updateSeoTitle.bind(this)}
+        updateSeoDescription={this.updateSeoDescription.bind(this)}
+        updateFooterCredits={this.updateFooterCredits.bind(this)}
+        updateHomepageContent={this.updateHomepageContent.bind(this)}
+        updateSponsorName={this.updateSponsorName.bind(this)}
+        updateSponsorImage={this.updateSponsorImage.bind(this)}
+        updateSponsorTracker={this.updateSponsorTracker.bind(this)}
+        updateCssSkinName={this.updateCssSkinName.bind(this)}
+        deleteHomepageImage={this.deleteHomepageImage.bind(this)}
+        openResourcePanel={this.openResourcePanel.bind(this)}
+        updateMicrositeName={this.updateMicrositeName.bind(this)}
+        updateMicrositeGASnippet={this.updateMicrositeGASnippet.bind(this)}
+        updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
+        toggleWSLLogo={this.toggleWSLLogo.bind(this)}
+        toggleSocialSharing={this.toggleSocialSharing.bind(this)}
+        deleteImage={this.deleteImage.bind(this)}
+        toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
+        editAuthorInfo={this.editAuthorInfo.bind(this)}
+        updateSocialFacebookText={this.updateSocialFacebookText}
+        updateSocialTwitterText={this.updateSocialTwitterText}
+        toggleAllowComments={this.toggleAllowComments}
+        toggleCommentStatus={this.toggleCommentStatus}
+        toggleSocialShareVisibility={this.toggleSocialShareVisibility}
+        toggleDateVisibility={this.toggleDateVisibility}
+        toggleFooter={this.toggleFooter}
+      />
+    );
 
-    if (undefined == this.state.fields[0] || 'title' != this.state.fields[0].type) {
-      this.state.fields.splice(
-        0,
-        0,
-        {
-          id: ++this.state.maxId,
-          type:'title',
-          layout:'big',
-          backgroundClass: 'module-bg-color-neutral-light',
-          foregroundColor: null,
-          text: this.state.value
-        }
-      );
+    if (
+      undefined == this.state.fields[0] ||
+      'title' != this.state.fields[0].type
+    ) {
+      this.state.fields.splice(0, 0, {
+        id: ++this.state.maxId,
+        type: 'title',
+        layout: 'big',
+        backgroundClass: 'module-bg-color-neutral-light',
+        foregroundColor: null,
+        text: this.state.value
+      });
     } else {
       this.state.fields[0].text = this.state.value;
     }
     return (
-      <div className={this.state.orderMode ? 'bgbody' : '' }>
+      <div className={this.state.orderMode ? 'bgbody' : ''}>
         <TopNavigation
           id={this.state.id}
           blogName={this.state.blogName}
@@ -1151,11 +1318,15 @@ class Editor extends React.Component{
             handleChange={this.handleChange.bind(this)}
             openResourcePanel={this.openResourcePanel.bind(this)}
             addLayoutToResource={this.addLayoutToResource.bind(this)}
-            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(
+              this
+            )}
           />
           <ContentList
             fields={this.state.fields}
-            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(this)}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(
+              this
+            )}
             updateText={this.updateText.bind(this)}
             updateRichContent={this.updateRichContent.bind(this)}
             updateResource={this.updateResource.bind(this)}
@@ -1172,12 +1343,18 @@ class Editor extends React.Component{
             orderMode={this.state.orderMode}
             addImageCaption={this.addImageCaption.bind(this)}
             addImageCaptionOverlay={this.addImageCaptionOverlay.bind(this)}
-            addImageCaptionOverlayPosition={this.addImageCaptionOverlayPosition.bind(this)}
-            addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(this)}
+            addImageCaptionOverlayPosition={this.addImageCaptionOverlayPosition.bind(
+              this
+            )}
+            addImageCaptionOverlayBackground={this.addImageCaptionOverlayBackground.bind(
+              this
+            )}
             setAutoPlaySlider={this.setAutoPlaySlider.bind(this)}
             deleteImage={this.deleteImage.bind(this)}
             moveImage={this.moveImage.bind(this)}
-            toggleSummarySocialShareButtons={this.toggleSummarySocialShareButtons}
+            toggleSummarySocialShareButtons={
+              this.toggleSummarySocialShareButtons
+            }
           />
         </div>
         {this.state.meta ? metadata : ''}
@@ -1196,7 +1373,7 @@ class Editor extends React.Component{
           toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
           ref="resourcePanel"
         />
-        <div id="preview"></div>
+        <div id="preview" />
       </div>
     );
   }

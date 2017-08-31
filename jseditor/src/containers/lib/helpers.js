@@ -30,8 +30,29 @@ export const loadStatefromData = (data: {}) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
-    crop: data.crop
+    crop: data.crop || initialCrop
   };
+};
+
+const initialCrop = {
+  square: {
+    aspect: 1,
+    x: 10,
+    height: 100,
+    validate: false
+  },
+  golden: {
+    aspect: 1.618,
+    y: 5,
+    width: 100,
+    validate: false
+  },
+  panoramic: {
+    aspect: 2.618,
+    y: 20,
+    width: 100,
+    validate: false
+  }
 };
 
 export const initialState = {
@@ -70,26 +91,7 @@ export const initialState = {
   message: '',
   snackbarOpen: false,
   SnackbarMessage: '',
-  crop: {
-    square: {
-      aspect: 1,
-      x: 10,
-      height: 100,
-      validate: false
-    },
-    golden: {
-      aspect: 1.618,
-      y: 5,
-      width: 100,
-      validate: false
-    },
-    panoramic: {
-      aspect: 2.618,
-      y: 20,
-      width: 100,
-      validate: false
-    }
-  },
+  crop: initialCrop,
   category: -1,
   tags: []
 };

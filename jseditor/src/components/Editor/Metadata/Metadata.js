@@ -10,28 +10,15 @@ import Author from './Author';
 import Social from './Social';
 import Comments from './Comments';
 
-class Metadata extends React.Component{
-  onArticleMetaToggle (e) {
+class Metadata extends React.Component {
+  onArticleMetaToggle(e) {
     e.preventDefault();
     this._glyphiconClass.classList.toggle('glyphicon-minus');
     this._glyphiconClass.classList.toggle('glyphicon-plus');
     this._articleMetaPanel.classList.toggle('collapsed-content');
   }
 
-  render () {
-    let author = <Author
-      author={this.props.meta.author}
-      userId={this.props.userId}
-      blogUrl={this.props.blogUrl}
-      toggleAuthorInfo={this.props.toggleAuthorInfo}
-      editAuthorInfo={this.props.editAuthorInfo}
-      onArticleMetaToggle={this.onArticleMetaToggle}
-      toggleSocialShareVisibility={this.props.toggleSocialShareVisibility}
-      toggleDateVisibility={this.props.toggleDateVisibility}
-      showSocialShareButtons={this.props.meta.showSocialShareButtons}
-      showDate={this.props.meta.showDate}
-    />;
-
+  render() {
     return (
       <div className="article-metadata-container">
         <h3>Article Metadata</h3>
@@ -55,12 +42,6 @@ class Metadata extends React.Component{
           toggleSocialSharing={this.props.toggleSocialSharing}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Seo
-          seo={this.props.meta.seo ? this.props.meta.seo : {title:'', description:''} }
-          updateSeoTitle={this.props.updateSeoTitle}
-          updateSeoDescription={this.props.updateSeoDescription}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-        />
         <Sponsor
           sponsor={this.props.meta.sponsor}
           updateSponsorName={this.props.updateSponsorName}
@@ -81,19 +62,6 @@ class Metadata extends React.Component{
           deleteHomepageImage={this.props.deleteHomepageImage}
           openResourcePanel={this.props.openResourcePanel}
           onArticleMetaToggle={this.onArticleMetaToggle}
-        />
-        {this.props.blogUrl ? author : ''}
-        <Social
-          updateSocialFacebookText={this.props.updateSocialFacebookText}
-          updateSocialTwitterText={this.props.updateSocialTwitterText}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-          social={this.props.meta.social}
-        />
-        <Comments
-          comment={this.props.meta.comment}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-          toggleAllowComments={this.props.toggleAllowComments}
-          toggleCommentStatus={this.props.toggleCommentStatus}
         />
       </div>
     );
