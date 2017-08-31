@@ -29,7 +29,8 @@ export const loadStatefromData = (data: {}) => {
     category: data.category,
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
-    tags: data.tags || []
+    tags: data.tags || [],
+    crop: data.crop
   };
 };
 
@@ -47,6 +48,7 @@ export const initialState = {
     sponsor: { name: '', image: '', tracker: '' },
     css: { skinName: '' },
     seo: {},
+    showSocialShareButtons: false,
     microsite: {
       name: '',
       gaSnippet: '',
@@ -58,6 +60,7 @@ export const initialState = {
       twitter: '',
       facebook: ''
     },
+    showDate: false,
     comment: { allowed: true, status: 'open' }
   },
   isSensitive: false,

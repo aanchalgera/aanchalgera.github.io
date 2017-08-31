@@ -6,24 +6,20 @@ import { grey400 } from 'material-ui/styles/colors';
 export type Props = {};
 
 export class ImageCropper extends React.Component {
-  constructor(props: Props) {
-    super(props);
-
-    this.style = {
-      img: {
-        maxWidth: '100%'
-      },
-      cropperWidth: {
-        width: '85%'
-      },
-      label: {
-        lineHeight: '22px',
-        top: '38px',
-        transformOrigin: 'left top 0px',
-        color: grey400
-      }
-    };
-  }
+  style = {
+    img: {
+      maxWidth: '100%'
+    },
+    cropperWidth: {
+      width: '85%'
+    },
+    label: {
+      lineHeight: '22px',
+      top: '38px',
+      transformOrigin: 'left top 0px',
+      color: grey400
+    }
+  };
 
   props: Props;
 

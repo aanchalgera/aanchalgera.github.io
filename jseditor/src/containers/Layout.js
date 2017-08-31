@@ -68,7 +68,7 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={customTheme}>
         <view>
           {this.getTitleBar()}
-          <Component {...this.state} base={base} />}
+          <Component {...this.state} base={base} />
         </view>
       </MuiThemeProvider>
     );
