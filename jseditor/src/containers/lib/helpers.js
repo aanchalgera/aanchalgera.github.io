@@ -30,6 +30,7 @@ export const loadStatefromData = (data: {}) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
+    otherCategories: data.otherCategories || [],
     crop: data.crop || initialCrop
   };
 };
@@ -93,5 +94,6 @@ export const initialState = {
   SnackbarMessage: '',
   crop: initialCrop,
   category: -1,
-  tags: []
+  tags: [],
+  otherCategories: []
 };

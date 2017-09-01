@@ -13,7 +13,8 @@ import {
   Twitter,
   Facebook,
   CountriesFormOptions,
-  Tags
+  Tags,
+  OtherCategories
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
@@ -212,6 +213,13 @@ class Publish extends React.Component {
               <Categories
                 category={this.state.category}
                 setCategory={this.setCategory}
+                blogUrl={this.props.blogUrl}
+              />
+            </Col>
+            <Col xs={3}>
+              <OtherCategories
+                otherCategories={this.state.otherCategories}
+                updateParent={this.updateParent}
                 blogUrl={this.props.blogUrl}
               />
             </Col>

@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 
 import { loadCategories } from './lib/publishService';
 import { getCategories, findById } from './lib/publishHelpers';
+import { Category } from './lib/flowTypes';
 
+type Props = {
+  category: number,
+  blogUrl: string,
+  setCategory: (data: Object) => void
+};
 const POST_TYPE = 'normal';
 
 export class Categories extends Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       currentCategory: '',
@@ -16,26 +22,23 @@ export class Categories extends Component {
     };
   }
 
-  setCategories = () => {
-    loadCategories(this.props.blogUrl, POST_TYPE).done(data => {
-      let categories = getCategories(data);
-      let currentCategory = findById(this.props.category, categories);
-      this.setState(() => {
-        return {
-          categories: categories,
-          currentCategory: currentCategory ? currentCategory.categoryName : ''
-        };
-      });
+  setCategories = async () => {
+    let categories = await loadCategories(this.props.blogUrl, POST_TYPE);
+    let updatedCategories = getCategories(categories);
+    let currentCategory = findById(this.props.category, updatedCategories);
+    this.setState({
+      categories: updatedCategories,
+      currentCategory: currentCategory ? currentCategory.label : ''
     });
   };
 
-  handleUpdate = category => {
+  handleUpdate = (category?: Category) => {
     if (undefined !== category.id) {
       this.props.setCategory(category.id);
     }
   };
 
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps = (nextProps: Props) => {
     if (
       (undefined !== this.props.blogUrl) &
       (this.props.category !== nextProps.category)
@@ -50,7 +53,7 @@ export class Categories extends Component {
         searchText={this.state.currentCategory}
         onNewRequest={this.handleUpdate}
         dataSource={this.state.categories}
-        dataSourceConfig={{ text: 'categoryName', value: 'id' }}
+        dataSourceConfig={{ text: 'label', value: 'id' }}
         openOnFocus={true}
         filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText="Categoria"

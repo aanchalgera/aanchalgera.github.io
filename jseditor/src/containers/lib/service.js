@@ -46,7 +46,8 @@ export const savePost = (state, base) => {
     imageValidated: imageValidated,
     crop: state.crop,
     tags: state.tags,
-    category: state.category
+    category: state.category,
+    otherCategories: state.otherCategories
   };
 
   base.post('posts/' + state.id, {

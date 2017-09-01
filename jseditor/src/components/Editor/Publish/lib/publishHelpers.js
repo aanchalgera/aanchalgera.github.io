@@ -21,7 +21,7 @@ export const getCategories = (data: {}) => {
     if (undefined !== categoryGroup) {
       categoryGroup.forEach(function(category) {
         categories.push({
-          categoryName: category['cat_name'],
+          label: category['cat_name'],
           id: Number(category['id'])
         });
       });
@@ -29,7 +29,7 @@ export const getCategories = (data: {}) => {
       let category = data[key];
       categories.push({
         id: Number(category['id']),
-        categoryName: category['name']
+        label: category['name']
       });
     }
   }
