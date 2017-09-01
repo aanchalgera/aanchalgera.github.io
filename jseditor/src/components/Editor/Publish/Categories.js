@@ -14,13 +14,11 @@ type Props = {
 const POST_TYPE = 'normal';
 
 export class Categories extends Component {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      currentCategory: '',
-      categories: []
-    };
-  }
+  props: Props;
+  state = {
+    currentCategory: '',
+    categories: []
+  };
 
   setCategories = async () => {
     let categories = await loadCategories(this.props.blogUrl, POST_TYPE);
