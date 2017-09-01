@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 export const loadStatefromData = (data: {}) => {
   return {
     id: data.id,
+    title: data.title,
     blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
@@ -15,10 +16,9 @@ export const loadStatefromData = (data: {}) => {
     },
     maxId: data.maxId,
     status: data.status || 'draft',
-    date:
+    publishedDate:
       idx(data, _ => _.publishData.postDate) ||
       moment().format('DD/MM/YYYY HH:mm'),
-    publishedDate: idx(data, _ => _.publishData.postDate) || '',
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],

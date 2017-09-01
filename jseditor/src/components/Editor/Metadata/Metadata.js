@@ -63,6 +63,12 @@ class Metadata extends React.Component {
           openResourcePanel={this.props.openResourcePanel}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
+        <Comments
+          comment={this.props.meta.comment}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+          toggleAllowComments={this.props.toggleAllowComments}
+          toggleCommentStatus={this.props.toggleCommentStatus}
+        />
       </div>
     );
   }

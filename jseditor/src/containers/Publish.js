@@ -26,12 +26,16 @@ import { initialState, loadStatefromData } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
 const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
-const VALID_DATE_WARNING = 'Please select a valid date, future date';
+const VALID_DATE_WARNING = 'Please select a valid future date';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
-
+const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
+const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
+const FACEBOOK_TEXT_SAME_POST_TITLE =
+  'Facebook text cannot be same as post title';
+const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 class Publish extends React.Component {
   state = initialState;
 
@@ -100,11 +104,21 @@ class Publish extends React.Component {
           moment()
         )
       ) {
-        this.setMessage(true, PUBLISH_POST_WARNING);
+        isError = true;
+        message = PUBLISH_POST_WARNING;
       }
-    } else if (!this.state.meta.homepage.image) {
+    } else if ('' == this.state.category) {
       isError = true;
-      message = MAIN_IMAGE_WARNING;
+      message = CATEGORY_FIELD_EMPTY;
+    } else if ('' == this.state.meta.social.facebook) {
+      isError = true;
+      message = FACEBOOK_FIELD_EMPTY;
+    } else if ('' == this.state.meta.social.twitter) {
+      isError = true;
+      message = TWITTER_FIELD_EMPTY;
+    } else if (this.state.meta.social.facebook == this.state.title) {
+      isError = true;
+      message = FACEBOOK_TEXT_SAME_POST_TITLE;
     }
 
     for (let key in this.state.crop) {
@@ -193,6 +207,9 @@ class Publish extends React.Component {
   render() {
     return (
       <div>
+        <span style={{ color: 'red' }}>
+          {this.state.message}
+        </span>
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.SnackbarMessage}
