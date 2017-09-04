@@ -3,8 +3,7 @@ import React from 'react';
 import { Subheader, Divider, Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import { toggleItem } from './lib/publishHelpers';
-
-declare type InputEvent = Event & { currentTarget: HTMLInputElement };
+import { InputEvent } from './lib/flowTypes';
 
 let regions = {
   ES: 'España',
