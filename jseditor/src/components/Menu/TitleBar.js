@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-const TitleBar = ({ postName, blogUrl, queryPath, activeTab }) =>
+const TitleBar = ({ postName, blogUrl, queryPath, activeTab, showDifundir }) =>
   <view>
     <Row>
       <Col xs={12}>
@@ -38,13 +38,14 @@ const TitleBar = ({ postName, blogUrl, queryPath, activeTab }) =>
                       <Link to={`/publicar/${postName}${queryPath}`} />
                     }
                   />
-                  <Tab
-                    label="DIFUNDIR"
-                    value="difundir"
-                    containerElement={
-                      <Link to={`/difundir/${postName}${queryPath}`} />
-                    }
-                  />
+                  {showDifundir &&
+                    <Tab
+                      label="DIFUNDIR"
+                      value="difundir"
+                      containerElement={
+                        <Link to={`/difundir/${postName}${queryPath}`} />
+                      }
+                    />}
                 </Tabs>
               </Col>
             </Row>

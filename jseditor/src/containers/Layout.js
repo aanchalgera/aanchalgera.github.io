@@ -7,7 +7,8 @@ import { getConfig } from './lib/service';
 
 export default class Layout extends React.Component {
   state = {
-    blogUrl: null
+    blogUrl: null,
+    showDifundir: false
   };
 
   componentWillMount() {
@@ -45,6 +46,10 @@ export default class Layout extends React.Component {
     });
   };
 
+  handleDifundir = status => {
+    this.setState({ showDifundir: status == 'publish' || false });
+  };
+
   getTitleBar = () => {
     const pathName = this.props.location.pathname;
     const search = this.props.location.search;
@@ -55,6 +60,7 @@ export default class Layout extends React.Component {
         blogUrl={this.state.blogUrl}
         activeTab={matches[1]}
         queryPath={search}
+        showDifundir={this.state.showDifundir}
       />
     );
   };
@@ -64,11 +70,16 @@ export default class Layout extends React.Component {
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
+    const { showDifundir, ...rest } = this.state;
     return (
       <MuiThemeProvider muiTheme={customTheme}>
         <view>
           {this.getTitleBar()}
-          <Component {...this.state} base={base} />
+          <Component
+            {...rest}
+            base={base}
+            handleDifundir={this.handleDifundir}
+          />
         </view>
       </MuiThemeProvider>
     );
