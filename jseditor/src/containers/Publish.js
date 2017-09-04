@@ -13,31 +13,38 @@ import {
   Twitter,
   Facebook,
   CountriesFormOptions,
-  Tags
+  Tags,
+  OtherCategories
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
   getPost,
   submitPostToBackend,
   savePostsList,
-  savePost
+  savePost,
+  loadAllCategories
 } from './lib/service.js';
 import {
   initialState,
   loadStatefromData,
-  validateState
+  filterCategories,
+  validateState,
 } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
 
 const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
+const IMAGE_CROP_WARNING =
+  'Es necesario validar los recortes de las imágenes para poder publicar';
+const POST_TYPE = 'normal';
 
 class Publish extends React.Component {
   state = initialState;
 
   componentWillMount() {
     this.init();
+    this.setAllCategories();
   }
 
   init() {
@@ -165,12 +172,10 @@ class Publish extends React.Component {
     }, this.savePostData);
   };
 
-  setCategory = categorySelected => {
-    this.setState(() => {
-      return {
-        category: categorySelected
-      };
-    });
+  setAllCategories = async () => {
+    let categories = await loadAllCategories(this.props.blogUrl, POST_TYPE);
+    let updatedCategories = filterCategories(categories);
+    this.setState({ allCategories: updatedCategories });
   };
 
   render() {
@@ -197,8 +202,17 @@ class Publish extends React.Component {
             <Col xs={3}>
               <Categories
                 category={this.state.category}
-                setCategory={this.setCategory}
+                updateParent={this.updateParent}
                 blogUrl={this.props.blogUrl}
+                allCategories={this.state.allCategories}
+              />
+            </Col>
+            <Col xs={3}>
+              <OtherCategories
+                otherCategories={this.state.otherCategories}
+                updateParent={this.updateParent}
+                blogUrl={this.props.blogUrl}
+                allCategories={this.state.allCategories}
               />
             </Col>
             <Col xs={3}>

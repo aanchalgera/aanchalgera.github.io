@@ -7,25 +7,27 @@ import { Category } from './lib/flowTypes';
 
 type Props = {
   blogUrl: string,
-  category: Array<Category>,
+  otherCategories: Array<Category>,
   updateParent: (data: Object) => void,
   allCategories: Array<Category>
 };
 
-export class Categories extends Component {
+export class OtherCategories extends Component {
   props: Props;
 
-  handleOnChange = (input: Category) => {
-    this.props.updateParent({ category: input.id });
+  handleOnChange = (input: Array<Category>) => {
+    this.props.updateParent({ otherCategories: input });
   };
 
   render() {
     return (
       <Select
-        placeholder="Categoria"
+        placeholder="Otras Categorías..."
         options={this.props.allCategories}
         onChange={this.handleOnChange}
-        value={this.props.category}
+        multi={true}
+        joinValues={true}
+        value={this.props.otherCategories}
         valueKey={'id'}
       />
     );

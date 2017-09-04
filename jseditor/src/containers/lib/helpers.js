@@ -42,6 +42,7 @@ export const loadStatefromData = (data: {}) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
+    otherCategories: data.otherCategories || [],
     crop: data.crop || initialCrop
   };
 };
@@ -136,6 +137,30 @@ export const initialState = {
   snackbarOpen: false,
   SnackbarMessage: '',
   crop: initialCrop,
+  allCategories: [],
   category: -1,
-  tags: []
+  tags: [],
+  otherCategories: []
+};
+
+export const filterCategories = (data: {}) => {
+  let categories = [];
+  for (let key in data) {
+    let categoryGroup = data[key]['children'];
+    if (undefined !== categoryGroup) {
+      categoryGroup.forEach(function(category) {
+        categories.push({
+          label: category['cat_name'],
+          id: Number(category['id'])
+        });
+      });
+    } else {
+      let category = data[key];
+      categories.push({
+        id: Number(category['id']),
+        label: category['name']
+      });
+    }
+  }
+  return categories;
 };

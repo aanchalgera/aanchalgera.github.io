@@ -6,4 +6,10 @@ export type Tag = {
   nicename: string,
   tag_count: string
 };
+
+export type Category = {
+  id: number,
+  label: string
+};
+
 export type InputEvent = Event & { target: HTMLInputElement };
