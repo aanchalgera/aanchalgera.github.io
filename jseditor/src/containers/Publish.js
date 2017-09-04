@@ -23,20 +23,17 @@ import {
   savePostsList,
   savePost
 } from './lib/service.js';
-import { initialState, loadStatefromData } from './lib/helpers.js';
+import {
+  initialState,
+  loadStatefromData,
+  validateState
+} from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
-const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
+
 const VALID_DATE_WARNING = 'Please select a valid future date';
-const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const IMAGE_CROP_WARNING =
-  'Es necesario validar los recortes de las imágenes para poder publicar';
-const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
-const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
-const FACEBOOK_TEXT_SAME_POST_TITLE =
-  'Facebook text cannot be same as post title';
-const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
+
 class Publish extends React.Component {
   state = initialState;
 
@@ -83,12 +80,12 @@ class Publish extends React.Component {
     this.setState({ meta }, this.savePostData);
   };
 
-  onSchedule(date, postSchedule) {
+  onSchedule = (date, postSchedule) => {
     if (this.isValid()) {
       return this.submitPost(date, postSchedule);
     }
     postSchedule();
-  }
+  };
 
   enableButton() {
     this.setState({
@@ -97,45 +94,14 @@ class Publish extends React.Component {
   }
 
   isValid() {
-    let isError = false,
-      message;
-    if ('publish' === this.state.status) {
-      if (
-        moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(
-          moment()
-        )
-      ) {
-        isError = true;
-        message = PUBLISH_POST_WARNING;
-      }
-    } else if ('' == this.state.category) {
-      isError = true;
-      message = CATEGORY_FIELD_EMPTY;
-    } else if ('' == this.state.meta.social.facebook) {
-      isError = true;
-      message = FACEBOOK_FIELD_EMPTY;
-    } else if ('' == this.state.meta.social.twitter) {
-      isError = true;
-      message = TWITTER_FIELD_EMPTY;
-    } else if (this.state.meta.social.facebook == this.state.title) {
-      isError = true;
-      message = FACEBOOK_TEXT_SAME_POST_TITLE;
-    }
-
-    for (let key in this.state.crop) {
-      if (!this.state.crop[key]['validate']) {
-        isError = true;
-        message = IMAGE_CROP_WARNING;
-      }
-    }
-
+    const { isError, message } = validateState(this.state);
     this.setMessage(isError, message);
     return !isError;
   }
 
-  onInvalidDate() {
+  onInvalidDate = () => {
     this.setMessage(true, VALID_DATE_WARNING);
-  }
+  };
 
   setMessage(isError, message) {
     let params = {
@@ -171,8 +137,9 @@ class Publish extends React.Component {
   };
 
   updateHomepageContent = value => {
-    this.state.meta.homepage.content = value;
-    this.setState({ meta: this.state.meta });
+    let meta = this.state.meta;
+    meta.homepage.content = value;
+    this.setState({ meta });
   };
 
   savePostData = () => {
@@ -221,8 +188,8 @@ class Publish extends React.Component {
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.publishedDate}
           base={this.props.base}
-          onSchedule={this.onSchedule.bind(this)}
-          onInvalidDate={this.onInvalidDate.bind(this)}
+          onSchedule={this.onSchedule}
+          onInvalidDate={this.onInvalidDate}
         />
         <div>
           <Row>
@@ -296,7 +263,7 @@ class Publish extends React.Component {
           <Col xs>
             <AdvancedOptions
               blogUrl={this.props.blogUrl}
-              userId={parseInt(this.props.userId)}
+              userId={this.props.userId}
               setPostMeta={this.setPostMeta}
               updateParent={this.updateParent}
               postMeta={this.state.meta}

@@ -11,7 +11,7 @@ export const findByName = (name: string, list: Array<User>) =>
 
 export const toggleItem = (item: string, list: Array<string>) => {
   const index = list.indexOf(item);
-  -1 === index ? (list.push(item), list) : list.splice(index, 1);
+  -1 === index ? list.push(item) : list.splice(index, 1);
 };
 
 export const getCategories = (data: {}) => {

@@ -1,14 +1,20 @@
-import PropTypes from 'prop-types';
+// @flow
 import React from 'react';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import Subheader from 'material-ui/Subheader';
+import { Divider, Checkbox, Subheader, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import RaisedButton from 'material-ui/RaisedButton';
+
+declare type InputEvent = Event & { currentTarget: HTMLInputElement };
+
+type Props = {
+  repostBlogs: Array<string>,
+  setRepostBlogs: (key: string, value: boolean) => void,
+  blogName: string,
+  submitRepostedBlogs: () => void
+};
 
 const styles = {
   checkbox: {
-    marginBottom: '16px',
+    marginBottom: '16px'
   },
   button: {
     marginTop: '16px'
@@ -16,94 +22,98 @@ const styles = {
 };
 
 let formatedBlogs = {
-  tecnologiaColA : {
+  tecnologiaColA: {
     sites: [
-      'xataka', 'xatakamovil', 'xatakafoto', 'xatakandroid', 'xatakahome',
-      'xatakawindows', 'xatakaciencia', 'xatakamagnet', 'xatakamexico',
+      'xataka',
+      'xatakamovil',
+      'xatakafoto',
+      'xatakandroid',
+      'xatakahome',
+      'xatakawindows',
+      'xatakaciencia',
+      'xatakamagnet',
+      'xatakamexico',
       'xatakacolombia'
     ]
   },
-  tecnologiaColB : {
+  tecnologiaColB: {
+    sites: ['applesfera', 'vidaextra', 'genbeta', 'genbetadev', 'compradiccion']
+  },
+  estilodevida: {
     sites: [
-      'applesfera', 'vidaextra', 'genbeta', 'genbetadev', 'compradiccion'
+      'trendencias',
+      'trendenciasbelleza',
+      'trendenciashombre',
+      'directoalpaladar',
+      'bebesymas',
+      'vitonica',
+      'decoesfera',
+      'poprosa',
+      'directoalpaladarmexico'
     ]
   },
-  estilodevida : {
+  motor: {
     sites: [
-      'trendencias', 'trendenciasbelleza', 'trendenciashombre', 'directoalpaladar',
-      'bebesymas', 'vitonica', 'decoesfera', 'poprosa', 'directoalpaladarmexico'
+      'motorpasion',
+      'motorpasionmoto',
+      'motorpasionfuturo',
+      'motorpasionmexico'
     ]
   },
-  motor : {
-    sites: [
-      'motorpasion', 'motorpasionmoto', 'motorpasionfuturo', 'motorpasionmexico'
-    ]
+  economia: {
+    sites: ['elblogsalmon', 'pymesyautonomos']
   },
-  economia : {
-    sites : [
-      'elblogsalmon', 'pymesyautonomos'
-    ]
-  },
-  ocio : {
-    sites : [
-      'espinof', 'papelenblanco', 'diariodelviajero'
-    ]
+  ocio: {
+    sites: ['espinof', 'papelenblanco', 'diariodelviajero']
   }
 };
 
 export default class RepostSiteOptions extends React.Component {
+  props: Props;
 
-  static propTypes = {
-    repostBlogs: PropTypes.array.isRequired,
-    setRepostBlogs: PropTypes.func.isRequired,
-    blogName: PropTypes.string,
-    submitRepostedBlogs: PropTypes.func.isRequired,
-  }
+  handleCheck = (e: InputEvent, isChecked: boolean) => {
+    this.props.setRepostBlogs(e.currentTarget.value, isChecked);
+  };
 
-  handleCheck = (e, isChecked) => {
-    this.props.setRepostBlogs(e.target.value, isChecked);
-  }
-
-  getSitesListing = (blogs) => {
+  getSitesListing = (blogs: Array<string>) => {
     const { blogName } = this.props;
-    return blogs.map((blog) => (
-      blogName == blog ? null: (
-        <Checkbox
-          checked={this.props.repostBlogs.indexOf(blog) !== -1}
-          key={blog}
-          label={blog}
-          value={blog}
-          style={styles.checkbox}
-          onCheck={this.handleCheck}
-        />
-      )
-    ));
-  }
+    return blogs.map(
+      blog =>
+        blogName === blog
+          ? null
+          : <Checkbox
+              checked={this.props.repostBlogs.indexOf(blog) !== -1}
+              key={blog}
+              label={blog}
+              value={blog}
+              style={styles.checkbox}
+              onCheck={this.handleCheck}
+            />
+    );
+  };
 
-  render () {
+  render() {
     return (
       <div>
         <Subheader className="subheader">Crosspost a otros medios</Subheader>
         <Divider className="divider" />
-          <Row>
-            {
-              Object.keys(formatedBlogs).map((key) => (
-                <Col xs key={key}>
-                  {this.getSitesListing(formatedBlogs[key].sites)}
-                </Col>
-              ))
-            }
-          </Row>
-          <Row>
-            <Col>
-              <RaisedButton 
-                label="Enviar Crosspost"
-                style={styles.button}
-                onTouchTap={this.props.submitRepostedBlogs}
-                primary={true}
-              />
+        <Row>
+          {Object.keys(formatedBlogs).map(key =>
+            <Col xs key={key}>
+              {this.getSitesListing(formatedBlogs[key].sites)}
             </Col>
-          </Row>
+          )}
+        </Row>
+        <Row>
+          <Col>
+            <RaisedButton
+              label="Enviar Crosspost"
+              style={styles.button}
+              onTouchTap={this.props.submitRepostedBlogs}
+              primary={true}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }
