@@ -218,7 +218,6 @@ class Publish extends React.Component {
               <Categories
                 category={this.state.category}
                 updateParent={this.updateParent}
-                blogUrl={this.props.blogUrl}
                 allCategories={this.state.allCategories}
               />
             </Col>
@@ -226,7 +225,6 @@ class Publish extends React.Component {
               <OtherCategories
                 otherCategories={this.state.otherCategories}
                 updateParent={this.updateParent}
-                blogUrl={this.props.blogUrl}
                 allCategories={this.state.allCategories}
               />
             </Col>
