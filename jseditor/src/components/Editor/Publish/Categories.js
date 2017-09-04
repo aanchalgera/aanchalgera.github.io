@@ -1,67 +1,33 @@
+//@flow
 import React, { Component } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
-import PropTypes from 'prop-types';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
-import { loadCategories } from './lib/publishService';
-import { getCategories, findById } from './lib/publishHelpers';
 import { Category } from './lib/flowTypes';
 
 type Props = {
-  category: number,
   blogUrl: string,
-  setCategory: (data: Object) => void
+  category: Array<Category>,
+  updateParent: (data: Object) => void,
+  allCategories: Array<Category>
 };
-const POST_TYPE = 'normal';
 
 export class Categories extends Component {
   props: Props;
-  state = {
-    currentCategory: '',
-    categories: []
-  };
 
-  setCategories = async () => {
-    let categories = await loadCategories(this.props.blogUrl, POST_TYPE);
-    let updatedCategories = getCategories(categories);
-    let currentCategory = findById(this.props.category, updatedCategories);
-    this.setState({
-      categories: updatedCategories,
-      currentCategory: currentCategory ? currentCategory.label : ''
-    });
-  };
-
-  handleUpdate = (category?: Category) => {
-    if (undefined !== category.id) {
-      this.props.setCategory(category.id);
-    }
-  };
-
-  componentWillReceiveProps = (nextProps: Props) => {
-    if (
-      (undefined !== this.props.blogUrl) &
-      (this.props.category !== nextProps.category)
-    ) {
-      this.setCategories();
-    }
+  handleOnChange = (input: Category) => {
+    this.props.updateParent({ category: input.id });
   };
 
   render() {
     return (
-      <AutoComplete
-        searchText={this.state.currentCategory}
-        onNewRequest={this.handleUpdate}
-        dataSource={this.state.categories}
-        dataSourceConfig={{ text: 'label', value: 'id' }}
-        openOnFocus={true}
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText="Categoria"
+      <Select
+        placeholder="Categoria"
+        options={this.props.allCategories}
+        onChange={this.handleOnChange}
+        value={this.props.category}
+        valueKey={'id'}
       />
     );
   }
 }
-
-Categories.propTypes = {
-  category: PropTypes.number.isRequired,
-  blogUrl: PropTypes.string,
-  setCategory: PropTypes.func.isRequired
-};

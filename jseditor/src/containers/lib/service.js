@@ -1,4 +1,5 @@
 import jquery from 'jquery';
+import isoFetch from 'isomorphic-fetch';
 
 export const getConfig = (blogName, base) => {
   return base.fetch('config', {
@@ -129,4 +130,12 @@ export const submitPostToBackend = (state, date, blogUrl) => {
     },
     crossDomain: true
   });
+};
+
+export const loadAllCategories = async (blogUrl, postType) => {
+  let response = await isoFetch(`${blogUrl}/admin/api/categories/${postType}`, {
+    credentials: 'include'
+  });
+  let categories = response.json();
+  return categories;
 };
