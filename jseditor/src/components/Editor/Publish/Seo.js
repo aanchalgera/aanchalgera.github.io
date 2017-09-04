@@ -2,8 +2,7 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { TextField, Divider, Subheader } from 'material-ui';
-
-declare type InputEvent = Event & { target: HTMLInputElement };
+import { InputEvent } from './lib/flowTypes';
 
 type Props = {
   seo: { title: string, description: string },
@@ -13,7 +12,7 @@ type Props = {
 export const Seo = ({ seo, setPostMeta }: Props) => {
   const updateSeoTitle = (e: InputEvent) => {
     setPostMeta('seo', {
-      title: e.target.value,
+      title: e.currentTarget.value,
       description: seo.description
     });
   };
@@ -21,7 +20,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
   const updateSeoDescription = (e: InputEvent) => {
     setPostMeta('seo', {
       title: seo.title,
-      description: e.target.value
+      description: e.currentTarget.value
     });
   };
   return (

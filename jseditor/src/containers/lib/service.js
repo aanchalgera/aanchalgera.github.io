@@ -31,10 +31,9 @@ export const savePost = (state, base) => {
     sections: state.fields,
     maxId: state.maxId,
     blogName: state.blogName,
-    status: 'publish',
     meta: state.meta,
+    status: state.status,
     user_id: state.userId,
-    crop: state.crop,
     isSensitive: state.isSensitive,
     specialPost: state.specialPost,
     publishData: {

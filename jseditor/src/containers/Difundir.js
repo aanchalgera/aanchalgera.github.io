@@ -1,12 +1,12 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
-import Snackbar from 'material-ui/Snackbar';
+import { Snackbar, RaisedButton } from 'material-ui';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
-import RaisedButton from 'material-ui/RaisedButton';
-import configParams from '../config/configs.js';
+import configParams from '../config/configs';
+import { getPost } from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
@@ -27,22 +27,17 @@ class Difundir extends React.Component {
   }
 
   init() {
-    if (this.props.postname != undefined) {
-      this.props.base.fetch('posts/' + this.props.postname, {
-        context: this,
-        then(data) {
-          if (data.hasOwnProperty('id')) {
-            this.setState({
-              id: data.id,
-              postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-              publishRegion: data.publishData.publishRegion || '',
-              postDate: data.publishData.postDate || '',
-              postId: data.publishData.postId
-            });
-          }
-        }
-      });
-    }
+    getPost(this.props.postname, this.props.base).then(data => {
+      if (data.hasOwnProperty('id')) {
+        this.setState({
+          id: data.id,
+          postRepostBlogNames: data.publishData.postRepostBlogNames || [],
+          publishRegion: data.publishData.publishRegion || '',
+          postDate: data.publishData.postDate || '',
+          postId: data.publishData.postId
+        });
+      }
+    });
   }
 
   setRepostBlogs = (blogName, isChecked) => {
@@ -87,7 +82,7 @@ class Difundir extends React.Component {
         crossDomain: true
       })
       .done(result => {
-        if (result.id != undefined) {
+        if (result.id !== undefined) {
           this.props.base.update('posts/' + this.state.id, {
             data: { publishData },
             then: () => {
@@ -111,7 +106,7 @@ class Difundir extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  onRepublishSchedule(date, postSchedule) {
+  onRepublishSchedule = (date, postSchedule) => {
     const republishInterval = 0;
     jquery
       .ajax({
@@ -129,7 +124,7 @@ class Difundir extends React.Component {
         crossDomain: true
       })
       .done(data => {
-        if ('already_scheduled' == data.status) {
+        if ('already_scheduled' === data.status) {
           return this.showSnackbarMsg(
             `Post already scheduled to republish at ${data.date}`
           );
@@ -144,13 +139,13 @@ class Difundir extends React.Component {
         );
       })
       .always(postSchedule);
-  }
+  };
 
-  onInvalidDate() {
+  onInvalidDate = () => {
     this.showSnackbarMsg(VALID_DATE_WARNING);
-  }
+  };
 
-  onRepublishNow() {
+  onRepublishNow = () => {
     jquery
       .ajax({
         url: `${this.props.blogUrl}/admin/overlay/republish/${this.state
@@ -169,7 +164,7 @@ class Difundir extends React.Component {
           'Error occured while republishing. Please try again'
         );
       });
-  }
+  };
 
   render() {
     return (
@@ -189,13 +184,13 @@ class Difundir extends React.Component {
         <SchedulePost
           value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
           base={this.props.base}
-          onSchedule={this.onRepublishSchedule.bind(this)}
-          onInvalidDate={this.onInvalidDate.bind(this)}
+          onSchedule={this.onRepublishSchedule}
+          onInvalidDate={this.onInvalidDate}
         />
         <RaisedButton
           label="PASAR POR PORTADA AHORA MISMO!"
           secondary={true}
-          onTouchTap={this.onRepublishNow.bind(this)}
+          onTouchTap={this.onRepublishNow}
         />
       </div>
     );

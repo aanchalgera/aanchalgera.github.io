@@ -27,13 +27,13 @@ import {
 import {
   initialState,
   loadStatefromData,
-  filterCategories
+  filterCategories,
+  validateState,
 } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
-const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
-const VALID_DATE_WARNING = 'Please select a valid date, future date';
-const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
+
+const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -52,6 +52,7 @@ class Publish extends React.Component {
       if (data != null) {
         this.setState(loadStatefromData(data));
       }
+      this.props.handleDifundir(data.status);
     });
   }
 
@@ -73,6 +74,7 @@ class Publish extends React.Component {
             },
             this.savePostData
           );
+          this.props.handleDifundir('publish');
         }
         savePostsList(this.state, this.props.base, this.blogName);
         this.enableButton();
@@ -86,12 +88,12 @@ class Publish extends React.Component {
     this.setState({ meta }, this.savePostData);
   };
 
-  onSchedule(date, postSchedule) {
+  onSchedule = (date, postSchedule) => {
     if (this.isValid()) {
       return this.submitPost(date, postSchedule);
     }
     postSchedule();
-  }
+  };
 
   enableButton() {
     this.setState({
@@ -100,35 +102,14 @@ class Publish extends React.Component {
   }
 
   isValid() {
-    let isError = false,
-      message;
-    if ('publish' === this.state.status) {
-      if (
-        moment(this.state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(
-          moment()
-        )
-      ) {
-        this.setMessage(true, PUBLISH_POST_WARNING);
-      }
-    } else if (!this.state.meta.homepage.image) {
-      isError = true;
-      message = MAIN_IMAGE_WARNING;
-    }
-
-    for (let key in this.state.crop) {
-      if (!this.state.crop[key]['validate']) {
-        isError = true;
-        message = IMAGE_CROP_WARNING;
-      }
-    }
-
+    const { isError, message } = validateState(this.state);
     this.setMessage(isError, message);
     return !isError;
   }
 
-  onInvalidDate() {
+  onInvalidDate = () => {
     this.setMessage(true, VALID_DATE_WARNING);
-  }
+  };
 
   setMessage(isError, message) {
     let params = {
@@ -141,11 +122,11 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.setState({
       snackbarOpen: false
     });
-  }
+  };
 
   updateParent = data => {
     this.setState(data, this.savePostData);
@@ -164,31 +145,32 @@ class Publish extends React.Component {
   };
 
   updateHomepageContent = value => {
-    this.state.meta.homepage.content = value;
-    this.setState({ meta: this.state.meta });
+    let meta = this.state.meta;
+    meta.homepage.content = value;
+    this.setState({ meta });
   };
 
   savePostData = () => {
     savePost(this.state, this.props.base);
   };
 
-  onCropChange(shape, crop) {
+  onCropChange = (shape, crop) => {
     this.setState(prevState => {
       prevState['crop'][shape] = crop;
       return {
         crop: prevState['crop']
       };
     });
-  }
+  };
 
-  onCropValidate(shape, validate) {
+  onCropValidate = (shape, validate) => {
     this.setState(prevState => {
       prevState['crop'][shape]['validate'] = validate;
       return {
         crop: prevState['crop']
       };
     }, this.savePostData);
-  }
+  };
 
   setAllCategories = async () => {
     let categories = await loadAllCategories(this.props.blogUrl, POST_TYPE);
@@ -198,19 +180,22 @@ class Publish extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="grid-wrapper grid-l">
+        <span style={{ color: 'red' }}>
+          {this.state.message}
+        </span>
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.SnackbarMessage}
           autoHideDuration={5000}
-          onRequestClose={this.handleRequestClose.bind(this)}
+          onRequestClose={this.handleRequestClose}
         />
         <SchedulePost
           buttonDisabled={this.state.buttonDisabled}
           value={this.state.publishedDate}
           base={this.props.base}
-          onSchedule={this.onSchedule.bind(this)}
-          onInvalidDate={this.onInvalidDate.bind(this)}
+          onSchedule={this.onSchedule}
+          onInvalidDate={this.onInvalidDate}
         />
         <div>
           <Row>
@@ -264,21 +249,14 @@ class Publish extends React.Component {
           {this.state.meta.homepage.image &&
             <ImageCropper
               imageSrc={this.state.meta.homepage.image.url}
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
+              onCropChange={this.onCropChange}
+              onCropValidate={this.onCropValidate}
               crop={this.state.crop}
             />}
         </div>
         <Row>
           <Col xs>
-            <Seo
-              seo={
-                this.state.meta.seo
-                  ? this.state.meta.seo
-                  : { title: '', description: '' }
-              }
-              setPostMeta={this.setPostMeta}
-            />
+            <Seo seo={this.state.meta.seo} setPostMeta={this.setPostMeta} />
           </Col>
           <Col xs>
             <CountriesFormOptions
@@ -289,7 +267,7 @@ class Publish extends React.Component {
           <Col xs>
             <AdvancedOptions
               blogUrl={this.props.blogUrl}
-              userId={parseInt(this.props.userId)}
+              userId={this.props.userId}
               setPostMeta={this.setPostMeta}
               updateParent={this.updateParent}
               postMeta={this.state.meta}
