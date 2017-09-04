@@ -1,7 +1,6 @@
 import React from 'react';
 import CropWidget from './CropWidget';
 import { Row, Col } from 'react-flexbox-grid';
-import { grey400 } from 'material-ui/styles/colors';
 
 export type Props = {};
 
@@ -12,12 +11,6 @@ export class ImageCropper extends React.Component {
     },
     cropperWidth: {
       width: '85%'
-    },
-    label: {
-      lineHeight: '22px',
-      top: '38px',
-      transformOrigin: 'left top 0px',
-      color: grey400
     }
   };
 
@@ -28,10 +21,10 @@ export class ImageCropper extends React.Component {
       <Row>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>Imagen Principal</label>
+            <label className="caption-default">Imagen Principal</label>
           </p>
           <div style={this.style.cropperWidth}>
-            <img src={this.props.imageSrc} style={this.style.img} />
+            <img src={this.props.imageSrc} style={this.style.img} alt="" />
           </div>
         </Col>
         <Col xs={3}>

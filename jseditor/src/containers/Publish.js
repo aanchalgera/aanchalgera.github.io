@@ -175,7 +175,7 @@ class Publish extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
           {this.state.message}
         </span>
