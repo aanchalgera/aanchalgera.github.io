@@ -240,14 +240,7 @@ class Publish extends React.Component {
         </div>
         <Row>
           <Col xs>
-            <Seo
-              seo={
-                this.state.meta.seo
-                  ? this.state.meta.seo
-                  : { title: '', description: '' }
-              }
-              setPostMeta={this.setPostMeta}
-            />
+            <Seo seo={this.state.meta.seo} setPostMeta={this.setPostMeta} />
           </Col>
           <Col xs>
             <CountriesFormOptions

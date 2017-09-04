@@ -23,7 +23,8 @@ export const loadStatefromData = (data: {}) => {
       homepage: { content: '' },
       social: { twitter: '', facebook: '' },
       comment: { status: 'open' },
-      author: { showAuthorInfo: false }
+      author: { showAuthorInfo: false },
+      seo: { title: '', description: '' }
     },
     maxId: data.maxId,
     status: data.status || 'draft',

@@ -30,7 +30,6 @@ export const savePost = (state, base) => {
     sections: state.fields,
     maxId: state.maxId,
     blogName: state.blogName,
-    status: 'publish',
     meta: state.meta,
     user_id: state.userId,
     crop: state.crop,
