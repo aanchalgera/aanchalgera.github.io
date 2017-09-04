@@ -31,6 +31,7 @@ export const savePost = (state, base) => {
     maxId: state.maxId,
     blogName: state.blogName,
     meta: state.meta,
+    status: state.status,
     user_id: state.userId,
     crop: state.crop,
     isSensitive: state.isSensitive,

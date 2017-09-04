@@ -45,6 +45,7 @@ class Publish extends React.Component {
       if (data != null) {
         this.setState(loadStatefromData(data));
       }
+      this.props.handleDifundir(data.status);
     });
   }
 
@@ -66,6 +67,7 @@ class Publish extends React.Component {
             },
             this.savePostData
           );
+          this.props.handleDifundir('publish');
         }
         savePostsList(this.state, this.props.base, this.blogName);
         this.enableButton();
@@ -113,11 +115,11 @@ class Publish extends React.Component {
     this.setState(params);
   }
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.setState({
       snackbarOpen: false
     });
-  }
+  };
 
   updateParent = data => {
     this.setState(data, this.savePostData);
@@ -145,23 +147,23 @@ class Publish extends React.Component {
     savePost(this.state, this.props.base);
   };
 
-  onCropChange(shape, crop) {
+  onCropChange = (shape, crop) => {
     this.setState(prevState => {
       prevState['crop'][shape] = crop;
       return {
         crop: prevState['crop']
       };
     });
-  }
+  };
 
-  onCropValidate(shape, validate) {
+  onCropValidate = (shape, validate) => {
     this.setState(prevState => {
       prevState['crop'][shape]['validate'] = validate;
       return {
         crop: prevState['crop']
       };
     }, this.savePostData);
-  }
+  };
 
   setCategory = categorySelected => {
     this.setState(() => {
@@ -181,7 +183,7 @@ class Publish extends React.Component {
           open={this.state.snackbarOpen}
           message={this.state.SnackbarMessage}
           autoHideDuration={5000}
-          onRequestClose={this.handleRequestClose.bind(this)}
+          onRequestClose={this.handleRequestClose}
         />
         <SchedulePost
           buttonDisabled={this.state.buttonDisabled}
@@ -233,8 +235,8 @@ class Publish extends React.Component {
           {this.state.meta.homepage.image &&
             <ImageCropper
               imageSrc={this.state.meta.homepage.image.url}
-              onCropChange={this.onCropChange.bind(this)}
-              onCropValidate={this.onCropValidate.bind(this)}
+              onCropChange={this.onCropChange}
+              onCropValidate={this.onCropValidate}
               crop={this.state.crop}
             />}
         </div>
