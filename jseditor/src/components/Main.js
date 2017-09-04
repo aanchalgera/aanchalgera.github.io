@@ -28,7 +28,7 @@ class Main extends React.Component {
       pathname.indexOf('/difundir/') > -1
     ) {
       return (
-        <div className="grid-wrapper">
+        <div>
           <Route
             path="/publicar/:postname"
             render={props =>

@@ -33,7 +33,6 @@ export const savePost = (state, base) => {
     meta: state.meta,
     status: state.status,
     user_id: state.userId,
-    crop: state.crop,
     isSensitive: state.isSensitive,
     specialPost: state.specialPost,
     publishData: {
