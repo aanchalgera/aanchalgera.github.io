@@ -7,7 +7,7 @@ import { Category } from './lib/flowTypes';
 
 type Props = {
   blogUrl: string,
-  category: Array<Category>,
+  category: number,
   updateParent: (data: Object) => void,
   allCategories: Array<Category>
 };

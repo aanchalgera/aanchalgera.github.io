@@ -3,6 +3,7 @@ export { AdvancedOptions } from './AdvancedOptions';
 export { Categories } from './Categories';
 export { OtherCategories } from './OtherCategories.js';
 export { Tags } from './Tags';
+export { DraftButton } from './Draft';
 export { CountriesFormOptions } from './CountriesFormOptions';
 export { CropWidget } from './CropWidget';
 export { DraftJSEditor } from './DraftJSEditor';
