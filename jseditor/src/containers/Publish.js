@@ -14,7 +14,8 @@ import {
   Facebook,
   CountriesFormOptions,
   Tags,
-  OtherCategories
+  OtherCategories,
+  DraftButton
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
@@ -28,7 +29,7 @@ import {
   initialState,
   loadStatefromData,
   filterCategories,
-  validateState,
+  validateState
 } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
@@ -196,6 +197,10 @@ class Publish extends React.Component {
           base={this.props.base}
           onSchedule={this.onSchedule}
           onInvalidDate={this.onInvalidDate}
+        />
+        <DraftButton
+          status={this.state.status}
+          updateParent={this.updateParent}
         />
         <div>
           <Row>
