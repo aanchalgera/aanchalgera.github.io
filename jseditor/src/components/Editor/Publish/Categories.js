@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -12,22 +12,20 @@ type Props = {
   allCategories: Array<Category>
 };
 
-export class Categories extends Component {
-  props: Props;
-
-  handleOnChange = (input: Category) => {
-    this.props.updateParent({ category: input.id });
-  };
-
-  render() {
-    return (
-      <Select
-        placeholder="Categoria"
-        options={this.props.allCategories}
-        onChange={this.handleOnChange}
-        value={this.props.category}
-        valueKey={'id'}
-      />
-    );
-  }
-}
+export const Categories = ({
+  allCategories,
+  updateParent,
+  category
+}: Props) => {
+  return (
+    <Select
+      placeholder="Categoria"
+      options={allCategories}
+      onChange={input => {
+        updateParent({ category: input ? input.id : -1 });
+      }}
+      value={category}
+      valueKey={'id'}
+    />
+  );
+};
