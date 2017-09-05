@@ -47,7 +47,7 @@ export default class Layout extends React.Component {
   };
 
   handleDifundir = status => {
-    this.setState({ showDifundir: status == 'publish' || false });
+    this.setState({ showDifundir: status === 'publish' || false });
   };
 
   getTitleBar = () => {
