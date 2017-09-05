@@ -25,9 +25,6 @@ export const updatePost = async (postname, base, publishData) => {
 };
 
 export const savePost = (state, base) => {
-  if (state.otherCategories.length == 0) {
-    console.log('how!!!');
-  }
   let imageValidated = {
     square: { ...state.crop.square },
     golden: { ...state.crop.golden },
