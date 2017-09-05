@@ -25,6 +25,9 @@ export const updatePost = async (postname, base, publishData) => {
 };
 
 export const savePost = (state, base) => {
+  if (state.otherCategories.length == 0) {
+    console.log('how!!!');
+  }
   let imageValidated = {
     square: { ...state.crop.square },
     golden: { ...state.crop.golden },
@@ -56,7 +59,7 @@ export const savePost = (state, base) => {
     otherCategories: state.otherCategories
   };
 
-  base.post('posts/' + state.id, {
+  base.update('posts/' + state.id, {
     data: firebaseData
   });
 };
@@ -143,7 +146,7 @@ export const loadAllCategories = async (blogUrl, postType) => {
   });
   let categories = response.json();
   return categories;
-}
+};
 
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
   return await jquery.ajax({

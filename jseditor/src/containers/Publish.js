@@ -28,15 +28,13 @@ import {
   initialState,
   loadStatefromData,
   filterCategories,
-  validateState,
+  validateState
 } from './lib/helpers.js';
 
 moment.tz.setDefault(configParams.timezone);
 
 const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const IMAGE_CROP_WARNING =
-  'Es necesario validar los recortes de las imágenes para poder publicar';
 const POST_TYPE = 'normal';
 
 class Publish extends React.Component {
