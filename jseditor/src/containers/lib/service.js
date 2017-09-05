@@ -56,7 +56,7 @@ export const savePost = (state, base) => {
     otherCategories: state.otherCategories
   };
 
-  base.post('posts/' + state.id, {
+  base.update('posts/' + state.id, {
     data: firebaseData
   });
 };
@@ -143,7 +143,7 @@ export const loadAllCategories = async (blogUrl, postType) => {
   });
   let categories = response.json();
   return categories;
-}
+};
 
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
   return await jquery.ajax({
