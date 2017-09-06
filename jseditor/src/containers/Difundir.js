@@ -6,7 +6,12 @@ import { Snackbar, RaisedButton } from 'material-ui';
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
 import configParams from '../config/configs';
-import { getPost } from './lib/service';
+import {
+  getPost,
+  updatePost,
+  submitRepostedBlogsToBackend
+} from './lib/service';
+import { toggleItem } from '../components/Editor/Publish/lib/publishHelpers';
 
 moment.tz.setDefault(configParams.timezone);
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
@@ -36,26 +41,18 @@ class Difundir extends React.Component {
           postDate: data.publishData.postDate || '',
           postId: data.publishData.postId
         });
+        this.props.handleDifundir(data.status);
       }
     });
   }
 
   setRepostBlogs = (blogName, isChecked) => {
     let postRepostBlogNames = this.state.postRepostBlogNames;
-
-    if (isChecked) {
-      postRepostBlogNames.push(blogName);
-    } else {
-      const index = postRepostBlogNames.indexOf(blogName);
-      postRepostBlogNames = [
-        ...postRepostBlogNames.slice(0, index),
-        ...postRepostBlogNames.slice(index + 1)
-      ];
-    }
+    toggleItem(blogName, postRepostBlogNames);
     this.setState({ postRepostBlogNames });
   };
 
-  submitRepostedBlogs = () => {
+  submitRepostedBlogs = async () => {
     const publishData = {
       postRepostBlogNames: this.state.postRepostBlogNames,
       publishRegion: this.state.publishRegion,
@@ -70,29 +67,13 @@ class Difundir extends React.Component {
       }
     };
 
-    jquery
-      .ajax({
-        url: `${this.props.blogUrl}/admin/postsrepostings.json`,
-        type: 'post',
-        dataType: 'json',
-        data: backendData,
-        xhrFields: {
-          withCredentials: true
-        },
-        crossDomain: true
-      })
-      .done(result => {
-        if (result.id !== undefined) {
-          this.props.base.update('posts/' + this.state.id, {
-            data: { publishData },
-            then: () => {
-              this.showSnackbarMsg('Data Saved Successfully');
-            }
-          });
-        } else {
-          this.showSnackbarMsg('Something Went Wrong.');
-        }
-      });
+    try {
+      await submitRepostedBlogsToBackend(backendData, this.props.blogUrl);
+      await updatePost(this.state.id, this.props.base, publishData);
+      this.showSnackbarMsg('Data Saved Successfully');
+    } catch (err) {
+      this.showSnackbarMsg('Something Went Wrong.');
+    }
   };
 
   showSnackbarMsg = snackbarMessage => {
@@ -168,7 +149,7 @@ class Difundir extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="grid-wrapper grid-l">
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}

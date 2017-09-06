@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
@@ -720,7 +721,7 @@ class Editor extends React.Component {
     });
     try {
       const _this = this;
-      this.props.base.post('posts/' + this.state.id, {
+      this.props.base.update('posts/' + this.state.id, {
         data: data,
         then() {
           let successField = document.getElementById('successField');

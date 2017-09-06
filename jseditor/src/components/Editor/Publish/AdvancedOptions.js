@@ -117,6 +117,7 @@ export class AdvancedOptions extends React.Component {
           openOnFocus={true}
           onNewRequest={this.onNewRequest}
           filter={AutoComplete.caseInsensitiveFilter}
+          maxSearchResults={2}
         />
       </div>
     );

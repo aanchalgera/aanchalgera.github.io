@@ -36,8 +36,6 @@ moment.tz.setDefault(configParams.timezone);
 
 const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const IMAGE_CROP_WARNING =
-  'Es necesario validar los recortes de las imágenes para poder publicar';
 const POST_TYPE = 'normal';
 
 class Publish extends React.Component {
@@ -199,76 +197,84 @@ class Publish extends React.Component {
           autoHideDuration={5000}
           onRequestClose={this.handleRequestClose}
         />
-        <SchedulePost
-          buttonDisabled={this.state.buttonDisabled}
-          value={this.state.publishedDate}
-          base={this.props.base}
-          onSchedule={this.onSchedule}
-          onInvalidDate={this.onInvalidDate}
-        />
-        <DraftButton
-          status={this.state.status}
-          updateParent={this.updateParent}
-          handleDraftClick={this.handleDraftClick}
-        />
-        <div>
-          <Row>
-            <Col xs={3}>
-              <Categories
-                category={this.state.category}
-                updateParent={this.updateParent}
-                allCategories={this.state.allCategories}
-              />
-            </Col>
-            <Col xs={3}>
-              <OtherCategories
-                otherCategories={this.state.otherCategories}
-                updateParent={this.updateParent}
-                allCategories={this.state.allCategories}
-              />
-            </Col>
-            <Col xs={3}>
-              <Tags
-                blogUrl={this.props.blogUrl}
-                tags={this.state.tags}
-                updateParent={this.updateParent}
-              />
-            </Col>
-          </Row>
+        <Row>
+          <Col xs={6}>
+            <SchedulePost
+              buttonDisabled={this.state.buttonDisabled}
+              value={this.state.publishedDate}
+              base={this.props.base}
+              onSchedule={this.onSchedule}
+              onInvalidDate={this.onInvalidDate}
+            />
+          </Col>
+          <Col xs={4} />
+          <Col xs={2}>
+            <DraftButton
+              status={this.state.status}
+              updateParent={this.updateParent}
+              handleDraftClick={this.handleDraftClick}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={3}>
+            <Categories
+              category={this.state.category}
+              updateParent={this.updateParent}
+              allCategories={this.state.allCategories}
+            />
+          </Col>
+          <Col xs={3}>
+            <OtherCategories
+              otherCategories={this.state.otherCategories}
+              updateParent={this.updateParent}
+              allCategories={this.state.allCategories}
+            />
+          </Col>
+          <Col xs={3}>
+            <Tags
+              blogUrl={this.props.blogUrl}
+              tags={this.state.tags}
+              updateParent={this.updateParent}
+            />
+          </Col>
+        </Row>
 
-          <h4>Portada y redes sociales</h4>
-          <Divider />
-          <Row>
-            <Col xs={6}>
-              <HomePage
-                homepage={this.state.meta.homepage}
-                updateHomepageContent={this.updateHomepageContent}
-              />
-            </Col>
-            <Col xs={3}>
-              <Twitter
-                twitter={this.state.meta.social.twitter}
-                updateSocialTwitterText={this.updateSocialTwitterText}
-              />
-            </Col>
-            <Col xs={3}>
-              <Facebook
-                facebook={this.state.meta.social.facebook}
-                updateSocialFacebookText={this.updateSocialFacebookText}
-              />
-            </Col>
-          </Row>
-          {this.state.meta.homepage.image &&
-            <ImageCropper
-              imageSrc={this.state.meta.homepage.image.url}
-              onCropChange={this.onCropChange}
-              onCropValidate={this.onCropValidate}
-              crop={this.state.crop}
-            />}
-        </div>
+        <h4>Portada y redes sociales</h4>
+        <Divider />
+        <Row>
+          <Col xs={6}>
+            <HomePage
+              homepage={this.state.meta.homepage}
+              updateHomepageContent={this.updateHomepageContent}
+            />
+          </Col>
+          <Col xs={3}>
+            <Twitter
+              twitter={this.state.meta.social.twitter}
+              updateSocialTwitterText={this.updateSocialTwitterText}
+            />
+          </Col>
+          <Col xs={3}>
+            <Facebook
+              facebook={this.state.meta.social.facebook}
+              updateSocialFacebookText={this.updateSocialFacebookText}
+            />
+          </Col>
+        </Row>
+        {this.state.meta.homepage.image &&
+          <ImageCropper
+            imageSrc={this.state.meta.homepage.image.url}
+            onCropChange={this.onCropChange}
+            onCropValidate={this.onCropValidate}
+            crop={this.state.crop}
+          />}
         <Row>
           <Col xs>
-            <Seo seo={this.state.meta.seo} setPostMeta={this.setPostMeta} />
+            <Seo
+              seo={this.state.meta.seo || { title: '', description: '' }}
+              setPostMeta={this.setPostMeta}
+            />
           </Col>
           <Col xs>
             <CountriesFormOptions

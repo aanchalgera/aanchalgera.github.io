@@ -18,6 +18,12 @@ export const getPost = (postname, base) => {
   });
 };
 
+export const updatePost = async (postname, base, publishData) => {
+  return await base.update('posts/' + postname, {
+    data: { publishData }
+  });
+};
+
 export const savePost = (state, base) => {
   let imageValidated = {
     square: { ...state.crop.square },
@@ -50,7 +56,7 @@ export const savePost = (state, base) => {
     otherCategories: state.otherCategories
   };
 
-  base.post('posts/' + state.id, {
+  base.update('posts/' + state.id, {
     data: firebaseData
   });
 };
@@ -137,4 +143,17 @@ export const loadAllCategories = async (blogUrl, postType) => {
   });
   let categories = response.json();
   return categories;
+};
+
+export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
+  return await jquery.ajax({
+    url: blogUrl + '/admin/postsrepostings.json',
+    type: 'post',
+    dataType: 'json',
+    data: backendData,
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
 };
