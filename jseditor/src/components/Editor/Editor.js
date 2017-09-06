@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
