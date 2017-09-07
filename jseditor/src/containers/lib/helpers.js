@@ -19,7 +19,7 @@ export const loadStatefromData = (data: {}) => {
     blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
-    postType: 'club',
+    postType: data.postType,
     meta: data.meta || {
       homepage: { content: '' },
       social: { twitter: '', facebook: '' },
