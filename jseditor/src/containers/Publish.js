@@ -37,6 +37,7 @@ moment.tz.setDefault(configParams.timezone);
 const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
+
 class Publish extends React.Component {
   state = initialState;
 
@@ -132,19 +133,19 @@ class Publish extends React.Component {
   updateSocialFacebookText = event => {
     let meta = this.state.meta;
     meta.social.facebook = event.target.value;
-    this.setState({ meta });
+    this.setState({ meta }, this.savePostData);
   };
 
   updateSocialTwitterText = event => {
     let meta = this.state.meta;
     meta.social.twitter = event.target.value;
-    this.setState({ meta });
+    this.setState({ meta }, this.savePostData);
   };
 
   updateHomepageContent = value => {
     let meta = this.state.meta;
     meta.homepage.content = value;
-    this.setState({ meta });
+    this.setState({ meta }, this.savePostData);
   };
 
   savePostData = () => {
@@ -157,7 +158,7 @@ class Publish extends React.Component {
       return {
         crop: prevState['crop']
       };
-    });
+    }, this.savePostData);
   };
 
   onCropValidate = (shape, validate) => {

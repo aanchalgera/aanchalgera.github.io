@@ -1,7 +1,7 @@
 import React from 'react';
-import jquery from 'jquery';
 import moment from 'moment-timezone';
 import { Snackbar, RaisedButton } from 'material-ui';
+import { Row, Col } from 'react-flexbox-grid';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
@@ -9,12 +9,18 @@ import configParams from '../config/configs';
 import {
   getPost,
   updatePost,
-  submitRepostedBlogsToBackend
+  submitRepostedBlogsToBackend,
+  republishPostNow,
+  republishSchedule
 } from './lib/service';
 import { toggleItem } from '../components/Editor/Publish/lib/publishHelpers';
 
 moment.tz.setDefault(configParams.timezone);
 const VALID_DATE_WARNING = 'Please select a valid date, future date';
+const POST_REPUBLISHED = 'Post successfully republished again';
+const ERROR = 'Something went wrong';
+const ALREADY_SCHEDULED = 'Post already scheduled to republish at ';
+const REPUBLISHED = 'Post successfully scheduled to republish at  ';
 
 class Difundir extends React.Component {
   state = {
@@ -87,64 +93,34 @@ class Difundir extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  onRepublishSchedule = (date, postSchedule) => {
-    const republishInterval = 0;
-    jquery
-      .ajax({
-        url: `${this.props.blogUrl}/admin/republish/schedule/${this.state
-          .postId}`,
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          date: date,
-          republish_interval: republishInterval
-        },
-        xhrFields: {
-          withCredentials: true
-        },
-        crossDomain: true
-      })
-      .done(data => {
-        if ('already_scheduled' === data.status) {
-          return this.showSnackbarMsg(
-            `Post already scheduled to republish at ${data.date}`
-          );
-        }
-        this.showSnackbarMsg(
-          `Post successfully scheduled to republish at  ${date}`
-        );
-      })
-      .fail(() => {
-        return this.showSnackbarMsg(
-          'Error occured while republishing. Please try again'
-        );
-      })
-      .always(postSchedule);
+  onRepublishSchedule = async (date, postSchedule) => {
+    try {
+      const data = await republishSchedule(
+        this.props.blogUrl,
+        this.state.postId,
+        date
+      );
+      if ('already_scheduled' === data.status) {
+        this.showSnackbarMsg(ALREADY_SCHEDULED + data.date);
+      } else {
+        this.showSnackbarMsg(REPUBLISHED + date);
+      }
+    } catch (error) {
+      this.showSnackbarMsg(ERROR);
+    }
   };
 
   onInvalidDate = () => {
     this.showSnackbarMsg(VALID_DATE_WARNING);
   };
 
-  onRepublishNow = () => {
-    jquery
-      .ajax({
-        url: `${this.props.blogUrl}/admin/overlay/republish/${this.state
-          .postId}`,
-        type: 'POST',
-        xhrFields: {
-          withCredentials: true
-        },
-        crossDomain: true
-      })
-      .done(() => {
-        this.showSnackbarMsg('Post successfully republished again');
-      })
-      .fail(() => {
-        return this.showSnackbarMsg(
-          'Error occured while republishing. Please try again'
-        );
-      });
+  onRepublishNow = async () => {
+    try {
+      await republishPostNow(this.props.blogUrl, this.state.postId);
+      this.showSnackbarMsg(POST_REPUBLISHED);
+    } catch (error) {
+      this.showSnackbarMsg(ERROR);
+    }
   };
 
   render() {
@@ -162,17 +138,24 @@ class Difundir extends React.Component {
           blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
-        <SchedulePost
-          value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
-          base={this.props.base}
-          onSchedule={this.onRepublishSchedule}
-          onInvalidDate={this.onInvalidDate}
-        />
-        <RaisedButton
-          label="PASAR POR PORTADA AHORA MISMO!"
-          secondary={true}
-          onTouchTap={this.onRepublishNow}
-        />
+        <Row>
+          <Col xs={6}>
+            <SchedulePost
+              value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
+              base={this.props.base}
+              onSchedule={this.onRepublishSchedule}
+              onInvalidDate={this.onInvalidDate}
+            />
+          </Col>
+          <Col xs={4} />
+          <Col xs={2}>
+            <RaisedButton
+              label="PASAR POR PORTADA AHORA MISMO!"
+              secondary={true}
+              onTouchTap={this.onRepublishNow}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }
