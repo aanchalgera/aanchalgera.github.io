@@ -19,6 +19,7 @@ export const loadStatefromData = (data: {}) => {
     blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
+    postType: data.postType,
     meta: data.meta || {
       homepage: { content: '' },
       social: { twitter: '', facebook: '' },
@@ -106,6 +107,7 @@ export const initialState = {
   postRepostBlogNames: [],
   publishRegion: [],
   postId: '',
+  postType: '',
   postHash: '',
   publishedDate: '',
   meta: {

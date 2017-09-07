@@ -703,6 +703,7 @@ class Editor extends React.Component {
     ) {
       postType = 'club';
     }
+    data.postType = postType;
 
     let listData = {
       id: this.state.id,

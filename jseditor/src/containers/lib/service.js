@@ -63,10 +63,6 @@ export const savePost = (state, base) => {
 
 export const savePostsList = (state, base, blogName) => {
   let blogStatus = blogName + '_publish';
-  let postType = 'normal';
-  if (state.meta.sponsor.image) {
-    postType = 'club';
-  }
   let listData = {
     id: state.id,
     title: state.title,
@@ -75,7 +71,7 @@ export const savePostsList = (state, base, blogName) => {
     blog_name: blogName,
     user_status: blogName + '_' + state.userId + '_publish',
     blog_status: blogStatus,
-    blog_post_type: blogStatus + '_' + postType
+    blog_post_type: blogStatus + '_' + state.postType
   };
 
   base.post('posts_list/' + state.id, {
@@ -100,7 +96,7 @@ export const submitPostToBackend = (state, date, blogUrl) => {
     categoryId: state.category,
     post_title: state.title,
     comment_status: state.meta.comment.status,
-    post_type: 'normal',
+    post_type: state.postType,
     post_content: JSON.stringify(state.fields),
     postExcerpt: JSON.stringify({ meta: state.meta }),
     post_abstract: '',

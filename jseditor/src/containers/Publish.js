@@ -36,22 +36,21 @@ moment.tz.setDefault(configParams.timezone);
 
 const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const POST_TYPE = 'normal';
-
+const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
 class Publish extends React.Component {
   state = initialState;
 
   componentWillMount() {
     this.init();
-    this.setAllCategories();
   }
 
   init() {
     getPost(this.props.postname, this.props.base).then(data => {
       if (data != null) {
         this.setState(loadStatefromData(data));
+        this.setAllCategories(data.postType);
+        this.props.handleDifundir(data.status);
       }
-      this.props.handleDifundir(data.status);
     });
   }
 
@@ -68,8 +67,7 @@ class Publish extends React.Component {
               publishedDate: date,
               snackbarOpen: true,
               SnackbarMessage:
-                'Changes has been saved. Post scheduled for ' +
-                moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
+                SAVED_MESSAGE + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
             },
             this.savePostData
           );
@@ -171,8 +169,8 @@ class Publish extends React.Component {
     }, this.savePostData);
   };
 
-  setAllCategories = async () => {
-    let categories = await loadAllCategories(this.props.blogUrl, POST_TYPE);
+  setAllCategories = async postType => {
+    let categories = await loadAllCategories(this.props.blogUrl, postType);
     let updatedCategories = filterCategories(categories);
     this.setState({ allCategories: updatedCategories });
   };
