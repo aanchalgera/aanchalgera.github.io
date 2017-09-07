@@ -153,3 +153,31 @@ export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
     crossDomain: true
   });
 };
+
+export const republishPostNow = async (blogUrl, postId) => {
+  return await jquery.ajax({
+    url: `${blogUrl}/admin/overlay/republish/${postId}`,
+    type: 'POST',
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
+};
+
+export const republishSchedule = async (blogUrl, postId, date) => {
+  const republishInterval = 0;
+  return await jquery.ajax({
+    url: `${blogUrl}/admin/republish/schedule/${postId}`,
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      date: date,
+      republish_interval: republishInterval
+    },
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
+};
