@@ -2,7 +2,10 @@
 import React from 'react';
 import Divider from 'material-ui/Divider';
 
-type Props = { label: string };
+type Props = {
+  label: string,
+  hint?: string
+};
 
 export const Label = (props: Props) => {
   return (
