@@ -62,19 +62,19 @@ export const savePost = (state, base) => {
 };
 
 export const savePostsList = (state, base, blogName) => {
-  let blogStatus = blogName + '_publish';
+  let blogStatus = `${blogName}_${state.status}`;
   let listData = {
     id: state.id,
     title: state.title,
-    status: 'publish',
+    status: state.status,
     user_id: state.userId,
     blog_name: blogName,
-    user_status: blogName + '_' + state.userId + '_publish',
+    user_status: `${blogName}_${state.userId}_${state.status}`,
     blog_status: blogStatus,
-    blog_post_type: blogStatus + '_' + state.postType
+    blog_post_type: `${blogStatus}_${postType}`
   };
 
-  base.post('posts_list/' + state.id, {
+  base.post(`posts_list/${state.id}`, {
     data: listData,
     then() {}
   });

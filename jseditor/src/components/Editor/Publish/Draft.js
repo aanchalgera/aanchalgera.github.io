@@ -17,6 +17,7 @@ export const DraftButton = (props: Props) => {
       primary={true}
       onClick={() => {
         props.updateParent({ status: 'draft' });
+        props.handleDraftClick();
       }}
     />
   );

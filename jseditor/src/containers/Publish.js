@@ -176,6 +176,14 @@ class Publish extends React.Component {
     this.setState({ allCategories: updatedCategories });
   };
 
+  handleDraftClick = () => {
+    submitPostToBackend(this.state, this.state.date, this.props.blogUrl)
+      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
+      .then(() => {
+        savePostsList(this.state, this.props.base, this.blogName);
+      });
+  };
+
   render() {
     return (
       <div className="grid-wrapper grid-l">
@@ -203,6 +211,7 @@ class Publish extends React.Component {
             <DraftButton
               status={this.state.status}
               updateParent={this.updateParent}
+              handleDraftClick={this.handleDraftClick}
             />
           </Col>
         </Row>
