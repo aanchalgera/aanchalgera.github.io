@@ -63,10 +63,6 @@ export const savePost = (state, base) => {
 
 export const savePostsList = (state, base, blogName) => {
   let blogStatus = `${blogName}_${state.status}`;
-  let postType = 'normal';
-  if (state.meta.sponsor.image) {
-    postType = 'club';
-  }
   let listData = {
     id: state.id,
     title: state.title,
@@ -100,7 +96,7 @@ export const submitPostToBackend = (state, date, blogUrl) => {
     categoryId: state.category,
     post_title: state.title,
     comment_status: state.meta.comment.status,
-    post_type: 'normal',
+    post_type: state.postType,
     post_content: JSON.stringify(state.fields),
     postExcerpt: JSON.stringify({ meta: state.meta }),
     post_abstract: '',
@@ -151,6 +147,34 @@ export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
     type: 'post',
     dataType: 'json',
     data: backendData,
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
+};
+
+export const republishPostNow = async (blogUrl, postId) => {
+  return await jquery.ajax({
+    url: `${blogUrl}/admin/overlay/republish/${postId}`,
+    type: 'POST',
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
+};
+
+export const republishSchedule = async (blogUrl, postId, date) => {
+  const republishInterval = 0;
+  return await jquery.ajax({
+    url: `${blogUrl}/admin/republish/schedule/${postId}`,
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      date: date,
+      republish_interval: republishInterval
+    },
     xhrFields: {
       withCredentials: true
     },
