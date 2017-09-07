@@ -25,12 +25,6 @@ export const updatePost = async (postname, base, publishData) => {
 };
 
 export const savePost = (state, base) => {
-  let imageValidated = {
-    square: { ...state.crop.square },
-    golden: { ...state.crop.golden },
-    panoramic: { ...state.crop.panoramic }
-  };
-
   let firebaseData = {
     id: state.id,
     title: state.title,
@@ -49,7 +43,6 @@ export const savePost = (state, base) => {
       postId: state.postId,
       postHash: state.postHash
     },
-    imageValidated: imageValidated,
     crop: state.crop,
     tags: state.tags,
     category: state.category,
@@ -62,19 +55,19 @@ export const savePost = (state, base) => {
 };
 
 export const savePostsList = (state, base, blogName) => {
-  let blogStatus = `${blogName}_${state.status}`;
+  let blogStatus = blogName + '_publish';
   let listData = {
     id: state.id,
     title: state.title,
-    status: state.status,
+    status: 'publish',
     user_id: state.userId,
     blog_name: blogName,
-    user_status: `${blogName}_${state.userId}_${state.status}`,
+    user_status: blogName + '_' + state.userId + '_publish',
     blog_status: blogStatus,
     blog_post_type: `${blogStatus}_${state.postType}`
   };
 
-  base.post(`posts_list/${state.id}`, {
+  base.post('posts_list/' + state.id, {
     data: listData,
     then() {}
   });
@@ -83,15 +76,6 @@ export const savePostsList = (state, base, blogName) => {
 export const submitPostToBackend = (state, date, blogUrl) => {
   let publishRegion = state.publishRegion;
   let postRepostBlogNames = state.postRepostBlogNames;
-  let imageValidated = {
-    square: { ...state.crop.square },
-    golden: { ...state.crop.golden },
-    panoramic: { ...state.crop.panoramic }
-  };
-
-  for (let key in imageValidated) {
-    delete imageValidated[key]['validate'];
-  }
   let backendData = {
     categoryId: state.category,
     post_title: state.title,
@@ -113,7 +97,7 @@ export const submitPostToBackend = (state, date, blogUrl) => {
     primary_image: state.meta.homepage.image.url,
     is_sensitive: state.isSensitive,
     long_post: state.specialPost,
-    image_validated: imageValidated
+    image_validated: state.crop
   };
   let postType = 'POST';
   let postUrl = 'postpage';
