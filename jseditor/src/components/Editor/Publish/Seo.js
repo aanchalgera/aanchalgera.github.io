@@ -1,8 +1,9 @@
 /* @flow */
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { TextField, Divider, Subheader } from 'material-ui';
+import { TextField, Divider } from 'material-ui';
 import { InputEvent } from './lib/flowTypes';
+import { Label } from './index';
 
 type Props = {
   seo: { title: string, description: string },
@@ -26,10 +27,10 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
   return (
     <Row>
       <Col lg={12}>
-        <Subheader className="subheader">
-          SEO <span>Titulo y descripcion que aparece al buscar en Google</span>
-        </Subheader>
-        <Divider className="divider" />
+        <Label
+          label="SEO "
+          hint="Titulo y descripcion que aparece al buscar en Google"
+        />
       </Col>
       <Col lg={12}>
         <TextField

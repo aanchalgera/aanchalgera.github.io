@@ -1,10 +1,12 @@
 // @flow
 
 import React from 'react';
-import { Divider, Checkbox, Subheader, AutoComplete } from 'material-ui';
+import { Checkbox, AutoComplete } from 'material-ui';
 
 import { loadUsers } from './lib/publishService';
 import { findById } from './lib/publishHelpers';
+
+import { Label } from './index';
 
 type User = { id: number, display_name: string };
 
@@ -73,8 +75,7 @@ export class AdvancedOptions extends React.Component {
 
     return (
       <div>
-        <Subheader className="subheader">Avanzado</Subheader>
-        <Divider className="divider" />
+        <Label label="Avanzado" />
         <Checkbox
           checked={specialPost}
           label="Artículo especial"

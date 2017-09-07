@@ -16,6 +16,10 @@ export class Tags extends Component {
   props: Props;
 
   getTags = async (input: string): {} => {
+    if ('' === input) {
+      return null;
+    }
+
     let tags = await loadTags(this.props.blogUrl, input);
     let updatedTags = filterTags(tags);
     return { options: updatedTags };

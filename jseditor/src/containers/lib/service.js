@@ -71,7 +71,7 @@ export const savePostsList = (state, base, blogName) => {
     blog_name: blogName,
     user_status: `${blogName}_${state.userId}_${state.status}`,
     blog_status: blogStatus,
-    blog_post_type: `${blogStatus}_${postType}`
+    blog_post_type: `${blogStatus}_${state.postType}`
   };
 
   base.post(`posts_list/${state.id}`, {
