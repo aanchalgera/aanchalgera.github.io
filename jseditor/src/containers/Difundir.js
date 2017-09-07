@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import moment from 'moment-timezone';
 import { Snackbar, RaisedButton } from 'material-ui';
@@ -22,6 +23,14 @@ const ERROR = 'Something went wrong';
 const ALREADY_SCHEDULED = 'Post already scheduled to republish at ';
 const REPUBLISHED = 'Post successfully scheduled to republish at  ';
 
+type Props = {
+  postname: string,
+  handleDifundir: (status: string) => void,
+  base: Object,
+  blogUrl: string,
+  blogName: string
+};
+
 class Difundir extends React.Component {
   state = {
     id: '',
@@ -32,7 +41,7 @@ class Difundir extends React.Component {
     snackbarOpen: false,
     snackbarMessage: ''
   };
-
+  props: Props;
   componentWillMount() {
     this.init();
   }
@@ -52,7 +61,7 @@ class Difundir extends React.Component {
     });
   }
 
-  setRepostBlogs = (blogName, isChecked) => {
+  setRepostBlogs = (blogName: string, isChecked: boolean) => {
     let postRepostBlogNames = this.state.postRepostBlogNames;
     toggleItem(blogName, postRepostBlogNames);
     this.setState({ postRepostBlogNames });
@@ -82,7 +91,7 @@ class Difundir extends React.Component {
     }
   };
 
-  showSnackbarMsg = snackbarMessage => {
+  showSnackbarMsg = (snackbarMessage: string) => {
     this.setState({
       snackbarOpen: true,
       snackbarMessage
@@ -93,7 +102,7 @@ class Difundir extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  onRepublishSchedule = async (date, postSchedule) => {
+  onRepublishSchedule = async (date: string) => {
     try {
       const data = await republishSchedule(
         this.props.blogUrl,

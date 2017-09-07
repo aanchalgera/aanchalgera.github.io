@@ -15,54 +15,48 @@ const styles = {
 };
 
 const TitleBar = ({ postName, blogUrl, queryPath, activeTab, showDifundir }) =>
-  <view>
-    <Row>
-      <Col xs={12}>
-        <AppBar
-          title={
-            <Row bottom="xs">
-              <Col xs={5}>Xataka</Col>
-              <Col xs={3}>
-                <Tabs value={activeTab}>
-                  <Tab
-                    label="ESCRIBIR"
-                    value="escribir"
-                    containerElement={
-                      <Link to={`/edit/post/${postName}${queryPath}`} />
-                    }
-                  />
-                  <Tab
-                    label="PUBLICAR"
-                    value="publicar"
-                    containerElement={
-                      <Link to={`/publicar/${postName}${queryPath}`} />
-                    }
-                  />
-                  {showDifundir &&
-                    <Tab
-                      label="DIFUNDIR"
-                      value="difundir"
-                      containerElement={
-                        <Link to={`/difundir/${postName}${queryPath}`} />
-                      }
-                    />}
-                </Tabs>
-              </Col>
-            </Row>
-          }
-        >
-          <FlatButton label="Publicado" style={styles.publishButton} />
-          <IconButton
-            target="_blank"
-            href={blogUrl + '/preview-longform/' + postName}
-            style={styles.previewButton}
-            disabled={activeTab === 'difundir'}
-          >
-            <Visibility />
-          </IconButton>
-        </AppBar>
-      </Col>
-    </Row>
-  </view>;
+  <AppBar
+    title={
+      <Row bottom="xs">
+        <Col xs={5}>Xataka</Col>
+        <Col xs={3}>
+          <Tabs value={activeTab}>
+            <Tab
+              label="ESCRIBIR"
+              value="escribir"
+              containerElement={
+                <Link to={`/edit/post/${postName}${queryPath}`} />
+              }
+            />
+            <Tab
+              label="PUBLICAR"
+              value="publicar"
+              containerElement={
+                <Link to={`/publicar/${postName}${queryPath}`} />
+              }
+            />
+            {showDifundir &&
+              <Tab
+                label="DIFUNDIR"
+                value="difundir"
+                containerElement={
+                  <Link to={`/difundir/${postName}${queryPath}`} />
+                }
+              />}
+          </Tabs>
+        </Col>
+      </Row>
+    }
+  >
+    <FlatButton label="Publicado" style={styles.publishButton} />
+    <IconButton
+      target="_blank"
+      href={blogUrl + '/preview-longform/' + postName}
+      style={styles.previewButton}
+      disabled={activeTab === 'difundir'}
+    >
+      <Visibility />
+    </IconButton>
+  </AppBar>;
 
 export default TitleBar;
