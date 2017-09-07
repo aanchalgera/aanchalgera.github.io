@@ -101,7 +101,9 @@ class Publish extends React.Component {
 
   isValid() {
     const { isError, message } = validateState(this.state);
-    this.setMessage(isError, message);
+    if (isError) {
+      this.setMessage(isError, message);
+    }
     return !isError;
   }
 
@@ -121,9 +123,7 @@ class Publish extends React.Component {
   }
 
   handleRequestClose = () => {
-    this.setState({
-      snackbarOpen: false
-    });
+    this.setState({ snackbarOpen: false });
   };
 
   updateParent = data => {

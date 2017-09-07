@@ -9,7 +9,7 @@ type Props = {
   repostBlogs: Array<string>,
   setRepostBlogs: (key: string, value: boolean) => void,
   blogName: string,
-  submitRepostedBlogs: () => void
+  submitRepostedBlogs: () => Promise<any>
 };
 
 const styles = {
