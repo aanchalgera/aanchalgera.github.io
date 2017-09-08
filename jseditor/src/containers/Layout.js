@@ -38,11 +38,11 @@ export default class Layout extends React.Component {
       history
     } = this.props;
     const query = new URLSearchParams(search);
-    const blogName = query.get('blog');
+    this.blogName = query.get('blog');
     const userId = query.get('userid');
     this.validateUserId(userId, history);
 
-    getConfig(blogName, this.props.base).then(data => {
+    getConfig(this.blogName, this.props.base).then(data => {
       if (data[0] != null) {
         this.setState({
           blogUrl: data[0].site_url,
@@ -70,6 +70,8 @@ export default class Layout extends React.Component {
         activeTab={matches[1]}
         queryPath={search}
         showDifundir={this.state.showDifundir}
+        history={this.props.history}
+        blogName={this.blogName}
       />
     );
   };
