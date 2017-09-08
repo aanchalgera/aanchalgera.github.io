@@ -31,8 +31,8 @@ const palette = {
 
 export const customTheme = getMuiTheme({
   palette: palette,
-  appBar: {
-    color: fullBlack
+  toolbar: {
+    backgroundColor: fullBlack
   },
   tabs: {
     backgroundColor: fullBlack
