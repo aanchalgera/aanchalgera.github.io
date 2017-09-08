@@ -1,9 +1,10 @@
 /* @flow */
 import React from 'react';
-import { Subheader, Divider, Checkbox } from 'material-ui';
+import { Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import { toggleItem } from './lib/publishHelpers';
 import { InputEvent } from './lib/flowTypes';
+import { Label } from './index';
 
 let regions = {
   ES: 'España',
@@ -49,8 +50,7 @@ export class CountriesFormOptions extends React.Component {
 
     return (
       <div>
-        <Subheader>Países donde publicar</Subheader>
-        <Divider />
+        <Label label="Países donde publicar" />
         <Row>
           <Col xs>
             {checkboxes[0]}

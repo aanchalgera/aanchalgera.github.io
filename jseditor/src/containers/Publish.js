@@ -15,7 +15,8 @@ import {
   CountriesFormOptions,
   Tags,
   OtherCategories,
-  DraftButton
+  DraftButton,
+  Label
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
@@ -171,12 +172,15 @@ class Publish extends React.Component {
   };
 
   setAllCategories = async postType => {
-    let categories = await loadAllCategories(this.props.blogUrl, postType);
+    let categories = await loadAllCategories(
+      this.props.blogUrl,
+      this.state.postType
+    );
     let updatedCategories = filterCategories(categories);
     this.setState({ allCategories: updatedCategories });
   };
 
-  handleDraftClick = () => {
+  handleStatusUpdate = () => {
     submitPostToBackend(this.state, this.state.date, this.props.blogUrl)
       .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(() => {
@@ -211,7 +215,7 @@ class Publish extends React.Component {
             <DraftButton
               status={this.state.status}
               updateParent={this.updateParent}
-              handleDraftClick={this.handleDraftClick}
+              handleStatusUpdate={this.handleStatusUpdate}
             />
           </Col>
         </Row>
@@ -238,8 +242,7 @@ class Publish extends React.Component {
             />
           </Col>
         </Row>
-
-        <h4>Portada y redes sociales</h4>
+        <Label label="Portada y redes sociales" />
         <Divider />
         <Row>
           <Col xs={6}>

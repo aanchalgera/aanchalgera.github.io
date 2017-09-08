@@ -10,7 +10,7 @@ export class ImageCropper extends React.Component {
       maxWidth: '100%'
     },
     cropperWidth: {
-      width: '85%'
+      width: '100%'
     }
   };
 
@@ -29,7 +29,7 @@ export class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>
+            <label className="caption-default">
               Recorte para portada móvil, crosspost, instagram
             </label>
           </p>
@@ -45,7 +45,7 @@ export class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>
+            <label className="caption-default">
               Recorte para portada escritorio, Twitter, Facebook
             </label>
           </p>
@@ -61,7 +61,7 @@ export class ImageCropper extends React.Component {
         </Col>
         <Col xs={3}>
           <p>
-            <label style={this.style.label}>
+            <label className="caption-default">
               Recorte para top story, destacados
             </label>
           </p>

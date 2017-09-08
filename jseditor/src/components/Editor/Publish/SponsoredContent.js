@@ -1,8 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import TextArea from './TextArea';
-import Label from './Label';
+import { TextArea, Label } from './index';
 
 type Props = {
   customerName: string,

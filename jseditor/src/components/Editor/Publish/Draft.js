@@ -3,7 +3,8 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 type Props = {
   status: string,
-  updateParent: (data: Object) => void
+  updateParent: (data: Object) => void,
+  handleStatusUpdate: () => void
 };
 
 export const DraftButton = (props: Props) => {
@@ -17,7 +18,7 @@ export const DraftButton = (props: Props) => {
       primary={true}
       onClick={() => {
         props.updateParent({ status: 'draft' });
-        props.handleDraftClick();
+        props.handleStatusUpdate();
       }}
     />
   );
