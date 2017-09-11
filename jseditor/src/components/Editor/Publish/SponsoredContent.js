@@ -5,14 +5,12 @@ import { TextArea, Label } from './index';
 
 type Props = {
   customerName: string,
-  setCustomerName: Function,
   urlTracker: string,
-  setUrlTracker: Function,
   logo: string,
-  setLogo: Function
+  updateParent: (data: Object) => void
 };
 
-class SponsoredContent extends Component {
+export class SponsoredContent extends Component {
   props: Props;
   render() {
     return (
@@ -27,24 +25,27 @@ class SponsoredContent extends Component {
             <TextArea
               savedValue={this.props.customerName}
               hintText="Socialmedia SL"
-              setValue={this.props.setCustomerName}
+              updateParent={this.props.updateParent}
               floatingLabel="Nombre del Cliente (se usa con 'Offrecido por' portada)"
+              valueToUpdate="customerName"
             />
           </Col>
           <Col xs>
             <TextArea
               savedValue={this.props.logo}
               hintText="https://.."
-              setValue={this.props.setLogo}
+              updateParent={this.props.updateParent}
               floatingLabel="Direccion del logotipo"
+              valueToUpdate="logo"
             />
           </Col>
           <Col xs>
             <TextArea
               savedValue={this.props.urlTracker}
               hintText="..."
-              setValue={this.props.setUrlTracker}
+              updateParent={this.props.updateParent}
               floatingLabel="URL Tracker"
+              valueToUpdate="urlTracker"
             />
           </Col>
         </Row>
@@ -52,5 +53,3 @@ class SponsoredContent extends Component {
     );
   }
 }
-
-export default SponsoredContent;

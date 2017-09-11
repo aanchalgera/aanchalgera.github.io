@@ -53,7 +53,10 @@ export const savePost = (state, base) => {
     crop: state.crop,
     tags: state.tags,
     category: state.category,
-    otherCategories: state.otherCategories
+    otherCategories: state.otherCategories,
+    customerName: state.customerName,
+    logo: state.logo,
+    urlTracker: state.urlTracker
   };
 
   base.update('posts/' + state.id, {

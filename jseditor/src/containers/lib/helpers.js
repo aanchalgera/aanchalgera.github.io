@@ -14,6 +14,8 @@ const FACEBOOK_TEXT_SAME_POST_TITLE =
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 
 export const loadStatefromData = (data: {}) => {
+  console.log('data here:');
+  console.log(data);
   return {
     id: data.id,
     blogName: data.blogName,
@@ -44,7 +46,10 @@ export const loadStatefromData = (data: {}) => {
     specialPost: data.specialPost || false,
     tags: data.tags || [],
     otherCategories: data.otherCategories || [],
-    crop: data.crop || initialCrop
+    crop: data.crop || initialCrop,
+    customerName: data.customerName || '',
+    logo: data.logo || '',
+    urlTracker: data.urlTracker || ''
   };
 };
 
@@ -142,7 +147,10 @@ export const initialState = {
   allCategories: [],
   category: -1,
   tags: [],
-  otherCategories: []
+  otherCategories: [],
+  customerName: '',
+  logo: '',
+  urlTracker: ''
 };
 
 export const filterCategories = (data: {}) => {

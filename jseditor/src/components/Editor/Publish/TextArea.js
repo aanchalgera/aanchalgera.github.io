@@ -6,13 +6,14 @@ type Props = {
   floatingLabel: string,
   hintText: string,
   savedValue: string,
-  setValue: Function
+  updateParent: (data: Object) => void,
+  valueToUpdate: string
 };
 
-class TextArea extends Component {
+export class TextArea extends Component {
   props: Props;
   handleChange = (e: SyntheticEvent, newValue: string) => {
-    this.props.setValue(newValue);
+    this.props.updateParent({ [this.props.valueToUpdate]: newValue });
   };
 
   render() {
@@ -28,5 +29,3 @@ class TextArea extends Component {
     );
   }
 }
-
-export default TextArea;
