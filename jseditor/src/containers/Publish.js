@@ -56,7 +56,7 @@ class Publish extends React.Component {
     });
   }
 
-  submitPost(date, postSchedule) {
+  submitPost(date) {
     submitPostToBackend(this.state, date, this.props.blogUrl)
       .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
@@ -77,8 +77,7 @@ class Publish extends React.Component {
         }
         savePostsList(this.state, this.props.base, this.blogName);
         this.enableButton();
-      })
-      .always(postSchedule);
+      });
   }
 
   setPostMeta = (key, value) => {
@@ -87,11 +86,10 @@ class Publish extends React.Component {
     this.setState({ meta }, this.savePostData);
   };
 
-  onSchedule = (date, postSchedule) => {
+  onSchedule = date => {
     if (this.isValid()) {
-      return this.submitPost(date, postSchedule);
+      return this.submitPost(date);
     }
-    postSchedule();
   };
 
   enableButton() {
@@ -204,10 +202,11 @@ class Publish extends React.Component {
           <Col xs={6}>
             <SchedulePost
               buttonDisabled={this.state.buttonDisabled}
-              value={this.state.publishedDate}
+              date={this.state.publishedDate}
               base={this.props.base}
               onSchedule={this.onSchedule}
               onInvalidDate={this.onInvalidDate}
+              updateParent={this.updateParent}
             />
           </Col>
           <Col xs={4} />

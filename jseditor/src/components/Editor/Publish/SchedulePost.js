@@ -10,9 +10,6 @@ import Scheduler from './Scheduler';
 moment.tz.setDefault(configParams.timezone);
 
 export class SchedulePost extends React.Component {
-  static defaultProps = {
-    buttonDisabled: false
-  };
   /*
   static propTypes = {
     base: PropTypes.object.isRequired,
@@ -22,35 +19,21 @@ export class SchedulePost extends React.Component {
     buttonDisabled: PropTypes.bool
   };
 */
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: props.value,
-      schedulerOpened: false,
-      buttonDisabled: false
-    };
-  }
+  state = {
+    schedulerOpened: false
+  };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
-      this.setState({ date: nextProps.value });
-    }
-  }
-
-  onChange(e) {
-    this.setState({ date: e.target.value.trim() });
-  }
+  onChange = e => {
+    this.updateParent({ publishedDate: e.target.value.trim() });
+  };
 
   onPickSlot = (x, y, e) => {
     const currentTarget = e.currentTarget;
-    if (
-      currentTarget.className === 'slot-current' ||
-      currentTarget.className === 'slot-free'
-    ) {
+    if (['slot-current', 'slot-free'].includes(currentTarget.className)) {
       this.setState({
-        date: currentTarget.dataset.date,
         schedulerOpened: false
       });
+      this.props.updateParent({ publishedDate: currentTarget.dataset.date });
     }
   };
 
@@ -62,15 +45,11 @@ export class SchedulePost extends React.Component {
   };
 
   onSchedule() {
-    const date = moment(this.state.date, 'DD/MM/YYYY HH:mm', true);
+    const date = moment(this.props.date, 'DD/MM/YYYY HH:mm', true);
     if (!date.isValid() || date.isBefore(moment())) {
       return this.props.onInvalidDate();
     }
-    this.setState({ buttonDisabled: true }, () => {
-      this.props.onSchedule(this.state.date, () => {
-        this.setState({ buttonDisabled: false });
-      });
-    });
+    this.props.onSchedule(this.props.date);
   }
 
   render() {
@@ -79,8 +58,8 @@ export class SchedulePost extends React.Component {
         <Col xs>
           <TextField
             floatingLabelText="Fecha y hora"
-            value={this.state.date}
-            onChange={this.onChange.bind(this)}
+            value={this.props.date}
+            onChange={this.onChange}
           />
         </Col>
         <Col xs>
@@ -93,7 +72,7 @@ export class SchedulePost extends React.Component {
         <Col>
           <RaisedButton
             label="PROGRAMAR"
-            disabled={this.state.buttonDisabled || this.props.buttonDisabled}
+            disabled={this.props.buttonDisabled}
             onClick={this.onSchedule.bind(this)}
             primary={true}
           />
@@ -105,7 +84,7 @@ export class SchedulePost extends React.Component {
           anchorEl={this.state.anchorEl}
           toggleScheduler={this.toggleScheduler}
           onPickSlot={this.onPickSlot}
-          date={this.state.date}
+          date={this.props.date}
         />
       </Row>
     );
