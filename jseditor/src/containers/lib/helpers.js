@@ -14,8 +14,6 @@ const FACEBOOK_TEXT_SAME_POST_TITLE =
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 
 export const loadStatefromData = (data: {}) => {
-  console.log('data here:');
-  console.log(data);
   return {
     id: data.id,
     blogName: data.blogName,
