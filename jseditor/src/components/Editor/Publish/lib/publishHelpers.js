@@ -3,7 +3,7 @@ import { User, UpdatedTag, Tag } from './flowTypes';
 
 export const findById = <T: { id: number }>(
   id: number,
-  list: Array<T>
+  list: Array<T> // eslint-disable-next-line
 ): T | void => list.find((item: T) => item.id == id);
 
 export const findByName = (name: string, list: Array<User>) =>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Content from './Content';
 import ContentGrouped from './ContentGrouped';
@@ -8,44 +9,55 @@ export default class Resource extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      minimize:true
+      minimize: true
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.orderMode == false && this.props.orderMode == true) {
       this.setState({
-        minimize : true
+        minimize: true
       });
     }
   }
 
   toggleMaximize() {
-    this.setState({minimize:!this.state.minimize});
+    this.setState({ minimize: !this.state.minimize });
   }
   getStyleText(data) {
-    var backgroundImage = '', backgroundImageHeight = '', repeatOrCover;
-    backgroundImage = data.backgroundImage ? 'url("' + data.backgroundImage + '")' : '';
+    var backgroundImage = '',
+      backgroundImageHeight = '',
+      repeatOrCover;
+    backgroundImage = data.backgroundImage
+      ? 'url("' + data.backgroundImage + '")'
+      : '';
     if (data.backgroundRepeat == true) {
       repeatOrCover = ';background-repeat:repeat';
     } else {
       repeatOrCover = ';background-size:cover';
     }
-    return 'background-image:' + backgroundImage + repeatOrCover + backgroundImageHeight;
+    return (
+      'background-image:' +
+      backgroundImage +
+      repeatOrCover +
+      backgroundImageHeight
+    );
   }
   render() {
-    var {field,i,totalElements,...other} = this.props;
+    var { field, i, totalElements, ...other } = this.props;
     var index = 'text-area' + field.id;
-    var moreOptions = <MoreOptions
-      openResourcePanel={this.props.openResourcePanel}
-      addVideo={this.props.addVideo}
-      addResource={this.props.addResource}
-      addTable={this.props.addTable}
-      groupSections={this.props.groupSections}
-      show2column={field.show2column}
-      show3column={field.show3column}
-      dataId={i}
-    />;
+    var moreOptions = (
+      <MoreOptions
+        openResourcePanel={this.props.openResourcePanel}
+        addVideo={this.props.addVideo}
+        addResource={this.props.addResource}
+        addTable={this.props.addTable}
+        groupSections={this.props.groupSections}
+        show2column={field.show2column}
+        show3column={field.show3column}
+        dataId={i}
+      />
+    );
 
     var content;
     if (field.type == 'grouped') {
@@ -56,8 +68,8 @@ export default class Resource extends React.Component {
           index={index}
           getStyleText={this.getStyleText}
           minimize={this.state.minimize}
-          {...other}>
-        </ContentGrouped>
+          {...other}
+        />
       );
     } else {
       content = (
@@ -84,7 +96,7 @@ export default class Resource extends React.Component {
 
     return (
       <div key={index} className="container-data">
-        {this.props.orderMode ? moveControls: ''}
+        {this.props.orderMode ? moveControls : ''}
         {moreOptions}
         {content}
       </div>

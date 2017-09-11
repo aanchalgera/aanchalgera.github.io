@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import MoreOptions from './MoreOptions';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
@@ -51,10 +52,12 @@ export default class Table extends React.Component {
 
   add(e, type) {
     e.preventDefault();
-    let { rows } = this.state, count = 0, newRows;
+    let { rows } = this.state,
+      count = 0,
+      newRows;
     const totalColumns = rows[0].length;
 
-    switch(type) {
+    switch (type) {
       case 'column':
         count = this.refs.addColumns.value;
         rows = rows.map(row => {
@@ -85,13 +88,17 @@ export default class Table extends React.Component {
     e.preventDefault();
     let { rows } = this.state;
 
-    switch(type) {
+    switch (type) {
       case 'left':
-        rows.forEach(row => row[index - 1] = row.splice(index, 1, row[index - 1])[0]);
+        rows.forEach(
+          row => (row[index - 1] = row.splice(index, 1, row[index - 1])[0])
+        );
         break;
 
       case 'right':
-        rows.forEach(row => row[index + 1] = row.splice(index, 1, row[index + 1])[0]);
+        rows.forEach(
+          row => (row[index + 1] = row.splice(index, 1, row[index + 1])[0])
+        );
         break;
 
       case 'up':
@@ -110,7 +117,7 @@ export default class Table extends React.Component {
     e.preventDefault();
     let { rows } = this.state;
 
-    switch(type) {
+    switch (type) {
       case 'column':
         rows.forEach(row => row.splice(index, 1));
         break;
@@ -123,7 +130,7 @@ export default class Table extends React.Component {
     this.update({ rows });
   }
 
-  clearCell(e, {rowIndex, columnIndex}) {
+  clearCell(e, { rowIndex, columnIndex }) {
     let { rows } = this.state;
     rows[rowIndex][columnIndex] = { type: 'none' };
     this.update({ rows });
@@ -131,8 +138,9 @@ export default class Table extends React.Component {
 
   inflate(row, rowIndex) {
     return row.map((cell, columnIndex) => {
-      let Component, dataId = `${this.props.dataId}#${rowIndex}-${columnIndex}`;
-      switch(cell.type) {
+      let Component,
+        dataId = `${this.props.dataId}#${rowIndex}-${columnIndex}`;
+      switch (cell.type) {
         case 'content':
           Component = DraftJSEditor;
           break;
@@ -185,15 +193,20 @@ export default class Table extends React.Component {
 
       return (
         <td key={cell.id ? 'c' + cell.id : columnIndex}>
-          {
-            this.props.edit ?
-              <div className="btn-group btn-group-xs cells-control">
-                <button className="btn btn-default" title="Edit cell data" onClick={e => this.clearCell(e, {rowIndex, columnIndex})}>
-                  <span aria-hidden="true" className="glyphicon glyphicon-pencil"></span>
+          {this.props.edit
+            ? <div className="btn-group btn-group-xs cells-control">
+                <button
+                  className="btn btn-default"
+                  title="Edit cell data"
+                  onClick={e => this.clearCell(e, { rowIndex, columnIndex })}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="glyphicon glyphicon-pencil"
+                  />
                 </button>
               </div>
-            : null
-          }
+            : null}
           <Component
             dataId={dataId}
             data={cell}
@@ -204,8 +217,12 @@ export default class Table extends React.Component {
             deleteImage={this.props.deleteImage}
             moveImage={this.props.moveImage}
             addImageCaptionOverlay={this.props.addImageCaptionOverlay}
-            addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition}
-            addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground}
+            addImageCaptionOverlayPosition={
+              this.props.addImageCaptionOverlayPosition
+            }
+            addImageCaptionOverlayBackground={
+              this.props.addImageCaptionOverlayBackground
+            }
           />
         </td>
       );
@@ -214,31 +231,41 @@ export default class Table extends React.Component {
 
   render() {
     const { rows } = this.state;
-    const totalRows = rows.length, totalColumns = rows[0].length;
+    const totalRows = rows.length,
+      totalColumns = rows[0].length;
 
-    const controls = [<td key="0" className="cell-empty"></td>];
+    const controls = [<td key="0" className="cell-empty" />];
     for (let index = 0; index < totalColumns; index++) {
       controls.push(
         <td key={index + 1}>
           <div className="btn-group btn-group-xs">
-            {
-              (index == 0 || totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Move column left" onClick={e => this.move(e, 'left', index)}>
-                  <span className="glyphicon glyphicon-arrow-left"></span>
-                </button>
-            }
-            {
-              (index == totalColumns - 1) ? null :
-                <button className="btn btn-default" title="Move column right" onClick={e => this.move(e, 'right', index)}>
-                  <span className="glyphicon glyphicon-arrow-right"></span>
-                </button>
-            }
-            {
-              (totalColumns == 1) ? null :
-                <button className="btn btn-default" title="Delete column" onClick={e => this.delete(e, 'column', index)}>
-                  <span className="glyphicon glyphicon-trash"></span>
-                </button>
-            }
+            {index == 0 || totalColumns == 1
+              ? null
+              : <button
+                  className="btn btn-default"
+                  title="Move column left"
+                  onClick={e => this.move(e, 'left', index)}
+                >
+                  <span className="glyphicon glyphicon-arrow-left" />
+                </button>}
+            {index == totalColumns - 1
+              ? null
+              : <button
+                  className="btn btn-default"
+                  title="Move column right"
+                  onClick={e => this.move(e, 'right', index)}
+                >
+                  <span className="glyphicon glyphicon-arrow-right" />
+                </button>}
+            {totalColumns == 1
+              ? null
+              : <button
+                  className="btn btn-default"
+                  title="Delete column"
+                  onClick={e => this.delete(e, 'column', index)}
+                >
+                  <span className="glyphicon glyphicon-trash" />
+                </button>}
           </div>
         </td>
       );
@@ -247,42 +274,51 @@ export default class Table extends React.Component {
     const table = (
       <table className="table-data">
         <tbody>
-          {this.props.edit ? <tr className="columns-control">{controls}</tr> : null}
-          {
-            rows.map((row, index) => {
-              return (
-                <tr key={index}>
-                  {
-                    this.props.edit ?
-                      <td className="rows-control">
-                        <div className="btn-group btn-group-xs btn-group-vertical">
-                          {
-                            (index == 0 || totalRows == 1) ? null :
-                              <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', index)}>
-                                <span className="glyphicon glyphicon-arrow-up"></span>
-                              </button>
-                          }
-                          {
-                            (index == totalRows - 1) ? null :
-                              <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', index)}>
-                                <span className="glyphicon glyphicon-arrow-down"></span>
-                              </button>
-                          }
-                          {
-                            (totalRows == 1) ? null :
-                              <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, 'row', index)}>
-                                <span className="glyphicon glyphicon-trash"></span>
-                              </button>
-                          }
-                        </div>
-                      </td>
-                    : null
-                  }
-                  {this.inflate(row, index)}
-                </tr>
-              );
-            })
-          }
+          {this.props.edit
+            ? <tr className="columns-control">
+                {controls}
+              </tr>
+            : null}
+          {rows.map((row, index) => {
+            return (
+              <tr key={index}>
+                {this.props.edit
+                  ? <td className="rows-control">
+                      <div className="btn-group btn-group-xs btn-group-vertical">
+                        {index == 0 || totalRows == 1
+                          ? null
+                          : <button
+                              className="btn btn-default"
+                              title="Move row up"
+                              onClick={e => this.move(e, 'up', index)}
+                            >
+                              <span className="glyphicon glyphicon-arrow-up" />
+                            </button>}
+                        {index == totalRows - 1
+                          ? null
+                          : <button
+                              className="btn btn-default"
+                              title="Move row down"
+                              onClick={e => this.move(e, 'down', index)}
+                            >
+                              <span className="glyphicon glyphicon-arrow-down" />
+                            </button>}
+                        {totalRows == 1
+                          ? null
+                          : <button
+                              className="btn btn-default"
+                              title="Delete row"
+                              onClick={e => this.delete(e, 'row', index)}
+                            >
+                              <span className="glyphicon glyphicon-trash" />
+                            </button>}
+                      </div>
+                    </td>
+                  : null}
+                {this.inflate(row, index)}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );
@@ -303,7 +339,10 @@ export default class Table extends React.Component {
           </div>
           <div className="form-group">
             <label>Table summary</label>
-            <span className="hint"> (Optional, this field improves accesibility, but not displayed at sight.)</span>
+            <span className="hint">
+              {' '}(Optional, this field improves accesibility, but not
+              displayed at sight.)
+            </span>
             <textarea
               ref="summary"
               className="form-control"
@@ -318,11 +357,14 @@ export default class Table extends React.Component {
                 ref="headers"
                 className="form-control"
                 defaultValue={this.state.headers}
-                onChange={() => this.update({ headers: this.refs.headers.value })}
+                onChange={() =>
+                  this.update({ headers: this.refs.headers.value })}
               >
                 <option value="row">First row for table headings</option>
                 <option value="column">First column for table headings</option>
-                <option value="both">First row and first column for table headings</option>
+                <option value="both">
+                  First row and first column for table headings
+                </option>
                 <option value="">No table headings</option>
               </select>
             </div>
@@ -330,9 +372,19 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-columns">
             <div className="form-group pull-right">
               <label>Add more columns</label>
-              <input type="number" ref="addColumns" defaultValue="1" min="1" className="form-control input-sm" />
-              <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'column')}>
-                <span className="glyphicon glyphicon-plus"></span>
+              <input
+                type="number"
+                ref="addColumns"
+                defaultValue="1"
+                min="1"
+                className="form-control input-sm"
+              />
+              <button
+                type="submit"
+                className="btn btn-default btn-sm"
+                onClick={e => this.add(e, 'column')}
+              >
+                <span className="glyphicon glyphicon-plus" />
               </button>
             </div>
           </div>
@@ -340,9 +392,19 @@ export default class Table extends React.Component {
           <div className="table-add-more clearfix add-more-rows">
             <div className="form-group pull-left">
               <label>Add more rows</label>
-              <input type="number" ref="addRows" defaultValue="1" min="1" className="form-control input-sm" />
-              <button type="submit" className="btn btn-default btn-sm" onClick={e => this.add(e, 'row')}>
-                <span className="glyphicon glyphicon-plus"></span>
+              <input
+                type="number"
+                ref="addRows"
+                defaultValue="1"
+                min="1"
+                className="form-control input-sm"
+              />
+              <button
+                type="submit"
+                className="btn btn-default btn-sm"
+                onClick={e => this.add(e, 'row')}
+              >
+                <span className="glyphicon glyphicon-plus" />
               </button>
             </div>
           </div>

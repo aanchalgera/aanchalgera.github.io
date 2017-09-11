@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 export default class Video extends React.Component {
@@ -13,7 +14,11 @@ export default class Video extends React.Component {
   updateVideo() {
     clearTimeout(this._timeout);
     this._timeout = setTimeout(() => {
-      this.props.updateResource(this.props.dataId, 'video', this.refs.field.value);
+      this.props.updateResource(
+        this.props.dataId,
+        'video',
+        this.refs.field.value
+      );
     }, 1000);
   }
 
@@ -22,7 +27,10 @@ export default class Video extends React.Component {
       return (
         <div>
           <label className="ptitle">
-            URL of video <span className="hint">(Please add video url from youtube share tab.)</span>
+            URL of video{' '}
+            <span className="hint">
+              (Please add video url from youtube share tab.)
+            </span>
           </label>
           <input
             type="text"
@@ -37,8 +45,12 @@ export default class Video extends React.Component {
     }
 
     return (
-      <div className={'fluid-width-video-wrapper asset-size-' + this.props.data.layout}>
-        <iframe src={this.props.data.url}></iframe>
+      <div
+        className={
+          'fluid-width-video-wrapper asset-size-' + this.props.data.layout
+        }
+      >
+        <iframe src={this.props.data.url} />
       </div>
     );
   }

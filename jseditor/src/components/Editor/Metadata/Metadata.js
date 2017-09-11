@@ -1,13 +1,10 @@
 import React from 'react';
 import Index from './Index';
 import Footer from './Footer';
-import Seo from './Seo';
 import Homepage from './Homepage';
 import Sponsor from './Sponsor';
 import Css from './Css';
 import Microsite from './Microsite';
-import Author from './Author';
-import Social from './Social';
 import Comments from './Comments';
 
 class Metadata extends React.Component {

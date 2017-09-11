@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './Menu/TopBar';
 import Editor from '../components/Editor/Editor';
-import Publish from '../components/Editor/Publish';
 import Layout from '../containers/Layout';
 import Publicar from '../containers/Publish';
 import Difundir from '../containers/Difundir';
@@ -81,10 +80,6 @@ class Main extends React.Component {
                 <Route
                   path={`${url}post/new`}
                   render={props => <Editor {...props} base={base} />}
-                />
-                <Route
-                  path={`${url}publish/:postname`}
-                  render={props => <Publish {...props} base={base} />}
                 />
                 <Route component={NotFoundPage} />
               </Switch>

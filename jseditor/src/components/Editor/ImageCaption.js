@@ -16,7 +16,7 @@ export default class ImageCaption extends React.Component {
   }
 
   closeCaptionForm(e) {
-    if (e.target.tagName.toLowerCase() != 'select') {
+    if (e.target.tagName.toLowerCase() !== 'select') {
       this.setState({ showCaptionForm: false });
     }
   }
@@ -30,7 +30,7 @@ export default class ImageCaption extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
-    let {value} = e.currentTarget;
+    let { value } = e.currentTarget;
 
     // To prevent rapid saving on firebase
     clearTimeout(this._timeout);
@@ -43,7 +43,7 @@ export default class ImageCaption extends React.Component {
     });
   }
 
-  render () {
+  render() {
     let textField = (
       <input
         type="text"
@@ -56,11 +56,16 @@ export default class ImageCaption extends React.Component {
     let propertyButton = '';
     let captionForm = '';
 
-    if (this.props.type == 'image') {
+    if (this.props.type === 'image') {
       propertyButton = (
         <div className="input-group">
           {textField}
-          <a className="input-group-addon"><span onClick={this.toggleCaptionForm.bind(this)} className="glyphicon glyphicon-cog"></span></a>
+          <a className="input-group-addon">
+            <span
+              onClick={this.toggleCaptionForm.bind(this)}
+              className="glyphicon glyphicon-cog"
+            />
+          </a>
         </div>
       );
       if (this.state.showCaptionForm) {
@@ -77,9 +82,9 @@ export default class ImageCaption extends React.Component {
 
     return (
       <div className="caption-container">
-      {propertyButton}
-      {captionForm}
-    </div>
+        {propertyButton}
+        {captionForm}
+      </div>
     );
   }
 }

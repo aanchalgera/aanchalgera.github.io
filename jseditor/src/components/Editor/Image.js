@@ -2,9 +2,12 @@ import React from 'react';
 import ImageCaption from './ImageCaption';
 
 class Image extends React.Component {
-  render () {
-    var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
-    
+  render() {
+    var imageCaption =
+      this.props.data.description !== undefined
+        ? this.props.data.description
+        : '';
+
     return (
       <div className={'asset-size-' + this.props.data.layout}>
         <img
@@ -25,8 +28,12 @@ class Image extends React.Component {
           captionPosition={this.props.data.captionPosition}
           captionBackground={this.props.data.captionBackground}
           addImageCaptionOverlay={this.props.addImageCaptionOverlay}
-          addImageCaptionOverlayPosition={this.props.addImageCaptionOverlayPosition}
-          addImageCaptionOverlayBackground={this.props.addImageCaptionOverlayBackground}
+          addImageCaptionOverlayPosition={
+            this.props.addImageCaptionOverlayPosition
+          }
+          addImageCaptionOverlayBackground={
+            this.props.addImageCaptionOverlayBackground
+          }
         />
       </div>
     );
