@@ -1,35 +1,20 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import { Row, Col } from 'react-flexbox-grid';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table';
-import Popover from 'material-ui/Popover';
 
-var timeStamp = moment().format('X');
-var currentMonth = moment().locale('es').format('MMMM');
+import { getScheduledPosts } from './lib/publishService';
+import configParams from '../../../config/configs';
+import Scheduler from './Scheduler';
 
-const styles = {
-  popover: {
-    width: '50%',
-    height: '50%'
-  }
-};
+moment.tz.setDefault(configParams.timezone);
 
 export class SchedulePost extends React.Component {
   static defaultProps = {
     buttonDisabled: false
   };
-
+  /*
   static propTypes = {
     base: PropTypes.object.isRequired,
     onInvalidDate: PropTypes.func.isRequired,
@@ -37,7 +22,7 @@ export class SchedulePost extends React.Component {
     value: PropTypes.string,
     buttonDisabled: PropTypes.bool
   };
-
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -49,36 +34,31 @@ export class SchedulePost extends React.Component {
   }
 
   componentDidMount() {
-    this.props.base.fetch('posts', {
-      context: this,
-      asArray: true,
-      queries: {
-        orderByChild: 'status',
-        equalTo: 'publish'
-      },
-      then(data) {
-        if (data != null) {
-          let scheduledPosts = {};
-          data.forEach(result => {
-            let formatDate = moment(
-              result.publishData.postDate,
-              'DD/MM/YYYY H:00:00'
-            ).format('YYYY-MM-DD H:00:00');
-            scheduledPosts[formatDate] = {
-              id: result.id,
-              status: result.status,
-              date: result.date,
-              title: result.title
-            };
-          });
+    this.init();
+  }
 
-          this.setState({
-            futureProgrammedPosts: scheduledPosts,
-            buttonDisabled: false
-          });
-        }
-      }
-    });
+  async init() {
+    const data = await getScheduledPosts(this.props.base);
+    if (data != null) {
+      let scheduledPosts = {};
+      data.forEach(result => {
+        let formatDate = moment(
+          result.publishData.postDate,
+          'DD/MM/YYYY H:00:00'
+        ).format('YYYY-MM-DD H:00:00');
+        scheduledPosts[formatDate] = {
+          id: result.id,
+          status: result.status,
+          date: result.date,
+          title: result.title
+        };
+      });
+
+      this.setState({
+        futureProgrammedPosts: scheduledPosts,
+        buttonDisabled: false
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,7 +71,7 @@ export class SchedulePost extends React.Component {
     this.setState({ date: e.target.value.trim() });
   }
 
-  onPickSlot(x, y, e) {
+  onPickSlot = (x, y, e) => {
     const currentTarget = e.currentTarget;
     if (
       currentTarget.className == 'slot-current' ||
@@ -102,14 +82,14 @@ export class SchedulePost extends React.Component {
         schedulerOpened: false
       });
     }
-  }
+  };
 
-  toggleScheduler(e) {
+  toggleScheduler = e => {
     this.setState({
       schedulerOpened: !this.state.schedulerOpened,
       anchorEl: e.currentTarget
     });
-  }
+  };
 
   onSchedule() {
     const date = moment(this.state.date, 'DD/MM/YYYY HH:mm', true);
@@ -123,123 +103,15 @@ export class SchedulePost extends React.Component {
     });
   }
 
-  renderScheduler() {
-    var tablehead = [],
-      tablerows = [];
-    var td = [];
-    var tr = '';
-    var slot, msg, dateTime, formattedDateTime;
-    for (var i = 0; i < 7; i++) {
-      if (i == 0) {
-        var currentDay = moment.unix(timeStamp).locale('es').format('dddd DD');
-        tablehead.push(
-          <TableHeaderColumn key={i}>
-            <strong>
-              »{currentDay.toLowerCase()}
-            </strong>
-          </TableHeaderColumn>
-        );
-      } else {
-        var nextDayTimeStamp = moment
-          .unix(timeStamp)
-          .add(i, 'day')
-          .locale('es')
-          .format('dddd DD');
-        tablehead.push(
-          <TableHeaderColumn key={i}>
-            {nextDayTimeStamp.toLowerCase()}
-          </TableHeaderColumn>
-        );
-      }
-    }
-    for (var j = 7; j < 24; j++) {
-      for (var k = 0; k < 7; k++) {
-        slot = '';
-        msg = '';
-        dateTime =
-          moment.unix(timeStamp).add(k, 'day').format('YYYY-MM-DD') +
-          ' ' +
-          j +
-          ':00:00';
-        formattedDateTime =
-          moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY') +
-          ' ' +
-          (j < 10 ? `0${j}` : j) +
-          ':00';
-        if (timeStamp > moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('X')) {
-          slot = 'slot-past';
-          msg = 'Pasado';
-        } else if (
-          this.state.futureProgrammedPosts != undefined &&
-          this.state.futureProgrammedPosts[dateTime] != undefined
-        ) {
-          slot = 'slot-busy';
-          msg = 'Ocupado';
-        } else if (this.state.date == formattedDateTime) {
-          slot = 'slot-current';
-          msg = 'Elegido';
-        } else {
-          slot = 'slot-free';
-          msg = 'Libre';
-        }
-        td.push(
-          <TableRowColumn
-            key={j + '-' + k}
-            className={slot}
-            data-date={formattedDateTime}
-          >
-            {msg}
-          </TableRowColumn>
-        );
-      }
-      tr = (
-        <TableRow key={j + '-' + k} className="even">
-          <TableHeaderColumn>
-            {j}
-          </TableHeaderColumn>
-          {td}
-        </TableRow>
-      );
-      tablerows.push(tr);
-      td = [];
-    }
-
-    return (
-      <Popover
-        open={this.state.schedulerOpened}
-        anchorEl={this.state.anchorEl}
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-        targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-        onRequestClose={this.toggleScheduler.bind(this)}
-        style={styles.popover}
-      >
-        <div>
-          <span className="hint">
-            Selecciona un hueco, o pon la fecha que quieras en el cuadro de
-            &lt;em&gt;fecha y hora&lt;/em&gt;
-          </span>
-          <Table
-            summary="Huecos disponibles para publicar"
-            onCellClick={this.onPickSlot.bind(this)}
-          >
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow>
-                <TableHeaderColumn>
-                  <em>
-                    {currentMonth.toLowerCase()}
-                  </em>
-                </TableHeaderColumn>
-                {tablehead}
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false}>
-              {tablerows}
-            </TableBody>
-          </Table>
-        </div>
-      </Popover>
-    );
-  }
+  renderScheduler = () => {
+    <Scheduler
+      schedulerOpened={this.state.schedulerOpened}
+      anchorEl={this.state.anchorEl}
+      toggleScheduler={this.toggleScheduler}
+      futureProgrammedPosts={this.state.futureProgrammedPosts}
+      onPickSlot={this.onPickSlot}
+    />;
+  };
 
   render() {
     return (
@@ -255,7 +127,7 @@ export class SchedulePost extends React.Component {
           <RaisedButton
             label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
             icon={<Apps />}
-            onClick={this.toggleScheduler.bind(this)}
+            onClick={this.toggleScheduler}
           />
         </Col>
         <Col>
