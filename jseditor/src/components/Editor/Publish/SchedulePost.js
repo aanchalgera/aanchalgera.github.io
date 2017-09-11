@@ -4,7 +4,6 @@ import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import { Row, Col } from 'react-flexbox-grid';
 
-import { getScheduledPosts } from './lib/publishService';
 import configParams from '../../../config/configs';
 import Scheduler from './Scheduler';
 
@@ -28,37 +27,8 @@ export class SchedulePost extends React.Component {
     this.state = {
       date: props.value,
       schedulerOpened: false,
-      buttonDisabled: true,
-      futureProgrammedPosts: []
+      buttonDisabled: false
     };
-  }
-
-  componentDidMount() {
-    this.init();
-  }
-
-  async init() {
-    const data = await getScheduledPosts(this.props.base);
-    if (data != null) {
-      let scheduledPosts = {};
-      data.forEach(result => {
-        let formatDate = moment(
-          result.publishData.postDate,
-          'DD/MM/YYYY H:00:00'
-        ).format('YYYY-MM-DD H:00:00');
-        scheduledPosts[formatDate] = {
-          id: result.id,
-          status: result.status,
-          date: result.date,
-          title: result.title
-        };
-      });
-
-      this.setState({
-        futureProgrammedPosts: scheduledPosts,
-        buttonDisabled: false
-      });
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,8 +44,8 @@ export class SchedulePost extends React.Component {
   onPickSlot = (x, y, e) => {
     const currentTarget = e.currentTarget;
     if (
-      currentTarget.className == 'slot-current' ||
-      currentTarget.className == 'slot-free'
+      currentTarget.className === 'slot-current' ||
+      currentTarget.className === 'slot-free'
     ) {
       this.setState({
         date: currentTarget.dataset.date,
@@ -103,16 +73,6 @@ export class SchedulePost extends React.Component {
     });
   }
 
-  renderScheduler = () => {
-    <Scheduler
-      schedulerOpened={this.state.schedulerOpened}
-      anchorEl={this.state.anchorEl}
-      toggleScheduler={this.toggleScheduler}
-      futureProgrammedPosts={this.state.futureProgrammedPosts}
-      onPickSlot={this.onPickSlot}
-    />;
-  };
-
   render() {
     return (
       <Row style={{ marginBottom: '0px' }}>
@@ -138,7 +98,15 @@ export class SchedulePost extends React.Component {
             primary={true}
           />
         </Col>
-        {this.state.schedulerOpened && this.renderScheduler()}
+
+        <Scheduler
+          schedulerOpened={this.state.schedulerOpened}
+          base={this.props.base}
+          anchorEl={this.state.anchorEl}
+          toggleScheduler={this.toggleScheduler}
+          onPickSlot={this.onPickSlot}
+          date={this.state.date}
+        />
       </Row>
     );
   }
