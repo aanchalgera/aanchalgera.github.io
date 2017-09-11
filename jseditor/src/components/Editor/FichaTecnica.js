@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 export default class FichaTechnica extends React.Component {
@@ -19,7 +20,10 @@ export default class FichaTechnica extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ productImage: nextProps.data.productImage || '', otherImage: nextProps.data.otherImage || '' });
+    this.setState({
+      productImage: nextProps.data.productImage || '',
+      otherImage: nextProps.data.otherImage || ''
+    });
   }
 
   focus() {
@@ -37,7 +41,9 @@ export default class FichaTechnica extends React.Component {
 
   add(e) {
     e.preventDefault();
-    let { dataRows, maxId } = this.state, count = 0, newDataRows = [];
+    let { dataRows, maxId } = this.state,
+      count = 0,
+      newDataRows = [];
 
     count = this.refs.addLinks.value;
     for (let i = 0; i < count; i++) {
@@ -52,7 +58,7 @@ export default class FichaTechnica extends React.Component {
     e.preventDefault();
     let { dataRows } = this.state;
 
-    switch(type) {
+    switch (type) {
       case 'up':
         dataRows[index - 1] = dataRows.splice(index, 1, dataRows[index - 1])[0];
         break;
@@ -93,108 +99,209 @@ export default class FichaTechnica extends React.Component {
     let productImage, otherImage;
     if (this.state.productImage) {
       productImage = (
-        <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
+        <div
+          style={{
+            background: '#f5f5f5',
+            padding: '5px',
+            display: 'inline-block'
+          }}
+        >
           <span className="hint">
-            {`${this.state.productImage.original_filename}.${this.state.productImage.format}`}
+            {`${this.state.productImage.original_filename}.${this.state
+              .productImage.format}`}
           </span>
-          <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
-            <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'productImage'}, 'image', false, e)}>
-              <span className="glyphicon glyphicon-pencil"></span>
+          <div
+            className="btn-group btn-group-sm"
+            role="group"
+            aria-label="Small button group"
+          >
+            <button
+              className="btn btn-default"
+              onClick={e =>
+                this.props.openResourcePanel(
+                  'edit',
+                  {
+                    currentIndex: this.props.dataId,
+                    imageIndex: 'productImage'
+                  },
+                  'image',
+                  false,
+                  e
+                )}
+            >
+              <span className="glyphicon glyphicon-pencil" />
             </button>
-            <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'productImage'}, e)}>
-              <span className="glyphicon glyphicon-trash"></span>
+            <button
+              className="btn btn-default"
+              onClick={e =>
+                this.props.deleteImage(
+                  {
+                    sectionIndex: this.props.dataId,
+                    imageIndex: 'productImage'
+                  },
+                  e
+                )}
+            >
+              <span className="glyphicon glyphicon-trash" />
             </button>
           </div>
         </div>
       );
     } else {
       productImage = (
-        <button className="btn btn-default" onClick={e => this.props.openResourcePanel('productImage', this.props.dataId, '', false, e)}>Add Image</button>
+        <button
+          className="btn btn-default"
+          onClick={e =>
+            this.props.openResourcePanel(
+              'productImage',
+              this.props.dataId,
+              '',
+              false,
+              e
+            )}
+        >
+          Add Image
+        </button>
       );
     }
     if (this.state.otherImage) {
       otherImage = (
-        <div style= {{ background:'#f5f5f5', padding:'5px', display:'inline-block' }}>
+        <div
+          style={{
+            background: '#f5f5f5',
+            padding: '5px',
+            display: 'inline-block'
+          }}
+        >
           <span className="hint">
-            {`${this.state.otherImage.original_filename}.${this.state.otherImage.format}`}
+            {`${this.state.otherImage.original_filename}.${this.state.otherImage
+              .format}`}
           </span>
-          <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
-            <button className="btn btn-default" onClick={e => this.props.openResourcePanel('edit', {currentIndex: this.props.dataId, imageIndex: 'otherImage'}, 'image', false, e)}>
-              <span className="glyphicon glyphicon-pencil"></span>
+          <div
+            className="btn-group btn-group-sm"
+            role="group"
+            aria-label="Small button group"
+          >
+            <button
+              className="btn btn-default"
+              onClick={e =>
+                this.props.openResourcePanel(
+                  'edit',
+                  { currentIndex: this.props.dataId, imageIndex: 'otherImage' },
+                  'image',
+                  false,
+                  e
+                )}
+            >
+              <span className="glyphicon glyphicon-pencil" />
             </button>
-            <button className="btn btn-default" onClick={e => this.props.deleteImage({sectionIndex: this.props.dataId, imageIndex: 'otherImage'}, e)}>
-              <span className="glyphicon glyphicon-trash"></span>
+            <button
+              className="btn btn-default"
+              onClick={e =>
+                this.props.deleteImage(
+                  { sectionIndex: this.props.dataId, imageIndex: 'otherImage' },
+                  e
+                )}
+            >
+              <span className="glyphicon glyphicon-trash" />
             </button>
           </div>
         </div>
       );
     } else {
       otherImage = (
-        <button className="btn btn-default" onClick={e => this.props.openResourcePanel('otherImage', this.props.dataId, '', false, e)}>Add Image</button>
+        <button
+          className="btn btn-default"
+          onClick={e =>
+            this.props.openResourcePanel(
+              'otherImage',
+              this.props.dataId,
+              '',
+              false,
+              e
+            )}
+        >
+          Add Image
+        </button>
       );
     }
     const placeholder = [
-      [{dataSheet: 'Price'}, {text: '1.99€'}, {link: ''}],
-      [{dataSheet: 'Developer'}, {text: 'Rovio'}, {link: 'http://epi.angrybirds.com/'}],
-      [{dataSheet: 'To Download'}, {text: 'Android on Google play'}, {link: 'https://play.google.com/store/apps/details?id=com.rovio.gold'}]
+      [{ dataSheet: 'Price' }, { text: '1.99€' }, { link: '' }],
+      [
+        { dataSheet: 'Developer' },
+        { text: 'Rovio' },
+        { link: 'http://epi.angrybirds.com/' }
+      ],
+      [
+        { dataSheet: 'To Download' },
+        { text: 'Android on Google play' },
+        { link: 'https://play.google.com/store/apps/details?id=com.rovio.gold' }
+      ]
     ];
-    const table = (
-      dataRows.map((dataRow, i) => {
-        return (
-          <tr key={dataRow.id}>
-            <td className="rows-control">
-              <div className="btn-group btn-group-xs btn-group-vertical">
-                {
-                  (i == 0 || totalRows == 1) ? null :
-                    <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
-                      <span className="glyphicon glyphicon-arrow-up"></span>
-                    </button>
-                }
-                {
-                  (i == totalRows - 1) ? null :
-                    <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
-                      <span className="glyphicon glyphicon-arrow-down"></span>
-                    </button>
-                }
-                {
-                  (totalRows == 1) ? null :
-                    <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, i)}>
-                      <span className="glyphicon glyphicon-trash"></span>
-                    </button>
-                }
-              </div>
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder={i<3 ? placeholder[i][0].dataSheet : ''}
-                defaultValue={dataRow.dataSheet}
-                className="form-control"
-                onChange={e => this.updateCell(i, 0, e)}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder={i<3 ? placeholder[i][1].text : ''}
-                defaultValue={dataRow.text}
-                className="form-control"
-                onChange={e => this.updateCell(i, 1, e)}
-              />
-            </td>
-            <td>
-             <input
-               type="text"
-               placeholder={i<3 ? placeholder[i][2].link : ''}
-               defaultValue={dataRow.link}
-               className="form-control"
-               onChange={e => this.updateCell(i, 2, e)}
-             />
-            </td>
-          </tr>
-        );
-      })
-    );
+    const table = dataRows.map((dataRow, i) => {
+      return (
+        <tr key={dataRow.id}>
+          <td className="rows-control">
+            <div className="btn-group btn-group-xs btn-group-vertical">
+              {i == 0 || totalRows == 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Move row up"
+                    onClick={e => this.move(e, 'up', i)}
+                  >
+                    <span className="glyphicon glyphicon-arrow-up" />
+                  </button>}
+              {i == totalRows - 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Move row down"
+                    onClick={e => this.move(e, 'down', i)}
+                  >
+                    <span className="glyphicon glyphicon-arrow-down" />
+                  </button>}
+              {totalRows == 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Delete row"
+                    onClick={e => this.delete(e, i)}
+                  >
+                    <span className="glyphicon glyphicon-trash" />
+                  </button>}
+            </div>
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder={i < 3 ? placeholder[i][0].dataSheet : ''}
+              defaultValue={dataRow.dataSheet}
+              className="form-control"
+              onChange={e => this.updateCell(i, 0, e)}
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder={i < 3 ? placeholder[i][1].text : ''}
+              defaultValue={dataRow.text}
+              className="form-control"
+              onChange={e => this.updateCell(i, 1, e)}
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder={i < 3 ? placeholder[i][2].link : ''}
+              defaultValue={dataRow.link}
+              className="form-control"
+              onChange={e => this.updateCell(i, 2, e)}
+            />
+          </td>
+        </tr>
+      );
+    });
 
     return (
       <div>
@@ -220,7 +327,8 @@ export default class FichaTechnica extends React.Component {
                 ref="productDetail"
                 placeholder="Model, version, season ..."
                 defaultValue={this.state.productDetail}
-                onChange={() => this.update({ productDetail: this.refs.productDetail.value })}
+                onChange={() =>
+                  this.update({ productDetail: this.refs.productDetail.value })}
               />
             </div>
             <div className="form-group">
@@ -235,7 +343,7 @@ export default class FichaTechnica extends React.Component {
             <table className="table-data">
               <tbody>
                 <tr>
-                  <th className="rows-empty"></th>
+                  <th className="rows-empty" />
                   <th>Data sheet</th>
                   <th>Text</th>
                   <th>Link</th>
@@ -246,9 +354,19 @@ export default class FichaTechnica extends React.Component {
             <div className="table-add-more clearfix add-more-rows">
               <div className="form-group pull-left">
                 <label>Add more links</label>
-                <input type="number" ref="addLinks" min="1" defaultValue="1" className="form-control input-sm" />
-                <button type="submit" className="btn btn-default  btn-sm" onClick={e => this.add(e)}>
-                  <span className="glyphicon glyphicon-plus"></span>
+                <input
+                  type="number"
+                  ref="addLinks"
+                  min="1"
+                  defaultValue="1"
+                  className="form-control input-sm"
+                />
+                <button
+                  type="submit"
+                  className="btn btn-default  btn-sm"
+                  onClick={e => this.add(e)}
+                >
+                  <span className="glyphicon glyphicon-plus" />
                 </button>
               </div>
             </div>
@@ -259,7 +377,8 @@ export default class FichaTechnica extends React.Component {
                 className="form-control"
                 ref="otherDetail"
                 defaultValue={this.state.otherDetail}
-                onChange={() => this.update({ otherDetail: this.refs.otherDetail.value })}
+                onChange={() =>
+                  this.update({ otherDetail: this.refs.otherDetail.value })}
               />
             </div>
           </div>

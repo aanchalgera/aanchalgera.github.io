@@ -1,20 +1,24 @@
 import React from 'react';
-import jquery from 'jquery';
-import Typeahead from 'react-bootstrap-typeahead';
 
 export default class Author extends React.Component {
-
   render() {
     return (
       <div className="modules module-seo">
         <h4 onClick={this.props.onArticleMetaToggle.bind(this)}>
           Social share visibility
-          <span className="glyphicon glyphicon-plus pull-right" ref={(c) => this._glyphiconClass = c}></span>
+          <span
+            className="glyphicon glyphicon-plus pull-right"
+            ref={c => (this._glyphiconClass = c)}
+          />
         </h4>
-        <div className="collapsed-content" ref={(c) => this._articleMetaPanel = c}>
+        <div
+          className="collapsed-content"
+          ref={c => (this._articleMetaPanel = c)}
+        >
           <div className="form-group">
             <label>
-              <input type="checkbox"
+              <input
+                type="checkbox"
                 onChange={this.props.toggleSocialShareVisibility}
                 checked={!this.props.showSocialShareButtons}
               />
@@ -23,7 +27,8 @@ export default class Author extends React.Component {
           </div>
           <div className="form-group">
             <label>
-              <input type="checkbox"
+              <input
+                type="checkbox"
                 onChange={this.props.toggleDateVisibility}
                 checked={this.props.showDate}
               />
@@ -32,8 +37,11 @@ export default class Author extends React.Component {
           </div>
           <div className="form-group">
             <label>
-              <input type="checkbox"
-                checked={this.props.author ? this.props.author.showAuthorInfo : false}
+              <input
+                type="checkbox"
+                checked={
+                  this.props.author ? this.props.author.showAuthorInfo : false
+                }
                 onChange={this.props.toggleAuthorInfo}
               />
               Show author information

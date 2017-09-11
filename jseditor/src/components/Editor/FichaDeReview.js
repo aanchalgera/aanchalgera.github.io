@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 export default class FichaDeReview extends React.Component {
@@ -33,7 +34,9 @@ export default class FichaDeReview extends React.Component {
 
   add(e) {
     e.preventDefault();
-    let { partialScores, maxId } = this.state, count = 0, newScores = [];
+    let { partialScores, maxId } = this.state,
+      count = 0,
+      newScores = [];
 
     count = this.refs.addNotes.value;
     for (let i = 0; i < count; i++) {
@@ -48,13 +51,21 @@ export default class FichaDeReview extends React.Component {
     e.preventDefault();
     let { partialScores } = this.state;
 
-    switch(type) {
+    switch (type) {
       case 'up':
-        partialScores[index - 1] = partialScores.splice(index, 1, partialScores[index - 1])[0];
+        partialScores[index - 1] = partialScores.splice(
+          index,
+          1,
+          partialScores[index - 1]
+        )[0];
         break;
 
       case 'down':
-        partialScores[index + 1] = partialScores.splice(index, 1, partialScores[index + 1])[0];
+        partialScores[index + 1] = partialScores.splice(
+          index,
+          1,
+          partialScores[index + 1]
+        )[0];
         break;
     }
 
@@ -93,7 +104,10 @@ export default class FichaDeReview extends React.Component {
       totalScore = this.getAverageScore();
     }
 
-    this.update({ calculatePartial: this.refs.calculatePartial.checked, totalScore });
+    this.update({
+      calculatePartial: this.refs.calculatePartial.checked,
+      totalScore
+    });
   }
 
   getFloat(value) {
@@ -103,7 +117,9 @@ export default class FichaDeReview extends React.Component {
 
   getAverageScore() {
     let { partialScores } = this.state;
-    let totalScore = 0, count = 0, totalRows = partialScores.length;
+    let totalScore = 0,
+      count = 0,
+      totalRows = partialScores.length;
     for (let i = 0; i < totalRows; i++) {
       if (partialScores[i].partialNote) {
         let partialScore = this.getFloat(partialScores[i].partialNote);
@@ -113,65 +129,72 @@ export default class FichaDeReview extends React.Component {
     }
     let averageScore = count > 0 ? (totalScore / count).toFixed(1) : 0;
     this.refs.field.value = averageScore;
-    return(averageScore);
+    return averageScore;
   }
 
   render() {
     const { partialScores } = this.state;
     const totalRows = partialScores.length;
     const placeholder = [
-      [{text: 'Design'}, {value: '7,0'}],
-      [{text: 'Autonomy'}, {value: '6,0'}],
-      [{text: 'Performance'}, {value: '6,0'}]
+      [{ text: 'Design' }, { value: '7,0' }],
+      [{ text: 'Autonomy' }, { value: '6,0' }],
+      [{ text: 'Performance' }, { value: '6,0' }]
     ];
-    const table = (
-      partialScores.map((partialScore, i) => {
-        return (
-          <tr key={partialScore.id}>
-            <td className="rows-control">
-              <div className="btn-group btn-group-xs btn-group-vertical">
-                {
-                  (i == 0 || totalRows == 1) ? null :
-                    <button className="btn btn-default" title="Move row up" onClick={e => this.move(e, 'up', i)}>
-                      <span className="glyphicon glyphicon-arrow-up"></span>
-                    </button>
-                }
-                {
-                  (i == totalRows - 1) ? null :
-                    <button className="btn btn-default" title="Move row down" onClick={e => this.move(e, 'down', i)}>
-                      <span className="glyphicon glyphicon-arrow-down"></span>
-                    </button>
-                }
-                {
-                  (totalRows == 1) ? null :
-                    <button className="btn btn-default" title="Delete row" onClick={e => this.delete(e, i)}>
-                      <span className="glyphicon glyphicon-trash"></span>
-                    </button>
-                }
-              </div>
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder={i<3 ? placeholder[i][0].text : ''}
-                defaultValue={partialScore.valuedAspect}
-                className="form-control"
-                onChange={e => this.updateCell(i, 0, e)}
-              />
-            </td>
-            <td>
-             <input
-               type="text"
-               placeholder={i<3 ? placeholder[i][1].value : ''}
-               defaultValue={partialScore.partialNote}
-               className="form-control"
-               onChange={e => this.updateCell(i, 1, e)}
-             />
-            </td>
-          </tr>
-        );
-      })
-    );
+    const table = partialScores.map((partialScore, i) => {
+      return (
+        <tr key={partialScore.id}>
+          <td className="rows-control">
+            <div className="btn-group btn-group-xs btn-group-vertical">
+              {i == 0 || totalRows == 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Move row up"
+                    onClick={e => this.move(e, 'up', i)}
+                  >
+                    <span className="glyphicon glyphicon-arrow-up" />
+                  </button>}
+              {i == totalRows - 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Move row down"
+                    onClick={e => this.move(e, 'down', i)}
+                  >
+                    <span className="glyphicon glyphicon-arrow-down" />
+                  </button>}
+              {totalRows == 1
+                ? null
+                : <button
+                    className="btn btn-default"
+                    title="Delete row"
+                    onClick={e => this.delete(e, i)}
+                  >
+                    <span className="glyphicon glyphicon-trash" />
+                  </button>}
+            </div>
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder={i < 3 ? placeholder[i][0].text : ''}
+              defaultValue={partialScore.valuedAspect}
+              className="form-control"
+              onChange={e => this.updateCell(i, 0, e)}
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder={i < 3 ? placeholder[i][1].value : ''}
+              defaultValue={partialScore.partialNote}
+              className="form-control"
+              onChange={e => this.updateCell(i, 1, e)}
+            />
+          </td>
+        </tr>
+      );
+    });
 
     return (
       <div>
@@ -189,7 +212,8 @@ export default class FichaDeReview extends React.Component {
                   placeholder="7,0"
                   defaultValue={this.state.totalScore}
                   maxLength="3"
-                  onChange={() => this.update({ totalScore: this.refs.field.value })}
+                  onChange={() =>
+                    this.update({ totalScore: this.refs.field.value })}
                   disabled={this.state.calculatePartial}
                 />
                 <input
@@ -204,7 +228,7 @@ export default class FichaDeReview extends React.Component {
             <table className="table-data">
               <tbody>
                 <tr>
-                  <th className="cell-empty"></th>
+                  <th className="cell-empty" />
                   <th>Valued aspect</th>
                   <th>Partial note</th>
                 </tr>
@@ -214,9 +238,19 @@ export default class FichaDeReview extends React.Component {
             <div className="table-add-more clearfix add-more-rows">
               <div className="form-group pull-left">
                 <label>Add more partial notes</label>
-                <input type="number" ref="addNotes" min="1" defaultValue="1" className="form-control input-sm" />
-                <button type="submit" className="btn btn-default  btn-sm" onClick={e => this.add(e)}>
-                  <span className="glyphicon glyphicon-plus"></span>
+                <input
+                  type="number"
+                  ref="addNotes"
+                  min="1"
+                  defaultValue="1"
+                  className="form-control input-sm"
+                />
+                <button
+                  type="submit"
+                  className="btn btn-default  btn-sm"
+                  onClick={e => this.add(e)}
+                >
+                  <span className="glyphicon glyphicon-plus" />
                 </button>
               </div>
             </div>
@@ -227,7 +261,8 @@ export default class FichaDeReview extends React.Component {
                 ref="positive"
                 className="form-control ficha-positive"
                 defaultValue={this.state.positive}
-                onChange={() => this.update({ positive: this.refs.positive.value })}
+                onChange={() =>
+                  this.update({ positive: this.refs.positive.value })}
               />
             </div>
             <div className="form-group">
@@ -236,7 +271,8 @@ export default class FichaDeReview extends React.Component {
                 ref="negative"
                 className="form-control ficha-negative"
                 defaultValue={this.state.negative}
-                onChange={() => this.update({ negative: this.refs.negative.value })}
+                onChange={() =>
+                  this.update({ negative: this.refs.negative.value })}
               />
             </div>
             <div className="form-group">
@@ -246,7 +282,8 @@ export default class FichaDeReview extends React.Component {
                 ref="summary"
                 className="form-control"
                 defaultValue={this.state.summary}
-                onChange={() => this.update({ summary: this.refs.summary.value })}
+                onChange={() =>
+                  this.update({ summary: this.refs.summary.value })}
               />
             </div>
           </div>

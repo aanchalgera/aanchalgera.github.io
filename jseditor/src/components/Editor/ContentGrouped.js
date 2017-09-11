@@ -1,24 +1,33 @@
+/* eslint-disable */
 import React from 'react';
 import Content from './Content';
 import PropertyButton from './PropertyButton';
 
-class ContentGrouped extends React.Component{
+class ContentGrouped extends React.Component {
   componentDidMount() {
-    var element = '#div-'+this.props.index;
-    document.querySelector(element).setAttribute('style',this.props.getStyleText(this.props.data));
-    document.querySelector(element).classList.add(this.props.data.backgroundClass);
+    var element = '#div-' + this.props.index;
+    document
+      .querySelector(element)
+      .setAttribute('style', this.props.getStyleText(this.props.data));
+    document
+      .querySelector(element)
+      .classList.add(this.props.data.backgroundClass);
   }
 
   componentDidUpdate() {
-    var element = '#div-'+this.props.index;
-    document.querySelector(element).setAttribute('style',this.props.getStyleText(this.props.data));
-    document.querySelector(element).classList.add(this.props.data.backgroundClass);
+    var element = '#div-' + this.props.index;
+    document
+      .querySelector(element)
+      .setAttribute('style', this.props.getStyleText(this.props.data));
+    document
+      .querySelector(element)
+      .classList.add(this.props.data.backgroundClass);
   }
 
-  render () {
+  render() {
     var groupedClass = 'conatiner-columns-' + this.props.data.length;
     var _this = this;
-    var {data, index, ...other} = this.props;
+    var { data, index, ...other } = this.props;
     var fields = data.columns.map(function(field, i) {
       var index = 'text-area' + field.id;
       return (
@@ -26,7 +35,7 @@ class ContentGrouped extends React.Component{
           <Content
             data={field}
             {...other}
-            grouped='true'
+            grouped="true"
             index={index}
             dataId={_this.props.dataId + '-' + i}
           />
@@ -34,21 +43,43 @@ class ContentGrouped extends React.Component{
       );
     });
 
-    var minimized = (this.props.orderMode && this.props.minimize) ? 'minimised' : '';
+    var minimized =
+      this.props.orderMode && this.props.minimize ? 'minimised' : '';
     return (
-      <div className={'container-ul-inner ' + groupedClass + ' '+minimized + ' ' + data.backgroundClass + ' ' + (this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')}
-       id={'div-' + index}
-       data-id={this.props.dataId}
-       key={data.key}
+      <div
+        className={
+          'container-ul-inner ' +
+          groupedClass +
+          ' ' +
+          minimized +
+          ' ' +
+          data.backgroundClass +
+          ' ' +
+          (this.props.data.backgroundFullscreen ? 'fullscreen-background' : '')
+        }
+        id={'div-' + index}
+        data-id={this.props.dataId}
+        key={data.key}
       >
-        <div className={(this.props.data.backgroundFade == true ? 'module-bg-fade ':'')}>
-          <div className={this.props.data.backgroundFade == true ? 'module-content' : ''}>
-          {fields}
-        </div></div>
+        <div
+          className={
+            this.props.data.backgroundFade == true ? 'module-bg-fade ' : ''
+          }
+        >
+          <div
+            className={
+              this.props.data.backgroundFade == true ? 'module-content' : ''
+            }
+          >
+            {fields}
+          </div>
+        </div>
         <PropertyButton
           align={data.align}
           layout={data.layout}
-          addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
+          addBackgroundOptionToResource={
+            this.props.addBackgroundOptionToResource
+          }
           openResourcePanel={this.props.openResourcePanel}
           deleteResource={this.props.deleteResource}
           data={data}
@@ -58,7 +89,9 @@ class ContentGrouped extends React.Component{
           groupSections={this.props.groupSections}
           ungroupSections={this.props.ungroupSections}
           updateResource={this.props.updateResource}
-          toggleSummarySocialShareButtons={this.props.toggleSummarySocialShareButtons}
+          toggleSummarySocialShareButtons={
+            this.props.toggleSummarySocialShareButtons
+          }
         />
       </div>
     );

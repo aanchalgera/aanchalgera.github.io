@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropertyButtonUngroup from './PropertyButtonUngroup';
 import PropertyButtonContent from './PropertyButtonContent';
@@ -17,7 +18,7 @@ class PropertyButton extends React.Component {
   }
 
   closeBox() {
-    this.setState({ box:'close' });
+    this.setState({ box: 'close' });
   }
 
   render() {
@@ -45,7 +46,7 @@ class PropertyButton extends React.Component {
           />
         );
         break;
-      case 'slider' :
+      case 'slider':
         autoPlaySliderButton = (
           <AutoplaySliderButton
             dataId={this.props.dataId}
@@ -62,8 +63,8 @@ class PropertyButton extends React.Component {
           />
         );
         break;
-      case 'image' :
-      case 'gallery' :
+      case 'image':
+      case 'gallery':
       case 'video':
       case 'summary':
       case 'title':
@@ -87,12 +88,27 @@ class PropertyButton extends React.Component {
         data={this.props.data}
         openResourcePanel={this.props.openResourcePanel}
         dataId={this.props.dataId}
-        toggleSummarySocialShareButtons={this.props.toggleSummarySocialShareButtons}
+        toggleSummarySocialShareButtons={
+          this.props.toggleSummarySocialShareButtons
+        }
       />
     );
 
-    var bgOptionsAllowedForGroupedTypes = { content: true, summary: true, richContent: true, fichaReview: true, ficha: true };
-    var showPropertiesBoxForGroupedTypes = { content: true, summary: true, richContent: true, slider: true, fichaReview: true, ficha: true };
+    var bgOptionsAllowedForGroupedTypes = {
+      content: true,
+      summary: true,
+      richContent: true,
+      fichaReview: true,
+      ficha: true
+    };
+    var showPropertiesBoxForGroupedTypes = {
+      content: true,
+      summary: true,
+      richContent: true,
+      slider: true,
+      fichaReview: true,
+      ficha: true
+    };
     if (this.props.grouped != 'true') {
       showPropertiesBox = true;
     } else if (showPropertiesBoxForGroupedTypes[this.props.data.type] == true) {
@@ -103,24 +119,36 @@ class PropertyButton extends React.Component {
 
     if ('title' != this.props.data.type) {
       deleteButton = (
-        <button onClick={this.props.deleteResource} className="btn btn-default btn-block btn-delete">
-          Delete Section <span type="button" className="glyphicon glyphicon-trash "></span>
+        <button
+          onClick={this.props.deleteResource}
+          className="btn btn-default btn-block btn-delete"
+        >
+          Delete Section{' '}
+          <span type="button" className="glyphicon glyphicon-trash " />
         </button>
       );
-
     }
     if ('table' == this.props.data.type) {
       tableProperties = (
         <PropertyButtonTable
           dataId={this.props.dataId}
           useEqualWidth={this.props.data.useEqualWidth}
-          updateResource={value => this.props.updateResource(this.props.dataId, { useEqualWidth: value })}
+          updateResource={value =>
+            this.props.updateResource(this.props.dataId, {
+              useEqualWidth: value
+            })}
         />
       );
     }
     var propertyButton = (
       <ul className="nav-pills2 js-nav-properties">
-        <li><button type="button" onClick={this.toggleBox.bind(this)} className={'btn btn-default glyphicon glyphicon-cog ' + selected}></button></li>
+        <li>
+          <button
+            type="button"
+            onClick={this.toggleBox.bind(this)}
+            className={'btn btn-default glyphicon glyphicon-cog ' + selected}
+          />
+        </li>
       </ul>
     );
     var cssClassButton = (
@@ -134,13 +162,23 @@ class PropertyButton extends React.Component {
     return (
       <ul>
         {showPropertiesBox == true ? propertyButton : ''}
-        <span className="properties-container js-properties-container" style={expandStyle} onMouseLeave={this.closeBox.bind(this)}>
-          {this.props.grouped != 'true' ? bgProperties : (bgOptionsAllowedForGroupedTypes[this.props.data.type] == true ? bgProperties : '')}
+        <span
+          className="properties-container js-properties-container"
+          style={expandStyle}
+          onMouseLeave={this.closeBox.bind(this)}
+        >
+          {this.props.grouped != 'true'
+            ? bgProperties
+            : bgOptionsAllowedForGroupedTypes[this.props.data.type] == true
+              ? bgProperties
+              : ''}
           {autoPlaySliderButton}
           {groupProperties}
           {this.props.grouped == 'true' ? '' : sizeProperties}
           {tableProperties}
-          {(this.props.grouped == 'true' || 'title'== this.props.data.type) ? '' : cssClassButton}
+          {this.props.grouped == 'true' || 'title' == this.props.data.type
+            ? ''
+            : cssClassButton}
           {this.props.grouped == 'true' ? '' : deleteButton}
         </span>
       </ul>

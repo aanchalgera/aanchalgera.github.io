@@ -7,7 +7,7 @@ export default function TopNavigation(props) {
   let updateButton = null,
     publishButton = null;
   if (
-    props.status == 'publish' &&
+    props.status === 'publish' &&
     moment(props.publishData.postDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())
   ) {
     updateButton = (
