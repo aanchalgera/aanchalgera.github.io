@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import moment from 'moment-timezone';
 import { TextField, RaisedButton } from 'material-ui';
@@ -6,24 +7,29 @@ import { Row, Col } from 'react-flexbox-grid';
 
 import configParams from '../../../config/configs';
 import Scheduler from './Scheduler';
+import { InputEvent } from './lib/flowTypes';
 
 moment.tz.setDefault(configParams.timezone);
 
 type Props = {
-  base: PropTypes.object.isRequired,
-  date: PropTypes.string
+  base: Object,
+  date: string,
+  updateParent: (data: Object) => void,
+  date: string
 };
 
 export class SchedulePost extends React.Component {
   state = {
-    schedulerOpened: false
+    schedulerOpened: false,
+    anchorEl: null
+  };
+  props: Props;
+
+  onChange = (e: InputEvent) => {
+    this.props.updateParent({ publishedDate: e.currentTarget.value.trim() });
   };
 
-  onChange = e => {
-    this.updateParent({ publishedDate: e.target.value.trim() });
-  };
-
-  onPickSlot = (x, y, e) => {
+  onPickSlot = (x: number, y: number, e: InputEvent) => {
     const currentTarget = e.currentTarget;
     if (['slot-current', 'slot-free'].includes(currentTarget.className)) {
       this.setState({
@@ -33,7 +39,7 @@ export class SchedulePost extends React.Component {
     }
   };
 
-  toggleScheduler = e => {
+  toggleScheduler = (e: InputEvent) => {
     this.setState({
       schedulerOpened: !this.state.schedulerOpened,
       anchorEl: e.currentTarget
@@ -58,8 +64,9 @@ export class SchedulePost extends React.Component {
           />
         </Col>
         <Scheduler
-          {...this.state}
           {...this.props}
+          schedulerOpened={this.state.schedulerOpened}
+          anchorEl={this.state.anchorEl}
           toggleScheduler={this.toggleScheduler}
           onPickSlot={this.onPickSlot}
         />
