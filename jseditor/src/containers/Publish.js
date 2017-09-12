@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Snackbar, Divider } from 'material-ui';
+import { Snackbar, Divider, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
 import {
@@ -35,7 +35,6 @@ import {
 
 moment.tz.setDefault(configParams.timezone);
 
-const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
 
@@ -86,9 +85,9 @@ class Publish extends React.Component {
     this.setState({ meta }, this.savePostData);
   };
 
-  onSchedule = date => {
+  onSchedule = () => {
     if (this.isValid()) {
-      return this.submitPost(date);
+      return this.submitPost();
     }
   };
 
@@ -105,10 +104,6 @@ class Publish extends React.Component {
     }
     return !isError;
   }
-
-  onInvalidDate = () => {
-    this.setMessage(true, VALID_DATE_WARNING);
-  };
 
   setMessage(isError, message) {
     let params = {
@@ -199,14 +194,19 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
         <Row>
-          <Col xs={6}>
+          <Col xs={5}>
             <SchedulePost
-              buttonDisabled={this.state.buttonDisabled}
               date={this.state.publishedDate}
               base={this.props.base}
-              onSchedule={this.onSchedule}
-              onInvalidDate={this.onInvalidDate}
               updateParent={this.updateParent}
+            />
+          </Col>
+          <Col xs={1}>
+            <RaisedButton
+              label="PROGRAMAR"
+              disabled={this.state.buttonDisabled}
+              onClick={this.onSchedule}
+              primary={true}
             />
           </Col>
           <Col xs={4} />

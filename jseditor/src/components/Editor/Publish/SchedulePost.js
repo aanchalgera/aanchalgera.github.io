@@ -9,16 +9,12 @@ import Scheduler from './Scheduler';
 
 moment.tz.setDefault(configParams.timezone);
 
+type Props = {
+  base: PropTypes.object.isRequired,
+  date: PropTypes.string
+};
+
 export class SchedulePost extends React.Component {
-  /*
-  static propTypes = {
-    base: PropTypes.object.isRequired,
-    onInvalidDate: PropTypes.func.isRequired,
-    onSchedule: PropTypes.func.isRequired,
-    value: PropTypes.string,
-    buttonDisabled: PropTypes.bool
-  };
-*/
   state = {
     schedulerOpened: false
   };
@@ -44,14 +40,6 @@ export class SchedulePost extends React.Component {
     });
   };
 
-  onSchedule() {
-    const date = moment(this.props.date, 'DD/MM/YYYY HH:mm', true);
-    if (!date.isValid() || date.isBefore(moment())) {
-      return this.props.onInvalidDate();
-    }
-    this.props.onSchedule(this.props.date);
-  }
-
   render() {
     return (
       <Row style={{ marginBottom: '0px' }}>
@@ -69,22 +57,11 @@ export class SchedulePost extends React.Component {
             onClick={this.toggleScheduler}
           />
         </Col>
-        <Col>
-          <RaisedButton
-            label="PROGRAMAR"
-            disabled={this.props.buttonDisabled}
-            onClick={this.onSchedule.bind(this)}
-            primary={true}
-          />
-        </Col>
-
         <Scheduler
-          schedulerOpened={this.state.schedulerOpened}
-          base={this.props.base}
-          anchorEl={this.state.anchorEl}
+          {...this.state}
+          {...this.props}
           toggleScheduler={this.toggleScheduler}
           onPickSlot={this.onPickSlot}
-          date={this.props.date}
         />
       </Row>
     );

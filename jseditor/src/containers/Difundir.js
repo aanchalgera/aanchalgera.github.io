@@ -17,7 +17,7 @@ import {
 import { toggleItem } from '../components/Editor/Publish/lib/publishHelpers';
 
 moment.tz.setDefault(configParams.timezone);
-const VALID_DATE_WARNING = 'Please select a valid date, future date';
+
 const POST_REPUBLISHED = 'Post successfully republished again';
 const ERROR = 'Something went wrong';
 const ALREADY_SCHEDULED = 'Post already scheduled to republish at ';
@@ -36,7 +36,7 @@ class Difundir extends React.Component {
     id: '',
     postId: '',
     postRepostBlogNames: [],
-    postDate: '',
+    publishedDate: moment().add(1, 'hours').format('DD/MM/YYYY HH:00'),
     publishRegion: [],
     snackbarOpen: false,
     snackbarMessage: ''
@@ -53,7 +53,6 @@ class Difundir extends React.Component {
           id: data.id,
           postRepostBlogNames: data.publishData.postRepostBlogNames || [],
           publishRegion: data.publishData.publishRegion || '',
-          postDate: data.publishData.postDate || '',
           postId: data.publishData.postId
         });
         this.props.handleDifundir(data.status);
@@ -70,9 +69,7 @@ class Difundir extends React.Component {
   submitRepostedBlogs = async () => {
     const publishData = {
       postRepostBlogNames: this.state.postRepostBlogNames,
-      publishRegion: this.state.publishRegion,
-      postDate: this.state.postDate,
-      postId: this.state.postId
+      publishRegion: this.state.publishRegion
     };
 
     const backendData = {
@@ -102,25 +99,25 @@ class Difundir extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  onRepublishSchedule = async (date: string) => {
+  onRepublishSchedule = async () => {
     try {
       const data = await republishSchedule(
         this.props.blogUrl,
         this.state.postId,
-        date
+        this.state.publishedDate
       );
       if ('already_scheduled' === data.status) {
         this.showSnackbarMsg(ALREADY_SCHEDULED + data.date);
       } else {
-        this.showSnackbarMsg(REPUBLISHED + date);
+        this.showSnackbarMsg(REPUBLISHED + this.state.publishedDate);
       }
     } catch (error) {
       this.showSnackbarMsg(ERROR);
     }
   };
 
-  onInvalidDate = () => {
-    this.showSnackbarMsg(VALID_DATE_WARNING);
+  updateParent = (data: Object) => {
+    this.setState(data);
   };
 
   onRepublishNow = async () => {
@@ -148,12 +145,19 @@ class Difundir extends React.Component {
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         <Row>
-          <Col xs={6}>
+          <Col xs={5}>
             <SchedulePost
-              value={moment().add(1, 'hours').format('DD/MM/YYYY HH:00')}
+              date={this.state.publishedDate}
               base={this.props.base}
               onSchedule={this.onRepublishSchedule}
-              onInvalidDate={this.onInvalidDate}
+              updateParent={this.updateParent}
+            />
+          </Col>
+          <Col xs={1}>
+            <RaisedButton
+              label="PROGRAMAR"
+              onClick={this.onRepublishSchedule}
+              primary={true}
             />
           </Col>
           <Col xs={4} />
