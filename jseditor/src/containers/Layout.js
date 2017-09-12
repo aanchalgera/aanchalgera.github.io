@@ -46,7 +46,6 @@ export default class Layout extends React.Component {
       if (data[0] != null) {
         this.setState({
           blogUrl: data[0].site_url,
-          userId: userId,
           postname: postname
         });
       } else {

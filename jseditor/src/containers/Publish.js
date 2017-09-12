@@ -287,7 +287,7 @@ class Publish extends React.Component {
           <Col xs>
             <AdvancedOptions
               blogUrl={this.props.blogUrl}
-              userId={this.props.userId}
+              userId={this.state.userId}
               setPostMeta={this.setPostMeta}
               updateParent={this.updateParent}
               postMeta={this.state.meta}
