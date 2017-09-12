@@ -44,7 +44,10 @@ export const loadStatefromData = (data: {}) => {
     specialPost: data.specialPost || false,
     tags: data.tags || [],
     otherCategories: data.otherCategories || [],
-    crop: data.crop || initialCrop
+    crop: data.crop || initialCrop,
+    customerName: data.customerName || '',
+    logo: data.logo || '',
+    urlTracker: data.urlTracker || ''
   };
 };
 
@@ -142,7 +145,10 @@ export const initialState = {
   allCategories: [],
   category: -1,
   tags: [],
-  otherCategories: []
+  otherCategories: [],
+  customerName: '',
+  logo: '',
+  urlTracker: ''
 };
 
 export const filterCategories = (data: {}) => {

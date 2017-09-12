@@ -6,17 +6,18 @@ import { Row, Col } from 'react-flexbox-grid';
 import {
   AdvancedOptions,
   Categories,
-  ImageCropper,
-  SchedulePost,
-  HomePage,
-  Seo,
-  Twitter,
-  Facebook,
   CountriesFormOptions,
-  Tags,
-  OtherCategories,
   DraftButton,
-  Label
+  Facebook,
+  ImageCropper,
+  HomePage,
+  Label,
+  OtherCategories,
+  SchedulePost,
+  Seo,
+  SponsoredContent,
+  Tags,
+  Twitter
 } from '../components/Editor/Publish/index';
 import configParams from '../config/configs.js';
 import {
@@ -32,6 +33,8 @@ import {
   filterCategories,
   validateState
 } from './lib/helpers.js';
+
+import { Check } from './lib/check';
 
 moment.tz.setDefault(configParams.timezone);
 
@@ -271,6 +274,18 @@ class Publish extends React.Component {
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
           />}
+        <Check
+          postType={this.state.postType}
+          userRole="editor"
+          component="SponsoredContent"
+        >
+          <SponsoredContent
+            customerName={this.state.customerName}
+            logo={this.state.logo}
+            urlTracker={this.state.urlTracker}
+            updateParent={this.updateParent}
+          />
+        </Check>
         <Row>
           <Col xs>
             <Seo

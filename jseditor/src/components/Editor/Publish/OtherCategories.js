@@ -19,7 +19,7 @@ export const OtherCategories = ({
 }: Props) => {
   return (
     <Select
-      placeholder="Otras Categorías..."
+      placeholder="Otras Categorías (opcional)"
       options={allCategories}
       onChange={input => {
         updateParent({ otherCategories: input });
