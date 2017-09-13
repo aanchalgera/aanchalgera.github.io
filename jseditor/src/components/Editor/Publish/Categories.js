@@ -22,7 +22,7 @@ export const Categories = ({
       placeholder="Categoria"
       options={allCategories}
       onChange={input => {
-        updateParent({ category: input ? input.id : -1 });
+        updateParent({ category: input ? input.id : null });
       }}
       value={category}
       valueKey={'id'}

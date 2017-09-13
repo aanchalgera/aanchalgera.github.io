@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ImageCaption from './ImageCaption';
 
@@ -9,27 +10,39 @@ export default class Giphy extends React.Component {
     }
   }
 
-  render () {
-    let giphy='';
-    var imageCaption = this.props.data.description != undefined ? this.props.data.description : '';
+  render() {
+    let giphy = '';
+    var imageCaption =
+      this.props.data.description != undefined
+        ? this.props.data.description
+        : '';
 
-    if('' == this.props.data.url || undefined == this.props.data.url || this.props.edit) {
+    if (
+      '' == this.props.data.url ||
+      undefined == this.props.data.url ||
+      this.props.edit
+    ) {
       giphy = (
         <input
           type="text"
           ref="field"
           className="form-control"
           defaultValue={this.props.data.url}
-          onBlur={() => this.props.updateResource(this.props.dataId, 'giphy', this.refs.field.value)}
-          placeholder="http://giphy.com/gifs/blackgirlmagic-3o72Fdwj7RQ4654q0E">
-        </input>
+          onBlur={() =>
+            this.props.updateResource(
+              this.props.dataId,
+              'giphy',
+              this.refs.field.value
+            )}
+          placeholder="http://giphy.com/gifs/blackgirlmagic-3o72Fdwj7RQ4654q0E"
+        />
       );
     } else {
       let giphyId = this.props.data.giphyId;
       giphy = (
         <img
           data-id={this.props.dataId}
-          src={'https://media.giphy.com/media/'+giphyId+'/giphy.gif'}
+          src={'https://media.giphy.com/media/' + giphyId + '/giphy.gif'}
         />
       );
     }

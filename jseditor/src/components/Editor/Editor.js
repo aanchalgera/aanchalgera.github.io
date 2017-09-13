@@ -726,7 +726,7 @@ class Editor extends React.Component {
         data: data,
         then() {
           let successField = document.getElementById('successField');
-          if (undefined != typeof successField) {
+          if (null != successField) {
             document.getElementById('successField').style.display = 'block';
             setTimeout(
               () =>

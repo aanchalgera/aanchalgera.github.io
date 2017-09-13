@@ -5,7 +5,16 @@ import TitleBar from '../components/Menu/TitleBar';
 import { customTheme } from '../components/styles/customTheme';
 import { getConfig, getUserDetails } from './lib/service';
 
+type Props = {
+  match: { params: Object },
+  location: { search: string, pathname: string },
+  history: Object,
+  component: React$Component<any>,
+  base: Object
+};
+
 export default class Layout extends React.Component {
+  props: Props;
   state = {
     blogUrl: null,
     showDifundir: false
@@ -15,7 +24,7 @@ export default class Layout extends React.Component {
     this.init();
   }
 
-  validateUserId(userId, history) {
+  validateUserId(userId: string, history: Object) {
     let regEx = /\D/;
     if (regEx.test(userId)) {
       history.push('/invalidUser');
@@ -49,7 +58,7 @@ export default class Layout extends React.Component {
     }
   };
 
-  handleDifundir = status => {
+  handleDifundir = (status: string) => {
     this.setState({ showDifundir: status === 'publish' || false });
   };
 
@@ -64,6 +73,8 @@ export default class Layout extends React.Component {
         activeTab={matches[1]}
         queryPath={search}
         showDifundir={this.state.showDifundir}
+        history={this.props.history}
+        blogName={this.state.blogName}
       />
     );
   };

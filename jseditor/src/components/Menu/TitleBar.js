@@ -1,9 +1,8 @@
 import React from 'react';
-import { AppBar, IconButton, FlatButton } from 'material-ui';
+import { IconButton, FlatButton } from 'material-ui';
+import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { Row, Col } from 'react-flexbox-grid';
 import Visibility from 'material-ui/svg-icons/action/visibility';
-import { Link } from 'react-router-dom';
 
 const styles = {
   previewButton: {
@@ -11,46 +10,40 @@ const styles = {
   },
   publishButton: {
     marginTop: '16px'
+  },
+  title: {
+    color: 'white',
+    textTransform: 'capitalize'
+  },
+  tabs: {
+    width: '500px'
   }
 };
 
-const TitleBar = ({ postName, blogUrl, queryPath, activeTab, showDifundir }) =>
-  <view>
-    <Row>
-      <Col xs={12}>
-        <AppBar
-          title={
-            <Row bottom="xs">
-              <Col xs={5}>Xataka</Col>
-              <Col xs={3}>
-                <Tabs value={activeTab}>
-                  <Tab
-                    label="ESCRIBIR"
-                    value="escribir"
-                    containerElement={
-                      <Link to={`/edit/post/${postName}${queryPath}`} />
-                    }
-                  />
-                  <Tab
-                    label="PUBLICAR"
-                    value="publicar"
-                    containerElement={
-                      <Link to={`/publicar/${postName}${queryPath}`} />
-                    }
-                  />
-                  {showDifundir &&
-                    <Tab
-                      label="DIFUNDIR"
-                      value="difundir"
-                      containerElement={
-                        <Link to={`/difundir/${postName}${queryPath}`} />
-                      }
-                    />}
-                </Tabs>
-              </Col>
-            </Row>
-          }
-        >
+export default class TitleBar extends React.Component {
+  handleChange = route => {
+    const { history, postName, queryPath } = this.props;
+    const url = 'escribir' === route ? 'edit/post' : route;
+    history.push(`/${url}/${postName}${queryPath}`);
+  };
+
+  render() {
+    const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
+    return (
+      <Toolbar>
+        <ToolbarTitle text={blogName} style={styles.title} />
+        <ToolbarGroup>
+          <Tabs
+            value={activeTab}
+            onChange={this.handleChange}
+            style={styles.tabs}
+          >
+            <Tab label="ESCRIBIR" value="escribir" />
+            <Tab label="PUBLICAR" value="publicar" />
+            {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
+          </Tabs>
+        </ToolbarGroup>
+        <ToolbarGroup>
           <FlatButton label="Publicado" style={styles.publishButton} />
           <IconButton
             target="_blank"
@@ -60,9 +53,8 @@ const TitleBar = ({ postName, blogUrl, queryPath, activeTab, showDifundir }) =>
           >
             <Visibility />
           </IconButton>
-        </AppBar>
-      </Col>
-    </Row>
-  </view>;
-
-export default TitleBar;
+        </ToolbarGroup>
+      </Toolbar>
+    );
+  }
+}

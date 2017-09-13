@@ -1,28 +1,31 @@
+/* eslint-disable */
 import React from 'react';
 import Thumbnail from './Thumbnail';
 import AddAltText from './AddAltText';
 
 class ResourcePanel extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       imageList: [],
       resourcePanelSelectedImages: []
     };
-    this.addResourcePanelSelectedImages = this.addResourcePanelSelectedImages.bind(this);
+    this.addResourcePanelSelectedImages = this.addResourcePanelSelectedImages.bind(
+      this
+    );
     this.closePanel = this.closePanel.bind(this);
     this.addImagesToAltPanel = this.addImagesToAltPanel.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     if (nextProps.images.length > 0) {
-      this.setState({imageList: nextProps.images});
+      this.setState({ imageList: nextProps.images });
     }
   }
 
   addResourcePanelSelectedImages(images, e) {
     e.preventDefault();
-    this.setState({resourcePanelSelectedImages: images });
+    this.setState({ resourcePanelSelectedImages: images });
   }
 
   closePanel(event) {
@@ -38,7 +41,9 @@ class ResourcePanel extends React.Component {
   }
 
   addImagesToAltPanel() {
-    var selectedImages = this.refs.resourcePanel.querySelectorAll('#imageList img.active');
+    var selectedImages = this.refs.resourcePanel.querySelectorAll(
+      '#imageList img.active'
+    );
     if (selectedImages.length == 0) {
       return;
     }
@@ -47,9 +52,9 @@ class ResourcePanel extends React.Component {
       images.push(JSON.parse(selectedImages[i].dataset.image));
       selectedImages[i].className = '';
     }
-    this.setState({resourcePanelSelectedImages: images });
+    this.setState({ resourcePanelSelectedImages: images });
   }
-  render () {
+  render() {
     var showGalleryButton = '';
     if ('gallery' == this.props.addImageModule) {
       showGalleryButton = (
@@ -108,24 +113,48 @@ class ResourcePanel extends React.Component {
     }
     return (
       <div>
-        <div className="modal fade" ref="resourcePanel" id="resourcePanel" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" style={{display: 'none'}}>
+        <div
+          className="modal fade"
+          ref="resourcePanel"
+          id="resourcePanel"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          style={{ display: 'none' }}
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" id="closePanel" onClick={this.closePanel} className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 className="modal-title" id="myModalLabel">Resources</h4>
+                <button
+                  type="button"
+                  id="closePanel"
+                  onClick={this.closePanel}
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 className="modal-title" id="myModalLabel">
+                  Resources
+                </h4>
               </div>
               <div className="modal-body">
-               <div className="resources-panel-images">
-                 <ul ref="imageList" id="imageList">{images}</ul>
-               </div>
+                <div className="resources-panel-images">
+                  <ul ref="imageList" id="imageList">
+                    {images}
+                  </ul>
+                </div>
               </div>
               <div className="modal-footer">
                 <button
                   type="button"
                   className="btn btn-primary"
                   disabled={!this.props.slug}
-                  onClick={this.props.handleClick}>Upload Images</button>
+                  onClick={this.props.handleClick}
+                >
+                  Upload Images
+                </button>
                 {showGalleryButton}
                 {showSliderButton}
               </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Snackbar, Divider } from 'material-ui';
+import { Snackbar, Divider, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
 import {
@@ -38,9 +38,10 @@ import { Check } from './lib/check';
 
 moment.tz.setDefault(configParams.timezone);
 
-const VALID_DATE_WARNING = 'Please select a valid future date';
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
+const DRAFT_MESSAGE = 'Post unpublished';
+const UPDATED_MESSAGE = 'Post is updated';
 
 class Publish extends React.Component {
   state = initialState;
@@ -59,8 +60,9 @@ class Publish extends React.Component {
     });
   }
 
-  submitPost(date, postSchedule) {
-    submitPostToBackend(this.state, date, this.props.blogUrl)
+  submitPost = () => {
+    let date = this.state.publishedDate;
+    submitPostToBackend(this.state, this.props.blogUrl)
       .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
         if (result.id !== undefined) {
@@ -78,11 +80,10 @@ class Publish extends React.Component {
           );
           this.props.handleDifundir('publish');
         }
-        savePostsList(this.state, this.props.base, this.blogName);
+        savePostsList(this.state, this.props.base, this.props.blogName);
         this.enableButton();
-      })
-      .always(postSchedule);
-  }
+      });
+  };
 
   setPostMeta = (key, value) => {
     let meta = this.state.meta;
@@ -90,11 +91,10 @@ class Publish extends React.Component {
     this.setState({ meta }, this.savePostData);
   };
 
-  onSchedule = (date, postSchedule) => {
+  onSchedule = () => {
     if (this.isValid()) {
-      return this.submitPost(date, postSchedule);
+      return this.submitPost();
     }
-    postSchedule();
   };
 
   enableButton() {
@@ -105,13 +105,11 @@ class Publish extends React.Component {
 
   isValid() {
     const { isError, message } = validateState(this.state);
-    this.setMessage(isError, message);
+    if (isError) {
+      this.setMessage(isError, message);
+    }
     return !isError;
   }
-
-  onInvalidDate = () => {
-    this.setMessage(true, VALID_DATE_WARNING);
-  };
 
   setMessage(isError, message) {
     let params = {
@@ -125,9 +123,7 @@ class Publish extends React.Component {
   }
 
   handleRequestClose = () => {
-    this.setState({
-      snackbarOpen: false
-    });
+    this.setState({ snackbarOpen: false });
   };
 
   updateParent = data => {
@@ -183,12 +179,29 @@ class Publish extends React.Component {
     this.setState({ allCategories: updatedCategories });
   };
 
-  handleStatusUpdate = () => {
-    submitPostToBackend(this.state, this.state.date, this.props.blogUrl)
-      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
-      .then(() => {
-        savePostsList(this.state, this.props.base, this.blogName);
+  handleStatusUpdate = async () => {
+    try {
+      await submitPostToBackend(this.state, this.props.blogUrl);
+      this.setState({
+        snackbarOpen: true,
+        SnackbarMessage: DRAFT_MESSAGE
       });
+      savePostsList(this.state, this.props.base, this.props.blogName);
+    } catch (err) {
+      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    }
+  };
+
+  handleUpdate = async () => {
+    try {
+      await submitPostToBackend(this.state, this.props.blogUrl);
+      this.setState({
+        snackbarOpen: true,
+        SnackbarMessage: UPDATED_MESSAGE
+      });
+    } catch (err) {
+      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    }
   };
 
   render() {
@@ -207,16 +220,29 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
         <Row>
-          <Col xs={6}>
+          <Col xs={5}>
             <SchedulePost
-              buttonDisabled={this.state.buttonDisabled}
-              value={this.state.publishedDate}
+              date={this.state.publishedDate}
               base={this.props.base}
-              onSchedule={this.onSchedule}
-              onInvalidDate={this.onInvalidDate}
+              updateParent={this.updateParent}
             />
           </Col>
-          <Col xs={4} />
+          <Col xs={2}>
+            {this.state.status === 'draft'
+              ? <RaisedButton
+                  label="PROGRAMAR"
+                  disabled={this.state.buttonDisabled}
+                  onTouchTap={this.onSchedule}
+                  primary={true}
+                />
+              : <RaisedButton
+                  label="GUARDAR CAMBIOS"
+                  secondary={true}
+                  disabled={this.state.buttonDisabled}
+                  onTouchTap={this.handleUpdate}
+                />}
+          </Col>
+          <Col xs={3} />
           <Col xs={2}>
             <DraftButton
               status={this.state.status}
@@ -300,7 +326,7 @@ class Publish extends React.Component {
           <Col xs>
             <AdvancedOptions
               blogUrl={this.props.blogUrl}
-              userId={this.props.userId}
+              userId={this.state.userId}
               setPostMeta={this.setPostMeta}
               updateParent={this.updateParent}
               postMeta={this.state.meta}

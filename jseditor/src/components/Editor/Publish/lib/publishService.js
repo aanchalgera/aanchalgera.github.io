@@ -20,3 +20,14 @@ export const loadTags = async (blogUrl, input) => {
   let tags = response.json();
   return tags;
 };
+
+export const getScheduledPosts = async base => {
+  return await base.fetch('posts', {
+    context: this,
+    asArray: true,
+    queries: {
+      orderByChild: 'status',
+      equalTo: 'publish'
+    }
+  });
+};
