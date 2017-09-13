@@ -16,7 +16,7 @@ const isViewPermitted = (
   if ('ROLE_ADMINISTRATOR' === userRole) {
     return true;
   }
-  let componentViewPermissions = viewPermissions[component];
+  const componentViewPermissions = viewPermissions[component];
 
   if (
     componentViewPermissions['roles'].includes(userRole) &&
@@ -28,7 +28,7 @@ const isViewPermitted = (
 };
 
 export const Check = (props: PropTypes) => {
-  let component = props.children.type.name;
+  const component = props.children.type.name;
   if (isViewPermitted(props.userRole, component, props.postType)) {
     return props.children;
   }
