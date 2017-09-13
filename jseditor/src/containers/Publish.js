@@ -40,6 +40,8 @@ moment.tz.setDefault(configParams.timezone);
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
+const DRAFT_MESSAGE = 'Post unpublished';
+const UPDATED_MESSAGE = 'Post is updated';
 
 class Publish extends React.Component {
   state = initialState;
@@ -58,9 +60,9 @@ class Publish extends React.Component {
     });
   }
 
-  submitPost() {
-    let date = this.state.date;
-    submitPostToBackend(this.state, date, this.props.blogUrl)
+  submitPost = () => {
+    let date = this.state.publishedDate;
+    submitPostToBackend(this.state, this.props.blogUrl)
       .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
         if (result.id !== undefined) {
@@ -78,10 +80,10 @@ class Publish extends React.Component {
           );
           this.props.handleDifundir('publish');
         }
-        savePostsList(this.state, this.props.base, this.blogName);
+        savePostsList(this.state, this.props.base, this.props.blogName);
         this.enableButton();
       });
-  }
+  };
 
   setPostMeta = (key, value) => {
     let meta = this.state.meta;
@@ -177,12 +179,29 @@ class Publish extends React.Component {
     this.setState({ allCategories: updatedCategories });
   };
 
-  handleStatusUpdate = () => {
-    submitPostToBackend(this.state, this.state.date, this.props.blogUrl)
-      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
-      .then(() => {
-        savePostsList(this.state, this.props.base, this.blogName);
+  handleStatusUpdate = async () => {
+    try {
+      await submitPostToBackend(this.state, this.props.blogUrl);
+      this.setState({
+        snackbarOpen: true,
+        SnackbarMessage: DRAFT_MESSAGE
       });
+      savePostsList(this.state, this.props.base, this.props.blogName);
+    } catch (err) {
+      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    }
+  };
+
+  handleUpdate = async () => {
+    try {
+      await submitPostToBackend(this.state, this.props.blogUrl);
+      this.setState({
+        snackbarOpen: true,
+        SnackbarMessage: UPDATED_MESSAGE
+      });
+    } catch (err) {
+      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    }
   };
 
   render() {
@@ -205,15 +224,22 @@ class Publish extends React.Component {
               updateParent={this.updateParent}
             />
           </Col>
-          <Col xs={1}>
-            <RaisedButton
-              label="PROGRAMAR"
-              disabled={this.state.buttonDisabled}
-              onClick={this.onSchedule}
-              primary={true}
-            />
+          <Col xs={2}>
+            {this.state.status === 'draft'
+              ? <RaisedButton
+                  label="PROGRAMAR"
+                  disabled={this.state.buttonDisabled}
+                  onTouchTap={this.onSchedule}
+                  primary={true}
+                />
+              : <RaisedButton
+                  label="GUARDAR CAMBIOS"
+                  secondary={true}
+                  disabled={this.state.buttonDisabled}
+                  onTouchTap={this.handleUpdate}
+                />}
           </Col>
-          <Col xs={4} />
+          <Col xs={3} />
           <Col xs={2}>
             <DraftButton
               status={this.state.status}

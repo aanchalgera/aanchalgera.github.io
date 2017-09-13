@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Popover from 'material-ui/Popover';
 import moment from 'moment-timezone';
@@ -13,6 +14,18 @@ import {
 
 import { getScheduledPosts } from './lib/publishService';
 import configParams from '../../../config/configs.js';
+import { InputEvent } from './lib/flowTypes';
+
+type Props = {
+  base: Object,
+  date: string,
+  updateParent: (data: Object) => void,
+  date: string,
+  schedulerOpened: boolean,
+  anchorEl: ?Object,
+  toggleScheduler: (e: InputEvent) => void,
+  onPickSlot: (x: number, y: number, e: InputEvent) => void
+};
 
 moment.tz.setDefault(configParams.timezone);
 moment().locale('es', localization);
@@ -30,8 +43,10 @@ const currentMonth = moment().format('MMMM');
 
 export default class Scheduler extends React.Component {
   state = {
-    scheduledPosts: []
+    scheduledPosts: {}
   };
+  props: Props;
+  tablehead = null;
 
   componentWillMount() {
     this.init();

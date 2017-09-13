@@ -38,15 +38,16 @@ export default class Layout extends React.Component {
       history
     } = this.props;
     const query = new URLSearchParams(search);
-    this.blogName = query.get('blog');
+    const blogName = query.get('blog');
     const userId = query.get('userid');
     this.validateUserId(userId, history);
 
-    getConfig(this.blogName, this.props.base).then(data => {
+    getConfig(blogName, this.props.base).then(data => {
       if (data[0] != null) {
         this.setState({
           blogUrl: data[0].site_url,
-          postname: postname
+          postname: postname,
+          blogName: blogName
         });
       } else {
         history.replace('/invalidBlog');
@@ -70,7 +71,7 @@ export default class Layout extends React.Component {
         queryPath={search}
         showDifundir={this.state.showDifundir}
         history={this.props.history}
-        blogName={this.blogName}
+        blogName={this.state.blogName}
       />
     );
   };

@@ -76,7 +76,7 @@ export const savePostsList = (state, base, blogName) => {
   });
 };
 
-export const submitPostToBackend = (state, date, blogUrl) => {
+export const submitPostToBackend = (state, blogUrl) => {
   let publishRegion = state.publishRegion;
   let postRepostBlogNames = state.postRepostBlogNames;
   let backendData = {
@@ -91,7 +91,7 @@ export const submitPostToBackend = (state, date, blogUrl) => {
     post_visibility: 0,
     posts_galleries: '',
     post_subtype: 13,
-    postDate: date,
+    postDate: state.publishedDate,
     'publish-region': publishRegion,
     postRepostBlogNames: postRepostBlogNames,
     firebase_id: state.id,
