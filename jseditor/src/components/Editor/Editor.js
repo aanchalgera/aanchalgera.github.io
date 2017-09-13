@@ -119,7 +119,7 @@ class Editor extends React.Component {
                 this.setState({
                   blogName: this.blogName,
                   blogUrl: siteUrl,
-                  userRole: data.roles[0]
+                  userRole: data.role
                 });
               });
           } else {

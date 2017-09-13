@@ -192,6 +192,9 @@ class Publish extends React.Component {
   };
 
   render() {
+    if ('' === this.state.postType) {
+      return <div>Loading...</div>;
+    }
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -273,7 +276,7 @@ class Publish extends React.Component {
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
           />}
-        <Check userRoles={this.props.userRoles}>
+        <Check userRole={this.props.userRole} postType={this.state.postType}>
           <SponsoredContent
             customerName={this.state.customerName}
             logo={this.state.logo}

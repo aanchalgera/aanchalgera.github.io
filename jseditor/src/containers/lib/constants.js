@@ -1,14 +1,6 @@
-export const roleBasedPermissions = {
-  ROLE_COLLABORATOR: {
-    SponsoredContent: false
-  },
-  ROLE_CORDINATOR: {
-    SponsoredContent: true
-  },
-  ROLE_EDITOR: {
-    SponsoredContent: true
-  },
-  ROLE_ADMINISTRATOR: {
-    SponsoredContent: true
+export const viewPermissions = {
+  SponsoredContent: {
+    roles: ['ROLE_BRANDED_COORDINATOR'],
+    types: ['club']
   }
 };

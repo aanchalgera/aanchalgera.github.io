@@ -42,7 +42,7 @@ export default class Layout extends React.Component {
         blogUrl: blogUrl,
         userId: userId,
         postname: postname,
-        userRoles: userDetails['roles']
+        userRole: userDetails['role']
       });
     } else {
       history.replace('/invalidBlog');
