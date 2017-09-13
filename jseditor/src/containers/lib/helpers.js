@@ -39,7 +39,7 @@ export const loadStatefromData = (data: {}) => {
     postHash: idx(data, _ => _.publishData.postHash) || '',
     buttonDisabled: false,
     userId: data.user_id,
-    category: data.category || -1,
+    category: data.category || null,
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
