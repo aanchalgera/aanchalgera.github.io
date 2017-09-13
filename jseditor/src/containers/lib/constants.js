@@ -1,26 +1,14 @@
 export const roleBasedPermissions = {
-  collaborator: {
+  ROLE_COLLABORATOR: {
     SponsoredContent: false
   },
-  coordinator: {
+  ROLE_CORDINATOR: {
     SponsoredContent: true
   },
-  editor: {
-    SponsoredContent: true
-  }
-};
-
-export const typeBasedPermissions = {
-  club: {
+  ROLE_EDITOR: {
     SponsoredContent: true
   },
-  slideshow: {
-    SponsoredContent: false
-  },
-  normal: {
-    SponsoredContent: false
-  },
-  basic: {
-    SponsoredContent: false
+  ROLE_ADMINISTRATOR: {
+    SponsoredContent: true
   }
 };

@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import TitleBar from '../components/Menu/TitleBar';
 import { customTheme } from '../components/styles/customTheme';
-import { getConfig } from './lib/service';
+import { getConfig, getUserDetails } from './lib/service';
 
 export default class Layout extends React.Component {
   state = {
@@ -22,7 +22,7 @@ export default class Layout extends React.Component {
     }
   }
 
-  init = () => {
+  init = async () => {
     const {
       match: { params: { postname } },
       location: { search },
@@ -33,17 +33,20 @@ export default class Layout extends React.Component {
     const userId = query.get('userid');
     this.validateUserId(userId, history);
 
-    getConfig(blogName, this.props.base).then(data => {
-      if (data[0] != null) {
-        this.setState({
-          blogUrl: data[0].site_url,
-          userId: userId,
-          postname: postname
-        });
-      } else {
-        history.replace('/invalidBlog');
-      }
-    });
+    const data = await getConfig(blogName, this.props.base);
+
+    if (data[0] != null) {
+      const blogUrl = data[0].site_url;
+      const userDetails = await getUserDetails(blogUrl, userId);
+      this.setState({
+        blogUrl: blogUrl,
+        userId: userId,
+        postname: postname,
+        userRoles: userDetails['roles']
+      });
+    } else {
+      history.replace('/invalidBlog');
+    }
   };
 
   handleDifundir = status => {

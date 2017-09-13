@@ -246,7 +246,6 @@ class Publish extends React.Component {
           </Col>
         </Row>
         <Label label="Portada y redes sociales" />
-        <Divider />
         <Row>
           <Col xs={6}>
             <HomePage
@@ -274,11 +273,7 @@ class Publish extends React.Component {
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
           />}
-        <Check
-          postType={this.state.postType}
-          userRole="editor"
-          component="SponsoredContent"
-        >
+        <Check userRoles={this.props.userRoles}>
           <SponsoredContent
             customerName={this.state.customerName}
             logo={this.state.logo}
