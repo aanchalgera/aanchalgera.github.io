@@ -8,11 +8,6 @@ type PropTypes = {
   userRoles: []
 };
 
-type Category = {
-  id: number,
-  label: string
-};
-
 const isViewPermitted = (userRoles: [], component: string): boolean => {
   let isPermitted = userRoles.some(role => {
     let permissions = roleBasedPermissions[role];
