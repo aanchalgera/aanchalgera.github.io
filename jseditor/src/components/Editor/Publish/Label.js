@@ -9,14 +9,13 @@ type Props = {
 
 export const Label = (props: Props) => {
   return (
-    <div>
+    <div className="u-h-separator">
       <h2 className="type-title-dark">
         {props.label}
         <small className="caption-default">
           {props.hint}
         </small>
       </h2>
-      <Divider />
     </div>
   );
 };

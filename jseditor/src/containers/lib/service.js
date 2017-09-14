@@ -168,3 +168,11 @@ export const republishSchedule = async (blogUrl, postId, date) => {
     crossDomain: true
   });
 };
+
+export const getUserDetails = async (blogUrl, userId) => {
+  const response = await isoFetch(`${blogUrl}/admin/users/${userId}.json`, {
+    credentials: 'include'
+  });
+  const userDetails = response.json();
+  return userDetails;
+};

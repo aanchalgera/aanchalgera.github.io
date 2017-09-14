@@ -1,23 +1,26 @@
 /*@flow*/
 import { Component } from 'react';
 
-import { roleBasedPermissions, typeBasedPermissions } from './constants';
+import { viewPermissions } from './constants';
 
 type PropTypes = {
-  postType: string,
-  component: string,
-  userRole: string,
-  children: {}
+  children: Object,
+  userRoles: string
 };
 
 const isViewPermitted = (
   userRole: string,
-  postType: string,
-  component: string
+  component: string,
+  postType: string
 ): boolean => {
+  if ('ROLE_ADMINISTRATOR' === userRole) {
+    return true;
+  }
+  const componentViewPermissions = viewPermissions[component];
+
   if (
-    roleBasedPermissions[userRole][component] &&
-    typeBasedPermissions[postType][component]
+    componentViewPermissions['roles'].includes(userRole) &&
+    componentViewPermissions['types'].includes(postType)
   ) {
     return true;
   }
@@ -25,10 +28,8 @@ const isViewPermitted = (
 };
 
 export const Check = (props: PropTypes) => {
-  if (
-    '' !== props.postType &&
-    isViewPermitted(props.userRole, props.postType, props.component)
-  ) {
+  const component = props.children.type.name;
+  if (isViewPermitted(props.userRole, component, props.postType)) {
     return props.children;
   }
   return null;
