@@ -39,9 +39,9 @@ import { Check } from './lib/check';
 moment.tz.setDefault(configParams.timezone);
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
-const SAVED_MESSAGE = 'Changes has been saved. Post scheduled for ';
-const DRAFT_MESSAGE = 'Post unpublished';
-const UPDATED_MESSAGE = 'Post is updated';
+const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
+const DRAFT_MESSAGE = 'El post se ha pasado a borrador correctamente';
+const UPDATED_MESSAGE = 'Guardado correctamente';
 
 class Publish extends React.Component {
   state = initialState;
@@ -193,14 +193,16 @@ class Publish extends React.Component {
   };
 
   handleUpdate = async () => {
-    try {
-      await submitPostToBackend(this.state, this.props.blogUrl);
-      this.setState({
-        snackbarOpen: true,
-        SnackbarMessage: UPDATED_MESSAGE
-      });
-    } catch (err) {
-      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    if (this.isValid()) {
+      try {
+        await submitPostToBackend(this.state, this.props.blogUrl);
+        this.setState({
+          snackbarOpen: true,
+          SnackbarMessage: UPDATED_MESSAGE
+        });
+      } catch (err) {
+        this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+      }
     }
   };
 
@@ -220,11 +222,12 @@ class Publish extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
         <Row>
-          <Col xs={5}>
+          <Col xs={4}>
             <SchedulePost
               date={this.state.publishedDate}
               base={this.props.base}
               updateParent={this.updateParent}
+              showCalendar={this.state.status !== 'publish'}
             />
           </Col>
           <Col xs={2}>
@@ -242,7 +245,7 @@ class Publish extends React.Component {
                   onTouchTap={this.handleUpdate}
                 />}
           </Col>
-          <Col xs={3} />
+          <Col xs={4} />
           <Col xs={2}>
             <DraftButton
               status={this.state.status}

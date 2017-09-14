@@ -44,17 +44,12 @@ class Main extends React.Component {
 
     return (
       <div className="main-container">
-        <link rel="stylesheet" href="/css/simplemde.min.css" />
         <link
           rel="stylesheet"
           type="text/css"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
         />
         <link rel="stylesheet" type="text/css" href="/css/custom.css" />
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-        />
         <TopBar />
         <div className="col-sm-12 main">
           <div className="container-fluid">
