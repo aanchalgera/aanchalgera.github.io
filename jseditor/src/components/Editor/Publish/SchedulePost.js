@@ -15,6 +15,7 @@ type Props = {
   base: Object,
   date: string,
   updateParent: (data: Object) => void,
+  showCalendar?: boolean,
   date: string
 };
 
@@ -22,6 +23,9 @@ export class SchedulePost extends React.Component {
   state = {
     schedulerOpened: false,
     anchorEl: null
+  };
+  static defaultProps = {
+    showCalendar: true
   };
   props: Props;
 
@@ -56,13 +60,14 @@ export class SchedulePost extends React.Component {
             onChange={this.onChange}
           />
         </Col>
-        <Col xs>
-          <RaisedButton
-            label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
-            icon={<Apps />}
-            onClick={this.toggleScheduler}
-          />
-        </Col>
+        {this.props.showCalendar &&
+          <Col xs>
+            <RaisedButton
+              label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
+              icon={<Apps />}
+              onClick={this.toggleScheduler}
+            />
+          </Col>}
         <Scheduler
           {...this.props}
           schedulerOpened={this.state.schedulerOpened}

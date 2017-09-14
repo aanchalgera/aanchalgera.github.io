@@ -5,8 +5,7 @@ import Divider from 'material-ui/Divider';
 
 type Props = {
   homepage: Object,
-  updateHomepageContent: Function,
-  dataId?: number
+  updateHomepageContent: Function
 };
 
 class Homepage extends React.Component {
@@ -24,11 +23,8 @@ class Homepage extends React.Component {
         <DraftJSEditor
           ref="homepageContent"
           value={this.props.homepage.content}
-          updateResource={(id, type, value) =>
-            this.props.updateHomepageContent(value)}
-          dataId={this.props.dataId}
+          updateResource={this.props.updateHomepageContent}
         />
-        <Divider />
       </div>
     );
   }
