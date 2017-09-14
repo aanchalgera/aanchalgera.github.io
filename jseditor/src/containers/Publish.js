@@ -221,39 +221,45 @@ class Publish extends React.Component {
           autoHideDuration={5000}
           onRequestClose={this.handleRequestClose}
         />
-        <Row>
-          <Col xs={4}>
-            <SchedulePost
-              date={this.state.publishedDate}
-              base={this.props.base}
-              updateParent={this.updateParent}
-              showCalendar={this.state.status !== 'publish'}
-            />
-          </Col>
-          <Col xs={2}>
-            {this.state.status === 'draft'
-              ? <RaisedButton
-                  label="PROGRAMAR"
-                  disabled={this.state.buttonDisabled}
-                  onTouchTap={this.onSchedule}
-                  primary={true}
-                />
-              : <RaisedButton
-                  label="GUARDAR CAMBIOS"
-                  secondary={true}
-                  disabled={this.state.buttonDisabled}
-                  onTouchTap={this.handleUpdate}
-                />}
-          </Col>
-          <Col xs={4} />
-          <Col xs={2}>
-            <DraftButton
-              status={this.state.status}
-              updateParent={this.updateParent}
-              handleStatusUpdate={this.handleStatusUpdate}
-            />
-          </Col>
-        </Row>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.state.postType}
+          childName="PostScheduler"
+        >
+          <Row>
+            <Col xs={4}>
+              <SchedulePost
+                date={this.state.publishedDate}
+                base={this.props.base}
+                updateParent={this.updateParent}
+                showCalendar={this.state.status !== 'publish'}
+              />
+            </Col>
+            <Col xs={2}>
+              {this.state.status === 'draft'
+                ? <RaisedButton
+                    label="PROGRAMAR"
+                    disabled={this.state.buttonDisabled}
+                    onTouchTap={this.onSchedule}
+                    primary={true}
+                  />
+                : <RaisedButton
+                    label="GUARDAR CAMBIOS"
+                    secondary={true}
+                    disabled={this.state.buttonDisabled}
+                    onTouchTap={this.handleUpdate}
+                  />}
+            </Col>
+            <Col xs={4} />
+            <Col xs={2}>
+              <DraftButton
+                status={this.state.status}
+                updateParent={this.updateParent}
+                handleStatusUpdate={this.handleStatusUpdate}
+              />
+            </Col>
+          </Row>
+        </Check>
         <Row>
           <Col xs={3}>
             <Categories
@@ -305,7 +311,11 @@ class Publish extends React.Component {
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
           />}
-        <Check userRole={this.props.userRole} postType={this.state.postType}>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.state.postType}
+          childName="SponsoredContent"
+        >
           <SponsoredContent
             customerName={this.state.customerName}
             logo={this.state.logo}
@@ -321,21 +331,33 @@ class Publish extends React.Component {
             />
           </Col>
           <Col xs>
-            <CountriesFormOptions
-              updateParent={this.updateParent}
-              publishRegions={this.state.publishRegion}
-            />
+            <Check
+              userRole={this.props.userRole}
+              postType={this.state.postType}
+              childName="CountriesFormOptions"
+            >
+              <CountriesFormOptions
+                updateParent={this.updateParent}
+                publishRegions={this.state.publishRegion}
+              />
+            </Check>
           </Col>
           <Col xs>
-            <AdvancedOptions
-              blogUrl={this.props.blogUrl}
-              userId={this.state.userId}
-              setPostMeta={this.setPostMeta}
-              updateParent={this.updateParent}
-              postMeta={this.state.meta}
-              specialPost={this.state.specialPost}
-              isSensitive={this.state.isSensitive}
-            />
+            <Check
+              userRole={this.props.userRole}
+              postType={this.state.postType}
+              childName="AdvancedOptions"
+            >
+              <AdvancedOptions
+                blogUrl={this.props.blogUrl}
+                userId={this.props.userId}
+                setPostMeta={this.setPostMeta}
+                updateParent={this.updateParent}
+                postMeta={this.state.meta}
+                specialPost={this.state.specialPost}
+                isSensitive={this.state.isSensitive}
+              />
+            </Check>
           </Col>
         </Row>
       </div>

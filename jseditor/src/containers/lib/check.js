@@ -5,7 +5,8 @@ import { viewPermissions } from './constants';
 
 type PropTypes = {
   children: Object,
-  userRoles: string
+  userRoles: string,
+  childName: string
 };
 
 const isViewPermitted = (
@@ -19,8 +20,8 @@ const isViewPermitted = (
   const componentViewPermissions = viewPermissions[component];
 
   if (
-    componentViewPermissions['roles'].includes(userRole) &&
-    componentViewPermissions['types'].includes(postType)
+    componentViewPermissions['types'].includes(postType) &&
+    componentViewPermissions['roles'].includes(userRole)
   ) {
     return true;
   }
@@ -28,8 +29,7 @@ const isViewPermitted = (
 };
 
 export const Check = (props: PropTypes) => {
-  const component = props.children.type.name;
-  if (isViewPermitted(props.userRole, component, props.postType)) {
+  if (isViewPermitted(props.userRole, props.childName, props.postType)) {
     return props.children;
   }
   return null;
