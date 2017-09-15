@@ -1,16 +1,41 @@
 import React from 'react';
-import { EditorState, CompositeDecorator } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
-import { LinkDecorator } from '../DraftJSEditor/Controls/Link';
+import 'draft-js-anchor-plugin/lib/plugin.css';
 
-const inlineToolbarPlugin = createInlineToolbarPlugin();
+import createLinkPlugin from 'draft-js-anchor-plugin';
+import {
+  ItalicButton,
+  BoldButton,
+  HeadlineTwoButton,
+  HeadlineThreeButton,
+  UnorderedListButton,
+  OrderedListButton,
+  BlockquoteButton
+} from 'draft-js-buttons';
+
+const linkPlugin = createLinkPlugin({
+  placeholder: 'http://…'
+});
+const inlineToolbarPlugin = createInlineToolbarPlugin({
+  structure: [
+    BoldButton,
+    ItalicButton,
+    HeadlineTwoButton,
+    HeadlineThreeButton,
+    BlockquoteButton,
+    UnorderedListButton,
+    OrderedListButton,
+    linkPlugin.LinkButton
+  ]
+});
 const { InlineToolbar } = inlineToolbarPlugin;
-const plugins = [inlineToolbarPlugin];
+const plugins = [inlineToolbarPlugin, linkPlugin];
 
 type Props = {
   value: string,
@@ -22,10 +47,9 @@ type Props = {
 export default class DraftJSEditor extends React.Component {
   constructor(props) {
     super(props);
-    const decorator = new CompositeDecorator([LinkDecorator]);
     const contentState = stateFromHTML(markdown(this.props.value));
     this.state = {
-      editorState: EditorState.createWithContent(contentState, decorator)
+      editorState: EditorState.createWithContent(contentState)
     };
   }
 
