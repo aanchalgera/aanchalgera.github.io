@@ -53,7 +53,7 @@ class Main extends React.Component {
         <TopBar />
         <div className="col-sm-12 main">
           <div className="container-fluid">
-            <div className="row">
+            <div className="row1">
               <Switch>
                 <Route exact path={`${url}`} component={Home} />
                 <Route
