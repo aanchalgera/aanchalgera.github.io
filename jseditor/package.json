@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "draft-js": "^0.10.1",
+    "draft-js-anchor-plugin": "^2.0.0-rc7",
     "draft-js-export-html": "^0.5.4",
     "draft-js-import-html": "^0.3.2",
+    "draft-js-inline-toolbar-plugin": "^2.0.0-rc7",
+    "draft-js-plugins-editor": "^2.0.0-rc7",
     "flow-bin": "^0.51.1",
     "husky": "^0.14.3",
     "idx": "^1.5.0",
