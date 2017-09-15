@@ -9,7 +9,7 @@ class Homepage extends React.Component {
     var image;
     if (
       this.props.homepage.image === '' ||
-      this.props.homepage.image == undefined
+      this.props.homepage.image === undefined
     ) {
       image = (
         <div className="homepage-image-container">

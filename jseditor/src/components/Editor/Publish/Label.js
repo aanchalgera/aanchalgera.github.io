@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import Divider from 'material-ui/Divider';
 
 type Props = {
   label: string,

@@ -1,7 +1,6 @@
 /* @flow */
 import React from 'react';
 import DraftJSEditor from './DraftJSEditor';
-import Divider from 'material-ui/Divider';
 
 type Props = {
   homepage: Object,
