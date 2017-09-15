@@ -59,7 +59,7 @@ export const validateState = state => {
       isError = true;
       message = PUBLISH_POST_WARNING;
     }
-  } else if (-1 === state.category) {
+  } else if (null === state.category) {
     isError = true;
     message = CATEGORY_FIELD_EMPTY;
   } else if ('' === state.meta.social.facebook) {
@@ -143,7 +143,7 @@ export const initialState = {
   SnackbarMessage: '',
   crop: initialCrop,
   allCategories: [],
-  category: -1,
+  category: null,
   tags: [],
   otherCategories: [],
   customerName: '',
