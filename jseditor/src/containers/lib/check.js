@@ -1,6 +1,4 @@
 /*@flow*/
-import { Component } from 'react';
-
 import { viewPermissions } from './constants';
 
 type PropTypes = {
@@ -14,16 +12,16 @@ const isViewPermitted = (
   component: string,
   postType: string
 ): boolean => {
-  if ('ROLE_ADMINISTRATOR' === userRole) {
-    return true;
-  }
   const componentViewPermissions = viewPermissions[component];
 
-  if (
-    componentViewPermissions['types'].includes(postType) &&
-    componentViewPermissions['roles'].includes(userRole)
-  ) {
-    return true;
+  if (componentViewPermissions['types'].includes(postType)) {
+    if ('ROLE_ADMINISTRATOR' === userRole) {
+      return true;
+    }
+
+    if (componentViewPermissions['roles'].includes(userRole)) {
+      return true;
+    }
   }
   return false;
 };

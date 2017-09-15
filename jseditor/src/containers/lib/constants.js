@@ -1,3 +1,5 @@
+const ALL_TYPES = ['normal', 'slideshow', 'club', 'basics'];
+
 export const viewPermissions = {
   SponsoredContent: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
@@ -17,6 +19,6 @@ export const viewPermissions = {
   },
   PostScheduler: {
     roles: ['ROLE_EDITOR', 'ROLE_BRANDED_COORDINATOR'],
-    types: ['normal', 'slideshow', 'club']
+    types: ALL_TYPES
   }
 };

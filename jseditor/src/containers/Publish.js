@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Snackbar, Divider, RaisedButton } from 'material-ui';
+import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
 import {
