@@ -13,6 +13,8 @@ const FACEBOOK_TEXT_SAME_POST_TITLE =
   'Facebook text cannot be same as post title';
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 const INVALID_DATE = 'INVALID_DATE';
+const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
+const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 
 export const loadStatefromData = (data: {}) => {
   return {
@@ -53,6 +55,9 @@ export const loadStatefromData = (data: {}) => {
 export const validateState = state => {
   let isError = false,
     message;
+
+  const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
+
   const date = moment(state.publishedDate, 'DD/MM/YYYY HH:mm', true);
   if (!date.isValid()) {
     isError = true;
@@ -82,6 +87,14 @@ export const validateState = state => {
       isError = true;
       message = IMAGE_CROP_WARNING;
     }
+  }
+
+  if (!imageRegex.test(state.logo)) {
+    isError = true;
+    message = WRONG_LOGO_IMAGE_ADDRESS;
+  } else if (0 === state.publishRegion.length) {
+    isError = true;
+    message = EMPTY_COUNTRY_ARRAY;
   }
 
   return { isError, message };

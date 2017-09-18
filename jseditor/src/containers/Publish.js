@@ -270,13 +270,19 @@ class Publish extends React.Component {
               allCategories={this.state.allCategories}
             />
           </Col>
-          <Col xs={3}>
-            <OtherCategories
-              otherCategories={this.state.otherCategories}
-              updateParent={this.updateParent}
-              allCategories={this.state.allCategories}
-            />
-          </Col>
+          <Check
+            userRole={this.props.userRole}
+            postType={this.state.postType}
+            childName="OtherCategories"
+          >
+            <Col xs={3}>
+              <OtherCategories
+                otherCategories={this.state.otherCategories}
+                updateParent={this.updateParent}
+                allCategories={this.state.allCategories}
+              />
+            </Col>
+          </Check>
           <Col xs={3}>
             <Tags
               blogUrl={this.props.blogUrl}
