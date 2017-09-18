@@ -12,6 +12,7 @@ const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 const FACEBOOK_TEXT_SAME_POST_TITLE =
   'Facebook text cannot be same as post title';
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
+const INVALID_DATE = 'INVALID_DATE';
 
 export const loadStatefromData = (data: {}) => {
   return {
@@ -29,9 +30,7 @@ export const loadStatefromData = (data: {}) => {
     },
     maxId: data.maxId,
     status: data.status || 'draft',
-    publishedDate:
-      idx(data, _ => _.publishData.postDate) ||
-      moment().format('DD/MM/YYYY HH:mm'),
+    publishedDate: idx(data, _ => _.publishData.postDate),
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
@@ -54,23 +53,28 @@ export const loadStatefromData = (data: {}) => {
 export const validateState = state => {
   let isError = false,
     message;
+  const date = moment(state.publishedDate, 'DD/MM/YYYY HH:mm', true);
+  if (!date.isValid()) {
+    isError = true;
+    message = INVALID_DATE;
+  }
   if ('publish' === state.status) {
     if (moment(state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
       isError = true;
       message = PUBLISH_POST_WARNING;
+    } else if (null === state.category) {
+      isError = true;
+      message = CATEGORY_FIELD_EMPTY;
+    } else if ('' === state.meta.social.facebook) {
+      isError = true;
+      message = FACEBOOK_FIELD_EMPTY;
+    } else if ('' === state.meta.social.twitter) {
+      isError = true;
+      message = TWITTER_FIELD_EMPTY;
+    } else if (state.meta.social.facebook === state.title) {
+      isError = true;
+      message = FACEBOOK_TEXT_SAME_POST_TITLE;
     }
-  } else if (null === state.category) {
-    isError = true;
-    message = CATEGORY_FIELD_EMPTY;
-  } else if ('' === state.meta.social.facebook) {
-    isError = true;
-    message = FACEBOOK_FIELD_EMPTY;
-  } else if ('' === state.meta.social.twitter) {
-    isError = true;
-    message = TWITTER_FIELD_EMPTY;
-  } else if (state.meta.social.facebook === state.title) {
-    isError = true;
-    message = FACEBOOK_TEXT_SAME_POST_TITLE;
   }
 
   for (let key in state.crop) {

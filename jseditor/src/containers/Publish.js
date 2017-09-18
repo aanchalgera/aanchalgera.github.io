@@ -72,6 +72,7 @@ class Publish extends React.Component {
               postHash: result.post_hash,
               status: 'publish',
               publishedDate: date,
+              message: '',
               snackbarOpen: true,
               SnackbarMessage:
                 SAVED_MESSAGE + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
@@ -197,6 +198,7 @@ class Publish extends React.Component {
       try {
         await submitPostToBackend(this.state, this.props.blogUrl);
         this.setState({
+          message: '',
           snackbarOpen: true,
           SnackbarMessage: UPDATED_MESSAGE
         });
@@ -227,7 +229,7 @@ class Publish extends React.Component {
           childName="PostScheduler"
         >
           <Row>
-            <Col xs={4}>
+            <Col xs={5}>
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
@@ -250,7 +252,7 @@ class Publish extends React.Component {
                     onTouchTap={this.handleUpdate}
                   />}
             </Col>
-            <Col xs={4} />
+            <Col xs={3} />
             <Col xs={2}>
               <DraftButton
                 status={this.state.status}
@@ -350,7 +352,7 @@ class Publish extends React.Component {
             >
               <AdvancedOptions
                 blogUrl={this.props.blogUrl}
-                userId={this.props.userId}
+                userId={this.state.userId}
                 setPostMeta={this.setPostMeta}
                 updateParent={this.updateParent}
                 postMeta={this.state.meta}
