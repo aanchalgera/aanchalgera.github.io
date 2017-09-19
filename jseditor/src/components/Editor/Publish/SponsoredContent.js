@@ -14,7 +14,7 @@ type Props = {
 export class SponsoredContent extends Component {
   props: Props;
 
-  handleChange = (value, valueToUpdate) => {
+  handleChange = (value: string, valueToUpdate: string) => {
     let {sponsor: sponsor, ...restMetaFields} = this.props.meta;
     let {[valueToUpdate]: temp, ...restSponsorFields} = sponsor;
     this.props.updateParent({meta: {sponsor: {[valueToUpdate]: value, ...restSponsorFields}, ...restMetaFields}});
@@ -35,7 +35,7 @@ export class SponsoredContent extends Component {
               hintText="Socialmedia SL"
               floatingLabelText="Nombre del Cliente (se usa con 'Offrecido por' portada)"
               floatingLabelFixed={true}
-              onChange={(e, value)=> {this.handleChange(value, 'name')}}
+              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'name')}}
               fullWidth={true}
             />
           </Col>
@@ -45,7 +45,7 @@ export class SponsoredContent extends Component {
               hintText="https://.."
               floatingLabelText="Direccion del logotipo"
               floatingLabelFixed={true}
-              onChange={(value)=> {this.handleChange(value, 'image')}}
+              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'image')}}
               fullWidth={true}
             />
           </Col>
@@ -55,7 +55,7 @@ export class SponsoredContent extends Component {
               hintText="..."
               floatingLabelText="URL Tracker"
               floatingLabelFixed={true}
-              onChange={(value)=> {this.handleChange(value, 'tacker')}}
+              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'tacker')}}
               fullWidth={true}
             />
           </Col>
