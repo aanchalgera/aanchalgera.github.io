@@ -49,7 +49,6 @@ export default class Layout extends React.Component {
       const userDetails = await getUserDetails(blogUrl, userId);
       this.setState({
         blogUrl: blogUrl,
-        userId: userId,
         postname: postname,
         userRole: userDetails['roles'][0]
       });
@@ -59,7 +58,14 @@ export default class Layout extends React.Component {
   };
 
   handleDifundir = (status: string) => {
-    this.setState({ showDifundir: status === 'publish' || false });
+    let showDifundir = false;
+    if (
+      status === 'publish' &&
+      this.state.userRole != 'ROLE_BRANDED_COLLABORATOR'
+    ) {
+      showDifundir = true;
+    }
+    this.setState({ showDifundir });
   };
 
   getTitleBar = () => {
