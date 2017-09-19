@@ -128,6 +128,7 @@ class Publish extends React.Component {
   };
 
   updateParent = data => {
+    console.log(data);
     this.setState(data, this.savePostData);
   };
 
@@ -212,6 +213,7 @@ class Publish extends React.Component {
     if ('' === this.state.postType) {
       return <div>Loading...</div>;
     }
+
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -325,9 +327,7 @@ class Publish extends React.Component {
           childName="SponsoredContent"
         >
           <SponsoredContent
-            customerName={this.state.customerName}
-            logo={this.state.logo}
-            urlTracker={this.state.urlTracker}
+            meta={this.state.meta}
             updateParent={this.updateParent}
           />
         </Check>

@@ -45,10 +45,7 @@ export const loadStatefromData = (data: {}) => {
     specialPost: data.specialPost || false,
     tags: data.tags || [],
     otherCategories: data.otherCategories || [],
-    crop: data.crop || initialCrop,
-    customerName: data.customerName || '',
-    logo: data.logo || '',
-    urlTracker: data.urlTracker || ''
+    crop: data.crop || initialCrop
   };
 };
 
@@ -89,7 +86,8 @@ export const validateState = state => {
     }
   }
 
-  if (!imageRegex.test(state.logo)) {
+  if ('club' === state.postType &&
+      !imageRegex.test(state.logo)) {
     isError = true;
     message = WRONG_LOGO_IMAGE_ADDRESS;
   } else if (0 === state.publishRegion.length) {
@@ -162,10 +160,7 @@ export const initialState = {
   allCategories: [],
   category: null,
   tags: [],
-  otherCategories: [],
-  customerName: '',
-  logo: '',
-  urlTracker: ''
+  otherCategories: []
 };
 
 export const filterCategories = (data: {}) => {

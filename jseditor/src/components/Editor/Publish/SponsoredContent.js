@@ -1,7 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { TextArea, Label } from './index';
+import { Label } from './index';
+import TextField from 'material-ui/TextField';
 
 type Props = {
   customerName: string,
@@ -12,6 +13,13 @@ type Props = {
 
 export class SponsoredContent extends Component {
   props: Props;
+
+  handleChange = (value, valueToUpdate) => {
+    let {sponsor: sponsor, ...restMetaFields} = this.props.meta;
+    let {[valueToUpdate]: temp, ...restSponsorFields} = sponsor;
+    this.props.updateParent({meta: {sponsor: {[valueToUpdate]: value, ...restSponsorFields}, ...restMetaFields}});
+  }
+
   render() {
     return (
       <div>
@@ -22,30 +30,33 @@ export class SponsoredContent extends Component {
         </Row>
         <Row>
           <Col xs>
-            <TextArea
-              savedValue={this.props.customerName}
+            <TextField
+              defaultValue={this.props.meta.sponsor.name}
               hintText="Socialmedia SL"
-              updateParent={this.props.updateParent}
-              floatingLabel="Nombre del Cliente (se usa con 'Offrecido por' portada)"
-              valueToUpdate="customerName"
+              floatingLabelText="Nombre del Cliente (se usa con 'Offrecido por' portada)"
+              floatingLabelFixed={true}
+              onChange={(e, value)=> {this.handleChange(value, 'name')}}
+              fullWidth={true}
             />
           </Col>
           <Col xs>
-            <TextArea
-              savedValue={this.props.logo}
+            <TextField
+              defaultValue={this.props.meta.sponsor.image}
               hintText="https://.."
-              updateParent={this.props.updateParent}
-              floatingLabel="Direccion del logotipo"
-              valueToUpdate="logo"
+              floatingLabelText="Direccion del logotipo"
+              floatingLabelFixed={true}
+              onChange={(value)=> {this.handleChange(value, 'image')}}
+              fullWidth={true}
             />
           </Col>
           <Col xs>
-            <TextArea
-              savedValue={this.props.urlTracker}
+            <TextField
+              defaultValue={this.props.meta.sponsor.tracker}
               hintText="..."
-              updateParent={this.props.updateParent}
-              floatingLabel="URL Tracker"
-              valueToUpdate="urlTracker"
+              floatingLabelText="URL Tracker"
+              floatingLabelFixed={true}
+              onChange={(value)=> {this.handleChange(value, 'tacker')}}
+              fullWidth={true}
             />
           </Col>
         </Row>
