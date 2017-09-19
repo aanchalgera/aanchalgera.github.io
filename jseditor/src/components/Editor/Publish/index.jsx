@@ -14,5 +14,4 @@ export { SchedulePost } from './SchedulePost';
 export { Seo } from './Seo';
 export { SponsoredContent } from './SponsoredContent';
 export { Tags } from './Tags';
-export { TextArea } from './TextArea';
 export { Twitter } from './Twitter';
