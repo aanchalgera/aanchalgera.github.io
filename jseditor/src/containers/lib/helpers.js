@@ -15,6 +15,8 @@ const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 const INVALID_DATE = 'INVALID_DATE';
 const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
+const TRACKER_EMPTY = 'URL Tracker can not be empty';
+const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
 
 export const loadStatefromData = (data: {}) => {
   return {
@@ -45,10 +47,7 @@ export const loadStatefromData = (data: {}) => {
     specialPost: data.specialPost || false,
     tags: data.tags || [],
     otherCategories: data.otherCategories || [],
-    crop: data.crop || initialCrop,
-    customerName: data.customerName || '',
-    logo: data.logo || '',
-    urlTracker: data.urlTracker || ''
+    crop: data.crop || initialCrop
   };
 };
 
@@ -63,23 +62,25 @@ export const validateState = state => {
     isError = true;
     message = INVALID_DATE;
   }
-  if ('publish' === state.status) {
-    if (moment(state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
-      isError = true;
-      message = PUBLISH_POST_WARNING;
-    } else if (null === state.category) {
-      isError = true;
-      message = CATEGORY_FIELD_EMPTY;
-    } else if ('' === state.meta.social.facebook) {
-      isError = true;
-      message = FACEBOOK_FIELD_EMPTY;
-    } else if ('' === state.meta.social.twitter) {
-      isError = true;
-      message = TWITTER_FIELD_EMPTY;
-    } else if (state.meta.social.facebook === state.title) {
-      isError = true;
-      message = FACEBOOK_TEXT_SAME_POST_TITLE;
-    }
+
+  if (moment(state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+    isError = true;
+    message = PUBLISH_POST_WARNING;
+  } else if (null === state.category) {
+    isError = true;
+    message = CATEGORY_FIELD_EMPTY;
+  } else if ('' === state.meta.social.facebook) {
+    isError = true;
+    message = FACEBOOK_FIELD_EMPTY;
+  } else if ('' === state.meta.social.twitter) {
+    isError = true;
+    message = TWITTER_FIELD_EMPTY;
+  } else if (state.meta.social.facebook === state.title) {
+    isError = true;
+    message = FACEBOOK_TEXT_SAME_POST_TITLE;
+  } else if (0 === state.publishRegion.length) {
+    isError = true;
+    message = EMPTY_COUNTRY_ARRAY;
   }
 
   for (let key in state.crop) {
@@ -89,12 +90,17 @@ export const validateState = state => {
     }
   }
 
-  if (!imageRegex.test(state.logo)) {
-    isError = true;
-    message = WRONG_LOGO_IMAGE_ADDRESS;
-  } else if (0 === state.publishRegion.length) {
-    isError = true;
-    message = EMPTY_COUNTRY_ARRAY;
+  if ('club' === state.postType) {
+    if (!imageRegex.test(state.meta.sponsor.image)) {
+      isError = true;
+      message = WRONG_LOGO_IMAGE_ADDRESS;
+    } else if ('' === state.meta.sponsor.name) {
+      isError = true;
+      message = SPONSOR_NAME_EMPTY;
+    } else if ('' === state.meta.sponsor.tracker) {
+      isError = true;
+      message = TRACKER_EMPTY;
+    }
   }
 
   return { isError, message };
@@ -162,10 +168,7 @@ export const initialState = {
   allCategories: [],
   category: null,
   tags: [],
-  otherCategories: [],
-  customerName: '',
-  logo: '',
-  urlTracker: ''
+  otherCategories: []
 };
 
 export const filterCategories = (data: {}) => {

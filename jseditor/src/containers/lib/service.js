@@ -47,9 +47,11 @@ export const savePost = (state, base) => {
     tags: state.tags,
     category: state.category,
     otherCategories: state.otherCategories,
-    customerName: state.customerName,
-    logo: state.logo,
-    urlTracker: state.urlTracker
+    sponsor: {
+      name: state.meta.sponsor.name,
+      image: state.meta.sponsor.image,
+      tracker: state.meta.sponsor.tracker,
+    },
   };
 
   base.update('posts/' + state.id, {
