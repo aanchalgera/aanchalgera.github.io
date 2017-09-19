@@ -18,7 +18,7 @@ import {
   SponsoredContent,
   Tags,
   Twitter
-} from '../components/Editor/Publish/index';
+} from '../components/Editor/Publish';
 import configParams from '../config/configs.js';
 import {
   getPost,

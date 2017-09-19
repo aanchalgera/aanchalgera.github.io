@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rebase from 're-base';
+import firebase from 'firebase';
 import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './Menu/TopBar';
@@ -14,10 +15,11 @@ import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
 import configParams from '../config/configs.js';
 
-var base = Rebase.createClass({
+var app = firebase.initializeApp({
   apiKey: configParams.apiKey,
   databaseURL: configParams.firebaseUrl
 });
+var base = Rebase.createClass(app.database());
 
 class Main extends React.Component {
   render() {
