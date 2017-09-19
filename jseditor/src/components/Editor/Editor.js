@@ -79,7 +79,7 @@ class Editor extends React.Component {
   }
 
   init() {
-    this.checkConnectStatus();
+    //this.checkConnectStatus();
     const {
       match: { params: { postname } },
       location: { search },
