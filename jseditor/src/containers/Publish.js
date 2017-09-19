@@ -128,7 +128,6 @@ class Publish extends React.Component {
   };
 
   updateParent = data => {
-    console.log(data);
     this.setState(data, this.savePostData);
   };
 
