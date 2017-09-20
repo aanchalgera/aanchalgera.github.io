@@ -22,7 +22,6 @@ const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
 const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 const FACEBOOK_TEXT_SAME_POST_TITLE =
   'Facebook text cannot be same as post title';
-const SPONSOR_IMAGE_WARNING = 'Sponsor image URL cannot be empty';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -66,8 +65,6 @@ class Editor extends React.Component {
     this.addResource = this.addResource.bind(this);
     this.updateSocialFacebookText = this.updateSocialFacebookText.bind(this);
     this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
-    this.toggleAllowComments = this.toggleAllowComments.bind(this);
-    this.toggleCommentStatus = this.toggleCommentStatus.bind(this);
     this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(
       this
     );
@@ -150,7 +147,6 @@ class Editor extends React.Component {
                 meta: data.meta || {
                   index: '',
                   homepage: { content: '' },
-                  sponsor: { name: '', image: '', tracker: '' },
                   css: { skinName: '' },
                   seo: {},
                   microsite: {
@@ -161,7 +157,7 @@ class Editor extends React.Component {
                   },
                   author: { showAuthorInfo: false },
                   social: { facebook: '', twitter: '' },
-                  comment: { allow: false, status: 'open' },
+                  comment: { status: 'open' },
                   showDate: false,
                   showSocialShareButtons: true,
                   footer: { hideFooter: false, content: '' }
@@ -174,7 +170,6 @@ class Editor extends React.Component {
                 meta: {
                   index: '',
                   homepage: { content: '' },
-                  sponsor: { name: '', image: '', tracker: '' },
                   css: { skinName: '' },
                   seo: {},
                   microsite: {
@@ -185,7 +180,7 @@ class Editor extends React.Component {
                   },
                   author: { showAuthorInfo: false },
                   social: { facebook: '', twitter: '' },
-                  comment: { allow: false, status: 'open' },
+                  comment: { status: 'open' },
                   showDate: false,
                   showSocialShareButtons: true,
                   footer: { hideFooter: false, content: '' }
@@ -213,7 +208,6 @@ class Editor extends React.Component {
           meta: {
             index: '',
             homepage: { content: '' },
-            sponsor: { name: '', image: '', tracker: '' },
             css: { skinName: '' },
             seo: {},
             microsite: {
@@ -224,7 +218,7 @@ class Editor extends React.Component {
             },
             author: { showAuthorInfo: false },
             social: { facebook: '', twitter: '' },
-            comment: { allow: false, status: 'open' },
+            comment: { status: 'open' },
             showDate: false,
             showSocialShareButtons: true,
             footer: { hideFooter: false, content: '' }
@@ -670,7 +664,6 @@ class Editor extends React.Component {
           : {
               index: '',
               homepage: { content: '' },
-              sponsor: { name: '', image: '', tracker: '' },
               css: { skinName: '' },
               seo: {},
               microsite: {
@@ -681,7 +674,7 @@ class Editor extends React.Component {
               },
               author: { showAuthorInfo: false },
               social: { facebook: '', twitter: '' },
-              comment: { allow: false, status: 'open' },
+              comment: { status: 'open' },
               showDate: false,
               showSocialShareButtons: true,
               footer: { hideFooter: false, content: '' }
@@ -934,11 +927,6 @@ class Editor extends React.Component {
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  updateSponsorName(event) {
-    this.state.meta.sponsor.name = event.target.value.trim();
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
   updateMicrositeName(event) {
     this.state.meta.microsite.name = event.target.value;
     this.setState({ meta: this.state.meta }, this.saveData());
@@ -992,21 +980,6 @@ class Editor extends React.Component {
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  updateSponsorImage(value) {
-    this.state.meta.sponsor.image = value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateSponsorTracker(event) {
-    this.state.meta.sponsor.tracker = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateCssSkinName(event) {
-    this.state.meta.css.skinName = event.target.value.trim();
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
   updateSocialFacebookText(event) {
     this.state.meta.social.facebook = event.target.value.trim();
     this.setState({ meta: this.state.meta }, this.saveData());
@@ -1014,17 +987,6 @@ class Editor extends React.Component {
 
   updateSocialTwitterText(event) {
     this.state.meta.social.twitter = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  toggleAllowComments() {
-    this.state.meta.comment.allow = !this.state.meta.comment.allow;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  toggleCommentStatus() {
-    this.state.meta.comment.status =
-      this.state.meta.comment.status == 'open' ? 'closed' : 'open';
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -1071,16 +1033,6 @@ class Editor extends React.Component {
     e.preventDefault();
     if (!this.isValid()) {
       return;
-    }
-
-    if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
-        this.state.userRole
-      ) > -1 &&
-      !this.state.meta.sponsor.image
-    ) {
-      this.setMessage(true, SPONSOR_IMAGE_WARNING);
-      return false;
     }
 
     if (!this.state.meta.homepage.image) {
@@ -1171,13 +1123,6 @@ class Editor extends React.Component {
       message = MAIN_IMAGE_WARNING;
     }
 
-    if (
-      'ROLE_BRANDED_COORDINATOR' == this.state.userRole &&
-      !this.state.meta.sponsor.image
-    ) {
-      message = SPONSOR_IMAGE_WARNING;
-    }
-
     if (message != '') {
       isError = true;
       e.preventDefault();
@@ -1254,9 +1199,6 @@ class Editor extends React.Component {
         updateSeoDescription={this.updateSeoDescription.bind(this)}
         updateFooterCredits={this.updateFooterCredits.bind(this)}
         updateHomepageContent={this.updateHomepageContent.bind(this)}
-        updateSponsorName={this.updateSponsorName.bind(this)}
-        updateSponsorImage={this.updateSponsorImage.bind(this)}
-        updateSponsorTracker={this.updateSponsorTracker.bind(this)}
         updateCssSkinName={this.updateCssSkinName.bind(this)}
         deleteHomepageImage={this.deleteHomepageImage.bind(this)}
         openResourcePanel={this.openResourcePanel.bind(this)}
@@ -1270,8 +1212,6 @@ class Editor extends React.Component {
         editAuthorInfo={this.editAuthorInfo.bind(this)}
         updateSocialFacebookText={this.updateSocialFacebookText}
         updateSocialTwitterText={this.updateSocialTwitterText}
-        toggleAllowComments={this.toggleAllowComments}
-        toggleCommentStatus={this.toggleCommentStatus}
         toggleSocialShareVisibility={this.toggleSocialShareVisibility}
         toggleDateVisibility={this.toggleDateVisibility}
         toggleFooter={this.toggleFooter}
