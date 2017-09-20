@@ -12,7 +12,7 @@ const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 const FACEBOOK_TEXT_SAME_POST_TITLE =
   'Facebook text cannot be same as post title';
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
-const INVALID_DATE = 'INVALID_DATE';
+const INVALID_DATE = 'Past date selected';
 const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const TRACKER_EMPTY = 'URL Tracker can not be empty';
@@ -57,12 +57,16 @@ export const validateState = state => {
 
   const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
 
-  const date = moment(state.publishedDate, 'DD/MM/YYYY HH:mm', true);
-  if (!date.isValid()) {
+  if (null === state.publishedDate) {
     isError = true;
     message = INVALID_DATE;
+  } else {
+    const date = moment(state.publishedDate, 'DD/MM/YYYY HH:mm', true);
+    if (!date.isValid()) {
+      isError = true;
+      message = INVALID_DATE;
+    }
   }
-
   if (moment(state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
     isError = true;
     message = PUBLISH_POST_WARNING;

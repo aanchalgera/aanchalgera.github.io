@@ -37,7 +37,7 @@ export const savePost = (state, base) => {
     isSensitive: state.isSensitive,
     specialPost: state.specialPost,
     publishData: {
-      postDate: state.publishedDate,
+      postDate: state.publishedDate || null,
       publishRegion: state.publishRegion,
       postRepostBlogNames: state.postRepostBlogNames,
       postId: state.postId,
@@ -46,12 +46,7 @@ export const savePost = (state, base) => {
     crop: state.crop,
     tags: state.tags,
     category: state.category,
-    otherCategories: state.otherCategories,
-    sponsor: {
-      name: state.meta.sponsor.name,
-      image: state.meta.sponsor.image,
-      tracker: state.meta.sponsor.tracker,
-    },
+    otherCategories: state.otherCategories
   };
 
   base.update('posts/' + state.id, {
@@ -73,8 +68,7 @@ export const savePostsList = (state, base, blogName) => {
   };
 
   base.post('posts_list/' + state.id, {
-    data: listData,
-    then() {}
+    data: listData
   });
 };
 
@@ -95,6 +89,8 @@ export const submitPostToBackend = (state, blogUrl) => {
     post_subtype: 13,
     postDate: state.publishedDate,
     'publish-region': publishRegion,
+    post_categories: state.otherCategories,
+    post_tags: state.tags,
     postRepostBlogNames: postRepostBlogNames,
     firebase_id: state.id,
     post_status: 'future',
