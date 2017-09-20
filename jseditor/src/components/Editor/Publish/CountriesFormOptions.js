@@ -36,7 +36,7 @@ export class CountriesFormOptions extends React.Component {
 
   render() {
     const checkboxes = [[], []];
-    Object.keys(regions).map((key, index) => {
+    Object.keys(regions).forEach((key, index) => {
       checkboxes[index % 2].push(
         <Checkbox
           key={index}

@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* eslint-disable */
+import React, { Component } from 'react';
 import helpers from '../../utils/generatehash';
 import { Link } from 'react-router-dom';
 
@@ -19,18 +20,15 @@ class Config extends Component {
   }
 
   init() {
-    const {
-      match: { params: { configId } },
-      history
-    } = this.props;
+    const { match: { params: { configId } }, history } = this.props;
 
     if (undefined != configId) {
       this.props.base.fetch('config/' + configId, {
         context: this,
-        then(data){
+        then(data) {
           if (null != data) {
             this.setState({
-              id : data.id,
+              id: data.id,
               siteName: data.site_name,
               siteUrl: data.site_url
             });
@@ -39,18 +37,21 @@ class Config extends Component {
       });
     } else {
       hashId = helpers.generatePushID();
-      this.setState({
-        id : hashId
-      }, history.push('/config/'+hashId));
+      this.setState(
+        {
+          id: hashId
+        },
+        history.push('/config/' + hashId)
+      );
     }
   }
 
   handleSiteNameChange(event) {
-    this.setState({siteName: event.target.value});
+    this.setState({ siteName: event.target.value });
   }
 
   handleSiteUrlChange(event) {
-    this.setState({siteUrl: event.target.value});
+    this.setState({ siteUrl: event.target.value });
   }
 
   render() {
@@ -58,7 +59,10 @@ class Config extends Component {
     if ('' != this.state.errors) {
       errorField = (
         <div className="alert alert-danger" role="alert">
-          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span
+            className="glyphicon glyphicon-exclamation-sign"
+            aria-hidden="true"
+          />
           <span className="sr-only">Error:</span> {this.state.errors}
         </div>
       );
@@ -66,14 +70,39 @@ class Config extends Component {
     return (
       <div>
         <div>
-          <Link to="/configs" className="btn btn-primary">Config List Page</Link>
+          <Link to="/configs" className="btn btn-primary">
+            Config List Page
+          </Link>
         </div>
         {errorField}
         <div className="row">
           <div className="col-xs-12 col-md-8 col-md-offset-2 well">
-            <div className="form-group">Site Name: <input className="form-control" ref="site_name" type="text" value={this.state.siteName} onChange={this.handleSiteNameChange.bind(this)} /></div>
-            <div className="form-group">Site Url: <input className="form-control" ref="site_url" type="text" value={this.state.siteUrl} onChange={this.handleSiteUrlChange.bind(this)} /></div>
-            <button onClick={this.checkDuplicateSiteName.bind(this)} className="btn btn-primary">Save</button>
+            <div className="form-group">
+              Site Name:{' '}
+              <input
+                className="form-control"
+                ref="site_name"
+                type="text"
+                value={this.state.siteName}
+                onChange={this.handleSiteNameChange.bind(this)}
+              />
+            </div>
+            <div className="form-group">
+              Site Url:{' '}
+              <input
+                className="form-control"
+                ref="site_url"
+                type="text"
+                value={this.state.siteUrl}
+                onChange={this.handleSiteUrlChange.bind(this)}
+              />
+            </div>
+            <button
+              onClick={this.checkDuplicateSiteName.bind(this)}
+              className="btn btn-primary"
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -82,31 +111,28 @@ class Config extends Component {
 
   saveRecord() {
     if ('' === this.refs.site_name.value.trim()) {
-      this.setState({errors: 'Site Name can not be empty'});
+      this.setState({ errors: 'Site Name can not be empty' });
       return false;
     }
     if ('' === this.refs.site_url.value.trim()) {
-      this.setState({errors: 'Site Url can not be empty'});
+      this.setState({ errors: 'Site Url can not be empty' });
       return false;
     }
-    this.setState({errors: ''});
+    this.setState({ errors: '' });
     var data = {
       id: this.state.id,
       site_name: this.refs.site_name.value,
       site_url: this.refs.site_url.value
     };
 
-    this.props.base.post(
-      'config/'+this.state.id,
-      {
-        data: data,
-        then() {}
-      }
-    );
+    this.props.base.post('config/' + this.state.id, {
+      data: data,
+      then() {}
+    });
   }
 
   checkDuplicateSiteUrl() {
-    this.props.base.fetch('config',  {
+    this.props.base.fetch('config', {
       context: this,
       state: 'config',
       asArray: true,
@@ -119,7 +145,9 @@ class Config extends Component {
         var i;
         for (i = 0; i < total; i++) {
           if (this.state.id != data[i].id) {
-            this.setState({errors: 'Another record with same site url already exists'});
+            this.setState({
+              errors: 'Another record with same site url already exists'
+            });
             return false;
           }
         }
@@ -129,7 +157,7 @@ class Config extends Component {
   }
 
   checkDuplicateSiteName() {
-    this.props.base.fetch('config',  {
+    this.props.base.fetch('config', {
       context: this,
       state: 'config',
       asArray: true,
@@ -142,7 +170,9 @@ class Config extends Component {
         var i;
         for (i = 0; i < total; i++) {
           if (this.state.id != data[i].id) {
-            this.setState({errors: 'Another record with same site name already exists'});
+            this.setState({
+              errors: 'Another record with same site name already exists'
+            });
             return false;
           }
         }

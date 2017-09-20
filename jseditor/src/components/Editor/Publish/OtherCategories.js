@@ -7,14 +7,14 @@ import { Category } from './lib/flowTypes';
 
 type Props = {
   blogUrl: string,
-  otherCategories: Array<Category>,
+  postCategories: Array<Category>,
   updateParent: (data: Object) => void,
   allCategories: Array<Category>
 };
 
 export const OtherCategories = ({
   allCategories,
-  otherCategories,
+  postCategories,
   updateParent
 }: Props) => {
   return (
@@ -22,11 +22,11 @@ export const OtherCategories = ({
       placeholder="Otras Categorías (opcional)"
       options={allCategories}
       onChange={input => {
-        updateParent({ otherCategories: input });
+        updateParent({ postCategories: input });
       }}
       multi={true}
       joinValues={true}
-      value={otherCategories}
+      value={postCategories}
       valueKey={'id'}
     />
   );

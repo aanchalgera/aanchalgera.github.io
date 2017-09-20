@@ -1,10 +1,11 @@
 var helpers = {
-  generatePushID () {
-    var PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+  generatePushID() {
+    var PUSH_CHARS =
+      '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
     var lastPushTime = 0;
     var lastRandChars = [];
     var now = new Date().getTime();
-    var duplicateTime = (now === lastPushTime);
+    var duplicateTime = now === lastPushTime;
     lastPushTime = now;
     var timeStampChars = new Array(8);
 
@@ -12,7 +13,8 @@ var helpers = {
       timeStampChars[i] = PUSH_CHARS.charAt(now % 64);
       now = Math.floor(now / 64);
     }
-    if (now !== 0) throw new Error('We should have converted the entire timestamp.');
+    if (now !== 0)
+      throw new Error('We should have converted the entire timestamp.');
 
     var id = timeStampChars.join('');
 
@@ -29,7 +31,7 @@ var helpers = {
     for (i = 0; i < 12; i++) {
       id += PUSH_CHARS.charAt(lastRandChars[i]);
     }
-    if(id.length != 20) throw new Error('Length should be 20.');
+    if (id.length !== 20) throw new Error('Length should be 20.');
 
     return id;
   }

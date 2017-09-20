@@ -278,7 +278,7 @@ class Publish extends React.Component {
           >
             <Col xs={3}>
               <OtherCategories
-                otherCategories={this.state.otherCategories}
+                postCategories={this.state.postCategories}
                 updateParent={this.updateParent}
                 allCategories={this.state.allCategories}
               />

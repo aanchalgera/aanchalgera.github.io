@@ -1,6 +1,8 @@
 import jquery from 'jquery';
 import isoFetch from 'isomorphic-fetch';
 
+import { convertTo1DArray } from './helpers';
+
 export const getConfig = (blogName, base) => {
   return base.fetch('config', {
     context: this,
@@ -46,7 +48,7 @@ export const savePost = (state, base) => {
     crop: state.crop,
     tags: state.tags,
     category: state.category,
-    otherCategories: state.otherCategories
+    postCategories: state.postCategories
   };
 
   base.update('posts/' + state.id, {
@@ -89,8 +91,8 @@ export const submitPostToBackend = (state, blogUrl) => {
     post_subtype: 13,
     postDate: state.publishedDate,
     'publish-region': publishRegion,
-    post_categories: state.otherCategories,
-    post_tags: state.tags,
+    post_categories: convertTo1DArray(state.postCategories),
+    tags: convertTo1DArray(state.tags),
     postRepostBlogNames: postRepostBlogNames,
     firebase_id: state.id,
     post_status: 'future',

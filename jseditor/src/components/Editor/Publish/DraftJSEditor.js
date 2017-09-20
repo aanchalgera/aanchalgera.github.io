@@ -45,15 +45,13 @@ type Props = {
 };
 
 export default class DraftJSEditor extends React.Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     const contentState = stateFromHTML(markdown(this.props.value));
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
   }
-
-  props: Props;
 
   focus() {
     this._editor.focus();
