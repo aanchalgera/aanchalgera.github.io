@@ -326,8 +326,8 @@ class Publish extends React.Component {
           childName="SponsoredContent"
         >
           <SponsoredContent
-            meta={this.state.meta}
-            updateParent={this.updateParent}
+            sponsor={this.state.meta.sponsor}
+            setPostMeta={this.setPostMeta}
           />
         </Check>
         <Row>
