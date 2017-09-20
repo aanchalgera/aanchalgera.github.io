@@ -91,7 +91,7 @@ export const submitPostToBackend = (state, blogUrl) => {
     post_subtype: 13,
     postDate: state.publishedDate,
     'publish-region': publishRegion,
-    post_categories: convertTo1DArray(state.postCategories),
+    postCategories: convertTo1DArray(state.postCategories),
     tags: convertTo1DArray(state.tags),
     postRepostBlogNames: postRepostBlogNames,
     firebase_id: state.id,
