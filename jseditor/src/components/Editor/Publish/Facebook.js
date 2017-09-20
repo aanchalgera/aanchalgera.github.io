@@ -1,16 +1,10 @@
 //@flow
-import PropTypes from 'prop-types';
 import React from 'react';
 import { TextField, Divider } from 'material-ui';
 
 type Props = {
   facebook: string,
   updateSocialFacebookText: Function
-};
-
-const propValidate = {
-  facebook: PropTypes.string.isRequired,
-  updateSocialFacebookText: PropTypes.func.isRequired
 };
 
 export const Facebook = (props: Props) =>
@@ -29,5 +23,3 @@ export const Facebook = (props: Props) =>
     />
     <Divider />
   </div>;
-
-Facebook.propTypes = propValidate;

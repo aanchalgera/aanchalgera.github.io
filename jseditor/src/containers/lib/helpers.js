@@ -46,7 +46,7 @@ export const loadStatefromData = (data: {}) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
-    otherCategories: data.otherCategories || [],
+    postCategories: data.postCategories || [],
     crop: data.crop || initialCrop
   };
 };
@@ -172,7 +172,7 @@ export const initialState = {
   allCategories: [],
   category: null,
   tags: [],
-  otherCategories: []
+  postCategories: []
 };
 
 export const filterCategories = (data: {}) => {
@@ -195,4 +195,12 @@ export const filterCategories = (data: {}) => {
     }
   }
   return categories;
+};
+
+export const convertTo1DArray = (data: Array<{ id: number }>) => {
+  let list = [];
+  data.forEach(item => {
+    list.push(item.id);
+  });
+  return list;
 };

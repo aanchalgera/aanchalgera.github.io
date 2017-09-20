@@ -7,7 +7,7 @@ type Props = {
   updateHomepageContent: Function
 };
 
-class Homepage extends React.Component {
+export default class Homepage extends React.Component {
   props: Props;
 
   getDraftJSEditor() {
@@ -36,5 +36,3 @@ class Homepage extends React.Component {
     );
   }
 }
-
-export default Homepage;

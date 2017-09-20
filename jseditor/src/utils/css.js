@@ -3,9 +3,14 @@ import configParams from '../config/configs.js';
 export default class CSS {
   static prepare() {
     let extraParameters = '';
-    if (process.env.NODE_ENV == 'production') {
-      const date = new Date;
-      extraParameters = '?v=' + date.getFullYear() + date.getMonth() + date.getDate() + date.getHours();
+    if (process.env.NODE_ENV === 'production') {
+      const date = new Date();
+      extraParameters =
+        '?v=' +
+        date.getFullYear() +
+        date.getMonth() +
+        date.getDate() +
+        date.getHours();
     }
     const link = document.createElement('link');
     link.rel = 'stylesheet';

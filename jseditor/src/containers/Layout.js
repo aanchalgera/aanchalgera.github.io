@@ -61,7 +61,7 @@ export default class Layout extends React.Component {
     let showDifundir = false;
     if (
       status === 'publish' &&
-      this.state.userRole != 'ROLE_BRANDED_COLLABORATOR'
+      this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR'
     ) {
       showDifundir = true;
     }

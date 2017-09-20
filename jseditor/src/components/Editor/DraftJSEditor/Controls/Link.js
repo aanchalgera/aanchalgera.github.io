@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { RichUtils } from 'draft-js';
 
@@ -28,16 +29,16 @@ export default class Link extends React.Component {
         const entityKey = editorState
           .getCurrentContent()
           .createEntity(TYPE, 'MUTABLE', { url: newUrl })
-          .getLastCreatedEntityKey()
-        ;
-        this.props.onToggle(RichUtils.toggleLink(editorState, selection, entityKey));
+          .getLastCreatedEntityKey();
+        this.props.onToggle(
+          RichUtils.toggleLink(editorState, selection, entityKey)
+        );
       });
     }
 
     this.setState({ url: '' }, () => {
       this.props.onToggle(RichUtils.toggleLink(editorState, selection, null));
     });
-
   }
 
   render() {
@@ -46,14 +47,13 @@ export default class Link extends React.Component {
         className="fa fa-link"
         title="Link"
         onClick={this.toggleLink.bind(this)}
-      >
-      </a>
+      />
     );
   }
 }
 
 export const LinkDecorator = {
-  component: (props) => {
+  component: props => {
     const { contentState, entityKey, children } = props;
     const { url } = contentState.getEntity(entityKey).getData();
     return (
@@ -64,15 +64,12 @@ export const LinkDecorator = {
   },
 
   strategy: (contentBlock, callback, contentState) => {
-    contentBlock.findEntityRanges(
-      (character) => {
-        const entityKey = character.getEntity();
-        return (
-          entityKey !== null &&
-          contentState.getEntity(entityKey).getType() === TYPE
-        );
-      },
-      callback
-    );
+    contentBlock.findEntityRanges(character => {
+      const entityKey = character.getEntity();
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === TYPE
+      );
+    }, callback);
   }
 };

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import React from 'react';
 import ResourcePanel from './ResourcePanel';
@@ -51,7 +52,7 @@ class CloudinaryUploader extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    var initialState =  {
+    var initialState = {
       cloudName: props.cloudName,
       uploadPreset: props.uploadPreset,
       showPoweredBy: false,
@@ -68,16 +69,16 @@ class CloudinaryUploader extends React.Component {
         this.props.base.fetch('images/' + this.props.slug, {
           context: this,
           asArray: true,
-          then(data){
+          then(data) {
             if (null != data) {
               this.setState({
-                imageList : data
+                imageList: data
               });
             }
           }
         });
       } catch (e) {
-      //  Rollbar.critical('Error while fetching image data from firebase', e);
+        //  Rollbar.critical('Error while fetching image data from firebase', e);
       }
     }
   };
@@ -85,7 +86,8 @@ class CloudinaryUploader extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.init();
     if (
-      nextProps.isCloudinaryUploaderOpen !== this.props.isCloudinaryUploaderOpen &&
+      nextProps.isCloudinaryUploaderOpen !==
+        this.props.isCloudinaryUploaderOpen &&
       nextProps.isCloudinaryUploaderOpen === true
     ) {
       this.openUploader();
@@ -103,8 +105,20 @@ class CloudinaryUploader extends React.Component {
           .toString(16)
           .substring(1);
       }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
+      return (
+        s4() +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        s4() +
+        s4()
+      );
     }
     return guid();
   };
@@ -118,48 +132,48 @@ class CloudinaryUploader extends React.Component {
     options.multiple = this.props.multiple;
     options.max_file_size = this.props.maxFileSize;
 
-    if(this.props.maxFiles){
+    if (this.props.maxFiles) {
       options.max_files = this.props.maxFiles;
     }
 
-    if(this.props.cropping && this.props.cropping === 'server'){
+    if (this.props.cropping && this.props.cropping === 'server') {
       options.cropping = this.props.cropping;
     }
 
-    if(this.croppingAspectRatio){
+    if (this.croppingAspectRatio) {
       options.cropping_aspect_ratio = this.props.croppingAspectRatio;
     }
 
-    if(this.props.publicId){
+    if (this.props.publicId) {
       options.public_id = this.props.public_id;
     }
 
-    if(this.props.folder){
+    if (this.props.folder) {
       options.folder = this.props.folder;
     }
 
-    if(this.props.tags && this.props.tags.length > 0){
+    if (this.props.tags && this.props.tags.length > 0) {
       options.tags = this.props.tags;
     }
 
-    if(this.props.resourceType){
+    if (this.props.resourceType) {
       options.resource_type = this.props.resourceType;
     }
 
-    if(this.props.allowedFormats){
+    if (this.props.allowedFormats) {
       options.client_allowed_formats = this.props.allowedFormats;
     }
 
     var context = {};
-    if(this.props.contextAlt){
+    if (this.props.contextAlt) {
       context.alt = this.props.contextAlt;
     }
 
-    if(this.props.contextCaption){
+    if (this.props.contextCaption) {
       context.caption = this.props.contextCaption;
     }
 
-    if(Object.keys(context).length > 0){
+    if (Object.keys(context).length > 0) {
       options.context = context;
     }
 
@@ -171,33 +185,30 @@ class CloudinaryUploader extends React.Component {
     this.refs.resourcePanel.getStyle().classList.add('in');
   };
 
-  openUploader = (ev) => {
+  openUploader = ev => {
     if (ev) {
       ev.preventDefault();
     }
 
     var self = this;
-    try{
+    try {
       var options = this.getUploadOptions();
-      window.cloudinary.openUploadWidget(
-        options,
-        function(error, result) {
-          self.props.toggleCloudinaryUploader();
-          if (error || !result || result.length === 0){
-            return;
-          }
-          self.props.base.post('images/' + self.props.slug, {
-            data: self.state.imageList.concat(result),
-            then(){
-              self.init();
-              self.openResourcePanel();
-            }
-          });
-          return true;
+      window.cloudinary.openUploadWidget(options, function(error, result) {
+        self.props.toggleCloudinaryUploader();
+        if (error || !result || result.length === 0) {
+          return;
         }
-      );
-    } catch(e) {
-    //  Rollbar.error('Error occured while uploading image to cloudinary', e);
+        self.props.base.post('images/' + self.props.slug, {
+          data: self.state.imageList.concat(result),
+          then() {
+            self.init();
+            self.openResourcePanel();
+          }
+        });
+        return true;
+      });
+    } catch (e) {
+      //  Rollbar.error('Error occured while uploading image to cloudinary', e);
     }
   };
 

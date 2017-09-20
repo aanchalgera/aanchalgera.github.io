@@ -1,8 +1,9 @@
 /* @flow */
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Label } from './index';
 import TextField from 'material-ui/TextField';
+
+import { Label } from './Label';
 
 type Props = {
   setPostMeta: (key: string, data: Object) => void,
@@ -18,7 +19,7 @@ export class SponsoredContent extends Component {
       tracker: this.props.sponsor.tracker,
       image: this.props.sponsor.image
     });
-  }
+  };
 
   updateImage = (e: SyntheticEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
@@ -26,7 +27,7 @@ export class SponsoredContent extends Component {
       tracker: this.props.sponsor.tracker,
       name: this.props.sponsor.name
     });
-  }
+  };
 
   updateTracker = (e: SyntheticEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
@@ -34,7 +35,7 @@ export class SponsoredContent extends Component {
       image: this.props.sponsor.image,
       name: this.props.sponsor.name
     });
-  }
+  };
 
   render() {
     return (
