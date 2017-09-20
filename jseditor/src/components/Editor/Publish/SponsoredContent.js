@@ -5,19 +5,35 @@ import { Label } from './index';
 import TextField from 'material-ui/TextField';
 
 type Props = {
-  customerName: string,
-  urlTracker: string,
-  logo: string,
-  updateParent: (data: Object) => void
+  setPostMeta: (key: string, data: Object) => void,
+  sponsor: Object
 };
 
 export class SponsoredContent extends Component {
   props: Props;
 
-  handleChange = (value: string, valueToUpdate: string) => {
-    let {sponsor: sponsor, ...restMetaFields} = this.props.meta;
-    let {[valueToUpdate]: temp, ...restSponsorFields} = sponsor;
-    this.props.updateParent({meta: {sponsor: {[valueToUpdate]: value, ...restSponsorFields}, ...restMetaFields}});
+  updateName = (e: SyntheticEvent, value: string) => {
+    this.props.setPostMeta('sponsor', {
+      name: value,
+      tracker: this.props.sponsor.tracker,
+      image: this.props.sponsor.image
+    });
+  }
+
+  updateImage = (e: SyntheticEvent, value: string) => {
+    this.props.setPostMeta('sponsor', {
+      image: value,
+      tracker: this.props.sponsor.tracker,
+      name: this.props.sponsor.name
+    });
+  }
+
+  updateTracker = (e: SyntheticEvent, value: string) => {
+    this.props.setPostMeta('sponsor', {
+      tracker: value,
+      image: this.props.sponsor.image,
+      name: this.props.sponsor.name
+    });
   }
 
   render() {
@@ -31,31 +47,31 @@ export class SponsoredContent extends Component {
         <Row>
           <Col xs>
             <TextField
-              defaultValue={this.props.meta.sponsor.name}
+              value={this.props.sponsor.name}
               hintText="Socialmedia SL"
               floatingLabelText="Nombre del Cliente (se usa con 'Offrecido por' portada)"
               floatingLabelFixed={true}
-              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'name')}}
+              onChange={this.updateName}
               fullWidth={true}
             />
           </Col>
           <Col xs>
             <TextField
-              defaultValue={this.props.meta.sponsor.image}
+              value={this.props.sponsor.image}
               hintText="https://.."
               floatingLabelText="Direccion del logotipo"
               floatingLabelFixed={true}
-              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'image')}}
+              onChange={this.updateImage}
               fullWidth={true}
             />
           </Col>
           <Col xs>
             <TextField
-              defaultValue={this.props.meta.sponsor.tracker}
+              value={this.props.sponsor.tracker}
               hintText="..."
               floatingLabelText="URL Tracker"
               floatingLabelFixed={true}
-              onChange={(e: SyntheticEvent, value: string)=> {this.handleChange(value, 'tacker')}}
+              onChange={this.updateTracker}
               fullWidth={true}
             />
           </Col>

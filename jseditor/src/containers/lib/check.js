@@ -3,8 +3,9 @@ import { viewPermissions } from './constants';
 
 type PropTypes = {
   children: Object,
-  userRoles: string,
-  childName: string
+  userRole: string,
+  childName: string,
+  postType: string
 };
 
 const isViewPermitted = (
