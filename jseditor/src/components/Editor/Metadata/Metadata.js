@@ -5,6 +5,7 @@ import Homepage from './Homepage';
 import Sponsor from './Sponsor';
 import Css from './Css';
 import Microsite from './Microsite';
+import Comments from './Comments';
 
 class Metadata extends React.Component {
   onArticleMetaToggle(e) {
@@ -38,6 +39,13 @@ class Metadata extends React.Component {
           toggleSocialSharing={this.props.toggleSocialSharing}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
+        <Sponsor
+          sponsor={this.props.meta.sponsor}
+          updateSponsorName={this.props.updateSponsorName}
+          updateSponsorImage={this.props.updateSponsorImage}
+          updateSponsorTracker={this.props.updateSponsorTracker}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+        />
         <Css
           css={this.props.meta.css}
           updateCssSkinName={this.props.updateCssSkinName.bind(this)}
@@ -51,6 +59,12 @@ class Metadata extends React.Component {
           deleteHomepageImage={this.props.deleteHomepageImage}
           openResourcePanel={this.props.openResourcePanel}
           onArticleMetaToggle={this.onArticleMetaToggle}
+        />
+        <Comments
+          comment={this.props.meta.comment}
+          onArticleMetaToggle={this.onArticleMetaToggle}
+          toggleAllowComments={this.props.toggleAllowComments}
+          toggleCommentStatus={this.props.toggleCommentStatus}
         />
       </div>
     );
