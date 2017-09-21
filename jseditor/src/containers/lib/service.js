@@ -179,8 +179,7 @@ export const getUserDetails = async (blogUrl, userId) => {
     const response = await isoFetch(`${blogUrl}/admin/users/${userId}.json`, {
       credentials: 'include'
     });
-    const userDetails = response.json();
-    return userDetails;
+    return response.json();
   } catch (err) {
     throw new Error('NOT_LOGGED_IN');
   }

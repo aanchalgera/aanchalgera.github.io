@@ -57,7 +57,7 @@ class Publish extends React.Component {
   submitPost = () => {
     let date = this.state.publishedDate;
     submitPostToBackend(this.state, this.props.blogUrl)
-      .fail(error => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
+      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
         if (result.id !== undefined) {
           this.setState(
@@ -261,7 +261,6 @@ class Publish extends React.Component {
               category={this.state.category}
               updateParent={this.updateParent}
               allCategories={this.state.allCategories}
-              postType={this.state.postType}
             />
           </Col>
           <Check

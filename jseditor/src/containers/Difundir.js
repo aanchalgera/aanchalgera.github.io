@@ -26,7 +26,8 @@ type Props = {
   base: Object,
   post: Object,
   blogUrl: string,
-  blogName: string
+  blogName: string,
+  handleDifundir: (status: string) => void
 };
 
 class Difundir extends React.Component {
