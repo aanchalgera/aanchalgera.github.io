@@ -269,6 +269,7 @@ class Publish extends React.Component {
               category={this.state.category}
               updateParent={this.updateParent}
               allCategories={this.state.allCategories}
+              postType={this.state.postType}
             />
           </Col>
           <Check
