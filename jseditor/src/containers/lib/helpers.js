@@ -30,7 +30,8 @@ export const loadStatefromData = (data: {}) => {
       social: { twitter: '', facebook: '' },
       comment: { status: 'open' },
       author: { showAuthorInfo: false },
-      seo: { title: '', description: '' }
+      seo: { title: '', description: '' },
+      sponsor: { image: '', name: '', tracker: '' }
     },
     maxId: data.maxId,
     status: data.status || 'draft',
