@@ -51,7 +51,7 @@ class Difundir extends React.Component {
       this.setState({
         id: data.id,
         postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-        publishRegion: data.publishData.publishRegion || '',
+        publishRegion: data.publishData.publishRegion || [],
         postId: data.publishData.postId
       });
     }
