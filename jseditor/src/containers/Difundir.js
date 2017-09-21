@@ -8,7 +8,6 @@ import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
 import configParams from '../config/configs';
 import {
-  getPost,
   updatePost,
   submitRepostedBlogsToBackend,
   republishPostNow,
@@ -24,9 +23,8 @@ const ALREADY_SCHEDULED = 'Post already scheduled to republish at ';
 const REPUBLISHED = 'Post successfully scheduled to republish at  ';
 
 type Props = {
-  postname: string,
-  handleDifundir: (status: string) => void,
   base: Object,
+  post: Object,
   blogUrl: string,
   blogName: string
 };
@@ -47,17 +45,15 @@ class Difundir extends React.Component {
   }
 
   init() {
-    getPost(this.props.postname, this.props.base).then(data => {
-      if (data.hasOwnProperty('id')) {
-        this.setState({
-          id: data.id,
-          postRepostBlogNames: data.publishData.postRepostBlogNames || [],
-          publishRegion: data.publishData.publishRegion || '',
-          postId: data.publishData.postId
-        });
-        this.props.handleDifundir(data.status);
-      }
-    });
+    const data = this.props.post;
+    if (data.hasOwnProperty('id')) {
+      this.setState({
+        id: data.id,
+        postRepostBlogNames: data.publishData.postRepostBlogNames || [],
+        publishRegion: data.publishData.publishRegion || '',
+        postId: data.publishData.postId
+      });
+    }
   }
 
   setRepostBlogs = (blogName: string, isChecked: boolean) => {

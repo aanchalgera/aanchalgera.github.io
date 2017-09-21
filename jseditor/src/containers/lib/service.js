@@ -3,15 +3,20 @@ import isoFetch from 'isomorphic-fetch';
 
 import { convertTo1DArray } from './helpers';
 
-export const getConfig = (blogName, base) => {
-  return base.fetch('config', {
-    context: this,
-    asArray: true,
-    queries: {
-      orderByChild: 'site_name',
-      equalTo: blogName
-    }
-  });
+export const getBlogUrl = async (blogName, base) => {
+  try {
+    const data = await base.fetch('config', {
+      context: this,
+      asArray: true,
+      queries: {
+        orderByChild: 'site_name',
+        equalTo: blogName
+      }
+    });
+    return data[0].site_url;
+  } catch (error) {
+    throw new Error('Blog not found in Config');
+  }
 };
 
 export const getPost = (postname, base) => {
@@ -129,7 +134,7 @@ export const loadAllCategories = async (blogUrl, postType) => {
 };
 
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
-  return await jquery.ajax({
+  return jquery.ajax({
     url: blogUrl + '/admin/postsrepostings.json',
     type: 'post',
     dataType: 'json',
@@ -170,9 +175,13 @@ export const republishSchedule = async (blogUrl, postId, date) => {
 };
 
 export const getUserDetails = async (blogUrl, userId) => {
-  const response = await isoFetch(`${blogUrl}/admin/users/${userId}.json`, {
-    credentials: 'include'
-  });
-  const userDetails = response.json();
-  return userDetails;
+  try {
+    const response = await isoFetch(`${blogUrl}/admin/users/${userId}.json`, {
+      credentials: 'include'
+    });
+    const userDetails = response.json();
+    return userDetails;
+  } catch (err) {
+    throw new Error('NOT_LOGGED_IN');
+  }
 };

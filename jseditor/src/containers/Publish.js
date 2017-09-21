@@ -21,7 +21,6 @@ import {
 } from '../components/Editor/Publish';
 import configParams from '../config/configs.js';
 import {
-  getPost,
   submitPostToBackend,
   savePostsList,
   savePost,
@@ -46,24 +45,19 @@ const UPDATED_MESSAGE = 'Guardado correctamente';
 class Publish extends React.Component {
   state = initialState;
 
-  componentWillMount() {
+  componentDidMount() {
     this.init();
   }
 
   init() {
-    getPost(this.props.postname, this.props.base).then(data => {
-      if (data != null) {
-        this.setState(loadStatefromData(data));
-        this.setAllCategories(data.postType);
-        this.props.handleDifundir(data.status);
-      }
-    });
+    this.setState(loadStatefromData(this.props.post));
+    this.setAllCategories(this.props.post.postType);
   }
 
   submitPost = () => {
     let date = this.state.publishedDate;
     submitPostToBackend(this.state, this.props.blogUrl)
-      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
+      .fail(error => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
       .then(result => {
         if (result.id !== undefined) {
           this.setState(
@@ -172,10 +166,7 @@ class Publish extends React.Component {
   };
 
   setAllCategories = async postType => {
-    let categories = await loadAllCategories(
-      this.props.blogUrl,
-      this.state.postType
-    );
+    let categories = await loadAllCategories(this.props.blogUrl, postType);
     let updatedCategories = filterCategories(categories);
     this.setState({ allCategories: updatedCategories });
   };
@@ -189,6 +180,7 @@ class Publish extends React.Component {
       });
       savePostsList(this.state, this.props.base, this.props.blogName);
     } catch (err) {
+      console.log(err);
       this.setMessage(true, SAVING_DATA_ERROR_WARNING);
     }
   };
@@ -209,7 +201,7 @@ class Publish extends React.Component {
   };
 
   render() {
-    if ('' === this.state.postType) {
+    if (!this.state) {
       return <div>Loading...</div>;
     }
 

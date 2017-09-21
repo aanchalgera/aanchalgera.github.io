@@ -62,13 +62,13 @@ export const validateState = state => {
     isError = true;
     message = INVALID_DATE;
   } else {
-    const date = moment(state.publishedDate, 'DD/MM/YYYY HH:mm', true);
+    const date = moment(state.publishedDate, 'DD/MM/YYYY H:mm', true);
     if (!date.isValid()) {
       isError = true;
       message = INVALID_DATE;
     }
   }
-  if (moment(state.publishedDate, 'DD/MM/YYYY HH:mm:ss').isBefore(moment())) {
+  if (moment(state.publishedDate, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
     isError = true;
     message = PUBLISH_POST_WARNING;
   } else if (null === state.category) {
@@ -133,7 +133,6 @@ const initialCrop = {
 };
 
 export const initialState = {
-  fields: [],
   status: 'draft',
   postRepostBlogNames: [],
   publishRegion: [],
