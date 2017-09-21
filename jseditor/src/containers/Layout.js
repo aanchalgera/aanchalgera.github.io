@@ -2,8 +2,8 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import TitleBar from '../components/Menu/TitleBar';
-import { customTheme } from '../components/styles/customTheme';
-import { getConfig, getUserDetails } from './lib/service';
+import { customTheme } from './styles/customTheme';
+import { getBlogUrl, getUserDetails, getPost } from './lib/service';
 
 type Props = {
   match: { params: Object },
@@ -24,13 +24,6 @@ export default class Layout extends React.Component {
     this.init();
   }
 
-  validateUserId(userId: string, history: Object) {
-    let regEx = /\D/;
-    if (regEx.test(userId)) {
-      history.push('/invalidUser');
-    }
-  }
-
   init = async () => {
     const {
       match: { params: { postname } },
@@ -40,20 +33,25 @@ export default class Layout extends React.Component {
     const query = new URLSearchParams(search);
     const blogName = query.get('blog');
     const userId = query.get('userid');
-    this.validateUserId(userId, history);
 
-    const data = await getConfig(blogName, this.props.base);
-
-    if (data[0] != null) {
-      const blogUrl = data[0].site_url;
-      const userDetails = await getUserDetails(blogUrl, userId);
+    try {
+      const postData = getPost(postname, this.props.base);
+      const blogUrl = await getBlogUrl(blogName, this.props.base);
+      const userData = getUserDetails(blogUrl, userId);
+      const [post, userDetails] = [await postData, await userData];
       this.setState({
         blogUrl: blogUrl,
-        postname: postname,
-        userRole: userDetails['roles'][0]
+        post: post,
+        userRole: userDetails['roles'][0],
+        blogName: blogName
       });
-    } else {
-      history.replace('/invalidBlog');
+    } catch (error) {
+      console.log(error.message);
+      if (error.message === 'NOT_LOGGED_IN') {
+        history.push('/invalidUser');
+      } else {
+        history.push('/invalidBlog');
+      }
     }
   };
 

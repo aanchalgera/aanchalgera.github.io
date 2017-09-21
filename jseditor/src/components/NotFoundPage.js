@@ -1,10 +1,8 @@
 import React from 'react';
 
 class NotFoundPage extends React.Component {
-  render () {
-    return (
-      <h2>Oh!!, Page Not Found.. Come back later.</h2>
-    );
+  render() {
+    return <h2>Something went wrong.</h2>;
   }
 }
 
