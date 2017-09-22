@@ -176,7 +176,7 @@ class Editor extends React.Component {
           id: hashId,
           meta: initialMeta,
           userId: this.userId,
-          postType: query.get('postType') || getPostType(this.state.userRole)
+          postType: query.get('type') || getPostType(this.state.userRole)
         },
         history.push(postEditUrl)
       );

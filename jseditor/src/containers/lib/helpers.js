@@ -21,11 +21,11 @@ const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
 
 export const getPostType = (userRole: string) => {
   let postType = 'longform';
-  if (
-    ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
-      userRole
-    ) > -1
-  ) {
+  const brandedRoles = [
+    'ROLE_BRANDED_COLLABORATOR',
+    'ROLE_BRANDED_COORDINATOR'
+  ];
+  if (brandedRoles.includes(userRole)) {
     postType = 'brandedLongform';
   }
   return postType;
