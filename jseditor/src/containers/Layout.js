@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import TitleBar from '../components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
-import { getBlogUrl, getUserDetails, getPost } from './lib/service';
+import { getBlogUrl, getUserDetails } from './lib/service';
 
 type Props = {
   match: { params: Object },
@@ -35,14 +35,12 @@ export default class Layout extends React.Component {
     const userId = query.get('userid');
 
     try {
-      const postData = getPost(postname, this.props.base);
       const blogUrl = await getBlogUrl(blogName, this.props.base);
-      const userData = getUserDetails(blogUrl, userId);
-      const [post, userDetails] = [await postData, await userData];
+      const userData = await getUserDetails(blogUrl, userId);
       this.setState({
         blogUrl: blogUrl,
-        post: post,
-        userRole: userDetails['roles'][0],
+        postname: postname,
+        userRole: userData['roles'][0],
         blogName: blogName
       });
     } catch (error) {
