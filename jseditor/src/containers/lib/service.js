@@ -85,7 +85,7 @@ export const submitPostToBackend = (state, blogUrl) => {
   let backendData = {
     categoryId: state.category,
     post_title: state.title,
-    comment_status: state.meta.comment.status,
+    comment_status: state.commentStatus,
     post_type: state.postType,
     post_content: JSON.stringify(state.fields),
     postExcerpt: JSON.stringify({ meta: state.meta }),
