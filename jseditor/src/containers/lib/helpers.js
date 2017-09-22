@@ -17,6 +17,7 @@ const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const TRACKER_EMPTY = 'URL Tracker can not be empty';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
+const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
 
 export const loadStatefromData = (data: {}) => {
   return {
@@ -86,6 +87,9 @@ export const validateState = state => {
   } else if (0 === state.publishRegion.length) {
     isError = true;
     message = EMPTY_COUNTRY_ARRAY;
+  } else if (0 === state.tags.length) {
+    isError = true;
+    message = TAG_FIELD_EMPTY;
   }
 
   for (let key in state.crop) {
