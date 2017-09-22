@@ -19,14 +19,27 @@ const TRACKER_EMPTY = 'URL Tracker can not be empty';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
 const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
 
-export const loadStatefromData = (data: {}) => {
+export const getPostType = (userRole: string) => {
+  let postType = 'longform';
+  if (
+    ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
+      userRole
+    ) > -1
+  ) {
+    postType = 'brandedLongform';
+  }
+  return postType;
+};
+
+export const loadStatefromData = (data: {}, userRole: string) => {
   return {
     id: data.id,
     blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
-    postType: data.postType,
-    commentStatus: data.commentStatus || data.meta.comment.status || 'closed',
+    postType: data.postType || getPostType(userRole),
+    commentStatus:
+      data.commentStatus || idx(data, _ => _.meta.comment.status) || 'closed',
     meta: data.meta,
     maxId: data.maxId,
     status: data.status || 'draft',
@@ -147,6 +160,7 @@ export const initialMeta = {
     twitter: '',
     facebook: ''
   },
+  footer: { hideFooter: false, content: '' },
   showDate: false
 };
 

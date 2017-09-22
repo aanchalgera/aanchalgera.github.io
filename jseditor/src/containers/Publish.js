@@ -52,7 +52,7 @@ class Publish extends React.Component {
 
   async init() {
     const post = await getPost(this.props.postname, this.props.base);
-    this.setState(loadStatefromData(post));
+    this.setState(loadStatefromData(post, this.props.userRole));
     this.setAllCategories(post.postType);
     this.props.handleDifundir(post.status);
   }
