@@ -21,6 +21,7 @@ import {
 } from '../components/Editor/Publish';
 import configParams from '../config/configs.js';
 import {
+  getPost,
   submitPostToBackend,
   savePostsList,
   savePost,
@@ -49,35 +50,36 @@ class Publish extends React.Component {
     this.init();
   }
 
-  init() {
-    this.setState(loadStatefromData(this.props.post));
-    this.setAllCategories(this.props.post.postType);
+  async init() {
+    const post = await getPost(this.props.postname, this.props.base);
+    this.setState(loadStatefromData(post));
+    this.setAllCategories(post.postType);
+    this.props.handleDifundir(post.status);
   }
 
-  submitPost = () => {
+  submitPost = async () => {
     let date = this.state.publishedDate;
-    submitPostToBackend(this.state, this.props.blogUrl)
-      .fail(() => this.setMessage(true, SAVING_DATA_ERROR_WARNING))
-      .then(result => {
-        if (result.id !== undefined) {
-          this.setState(
-            {
-              postId: result.id,
-              postHash: result.post_hash,
-              status: 'publish',
-              publishedDate: date,
-              message: '',
-              snackbarOpen: true,
-              SnackbarMessage:
-                SAVED_MESSAGE + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
-            },
-            this.savePostData
-          );
-          this.props.handleDifundir('publish');
-        }
-        savePostsList(this.state, this.props.base, this.props.blogName);
-        this.enableButton();
-      });
+    try {
+      const result = await submitPostToBackend(this.state, this.props.blogUrl);
+      this.setState(
+        {
+          postId: result.id,
+          postHash: result.post_hash,
+          status: 'publish',
+          publishedDate: date,
+          message: '',
+          snackbarOpen: true,
+          SnackbarMessage:
+            SAVED_MESSAGE + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
+        },
+        this.savePostData
+      );
+      this.props.handleDifundir('publish');
+      savePostsList(this.state, this.props.base, this.props.blogName);
+      this.enableButton();
+    } catch (error) {
+      this.setMessage(true, SAVING_DATA_ERROR_WARNING);
+    }
   };
 
   setPostMeta = (key, value) => {
@@ -201,10 +203,6 @@ class Publish extends React.Component {
   };
 
   render() {
-    if (!this.state) {
-      return <div>Loading...</div>;
-    }
-
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -257,11 +255,12 @@ class Publish extends React.Component {
         </Check>
         <Row>
           <Col xs={3}>
-            <Categories
-              category={this.state.category}
-              updateParent={this.updateParent}
-              allCategories={this.state.allCategories}
-            />
+            {this.state.postType &&
+              <Categories
+                category={this.state.category}
+                updateParent={this.updateParent}
+                allCategories={this.state.allCategories}
+              />}
           </Col>
           <Check
             userRole={this.props.userRole}
