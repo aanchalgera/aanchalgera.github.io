@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-import { Divider, Checkbox, Subheader, RaisedButton } from 'material-ui';
+import { Checkbox, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
+import { Label } from '../Publish';
 
 declare type InputEvent = Event & { currentTarget: HTMLInputElement };
 
@@ -95,8 +96,9 @@ export default class RepostSiteOptions extends React.Component {
   render() {
     return (
       <div>
-        <Subheader className="subheader">Crosspost a otros medios</Subheader>
-        <Divider className="divider" />
+        <Label
+          label="Crosspost a otros medios"
+        />
         <Row>
           {Object.keys(formatedBlogs).map(key =>
             <Col xs key={key}>
