@@ -55,11 +55,8 @@ export class AdvancedOptions extends React.Component {
   };
 
   setCommentStatus = (e: SyntheticEvent, isChecked: boolean) => {
-    const checked = {
-      allow: true,
-      status: isChecked ? 'closed' : 'open'
-    };
-    this.props.setPostMeta('comment', checked);
+    const commentStatus = isChecked ? 'closed' : 'open';
+    this.props.updateParent({ commentStatus });
   };
 
   handleSensitivePost = (e: SyntheticEvent, isSensitive: boolean) => {
@@ -71,7 +68,13 @@ export class AdvancedOptions extends React.Component {
   };
 
   render() {
-    const { setPostMeta, postMeta, specialPost, isSensitive } = this.props;
+    const {
+      setPostMeta,
+      postMeta,
+      specialPost,
+      isSensitive,
+      commentStatus
+    } = this.props;
 
     return (
       <div>
@@ -87,7 +90,7 @@ export class AdvancedOptions extends React.Component {
           onCheck={this.handleSensitivePost}
         />
         <Checkbox
-          checked={postMeta.comment.status === 'closed'}
+          checked={commentStatus === 'closed'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
         />

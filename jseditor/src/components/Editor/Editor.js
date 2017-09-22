@@ -9,6 +9,7 @@ import CloudinaryUploader from './CloudinaryUploader';
 import Metadata from './Metadata/Metadata';
 import helpers from '../../utils/generatehash';
 import configParams from '../../config/configs.js';
+import { initialMeta } from '../../containers/lib/helpers';
 
 moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
@@ -144,23 +145,7 @@ class Editor extends React.Component {
                 maxId: data.maxId,
                 status: data.status || this.state.status,
                 publishData: data.publishData || this.state.regions,
-                meta: data.meta || {
-                  index: '',
-                  homepage: { content: '' },
-                  css: { skinName: '' },
-                  seo: {},
-                  microsite: {
-                    name: '',
-                    gaSnippet: '',
-                    showWSLLogo: true,
-                    showSocialButtons: true
-                  },
-                  author: { showAuthorInfo: false },
-                  social: { facebook: '', twitter: '' },
-                  showDate: false,
-                  showSocialShareButtons: true,
-                  footer: { hideFooter: false, content: '' }
-                },
+                meta: data.meta || initialMeta,
                 isSynced: true
               });
             } else {
@@ -1046,7 +1031,7 @@ class Editor extends React.Component {
         categoryId: '-1',
         user_id: this.state.userId,
         post_title: this.state.value,
-        comment_status: this.state.meta.comment.status,
+        comment_status: this.state.commentStatus,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
         postExcerpt: JSON.stringify({ meta: this.state.meta }),

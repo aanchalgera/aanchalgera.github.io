@@ -26,14 +26,8 @@ export const loadStatefromData = (data: {}) => {
     fields: data.sections || [],
     title: data.title,
     postType: data.postType,
-    meta: data.meta || {
-      homepage: { content: '' },
-      social: { twitter: '', facebook: '' },
-      comment: { status: 'open' },
-      author: { showAuthorInfo: false },
-      seo: { title: '', description: '' },
-      sponsor: { image: '', name: '', tracker: '' }
-    },
+    commentStatus: data.commentStatus || data.meta.comment.status || 'closed',
+    meta: data.meta,
     maxId: data.maxId,
     status: data.status || 'draft',
     publishedDate: idx(data, _ => _.publishData.postDate),
@@ -135,6 +129,26 @@ const initialCrop = {
     validate: false
   }
 };
+export const initialMeta = {
+  homepage: { content: null },
+  index: '',
+  sponsor: { name: '', image: '', tracker: '' },
+  css: { skinName: '' },
+  seo: {},
+  showSocialShareButtons: false,
+  microsite: {
+    name: '',
+    gaSnippet: '',
+    showWSLLogo: true,
+    showSocialButtons: true
+  },
+  author: { showAuthorInfo: false },
+  social: {
+    twitter: '',
+    facebook: ''
+  },
+  showDate: false
+};
 
 export const initialState = {
   status: 'draft',
@@ -142,29 +156,10 @@ export const initialState = {
   publishRegion: [],
   postId: '',
   postType: '',
+  commentStatus: 'open',
   postHash: '',
   publishedDate: '',
-  meta: {
-    homepage: { content: null },
-    index: '',
-    sponsor: { name: '', image: '', tracker: '' },
-    css: { skinName: '' },
-    seo: {},
-    showSocialShareButtons: false,
-    microsite: {
-      name: '',
-      gaSnippet: '',
-      showWSLLogo: true,
-      showSocialButtons: true
-    },
-    author: { showAuthorInfo: false },
-    social: {
-      twitter: '',
-      facebook: ''
-    },
-    showDate: false,
-    comment: { allowed: true, status: 'open' }
-  },
+  meta: initialMeta,
   isSensitive: false,
   specialPost: false,
   buttonDisabled: true,
