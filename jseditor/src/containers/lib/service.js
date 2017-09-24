@@ -79,7 +79,7 @@ export const savePostsList = (state, base, blogName) => {
   });
 };
 
-const mapPostType = postType => {
+export const mapPostType = postType => {
   const normalTypes = ['normal', 'longform'];
   return normalTypes.includes(postType) ? 'normal' : 'club';
 };

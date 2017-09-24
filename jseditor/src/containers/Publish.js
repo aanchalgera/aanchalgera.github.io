@@ -59,8 +59,10 @@ class Publish extends React.Component {
 
   submitPost = async () => {
     let date = this.state.publishedDate;
+    let state = this.state;
+    state.status = 'publish';
     try {
-      const result = await submitPostToBackend(this.state, this.props.blogUrl);
+      const result = await submitPostToBackend(state, this.props.blogUrl);
       this.setState(
         {
           postId: result.id,
@@ -255,12 +257,11 @@ class Publish extends React.Component {
         </Check>
         <Row>
           <Col xs={3}>
-            {this.state.postType &&
-              <Categories
-                category={this.state.category}
-                updateParent={this.updateParent}
-                allCategories={this.state.allCategories}
-              />}
+            <Categories
+              category={this.state.category}
+              updateParent={this.updateParent}
+              allCategories={this.state.allCategories}
+            />
           </Col>
           <Check
             userRole={this.props.userRole}
@@ -286,10 +287,11 @@ class Publish extends React.Component {
         <Label label="Portada y redes sociales" />
         <Row>
           <Col xs={6}>
-            <HomePage
-              homepage={this.state.meta.homepage}
-              updateHomepageContent={this.updateHomepageContent}
-            />
+            {this.state.id &&
+              <HomePage
+                homepage={this.state.meta.homepage}
+                updateHomepageContent={this.updateHomepageContent}
+              />}
           </Col>
           <Col xs={3}>
             <Twitter

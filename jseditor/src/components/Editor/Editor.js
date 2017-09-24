@@ -10,6 +10,7 @@ import Metadata from './Metadata/Metadata';
 import helpers from '../../utils/generatehash';
 import configParams from '../../config/configs.js';
 import { initialMeta, getPostType } from '../../containers/lib/helpers';
+import { mapPostType } from '../../containers/lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
@@ -611,45 +612,15 @@ class Editor extends React.Component {
       maxId: this.state.maxId,
       status: this.state.status || '',
       publishData: this.state.publishData || this.state.regions,
-      meta:
-        this.state.meta != undefined
-          ? this.state.meta
-          : {
-              index: '',
-              homepage: { content: '' },
-              sponsor: { name: '', image: '', tracker: '' },
-              css: { skinName: '' },
-              seo: {},
-              microsite: {
-                name: '',
-                gaSnippet: '',
-                showWSLLogo: true,
-                showSocialButtons: true
-              },
-              author: { showAuthorInfo: false },
-              social: { facebook: '', twitter: '' },
-              showDate: false,
-              showSocialShareButtons: true,
-              footer: { hideFooter: false, content: '' }
-            }
+      meta: this.state.meta || initialMeta,
+      postType: this.state.postType
     };
 
     if (this.state.postId != undefined && this.state.postId != '') {
       data.publishData.postId = this.state.postId;
       data.publishData.postHash = this.state.postHash;
     }
-
-    let postType = 'normal';
     let blogStatus = this.blogName + '_' + this.state.status;
-    if (
-      ['ROLE_BRANDED_COLLABORATOR', 'ROLE_BRANDED_COORDINATOR'].indexOf(
-        this.state.userRole
-      ) > -1
-    ) {
-      postType = 'club';
-    }
-    data.postType = postType;
-
     let listData = {
       id: this.state.id,
       title: this.state.value,
@@ -658,7 +629,7 @@ class Editor extends React.Component {
       user_status: userStatus,
       blog_status: blogStatus,
       blog_name: this.blogName,
-      blog_post_type: blogStatus + '_' + postType
+      blog_post_type: blogStatus + '_' + mapPostType(this.state.postType)
     };
 
     this.props.base.post('posts_list/' + this.state.id, {
