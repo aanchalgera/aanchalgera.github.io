@@ -973,7 +973,7 @@ class Editor extends React.Component {
         categoryId: '-1',
         user_id: this.state.userId,
         post_title: this.state.value,
-        comment_status: this.state.meta.comment.status,
+        comment_status: this.state.commentStatus,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
         postExcerpt: JSON.stringify({ meta: this.state.meta }),

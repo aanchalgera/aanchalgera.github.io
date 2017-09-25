@@ -97,6 +97,7 @@ export const submitPostToBackend = (state, blogUrl) => {
     post_extended_title: '',
     post_visibility: 0,
     posts_galleries: '',
+    post_subtype: 13,
     postDate: state.publishedDate,
     'publish-region': publishRegion,
     postCategories: convertTo1DArray(state.postCategories),

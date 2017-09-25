@@ -143,7 +143,7 @@ const initialCrop = {
   }
 };
 export const initialMeta = {
-  homepage: { content: '<p><br></p>' },
+  homepage: { content: '' },
   index: '',
   sponsor: { name: '', image: '', tracker: '' },
   css: { skinName: '' },
