@@ -1,10 +1,10 @@
+// @flow
 import idx from 'idx';
 import moment from 'moment-timezone';
 import configParams from '../../config/configs.js';
 
 moment.tz.setDefault(configParams.timezone);
 
-const PUBLISH_POST_WARNING = 'You can not reschedule already published post';
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
 const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
@@ -12,7 +12,6 @@ const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
 const FACEBOOK_TEXT_SAME_POST_TITLE =
   'Facebook text cannot be same as post title';
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
-const INVALID_DATE = 'Past date selected';
 const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const TRACKER_EMPTY = 'URL Tracker can not be empty';
@@ -66,20 +65,7 @@ export const validateState = state => {
 
   const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
 
-  if (null === state.publishedDate) {
-    isError = true;
-    message = INVALID_DATE;
-  } else {
-    const date = moment(state.publishedDate, 'DD/MM/YYYY H:mm', true);
-    if (!date.isValid()) {
-      isError = true;
-      message = INVALID_DATE;
-    }
-  }
-  if (moment(state.publishedDate, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
-    isError = true;
-    message = PUBLISH_POST_WARNING;
-  } else if (null === state.category) {
+  if (null === state.category) {
     isError = true;
     message = CATEGORY_FIELD_EMPTY;
   } else if ('' === state.meta.social.facebook) {

@@ -31,7 +31,11 @@ export class SchedulePost extends React.Component {
 
   onChange = (e: InputEvent) => {
     const dateString = e.currentTarget.value.trim();
-    this.props.updateParent({ publishedDate: dateString });
+    if (validateDate(dateString)) {
+      this.props.updateParent({ publishedDate: dateString });
+    } else {
+      this.props.updateParent({ isError: true, message: 'Invalid Date' });
+    }
   };
 
   onPickSlot = (x: number, y: number, e: InputEvent) => {
@@ -81,3 +85,17 @@ export class SchedulePost extends React.Component {
     );
   }
 }
+
+const validateDate = (date: string) => {
+  if (null === date) {
+    return false;
+  }
+  const dateString = moment(date, 'DD/MM/YYYY H:mm', true);
+  if (!dateString.isValid()) {
+    return false;
+  }
+  if (moment(date, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
+    return false;
+  }
+  return true;
+};
