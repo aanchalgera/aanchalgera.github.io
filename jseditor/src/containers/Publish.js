@@ -43,15 +43,25 @@ const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
 const DRAFT_MESSAGE = 'El post se ha pasado a borrador correctamente';
 const UPDATED_MESSAGE = 'Guardado correctamente';
 
+type Props = {
+  base: Object,
+  match: { params: Object },
+  blogUrl: string,
+  blogName: string,
+  handleDifundir: (status: string) => void
+};
+
 class Publish extends React.Component {
   state = initialState;
+  props: Props;
 
   componentDidMount() {
     this.init();
   }
 
   async init() {
-    const post = await getPost(this.props.postname, this.props.base);
+    const postname = this.props.match.params.postname;
+    const post = await getPost(postname, this.props.base);
     this.setState(loadStatefromData(post, this.props.userRole));
     this.setAllCategories(post.postType);
     this.props.handleDifundir(post.status);
@@ -84,7 +94,7 @@ class Publish extends React.Component {
     }
   };
 
-  setPostMeta = (key, value) => {
+  setPostMeta = (key: string, value: Object) => {
     let meta = this.state.meta;
     meta[key] = value;
     this.setState({ meta }, this.savePostData);
@@ -110,7 +120,7 @@ class Publish extends React.Component {
     return !isError;
   }
 
-  setMessage(isError, message) {
+  setMessage(isError: boolean, message: string) {
     let params = {
       isError: isError,
       message: message
@@ -125,7 +135,7 @@ class Publish extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  updateParent = data => {
+  updateParent = (data: Object) => {
     this.setState(data, this.savePostData);
   };
 

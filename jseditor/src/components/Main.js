@@ -7,8 +7,6 @@ import { Switch, Route } from 'react-router-dom';
 import TopBar from './Menu/TopBar';
 import Editor from '../components/Editor/Editor';
 import Layout from '../containers/Layout';
-import Publicar from '../containers/Publish';
-import Difundir from '../containers/Difundir';
 import Config from '../components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
@@ -28,20 +26,7 @@ class Main extends React.Component {
       pathname.indexOf('/publicar/') > -1 ||
       pathname.indexOf('/difundir/') > -1
     ) {
-      return (
-        <div>
-          <Route
-            path="/publicar/:postname"
-            render={props =>
-              <Layout {...props} component={Publicar} base={base} />}
-          />
-          <Route
-            path="/difundir/:postname"
-            render={props =>
-              <Layout {...props} component={Difundir} base={base} />}
-          />
-        </div>
-      );
+      return <Layout {...this.props} base={base} />;
     }
 
     return (
