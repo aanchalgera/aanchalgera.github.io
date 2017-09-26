@@ -1,9 +1,6 @@
-// @flow
 import idx from 'idx';
 import moment from 'moment-timezone';
 import configParams from '../../config/configs.js';
-
-moment.tz.setDefault(configParams.timezone);
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -31,6 +28,7 @@ export const getPostType = (userRole: string) => {
 };
 
 export const validateDate = (date: string) => {
+  moment.tz.setDefault(configParams.timezone);
   if (null === date) {
     return false;
   }

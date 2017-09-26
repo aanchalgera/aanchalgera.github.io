@@ -210,13 +210,16 @@ class Publish extends React.Component {
   };
 
   handleStatusUpdate = async () => {
+    let state = this.state;
+    state.status = 'draft';
     try {
-      await submitPostToBackend(this.state, this.props.blogUrl);
+      await submitPostToBackend(state, this.props.blogUrl);
       this.setState({
+        status: 'draft',
         snackbarOpen: true,
         SnackbarMessage: DRAFT_MESSAGE
       });
-      savePostsList(this.state, this.props.base, this.props.blogName);
+      savePostsList(state, this.props.base, this.props.blogName);
     } catch (err) {
       console.log(err);
       this.setMessage(true, SAVING_DATA_ERROR_WARNING);
@@ -241,7 +244,6 @@ class Publish extends React.Component {
   render() {
     let showCalendar = true;
     const currentTime = moment().format('DD/MM/YYYY H:mm');
-    console.log(currentTime);
     if (
       this.state.status === 'publish' &&
       currentTime >= this.state.publishedDate
@@ -292,7 +294,6 @@ class Publish extends React.Component {
             <Col xs={2}>
               <DraftButton
                 status={this.state.status}
-                updateParent={this.updateParent}
                 handleStatusUpdate={this.handleStatusUpdate}
               />
             </Col>
