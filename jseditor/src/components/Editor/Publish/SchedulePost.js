@@ -40,7 +40,7 @@ export class SchedulePost extends React.Component {
       this.setState({
         schedulerOpened: false
       });
-      this.props.updateParent(currentTarget.dataset.date);
+      this.props.updateParent({ publishedDate: currentTarget.dataset.date });
     }
   };
 
