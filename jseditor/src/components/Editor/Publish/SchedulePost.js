@@ -30,7 +30,7 @@ export class SchedulePost extends React.Component {
   props: Props;
 
   onChange = (e: InputEvent) => {
-    const dateString = e.currentTarget.value.trim();
+    const dateString = e.currentTarget.value;
     this.props.updateParent({ publishedDate: dateString });
   };
 
@@ -52,13 +52,12 @@ export class SchedulePost extends React.Component {
   };
 
   render() {
-    const date = this.props.date || moment().format('DD/MM/YYYY HH:mm');
     return (
       <Row style={{ marginBottom: '0px' }}>
         <Col xs>
           <TextField
             floatingLabelText="Fecha y hora"
-            value={date}
+            value={this.props.date}
             onChange={this.onChange}
           />
         </Col>

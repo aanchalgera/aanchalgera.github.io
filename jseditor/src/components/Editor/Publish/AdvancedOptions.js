@@ -5,8 +5,7 @@ import { Checkbox, AutoComplete } from 'material-ui';
 
 import { loadUsers } from './lib/publishService';
 import { findById } from './lib/publishHelpers';
-
-import { Label } from './index';
+import { Label } from './Label';
 
 type User = { id: number, display_name: string };
 
@@ -17,7 +16,8 @@ type Props = {
   setPostMeta: (key: string, value: Object) => void,
   isSensitive: boolean,
   specialPost: boolean,
-  postMeta: Object
+  postMeta: Object,
+  commentStatus: string
 };
 
 export class AdvancedOptions extends React.Component {

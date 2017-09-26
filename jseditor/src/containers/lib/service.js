@@ -62,16 +62,16 @@ export const savePost = (state, base) => {
 };
 
 export const savePostsList = (state, base, blogName) => {
-  let blogStatus = blogName + '_publish';
+  let blogStatus = blogName + '_' + state.status;
   let listData = {
     id: state.id,
     title: state.title,
-    status: 'publish',
+    status: state.status,
     user_id: state.userId,
     blog_name: blogName,
-    user_status: blogName + '_' + state.userId + '_publish',
+    user_status: blogName + '_' + state.userId + '_' + state.status,
     blog_status: blogStatus,
-    blog_post_type: `${blogStatus}_${state.postType}`
+    blog_post_type: blogStatus + '_' + mapPostType(state.postType)
   };
 
   base.post('posts_list/' + state.id, {
@@ -79,9 +79,13 @@ export const savePostsList = (state, base, blogName) => {
   });
 };
 
+export const mapPostType = postType => {
+  const normalTypes = ['normal', 'longform'];
+  return normalTypes.includes(postType) ? 'normal' : 'club';
+};
+
 export const submitPostToBackend = (state, blogUrl) => {
   let publishRegion = state.publishRegion;
-  let postRepostBlogNames = state.postRepostBlogNames;
   let backendData = {
     categoryId: state.category,
     post_title: state.title,
@@ -98,9 +102,8 @@ export const submitPostToBackend = (state, blogUrl) => {
     'publish-region': publishRegion,
     postCategories: convertTo1DArray(state.postCategories),
     tags: convertTo1DArray(state.tags),
-    postRepostBlogNames: postRepostBlogNames,
     firebase_id: state.id,
-    post_status: 'future',
+    post_status: state.status,
     user_id: state.userId,
     primary_image: state.meta.homepage.image.url,
     is_sensitive: state.isSensitive,

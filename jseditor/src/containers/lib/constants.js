@@ -1,4 +1,4 @@
-const ALL_TYPES = ['normal', 'slideshow', 'club', 'basics'];
+const ALL_TYPES = ['normal', 'slideshow', 'club', 'basics', 'longform'];
 
 export const viewPermissions = {
   SponsoredContent: {

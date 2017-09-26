@@ -25,7 +25,7 @@ const REPUBLISHED = 'Post successfully scheduled to republish at  ';
 
 type Props = {
   base: Object,
-  postname: string,
+  match: { params: Object },
   blogUrl: string,
   blogName: string,
   handleDifundir: (status: string) => void
@@ -47,7 +47,8 @@ class Difundir extends React.Component {
   }
 
   async init() {
-    const data = await getPost(this.props.postname, this.props.base);
+    const postname = this.props.match.params.postname;
+    const data = await getPost(postname, this.props.base);
     this.setState({
       id: data.id,
       postRepostBlogNames: data.publishData.postRepostBlogNames || [],

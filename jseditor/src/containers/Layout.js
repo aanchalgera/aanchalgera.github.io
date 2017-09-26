@@ -1,15 +1,17 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Switch, Route } from 'react-router-dom';
 
 import TitleBar from '../components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails } from './lib/service';
+import Publicar from './Publish';
+import Difundir from './Difundir';
 
 type Props = {
   match: { params: Object },
   location: { search: string, pathname: string },
   history: Object,
-  component: React$Component<any>,
   base: Object
 };
 
@@ -82,7 +84,7 @@ export default class Layout extends React.Component {
   };
 
   render() {
-    const { component: Component, base } = this.props;
+    const { base } = this.props;
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
@@ -91,11 +93,28 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={customTheme}>
         <view>
           {this.getTitleBar()}
-          <Component
-            {...rest}
-            base={base}
-            handleDifundir={this.handleDifundir}
-          />
+          <Switch>
+            <Route
+              path="/publicar/:postname"
+              render={props =>
+                <Publicar
+                  {...props}
+                  {...rest}
+                  base={base}
+                  handleDifundir={this.handleDifundir}
+                />}
+            />
+            <Route
+              path="/difundir/:postname"
+              render={props =>
+                <Difundir
+                  {...props}
+                  {...rest}
+                  base={base}
+                  handleDifundir={this.handleDifundir}
+                />}
+            />
+          </Switch>
         </view>
       </MuiThemeProvider>
     );

@@ -31,9 +31,9 @@ import {
   initialState,
   loadStatefromData,
   filterCategories,
-  validateState
+  validateState,
+  validateDate
 } from './lib/helpers.js';
-
 import { Check } from './lib/check';
 
 moment.tz.setDefault(configParams.timezone);
@@ -43,24 +43,36 @@ const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
 const DRAFT_MESSAGE = 'El post se ha pasado a borrador correctamente';
 const UPDATED_MESSAGE = 'Guardado correctamente';
 
+type Props = {
+  base: Object,
+  match: { params: Object },
+  blogUrl: string,
+  blogName: string,
+  handleDifundir: (status: string) => void
+};
+
 class Publish extends React.Component {
   state = initialState;
+  props: Props;
 
   componentDidMount() {
     this.init();
   }
 
   async init() {
-    const post = await getPost(this.props.postname, this.props.base);
-    this.setState(loadStatefromData(post));
+    const postname = this.props.match.params.postname;
+    const post = await getPost(postname, this.props.base);
+    this.setState(loadStatefromData(post, this.props.userRole));
     this.setAllCategories(post.postType);
     this.props.handleDifundir(post.status);
   }
 
   submitPost = async () => {
     let date = this.state.publishedDate;
+    let state = this.state;
+    state.status = 'publish';
     try {
-      const result = await submitPostToBackend(this.state, this.props.blogUrl);
+      const result = await submitPostToBackend(state, this.props.blogUrl);
       this.setState(
         {
           postId: result.id,
@@ -82,15 +94,39 @@ class Publish extends React.Component {
     }
   };
 
-  setPostMeta = (key, value) => {
+  setPostMeta = (key: string, value: Object) => {
     let meta = this.state.meta;
     meta[key] = value;
     this.setState({ meta }, this.savePostData);
   };
 
   onSchedule = () => {
-    if (this.isValid()) {
-      return this.submitPost();
+    if (validateDate(this.state.publishedDate)) {
+      if (this.isValid()) {
+        return this.submitPost();
+      }
+    } else {
+      this.setMessage(true, 'Invalid Date');
+    }
+  };
+
+  updateDate = date => {
+    if (validateDate(date)) {
+      this.setState(prevState => {
+        prevState['errors']['dateError'] = '';
+        return {
+          publishedDate: date,
+          errors: prevState['errors']
+        };
+      }, this.savePostData);
+    } else {
+      this.setState(prevState => {
+        prevState['errors']['dateError'] = 'Invalid Date';
+        return {
+          errors: prevState['errors'],
+          publishedDate: date
+        };
+      });
     }
   };
 
@@ -108,7 +144,7 @@ class Publish extends React.Component {
     return !isError;
   }
 
-  setMessage(isError, message) {
+  setMessage(isError: boolean, message: string) {
     let params = {
       isError: isError,
       message: message
@@ -123,7 +159,7 @@ class Publish extends React.Component {
     this.setState({ snackbarOpen: false });
   };
 
-  updateParent = data => {
+  updateParent = (data: Object) => {
     this.setState(data, this.savePostData);
   };
 
@@ -203,6 +239,15 @@ class Publish extends React.Component {
   };
 
   render() {
+    let showCalendar = true;
+    const currentTime = moment().format('DD/MM/YYYY H:mm');
+    console.log(currentTime);
+    if (
+      this.state.status === 'publish' &&
+      currentTime >= this.state.publishedDate
+    ) {
+      showCalendar = false;
+    }
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -222,10 +267,10 @@ class Publish extends React.Component {
           <Row>
             <Col xs={5}>
               <SchedulePost
-                date={this.state.publishedDate}
+                date={this.state.publishedDate || currentTime}
                 base={this.props.base}
                 updateParent={this.updateParent}
-                showCalendar={this.state.status !== 'publish'}
+                showCalendar={showCalendar}
               />
             </Col>
             <Col xs={2}>
@@ -255,12 +300,11 @@ class Publish extends React.Component {
         </Check>
         <Row>
           <Col xs={3}>
-            {this.state.postType &&
-              <Categories
-                category={this.state.category}
-                updateParent={this.updateParent}
-                allCategories={this.state.allCategories}
-              />}
+            <Categories
+              category={this.state.category}
+              updateParent={this.updateParent}
+              allCategories={this.state.allCategories}
+            />
           </Col>
           <Check
             userRole={this.props.userRole}
@@ -286,10 +330,11 @@ class Publish extends React.Component {
         <Label label="Portada y redes sociales" />
         <Row>
           <Col xs={6}>
-            <HomePage
-              homepage={this.state.meta.homepage}
-              updateHomepageContent={this.updateHomepageContent}
-            />
+            {this.state.id &&
+              <HomePage
+                homepage={this.state.meta.homepage}
+                updateHomepageContent={this.updateHomepageContent}
+              />}
           </Col>
           <Col xs={3}>
             <Twitter
