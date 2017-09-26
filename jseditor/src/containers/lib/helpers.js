@@ -171,7 +171,8 @@ export const initialState = {
   allCategories: [],
   category: null,
   tags: [],
-  postCategories: []
+  postCategories: [],
+  errors: {}
 };
 
 export const filterCategories = (data: {}) => {

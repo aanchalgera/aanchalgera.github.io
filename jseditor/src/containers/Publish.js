@@ -33,8 +33,8 @@ import {
   filterCategories,
   validateState
 } from './lib/helpers.js';
-
 import { Check } from './lib/check';
+import { validateDate } from '../utils/validateDate';
 
 moment.tz.setDefault(configParams.timezone);
 
@@ -101,8 +101,32 @@ class Publish extends React.Component {
   };
 
   onSchedule = () => {
-    if (this.isValid()) {
-      return this.submitPost();
+    if (validateDate(this.state.publishedDate)) {
+      if (this.isValid()) {
+        return this.submitPost();
+      }
+    } else {
+      this.setMessage(true, 'Invalid Date');
+    }
+  };
+
+  updateDate = date => {
+    if (validateDate(date)) {
+      this.setState(prevState => {
+        prevState['errors']['dateError'] = '';
+        return {
+          publishedDate: date,
+          errors: prevState['errors']
+        };
+      }, this.savePostData);
+    } else {
+      this.setState(prevState => {
+        prevState['errors']['dateError'] = 'Invalid Date';
+        return {
+          errors: prevState['errors'],
+          publishedDate: date
+        };
+      });
     }
   };
 
@@ -215,6 +239,7 @@ class Publish extends React.Component {
   };
 
   render() {
+    console.log(this.state.errors);
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -236,7 +261,8 @@ class Publish extends React.Component {
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
-                updateParent={this.updateParent}
+                updateDate={this.updateDate}
+                errorText={this.state.errors.dateError}
                 showCalendar={this.state.status !== 'publish'}
               />
             </Col>

@@ -14,7 +14,7 @@ moment.tz.setDefault(configParams.timezone);
 type Props = {
   base: Object,
   date: string,
-  updateParent: (data: Object) => void,
+  updateDate: (data: Object) => void,
   showCalendar?: boolean,
   date: string
 };
@@ -31,11 +31,7 @@ export class SchedulePost extends React.Component {
 
   onChange = (e: InputEvent) => {
     const dateString = e.currentTarget.value.trim();
-    if (validateDate(dateString)) {
-      this.props.updateParent({ publishedDate: dateString });
-    } else {
-      this.props.updateParent({ isError: true, message: 'Invalid Date' });
-    }
+    this.props.updateDate(dateString);
   };
 
   onPickSlot = (x: number, y: number, e: InputEvent) => {
@@ -44,7 +40,7 @@ export class SchedulePost extends React.Component {
       this.setState({
         schedulerOpened: false
       });
-      this.props.updateParent({ publishedDate: currentTarget.dataset.date });
+      this.props.updateDate(currentTarget.dataset.date);
     }
   };
 
@@ -64,6 +60,7 @@ export class SchedulePost extends React.Component {
             floatingLabelText="Fecha y hora"
             value={date}
             onChange={this.onChange}
+            errorText={this.props.errorText}
           />
         </Col>
         {this.props.showCalendar &&
@@ -85,17 +82,3 @@ export class SchedulePost extends React.Component {
     );
   }
 }
-
-const validateDate = (date: string) => {
-  if (null === date) {
-    return false;
-  }
-  const dateString = moment(date, 'DD/MM/YYYY H:mm', true);
-  if (!dateString.isValid()) {
-    return false;
-  }
-  if (moment(date, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
-    return false;
-  }
-  return true;
-};
