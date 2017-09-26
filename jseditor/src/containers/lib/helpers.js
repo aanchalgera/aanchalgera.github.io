@@ -30,6 +30,20 @@ export const getPostType = (userRole: string) => {
   return postType;
 };
 
+export const validateDate = (date: string) => {
+  if (null === date) {
+    return false;
+  }
+  const dateString = moment(date, 'DD/MM/YYYY H:mm', true);
+  if (!dateString.isValid()) {
+    return false;
+  }
+  if (moment(date, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
+    return false;
+  }
+  return true;
+};
+
 export const loadStatefromData = (data: {}, userRole: string) => {
   return {
     id: data.id,

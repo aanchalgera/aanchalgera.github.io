@@ -14,7 +14,7 @@ moment.tz.setDefault(configParams.timezone);
 type Props = {
   base: Object,
   date: string,
-  updateDate: (data: Object) => void,
+  updateParent: (data: Object) => void,
   showCalendar?: boolean,
   date: string
 };
@@ -30,8 +30,8 @@ export class SchedulePost extends React.Component {
   props: Props;
 
   onChange = (e: InputEvent) => {
-    const dateString = e.currentTarget.value.trim();
-    this.props.updateDate(dateString);
+    const dateString = e.currentTarget.value;
+    this.props.updateParent({ publishedDate: dateString });
   };
 
   onPickSlot = (x: number, y: number, e: InputEvent) => {
@@ -40,7 +40,7 @@ export class SchedulePost extends React.Component {
       this.setState({
         schedulerOpened: false
       });
-      this.props.updateDate(currentTarget.dataset.date);
+      this.props.updateParent(currentTarget.dataset.date);
     }
   };
 
@@ -52,15 +52,13 @@ export class SchedulePost extends React.Component {
   };
 
   render() {
-    const date = this.props.date || moment().format('DD/MM/YYYY HH:mm');
     return (
       <Row style={{ marginBottom: '0px' }}>
         <Col xs>
           <TextField
             floatingLabelText="Fecha y hora"
-            value={date}
+            value={this.props.date}
             onChange={this.onChange}
-            errorText={this.props.errorText}
           />
         </Col>
         {this.props.showCalendar &&

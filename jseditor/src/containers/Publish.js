@@ -31,10 +31,10 @@ import {
   initialState,
   loadStatefromData,
   filterCategories,
-  validateState
+  validateState,
+  validateDate
 } from './lib/helpers.js';
 import { Check } from './lib/check';
-import { validateDate } from '../utils/validateDate';
 
 moment.tz.setDefault(configParams.timezone);
 
@@ -239,7 +239,15 @@ class Publish extends React.Component {
   };
 
   render() {
-    console.log(this.state.errors);
+    let showCalendar = true;
+    const currentTime = moment().format('DD/MM/YYYY H:mm');
+    console.log(currentTime);
+    if (
+      this.state.status === 'publish' &&
+      currentTime >= this.state.publishedDate
+    ) {
+      showCalendar = false;
+    }
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>
@@ -259,11 +267,10 @@ class Publish extends React.Component {
           <Row>
             <Col xs={5}>
               <SchedulePost
-                date={this.state.publishedDate}
+                date={this.state.publishedDate || currentTime}
                 base={this.props.base}
-                updateDate={this.updateDate}
-                errorText={this.state.errors.dateError}
-                showCalendar={this.state.status !== 'publish'}
+                updateParent={this.updateParent}
+                showCalendar={showCalendar}
               />
             </Col>
             <Col xs={2}>
