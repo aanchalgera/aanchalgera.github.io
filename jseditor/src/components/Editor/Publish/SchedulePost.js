@@ -59,6 +59,7 @@ export class SchedulePost extends React.Component {
             floatingLabelText="Fecha y hora"
             value={this.props.date}
             onChange={this.onChange}
+            disabled={!this.props.showCalendar}
           />
         </Col>
         {this.props.showCalendar &&
