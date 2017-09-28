@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Homepage from './Homepage';
 import Css from './Css';
 import Microsite from './Microsite';
+import { Check } from '../../../containers/lib/check';
 
 class Metadata extends React.Component {
   onArticleMetaToggle(e) {
@@ -17,17 +18,29 @@ class Metadata extends React.Component {
     return (
       <div className="article-metadata-container">
         <h3>Article Metadata</h3>
-        <Index
-          index={this.props.meta.index}
-          updateIndexMetadata={this.props.updateIndexMetadata}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-        />
-        <Footer
-          footer={this.props.meta.footer}
-          updateFooterCredits={this.props.updateFooterCredits}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-          toggleFooter={this.props.toggleFooter}
-        />
+        <Check
+          postType={this.props.postType}
+          userRole={this.props.userRole}
+          childName='Index'
+        >
+          <Index
+            index={this.props.meta.index}
+            updateIndexMetadata={this.props.updateIndexMetadata}
+            onArticleMetaToggle={this.onArticleMetaToggle}
+          />
+        </Check>
+        <Check
+          postType={this.props.postType}
+          userRole={this.props.userRole}
+          childName='Footer'
+        >
+          <Footer
+            footer={this.props.meta.footer}
+            updateFooterCredits={this.props.updateFooterCredits}
+            onArticleMetaToggle={this.onArticleMetaToggle}
+            toggleFooter={this.props.toggleFooter}
+          />
+        </Check>
         <Microsite
           microsite={this.props.meta.microsite}
           updateMicrositeName={this.props.updateMicrositeName}
@@ -37,11 +50,17 @@ class Metadata extends React.Component {
           toggleSocialSharing={this.props.toggleSocialSharing}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Css
-          css={this.props.meta.css}
-          updateCssSkinName={this.props.updateCssSkinName.bind(this)}
-          onArticleMetaToggle={this.onArticleMetaToggle}
-        />
+        <Check
+          postType={this.props.postType}
+          userRole={this.props.userRole}
+          childName='Css'
+        >
+          <Css
+            css={this.props.meta.css}
+            updateCssSkinName={this.props.updateCssSkinName.bind(this)}
+            onArticleMetaToggle={this.onArticleMetaToggle}
+          />
+        </Check>
         <Homepage
           homepage={this.props.meta.homepage}
           updateHomepageContent={this.props.updateHomepageContent}

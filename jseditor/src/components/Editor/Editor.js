@@ -151,7 +151,6 @@ class Editor extends React.Component {
                 isSynced: true
               });
             } else {
-              console.log('Why here');
               this.setState({
                 id: postname,
                 meta: initialMeta,
@@ -1143,6 +1142,8 @@ class Editor extends React.Component {
         toggleSocialShareVisibility={this.toggleSocialShareVisibility}
         toggleDateVisibility={this.toggleDateVisibility}
         toggleFooter={this.toggleFooter}
+        userRole={this.state.userRole}
+        postType={this.state.postType}
       />
     );
 
