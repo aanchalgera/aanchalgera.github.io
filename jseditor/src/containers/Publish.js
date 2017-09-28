@@ -18,8 +18,8 @@ import {
   SponsoredContent,
   Tags,
   Twitter
-} from '../components/Editor/Publish';
-import configParams from '../config/configs.js';
+} from 'components/Editor/Publish';
+import configParams from 'config/configs.js';
 import {
   getPost,
   submitPostToBackend,

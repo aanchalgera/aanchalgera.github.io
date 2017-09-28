@@ -2,7 +2,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Switch, Route } from 'react-router-dom';
 
-import TitleBar from '../components/Menu/TitleBar';
+import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails } from './lib/service';
 import Publicar from './Publish';
