@@ -6,6 +6,7 @@ import { Checkbox, AutoComplete } from 'material-ui';
 import { loadUsers } from './lib/publishService';
 import { findById } from './lib/publishHelpers';
 import { Label } from './Label';
+import { Check } from '../../../containers/lib/check';
 
 type User = { id: number, display_name: string };
 
@@ -17,7 +18,9 @@ type Props = {
   isSensitive: boolean,
   specialPost: boolean,
   postMeta: Object,
-  commentStatus: string
+  commentStatus: string,
+  userRole: string,
+  postType: string
 };
 
 export class AdvancedOptions extends React.Component {
@@ -94,25 +97,43 @@ export class AdvancedOptions extends React.Component {
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
         />
-        <Checkbox
-          checked={postMeta.showDate}
-          label="Mostrar fecha de publicación"
-          onCheck={(e, isChecked) => {
-            setPostMeta('showDate', isChecked);
-          }}
-        />
-        <Checkbox
-          checked={postMeta.showSocialShareButtons}
-          label="Mostrar botones de compartir en redes"
-          onCheck={(e, isChecked) => {
-            setPostMeta('showSocialShareButtons', isChecked);
-          }}
-        />
-        <Checkbox
-          checked={postMeta.author.showAuthorInfo}
-          label="Mostrar author"
-          onCheck={this.setShowAuthor}
-        />
+        <Check
+          userRole={this.props.userRole}
+          postType={this.props.postType}
+          childName="ShowDate"
+        >
+          <Checkbox
+            checked={postMeta.showDate}
+            label="Mostrar fecha de publicación"
+            onCheck={(e, isChecked) => {
+              setPostMeta('showDate', isChecked);
+            }}
+          />
+        </Check>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.props.postType}
+          childName="ShowSocialShareButtons"
+        >
+          <Checkbox
+            checked={postMeta.showSocialShareButtons}
+            label="Mostrar botones de compartir en redes"
+            onCheck={(e, isChecked) => {
+              setPostMeta('showSocialShareButtons', isChecked);
+            }}
+          />
+        </Check>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.props.postType}
+          childName="ShowSocialShareButtons"
+        >
+          <Checkbox
+            checked={postMeta.author.showAuthorInfo}
+            label="Mostrar author"
+            onCheck={this.setShowAuthor}
+          />
+        </Check>
         <AutoComplete
           searchText={this.state.currentUser}
           floatingLabelText="Autor"

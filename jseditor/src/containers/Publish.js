@@ -300,13 +300,19 @@ class Publish extends React.Component {
           </Row>
         </Check>
         <Row>
-          <Col xs={3}>
-            <Categories
-              category={this.state.category}
-              updateParent={this.updateParent}
-              allCategories={this.state.allCategories}
-            />
-          </Col>
+          <Check
+            userRole={this.props.userRole}
+            postType={this.state.postType}
+            childName="Categories"
+          >
+            <Col xs={3}>
+              <Categories
+                category={this.state.category}
+                updateParent={this.updateParent}
+                allCategories={this.state.allCategories}
+              />
+            </Col>
+          </Check>
           <Check
             userRole={this.props.userRole}
             postType={this.state.postType}
@@ -387,21 +393,17 @@ class Publish extends React.Component {
             </Check>
           </Col>
           <Col xs>
-            <Check
+            <AdvancedOptions
+              blogUrl={this.props.blogUrl}
+              userId={this.state.userId}
+              setPostMeta={this.setPostMeta}
+              updateParent={this.updateParent}
+              postMeta={this.state.meta}
+              specialPost={this.state.specialPost}
+              isSensitive={this.state.isSensitive}
               userRole={this.props.userRole}
               postType={this.state.postType}
-              childName="AdvancedOptions"
-            >
-              <AdvancedOptions
-                blogUrl={this.props.blogUrl}
-                userId={this.state.userId}
-                setPostMeta={this.setPostMeta}
-                updateParent={this.updateParent}
-                postMeta={this.state.meta}
-                specialPost={this.state.specialPost}
-                isSensitive={this.state.isSensitive}
-              />
-            </Check>
+            />
           </Col>
         </Row>
       </div>
