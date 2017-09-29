@@ -11,7 +11,7 @@ export const viewPermissions = {
   },
   CountriesFormOptions: {
     roles: ['ROLE_EDITOR', 'ROLE_BRANDED_COORDINATOR'],
-    types: ['normal', 'club']
+    types: ALL_TYPES
   },
   OtherCategories: {
     roles: ['ROLE_EDITOR'],
