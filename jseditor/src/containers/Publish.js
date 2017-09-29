@@ -32,7 +32,8 @@ import {
   loadStatefromData,
   filterCategories,
   validateState,
-  validateDate
+  validateDate,
+  findByName
 } from './lib/helpers.js';
 import { Check } from './lib/check';
 
@@ -63,7 +64,12 @@ class Publish extends React.Component {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname, this.props.base);
     this.setState(loadStatefromData(post, this.props.userRole));
-    this.setAllCategories(post.postType);
+    if ('brandedLongform' === post.postType &&
+        !this.state.category) {
+      this.setBrandedLongformCategory();
+    } else {
+      this.setAllCategories(post.postType);
+    }
     this.props.handleDifundir(post.status);
   }
 
@@ -240,6 +246,13 @@ class Publish extends React.Component {
       }
     }
   };
+
+  setBrandedLongformCategory = async () => {
+    let categories = await loadAllCategories(this.props.blogUrl, 'club');
+    let updatedCategories = filterCategories(categories);
+    let category = findByName("Especial Branded", updatedCategories);
+    this.setState({category: category['id']});
+  }
 
   render() {
     let showCalendar = true;

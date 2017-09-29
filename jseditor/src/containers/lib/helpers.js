@@ -216,3 +216,6 @@ export const convertTo1DArray = (data: Array<{ id: number }>) => {
   });
   return list;
 };
+
+export const findByName = (name: string, list: Array<User>) =>
+  list.find(item => item.label === name);

@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Homepage from './Homepage';
 import Css from './Css';
 import Microsite from './Microsite';
-import { Check } from '../../../containers/lib/check';
+import { Check } from 'containers/lib/check';
 
 class Metadata extends React.Component {
   onArticleMetaToggle(e) {
