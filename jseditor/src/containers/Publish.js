@@ -64,7 +64,8 @@ class Publish extends React.Component {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname, this.props.base);
     this.setState(loadStatefromData(post, this.props.userRole));
-    if ('brandedLongform' === post.postType) {
+    if ('brandedLongform' === post.postType &&
+        !this.state.category) {
       this.setBrandedLongformCategory();
     } else {
       this.setAllCategories(post.postType);
