@@ -86,21 +86,25 @@ export class AdvancedOptions extends React.Component {
           checked={specialPost}
           label="Artículo especial"
           onCheck={this.handleSpecialPost}
+          className='layout-line-form'
         />
         <Checkbox
           checked={isSensitive}
           label="Tiene contenido sensible"
           onCheck={this.handleSensitivePost}
+          className='layout-line-form'
         />
         <Checkbox
           checked={commentStatus === 'closed'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
+          className='layout-line-form'
         />
         <Check
           userRole={this.props.userRole}
           postType={this.props.postType}
           childName="ShowDate"
+          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.showDate}
@@ -108,12 +112,14 @@ export class AdvancedOptions extends React.Component {
             onCheck={(e, isChecked) => {
               setPostMeta('showDate', isChecked);
             }}
+            className='layout-line-form'
           />
         </Check>
         <Check
           userRole={this.props.userRole}
           postType={this.props.postType}
           childName="ShowSocialShareButtons"
+          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.showSocialShareButtons}
@@ -121,17 +127,20 @@ export class AdvancedOptions extends React.Component {
             onCheck={(e, isChecked) => {
               setPostMeta('showSocialShareButtons', isChecked);
             }}
+            className='layout-line-form'
           />
         </Check>
         <Check
           userRole={this.props.userRole}
           postType={this.props.postType}
           childName="ShowSocialShareButtons"
+          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.author.showAuthorInfo}
             label="Mostrar author"
             onCheck={this.setShowAuthor}
+            className='layout-line-form'
           />
         </Check>
         <AutoComplete

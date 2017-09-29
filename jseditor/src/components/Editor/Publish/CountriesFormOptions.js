@@ -44,6 +44,7 @@ export class CountriesFormOptions extends React.Component {
           label={regions[key]}
           checked={-1 !== this.props.publishRegions.indexOf(key)}
           onCheck={this.onCheck}
+          className='layout-line-form'
         />
       );
     });
