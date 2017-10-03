@@ -28,6 +28,7 @@ export const OtherCategories = ({
       joinValues={true}
       value={postCategories}
       valueKey={'id'}
+      className='module-form-select'
     />
   );
 };
