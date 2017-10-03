@@ -280,7 +280,7 @@ class Publish extends React.Component {
           childName="PostScheduler"
         >
           <Row>
-            <Col xs={5}>
+            <Col sm={5}>
               <SchedulePost
                 date={this.state.publishedDate || currentTime}
                 base={this.props.base}
@@ -288,7 +288,7 @@ class Publish extends React.Component {
                 showCalendar={showCalendar}
               />
             </Col>
-            <Col xs={2}>
+            <Col sm={2}>
               {this.state.status === 'draft'
                 ? <RaisedButton
                     label="PROGRAMAR"
@@ -303,8 +303,8 @@ class Publish extends React.Component {
                     onTouchTap={this.handleUpdate}
                   />}
             </Col>
-            <Col xs={3} />
-            <Col xs={2}>
+            <Col sm={3} />
+            <Col sm={2}>
               <DraftButton
                 status={this.state.status}
                 handleStatusUpdate={this.handleStatusUpdate}
@@ -318,7 +318,7 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="Categories"
           >
-            <Col xs={3}>
+            <Col sm={3}>
               <Categories
                 category={this.state.category}
                 updateParent={this.updateParent}
@@ -331,7 +331,7 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="OtherCategories"
           >
-            <Col xs={3}>
+            <Col sm={3}>
               <OtherCategories
                 postCategories={this.state.postCategories}
                 updateParent={this.updateParent}
@@ -339,7 +339,7 @@ class Publish extends React.Component {
               />
             </Col>
           </Check>
-          <Col xs={3}>
+          <Col sm={3}>
             <Tags
               blogUrl={this.props.blogUrl}
               tags={this.state.tags}
@@ -349,20 +349,20 @@ class Publish extends React.Component {
         </Row>
         <Label label="Portada y redes sociales" />
         <Row>
-          <Col xs={6}>
+          <Col sm={6}>
             {this.state.id &&
               <HomePage
                 homepage={this.state.meta.homepage}
                 updateHomepageContent={this.updateHomepageContent}
               />}
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <Twitter
               twitter={this.state.meta.social.twitter}
               updateSocialTwitterText={this.updateSocialTwitterText}
             />
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <Facebook
               facebook={this.state.meta.social.facebook}
               updateSocialFacebookText={this.updateSocialFacebookText}
@@ -387,13 +387,13 @@ class Publish extends React.Component {
           />
         </Check>
         <Row>
-          <Col xs>
+          <Col sm>
             <Seo
               seo={this.state.meta.seo || { title: '', description: '' }}
               setPostMeta={this.setPostMeta}
             />
           </Col>
-          <Col xs>
+          <Col sm>
             <Check
               userRole={this.props.userRole}
               postType={this.state.postType}
@@ -405,7 +405,7 @@ class Publish extends React.Component {
               />
             </Check>
           </Col>
-          <Col xs>
+          <Col sm>
             <AdvancedOptions
               blogUrl={this.props.blogUrl}
               userId={this.state.userId}
@@ -416,6 +416,8 @@ class Publish extends React.Component {
               isSensitive={this.state.isSensitive}
               userRole={this.props.userRole}
               postType={this.state.postType}
+              ampVisibility={this.state.ampVisibility}
+              iaVisibility={this.state.iaVisibility}
             />
           </Col>
         </Row>

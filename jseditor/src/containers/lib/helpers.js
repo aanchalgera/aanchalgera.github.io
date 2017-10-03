@@ -67,7 +67,9 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     specialPost: data.specialPost || false,
     tags: data.tags || [],
     postCategories: data.postCategories || [],
-    crop: data.crop || initialCrop
+    crop: data.crop || initialCrop,
+    ampVisibility: data.ampVisibility || false,
+    iaVisibility: data.iaVisibility || false
   };
 };
 
@@ -184,7 +186,9 @@ export const initialState = {
   category: null,
   tags: [],
   postCategories: [],
-  errors: {}
+  errors: {},
+  iaVisibility: false,
+  ampVisibility: false
 };
 
 export const filterCategories = (data: {}) => {

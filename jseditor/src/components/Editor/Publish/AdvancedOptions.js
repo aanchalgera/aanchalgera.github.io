@@ -76,7 +76,10 @@ export class AdvancedOptions extends React.Component {
       postMeta,
       specialPost,
       isSensitive,
-      commentStatus
+      commentStatus,
+      updateParent,
+      ampVisibility,
+      iaVisibility
     } = this.props;
 
     return (
@@ -104,7 +107,6 @@ export class AdvancedOptions extends React.Component {
           userRole={this.props.userRole}
           postType={this.props.postType}
           childName="ShowDate"
-          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.showDate}
@@ -119,7 +121,6 @@ export class AdvancedOptions extends React.Component {
           userRole={this.props.userRole}
           postType={this.props.postType}
           childName="ShowSocialShareButtons"
-          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.showSocialShareButtons}
@@ -133,8 +134,35 @@ export class AdvancedOptions extends React.Component {
         <Check
           userRole={this.props.userRole}
           postType={this.props.postType}
+          childName="FBIA"
+        >
+          <Checkbox
+            checked={iaVisibility}
+            label="Publish as FBIA"
+            onCheck={(e, isChecked) => {
+              updateParent({iaVisibility: isChecked});
+            }}
+            className='layout-line-form'
+          />
+        </Check>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.props.postType}
+          childName="AMP"
+        >
+          <Checkbox
+            checked={ampVisibility}
+            label="Publish as AMP"
+            onCheck={(e, isChecked) => {
+              updateParent({ampVisibility: isChecked});
+            }}
+            className='layout-line-form'
+          />
+        </Check>
+        <Check
+          userRole={this.props.userRole}
+          postType={this.props.postType}
           childName="ShowSocialShareButtons"
-          className='layout-line-form'
         >
           <Checkbox
             checked={postMeta.author.showAuthorInfo}

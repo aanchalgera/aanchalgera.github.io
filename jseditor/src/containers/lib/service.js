@@ -53,7 +53,9 @@ export const savePost = (state, base) => {
     crop: state.crop,
     tags: state.tags,
     category: state.category,
-    postCategories: state.postCategories
+    postCategories: state.postCategories,
+    ampVisibility: state.ampVisibility,
+    iaVisibility: state.iaVisibility
   };
 
   base.update('posts/' + state.id, {
