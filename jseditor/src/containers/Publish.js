@@ -416,6 +416,8 @@ class Publish extends React.Component {
               isSensitive={this.state.isSensitive}
               userRole={this.props.userRole}
               postType={this.state.postType}
+              ampVisibility={this.state.ampVisibility}
+              iaVisibility={this.state.iaVisibility}
             />
           </Col>
         </Row>
