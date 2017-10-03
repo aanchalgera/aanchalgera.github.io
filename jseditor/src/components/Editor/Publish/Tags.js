@@ -39,6 +39,7 @@ export class Tags extends Component {
         joinValues={true}
         value={this.props.tags}
         valueKey={'id'}
+        className='module-form-select'
       />
     );
   }

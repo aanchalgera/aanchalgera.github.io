@@ -27,6 +27,7 @@ export const Categories = ({
       }}
       value={category}
       valueKey={'id'}
+      className='module-form-select'
     />
   );
 };
