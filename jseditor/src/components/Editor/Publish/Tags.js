@@ -4,6 +4,7 @@ import { loadTags } from './lib/publishService';
 import { filterTags } from './lib/publishHelpers';
 import { UpdatedTags } from './lib/flowTypes';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 type Props = {
   blogUrl?: string,
