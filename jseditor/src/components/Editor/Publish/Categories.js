@@ -1,6 +1,7 @@
 //@flow
 import React from 'react';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import { Category } from './lib/flowTypes';
 
