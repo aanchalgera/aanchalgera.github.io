@@ -51,10 +51,10 @@ export const viewPermissions = {
   },
   AMP: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
-    types: ['brandedLongform', 'club', 'normal', 'longform']
+    types: ['brandedLongform', 'club']
   },
   FBIA: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
-    types: ['brandedLongform', 'club', 'normal', 'longform']
+    types: ['brandedLongform', 'club']
   }
 };
