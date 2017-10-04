@@ -68,8 +68,8 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     tags: data.tags || [],
     postCategories: data.postCategories || [],
     crop: data.crop || initialCrop,
-    ampVisibility: data.ampVisibility || false,
-    iaVisibility: data.iaVisibility || false
+    ampVisibility: data.ampVisibility || null,
+    iaVisibility: data.iaVisibility || null
   };
 };
 
@@ -187,8 +187,8 @@ export const initialState = {
   tags: [],
   postCategories: [],
   errors: {},
-  iaVisibility: false,
-  ampVisibility: false
+  iaVisibility: null,
+  ampVisibility: null
 };
 
 export const filterCategories = (data: {}) => {
