@@ -66,10 +66,11 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
+
     postCategories: data.postCategories || [],
     crop: data.crop || initialCrop,
-    ampVisibility: data.ampVisibility || null,
-    iaVisibility: data.iaVisibility || null
+    ampVisibility: data.ampVisibility || false,
+    iaVisibility: data.iaVisibility || false
   };
 };
 
@@ -187,8 +188,8 @@ export const initialState = {
   tags: [],
   postCategories: [],
   errors: {},
-  iaVisibility: null,
-  ampVisibility: null
+  iaVisibility: false,
+  ampVisibility: false
 };
 
 export const filterCategories = (data: {}) => {
