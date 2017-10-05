@@ -13,7 +13,6 @@ export const Facebook = (props: Props) =>
       hintText="..."
       floatingLabelFixed={true}
       multiLine={true}
-      rows={3}
       rowsMax={3}
       underlineShow={false}
       fullWidth={true}
