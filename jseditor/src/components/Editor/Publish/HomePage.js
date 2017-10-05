@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
 import DraftJSEditor from './DraftJSEditor';
+import Divider from 'material-ui/Divider'
 
 type Props = {
   homepage: Object,
@@ -16,7 +17,7 @@ export default class Homepage extends React.Component {
     }
     return (
       <div>
-        <label>
+        <label className="caption-default">
           Texto para portado<span>(opcional)</span>
         </label>
         <DraftJSEditor
@@ -24,6 +25,7 @@ export default class Homepage extends React.Component {
           value={this.props.homepage.content}
           updateResource={this.props.updateHomepageContent}
         />
+        <Divider/>
       </div>
     );
   }
