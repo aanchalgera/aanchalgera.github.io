@@ -137,10 +137,10 @@ export class AdvancedOptions extends React.Component {
           childName="FBIA"
         >
           <Checkbox
-            checked={iaVisibility ? true : false}
+            checked={iaVisibility}
             label="Publish as FBIA"
             onCheck={(e, isChecked) => {
-              updateParent({iaVisibility: isChecked ? 1 : 0});
+              updateParent({iaVisibility: isChecked});
             }}
             className='layout-line-form'
           />
@@ -151,10 +151,10 @@ export class AdvancedOptions extends React.Component {
           childName="AMP"
         >
           <Checkbox
-            checked={ampVisibility ? true : false}
+            checked={ampVisibility}
             label="Publish as AMP"
             onCheck={(e, isChecked) => {
-              updateParent({ampVisibility: isChecked ? 1 : 0});
+              updateParent({ampVisibility: isChecked});
             }}
             className='layout-line-form'
           />

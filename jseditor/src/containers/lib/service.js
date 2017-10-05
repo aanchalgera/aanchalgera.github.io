@@ -111,8 +111,8 @@ export const submitPostToBackend = (state, blogUrl) => {
     is_sensitive: state.isSensitive,
     long_post: state.specialPost,
     image_validated: state.crop,
-    ia_visibility: state.iaVisibility,
-    amp_visibility: state.ampVisibility,
+    ia_visibility: Number(state.iaVisibility),
+    amp_visibility: Number(state.ampVisibility),
   };
   let postType = 'POST';
   let postUrl = 'postpage';
