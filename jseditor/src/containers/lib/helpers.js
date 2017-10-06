@@ -107,7 +107,7 @@ export const validateState = state => {
     }
   }
 
-  if ('club' === state.postType) {
+  if ('brandedLongform' === state.postType) {
     if (!imageRegex.test(state.meta.sponsor.image)) {
       isError = true;
       message = WRONG_LOGO_IMAGE_ADDRESS;
