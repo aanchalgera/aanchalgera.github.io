@@ -30,7 +30,7 @@ export default class TitleBar extends React.Component {
   render() {
     const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
     return (
-      <Toolbar>
+      <Toolbar className="header">
         <ToolbarTitle text={blogName} style={styles.title} />
         <ToolbarGroup>
           <Tabs
