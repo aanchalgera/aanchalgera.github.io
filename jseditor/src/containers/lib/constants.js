@@ -9,7 +9,8 @@ const ALL_TYPES = [
 const ALL_COORDINATORS = [
   'ROLE_EDITOR',
   'ROLE_BRANDED_COORDINATOR',
-  'ROLE_COORDINATOR'
+  'ROLE_COORDINATOR',
+  'ROLE_COLLABORATOR'
 ];
 
 export const viewPermissions = {
