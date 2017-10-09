@@ -11,7 +11,6 @@ const FACEBOOK_TEXT_SAME_POST_TITLE =
 const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
 const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
-const TRACKER_EMPTY = 'URL Tracker can not be empty';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
 const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
 
@@ -114,9 +113,6 @@ export const validateState = state => {
     } else if ('' === state.meta.sponsor.name) {
       isError = true;
       message = SPONSOR_NAME_EMPTY;
-    } else if ('' === state.meta.sponsor.tracker) {
-      isError = true;
-      message = TRACKER_EMPTY;
     }
   }
 
