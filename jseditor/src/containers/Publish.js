@@ -279,7 +279,7 @@ class Publish extends React.Component {
           postType={this.state.postType}
           childName="PostScheduler"
         >
-          <Row>
+          <Row className="bottom-xs">
             <Col sm={5}>
               <SchedulePost
                 date={this.state.publishedDate || currentTime}
