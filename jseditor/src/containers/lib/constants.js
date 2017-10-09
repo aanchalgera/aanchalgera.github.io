@@ -1,4 +1,16 @@
-const ALL_TYPES = ['normal', 'slideshow', 'club', 'basics', 'brandedLongform', 'longform'];
+const ALL_TYPES = [
+  'normal',
+  'slideshow',
+  'club',
+  'basics',
+  'brandedLongform',
+  'longform'
+];
+const ALL_COORDINATORS = [
+  'ROLE_EDITOR',
+  'ROLE_BRANDED_COORDINATOR',
+  'ROLE_COORDINATOR'
+];
 
 export const viewPermissions = {
   SponsoredContent: {
@@ -6,47 +18,47 @@ export const viewPermissions = {
     types: ['brandedLongform']
   },
   AdvancedOptions: {
-    roles: ['ROLE_EDITOR', 'ROLE_BRANDED_COORDINATOR'],
+    roles: ALL_COORDINATORS,
     types: ['normal']
   },
   CountriesFormOptions: {
-    roles: ['ROLE_EDITOR', 'ROLE_BRANDED_COORDINATOR'],
+    roles: ALL_COORDINATORS,
     types: ALL_TYPES
   },
   OtherCategories: {
-    roles: ['ROLE_EDITOR'],
+    roles: ['ROLE_EDITOR', 'ROLE_COORDINATOR'],
     types: ['normal', 'slideshow', 'basics']
   },
   PostScheduler: {
-    roles: ['ROLE_EDITOR', 'ROLE_BRANDED_COORDINATOR'],
+    roles: ALL_COORDINATORS,
     types: ALL_TYPES
   },
   Categories: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['normal', 'club', 'longform']
   },
   ShowDate: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   ShowSocialShareButtons: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   ShowAuthorInfo: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   Footer: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   Index: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   Css: {
-    roles: ['ROLE_BRANDED_COORDINATOR', 'ROLE_EDITOR'],
+    roles: ALL_COORDINATORS,
     types: ['longform', 'brandedLongform']
   },
   AMP: {
