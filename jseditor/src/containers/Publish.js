@@ -32,7 +32,8 @@ import {
   loadStatefromData,
   filterCategories,
   validateState,
-  validateDate
+  validateDate,
+  findByName
 } from './lib/helpers.js';
 import { Check } from './lib/check';
 
@@ -63,7 +64,11 @@ class Publish extends React.Component {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname, this.props.base);
     this.setState(loadStatefromData(post, this.props.userRole));
-    this.setAllCategories(post.postType);
+    if ('brandedLongform' === post.postType && !this.state.category) {
+      this.setBrandedLongformCategory();
+    } else {
+      this.setAllCategories(post.postType);
+    }
     this.props.handleDifundir(post.status);
   }
 
@@ -241,6 +246,13 @@ class Publish extends React.Component {
     }
   };
 
+  setBrandedLongformCategory = async () => {
+    let categories = await loadAllCategories(this.props.blogUrl, 'club');
+    let updatedCategories = filterCategories(categories);
+    let category = findByName('Especial Branded', updatedCategories);
+    this.setState({ category: category['id'] });
+  };
+
   render() {
     let showCalendar = true;
     const currentTime = moment().format('DD/MM/YYYY H:mm');
@@ -267,7 +279,7 @@ class Publish extends React.Component {
           childName="PostScheduler"
         >
           <Row>
-            <Col xs={5}>
+            <Col sm={5}>
               <SchedulePost
                 date={this.state.publishedDate || currentTime}
                 base={this.props.base}
@@ -275,7 +287,7 @@ class Publish extends React.Component {
                 showCalendar={showCalendar}
               />
             </Col>
-            <Col xs={2}>
+            <Col sm={2}>
               {this.state.status === 'draft'
                 ? <RaisedButton
                     label="PROGRAMAR"
@@ -290,8 +302,8 @@ class Publish extends React.Component {
                     onTouchTap={this.handleUpdate}
                   />}
             </Col>
-            <Col xs={3} />
-            <Col xs={2}>
+            <Col sm={3} />
+            <Col sm={2}>
               <DraftButton
                 status={this.state.status}
                 handleStatusUpdate={this.handleStatusUpdate}
@@ -300,19 +312,25 @@ class Publish extends React.Component {
           </Row>
         </Check>
         <Row>
-          <Col xs={3}>
-            <Categories
-              category={this.state.category}
-              updateParent={this.updateParent}
-              allCategories={this.state.allCategories}
-            />
-          </Col>
+          <Check
+            userRole={this.props.userRole}
+            postType={this.state.postType}
+            childName="Categories"
+          >
+            <Col sm={3}>
+              <Categories
+                category={this.state.category}
+                updateParent={this.updateParent}
+                allCategories={this.state.allCategories}
+              />
+            </Col>
+          </Check>
           <Check
             userRole={this.props.userRole}
             postType={this.state.postType}
             childName="OtherCategories"
           >
-            <Col xs={3}>
+            <Col sm={3}>
               <OtherCategories
                 postCategories={this.state.postCategories}
                 updateParent={this.updateParent}
@@ -320,7 +338,7 @@ class Publish extends React.Component {
               />
             </Col>
           </Check>
-          <Col xs={3}>
+          <Col sm={3}>
             <Tags
               blogUrl={this.props.blogUrl}
               tags={this.state.tags}
@@ -330,20 +348,20 @@ class Publish extends React.Component {
         </Row>
         <Label label="Portada y redes sociales" />
         <Row>
-          <Col xs={6}>
+          <Col sm={6}>
             {this.state.id &&
               <HomePage
                 homepage={this.state.meta.homepage}
                 updateHomepageContent={this.updateHomepageContent}
               />}
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <Twitter
               twitter={this.state.meta.social.twitter}
               updateSocialTwitterText={this.updateSocialTwitterText}
             />
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <Facebook
               facebook={this.state.meta.social.facebook}
               updateSocialFacebookText={this.updateSocialFacebookText}
@@ -368,13 +386,13 @@ class Publish extends React.Component {
           />
         </Check>
         <Row>
-          <Col xs>
+          <Col sm>
             <Seo
               seo={this.state.meta.seo || { title: '', description: '' }}
               setPostMeta={this.setPostMeta}
             />
           </Col>
-          <Col xs>
+          <Col sm>
             <Check
               userRole={this.props.userRole}
               postType={this.state.postType}
@@ -386,23 +404,21 @@ class Publish extends React.Component {
               />
             </Check>
           </Col>
-          <Col xs>
-            <Check
+          <Col sm>
+            <AdvancedOptions
+              blogUrl={this.props.blogUrl}
+              userId={this.state.userId}
+              setPostMeta={this.setPostMeta}
+              updateParent={this.updateParent}
+              postMeta={this.state.meta}
+              specialPost={this.state.specialPost}
+              isSensitive={this.state.isSensitive}
               userRole={this.props.userRole}
               postType={this.state.postType}
-              childName="AdvancedOptions"
-            >
-              <AdvancedOptions
-                blogUrl={this.props.blogUrl}
-                userId={this.state.userId}
-                setPostMeta={this.setPostMeta}
-                updateParent={this.updateParent}
-                postMeta={this.state.meta}
-                specialPost={this.state.specialPost}
-                isSensitive={this.state.isSensitive}
-                commentStatus={this.state.commentStatus}
-              />
-            </Check>
+              ampVisibility={this.state.ampVisibility}
+              iaVisibility={this.state.iaVisibility}
+              commentStatus={this.state.commentStatus}
+            />
           </Col>
         </Row>
       </div>
