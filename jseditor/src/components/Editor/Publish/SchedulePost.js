@@ -53,7 +53,7 @@ export class SchedulePost extends React.Component {
 
   render() {
     return (
-      <Row style={{ marginBottom: '0px' }}>
+      <Row style={{ marginBottom: '0px' }} className="bottom-xs">
         <Col xs>
           <TextField
             floatingLabelText="Fecha y hora"
