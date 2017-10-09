@@ -40,11 +40,7 @@ export class SponsoredContent extends Component {
   render() {
     return (
       <div>
-        <Row>
-          <Col xs>
-            <Label label="Contenido Patrocinado" />
-          </Col>
-        </Row>
+        <Label label="Contenido Patrocinado" />
         <Row>
           <Col xs>
             <TextField

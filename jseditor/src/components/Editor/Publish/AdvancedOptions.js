@@ -59,7 +59,7 @@ export class AdvancedOptions extends React.Component {
 
   setCommentStatus = (e: SyntheticEvent, isChecked: boolean) => {
     const commentStatus = isChecked ? 'closed' : 'open';
-    this.props.updateParent({ commentStatus });
+    this.props.updateParent({ commentStatus: commentStatus });
   };
 
   handleSensitivePost = (e: SyntheticEvent, isSensitive: boolean) => {
@@ -89,19 +89,19 @@ export class AdvancedOptions extends React.Component {
           checked={specialPost}
           label="Artículo especial"
           onCheck={this.handleSpecialPost}
-          className='layout-line-form'
+          className="layout-line-form"
         />
         <Checkbox
           checked={isSensitive}
           label="Tiene contenido sensible"
           onCheck={this.handleSensitivePost}
-          className='layout-line-form'
+          className="layout-line-form"
         />
         <Checkbox
           checked={commentStatus === 'closed'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
-          className='layout-line-form'
+          className="layout-line-form"
         />
         <Check
           userRole={this.props.userRole}
@@ -114,7 +114,7 @@ export class AdvancedOptions extends React.Component {
             onCheck={(e, isChecked) => {
               setPostMeta('showDate', isChecked);
             }}
-            className='layout-line-form'
+            className="layout-line-form"
           />
         </Check>
         <Check
@@ -128,7 +128,7 @@ export class AdvancedOptions extends React.Component {
             onCheck={(e, isChecked) => {
               setPostMeta('showSocialShareButtons', isChecked);
             }}
-            className='layout-line-form'
+            className="layout-line-form"
           />
         </Check>
         <Check
@@ -140,9 +140,9 @@ export class AdvancedOptions extends React.Component {
             checked={iaVisibility}
             label="Publish as FBIA"
             onCheck={(e, isChecked) => {
-              updateParent({iaVisibility: isChecked});
+              updateParent({ iaVisibility: isChecked });
             }}
-            className='layout-line-form'
+            className="layout-line-form"
           />
         </Check>
         <Check
@@ -154,9 +154,9 @@ export class AdvancedOptions extends React.Component {
             checked={ampVisibility}
             label="Publish as AMP"
             onCheck={(e, isChecked) => {
-              updateParent({ampVisibility: isChecked});
+              updateParent({ ampVisibility: isChecked });
             }}
-            className='layout-line-form'
+            className="layout-line-form"
           />
         </Check>
         <Check
@@ -168,7 +168,7 @@ export class AdvancedOptions extends React.Component {
             checked={postMeta.author.showAuthorInfo}
             label="Mostrar author"
             onCheck={this.setShowAuthor}
-            className='layout-line-form'
+            className="layout-line-form"
           />
         </Check>
         <AutoComplete
