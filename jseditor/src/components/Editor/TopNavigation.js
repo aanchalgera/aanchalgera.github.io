@@ -23,14 +23,7 @@ export default function TopNavigation(props) {
   publishButton = (
     <Link
       className="glyphicon glyphicon-ok"
-      to={
-        '/publicar/' +
-        props.id +
-        '?blog=' +
-        props.blogName +
-        '&userid=' +
-        props.userId
-      }
+      to={'/publicar/' + props.id + '?blog=' + props.blogName}
       onClick={props.enablePublish}
     >
       <span>Go to Publish</span>
