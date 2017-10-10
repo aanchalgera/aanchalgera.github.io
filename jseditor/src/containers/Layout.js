@@ -34,11 +34,10 @@ export default class Layout extends React.Component {
     } = this.props;
     const query = new URLSearchParams(search);
     const blogName = query.get('blog');
-    const userId = query.get('userid');
 
     try {
       const blogUrl = await getBlogUrl(blogName, this.props.base);
-      const userData = await getUserDetails(blogUrl, userId);
+      const userData = await getUserDetails(blogUrl);
       this.setState({
         blogUrl: blogUrl,
         postname: postname,

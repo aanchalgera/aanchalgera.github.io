@@ -181,7 +181,7 @@ export const republishSchedule = async (blogUrl, postId, date) => {
   });
 };
 
-export const getUserDetails = async (blogUrl, userId) => {
+export const getUserDetails = async blogUrl => {
   try {
     const response = await isoFetch(`${blogUrl}/admin/users/currentUser.json`, {
       credentials: 'include'

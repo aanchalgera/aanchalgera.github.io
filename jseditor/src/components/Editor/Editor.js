@@ -10,7 +10,11 @@ import Metadata from './Metadata/Metadata';
 import helpers from '../../utils/generatehash';
 import configParams from '../../config/configs.js';
 import { initialMeta, getPostType } from '../../containers/lib/helpers';
-import { mapPostType } from '../../containers/lib/service';
+import {
+  mapPostType,
+  getUserDetails,
+  getBlogUrl
+} from '../../containers/lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
@@ -77,7 +81,7 @@ class Editor extends React.Component {
     );
   }
 
-  init() {
+  async init() {
     //this.checkConnectStatus();
     const {
       match: { params: { postname } },
@@ -92,41 +96,22 @@ class Editor extends React.Component {
     if (this.blogName == undefined) {
       history.replace('/invalidBlog');
     } else {
-      this.props.base.fetch('config', {
-        context: this,
-        asArray: true,
-        queries: {
-          orderByChild: 'site_name',
-          equalTo: this.blogName
-        },
-        then(data) {
-          if (data[0] != null) {
-            let siteUrl = data[0].site_url;
-            jquery
-              .ajax({
-                url: siteUrl + '/admin/users/currentUser.json',
-                crossDomain: true,
-                type: 'GET',
-                xhrFields: {
-                  withCredentials: true
-                }
-              })
-              .fail((jqxhr, textStatus, error) => {
-                this.setMessage(true, error);
-              })
-              .done(data => {
-                this.userId = data.id;
-                this.setState({
-                  blogName: this.blogName,
-                  blogUrl: siteUrl,
-                  userRole: data.role
-                });
-              });
-          } else {
-            history.replace('/invalidBlog');
-          }
+      try {
+        const siteUrl = await getBlogUrl(this.blogName, this.props.base);
+        const user = await getUserDetails(siteUrl);
+        (this.userId = user.id), this.setState({
+          blogName: this.blogName,
+          blogUrl: siteUrl,
+          userRole: user.role
+        });
+      } catch (error) {
+        console.log(error.message);
+        if (error.message === 'NOT_LOGGED_IN') {
+          history.push('/invalidUser');
+        } else {
+          history.push('/invalidBlog');
         }
-      });
+      }
     }
     if (undefined != postname) {
       try {
@@ -149,10 +134,10 @@ class Editor extends React.Component {
                 isSynced: true
               });
             } else {
+              console.log('Should never be here');
               this.setState({
                 id: postname,
-                meta: initialMeta,
-                userId: this.userId
+                meta: initialMeta
               });
             }
           }
@@ -1160,7 +1145,6 @@ class Editor extends React.Component {
           id={this.state.id}
           blogName={this.state.blogName}
           blogUrl={this.state.blogUrl}
-          userId={this.userId}
           status={this.state.status}
           publishData={this.state.publishData}
           isSynced={this.state.isSynced}
