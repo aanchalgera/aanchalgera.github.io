@@ -29,7 +29,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
       <Col lg={12}>
         <Label
           label="SEO "
-          hint="Titulo y descripcion que aparece al buscar en Google"
+          hint="Título y descripción que aparece al buscar en Google"
         />
       </Col>
       <Col lg={12}>
@@ -43,7 +43,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
           fullWidth={true}
           value={seo.title}
           onChange={updateSeoTitle}
-          floatingLabelText={<span>Titulo SEO</span>}
+          floatingLabelText={<span>Título SEO</span>}
         />
         <Divider />
       </Col>
@@ -58,7 +58,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
           fullWidth={true}
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText="Descripcion SEO"
+          floatingLabelText="Descripción SEO"
         />
         <Divider />
       </Col>

@@ -20,7 +20,9 @@ type Props = {
   postMeta: Object,
   commentStatus: string,
   userRole: string,
-  postType: string
+  postType: string,
+  ampVisibility: boolean,
+  iaVisibility: boolean
 };
 
 export class AdvancedOptions extends React.Component {

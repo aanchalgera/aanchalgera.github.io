@@ -38,8 +38,16 @@ export default class TitleBar extends React.Component {
             onChange={this.handleChange}
             style={styles.tabs}
           >
-            <Tab label="ESCRIBIR" value="escribir" />
-            <Tab label="PUBLICAR" value="publicar" />
+            <Tab 
+              label="ESCRIBIR"
+              value="escribir"
+              className='btn-nav'
+            />
+            <Tab 
+              label="PUBLICAR"
+              value="publicar"
+              className='btn-nav'
+            />
             {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
           </Tabs>
         </ToolbarGroup>

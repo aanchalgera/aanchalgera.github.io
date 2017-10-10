@@ -32,7 +32,7 @@ export class Tags extends Component {
   render() {
     return (
       <Select.Async
-        placeholder="Etiquetas..."
+        placeholder="Etiquetas"
         loadOptions={this.getTags}
         onChange={this.handleOnChange}
         multi={true}
