@@ -18,7 +18,7 @@ export class ImageCropper extends React.Component {
       <Row>
         <Col sm={3}>
           <p>
-            <label className="caption-default">Imagen Principal</label>
+            <label className="caption-default">Imagen Principal:</label>
           </p>
           <div>
             <img src={this.props.imageSrc} style={this.style.img} alt="" />

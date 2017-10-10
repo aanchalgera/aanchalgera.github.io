@@ -20,7 +20,7 @@ export const Categories = ({
 }: Props) => {
   return (
     <Select
-      placeholder={ "club" === postType ? "Espacio de marca" : "Categoria" }
+      placeholder={ "club" === postType ? "Espacio de marca" : "Categoría" }
       options={allCategories}
       onChange={input => {
         updateParent({ category: input ? input.id : null });
