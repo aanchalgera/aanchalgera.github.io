@@ -74,7 +74,6 @@ export class AdvancedOptions extends React.Component {
     const {
       setPostMeta,
       postMeta,
-      specialPost,
       isSensitive,
       commentStatus,
       updateParent,
@@ -85,12 +84,12 @@ export class AdvancedOptions extends React.Component {
     return (
       <div>
         <Label label="Avanzado" />
-        <Checkbox
+        {/*<Checkbox
           checked={specialPost}
           label="Artículo especial"
           onCheck={this.handleSpecialPost}
           className="layout-line-form"
-        />
+        /> */}
         <Checkbox
           checked={isSensitive}
           label="Tiene contenido sensible"
