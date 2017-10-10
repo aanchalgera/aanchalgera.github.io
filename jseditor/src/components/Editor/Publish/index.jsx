@@ -15,3 +15,4 @@ export { Seo } from './Seo';
 export { SponsoredContent } from './SponsoredContent';
 export { Tags } from './Tags';
 export { Twitter } from './Twitter';
+export { ASIN } from './ASIN';

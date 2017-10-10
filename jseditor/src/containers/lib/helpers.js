@@ -87,15 +87,18 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     ampVisibility: data.ampVisibility || false,
     iaVisibility: data.iaVisibility || false,
     currentStatus: currentStatus(data.status, initialDate),
-    primaryImage: getPrimaryImg(data.sections) || ''
+    primaryImage: getPrimaryImg(data.sections) || '',
+    products: data.products || []
   };
 };
+
 export const loadPublishData = (data: {}) => {
   return {
     postId: idx(data, _ => _.publishData.postId) || '',
     postHash: idx(data, _ => _.publishData.postHash) || ''
   };
 };
+
 const currentStatus = (status, publishedDate) => {
   if (status === 'draft') {
     return status;
@@ -226,7 +229,8 @@ export const initialState = {
   postCategories: [],
   errors: {},
   iaVisibility: false,
-  ampVisibility: false
+  ampVisibility: false,
+  products: []
 };
 
 export const convertTo1DArray = (data: Array<{ id: number }>) => {

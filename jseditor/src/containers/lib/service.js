@@ -92,7 +92,8 @@ export const savePost = state => {
     postCategories: state.postCategories,
     ampVisibility: state.ampVisibility,
     iaVisibility: state.iaVisibility,
-    commentStatus: state.commentStatus
+    commentStatus: state.commentStatus,
+    products: state.products
   };
 
   base.update('posts/' + state.id, {
