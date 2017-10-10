@@ -315,6 +315,18 @@ class Publish extends React.Component {
           <Check
             userRole={this.props.userRole}
             postType={this.state.postType}
+            childName="PublicationLabel"
+          >
+            <Col sm={12}>
+              <Label
+                label="Detalles de publicación "
+                hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
+              />
+            </Col>
+          </Check>
+          <Check
+            userRole={this.props.userRole}
+            postType={this.state.postType}
             childName="Categories"
           >
             <Col sm={3}>
@@ -405,20 +417,26 @@ class Publish extends React.Component {
             </Check>
           </Col>
           <Col sm>
-            <AdvancedOptions
-              blogUrl={this.props.blogUrl}
-              userId={this.state.userId}
-              setPostMeta={this.setPostMeta}
-              updateParent={this.updateParent}
-              postMeta={this.state.meta}
-              specialPost={this.state.specialPost}
-              isSensitive={this.state.isSensitive}
+            <Check
               userRole={this.props.userRole}
               postType={this.state.postType}
-              ampVisibility={this.state.ampVisibility}
-              iaVisibility={this.state.iaVisibility}
-              commentStatus={this.state.commentStatus}
-            />
+              childName="AdvancedOptions"
+            >
+              <AdvancedOptions
+                blogUrl={this.props.blogUrl}
+                userId={this.state.userId}
+                setPostMeta={this.setPostMeta}
+                updateParent={this.updateParent}
+                postMeta={this.state.meta}
+                specialPost={this.state.specialPost}
+                isSensitive={this.state.isSensitive}
+                userRole={this.props.userRole}
+                postType={this.state.postType}
+                ampVisibility={this.state.ampVisibility}
+                iaVisibility={this.state.iaVisibility}
+                commentStatus={this.state.commentStatus}
+              />
+            </Check>
           </Col>
         </Row>
       </div>
