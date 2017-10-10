@@ -20,7 +20,7 @@ export const viewPermissions = {
   },
   AdvancedOptions: {
     roles: ALL_COORDINATORS,
-    types: ['normal']
+    types: ALL_TYPES
   },
   CountriesFormOptions: {
     roles: ALL_COORDINATORS,
@@ -68,6 +68,10 @@ export const viewPermissions = {
   },
   FBIA: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
+    types: ['brandedLongform', 'club']
+  },
+  PublicationLabel: {
+    roles: ['ROLE_BRANDED_COLLABORATOR'],
     types: ['brandedLongform', 'club']
   }
 };

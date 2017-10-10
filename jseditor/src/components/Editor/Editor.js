@@ -88,7 +88,7 @@ class Editor extends React.Component {
     const query = new URLSearchParams(search);
 
     this.blogName = query.get('blog');
-    this.userId = query.get('userid');
+
     if (this.blogName == undefined) {
       history.replace('/invalidBlog');
     } else {
@@ -104,7 +104,7 @@ class Editor extends React.Component {
             let siteUrl = data[0].site_url;
             jquery
               .ajax({
-                url: siteUrl + '/admin/users/' + this.userId + '.json',
+                url: siteUrl + '/admin/users/currentUser.json',
                 crossDomain: true,
                 type: 'GET',
                 xhrFields: {
@@ -115,7 +115,7 @@ class Editor extends React.Component {
                 this.setMessage(true, error);
               })
               .done(data => {
-                this.setState({
+                (this.userId = data.id), this.setState({
                   blogName: this.blogName,
                   blogUrl: siteUrl,
                   userRole: data.role
@@ -127,10 +127,7 @@ class Editor extends React.Component {
         }
       });
     }
-    let regEx = /\D/;
-    if (regEx.test(this.userId)) {
-      history.replace('/invalidUser');
-    } else if (undefined != postname) {
+    if (undefined != postname) {
       try {
         this.props.base.fetch('posts/' + postname, {
           context: this,
@@ -164,13 +161,7 @@ class Editor extends React.Component {
       }
     } else {
       let hashId = helpers.generatePushID();
-      let postEditUrl =
-        '/edit/post/' +
-        hashId +
-        '?blog=' +
-        this.blogName +
-        '&userid=' +
-        this.userId;
+      let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName;
       this.setState(
         {
           id: hashId,

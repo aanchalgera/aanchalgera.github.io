@@ -112,7 +112,7 @@ export const submitPostToBackend = (state, blogUrl) => {
     long_post: state.specialPost,
     image_validated: state.crop,
     ia_visibility: Number(state.iaVisibility),
-    amp_visibility: Number(state.ampVisibility),
+    amp_visibility: Number(state.ampVisibility)
   };
   let postType = 'POST';
   let postUrl = 'postpage';
@@ -183,7 +183,7 @@ export const republishSchedule = async (blogUrl, postId, date) => {
 
 export const getUserDetails = async (blogUrl, userId) => {
   try {
-    const response = await isoFetch(`${blogUrl}/admin/users/${userId}.json`, {
+    const response = await isoFetch(`${blogUrl}/admin/users/currentUser.json`, {
       credentials: 'include'
     });
     return response.json();
