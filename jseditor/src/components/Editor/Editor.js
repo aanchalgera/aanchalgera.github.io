@@ -115,7 +115,8 @@ class Editor extends React.Component {
                 this.setMessage(true, error);
               })
               .done(data => {
-                (this.userId = data.id), this.setState({
+                this.userId = data.id;
+                this.setState({
                   blogName: this.blogName,
                   blogUrl: siteUrl,
                   userRole: data.role
