@@ -42,18 +42,21 @@ class Difundir extends React.Component {
     snackbarMessage: ''
   };
   props: Props;
-  componentWillMount() {
+
+  componentDidMount() {
     this.init();
   }
 
   async init() {
     const postname = this.props.match.params.postname;
     const data = await getPost(postname, this.props.base);
+    console.log(data);
     this.setState({
       id: data.id,
       postRepostBlogNames: data.publishData.postRepostBlogNames || [],
       publishRegion: data.publishData.publishRegion || [],
-      postId: data.publishData.postId
+      postId: data.publishData.postId,
+      postHash: data.publishData.postHash
     });
     this.props.handleDifundir(data.status);
   }
@@ -65,10 +68,7 @@ class Difundir extends React.Component {
   };
 
   submitRepostedBlogs = async () => {
-    const publishData = {
-      postRepostBlogNames: this.state.postRepostBlogNames,
-      publishRegion: this.state.publishRegion
-    };
+    const { id, ...publishData } = this.state;
 
     const backendData = {
       postform: {
@@ -79,7 +79,7 @@ class Difundir extends React.Component {
 
     try {
       await submitRepostedBlogsToBackend(backendData, this.props.blogUrl);
-      await updatePost(this.state.id, this.props.base, publishData);
+      await updatePost(id, this.props.base, publishData);
       this.showSnackbarMsg('Data Saved Successfully');
     } catch (err) {
       this.showSnackbarMsg('Something Went Wrong.');
@@ -158,8 +158,8 @@ class Difundir extends React.Component {
               primary={true}
             />
           </Col>
-          <Col xs={4} />
-          <Col xs={2}>
+          <Col xs={3} />
+          <Col xs={3}>
             <RaisedButton
               label="PASAR POR PORTADA AHORA MISMO!"
               secondary={true}

@@ -20,14 +20,9 @@ moment.tz.setDefault(configParams.timezone);
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
 const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
-const DELETE_SECTION_WARNING = 'Are you sure you want to delete this?';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
-const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
-const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
-const FACEBOOK_TEXT_SAME_POST_TITLE =
-  'Facebook text cannot be same as post title';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -82,7 +77,6 @@ class Editor extends React.Component {
   }
 
   async init() {
-    //this.checkConnectStatus();
     const {
       match: { params: { postname } },
       location: { search },
@@ -162,21 +156,6 @@ class Editor extends React.Component {
 
   componentDidMount() {
     this.init();
-  }
-
-  checkConnectStatus() {
-    let connectedRef = this.props.base.database().ref('.info/connected');
-    connectedRef.on('value', snap => {
-      if (snap.val() === true) {
-        this.setState({
-          isConnected: true
-        });
-      } else {
-        this.setState({
-          isConnected: false
-        });
-      }
-    });
   }
 
   openResourcePanel(
