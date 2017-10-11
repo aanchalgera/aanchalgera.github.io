@@ -6,6 +6,7 @@ import { Row, Col } from 'react-flexbox-grid';
 
 import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
+import { Label } from '../components/Editor/Publish';
 import configParams from '../config/configs';
 import {
   getPost,
@@ -141,6 +142,7 @@ class Difundir extends React.Component {
           blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
+        <Label label="Volver en publicar en portada" />
         <Row>
           <Col xs={5}>
             <SchedulePost
