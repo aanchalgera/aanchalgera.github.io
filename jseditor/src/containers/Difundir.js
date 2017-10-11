@@ -51,12 +51,14 @@ class Difundir extends React.Component {
   async init() {
     const postname = this.props.match.params.postname;
     const data = await getPost(postname, this.props.base);
+    console.log(data);
     this.setState({
       id: data.id,
       postRepostBlogNames: data.publishData.postRepostBlogNames || [],
       publishRegion: data.publishData.publishRegion || [],
       postId: data.publishData.postId,
-      postHash: data.publishData.postHash
+      postHash: data.publishData.postHash,
+      postDate: data.publishData.postDate
     });
     this.props.handleDifundir(data.status);
   }
@@ -68,7 +70,13 @@ class Difundir extends React.Component {
   };
 
   submitRepostedBlogs = async () => {
-    const { id, ...publishData } = this.state;
+    const publishData = {
+      postDate: this.state.postDate,
+      publishRegion: this.state.publishRegion,
+      postRepostBlogNames: this.state.postRepostBlogNames,
+      postId: this.state.postId,
+      postHash: this.state.postHash
+    };
 
     const backendData = {
       postform: {
@@ -79,7 +87,7 @@ class Difundir extends React.Component {
 
     try {
       await submitRepostedBlogsToBackend(backendData, this.props.blogUrl);
-      await updatePost(id, this.props.base, publishData);
+      await updatePost(this.state.id, this.props.base, publishData);
       this.showSnackbarMsg('Data Saved Successfully');
     } catch (err) {
       this.showSnackbarMsg('Something Went Wrong.');
@@ -127,7 +135,13 @@ class Difundir extends React.Component {
     }
   };
 
+  isFuture = () => {
+    const currentTime = moment().format('DD/MM/YYYY H:mm');
+    return currentTime >= this.state.postDate ? true : false;
+  };
+
   render() {
+    const isFuture = this.isFuture();
     return (
       <div className="grid-wrapper grid-l">
         <Snackbar
@@ -142,32 +156,35 @@ class Difundir extends React.Component {
           blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
-        <Label label="Volver en publicar en portada" />
-        <Row>
-          <Col xs={5}>
-            <SchedulePost
-              date={this.state.publishedDate}
-              base={this.props.base}
-              onSchedule={this.onRepublishSchedule}
-              updateParent={this.updateParent}
-            />
-          </Col>
-          <Col xs={1}>
-            <RaisedButton
-              label="PROGRAMAR"
-              onClick={this.onRepublishSchedule}
-              primary={true}
-            />
-          </Col>
-          <Col xs={3} />
-          <Col xs={3}>
-            <RaisedButton
-              label="PASAR POR PORTADA AHORA MISMO!"
-              secondary={true}
-              onTouchTap={this.onRepublishNow}
-            />
-          </Col>
-        </Row>
+        {isFuture &&
+          <Row>
+            <Col xs={12}>
+              <Label label="Volver en publicar en portada" />
+            </Col>
+            <Col xs={5}>
+              <SchedulePost
+                date={this.state.publishedDate}
+                base={this.props.base}
+                onSchedule={this.onRepublishSchedule}
+                updateParent={this.updateParent}
+              />
+            </Col>
+            <Col xs={1}>
+              <RaisedButton
+                label="PROGRAMAR"
+                onClick={this.onRepublishSchedule}
+                primary={true}
+              />
+            </Col>
+            <Col xs={3} />
+            <Col xs={3}>
+              <RaisedButton
+                label="PASAR POR PORTADA AHORA MISMO!"
+                secondary={true}
+                onTouchTap={this.onRepublishNow}
+              />
+            </Col>
+          </Row>}
       </div>
     );
   }
