@@ -50,7 +50,6 @@ class Difundir extends React.Component {
   async init() {
     const postname = this.props.match.params.postname;
     const data = await getPost(postname, this.props.base);
-    console.log(data);
     this.setState({
       id: data.id,
       postRepostBlogNames: data.publishData.postRepostBlogNames || [],
