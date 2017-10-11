@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "draft-js": "^0.10.1",
+    "draft-js": "^0.10.3",
     "draft-js-anchor-plugin": "^2.0.0-rc7",
     "draft-js-export-html": "^1.2.0",
     "draft-js-import-html": "^1.2.0",
