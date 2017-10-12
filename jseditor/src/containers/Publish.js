@@ -36,7 +36,6 @@ import {
   findByName
 } from './lib/helpers.js';
 import { Check } from './lib/check';
-import { currentHour } from './lib/momentHelper';
 
 moment.tz.setDefault(configParams.timezone);
 
@@ -281,11 +280,7 @@ class Publish extends React.Component {
           <Row>
             <Col sm={5}>
               <SchedulePost
-                date={
-                  this.state.status === 'draft'
-                    ? currentHour()
-                    : this.state.publishedDate
-                }
+                date={this.state.publishedDate}
                 base={this.props.base}
                 updateParent={this.updateParent}
                 showCalendar={showCalendar}

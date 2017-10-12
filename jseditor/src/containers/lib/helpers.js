@@ -1,5 +1,7 @@
 import idx from 'idx';
 import moment from 'moment-timezone';
+
+import { currentHour } from './momentHelper';
 import configParams from '../../config/configs.js';
 
 const IMAGE_CROP_WARNING =
@@ -53,7 +55,8 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     meta: data.meta,
     maxId: data.maxId,
     status: data.status || 'draft',
-    publishedDate: idx(data, _ => _.publishData.postDate),
+    publishedDate:
+      data.status === 'draft' ? currentHour() : data.publishData.postDate,
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
