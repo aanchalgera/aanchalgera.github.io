@@ -69,7 +69,7 @@ class Publish extends React.Component {
     } else {
       this.setAllCategories(post.postType);
     }
-    this.props.handleDifundir(post.status);
+    this.props.handleDifundir(post.status, this.state.publishedDate);
   }
 
   submitPost = async () => {
@@ -91,7 +91,7 @@ class Publish extends React.Component {
         },
         this.savePostData
       );
-      this.props.handleDifundir('publish');
+      this.props.handleDifundir('publish', date);
       savePostsList(this.state, this.props.base, this.props.blogName);
       this.enableButton();
     } catch (error) {

@@ -55,7 +55,7 @@ class Difundir extends React.Component {
       publishRegion: data.publishData.publishRegion || [],
       postId: data.publishData.postId
     });
-    this.props.handleDifundir(data.status);
+    this.props.handleDifundir(data.status, this.state.postDate);
   }
 
   setRepostBlogs = (blogName: string, isChecked: boolean) => {

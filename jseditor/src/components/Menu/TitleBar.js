@@ -1,8 +1,9 @@
 import React from 'react';
-import { IconButton, FlatButton } from 'material-ui';
+import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
+import { isFuturePost } from '../../containers/lib/helpers.js';
 
 const styles = {
   previewButton: {
@@ -28,6 +29,16 @@ export default class TitleBar extends React.Component {
   };
 
   render() {
+    let postStatusMsg = null;
+
+    if (this.props.showPostStatusMsg) {
+      postStatusMsg = (
+        <span className="caption-default">
+          {isFuturePost(this.props.publishedDate) ? 'Programado' : 'Publicado'}
+        </span>
+      );
+    }
+
     const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
     return (
       <Toolbar className="header">
@@ -52,15 +63,19 @@ export default class TitleBar extends React.Component {
           </Tabs>
         </ToolbarGroup>
         <ToolbarGroup>
-          <FlatButton label="Publicado" style={styles.publishButton} />
-          <IconButton
-            target="_blank"
-            href={blogUrl + '/preview-longform/' + postName}
-            style={styles.previewButton}
-            disabled={activeTab === 'difundir'}
-          >
-            <Visibility />
-          </IconButton>
+          <div>
+            {postStatusMsg}
+            <span>
+              <IconButton
+                target="_blank"
+                href={blogUrl + '/preview-longform/' + postName}
+                style={styles.previewButton}
+                disabled={activeTab === 'difundir'}
+              >
+                <Visibility />
+              </IconButton>
+            </span>
+          </div>
         </ToolbarGroup>
       </Toolbar>
     );

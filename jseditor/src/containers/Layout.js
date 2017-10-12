@@ -19,7 +19,9 @@ export default class Layout extends React.Component {
   props: Props;
   state = {
     blogUrl: null,
-    showDifundir: false
+    showDifundir: false,
+    showPostStatusMsg: false,
+    publishedDate: ''
   };
 
   componentWillMount() {
@@ -54,15 +56,21 @@ export default class Layout extends React.Component {
     }
   };
 
-  handleDifundir = (status: string) => {
+  handleDifundir = (status: string, publishedDate: string) => {
     let showDifundir = false;
-    if (
-      status === 'publish' &&
-      this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR'
-    ) {
-      showDifundir = true;
+    let showPostStatusMsg = false;
+
+    if (status === 'publish') {
+      showPostStatusMsg = true;
+      if(this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR') {
+        showDifundir = true;
+      }
     }
-    this.setState({ showDifundir });
+    this.setState({
+      showDifundir: showDifundir,
+      showPostStatusMsg: showPostStatusMsg,
+      publishedDate: publishedDate
+    });
   };
 
   getTitleBar = () => {
@@ -78,6 +86,8 @@ export default class Layout extends React.Component {
         showDifundir={this.state.showDifundir}
         history={this.props.history}
         blogName={this.state.blogName}
+        showPostStatusMsg={this.state.showPostStatusMsg}
+        publishedDate={this.state.publishedDate}
       />
     );
   };
