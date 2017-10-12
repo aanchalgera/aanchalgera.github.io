@@ -223,3 +223,12 @@ export const convertTo1DArray = (data: Array<{ id: number }>) => {
 
 export const findByName = (name: string, list: Array<User>) =>
   list.find(item => item.label === name);
+
+export const isFuturePost = (publishedDate) => {
+  const currentTime = moment().format('DD/MM/YYYY H:mm');
+  if ('' !== publishedDate &&
+      publishedDate > currentTime) {
+    return true;
+  }
+  return false;
+}

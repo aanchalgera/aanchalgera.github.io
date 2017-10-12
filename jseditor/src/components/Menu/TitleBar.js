@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, FlatButton } from 'material-ui';
+import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
@@ -28,6 +28,16 @@ export default class TitleBar extends React.Component {
   };
 
   render() {
+    let statusMsgElement = null;
+
+    if (this.props.showPostStatusMsg) {
+      statusMsgElement = (
+        <span className="caption-default">
+          {this.props.statusMsg}
+        </span>
+      );
+    }
+
     const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
     return (
       <Toolbar className="header">
@@ -52,15 +62,19 @@ export default class TitleBar extends React.Component {
           </Tabs>
         </ToolbarGroup>
         <ToolbarGroup>
-          <FlatButton label="Publicado" style={styles.publishButton} />
-          <IconButton
-            target="_blank"
-            href={blogUrl + '/preview-longform/' + postName}
-            style={styles.previewButton}
-            disabled={activeTab === 'difundir'}
-          >
-            <Visibility />
-          </IconButton>
+          <div>
+            {statusMsgElement}
+            <span>
+              <IconButton
+                target="_blank"
+                href={blogUrl + '/preview-longform/' + postName}
+                style={styles.previewButton}
+                disabled={activeTab === 'difundir'}
+              >
+                <Visibility />
+              </IconButton>
+            </span>
+          </div>
         </ToolbarGroup>
       </Toolbar>
     );

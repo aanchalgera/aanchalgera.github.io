@@ -59,7 +59,7 @@ class Difundir extends React.Component {
       postHash: data.publishData.postHash,
       postDate: data.publishData.postDate
     });
-    this.props.handleDifundir(data.status);
+    this.props.handleDifundir(data.status, this.state.postDate);
   }
 
   setRepostBlogs = (blogName: string, isChecked: boolean) => {

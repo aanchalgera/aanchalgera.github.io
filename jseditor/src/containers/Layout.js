@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails } from './lib/service';
+import { isFuturePost } from './lib/helpers';
 import Publicar from './Publish';
 import Difundir from './Difundir';
 
@@ -19,7 +20,9 @@ export default class Layout extends React.Component {
   props: Props;
   state = {
     blogUrl: null,
-    showDifundir: false
+    showDifundir: false,
+    showPostStatusMsg: false,
+    statusMsg: ''
   };
 
   componentWillMount() {
@@ -54,15 +57,24 @@ export default class Layout extends React.Component {
     }
   };
 
-  handleDifundir = (status: string) => {
+  handleDifundir = (status: string, publishedDate: string) => {
     let showDifundir = false;
-    if (
-      status === 'publish' &&
-      this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR'
-    ) {
-      showDifundir = true;
+    let showPostStatusMsg = false;
+
+    if (status === 'publish') {
+      showPostStatusMsg = true;
+      if(this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR') {
+        showDifundir = true;
+      }
     }
-    this.setState({ showDifundir });
+
+    let statusMsg = isFuturePost(publishedDate) ? 'Programado' : 'Publicado';
+
+    this.setState({
+      showDifundir: showDifundir,
+      showPostStatusMsg: showPostStatusMsg,
+      statusMsg: statusMsg
+    });
   };
 
   getTitleBar = () => {
@@ -78,6 +90,8 @@ export default class Layout extends React.Component {
         showDifundir={this.state.showDifundir}
         history={this.props.history}
         blogName={this.state.blogName}
+        showPostStatusMsg={this.state.showPostStatusMsg}
+        statusMsg={this.state.statusMsg}
       />
     );
   };
