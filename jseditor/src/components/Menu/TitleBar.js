@@ -3,7 +3,6 @@ import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
-import { isFuturePost } from '../../containers/lib/helpers.js';
 
 const styles = {
   previewButton: {
@@ -29,12 +28,12 @@ export default class TitleBar extends React.Component {
   };
 
   render() {
-    let postStatusMsg = null;
+    let statusMsgElement = null;
 
     if (this.props.showPostStatusMsg) {
-      postStatusMsg = (
+      statusMsgElement = (
         <span className="caption-default">
-          {isFuturePost(this.props.publishedDate) ? 'Programado' : 'Publicado'}
+          {this.props.statusMsg}
         </span>
       );
     }
@@ -64,7 +63,7 @@ export default class TitleBar extends React.Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <div>
-            {postStatusMsg}
+            {statusMsgElement}
             <span>
               <IconButton
                 target="_blank"

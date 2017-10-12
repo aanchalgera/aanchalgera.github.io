@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails } from './lib/service';
+import { isFuturePost } from './lib/helpers';
 import Publicar from './Publish';
 import Difundir from './Difundir';
 
@@ -21,7 +22,7 @@ export default class Layout extends React.Component {
     blogUrl: null,
     showDifundir: false,
     showPostStatusMsg: false,
-    publishedDate: ''
+    statusMsg: ''
   };
 
   componentWillMount() {
@@ -66,10 +67,13 @@ export default class Layout extends React.Component {
         showDifundir = true;
       }
     }
+
+    let statusMsg = isFuturePost(publishedDate) ? 'Programado' : 'Publicado';
+
     this.setState({
       showDifundir: showDifundir,
       showPostStatusMsg: showPostStatusMsg,
-      publishedDate: publishedDate
+      statusMsg: statusMsg
     });
   };
 
@@ -87,7 +91,7 @@ export default class Layout extends React.Component {
         history={this.props.history}
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
-        publishedDate={this.state.publishedDate}
+        statusMsg={this.state.statusMsg}
       />
     );
   };
