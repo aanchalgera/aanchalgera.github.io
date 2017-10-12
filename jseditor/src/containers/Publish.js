@@ -281,7 +281,11 @@ class Publish extends React.Component {
           <Row>
             <Col sm={5}>
               <SchedulePost
-                date={this.state.publishedDate || currentHour()}
+                date={
+                  this.state.status === 'draft'
+                    ? currentHour()
+                    : this.state.publishedDate
+                }
                 base={this.props.base}
                 updateParent={this.updateParent}
                 showCalendar={showCalendar}
