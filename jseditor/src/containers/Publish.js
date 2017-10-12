@@ -86,8 +86,7 @@ class Publish extends React.Component {
           publishedDate: date,
           message: '',
           snackbarOpen: true,
-          SnackbarMessage:
-            SAVED_MESSAGE + moment(date, 'DD-MM-YYYY HH:mm').format('LLLL')
+          SnackbarMessage: SAVED_MESSAGE + date
         },
         this.savePostData
       );
@@ -281,7 +280,7 @@ class Publish extends React.Component {
           <Row className="bottom-xs">
             <Col sm={5}>
               <SchedulePost
-                date={this.state.publishedDate || currentTime}
+                date={this.state.publishedDate}
                 base={this.props.base}
                 updateParent={this.updateParent}
                 showCalendar={showCalendar}
