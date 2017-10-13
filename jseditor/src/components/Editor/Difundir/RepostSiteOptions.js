@@ -110,7 +110,6 @@ export default class RepostSiteOptions extends React.Component {
   };
 
   render() {
-    console.log(this.initalRepostedBlogs);
     return (
       <div>
         <Label label="Crosspost a otros medios" />
