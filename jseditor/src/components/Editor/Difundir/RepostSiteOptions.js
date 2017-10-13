@@ -71,9 +71,21 @@ let formatedBlogs = {
 
 export default class RepostSiteOptions extends React.Component {
   props: Props;
+  initalRepostedBlogs = null;
+
+  componentWillReceiveProps(nextProps) {
+    if (this.initalRepostedBlogs === null) {
+      this.initalRepostedBlogs = nextProps.repostBlogs.slice();
+    }
+  }
 
   handleCheck = (e: InputEvent, isChecked: boolean) => {
     this.props.setRepostBlogs(e.currentTarget.value, isChecked);
+  };
+
+  submitRepostedBlogs = () => {
+    this.initalRepostedBlogs = this.props.repostBlogs.slice();
+    this.props.submitRepostedBlogs();
   };
 
   getSitesListing = (blogs: Array<string>) => {
@@ -84,6 +96,10 @@ export default class RepostSiteOptions extends React.Component {
           ? null
           : <Checkbox
               checked={this.props.repostBlogs.indexOf(blog) !== -1}
+              disabled={
+                this.initalRepostedBlogs &&
+                this.initalRepostedBlogs.indexOf(blog) !== -1
+              }
               key={blog}
               label={blog}
               value={blog}
@@ -96,9 +112,7 @@ export default class RepostSiteOptions extends React.Component {
   render() {
     return (
       <div>
-        <Label
-          label="Crosspost a otros medios"
-        />
+        <Label label="Crosspost a otros medios" />
         <Row>
           {Object.keys(formatedBlogs).map(key =>
             <Col xs key={key}>
@@ -111,7 +125,7 @@ export default class RepostSiteOptions extends React.Component {
             <RaisedButton
               label="Enviar Crosspost"
               style={styles.button}
-              onTouchTap={this.props.submitRepostedBlogs}
+              onTouchTap={this.submitRepostedBlogs}
               primary={true}
             />
           </Col>

@@ -158,7 +158,7 @@ class Difundir extends React.Component {
         {isFuture &&
           <Row>
             <Col xs={12}>
-              <Label label="Volver en publicar en portada" />
+              <Label label="Volver a publicar en portada" />
             </Col>
             <Col xs={5}>
               <SchedulePost
