@@ -18,7 +18,7 @@ export class ImageCropper extends React.Component {
       <Row>
         <Col sm={3}>
           <p>
-            <label className="caption-default">Imagen Principal:</label>
+            <label className="caption-default">Imagen principal:</label>
           </p>
           <div>
             <img src={this.props.imageSrc} style={this.style.img} alt="" />
@@ -27,7 +27,7 @@ export class ImageCropper extends React.Component {
         <Col sm={3}>
           <p>
             <label className="caption-default">
-              Recorte para portada móvil, crosspost, instagram
+              Recorte para portada móvil, crosspost, instagram:
             </label>
           </p>
           <CropWidget
@@ -41,7 +41,7 @@ export class ImageCropper extends React.Component {
         <Col sm={3}>
           <p>
             <label className="caption-default">
-              Recorte para portada escritorio, Twitter, Facebook
+              Recorte para portada escritorio, Twitter, Facebook:
             </label>
           </p>
           <CropWidget
@@ -55,7 +55,7 @@ export class ImageCropper extends React.Component {
         <Col sm={3}>
           <p>
             <label className="caption-default">
-              Recorte para top story, destacados
+              Recorte para top story, destacados:
             </label>
           </p>
           <CropWidget

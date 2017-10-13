@@ -5,12 +5,8 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 
 const styles = {
-  previewButton: {
-    marginTop: '8px'
-  },
-  publishButton: {
-    marginTop: '16px'
-  },
+  previewButton: {},
+  publishButton: {},
   title: {
     color: 'white',
     textTransform: 'capitalize'
