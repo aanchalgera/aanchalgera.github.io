@@ -224,7 +224,7 @@ class Publish extends React.Component {
         SnackbarMessage: DRAFT_MESSAGE
       });
       savePostsList(state, this.props.base, this.props.blogName);
-      handleDifundir('draft', this.state.publishedDate);
+      this.props.handleDifundir('draft', this.state.publishedDate);
     } catch (err) {
       console.log(err);
       this.setMessage(true, SAVING_DATA_ERROR_WARNING);
