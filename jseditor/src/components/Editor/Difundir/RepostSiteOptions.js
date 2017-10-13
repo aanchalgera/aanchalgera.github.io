@@ -73,7 +73,7 @@ export default class RepostSiteOptions extends React.Component {
   props: Props;
   initalRepostedBlogs = null;
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (this.initalRepostedBlogs === null) {
       this.initalRepostedBlogs = nextProps.repostBlogs.slice();
     }

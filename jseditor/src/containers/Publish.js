@@ -49,7 +49,7 @@ type Props = {
   match: { params: Object },
   blogUrl: string,
   blogName: string,
-  handleDifundir: (status: string) => void
+  handleDifundir: (status: string, date: string) => void
 };
 
 class Publish extends React.Component {
@@ -224,6 +224,7 @@ class Publish extends React.Component {
         SnackbarMessage: DRAFT_MESSAGE
       });
       savePostsList(state, this.props.base, this.props.blogName);
+      handleDifundir('draft', this.state.publishedDate);
     } catch (err) {
       console.log(err);
       this.setMessage(true, SAVING_DATA_ERROR_WARNING);
