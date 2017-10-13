@@ -29,7 +29,7 @@ type Props = {
   match: { params: Object },
   blogUrl: string,
   blogName: string,
-  handleDifundir: (status: string) => void
+  handleDifundir: (status: string, date: string) => void
 };
 
 class Difundir extends React.Component {
