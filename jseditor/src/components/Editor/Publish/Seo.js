@@ -26,13 +26,14 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
   };
   return (
     <Row>
-      <Col lg={12}>
+      <Col className="column" sm={12}>
         <Label
-          label="SEO "
+          labe
+          l="SEO "
           hint="Título y descripción que aparece al buscar en Google"
         />
       </Col>
-      <Col lg={12}>
+      <Col className="column" sm={12}>
         <TextField
           hintText="..."
           floatingLabelFixed={true}
@@ -47,7 +48,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
         />
         <Divider />
       </Col>
-      <Col lg={12}>
+      <Col className="column" sm={12}>
         <TextField
           hintText="..."
           floatingLabelFixed={true}

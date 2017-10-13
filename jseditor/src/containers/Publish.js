@@ -279,7 +279,7 @@ class Publish extends React.Component {
           childName="PostScheduler"
         >
           <Row className="bottom-xs">
-            <Col sm={5}>
+            <Col className="column" sm={5}>
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
@@ -287,7 +287,7 @@ class Publish extends React.Component {
                 showCalendar={showCalendar}
               />
             </Col>
-            <Col sm={2}>
+            <Col className="column" sm={2}>
               {this.state.status === 'draft'
                 ? <RaisedButton
                     label="PROGRAMAR"
@@ -302,8 +302,7 @@ class Publish extends React.Component {
                     onTouchTap={this.handleUpdate}
                   />}
             </Col>
-            <Col sm={3} />
-            <Col sm={2}>
+            <Col className="column" sm={2}>
               <DraftButton
                 status={this.state.status}
                 handleStatusUpdate={this.handleStatusUpdate}
@@ -317,7 +316,7 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="PublicationLabel"
           >
-            <Col sm={12}>
+            <Col className="column" sm={12}>
               <Label
                 label="Detalles de publicación "
                 hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
@@ -329,7 +328,7 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="Categories"
           >
-            <Col sm={3}>
+            <Col className="column" sm={3}>
               <Categories
                 category={this.state.category}
                 updateParent={this.updateParent}
@@ -342,7 +341,7 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="OtherCategories"
           >
-            <Col sm={3}>
+            <Col className="column" sm={3}>
               <OtherCategories
                 postCategories={this.state.postCategories}
                 updateParent={this.updateParent}
@@ -350,7 +349,7 @@ class Publish extends React.Component {
               />
             </Col>
           </Check>
-          <Col sm={6}>
+          <Col className="column" sm={6}>
             <Tags
               blogUrl={this.props.blogUrl}
               tags={this.state.tags}
@@ -360,20 +359,20 @@ class Publish extends React.Component {
         </Row>
         <Label label="Portada y redes sociales" />
         <Row>
-          <Col sm={6}>
+          <Col className="column" sm={6}>
             {this.state.id &&
               <HomePage
                 homepage={this.state.meta.homepage}
                 updateHomepageContent={this.updateHomepageContent}
               />}
           </Col>
-          <Col sm={3}>
+          <Col className="column" sm={3}>
             <Twitter
               twitter={this.state.meta.social.twitter}
               updateSocialTwitterText={this.updateSocialTwitterText}
             />
           </Col>
-          <Col sm={3}>
+          <Col className="column" sm={3}>
             <Facebook
               facebook={this.state.meta.social.facebook}
               updateSocialFacebookText={this.updateSocialFacebookText}
@@ -398,13 +397,13 @@ class Publish extends React.Component {
           />
         </Check>
         <Row>
-          <Col sm>
+          <Col className="column" sm>
             <Seo
               seo={this.state.meta.seo || { title: '', description: '' }}
               setPostMeta={this.setPostMeta}
             />
           </Col>
-          <Col sm>
+          <Col className="column" sm>
             <Check
               userRole={this.props.userRole}
               postType={this.state.postType}
@@ -416,7 +415,7 @@ class Publish extends React.Component {
               />
             </Check>
           </Col>
-          <Col sm>
+          <Col className="column" sm>
             <Check
               userRole={this.props.userRole}
               postType={this.state.postType}

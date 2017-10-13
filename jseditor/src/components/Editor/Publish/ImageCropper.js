@@ -16,7 +16,7 @@ export class ImageCropper extends React.Component {
   render() {
     return (
       <Row>
-        <Col sm={3}>
+        <Col className="column" sm={3}>
           <p>
             <label className="caption-default">Imagen principal:</label>
           </p>
@@ -24,7 +24,7 @@ export class ImageCropper extends React.Component {
             <img src={this.props.imageSrc} style={this.style.img} alt="" />
           </div>
         </Col>
-        <Col sm={3}>
+        <Col className="column" sm={3}>
           <p>
             <label className="caption-default">
               Recorte para portada móvil, crosspost, instagram:
@@ -38,7 +38,7 @@ export class ImageCropper extends React.Component {
             onCropValidate={this.props.onCropValidate}
           />
         </Col>
-        <Col sm={3}>
+        <Col className="column" sm={3}>
           <p>
             <label className="caption-default">
               Recorte para portada escritorio, Twitter, Facebook:
@@ -52,7 +52,7 @@ export class ImageCropper extends React.Component {
             onCropValidate={this.props.onCropValidate}
           />
         </Col>
-        <Col sm={3}>
+        <Col className="column" sm={3}>
           <p>
             <label className="caption-default">
               Recorte para top story, destacados:
