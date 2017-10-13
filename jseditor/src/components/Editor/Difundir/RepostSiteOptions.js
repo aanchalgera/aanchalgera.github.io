@@ -115,13 +115,13 @@ export default class RepostSiteOptions extends React.Component {
         <Label label="Crosspost a otros medios" />
         <Row>
           {Object.keys(formatedBlogs).map(key =>
-            <Col xs key={key}>
+            <Col className="column" sm key={key}>
               {this.getSitesListing(formatedBlogs[key].sites)}
             </Col>
           )}
         </Row>
         <Row>
-          <Col>
+          <Col className="column">
             <RaisedButton
               label="Enviar Crosspost"
               style={styles.button}

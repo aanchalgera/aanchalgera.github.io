@@ -54,7 +54,7 @@ export class SchedulePost extends React.Component {
   render() {
     return (
       <Row style={{ marginBottom: '0px' }} className="bottom-xs">
-        <Col xs>
+        <Col className="column" sm>
           <TextField
             floatingLabelText="Fecha y hora"
             value={this.props.date}
@@ -63,7 +63,7 @@ export class SchedulePost extends React.Component {
           />
         </Col>
         {this.props.showCalendar &&
-          <Col xs>
+          <Col className="column" sm>
             <RaisedButton
               label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
               icon={<Apps />}

@@ -139,7 +139,7 @@ export class AdvancedOptions extends React.Component {
         >
           <Checkbox
             checked={iaVisibility}
-            label="Publish as FBIA"
+            label="Publicar como Instant Article en Facebook"
             onCheck={(e, isChecked) => {
               updateParent({ iaVisibility: isChecked });
             }}
@@ -153,7 +153,7 @@ export class AdvancedOptions extends React.Component {
         >
           <Checkbox
             checked={ampVisibility}
-            label="Publish as AMP"
+            label="Publicar versión para AMP de Google"
             onCheck={(e, isChecked) => {
               updateParent({ ampVisibility: isChecked });
             }}

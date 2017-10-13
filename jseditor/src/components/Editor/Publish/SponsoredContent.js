@@ -42,7 +42,7 @@ export class SponsoredContent extends Component {
       <div>
         <Label label="Contenido Patrocinado" />
         <Row>
-          <Col xs>
+          <Col className="column" sm>
             <TextField
               value={this.props.sponsor.name}
               hintText="Socialmedia SL"
@@ -52,7 +52,7 @@ export class SponsoredContent extends Component {
               fullWidth={true}
             />
           </Col>
-          <Col xs>
+          <Col className="column" sm>
             <TextField
               value={this.props.sponsor.image}
               hintText="https://.."
@@ -62,7 +62,7 @@ export class SponsoredContent extends Component {
               fullWidth={true}
             />
           </Col>
-          <Col xs>
+          <Col className="column" sm>
             <TextField
               value={this.props.sponsor.tracker}
               hintText="..."
