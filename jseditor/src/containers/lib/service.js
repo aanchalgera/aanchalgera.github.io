@@ -55,7 +55,8 @@ export const savePost = (state, base) => {
     category: state.category,
     postCategories: state.postCategories,
     ampVisibility: state.ampVisibility,
-    iaVisibility: state.iaVisibility
+    iaVisibility: state.iaVisibility,
+    commentStatus: state.commentStatus
   };
 
   base.update('posts/' + state.id, {
