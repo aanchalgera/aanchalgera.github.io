@@ -18,7 +18,7 @@ export default class Homepage extends React.Component {
     return (
       <div>
         <label className="caption-default">
-          Texto para portado<span> (opcional)</span>
+          Texto para portada<span> (opcional)</span>
         </label>
         <DraftJSEditor
           ref="homepageContent"

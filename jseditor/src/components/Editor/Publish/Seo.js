@@ -28,8 +28,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
     <Row>
       <Col className="column" sm={12}>
         <Label
-          labe
-          l="SEO "
+          label="SEO "
           hint="Título y descripción que aparece al buscar en Google"
         />
       </Col>

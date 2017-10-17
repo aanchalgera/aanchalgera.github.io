@@ -23,13 +23,14 @@ const POST_REPUBLISHED = 'Post successfully republished again';
 const ERROR = 'Something went wrong';
 const ALREADY_SCHEDULED = 'Post already scheduled to republish at ';
 const REPUBLISHED = 'Post successfully scheduled to republish at  ';
+const CROSSPOST_SUCCESS = 'Crosspost enviado';
 
 type Props = {
   base: Object,
   match: { params: Object },
   blogUrl: string,
   blogName: string,
-  handleDifundir: (status: string, date: string) => void
+  handleDifundir: (status: string) => void
 };
 
 class Difundir extends React.Component {
@@ -87,7 +88,7 @@ class Difundir extends React.Component {
     try {
       await submitRepostedBlogsToBackend(backendData, this.props.blogUrl);
       await updatePost(this.state.id, this.props.base, publishData);
-      this.showSnackbarMsg('Data Saved Successfully');
+      this.showSnackbarMsg(CROSSPOST_SUCCESS);
     } catch (err) {
       this.showSnackbarMsg('Something Went Wrong.');
     }
@@ -157,10 +158,10 @@ class Difundir extends React.Component {
         />
         {isFuture &&
           <Row>
-            <Col className="column" sm={12}>
+            <Col xs={12}>
               <Label label="Volver a publicar en portada" />
             </Col>
-            <Col className="column" sm={5}>
+            <Col xs={5}>
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
@@ -168,14 +169,15 @@ class Difundir extends React.Component {
                 updateParent={this.updateParent}
               />
             </Col>
-            <Col className="column" sm={1}>
+            <Col xs={1}>
               <RaisedButton
                 label="PROGRAMAR"
                 onClick={this.onRepublishSchedule}
                 primary={true}
               />
             </Col>
-            <Col className="column" sm={3}>
+            <Col xs={3} />
+            <Col xs={3}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
                 secondary={true}
