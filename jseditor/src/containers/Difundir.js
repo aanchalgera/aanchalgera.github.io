@@ -163,7 +163,7 @@ class Difundir extends React.Component {
             <Col className="column" sm={12}>
               <Label label="Volver a publicar en portada" />
             </Col>
-            <Col className="column" sm={5}>
+            <Col className="column" sm={6}>
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
@@ -178,7 +178,7 @@ class Difundir extends React.Component {
                 primary={true}
               />
             </Col>
-            <Col className="column" sm={3} />
+
             <Col className="column" sm={3}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
