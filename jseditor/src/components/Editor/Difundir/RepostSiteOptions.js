@@ -92,20 +92,20 @@ export default class RepostSiteOptions extends React.Component {
     const { blogName } = this.props;
     return blogs.map(
       blog =>
-        blogName === blog
-          ? null
-          : <Checkbox
-              checked={this.props.repostBlogs.indexOf(blog) !== -1}
-              disabled={
-                this.initalRepostedBlogs &&
-                this.initalRepostedBlogs.indexOf(blog) !== -1
-              }
-              key={blog}
-              label={blog}
-              value={blog}
-              style={styles.checkbox}
-              onCheck={this.handleCheck}
-            />
+        blogName === blog ? null : (
+          <Checkbox
+            checked={this.props.repostBlogs.indexOf(blog) !== -1}
+            disabled={
+              this.initalRepostedBlogs &&
+              this.initalRepostedBlogs.indexOf(blog) !== -1
+            }
+            key={blog}
+            label={blog}
+            value={blog}
+            style={styles.checkbox}
+            onCheck={this.handleCheck}
+          />
+        )
     );
   };
 
@@ -114,18 +114,18 @@ export default class RepostSiteOptions extends React.Component {
       <div>
         <Label label="Crosspost a otros medios" />
         <Row>
-          {Object.keys(formatedBlogs).map(key =>
+          {Object.keys(formatedBlogs).map(key => (
             <Col className="column" sm key={key}>
               {this.getSitesListing(formatedBlogs[key].sites)}
             </Col>
-          )}
+          ))}
         </Row>
         <Row>
           <Col className="column">
             <RaisedButton
               label="Enviar Crosspost"
               style={styles.button}
-              onTouchTap={this.submitRepostedBlogs}
+              onClick={this.submitRepostedBlogs}
               primary={true}
             />
           </Col>

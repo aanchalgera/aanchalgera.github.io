@@ -63,7 +63,7 @@ export default class Layout extends React.Component {
 
     if (status === 'publish') {
       showPostStatusMsg = true;
-      if(this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR') {
+      if (this.state.userRole !== 'ROLE_BRANDED_COLLABORATOR') {
         showDifundir = true;
       }
     }
@@ -104,31 +104,33 @@ export default class Layout extends React.Component {
     const { showDifundir, ...rest } = this.state;
     return (
       <MuiThemeProvider muiTheme={customTheme}>
-        <view>
+        <div>
           {this.getTitleBar()}
           <Switch>
             <Route
               path="/publicar/:postname"
-              render={props =>
+              render={props => (
                 <Publicar
                   {...props}
                   {...rest}
                   base={base}
                   handleDifundir={this.handleDifundir}
-                />}
+                />
+              )}
             />
             <Route
               path="/difundir/:postname"
-              render={props =>
+              render={props => (
                 <Difundir
                   {...props}
                   {...rest}
                   base={base}
                   handleDifundir={this.handleDifundir}
-                />}
+                />
+              )}
             />
           </Switch>
-        </view>
+        </div>
       </MuiThemeProvider>
     );
   }

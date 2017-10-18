@@ -38,7 +38,9 @@ class Difundir extends React.Component {
     id: '',
     postId: '',
     postRepostBlogNames: [],
-    publishedDate: moment().add(1, 'hours').format('DD/MM/YYYY HH:00'),
+    publishedDate: moment()
+      .add(1, 'hours')
+      .format('DD/MM/YYYY HH:00'),
     publishRegion: [],
     snackbarOpen: false,
     snackbarMessage: ''
@@ -156,7 +158,7 @@ class Difundir extends React.Component {
           blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
-        {isFuture &&
+        {isFuture && (
           <Row>
             <Col className="column" sm={12}>
               <Label label="Volver a publicar en portada" />
@@ -181,10 +183,11 @@ class Difundir extends React.Component {
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
                 secondary={true}
-                onTouchTap={this.onRepublishNow}
+                onClick={this.onRepublishNow}
               />
             </Col>
-          </Row>}
+          </Row>
+        )}
       </div>
     );
   }

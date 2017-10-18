@@ -264,9 +264,7 @@ class Publish extends React.Component {
     }
     return (
       <div className="grid-wrapper grid-l">
-        <span style={{ color: 'red' }}>
-          {this.state.message}
-        </span>
+        <span style={{ color: 'red' }}>{this.state.message}</span>
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.SnackbarMessage}
@@ -288,19 +286,21 @@ class Publish extends React.Component {
               />
             </Col>
             <Col className="column" sm={2}>
-              {this.state.status === 'draft'
-                ? <RaisedButton
-                    label="PROGRAMAR"
-                    disabled={this.state.buttonDisabled}
-                    onTouchTap={this.onSchedule}
-                    primary={true}
-                  />
-                : <RaisedButton
-                    label="GUARDAR CAMBIOS"
-                    secondary={true}
-                    disabled={this.state.buttonDisabled}
-                    onTouchTap={this.handleUpdate}
-                  />}
+              {this.state.status === 'draft' ? (
+                <RaisedButton
+                  label="PROGRAMAR"
+                  disabled={this.state.buttonDisabled}
+                  onClick={this.onSchedule}
+                  primary={true}
+                />
+              ) : (
+                <RaisedButton
+                  label="GUARDAR CAMBIOS"
+                  secondary={true}
+                  disabled={this.state.buttonDisabled}
+                  onClick={this.handleUpdate}
+                />
+              )}
             </Col>
             <Col className="column" sm={2}>
               <DraftButton
@@ -360,11 +360,12 @@ class Publish extends React.Component {
         <Label label="Portada y redes sociales" />
         <Row>
           <Col className="column" sm={6}>
-            {this.state.id &&
+            {this.state.id && (
               <HomePage
                 homepage={this.state.meta.homepage}
                 updateHomepageContent={this.updateHomepageContent}
-              />}
+              />
+            )}
           </Col>
           <Col className="column" sm={3}>
             <Twitter
@@ -379,13 +380,14 @@ class Publish extends React.Component {
             />
           </Col>
         </Row>
-        {this.state.meta.homepage.image &&
+        {this.state.meta.homepage.image && (
           <ImageCropper
             imageSrc={this.state.meta.homepage.image.url}
             onCropChange={this.onCropChange}
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
-          />}
+          />
+        )}
         <Check
           userRole={this.props.userRole}
           postType={this.state.postType}
