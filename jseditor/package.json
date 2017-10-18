@@ -31,7 +31,8 @@
     "react-select": "^1.0.0-rc.10",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "tlds": "^1.198.0"
   },
   "lint-staged": {
     "gitDir": "../",
