@@ -5,7 +5,7 @@ import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component {
   isGroupable(type) {
-    if (type == 'table' || type == 'grouped') {
+    if (type == 'table' || type == 'grouped' || type == 'sectionModule') {
       return false;
     } else {
       return true;
@@ -52,9 +52,7 @@ class ContentList extends React.Component {
     });
     return (
       <div className="col-sm-12 content-area container-ul" id="main-container">
-        <ul id="myList">
-          {fieldsHtml}
-        </ul>
+        <ul id="myList">{fieldsHtml}</ul>
         <MoreOptions
           openResourcePanel={this.props.openResourcePanel}
           addImageCaption={this.props.addImageCaption.bind(this)}

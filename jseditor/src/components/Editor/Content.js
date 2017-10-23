@@ -12,6 +12,7 @@ import Video from './Video';
 import RichContent from './RichContent';
 import FichaDeReview from './FichaDeReview';
 import FichaTecnica from './FichaTecnica';
+import SectionModule from './Escribir/SectionModule';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component {
@@ -254,6 +255,16 @@ class Content extends React.Component {
           deleteImage={this.props.deleteImage}
           update={content =>
             this.props.updateResource(this.props.dataId, content)}
+        />
+      );
+    } else if ('sectionModule' == this.props.data.type) {
+      field = (
+        <SectionModule
+          data={this.props.data}
+          dataId={this.props.dataId}
+          ref="field"
+          updateResource={this.props.updateResource}
+          base={this.props.base}
         />
       );
     }
