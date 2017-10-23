@@ -28,9 +28,7 @@ export default class TitleBar extends React.Component {
 
     if (this.props.showPostStatusMsg) {
       statusMsgElement = (
-        <span className="caption-default">
-          {this.props.statusMsg}
-        </span>
+        <span className="caption-default">{this.props.statusMsg}</span>
       );
     }
 
@@ -38,23 +36,19 @@ export default class TitleBar extends React.Component {
     return (
       <Toolbar className="header">
         <ToolbarTitle text={blogName} style={styles.title} />
-        <ToolbarGroup className="bottom-xs">
-          <Tabs
-            value={activeTab}
-            onChange={this.handleChange}
-            style={styles.tabs}
-          >
-            <Tab 
-              label="ESCRIBIR"
-              value="escribir"
-            />
-            <Tab 
-              label="PUBLICAR"
-              value="publicar"
-            />
-            {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
-          </Tabs>
-        </ToolbarGroup>
+        <div className="nav-btn">
+          <ToolbarGroup>
+            <Tabs
+              value={activeTab}
+              onChange={this.handleChange}
+              style={styles.tabs}
+            >
+              <Tab label="ESCRIBIR" value="escribir" />
+              <Tab label="PUBLICAR" value="publicar" />
+              {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
+            </Tabs>
+          </ToolbarGroup>
+        </div>
         <ToolbarGroup>
           <div>
             {statusMsgElement}
