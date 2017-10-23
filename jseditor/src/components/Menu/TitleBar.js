@@ -42,7 +42,7 @@ export default class TitleBar extends React.Component {
     return (
       <Toolbar className="header">
         <ToolbarTitle text={blogName} style={styles.title} />
-        <ToolbarGroup>
+        <ToolbarGroup className="bottom-xs">
           <Tabs
             value={activeTab}
             onChange={this.handleChange}
@@ -51,12 +51,10 @@ export default class TitleBar extends React.Component {
             <Tab 
               label="ESCRIBIR"
               value="escribir"
-              className='btn-nav'
             />
             <Tab 
               label="PUBLICAR"
               value="publicar"
-              className='btn-nav'
             />
             {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
           </Tabs>
