@@ -93,11 +93,12 @@ class Editor extends React.Component {
       try {
         const siteUrl = await getBlogUrl(this.blogName, this.props.base);
         const user = await getUserDetails(siteUrl);
-        (this.userId = user.id), this.setState({
-          blogName: this.blogName,
-          blogUrl: siteUrl,
-          userRole: user.role
-        });
+        (this.userId = user.id),
+          this.setState({
+            blogName: this.blogName,
+            blogUrl: siteUrl,
+            userRole: user.role
+          });
       } catch (error) {
         console.log(error.message);
         if (error.message === 'NOT_LOGGED_IN') {
@@ -1053,9 +1054,7 @@ class Editor extends React.Component {
       errorField = (
         <div className="top-messages">
           <div className="alert alert-danger">
-            <span>
-              {this.state.message}
-            </span>
+            <span>{this.state.message}</span>
           </div>
         </div>
       );
@@ -1181,6 +1180,7 @@ class Editor extends React.Component {
             toggleSummarySocialShareButtons={
               this.toggleSummarySocialShareButtons
             }
+            base={this.props.base}
           />
         </div>
         {this.state.meta ? metadata : ''}
