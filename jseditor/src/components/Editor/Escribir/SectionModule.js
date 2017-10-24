@@ -60,7 +60,6 @@ export default class SectionModule extends React.Component {
           defaultValue={this.props.data.site}
           onBlur={this.updateSection}
         />
-        Categoría:
         <input
           type="radio"
           value="category"
@@ -69,14 +68,14 @@ export default class SectionModule extends React.Component {
             !this.props.data.selected || 'category' == this.props.data.selected
           }
         />
+        Categoría
         <br />
-        tag:
         <input
           type="radio"
           value="tag"
           onChange={this.handleOptionChange}
           checked={'tag' == this.props.data.selected}
-        />
+        />Tag
         <br />
         {!this.props.data.selected ||
         'category' === this.props.data.selected ? (
@@ -92,6 +91,9 @@ export default class SectionModule extends React.Component {
             updateParent={this.updateParent}
           />
         )}
+        {'Tag' == this.props.data.selected ? (
+          <span className="hint">Sugerencias (clik para añadir: )</span>
+        ) : null}
       </div>
     );
   }
