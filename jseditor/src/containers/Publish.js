@@ -277,14 +277,12 @@ class Publish extends React.Component {
           childName="PostScheduler"
         >
           <Row className="bottom-xs">
-            <Col className="column" sm={5}>
-              <SchedulePost
-                date={this.state.publishedDate}
-                base={this.props.base}
-                updateParent={this.updateParent}
-                showCalendar={showCalendar}
-              />
-            </Col>
+            <SchedulePost
+              date={this.state.publishedDate}
+              base={this.props.base}
+              updateParent={this.updateParent}
+              showCalendar={showCalendar}
+            />
             <Col className="column" sm={2}>
               {this.state.status === 'draft' ? (
                 <RaisedButton
@@ -302,7 +300,8 @@ class Publish extends React.Component {
                 />
               )}
             </Col>
-            <Col className="column" sm={2}>
+            <Col className="column" sm={2} />
+            <Col className="column end-sm" sm={3}>
               <DraftButton
                 status={this.state.status}
                 handleStatusUpdate={this.handleStatusUpdate}
