@@ -60,7 +60,7 @@ export default class SectionModule extends React.Component {
           defaultValue={this.props.data.site}
           onBlur={this.updateSection}
         />
-        categoria:
+        Categoría:
         <input
           type="radio"
           value="category"

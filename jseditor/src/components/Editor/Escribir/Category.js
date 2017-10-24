@@ -9,17 +9,22 @@ import { filterCategories } from '../../../containers/lib/helpers.js';
 type Props = {
   blogUrl: string,
   category: number,
-  updateParent: (data: Object) => void
+  updateParent: (data: Object) => void,
+  postType: string
 };
 
 export default class Category extends Component {
+  constructor(props: Props) {
+    super();
+    this.props = props;
+    this.init();
+  }
+
   state = {
     categories: []
   };
 
-  props: Props;
-
-  async componentWillMount() {
+  async init() {
     let categories = await loadAllCategories(
       this.props.blogUrl,
       this.props.postType
