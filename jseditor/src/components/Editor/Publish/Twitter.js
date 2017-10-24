@@ -9,13 +9,12 @@ const propValidate = {
   updateSocialTwitterText: PropTypes.func.isRequired
 };
 
-export const Twitter = props =>
+export const Twitter = props => (
   <div>
     <TextField
       hintText="..."
       floatingLabelFixed={true}
       multiLine={true}
-      v
       rowsMax={3}
       underlineShow={false}
       fullWidth={true}
@@ -30,6 +29,7 @@ export const Twitter = props =>
       }
     />
     <Divider />
-  </div>;
+  </div>
+);
 
 Twitter.propTypes = propValidate;
