@@ -172,7 +172,7 @@ class MoreOptions extends React.Component {
     const sectionModuleButton = (
       <button
         type="button"
-        className="btn glyphicon glyphicon-stats"
+        className="btn glyphicon glyphicon-flash"
         onClick={() =>
           this.props.addResource({
             type: 'sectionModule',

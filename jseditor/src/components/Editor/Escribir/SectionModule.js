@@ -6,12 +6,6 @@ import Tag from './Tag';
 import Category from './Category';
 
 export default class SectionModule extends React.Component {
-  state = {
-    option: 'categoria',
-    tag: '',
-    category: ''
-  };
-
   componentDidMount() {
     let sites = loadSites(this.props.base);
   }
@@ -29,13 +23,8 @@ export default class SectionModule extends React.Component {
     this.props.updateResource(this.props.dataId, sectionModule);
   };
 
-  handleOptionChange = (e: InputEvent) => {
-    let option = e.currentTarget.value;
-    this.setState({ option: option });
-  };
-
   updateParent = data => {
-    this.setState(data);
+    this.props.updateResource(this.props.dataId, data);
   };
 
   render() {
@@ -63,37 +52,41 @@ export default class SectionModule extends React.Component {
         <input
           type="radio"
           value="category"
-          onChange={this.handleOptionChange}
-          checked={
-            !this.props.data.selected || 'category' == this.props.data.selected
-          }
+          data-key="selected"
+          onChange={this.updateSection}
+          checked={'category' === this.props.data.selected}
         />
         Categoría
         <br />
         <input
           type="radio"
           value="tag"
-          onChange={this.handleOptionChange}
-          checked={'tag' == this.props.data.selected}
+          data-key="selected"
+          onChange={this.updateSection}
+          checked={'tag' === this.props.data.selected}
         />Tag
         <br />
         {!this.props.data.selected ||
         'category' === this.props.data.selected ? (
           <Category
             postType="normal"
-            blogUrl="https://testing.xataka.com"
+            siteUrl={this.props.blogUrl}
             updateParent={this.updateParent}
             category={this.props.data.category}
           />
         ) : (
-          <Tag
-            blogUrl="https://testing.xataka.com"
-            updateParent={this.updateParent}
-          />
+          [
+            <Tag
+              key="1"
+              siteUrl={this.props.blogUrl}
+              updateParent={this.updateParent}
+              tag={this.props.data.tag}
+            />,
+            <span key="2" className="hint">
+              Sugerencias (clik para añadir: )
+            </span>
+          ]
         )}
-        {'Tag' == this.props.data.selected ? (
-          <span className="hint">Sugerencias (clik para añadir: )</span>
-        ) : null}
       </div>
     );
   }

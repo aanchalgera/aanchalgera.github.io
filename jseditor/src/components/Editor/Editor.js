@@ -1181,6 +1181,7 @@ class Editor extends React.Component {
               this.toggleSummarySocialShareButtons
             }
             base={this.props.base}
+            blogUrl={this.state.blogUrl}
           />
         </div>
         {this.state.meta ? metadata : ''}
