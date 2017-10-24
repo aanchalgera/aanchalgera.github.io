@@ -300,7 +300,8 @@ class Publish extends React.Component {
                 />
               )}
             </Col>
-            <Col className="column" sm={3} end="sm">
+            <Col className="column" sm={2} />
+            <Col className="column end-sm" sm={3}>
               <DraftButton
                 status={this.state.status}
                 handleStatusUpdate={this.handleStatusUpdate}

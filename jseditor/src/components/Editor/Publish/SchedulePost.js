@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
-import { Row, Col } from 'react-flexbox-grid';
+import { Col } from 'react-flexbox-grid';
 
 import configParams from '../../../config/configs';
 import Scheduler from './Scheduler';
@@ -52,32 +52,31 @@ export class SchedulePost extends React.Component {
   };
 
   render() {
-    return (
-      <span>
-        <Col className="column" sm={3}>
-          <TextField
-            floatingLabelText="Fecha y hora"
-            value={this.props.date}
-            onChange={this.onChange}
-            disabled={!this.props.showCalendar}
+    return [
+      <Col className="column" sm={3}>
+        <TextField
+          floatingLabelText="Fecha y hora"
+          value={this.props.date}
+          onChange={this.onChange}
+          disabled={!this.props.showCalendar}
+        />
+      </Col>,
+      this.props.showCalendar && (
+        <Col className="column" sm={2}>
+          <RaisedButton
+            label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
+            icon={<Apps />}
+            onClick={this.toggleScheduler}
           />
         </Col>
-        {this.props.showCalendar &&
-          <Col className="column" sm={2}>
-            <RaisedButton
-              label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
-              icon={<Apps />}
-              onClick={this.toggleScheduler}
-            />
-          </Col>}
-        <Scheduler
-          {...this.props}
-          schedulerOpened={this.state.schedulerOpened}
-          anchorEl={this.state.anchorEl}
-          toggleScheduler={this.toggleScheduler}
-          onPickSlot={this.onPickSlot}
-        />
-      </span>
-    );
+      ),
+      <Scheduler
+        {...this.props}
+        schedulerOpened={this.state.schedulerOpened}
+        anchorEl={this.state.anchorEl}
+        toggleScheduler={this.toggleScheduler}
+        onPickSlot={this.onPickSlot}
+      />
+    ];
   }
 }

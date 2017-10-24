@@ -163,23 +163,21 @@ class Difundir extends React.Component {
             <Col className="column" sm={12}>
               <Label label="Volver a publicar en portada" />
             </Col>
-            <Col className="column" sm={6}>
-              <SchedulePost
-                date={this.state.publishedDate}
-                base={this.props.base}
-                onSchedule={this.onRepublishSchedule}
-                updateParent={this.updateParent}
-              />
-            </Col>
-            <Col className="column" sm={1}>
+            <SchedulePost
+              date={this.state.publishedDate}
+              base={this.props.base}
+              onSchedule={this.onRepublishSchedule}
+              updateParent={this.updateParent}
+            />
+            <Col className="column" sm={2}>
               <RaisedButton
                 label="PROGRAMAR"
                 onClick={this.onRepublishSchedule}
                 primary={true}
               />
             </Col>
-
-            <Col className="column" sm={3}>
+            <Col className="column" sm={2} />
+            <Col className="column end-sm" sm={3}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
                 secondary={true}
