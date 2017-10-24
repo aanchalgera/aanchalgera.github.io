@@ -25,7 +25,6 @@ export default class Category extends Component {
       this.props.postType
     );
     categories = filterCategories(categories);
-    console.log(categories);
     this.setState({ categories: categories });
   }
 

@@ -22,7 +22,6 @@ export default class Tag extends Component {
 
     let tags = await loadTags(this.props.blogUrl, input);
     let updatedTags = filterTags(tags);
-    console.log(updatedTags);
     return { options: updatedTags };
   };
 

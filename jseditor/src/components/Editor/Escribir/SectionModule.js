@@ -39,7 +39,6 @@ export default class SectionModule extends React.Component {
   };
 
   render() {
-    let selectted;
     return (
       <div>
         <label className="ptitle">
