@@ -265,7 +265,7 @@ class Content extends React.Component {
           ref="field"
           updateResource={this.props.updateResource}
           base={this.props.base}
-          blogUrl={this.props.blogUrl}
+          siteUrl={this.props.siteUrl}
         />
       );
     }

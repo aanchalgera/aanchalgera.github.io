@@ -70,7 +70,7 @@ export default class SectionModule extends React.Component {
         'category' === this.props.data.selected ? (
           <Category
             postType="normal"
-            siteUrl={this.props.blogUrl}
+            siteUrl={this.props.siteUrl}
             updateParent={this.updateParent}
             category={this.props.data.category}
           />
@@ -78,7 +78,7 @@ export default class SectionModule extends React.Component {
           [
             <Tag
               key="1"
-              siteUrl={this.props.blogUrl}
+              siteUrl={this.props.siteUrl}
               updateParent={this.updateParent}
               tag={this.props.data.tag}
             />,
