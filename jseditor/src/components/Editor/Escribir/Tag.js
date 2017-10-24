@@ -20,13 +20,13 @@ export default class Tag extends Component {
       return null;
     }
 
-    let tags = await loadTags(this.props.blogUrl, input);
+    let tags = await loadTags(this.props.siteUrl, input);
     let updatedTags = filterTags(tags);
     return { options: updatedTags };
   };
 
   handleOnChange = (selectedTag: Array<UpdatedTags>) => {
-    this.props.updateParent({ tag: selectedTag });
+    this.props.updateParent({ tag: selectedTag.id });
   };
 
   render() {

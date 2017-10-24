@@ -26,7 +26,7 @@ export default class Category extends Component {
 
   async init() {
     let categories = await loadAllCategories(
-      this.props.blogUrl,
+      this.props.siteUrl,
       this.props.postType
     );
     categories = filterCategories(categories);
