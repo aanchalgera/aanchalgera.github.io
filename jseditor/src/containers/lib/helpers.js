@@ -1,8 +1,6 @@
 import idx from 'idx';
-import moment from 'moment-timezone';
 
-import { currentHour } from './momentHelper';
-import configParams from '../../config/configs.js';
+import { currentHour, isFuture, isValidDate } from './momentHelper';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -29,15 +27,14 @@ export const getPostType = (userRole: string) => {
 };
 
 export const validateDate = (date: string) => {
-  moment.tz.setDefault(configParams.timezone);
   if (null === date) {
     return false;
   }
-  const dateString = moment(date, 'DD/MM/YYYY H:mm', true);
-  if (!dateString.isValid()) {
+
+  if (!isValidDate(date)) {
     return false;
   }
-  if (moment(date, 'DD/MM/YYYY H:mm:ss').isBefore(moment())) {
+  if (!isFuture(date)) {
     return false;
   }
   return true;
@@ -201,11 +198,3 @@ export const convertTo1DArray = (data: Array<{ id: number }>) => {
 
 export const findByName = (name: string, list: Array<User>) =>
   list.find(item => item.label === name);
-
-export const isFuturePost = publishedDate => {
-  const currentTime = moment().format('DD/MM/YYYY H:mm');
-  if ('' !== publishedDate && publishedDate > currentTime) {
-    return true;
-  }
-  return false;
-};

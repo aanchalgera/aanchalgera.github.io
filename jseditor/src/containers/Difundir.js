@@ -1,13 +1,12 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
-import RepostSiteOptions from '../components/Editor/Difundir/RepostSiteOptions';
-import { SchedulePost } from '../components/Editor/Publish/SchedulePost';
+import RepostSiteOptions from 'components/Editor/Difundir/RepostSiteOptions';
+import { SchedulePost } from 'components/Editor/Publish/SchedulePost';
 import { Label } from '../components/Editor/Publish';
-import configParams from '../config/configs';
+import { currentHour, isFuture } from './lib/momentHelper';
 import {
   getPost,
   updatePost,
@@ -16,8 +15,6 @@ import {
   republishSchedule
 } from './lib/service';
 import { toggleItem } from 'lib/helpers';
-
-moment.tz.setDefault(configParams.timezone);
 
 const POST_REPUBLISHED = 'Post successfully republished again';
 const ERROR = 'Something went wrong';
@@ -38,14 +35,10 @@ class Difundir extends React.Component {
     id: '',
     postId: '',
     postRepostBlogNames: [],
-    publishedDate: moment()
-      .add(1, 'hours')
-      .format('DD/MM/YYYY HH:00'),
+    publishedDate: currentHour(),
     publishRegion: [],
     snackbarOpen: false,
-    snackbarMessage: '',
-    postDate: '',
-    postHash: ''
+    snackbarMessage: ''
   };
   props: Props;
 
@@ -139,13 +132,7 @@ class Difundir extends React.Component {
     }
   };
 
-  isFuture = () => {
-    const currentTime = moment().format('DD/MM/YYYY H:mm');
-    return currentTime >= this.state.postDate ? true : false;
-  };
-
   render() {
-    const isFuture = this.isFuture();
     return (
       <div className="grid-wrapper grid-l">
         <Snackbar
@@ -160,7 +147,7 @@ class Difundir extends React.Component {
           blogName={this.props.blogName}
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
-        {isFuture && (
+        {!isFuture(this.state.postDate) && (
           <Row>
             <Col className="column" sm={12}>
               <Label label="Volver a publicar en portada" />

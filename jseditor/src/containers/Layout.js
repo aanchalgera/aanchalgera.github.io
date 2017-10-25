@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails } from './lib/service';
-import { isFuturePost } from './lib/helpers';
+import { isFuture } from './lib/momentHelper';
 import Publicar from './Publish';
 import Difundir from './Difundir';
 
@@ -68,7 +68,7 @@ export default class Layout extends React.Component {
       }
     }
 
-    let statusMsg = isFuturePost(publishedDate) ? 'Programado' : 'Publicado';
+    let statusMsg = isFuture(publishedDate) ? 'Programado' : 'Publicado';
 
     this.setState({
       showDifundir: showDifundir,
