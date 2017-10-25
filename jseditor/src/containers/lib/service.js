@@ -133,10 +133,14 @@ export const submitPostToBackend = (state, blogUrl) => {
   });
 };
 
-export const loadAllCategories = async (blogUrl, postType) => {
-  let response = await isoFetch(`${blogUrl}/admin/api/categories/${postType}`, {
-    credentials: 'include'
-  });
+export const loadAllCategories = async (blogUrl, postType, siteName = '') => {
+  const apiPostType = mapPostType(postType);
+  let response = await isoFetch(
+    `${blogUrl}/admin/api/categories/${apiPostType}`,
+    {
+      credentials: 'include'
+    }
+  );
   let categories = response.json();
   return categories;
 };

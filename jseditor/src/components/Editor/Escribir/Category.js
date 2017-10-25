@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -7,24 +7,31 @@ import { loadAllCategories } from '../../../containers/lib/service.js';
 import { filterCategories } from '../../../containers/lib/helpers.js';
 
 type Props = {
-  blogUrl: string,
+  siteUrl: string,
   category: number,
   updateParent: (data: Object) => void,
-  postType: string
+  postType: string,
+  siteName: string
 };
 
-export default class Category extends Component {
+export default class Category extends PureComponent {
   constructor(props: Props) {
     super();
     this.props = props;
-    this.init();
+    this.setCategories();
   }
 
   state = {
     categories: []
   };
 
-  async init() {
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.siteName !== this.props.siteName) {
+      this.setCategories();
+    }
+  }
+
+  async setCategories() {
     let categories = await loadAllCategories(
       this.props.siteUrl,
       this.props.postType

@@ -266,6 +266,7 @@ class Content extends React.Component {
           updateResource={this.props.updateResource}
           base={this.props.base}
           siteUrl={this.props.siteUrl}
+          postType={this.props.postType}
         />
       );
     }

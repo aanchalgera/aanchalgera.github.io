@@ -235,6 +235,9 @@ class Editor extends React.Component {
         attributes['layout'] = 'normal';
         attributes['url'] = '';
         break;
+      case 'sectionModule':
+        attributes['selected'] = 'category';
+        break;
     }
     if (this.isRootComponent(currentIndex)) {
       this.state.fields.splice(currentIndex, 0, attributes);
@@ -1182,6 +1185,7 @@ class Editor extends React.Component {
             }
             base={this.props.base}
             siteUrl={this.state.blogUrl}
+            postType={this.state.postType}
           />
         </div>
         {this.state.meta ? metadata : ''}

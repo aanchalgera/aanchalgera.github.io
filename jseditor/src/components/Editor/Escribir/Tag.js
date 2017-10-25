@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { loadTags } from '../Publish/lib/publishService';
 import { filterTags } from '../Publish/lib/publishHelpers';
 import { UpdatedTags } from '../Publish/lib/flowTypes';
@@ -7,12 +7,12 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 type Props = {
-  blogUrl: string,
+  siteUrl: string,
   updateParent: (data: Object) => void,
   tag: string
 };
 
-export default class Tag extends Component {
+export default class Tag extends PureComponent {
   props: Props;
 
   getTags = async (input: string): {} => {
@@ -25,7 +25,7 @@ export default class Tag extends Component {
     return { options: updatedTags };
   };
 
-  handleOnChange = (selectedTag: Array<UpdatedTags>) => {
+  handleOnChange = (selectedTag: UpdatedTags) => {
     this.props.updateParent({ tag: selectedTag.id });
   };
 
