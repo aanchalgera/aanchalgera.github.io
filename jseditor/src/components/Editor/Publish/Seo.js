@@ -2,7 +2,7 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { TextField, Divider } from 'material-ui';
-import { InputEvent } from './lib/flowTypes';
+import { InputEvent } from 'lib/flowTypes';
 import { Label } from './index';
 
 type Props = {

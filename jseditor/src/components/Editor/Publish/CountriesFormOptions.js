@@ -2,8 +2,8 @@
 import React from 'react';
 import { Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import { toggleItem } from './lib/publishHelpers';
-import { InputEvent } from './lib/flowTypes';
+import { toggleItem } from 'lib/helpers';
+import { InputEvent } from 'lib/flowTypes';
 import { Label } from './index';
 
 let regions = {
@@ -44,7 +44,7 @@ export class CountriesFormOptions extends React.Component {
           label={regions[key]}
           checked={-1 !== this.props.publishRegions.indexOf(key)}
           onCheck={this.onCheck}
-          className='layout-line-form'
+          className="layout-line-form"
         />
       );
     });

@@ -191,28 +191,6 @@ export const initialState = {
   ampVisibility: false
 };
 
-export const filterCategories = (data: {}) => {
-  let categories = [];
-  for (let key in data) {
-    let categoryGroup = data[key]['children'];
-    if (undefined !== categoryGroup) {
-      categoryGroup.forEach(function(category) {
-        categories.push({
-          label: category['cat_name'],
-          id: Number(category['id'])
-        });
-      });
-    } else {
-      let category = data[key];
-      categories.push({
-        id: Number(category['id']),
-        label: category['name']
-      });
-    }
-  }
-  return categories;
-};
-
 export const convertTo1DArray = (data: Array<{ id: number }>) => {
   let list = [];
   data.forEach(item => {
@@ -224,11 +202,10 @@ export const convertTo1DArray = (data: Array<{ id: number }>) => {
 export const findByName = (name: string, list: Array<User>) =>
   list.find(item => item.label === name);
 
-export const isFuturePost = (publishedDate) => {
+export const isFuturePost = publishedDate => {
   const currentTime = moment().format('DD/MM/YYYY H:mm');
-  if ('' !== publishedDate &&
-      publishedDate > currentTime) {
+  if ('' !== publishedDate && publishedDate > currentTime) {
     return true;
   }
   return false;
-}
+};

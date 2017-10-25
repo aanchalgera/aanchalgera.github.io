@@ -7,7 +7,7 @@ import { Col } from 'react-flexbox-grid';
 
 import configParams from '../../../config/configs';
 import Scheduler from './Scheduler';
-import { InputEvent } from './lib/flowTypes';
+import { InputEvent } from 'lib/flowTypes';
 
 moment.tz.setDefault(configParams.timezone);
 

@@ -15,7 +15,7 @@ import {
   republishPostNow,
   republishSchedule
 } from './lib/service';
-import { toggleItem } from '../components/Editor/Publish/lib/publishHelpers';
+import { toggleItem } from 'lib/helpers';
 
 moment.tz.setDefault(configParams.timezone);
 

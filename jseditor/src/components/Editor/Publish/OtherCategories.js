@@ -3,7 +3,7 @@ import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { Category } from './lib/flowTypes';
+import { Category } from 'lib/flowTypes';
 
 type Props = {
   blogUrl: string,
@@ -28,7 +28,7 @@ export const OtherCategories = ({
       joinValues={true}
       value={postCategories}
       valueKey={'id'}
-      className='module-form-select'
+      className="module-form-select"
     />
   );
 };

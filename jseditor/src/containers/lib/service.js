@@ -133,18 +133,6 @@ export const submitPostToBackend = (state, blogUrl) => {
   });
 };
 
-export const loadAllCategories = async (blogUrl, postType, siteName = '') => {
-  const apiPostType = mapPostType(postType);
-  let response = await isoFetch(
-    `${blogUrl}/admin/api/categories/${apiPostType}`,
-    {
-      credentials: 'include'
-    }
-  );
-  let categories = response.json();
-  return categories;
-};
-
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
   return jquery.ajax({
     url: blogUrl + '/admin/postsrepostings.json',

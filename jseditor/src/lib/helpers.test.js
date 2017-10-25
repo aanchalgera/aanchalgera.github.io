@@ -1,4 +1,4 @@
-import { findById, findByName, toggleItem } from './publishHelpers';
+import { findById, findByName, toggleItem } from './helpers';
 
 const users = [
   { id: 1, display_name: 'one' },

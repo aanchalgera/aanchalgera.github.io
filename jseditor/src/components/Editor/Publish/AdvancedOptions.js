@@ -4,9 +4,9 @@ import React from 'react';
 import { Checkbox, AutoComplete } from 'material-ui';
 
 import { loadUsers } from './lib/publishService';
-import { findById } from './lib/publishHelpers';
+import { findById } from 'lib/helpers';
 import { Label } from './Label';
-import { Check } from '../../../containers/lib/check';
+import { Check } from 'lib/check';
 
 type User = { id: number, display_name: string };
 

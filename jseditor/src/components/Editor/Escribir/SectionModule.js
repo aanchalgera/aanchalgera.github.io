@@ -4,7 +4,7 @@ import React from 'react';
 import { loadSites } from './lib/service';
 import Tag from './Tag';
 import Category from './Category';
-import { InputEvent } from '../Publish/lib/flowTypes';
+import { InputEvent } from 'lib/flowTypes';
 
 export default class SectionModule extends React.PureComponent {
   ComponentDidMount() {

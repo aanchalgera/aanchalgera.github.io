@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Homepage from './Homepage';
 import Css from './Css';
 import Microsite from './Microsite';
-import { Check } from 'containers/lib/check';
+import { Check } from 'lib/check';
 
 class Metadata extends React.Component {
   onArticleMetaToggle(e) {
@@ -21,7 +21,7 @@ class Metadata extends React.Component {
         <Check
           postType={this.props.postType}
           userRole={this.props.userRole}
-          childName='Index'
+          childName="Index"
         >
           <Index
             index={this.props.meta.index}
@@ -32,7 +32,7 @@ class Metadata extends React.Component {
         <Check
           postType={this.props.postType}
           userRole={this.props.userRole}
-          childName='Footer'
+          childName="Footer"
         >
           <Footer
             footer={this.props.meta.footer}
@@ -53,7 +53,7 @@ class Metadata extends React.Component {
         <Check
           postType={this.props.postType}
           userRole={this.props.userRole}
-          childName='Css'
+          childName="Css"
         >
           <Css
             css={this.props.meta.css}

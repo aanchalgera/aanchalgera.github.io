@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { loadAllCategories } from '../../../containers/lib/service.js';
-import { filterCategories } from '../../../containers/lib/helpers.js';
+import { loadAllCategories } from 'lib/service.js';
+import { filterCategories } from 'lib/helpers.js';
 
 type Props = {
   siteUrl: string,
