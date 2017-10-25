@@ -50,18 +50,20 @@ export default class TitleBar extends React.Component {
           </ToolbarGroup>
         </div>
         <ToolbarGroup>
-          <div>
+          <div className="nav-icon">
             {statusMsgElement}
-            <span>
-              <IconButton
-                target="_blank"
-                href={blogUrl + '/preview-longform/' + postName}
-                style={styles.previewButton}
-                disabled={activeTab === 'difundir'}
-              >
-                <Visibility />
-              </IconButton>
-            </span>
+            <ul className="nav-list">
+              <li className="nav-list-item">
+                <IconButton
+                  target="_blank"
+                  href={blogUrl + '/preview-longform/' + postName}
+                  style={styles.previewButton}
+                  disabled={activeTab === 'difundir'}
+                >
+                  <Visibility />
+                </IconButton>
+              </li>
+            </ul>
           </div>
         </ToolbarGroup>
       </Toolbar>
