@@ -35,7 +35,9 @@ export default class TitleBar extends React.Component {
     const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
     return (
       <Toolbar className="header">
-        <ToolbarTitle text={blogName} style={styles.title} />
+        <div className="brand-logo">
+          <ToolbarTitle text={blogName} style={styles.title} />
+        </div>
         <div className="nav-btn">
           <ToolbarGroup>
             <Tabs
@@ -49,8 +51,8 @@ export default class TitleBar extends React.Component {
             </Tabs>
           </ToolbarGroup>
         </div>
-        <ToolbarGroup>
-          <div className="nav-icon">
+        <div className="nav-icon">
+          <ToolbarGroup>
             {statusMsgElement}
             <ul className="nav-list">
               <li className="nav-list-item">
@@ -64,8 +66,8 @@ export default class TitleBar extends React.Component {
                 </IconButton>
               </li>
             </ul>
-          </div>
-        </ToolbarGroup>
+          </ToolbarGroup>
+        </div>
       </Toolbar>
     );
   }
