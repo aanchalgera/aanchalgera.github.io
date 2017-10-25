@@ -12,7 +12,7 @@ import Video from './Video';
 import RichContent from './RichContent';
 import FichaDeReview from './FichaDeReview';
 import FichaTecnica from './FichaTecnica';
-import SectionModule from './Escribir/SectionModule';
+import { SectionModule } from './Escribir';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 
 class Content extends React.Component {

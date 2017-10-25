@@ -1,10 +1,11 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { loadTags } from '../Publish/lib/publishService';
-import { filterTags } from '../Publish/lib/publishHelpers';
-import { UpdatedTags } from '../Publish/lib/flowTypes';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+import { loadTags } from '../lib/service';
+import { filterTags } from 'lib/helpers';
+import { UpdatedTags } from 'lib/flowTypes';
 
 type Props = {
   siteUrl: string,

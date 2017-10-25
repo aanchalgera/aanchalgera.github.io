@@ -24,18 +24,18 @@ import {
   getPost,
   submitPostToBackend,
   savePostsList,
-  savePost,
-  loadAllCategories
+  savePost
 } from './lib/service.js';
 import {
   initialState,
   loadStatefromData,
-  filterCategories,
   validateState,
   validateDate,
   findByName
 } from './lib/helpers.js';
-import { Check } from './lib/check';
+import { Check } from 'lib/check';
+import { filterCategories } from 'lib/helpers';
+import { loadAllCategories } from 'lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 
@@ -208,7 +208,11 @@ class Publish extends React.Component {
   };
 
   setAllCategories = async postType => {
-    let categories = await loadAllCategories(this.props.blogUrl, postType);
+    let categories = await loadAllCategories(
+      this.props.blogUrl,
+      postType,
+      this.props.blogName
+    );
     let updatedCategories = filterCategories(categories);
     this.setState({ allCategories: updatedCategories });
   };
@@ -247,7 +251,11 @@ class Publish extends React.Component {
   };
 
   setBrandedLongformCategory = async () => {
-    let categories = await loadAllCategories(this.props.blogUrl, 'club');
+    let categories = await loadAllCategories(
+      this.props.blogUrl,
+      'club',
+      this.props.blogName
+    );
     let updatedCategories = filterCategories(categories);
     let category = findByName('Especial Branded', updatedCategories);
     this.setState({ category: category['id'] });

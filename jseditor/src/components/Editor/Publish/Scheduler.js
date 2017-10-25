@@ -14,7 +14,7 @@ import {
 
 import { getScheduledPosts } from './lib/publishService';
 import configParams from '../../../config/configs.js';
-import { InputEvent } from './lib/flowTypes';
+import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
   base: Object,

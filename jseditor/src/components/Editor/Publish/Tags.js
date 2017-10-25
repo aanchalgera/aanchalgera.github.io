@@ -1,10 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { loadTags } from './lib/publishService';
-import { filterTags } from './lib/publishHelpers';
-import { UpdatedTags } from './lib/flowTypes';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+import { loadTags } from '../lib/service';
+import { filterTags } from 'lib/helpers';
+import { UpdatedTags } from 'lib/flowTypes';
 
 type Props = {
   blogUrl?: string,
