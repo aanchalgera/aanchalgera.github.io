@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { loadTags } from '../Publish/lib/publishService';
 import { filterTags } from '../Publish/lib/publishHelpers';
 import { UpdatedTags } from '../Publish/lib/flowTypes';
@@ -12,7 +12,7 @@ type Props = {
   tag: string
 };
 
-export default class Tag extends Component {
+export default class Tag extends PureComponent {
   props: Props;
 
   getTags = async (input: string): {} => {

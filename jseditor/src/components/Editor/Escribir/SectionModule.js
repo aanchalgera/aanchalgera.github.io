@@ -6,8 +6,8 @@ import Tag from './Tag';
 import Category from './Category';
 import { InputEvent } from '../Publish/lib/flowTypes';
 
-export default class SectionModule extends React.Component {
-  componentDidMount() {
+export default class SectionModule extends React.PureComponent {
+  ComponentDidMount() {
     let sites = loadSites(this.props.base);
   }
 
@@ -67,8 +67,7 @@ export default class SectionModule extends React.Component {
           checked={'tag' === this.props.data.selected}
         />Tag
         <br />
-        {!this.props.data.selected ||
-        'category' === this.props.data.selected ? (
+        {'category' === this.props.data.selected ? (
           <Category
             postType={this.props.postType}
             siteUrl={this.props.siteUrl}
