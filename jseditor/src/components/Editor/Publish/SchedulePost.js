@@ -55,6 +55,7 @@ export class SchedulePost extends React.Component {
           value={this.props.date}
           onChange={this.onChange}
           disabled={!this.props.showCalendar}
+          fullWidth={true}
         />
       </Col>,
       this.props.showCalendar ? (

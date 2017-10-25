@@ -162,14 +162,14 @@ class Difundir extends React.Component {
               <RaisedButton
                 label="PROGRAMAR"
                 onClick={this.onRepublishSchedule}
-                primary={true}
+                secondary={true}
               />
             </Col>
             <Col className="column" sm={2} />
             <Col className="column end-sm" sm={3}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
-                secondary={true}
+                primary={true}
                 onClick={this.onRepublishNow}
               />
             </Col>

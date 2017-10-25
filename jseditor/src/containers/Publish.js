@@ -296,7 +296,7 @@ class Publish extends React.Component {
                   label="PROGRAMAR"
                   disabled={this.state.buttonDisabled}
                   onClick={this.onSchedule}
-                  primary={true}
+                  secondary={true}
                 />
               ) : (
                 <RaisedButton
