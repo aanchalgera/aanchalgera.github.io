@@ -126,7 +126,7 @@ export default class RepostSiteOptions extends React.Component {
               label="Enviar Crosspost"
               style={styles.button}
               onClick={this.submitRepostedBlogs}
-              primary={true}
+              secondary={true}
             />
           </Col>
         </Row>

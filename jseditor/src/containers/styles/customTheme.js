@@ -45,9 +45,5 @@ export const customTheme = getMuiTheme({
   },
   textField: {
     floatingLabelColor: palette.secondaryTextColor
-  },
-  raisedButton: {
-    primaryColor: palette.accent1Color,
-    secondaryColor: palette.primary1Color
   }
 });
