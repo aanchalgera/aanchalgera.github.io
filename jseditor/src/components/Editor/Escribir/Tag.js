@@ -7,7 +7,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 type Props = {
-  blogUrl: string,
+  siteUrl: string,
   updateParent: (data: Object) => void,
   tag: string
 };
@@ -25,7 +25,7 @@ export default class Tag extends Component {
     return { options: updatedTags };
   };
 
-  handleOnChange = (selectedTag: Array<UpdatedTags>) => {
+  handleOnChange = (selectedTag: UpdatedTags) => {
     this.props.updateParent({ tag: selectedTag.id });
   };
 

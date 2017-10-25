@@ -1,9 +1,10 @@
+// @flow
 import React from 'react';
 
 import { loadSites } from './lib/service';
-
 import Tag from './Tag';
 import Category from './Category';
+import { InputEvent } from '../Publish/lib/flowTypes';
 
 export default class SectionModule extends React.Component {
   componentDidMount() {
@@ -23,7 +24,7 @@ export default class SectionModule extends React.Component {
     this.props.updateResource(this.props.dataId, sectionModule);
   };
 
-  updateParent = data => {
+  updateParent = (data: {}) => {
     this.props.updateResource(this.props.dataId, data);
   };
 
@@ -69,10 +70,11 @@ export default class SectionModule extends React.Component {
         {!this.props.data.selected ||
         'category' === this.props.data.selected ? (
           <Category
-            postType="normal"
+            postType={this.props.postType}
             siteUrl={this.props.siteUrl}
             updateParent={this.updateParent}
             category={this.props.data.category}
+            siteName={this.props.data.site}
           />
         ) : (
           [
@@ -81,6 +83,7 @@ export default class SectionModule extends React.Component {
               siteUrl={this.props.siteUrl}
               updateParent={this.updateParent}
               tag={this.props.data.tag}
+              siteName={this.props.data.site}
             />,
             <span key="2" className="hint">
               Sugerencias (clik para añadir: )

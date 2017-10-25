@@ -2,7 +2,7 @@
 import React from 'react';
 import Popover from 'material-ui/Popover';
 import moment from 'moment-timezone';
-import localization from 'moment/locale/es';
+import 'moment/locale/es';
 import {
   Table,
   TableBody,
@@ -28,7 +28,7 @@ type Props = {
 };
 
 moment.tz.setDefault(configParams.timezone);
-moment().locale('es', localization);
+moment.locale('es');
 
 const styles = {
   popover: {
@@ -72,11 +72,12 @@ export default class Scheduler extends React.Component {
   getHeader() {
     let tablehead = [];
     for (let i = 0; i < 7; i++) {
-      let nextDay = moment.unix(timeStamp).add(i, 'day').format('dddd DD');
+      let nextDay = moment
+        .unix(timeStamp)
+        .add(i, 'day')
+        .format('dddd DD');
       tablehead.push(
-        <TableHeaderColumn key={i}>
-          {nextDay.toLowerCase()}
-        </TableHeaderColumn>
+        <TableHeaderColumn key={i}>{nextDay.toLowerCase()}</TableHeaderColumn>
       );
     }
     return tablehead;
@@ -90,7 +91,10 @@ export default class Scheduler extends React.Component {
     for (var j = 7; j < 24; j++) {
       for (var k = 0; k < 7; k++) {
         dateTime =
-          moment.unix(timeStamp).add(k, 'day').format('DD/MM/YYYY') +
+          moment
+            .unix(timeStamp)
+            .add(k, 'day')
+            .format('DD/MM/YYYY') +
           ' ' +
           j +
           ':00';
@@ -120,9 +124,7 @@ export default class Scheduler extends React.Component {
       }
       tr = (
         <TableRow key={j + '-' + k}>
-          <TableHeaderColumn>
-            {j}
-          </TableHeaderColumn>
+          <TableHeaderColumn>{j}</TableHeaderColumn>
           {td}
         </TableRow>
       );
@@ -140,23 +142,17 @@ export default class Scheduler extends React.Component {
         onRequestClose={this.props.toggleScheduler}
         style={styles.popover}
       >
-        <span className="hint">
-          {HINT}
-        </span>
+        <span className="hint">{HINT}</span>
         <Table onCellClick={this.props.onPickSlot}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn>
-                <em>
-                  {currentMonth.toLowerCase()}
-                </em>
+                <em>{currentMonth.toLowerCase()}</em>
               </TableHeaderColumn>
               {this.tablehead}
             </TableRow>
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-            {this.getRows()}
-          </TableBody>
+          <TableBody displayRowCheckbox={false}>{this.getRows()}</TableBody>
         </Table>
       </Popover>
     );
