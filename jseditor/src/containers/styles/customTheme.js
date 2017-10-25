@@ -42,5 +42,12 @@ export const customTheme = getMuiTheme({
   },
   svgIcon: {
     color: palette.alternateTextColor
+  },
+  textField: {
+    floatingLabelColor: palette.secondaryTextColor
+  },
+  raisedButton: {
+    primaryColor: palette.accent1Color,
+    secondaryColor: palette.primary1Color
   }
 });
