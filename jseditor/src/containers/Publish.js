@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -19,7 +18,6 @@ import {
   Tags,
   Twitter
 } from 'components/Editor/Publish';
-import configParams from 'config/configs.js';
 import {
   getPost,
   submitPostToBackend,
@@ -33,11 +31,10 @@ import {
   validateDate,
   findByName
 } from './lib/helpers.js';
+import { isFuture } from './lib/momentHelper';
 import { Check } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
-
-moment.tz.setDefault(configParams.timezone);
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
@@ -222,11 +219,14 @@ class Publish extends React.Component {
     state.status = 'draft';
     try {
       await submitPostToBackend(state, this.props.blogUrl);
-      this.setState({
-        status: 'draft',
-        snackbarOpen: true,
-        SnackbarMessage: DRAFT_MESSAGE
-      });
+      this.setState(
+        {
+          status: 'draft',
+          snackbarOpen: true,
+          SnackbarMessage: DRAFT_MESSAGE
+        },
+        this.savePostData
+      );
       savePostsList(state, this.props.base, this.props.blogName);
       this.props.handleDifundir('draft', this.state.publishedDate);
     } catch (err) {
@@ -263,10 +263,9 @@ class Publish extends React.Component {
 
   render() {
     let showCalendar = true;
-    const currentTime = moment().format('DD/MM/YYYY H:mm');
     if (
       this.state.status === 'publish' &&
-      currentTime >= this.state.publishedDate
+      !isFuture(this.state.publishedDate)
     ) {
       showCalendar = false;
     }

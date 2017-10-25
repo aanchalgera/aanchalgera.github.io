@@ -1,15 +1,11 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import { Col } from 'react-flexbox-grid';
 
-import configParams from '../../../config/configs';
 import Scheduler from './Scheduler';
 import { InputEvent } from 'lib/flowTypes';
-
-moment.tz.setDefault(configParams.timezone);
 
 type Props = {
   base: Object,

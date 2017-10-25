@@ -13,7 +13,6 @@ import {
 } from 'material-ui/Table';
 
 import { getScheduledPosts } from './lib/publishService';
-import configParams from '../../../config/configs.js';
 import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
@@ -27,7 +26,6 @@ type Props = {
   onPickSlot: (x: number, y: number, e: InputEvent) => void
 };
 
-moment.tz.setDefault(configParams.timezone);
 moment.locale('es');
 
 const styles = {
