@@ -1,16 +1,12 @@
 // @flow
 import React from 'react';
 
-import { loadSites } from './lib/service';
 import Tag from './Tag';
 import Category from './Category';
+import Sites from './Sites';
 import { InputEvent } from 'lib/flowTypes';
 
-export default class SectionModule extends React.PureComponent {
-  ComponentDidMount() {
-    let sites = loadSites(this.props.base);
-  }
-
+export class SectionModule extends React.PureComponent {
   focus() {
     const field = this.refs.field;
     if (field) {
@@ -43,13 +39,7 @@ export default class SectionModule extends React.PureComponent {
           onBlur={this.updateSection}
         />
         <label className="ptitle">Sitio</label>
-        <input
-          type="text"
-          className="form-control"
-          data-key="site"
-          defaultValue={this.props.data.site}
-          onBlur={this.updateSection}
-        />
+        <Sites site={this.props.data.site} updateParent={this.updateParent} />
         <input
           type="radio"
           value="category"
@@ -57,7 +47,7 @@ export default class SectionModule extends React.PureComponent {
           onChange={this.updateSection}
           checked={'category' === this.props.data.selected}
         />
-        Categoría
+        <label className="ptitle">Categoría</label>
         <br />
         <input
           type="radio"
@@ -65,7 +55,8 @@ export default class SectionModule extends React.PureComponent {
           data-key="selected"
           onChange={this.updateSection}
           checked={'tag' === this.props.data.selected}
-        />Tag
+        />
+        <label className="ptitle">Tag</label>
         <br />
         {'category' === this.props.data.selected ? (
           <Category
