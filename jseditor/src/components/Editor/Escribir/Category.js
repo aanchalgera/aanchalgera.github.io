@@ -34,7 +34,8 @@ export default class Category extends PureComponent {
   async setCategories() {
     let categories = await loadAllCategories(
       this.props.siteUrl,
-      this.props.postType
+      this.props.postType,
+      this.props.siteName
     );
     categories = filterCategories(categories);
     this.setState({ categories: categories });
