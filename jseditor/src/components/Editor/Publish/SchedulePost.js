@@ -54,7 +54,6 @@ export class SchedulePost extends React.Component {
         onChange={this.onChange}
         disabled={!this.props.showCalendar}
         key="1"
-        className="column"
       />,
       this.props.showCalendar ? (
         <RaisedButton
