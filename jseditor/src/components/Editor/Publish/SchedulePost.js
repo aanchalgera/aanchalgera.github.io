@@ -2,7 +2,6 @@
 import React from 'react';
 import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
-import { Col } from 'react-flexbox-grid';
 
 import Scheduler from './Scheduler';
 import { InputEvent } from 'lib/flowTypes';
@@ -49,23 +48,20 @@ export class SchedulePost extends React.Component {
 
   render() {
     return [
-      <Col key="1" className="column" sm={3}>
-        <TextField
-          floatingLabelText="Fecha y hora"
-          value={this.props.date}
-          onChange={this.onChange}
-          disabled={!this.props.showCalendar}
-          fullWidth={true}
-        />
-      </Col>,
+      <TextField
+        floatingLabelText="Fecha y hora"
+        value={this.props.date}
+        onChange={this.onChange}
+        disabled={!this.props.showCalendar}
+        key="1"
+      />,
       this.props.showCalendar ? (
-        <Col key="2" className="column" sm={2}>
-          <RaisedButton
-            label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
-            icon={<Apps />}
-            onClick={this.toggleScheduler}
-          />
-        </Col>
+        <RaisedButton
+          label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
+          icon={<Apps />}
+          onClick={this.toggleScheduler}
+          key="2"
+        />
       ) : (
         ''
       ),
