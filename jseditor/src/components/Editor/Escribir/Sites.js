@@ -19,7 +19,9 @@ export default class Sites extends React.PureComponent {
         options={sitesConfig}
         onChange={input => {
           this.props.updateParent({
-            site: input ? input.title : ''
+            site: input ? input.title : '',
+            category: null,
+            tag: null
           });
         }}
         value={this.props.site}
