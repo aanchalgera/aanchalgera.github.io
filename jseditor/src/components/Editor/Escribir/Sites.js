@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -10,7 +10,7 @@ type Props = {
   updateParent: (data: Object) => void
 };
 
-export default class Sites extends Component {
+export default class Sites extends React.PureComponent {
   props: Props;
 
   render() {
