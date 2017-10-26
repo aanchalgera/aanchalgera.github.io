@@ -14,10 +14,10 @@ export const currentTime = () => {
   return moment().format('DD/MM/YYYY H:mm');
 };
 
-export const isFuture = date => {
+export const isFuture = (date: string) => {
   return date >= currentTime();
 };
 
-export const isValidDate = date => {
+export const isValidDate = (date: string) => {
   return moment(date, 'DD/MM/YYYY H:mm', true).isValid();
 };

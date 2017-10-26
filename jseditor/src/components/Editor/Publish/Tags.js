@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -13,7 +13,7 @@ type Props = {
   updateParent: (data: Object) => void
 };
 
-export class Tags extends Component {
+export class Tags extends PureComponent {
   props: Props;
 
   getTags = async (input: string): {} => {

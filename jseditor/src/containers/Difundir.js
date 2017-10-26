@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';

@@ -2,24 +2,15 @@
 import React from 'react';
 import { Checkbox, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import { Label } from '../Publish';
 
-declare type InputEvent = Event & { currentTarget: HTMLInputElement };
+import { Label } from '../Publish';
+import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
   repostBlogs: Array<string>,
   setRepostBlogs: (key: string, value: boolean) => void,
   blogName: string,
   submitRepostedBlogs: () => Promise<any>
-};
-
-const styles = {
-  checkbox: {
-    marginBottom: '16px'
-  },
-  button: {
-    marginTop: '16px'
-  }
 };
 
 let formatedBlogs = {
@@ -69,7 +60,7 @@ let formatedBlogs = {
   }
 };
 
-export default class RepostSiteOptions extends React.Component {
+export default class RepostSiteOptions extends React.PureComponent {
   props: Props;
   initalRepostedBlogs = null;
 
@@ -102,8 +93,8 @@ export default class RepostSiteOptions extends React.Component {
             key={blog}
             label={blog}
             value={blog}
-            style={styles.checkbox}
             onCheck={this.handleCheck}
+            className="layout-line-form"
           />
         )
     );
@@ -124,7 +115,6 @@ export default class RepostSiteOptions extends React.Component {
           <Col className="column">
             <RaisedButton
               label="Enviar Crosspost"
-              style={styles.button}
               onClick={this.submitRepostedBlogs}
               secondary={true}
             />

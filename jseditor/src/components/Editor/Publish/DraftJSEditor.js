@@ -44,7 +44,7 @@ type Props = {
   updateResource: Function
 };
 
-export default class DraftJSEditor extends React.Component {
+export default class DraftJSEditor extends React.PureComponent {
   constructor(props: Props) {
     super(props);
     const contentState = stateFromHTML(markdown(this.props.value));

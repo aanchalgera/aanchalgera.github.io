@@ -1,42 +1,53 @@
+/*@flow*/
 import React from 'react';
 import ReactCrop from 'react-image-crop';
 import RaisedButton from 'material-ui/RaisedButton';
 import 'react-image-crop/dist/ReactCrop.css';
 
-const CropWidget = ({ imageSrc, crop, shape, onCropChange, onCropValidate }) => (
+type Props = {
+  imageSrc: string,
+  crop: { validate: boolean },
+  shape: string,
+  onCropChange: (shape: string, crop: string) => void,
+  onCropValidate: (shape: string, validate: boolean) => void
+};
+
+const CropWidget = ({
+  imageSrc,
+  crop,
+  shape,
+  onCropChange,
+  onCropValidate
+}: Props) => (
   <div>
     <ReactCrop
-      src={ imageSrc }
-      crop={ crop }
-      disabled={ crop.validate }
+      src={imageSrc}
+      crop={crop}
+      disabled={crop.validate}
       keepSelection={true}
       onChange={cropImage => onCropChange(shape, cropImage)}
     />
-    {
-      crop.validate 
-      ? (
-        <div>
-          <RaisedButton
-            label="GUARDADO"
-            disabled={true}
-          />
-          <RaisedButton
-            label="EDITAR"
-            onClick={e => {
-              e.preventDefault();
-              onCropValidate(shape, false);
-            }}
-          />
-        </div>
-      )
-      :  <RaisedButton
-          label="VALIDAR"
+    {crop.validate ? (
+      <div>
+        <RaisedButton label="GUARDADO" disabled={true} />
+        <RaisedButton
+          className="btn-edit"
+          label="EDITAR"
           onClick={e => {
             e.preventDefault();
-            onCropValidate(shape, true);
+            onCropValidate(shape, false);
           }}
         />
-    }
+      </div>
+    ) : (
+      <RaisedButton
+        label="VALIDAR"
+        onClick={e => {
+          e.preventDefault();
+          onCropValidate(shape, true);
+        }}
+      />
+    )}
   </div>
 );
 

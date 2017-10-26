@@ -1,19 +1,20 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
 
 import { Label } from './Label';
+import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
   setPostMeta: (key: string, data: Object) => void,
   sponsor: Object
 };
 
-export class SponsoredContent extends Component {
+export class SponsoredContent extends PureComponent {
   props: Props;
 
-  updateName = (e: SyntheticEvent, value: string) => {
+  updateName = (e: InputEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
       name: value,
       tracker: this.props.sponsor.tracker,
@@ -21,7 +22,7 @@ export class SponsoredContent extends Component {
     });
   };
 
-  updateImage = (e: SyntheticEvent, value: string) => {
+  updateImage = (e: InputEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
       image: value,
       tracker: this.props.sponsor.tracker,
@@ -29,7 +30,7 @@ export class SponsoredContent extends Component {
     });
   };
 
-  updateTracker = (e: SyntheticEvent, value: string) => {
+  updateTracker = (e: InputEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
       tracker: value,
       image: this.props.sponsor.image,

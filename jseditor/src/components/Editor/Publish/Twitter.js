@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
+/*@flow*/
 import React from 'react';
 import { TextField, Divider } from 'material-ui';
 
 const TWITTER_CHAR_LIMIT = 116;
 
-const propValidate = {
+type Props = {
   twitter: PropTypes.string.isRequired,
   updateSocialTwitterText: PropTypes.func.isRequired
 };
 
-export const Twitter = props => (
+export const Twitter = (props: Props) => (
   <div>
     <TextField
       hintText="..."
@@ -31,5 +31,3 @@ export const Twitter = props => (
     <Divider />
   </div>
 );
-
-Twitter.propTypes = propValidate;
