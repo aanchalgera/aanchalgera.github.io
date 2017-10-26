@@ -3,7 +3,7 @@ import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { blogConfig } from './lib/constants';
+import { sitesConfig } from './lib/constants';
 
 type Props = {
   site: string,
@@ -16,9 +16,11 @@ export default class Sites extends React.PureComponent {
   render() {
     return (
       <Select
-        options={blogConfig}
+        options={sitesConfig}
         onChange={input => {
-          this.props.updateParent({ site: input ? input.title : '' });
+          this.props.updateParent({
+            site: input ? input.title : ''
+          });
         }}
         value={this.props.site}
         valueKey={'title'}

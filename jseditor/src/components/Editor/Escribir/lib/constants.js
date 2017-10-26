@@ -1,4 +1,4 @@
-export const blogConfig = [
+export const sitesConfig = [
   {
     label: 'Xataka',
     title: 'xataka'

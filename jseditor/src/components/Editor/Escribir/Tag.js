@@ -10,7 +10,8 @@ import { UpdatedTags } from 'lib/flowTypes';
 type Props = {
   siteUrl: string,
   updateParent: (data: Object) => void,
-  tag: string
+  tag: string,
+  siteName: string
 };
 
 export default class Tag extends PureComponent {
@@ -21,7 +22,7 @@ export default class Tag extends PureComponent {
       return null;
     }
 
-    let tags = await loadTags(this.props.siteUrl, input);
+    let tags = await loadTags(this.props.siteUrl, input, this.props.siteName);
     let updatedTags = filterTags(tags);
     return { options: updatedTags };
   };

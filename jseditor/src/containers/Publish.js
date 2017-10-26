@@ -357,9 +357,10 @@ class Publish extends React.Component {
           </Check>
           <Col className="column" sm={6}>
             <Tags
-              blogUrl={this.props.blogUrl}
+              siteUrl={this.props.blogUrl}
               tags={this.state.tags}
               updateParent={this.updateParent}
+              siteName={this.props.blogName}
             />
           </Col>
         </Row>

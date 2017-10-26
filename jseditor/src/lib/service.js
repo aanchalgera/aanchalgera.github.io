@@ -2,10 +2,10 @@ import isoFetch from 'isomorphic-fetch';
 
 import { mapPostType } from './helpers';
 
-export const loadAllCategories = async (blogUrl, postType, siteName = '') => {
+export const loadAllCategories = async (siteUrl, postType, siteName = '') => {
   const apiPostType = mapPostType(postType);
   let response = await isoFetch(
-    `${blogUrl}/admin/api/categories/${apiPostType}`,
+    `${siteUrl}/admin/api/${siteName}/categories/${apiPostType}`,
     {
       credentials: 'include'
     }
