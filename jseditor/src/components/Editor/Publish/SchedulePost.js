@@ -14,7 +14,7 @@ type Props = {
   date: string
 };
 
-export class SchedulePost extends React.Component {
+export class SchedulePost extends React.PureComponent {
   state = {
     schedulerOpened: false,
     anchorEl: null

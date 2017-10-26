@@ -7,8 +7,7 @@ import { loadUsers } from './lib/publishService';
 import { findById } from 'lib/helpers';
 import { Label } from './Label';
 import { Check } from 'lib/check';
-
-type User = { id: number, display_name: string };
+import { User, InputEvent } from 'lib/flowTypes';
 
 type Props = {
   userId: number,
@@ -37,7 +36,7 @@ export class AdvancedOptions extends React.Component {
     this.init();
   }
 
-  onNewRequest = (user: { id: number, display_name: string }) => {
+  onNewRequest = (user: User) => {
     this.setState(
       { currentUser: user.display_name },
       this.props.updateParent({ userId: user.id })
@@ -53,22 +52,22 @@ export class AdvancedOptions extends React.Component {
     });
   };
 
-  setShowAuthor = (e: SyntheticEvent, isChecked: boolean) => {
+  setShowAuthor = (e: InputEvent, isChecked: boolean) => {
     this.props.setPostMeta('author', {
       showAuthorInfo: isChecked
     });
   };
 
-  setCommentStatus = (e: SyntheticEvent, isChecked: boolean) => {
+  setCommentStatus = (e: InputEvent, isChecked: boolean) => {
     const commentStatus = isChecked ? 'closed' : 'open';
     this.props.updateParent({ commentStatus: commentStatus });
   };
 
-  handleSensitivePost = (e: SyntheticEvent, isSensitive: boolean) => {
+  handleSensitivePost = (e: InputEvent, isSensitive: boolean) => {
     this.props.updateParent({ isSensitive: isSensitive });
   };
 
-  handleSpecialPost = (e: SyntheticEvent, specialPost: boolean) => {
+  handleSpecialPost = (e: InputEvent, specialPost: boolean) => {
     this.props.updateParent({ specialPost: specialPost });
   };
 
