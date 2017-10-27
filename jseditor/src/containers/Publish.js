@@ -297,6 +297,7 @@ class Publish extends React.Component {
                   disabled={this.state.buttonDisabled}
                   onClick={this.onSchedule}
                   secondary={true}
+                  className="btn-align"
                 />
               ) : (
                 <RaisedButton
@@ -304,6 +305,7 @@ class Publish extends React.Component {
                   secondary={true}
                   disabled={this.state.buttonDisabled}
                   onClick={this.handleUpdate}
+                  className="btn-align"
                 />
               )}
             </Col>

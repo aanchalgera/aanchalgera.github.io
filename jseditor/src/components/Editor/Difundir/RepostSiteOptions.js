@@ -60,7 +60,7 @@ let formatedBlogs = {
   }
 };
 
-export default class RepostSiteOptions extends React.PureComponent {
+export default class RepostSiteOptions extends React.Component {
   props: Props;
   initalRepostedBlogs = null;
 
