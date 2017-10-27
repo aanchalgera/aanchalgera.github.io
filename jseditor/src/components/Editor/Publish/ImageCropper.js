@@ -6,12 +6,11 @@ import { Row, Col } from 'react-flexbox-grid';
 type Props = {
   imageSrc: string,
   crop: Object,
-  shape: string,
   onCropChange: (shape: string, crop: string) => void,
   onCropValidate: (shape: string, validate: boolean) => void
 };
 
-export class ImageCropper extends React.PureComponent {
+export class ImageCropper extends React.Component {
   style = {
     img: {
       maxWidth: '100%'

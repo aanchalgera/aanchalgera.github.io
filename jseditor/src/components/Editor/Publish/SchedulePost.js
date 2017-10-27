@@ -61,6 +61,7 @@ export class SchedulePost extends React.PureComponent {
           icon={<Apps />}
           onClick={this.toggleScheduler}
           key="2"
+          className="btn-align"
         />
       ) : (
         ''
