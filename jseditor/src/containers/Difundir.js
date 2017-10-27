@@ -147,7 +147,7 @@ class Difundir extends React.Component {
           submitRepostedBlogs={this.submitRepostedBlogs}
         />
         {!isFuture(this.state.postDate) && (
-          <Row>
+          <Row className="bottom-xs">
             <Col className="column" sm={12}>
               <Label label="Volver a publicar en portada" />
             </Col>
@@ -162,6 +162,7 @@ class Difundir extends React.Component {
                 label="PROGRAMAR"
                 onClick={this.onRepublishSchedule}
                 secondary={true}
+                className="btn-align"
               />
             </Col>
             <Col className="column" sm={3} />
