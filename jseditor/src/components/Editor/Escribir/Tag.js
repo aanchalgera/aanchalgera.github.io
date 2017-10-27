@@ -39,6 +39,7 @@ export default class Tag extends PureComponent {
         onChange={this.handleOnChange}
         valueKey={'id'}
         value={this.props.tag}
+        ignoreAccents={false}
       />
     );
   }

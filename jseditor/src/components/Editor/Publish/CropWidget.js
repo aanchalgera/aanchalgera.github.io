@@ -39,13 +39,15 @@ const CropWidget = ({
         />
       </div>
     ) : (
-      <RaisedButton
-        label="VALIDAR"
-        onClick={e => {
-          e.preventDefault();
-          onCropValidate(shape, true);
-        }}
-      />
+      <div className="btn-container">
+        <RaisedButton
+          label="VALIDAR"
+          onClick={e => {
+            e.preventDefault();
+            onCropValidate(shape, true);
+          }}
+        />
+      </div>
     )}
   </div>
 );
