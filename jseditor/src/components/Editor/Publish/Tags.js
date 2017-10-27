@@ -33,16 +33,19 @@ export class Tags extends PureComponent {
 
   render() {
     return (
-      <Select.Async
-        placeholder="Etiquetas"
-        loadOptions={this.getTags}
-        onChange={this.handleOnChange}
-        multi={true}
-        joinValues={true}
-        value={this.props.tags}
-        valueKey={'id'}
-        className="module-form-select"
-      />
+      <div className="select-container">
+        <span className="placeholder-text">Etiquetas</span>
+        <Select.Async
+          placeholder=""
+          loadOptions={this.getTags}
+          onChange={this.handleOnChange}
+          multi={true}
+          joinValues={true}
+          value={this.props.tags}
+          valueKey={'id'}
+          className="module-form-select"
+        />
+      </div>
     );
   }
 }
