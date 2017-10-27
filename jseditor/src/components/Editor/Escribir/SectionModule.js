@@ -37,6 +37,7 @@ export class SectionModule extends React.PureComponent {
           data-key="title"
           defaultValue={this.props.data.title}
           onBlur={this.updateSection}
+          maxLength={15}
         />
         <label className="ptitle">Sitio</label>
         <Sites site={this.props.data.site} updateParent={this.updateParent} />

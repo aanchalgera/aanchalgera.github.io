@@ -7,13 +7,14 @@ type Props = {
   updateSocialFacebookText: Function
 };
 
-export const Facebook = (props: Props) =>
+export const Facebook = (props: Props) => (
   <div>
     <TextField
       hintText="..."
       floatingLabelFixed={true}
       multiLine={true}
       rowsMax={3}
+      rows={3}
       underlineShow={false}
       fullWidth={true}
       value={props.facebook}
@@ -21,4 +22,5 @@ export const Facebook = (props: Props) =>
       floatingLabelText="Texto para facebook"
     />
     <Divider />
-  </div>;
+  </div>
+);

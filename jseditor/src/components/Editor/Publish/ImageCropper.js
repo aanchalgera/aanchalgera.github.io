@@ -34,7 +34,7 @@ export class ImageCropper extends React.Component {
         <Col className="column" sm={3}>
           <p>
             <label className="caption-default">
-              Recorte para portada móvil, crosspost, instagram:
+              Recorte para portada móvil, crosspost, Instagram:
             </label>
           </p>
           <CropWidget {...props} crop={crop.square} shape="square" />
