@@ -18,7 +18,9 @@ export default class Category extends PureComponent {
   constructor(props: Props) {
     super();
     this.props = props;
-    this.setCategories();
+    if (props.siteName) {
+      this.setCategories(props.siteName);
+    }
   }
 
   state = {
@@ -27,15 +29,15 @@ export default class Category extends PureComponent {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.siteName !== this.props.siteName) {
-      this.setCategories();
+      this.setCategories(nextProps.siteName);
     }
   }
 
-  async setCategories() {
+  async setCategories(siteName: string) {
     let categories = await loadAllCategories(
       this.props.siteUrl,
       this.props.postType,
-      this.props.siteName
+      siteName
     );
     categories = filterCategories(categories);
     this.setState({ categories: categories });
