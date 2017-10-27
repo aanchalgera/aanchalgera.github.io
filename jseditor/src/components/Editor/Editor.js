@@ -237,6 +237,7 @@ class Editor extends React.Component {
         break;
       case 'sectionModule':
         attributes['selected'] = 'category';
+        attributes['layout'] = 'normal';
         break;
     }
     if (this.isRootComponent(currentIndex)) {

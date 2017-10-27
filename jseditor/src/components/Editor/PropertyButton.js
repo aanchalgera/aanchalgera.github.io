@@ -72,6 +72,7 @@ class PropertyButton extends React.Component {
       case 'infogram':
       case 'datawrapper':
       case 'table':
+      case 'sectionModule':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
