@@ -16,6 +16,7 @@ export const Twitter = (props: Props) => (
       floatingLabelFixed={true}
       multiLine={true}
       rowsMax={3}
+      rows={3}
       underlineShow={false}
       fullWidth={true}
       value={props.twitter}
