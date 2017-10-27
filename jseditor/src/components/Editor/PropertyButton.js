@@ -83,17 +83,25 @@ class PropertyButton extends React.Component {
         );
         break;
     }
-    var bgProperties = (
-      <PropertyButtonContent
-        addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
-        data={this.props.data}
-        openResourcePanel={this.props.openResourcePanel}
-        dataId={this.props.dataId}
-        toggleSummarySocialShareButtons={
-          this.props.toggleSummarySocialShareButtons
-        }
-      />
-    );
+    switch (this.props.data.type) {
+      case 'sectionModule':
+        var bgProperties = '';
+        break;
+      default:
+        var bgProperties = (
+          <PropertyButtonContent
+            addBackgroundOptionToResource={
+              this.props.addBackgroundOptionToResource
+            }
+            data={this.props.data}
+            openResourcePanel={this.props.openResourcePanel}
+            dataId={this.props.dataId}
+            toggleSummarySocialShareButtons={
+              this.props.toggleSummarySocialShareButtons
+            }
+          />
+        );
+    }
 
     var bgOptionsAllowedForGroupedTypes = {
       content: true,
