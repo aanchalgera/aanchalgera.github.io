@@ -26,7 +26,7 @@ export class SectionModule extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div className={'asset-size-' + this.props.data.layout}>
         <label className="ptitle">
           Título <span className="hint">(Límite: 15 caracteres)</span>
         </label>
