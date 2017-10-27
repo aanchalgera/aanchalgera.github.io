@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { Checkbox, AutoComplete } from 'material-ui';
 
@@ -180,6 +179,9 @@ export class AdvancedOptions extends React.Component {
           onNewRequest={this.onNewRequest}
           filter={AutoComplete.caseInsensitiveFilter}
           maxSearchResults={2}
+          onUpdateInput={searchText => {
+            this.setState({ currentUser: searchText });
+          }}
         />
       </div>
     );
