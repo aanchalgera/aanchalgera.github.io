@@ -19,16 +19,19 @@ export const Categories = ({
   postType
 }: Props) => {
   return (
-    <Select
-      placeholder={'club' === postType ? 'Espacio de marca' : 'Categoría'}
-      options={allCategories}
-      onChange={input => {
-        updateParent({ category: input ? input.id : null });
-      }}
-      value={category}
-      valueKey={'id'}
-      className="module-form-select"
-      required={true}
-    />
+    <div className="select-container">
+      <span className="placeholder-text">Categoria</span>
+      <Select
+        placeholder=""
+        options={allCategories}
+        onChange={input => {
+          updateParent({ category: input ? input.id : null });
+        }}
+        value={category}
+        valueKey={'id'}
+        className="module-form-select"
+        required={true}
+      />
+    </div>
   );
 };

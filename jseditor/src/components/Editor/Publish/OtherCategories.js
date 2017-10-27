@@ -18,17 +18,20 @@ export const OtherCategories = ({
   updateParent
 }: Props) => {
   return (
-    <Select
-      placeholder="Otras Categorías (opcional)"
-      options={allCategories}
-      onChange={input => {
-        updateParent({ postCategories: input });
-      }}
-      multi={true}
-      joinValues={true}
-      value={postCategories}
-      valueKey={'id'}
-      className="module-form-select"
-    />
+    <div className="select-container">
+      <span className="placeholder-text">Otras Categorías (opcional)</span>
+      <Select
+        placeholder=""
+        options={allCategories}
+        onChange={input => {
+          updateParent({ postCategories: input });
+        }}
+        multi={true}
+        joinValues={true}
+        value={postCategories}
+        valueKey={'id'}
+        className="module-form-select"
+      />
+    </div>
   );
 };
