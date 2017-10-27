@@ -28,10 +28,9 @@ const CropWidget = ({
       onChange={cropImage => onCropChange(shape, cropImage)}
     />
     {crop.validate ? (
-      <div>
+      <div className="btn-container">
         <RaisedButton label="GUARDADO" disabled={true} />
         <RaisedButton
-          className="btn-edit"
           label="EDITAR"
           onClick={e => {
             e.preventDefault();
