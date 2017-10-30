@@ -65,10 +65,13 @@ export default class DraftJSEditor extends React.PureComponent {
   };
 
   render() {
+    const editorState = this.state.editorState;
+    const length = editorState.getCurrentContent().getPlainText('').length;
     return (
       <div onClick={() => this._editor.focus()}>
+        <span> {length} </span>
         <Editor
-          editorState={this.state.editorState}
+          editorState={editorState}
           onChange={this.onChange}
           plugins={plugins}
           ref={element => {
