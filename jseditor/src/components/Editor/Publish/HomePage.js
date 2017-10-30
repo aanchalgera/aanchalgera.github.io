@@ -16,8 +16,8 @@ export default class Homepage extends React.PureComponent {
       return null;
     }
     return (
-      <div>
-        <label className="caption-default">
+      <div className="editor-container">
+        <label className="caption-default label-editor">
           Texto para portada<span> (opcional)</span>
         </label>
         <DraftJSEditor

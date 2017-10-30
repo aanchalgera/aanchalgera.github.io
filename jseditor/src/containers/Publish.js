@@ -367,7 +367,7 @@ class Publish extends React.Component {
           </Col>
         </Row>
         <Label label="Portada y redes sociales" />
-        <Row>
+        <Row className="bottom-xs">
           <Col className="column" sm={6}>
             {this.state.id && (
               <HomePage
