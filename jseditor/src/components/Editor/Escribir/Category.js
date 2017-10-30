@@ -40,7 +40,7 @@ export default class Category extends PureComponent {
       siteName
     );
     categories = filterCategories(categories);
-    this.setState({ categories: categories });
+    this.setState({ categories: categories, tag: null });
   }
 
   render() {

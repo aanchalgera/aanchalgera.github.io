@@ -28,7 +28,7 @@ export default class Tag extends PureComponent {
   };
 
   handleOnChange = (selectedTag: UpdatedTags) => {
-    this.props.updateParent({ tag: selectedTag });
+    this.props.updateParent({ tag: selectedTag, category: null });
   };
 
   render() {
