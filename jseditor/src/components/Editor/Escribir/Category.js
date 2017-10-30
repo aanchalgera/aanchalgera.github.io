@@ -49,7 +49,10 @@ export default class Category extends PureComponent {
         placeholder={'Categoría'}
         options={this.state.categories}
         onChange={input => {
-          this.props.updateParent({ category: input ? input.id : null });
+          this.props.updateParent({
+            category: input ? input.id : null,
+            tag: null
+          });
         }}
         value={this.props.category}
         valueKey={'id'}
