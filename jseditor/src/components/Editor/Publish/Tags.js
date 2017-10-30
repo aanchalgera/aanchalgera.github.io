@@ -44,6 +44,7 @@ export class Tags extends PureComponent {
           value={this.props.tags}
           valueKey={'id'}
           className="module-form-select"
+          ignoreAccents={false}
         />
       </div>
     );
