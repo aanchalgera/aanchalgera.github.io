@@ -11,11 +11,11 @@ export const currentHour = () => {
 };
 
 const currentTime = () => {
-  return moment().format('DD/MM/YYYY H:mm');
+  return moment();
 };
 
 export const isFuture = (date: string) => {
-  return date >= currentTime();
+  return moment(date, 'DD/MM/YYYY H:mm') >= currentTime();
 };
 
 export const isValidDate = (date: string) => {
