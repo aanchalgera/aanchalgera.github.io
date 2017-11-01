@@ -52,6 +52,7 @@ export default class DraftJSEditor extends React.PureComponent {
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
+    this.props.updateLength(MAX_LENGTH - this.currentLength());
   }
 
   focus() {
@@ -62,6 +63,7 @@ export default class DraftJSEditor extends React.PureComponent {
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(editorState.getCurrentContent()));
       this.props.updateResource(value);
+      this.props.updateLength(MAX_LENGTH - this.currentLength());
     });
   };
 
@@ -87,14 +89,12 @@ export default class DraftJSEditor extends React.PureComponent {
   };
 
   render() {
-    const length = MAX_LENGTH - this.currentLength();
     return (
       <div onClick={() => this._editor.focus()}>
-        <span> {length} </span>
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}
-          handleKeyCommand={this._handleBeforeInput}
+          handleReturn={this._handleBeforeInput}
           handleBeforeInput={this._handleBeforeInput}
           handlePastedText={this._handlePastedText}
           plugins={plugins}
