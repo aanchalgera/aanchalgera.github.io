@@ -36,7 +36,7 @@ export class Tags extends PureComponent {
       <div className="select-container">
         <span className="placeholder-text">Etiquetas</span>
         <Select.Async
-          placeholder=""
+          placeholder="..."
           loadOptions={this.getTags}
           onChange={this.handleOnChange}
           multi={true}

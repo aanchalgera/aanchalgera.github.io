@@ -36,6 +36,7 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [inlineToolbarPlugin, linkPlugin];
+const MAX_LENGTH = 240;
 
 type Props = {
   value: string,
@@ -51,6 +52,7 @@ export default class DraftJSEditor extends React.PureComponent {
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
+    this.props.updateLength(MAX_LENGTH - this.currentLength());
   }
 
   focus() {
@@ -61,18 +63,40 @@ export default class DraftJSEditor extends React.PureComponent {
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(editorState.getCurrentContent()));
       this.props.updateResource(value);
+      this.props.updateLength(MAX_LENGTH - this.currentLength());
     });
   };
 
+  _handleBeforeInput = () => {
+    const currentContentLength = this.currentLength();
+
+    if (currentContentLength > MAX_LENGTH - 1) {
+      console.log('you can type max ten characters');
+      return 'handled';
+    }
+  };
+
+  _handlePastedText = pastedText => {
+    const currentContentLength = this.currentLength();
+    if (currentContentLength + pastedText.length > MAX_LENGTH) {
+      console.log('you can type max ten characters');
+      return 'handled';
+    }
+  };
+
+  currentLength = () => {
+    return this.state.editorState.getCurrentContent().getPlainText('').length;
+  };
+
   render() {
-    const editorState = this.state.editorState;
-    const length = editorState.getCurrentContent().getPlainText('').length;
     return (
       <div onClick={() => this._editor.focus()}>
-        <span> {length} </span>
         <Editor
-          editorState={editorState}
+          editorState={this.state.editorState}
           onChange={this.onChange}
+          handleReturn={this._handleBeforeInput}
+          handleBeforeInput={this._handleBeforeInput}
+          handlePastedText={this._handlePastedText}
           plugins={plugins}
           ref={element => {
             this._editor = element;
