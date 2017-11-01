@@ -103,8 +103,10 @@ export default class RepostSiteOptions extends React.Component {
   render() {
     return (
       <div>
-        <Label label="Crosspost a otros medios" />
         <Row>
+          <Col sm={12}>
+            <Label label="Crosspost a otros medios" />
+          </Col>
           {Object.keys(formatedBlogs).map(key => (
             <Col className="column" sm key={key}>
               {this.getSitesListing(formatedBlogs[key].sites)}

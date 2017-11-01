@@ -28,10 +28,9 @@ import {
   initialState,
   loadStatefromData,
   validateState,
-  validateDate,
   findByName
 } from './lib/helpers.js';
-import { isFuture } from './lib/momentHelper';
+import { isFuture, isValidDate } from './lib/momentHelper';
 import { Check } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
@@ -102,15 +101,11 @@ class Publish extends React.Component {
   };
 
   onSchedule = () => {
-    if (validateDate(this.state.publishedDate)) {
-      if (this.isValid()) {
-        return this.submitPost();
-      }
-    } else {
-      this.setMessage(true, 'Invalid Date');
+    if (this.isValid()) {
+      return this.submitPost();
     }
   };
-
+  /*
   updateDate = date => {
     if (validateDate(date)) {
       this.setState(prevState => {
@@ -130,7 +125,7 @@ class Publish extends React.Component {
       });
     }
   };
-
+*/
   enableButton() {
     this.setState({
       buttonDisabled: false
@@ -265,6 +260,7 @@ class Publish extends React.Component {
     let showCalendar = true;
     if (
       this.state.status === 'publish' &&
+      isValidDate(this.state.publishedDate) &&
       !isFuture(this.state.publishedDate)
     ) {
       showCalendar = false;
@@ -324,12 +320,14 @@ class Publish extends React.Component {
             postType={this.state.postType}
             childName="PublicationLabel"
           >
-            <Col className="column" sm={12}>
-              <Label
-                label="Detalles de publicación "
-                hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
-              />
-            </Col>
+            <Row>
+              <Col className="column" sm={12}>
+                <Label
+                  label="Detalles de publicación "
+                  hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
+                />
+              </Col>
+            </Row>
           </Check>
           <Check
             userRole={this.props.userRole}
@@ -366,8 +364,10 @@ class Publish extends React.Component {
             />
           </Col>
         </Row>
-        <Label label="Portada y redes sociales" />
         <Row className="bottom-xs">
+          <Col sm={12}>
+            <Label label="Portada y redes sociales" />
+          </Col>
           <Col className="column" sm={6}>
             {this.state.id && (
               <HomePage

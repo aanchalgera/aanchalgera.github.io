@@ -17,7 +17,8 @@ type Props = {
 export class SchedulePost extends React.PureComponent {
   state = {
     schedulerOpened: false,
-    anchorEl: null
+    anchorEl: null,
+    focussed: false
   };
   static defaultProps = {
     showCalendar: true
@@ -46,16 +47,30 @@ export class SchedulePost extends React.PureComponent {
     });
   };
 
+  onFocus = () => {
+    this.setState({
+      focussed: true
+    });
+  };
+
+  onBlur = () => {
+    this.setState({
+      focussed: false
+    });
+  };
+
   render() {
     return [
       <TextField
         floatingLabelText="Fecha y hora"
         value={this.props.date}
         onChange={this.onChange}
-        disabled={!this.props.showCalendar}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        disabled={!(this.props.showCalendar || this.state.focussed)}
         key="1"
       />,
-      this.props.showCalendar ? (
+      this.props.showCalendar || this.state.focussed ? (
         <RaisedButton
           label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
           icon={<Apps />}

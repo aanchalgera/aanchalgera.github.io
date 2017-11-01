@@ -41,7 +41,11 @@ export class SponsoredContent extends PureComponent {
   render() {
     return (
       <div>
-        <Label label="Contenido Patrocinado" />
+        <Row className="bottom-xs">
+          <Col sm={12}>
+            <Label label="Contenido Patrocinado" />
+          </Col>
+        </Row>
         <Row>
           <Col className="column" sm>
             <TextField
