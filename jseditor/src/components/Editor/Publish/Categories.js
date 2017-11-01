@@ -22,7 +22,7 @@ export const Categories = ({
     <div className="select-container">
       <span className="placeholder-text">Categoria</span>
       <Select
-        placeholder=""
+        placeholder="..."
         options={allCategories}
         onChange={input => {
           updateParent({ category: input ? input.id : null });

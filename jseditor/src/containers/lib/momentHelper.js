@@ -7,10 +7,10 @@ moment.tz.setDefault(configParams.timezone);
 export const currentHour = () => {
   return moment()
     .add(1, 'hours')
-    .format('DD/MM/YYYY HH:00');
+    .format('DD/MM/YYYY H:00');
 };
 
-export const currentTime = () => {
+const currentTime = () => {
   return moment().format('DD/MM/YYYY H:mm');
 };
 

@@ -21,7 +21,7 @@ export const OtherCategories = ({
     <div className="select-container">
       <span className="placeholder-text">Otras Categorías (opcional)</span>
       <Select
-        placeholder=""
+        placeholder="..."
         options={allCategories}
         onChange={input => {
           updateParent({ postCategories: input });
