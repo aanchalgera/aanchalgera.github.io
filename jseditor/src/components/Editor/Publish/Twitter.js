@@ -9,25 +9,24 @@ type Props = {
   updateSocialTwitterText: PropTypes.func.isRequired
 };
 
+const floatingLabelText = length => {
+  return 'Texto para Twitter ' + (TWITTER_CHAR_LIMIT - length);
+};
+
 export const Twitter = (props: Props) => (
   <div>
     <TextField
+      className="caption-default label-editor"
       hintText="..."
       floatingLabelFixed={true}
       multiLine={true}
-      rowsMax={3}
       rows={3}
       underlineShow={false}
       fullWidth={true}
       value={props.twitter}
       maxLength={TWITTER_CHAR_LIMIT}
       onChange={props.updateSocialTwitterText.bind(this)}
-      floatingLabelText={
-        <span>
-          Texto para Twitter (disponible:{' '}
-          {TWITTER_CHAR_LIMIT - props.twitter.length})
-        </span>
-      }
+      floatingLabelText={floatingLabelText(props.twitter.length)}
     />
     <Divider />
   </div>

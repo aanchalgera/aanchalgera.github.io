@@ -12,7 +12,7 @@ export default class CSS {
   static prepare() {
     const cssPath =
       'https://img.weblogssl.com/css/diariodelviajero/skin-admin-writeboard/main.css';
-    let extraParameters = '?v=abcde';
+    let extraParameters = '?v=abc';
     if (process.env.NODE_ENV === 'production') {
       const date = new Date();
       extraParameters =

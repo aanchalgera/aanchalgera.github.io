@@ -13,6 +13,7 @@ const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
 const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
+const INVALID_DATE = 'FECHA INVALIDA';
 
 export const getPostType = (userRole: string) => {
   let postType = 'longform';
@@ -114,6 +115,11 @@ export const validateState = state => {
       isError = true;
       message = SPONSOR_NAME_EMPTY;
     }
+  }
+
+  if (!validateDate(state.publishedDate)) {
+    isError = true;
+    message = INVALID_DATE;
   }
 
   return { isError, message };
