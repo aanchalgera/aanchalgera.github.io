@@ -13,7 +13,7 @@ type Props = {
 export class ImageCropper extends React.Component {
   style = {
     img: {
-      maxWidth: '100%'
+      width: '100%'
     }
   };
 
@@ -23,7 +23,7 @@ export class ImageCropper extends React.Component {
     const { crop, ...props } = this.props;
     return (
       <Row>
-        <Col className="column" sm={3}>
+        <Col sm={3}>
           <p>
             <label className="caption-default">Imagen principal:</label>
           </p>
@@ -31,7 +31,7 @@ export class ImageCropper extends React.Component {
             <img src={props.imageSrc} style={this.style.img} alt="" />
           </div>
         </Col>
-        <Col className="column" sm={3}>
+        <Col sm={3}>
           <p>
             <label className="caption-default">
               Recorte para portada móvil, crosspost, Instagram:
@@ -39,7 +39,7 @@ export class ImageCropper extends React.Component {
           </p>
           <CropWidget {...props} crop={crop.square} shape="square" />
         </Col>
-        <Col className="column" sm={3}>
+        <Col sm={3}>
           <p>
             <label className="caption-default">
               Recorte para portada escritorio, Twitter, Facebook:
@@ -47,7 +47,7 @@ export class ImageCropper extends React.Component {
           </p>
           <CropWidget {...props} crop={crop.golden} shape="golden" />
         </Col>
-        <Col className="column" sm={3}>
+        <Col sm={3}>
           <p>
             <label className="caption-default">
               Recorte para top story, destacados:
