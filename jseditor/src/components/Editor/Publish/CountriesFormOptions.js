@@ -53,12 +53,8 @@ export class CountriesFormOptions extends React.Component {
       <div>
         <Label label="Países donde publicar" />
         <Row>
-          <Col className="column" sm>
-            {checkboxes[0]}
-          </Col>
-          <Col className="column" sm>
-            {checkboxes[1]}
-          </Col>
+          <Col sm>{checkboxes[0]}</Col>
+          <Col sm>{checkboxes[1]}</Col>
         </Row>
       </div>
     );

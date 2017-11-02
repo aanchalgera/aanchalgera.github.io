@@ -67,7 +67,7 @@ export class SchedulePost extends React.PureComponent {
         onChange={this.onChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
-        disabled={!(this.props.showCalendar || this.state.focussed)}
+        disabled={!this.props.showCalendar}
         key="1"
       />,
       this.props.showCalendar || this.state.focussed ? (

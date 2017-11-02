@@ -47,7 +47,7 @@ export class SponsoredContent extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col className="column" sm>
+          <Col sm>
             <TextField
               value={this.props.sponsor.name}
               hintText="Socialmedia SL"
@@ -57,7 +57,7 @@ export class SponsoredContent extends PureComponent {
               fullWidth={true}
             />
           </Col>
-          <Col className="column" sm>
+          <Col sm>
             <TextField
               value={this.props.sponsor.image}
               hintText="https://.."
@@ -67,7 +67,7 @@ export class SponsoredContent extends PureComponent {
               fullWidth={true}
             />
           </Col>
-          <Col className="column" sm>
+          <Col sm>
             <TextField
               value={this.props.sponsor.tracker}
               hintText="..."

@@ -148,10 +148,10 @@ class Difundir extends React.Component {
         />
         {!isFuture(this.state.postDate) && (
           <Row className="bottom-xs">
-            <Col className="column" sm={12}>
+            <Col sm={12}>
               <Label label="Volver a publicar en portada" />
             </Col>
-            <Col className="column" sm={6}>
+            <Col sm={6}>
               <SchedulePost
                 date={this.state.publishedDate}
                 base={this.props.base}
@@ -165,8 +165,8 @@ class Difundir extends React.Component {
                 className="btn-align"
               />
             </Col>
-            <Col className="column" sm={3} />
-            <Col className="column end-sm" sm={3}>
+            <Col sm={3} />
+            <Col className="end-sm" sm={3}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
                 primary={true}
