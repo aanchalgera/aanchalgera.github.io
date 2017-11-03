@@ -10,7 +10,9 @@ type Props = {
 };
 
 const floatingLabelText = length => {
-  return 'Texto para Twitter ' + (TWITTER_CHAR_LIMIT - length);
+  return (
+    'Texto para Twitter (disponible: ' + (TWITTER_CHAR_LIMIT - length) + ')'
+  );
 };
 
 export const Twitter = (props: Props) => (
