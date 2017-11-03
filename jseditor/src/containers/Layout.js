@@ -32,22 +32,17 @@ export default class Layout extends React.Component {
   }
 
   init = async () => {
-    const {
-      match: { params: { postname } },
-      location: { search },
-      history
-    } = this.props;
+    const { location: { search }, history } = this.props;
     const query = new URLSearchParams(search);
     const blogName = query.get('blog');
-
+    const pathName = this.props.location.pathname;
     try {
       const blogUrl = await getBlogUrl(blogName, this.props.base);
       const userData = await getUserDetails(blogUrl);
 
-      if (undefined !== postname) {
+      if ('post/new' !== pathName) {
         this.setState({
           blogUrl: blogUrl,
-          postname: postname,
           userRole: userData['roles'][0],
           blogName: blogName
         });
@@ -146,11 +141,7 @@ export default class Layout extends React.Component {
             />
             <Route
               path={'/edit/post/:postname'}
-              render={props => <Editor {...props} base={base} />}
-            />
-            <Route
-              path={'/post/new'}
-              render={props => <Editor {...props} base={base} />}
+              render={props => <Editor {...props} {...rest} base={base} />}
             />
           </Switch>
         </div>
