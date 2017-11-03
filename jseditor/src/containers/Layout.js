@@ -8,6 +8,7 @@ import { getBlogUrl, getUserDetails } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import Publicar from './Publish';
 import Difundir from './Difundir';
+import Editor from './Editor';
 
 type Props = {
   match: { params: Object },
@@ -128,6 +129,14 @@ export default class Layout extends React.Component {
                   handleDifundir={this.handleDifundir}
                 />
               )}
+            />
+            <Route
+              path={'/edit/post/:postname'}
+              render={props => <Editor {...props} base={base} />}
+            />
+            <Route
+              path={'/post/new'}
+              render={props => <Editor {...props} base={base} />}
             />
           </Switch>
         </div>
