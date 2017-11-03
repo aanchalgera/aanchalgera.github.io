@@ -24,7 +24,8 @@ class Main extends React.Component {
     if (
       pathname.indexOf('/publicar/') > -1 ||
       pathname.indexOf('/difundir/') > -1 ||
-      pathname.indexOf('/edit/') > -1
+      pathname.indexOf('/edit/') > -1 ||
+      pathname.indexOf('/post/new') > -1
     ) {
       return <Layout {...this.props} base={base} />;
     }

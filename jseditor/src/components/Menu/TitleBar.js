@@ -5,8 +5,6 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 
 const styles = {
-  previewButton: {},
-  publishButton: {},
   title: {
     color: 'white',
     textTransform: 'capitalize'
@@ -19,8 +17,7 @@ const styles = {
 export default class TitleBar extends React.Component {
   handleChange = route => {
     const { history, postName, queryPath } = this.props;
-    const url = 'escribir' === route ? 'edit/post' : route;
-    history.push(`/${url}/${postName}${queryPath}`);
+    history.push(`/${route}/${postName}${queryPath}`);
   };
 
   render() {
@@ -45,7 +42,7 @@ export default class TitleBar extends React.Component {
               onChange={this.handleChange}
               style={styles.tabs}
             >
-              <Tab label="ESCRIBIR" value="escribir" />
+              <Tab label="ESCRIBIR" value="edit/post" />
               <Tab label="PUBLICAR" value="publicar" />
               {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
             </Tabs>
@@ -59,7 +56,6 @@ export default class TitleBar extends React.Component {
                 <IconButton
                   target="_blank"
                   href={blogUrl + '/preview-longform/' + postName}
-                  style={styles.previewButton}
                   disabled={activeTab === 'difundir'}
                 >
                   <Visibility />

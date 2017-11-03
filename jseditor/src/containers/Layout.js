@@ -4,11 +4,12 @@ import { Switch, Route } from 'react-router-dom';
 
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
-import { getBlogUrl, getUserDetails } from './lib/service';
+import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import Publicar from './Publish';
 import Difundir from './Difundir';
 import Editor from './Editor';
+import helpers from 'utils/generatehash';
 
 type Props = {
   match: { params: Object },
@@ -42,12 +43,25 @@ export default class Layout extends React.Component {
     try {
       const blogUrl = await getBlogUrl(blogName, this.props.base);
       const userData = await getUserDetails(blogUrl);
-      this.setState({
-        blogUrl: blogUrl,
-        postname: postname,
-        userRole: userData['roles'][0],
-        blogName: blogName
-      });
+
+      if (undefined !== postname) {
+        this.setState({
+          blogUrl: blogUrl,
+          postname: postname,
+          userRole: userData['roles'][0],
+          blogName: blogName
+        });
+      } else {
+        const hashId = helpers.generatePushID();
+        const postEditUrl = '/edit/post/' + hashId + '?blog=' + blogName;
+        const initialData = {
+          id: hashId,
+          userId: userData.id,
+          postType: query.get('type')
+        };
+        saveInitialPost(initialData, this.props.base);
+        history.push(postEditUrl);
+      }
     } catch (error) {
       console.log(error.message);
       if (error.message === 'NOT_LOGGED_IN') {
