@@ -20,7 +20,7 @@ export const Categories = ({
 }: Props) => {
   return (
     <div className="select-container">
-      <span className="placeholder-text">Categoria</span>
+      <span className="placeholder-text">Categoría principal</span>
       <Select
         placeholder="..."
         options={allCategories}

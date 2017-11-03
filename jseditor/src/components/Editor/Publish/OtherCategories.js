@@ -19,7 +19,7 @@ export const OtherCategories = ({
 }: Props) => {
   return (
     <div className="select-container">
-      <span className="placeholder-text">Otras Categorías (opcional)</span>
+      <span className="placeholder-text">Otras categorías (opcional)</span>
       <Select
         placeholder="..."
         options={allCategories}
