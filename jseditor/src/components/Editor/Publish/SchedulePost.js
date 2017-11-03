@@ -62,6 +62,7 @@ export class SchedulePost extends React.PureComponent {
   render() {
     return [
       <TextField
+        className="datepicker"
         floatingLabelText="Fecha y hora"
         value={this.props.date}
         onChange={this.onChange}
