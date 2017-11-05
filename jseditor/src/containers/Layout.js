@@ -23,6 +23,7 @@ export default class Layout extends React.Component {
   state = {
     blogUrl: null,
     showDifundir: false,
+    showPublicar: false,
     showPostStatusMsg: false,
     statusMsg: ''
   };
@@ -67,6 +68,12 @@ export default class Layout extends React.Component {
     }
   };
 
+  handlePublicar = (showPublicar: boolean) => {
+    this.setState({
+      showPublicar: showPublicar
+    });
+  };
+
   handleDifundir = (status: string, publishedDate: string) => {
     let showDifundir = false;
     let showPostStatusMsg = false;
@@ -98,10 +105,12 @@ export default class Layout extends React.Component {
         activeTab={matches[1]}
         queryPath={search}
         showDifundir={this.state.showDifundir}
+        showPublicar={this.state.showPublicar}
         history={this.props.history}
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
         statusMsg={this.state.statusMsg}
+        updateOnBackend={this.foo && this.foo.updateOnBackend}
       />
     );
   };
@@ -141,7 +150,17 @@ export default class Layout extends React.Component {
             />
             <Route
               path={'/edit/post/:postname'}
-              render={props => <Editor {...props} {...rest} base={base} />}
+              render={props => (
+                <Editor
+                  onRef={foo => {
+                    this.foo = foo;
+                  }}
+                  {...props}
+                  {...rest}
+                  base={base}
+                  handlePublicar={this.handlePublicar}
+                />
+              )}
             />
           </Switch>
         </div>

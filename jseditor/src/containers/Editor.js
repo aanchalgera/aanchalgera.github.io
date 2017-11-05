@@ -31,6 +31,7 @@ const UPDATED_MESSAGE = 'Guardado correctamente';
 class Editor extends React.Component {
   constructor(props) {
     super(props);
+    this.props.onRef(this);
     this.state = {
       maxId: 0,
       value: '',
@@ -92,6 +93,7 @@ class Editor extends React.Component {
         meta: data.meta,
         isSynced: true
       });
+      this.props.handlePublicar(this.enablePublish());
     } else {
       console.log('Should never be here');
       this.setState({
@@ -809,7 +811,7 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateOnBackend(e) {
+  updateOnBackend = e => {
     e.preventDefault();
     if (!this.isValid()) {
       return;
@@ -856,7 +858,7 @@ class Editor extends React.Component {
       .done(() => {
         this.setMessage(true, 'Post Updated');
       });
-  }
+  };
 
   isEmptyfield(fields) {
     let isEmpty = true;
@@ -891,7 +893,8 @@ class Editor extends React.Component {
     });
     return isEmpty;
   }
-  enablePublish(e) {
+
+  enablePublish() {
     let isError = false;
     let message = '';
 
@@ -905,13 +908,7 @@ class Editor extends React.Component {
 
     if (message != '') {
       isError = true;
-      e.preventDefault();
     }
-
-    this.setState({
-      isError: isError,
-      message: message
-    });
 
     return !isError;
   }

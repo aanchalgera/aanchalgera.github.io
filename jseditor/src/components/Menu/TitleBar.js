@@ -3,6 +3,8 @@ import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
+import Save from 'material-ui/svg-icons/content/save';
+import Shuffle from 'material-ui/svg-icons/av/shuffle';
 
 const styles = {
   title: {
@@ -13,6 +15,8 @@ const styles = {
     width: '500px'
   }
 };
+
+const ESCRIBIR = 'edit/post';
 
 export default class TitleBar extends React.Component {
   handleChange = route => {
@@ -29,7 +33,14 @@ export default class TitleBar extends React.Component {
       );
     }
 
-    const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
+    const {
+      postName,
+      blogUrl,
+      activeTab,
+      showDifundir,
+      showPublicar,
+      blogName
+    } = this.props;
     return (
       <Toolbar className="header">
         <div className="brand-logo">
@@ -43,7 +54,7 @@ export default class TitleBar extends React.Component {
               style={styles.tabs}
             >
               <Tab label="ESCRIBIR" value="edit/post" />
-              <Tab label="PUBLICAR" value="publicar" />
+              {showPublicar && <Tab label="PUBLICAR" value="publicar" />}
               {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
             </Tabs>
           </ToolbarGroup>
@@ -53,6 +64,19 @@ export default class TitleBar extends React.Component {
             {statusMsgElement}
             <ul className="nav-list">
               <li className="nav-list-item">
+                {activeTab === ESCRIBIR && (
+                  <IconButton onClick={this.props.updateOnBackend}>
+                    <Save />
+                  </IconButton>
+                )}{' '}
+                {activeTab === ESCRIBIR && (
+                  <IconButton
+                    target="_blank"
+                    href={blogUrl + '/preview-longform/' + postName}
+                  >
+                    <Shuffle />
+                  </IconButton>
+                )}
                 <IconButton
                   target="_blank"
                   href={blogUrl + '/preview-longform/' + postName}
