@@ -110,7 +110,8 @@ export default class Layout extends React.Component {
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
         statusMsg={this.state.statusMsg}
-        updateOnBackend={this.foo && this.foo.updateOnBackend}
+        updateOnBackend={this.editor && this.editor.updateOnBackend}
+        toggleOrderMode={this.editor && this.editor.toggleOrderMode}
       />
     );
   };
@@ -152,8 +153,8 @@ export default class Layout extends React.Component {
               path={'/edit/post/:postname'}
               render={props => (
                 <Editor
-                  onRef={foo => {
-                    this.foo = foo;
+                  onRef={ref => {
+                    this.editor = ref;
                   }}
                   {...props}
                   {...rest}

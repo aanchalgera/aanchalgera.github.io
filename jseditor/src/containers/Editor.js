@@ -724,10 +724,10 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  toggleOrderMode(event) {
+  toggleOrderMode = event => {
     event.preventDefault();
     this.setState({ orderMode: !this.state.orderMode });
-  }
+  };
 
   setAutoPlaySlider(event, value) {
     event.preventDefault();

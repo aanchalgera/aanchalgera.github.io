@@ -63,20 +63,21 @@ export default class TitleBar extends React.Component {
           <ToolbarGroup>
             {statusMsgElement}
             <ul className="nav-list">
-              <li className="nav-list-item">
-                {activeTab === ESCRIBIR && (
+              {activeTab === ESCRIBIR && (
+                <li className="nav-list-item">
                   <IconButton onClick={this.props.updateOnBackend}>
                     <Save />
                   </IconButton>
-                )}{' '}
-                {activeTab === ESCRIBIR && (
-                  <IconButton
-                    target="_blank"
-                    href={blogUrl + '/preview-longform/' + postName}
-                  >
+                </li>
+              )}{' '}
+              {activeTab === ESCRIBIR && (
+                <li className="nav-list-item">
+                  <IconButton onClick={this.props.toggleOrderMode}>
                     <Shuffle />
                   </IconButton>
-                )}
+                </li>
+              )}
+              <li className="nav-list-item">
                 <IconButton
                   target="_blank"
                   href={blogUrl + '/preview-longform/' + postName}
