@@ -7,16 +7,16 @@ import { InputEvent } from 'lib/flowTypes';
 import { Label } from './index';
 
 let regions = {
-  ES: 'España',
-  US: 'EE.UU',
-  MX: 'México',
-  PE: 'Perú',
+  ES: 'España.',
+  US: 'EE.UU.',
   AR: 'Argentina',
   CL: 'Chile',
+  CO: 'Columbia',
+  CEA: 'Centro América',
+  MX: 'México',
+  PE: 'Perú',
   EC: 'Ecuador',
   CR: 'Costa Rica',
-  CO: 'Columbia',
-  CEA: 'Centro America',
   ROW: 'Resto del mundo'
 };
 

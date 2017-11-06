@@ -18,7 +18,7 @@ export const Facebook = (props: Props) => (
       fullWidth={true}
       value={props.facebook}
       onChange={props.updateSocialFacebookText.bind(this)}
-      floatingLabelText="Texto para facebook"
+      floatingLabelText="Texto para Facebook"
     />
     <Divider />
   </div>

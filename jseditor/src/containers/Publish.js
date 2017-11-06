@@ -297,7 +297,7 @@ class Publish extends React.Component {
                 />
               ) : (
                 <RaisedButton
-                  label="GUARDAR CAMBIOS"
+                  label="PUBLICAR CAMBIOS"
                   secondary={true}
                   disabled={this.state.buttonDisabled}
                   onClick={this.handleUpdate}
