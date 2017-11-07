@@ -28,7 +28,7 @@ export default class TitleBar extends React.Component {
 
     if (this.props.showPostStatusMsg) {
       statusMsgElement = (
-        <span className="caption-default">{this.props.statusMsg}</span>
+        <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
 
