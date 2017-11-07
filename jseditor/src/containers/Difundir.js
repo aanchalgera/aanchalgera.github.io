@@ -165,8 +165,8 @@ class Difundir extends React.Component {
                 className="btn-align"
               />
             </Col>
-            <Col sm={3} />
-            <Col className="end-sm" sm={3}>
+            <Col sm={2} />
+            <Col className="end-sm" sm={4}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
                 primary={true}

@@ -12,7 +12,7 @@ export default class Homepage extends React.Component {
   props: Props;
   state = {};
 
-  updateLength = length => {
+  updateLength = (length: number) => {
     this.setState({ length });
   };
 

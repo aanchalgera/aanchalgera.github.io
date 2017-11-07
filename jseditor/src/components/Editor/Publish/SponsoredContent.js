@@ -12,8 +12,6 @@ type Props = {
 };
 
 export class SponsoredContent extends PureComponent {
-  props: Props;
-
   updateName = (e: InputEvent, value: string) => {
     this.props.setPostMeta('sponsor', {
       name: value,
