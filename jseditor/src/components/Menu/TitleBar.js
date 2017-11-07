@@ -6,6 +6,8 @@ import Visibility from 'material-ui/svg-icons/action/visibility';
 import Save from 'material-ui/svg-icons/content/save';
 import Shuffle from 'material-ui/svg-icons/av/shuffle';
 
+import Expire from './Expire';
+
 const styles = {
   title: {
     color: 'white',
@@ -24,7 +26,7 @@ export default class TitleBar extends React.Component {
     history.push(`/${route}/${postName}${queryPath}`);
   };
 
-  render() {
+  getStatusElement() {
     let statusMsgElement = null;
 
     if (this.props.showPostStatusMsg) {
@@ -32,15 +34,19 @@ export default class TitleBar extends React.Component {
         <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
+    if (this.props.activeTab === ESCRIBIR) {
+      statusMsgElement = (
+        <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
+          {statusMsgElement}
+        </Expire>
+      );
+    }
+    return statusMsgElement;
+  }
 
-    const {
-      postName,
-      blogUrl,
-      activeTab,
-      showDifundir,
-      showPublicar,
-      blogName
-    } = this.props;
+  render() {
+    const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
+
     return (
       <Toolbar className="header">
         <div className="brand-logo">
@@ -54,39 +60,31 @@ export default class TitleBar extends React.Component {
               style={styles.tabs}
             >
               <Tab label="ESCRIBIR" value="edit/post" />
-              {showPublicar && <Tab label="PUBLICAR" value="publicar" />}
+              <Tab label="PUBLICAR" value="publicar" />
               {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
             </Tabs>
           </ToolbarGroup>
         </div>
         <div className="nav-icon">
           <ToolbarGroup>
-            {statusMsgElement}
-            <ul className="nav-list">
-              {activeTab === ESCRIBIR && (
-                <li className="nav-list-item">
-                  <IconButton onClick={this.props.updateOnBackend}>
-                    <Save />
-                  </IconButton>
-                </li>
-              )}{' '}
-              {activeTab === ESCRIBIR && (
-                <li className="nav-list-item">
-                  <IconButton onClick={this.props.toggleOrderMode}>
-                    <Shuffle />
-                  </IconButton>
-                </li>
-              )}
-              <li className="nav-list-item">
-                <IconButton
-                  target="_blank"
-                  href={blogUrl + '/preview-longform/' + postName}
-                  disabled={activeTab === 'difundir'}
-                >
-                  <Visibility />
-                </IconButton>
-              </li>
-            </ul>
+            {this.getStatusElement()}
+            {activeTab === ESCRIBIR && (
+              <IconButton onClick={this.props.saveData}>
+                <Save />
+              </IconButton>
+            )}{' '}
+            {activeTab === ESCRIBIR && (
+              <IconButton onClick={this.props.toggleOrderMode}>
+                <Shuffle />
+              </IconButton>
+            )}
+            <IconButton
+              target="_blank"
+              href={blogUrl + '/preview-longform/' + postName}
+              disabled={activeTab === 'difundir'}
+            >
+              <Visibility />
+            </IconButton>
           </ToolbarGroup>
         </div>
       </Toolbar>

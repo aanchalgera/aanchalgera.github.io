@@ -52,7 +52,7 @@ export default class Layout extends React.Component {
         const postEditUrl = '/edit/post/' + hashId + '?blog=' + blogName;
         const initialData = {
           id: hashId,
-          userId: userData.id,
+          user_id: userData.id,
           postType: query.get('type')
         };
         saveInitialPost(initialData, this.props.base);
@@ -68,9 +68,10 @@ export default class Layout extends React.Component {
     }
   };
 
-  handlePublicar = (showPublicar: boolean) => {
+  handleStatus = (statusMsg: string) => {
     this.setState({
-      showPublicar: showPublicar
+      showPostStatusMsg: true,
+      statusMsg: statusMsg
     });
   };
 
@@ -110,7 +111,7 @@ export default class Layout extends React.Component {
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
         statusMsg={this.state.statusMsg}
-        updateOnBackend={this.editor && this.editor.updateOnBackend}
+        saveData={this.editor && this.editor.saveData}
         toggleOrderMode={this.editor && this.editor.toggleOrderMode}
       />
     );
@@ -159,7 +160,7 @@ export default class Layout extends React.Component {
                   {...props}
                   {...rest}
                   base={base}
-                  handlePublicar={this.handlePublicar}
+                  handleStatus={this.handleStatus}
                 />
               )}
             />

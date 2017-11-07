@@ -3,7 +3,6 @@ import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Snackbar } from 'material-ui';
 
 import ContentList from 'components/Editor/ContentList';
 import PostTitle from 'components/Editor/PostTitle';
@@ -26,7 +25,7 @@ const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
-const UPDATED_MESSAGE = 'Guardado correctamente';
+const UPDATED_MESSAGE = 'Todo guardado';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -65,9 +64,7 @@ class Editor extends React.Component {
       isConnected: true,
       status: 'draft',
       isSynced: false,
-      isCloudinaryUploaderOpen: false,
-      snackbarOpen: false,
-      SnackbarMessage: ''
+      isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
     this.addResource = this.addResource.bind(this);
@@ -83,7 +80,7 @@ class Editor extends React.Component {
     if (data.hasOwnProperty('id')) {
       this.setState({
         id: data.id,
-        userId: data.userId,
+        userId: data.user_id,
         postType: data.postType || getPostType(this.state.userRole),
         fields: data.sections || [],
         value: data.title || '',
@@ -93,7 +90,6 @@ class Editor extends React.Component {
         meta: data.meta,
         isSynced: true
       });
-      this.props.handlePublicar(this.enablePublish());
     } else {
       console.log('Should never be here');
       this.setState({
@@ -502,7 +498,7 @@ class Editor extends React.Component {
     return !/\<(?=(a[\s\>]))[\w\d]+[^\>]*\>/.test(caption);
   }
 
-  saveData() {
+  saveData = () => {
     if (!this.isValid()) {
       return;
     }
@@ -551,10 +547,9 @@ class Editor extends React.Component {
         data: data,
         then() {
           _this.setState({
-            isSynced: true,
-            snackbarOpen: true,
-            SnackbarMessage: UPDATED_MESSAGE
+            isSynced: true
           });
+          _this.props.handleStatus(UPDATED_MESSAGE);
         }
       });
     } catch (e) {
@@ -562,7 +557,7 @@ class Editor extends React.Component {
       let errorMessage = e.message.substring(0, 100);
       this.setMessage(true, errorMessage);
     }
-  }
+  };
 
   setMessage(isError = false, message) {
     this.setState({
@@ -957,16 +952,6 @@ class Editor extends React.Component {
       );
     }
 
-    let successField = (
-      <MuiThemeProvider>
-        <Snackbar
-          open={this.state.snackbarOpen}
-          message={this.state.SnackbarMessage}
-          autoHideDuration={5000}
-          onRequestClose={this.handleRequestClose}
-        />
-      </MuiThemeProvider>
-    );
     let metadata = (
       <Metadata
         meta={this.state.meta}
@@ -1012,7 +997,6 @@ class Editor extends React.Component {
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
         />
         {errorField}
-        {successField}
         <div className="form-group">
           <PostTitle
             data={this.state.fields[0]}
