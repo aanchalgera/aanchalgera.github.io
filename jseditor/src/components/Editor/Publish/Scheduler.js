@@ -39,7 +39,7 @@ const HINT =
 const timeStamp = moment().format('X');
 const currentMonth = moment().format('MMMM');
 
-export default class Scheduler extends React.PureComponent {
+export default class Scheduler extends React.Component {
   state = {
     scheduledPosts: {}
   };

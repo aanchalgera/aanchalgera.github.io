@@ -5,8 +5,8 @@ import { TextField, Divider } from 'material-ui';
 const TWITTER_CHAR_LIMIT = 116;
 
 type Props = {
-  twitter: PropTypes.string.isRequired,
-  updateSocialTwitterText: PropTypes.func.isRequired
+  twitter: string,
+  updateSocialTwitterText: (data: Object) => void
 };
 
 const floatingLabelText = length => {
@@ -27,7 +27,7 @@ export const Twitter = (props: Props) => (
       fullWidth={true}
       value={props.twitter}
       maxLength={TWITTER_CHAR_LIMIT}
-      onChange={props.updateSocialTwitterText.bind(this)}
+      onChange={props.updateSocialTwitterText}
       floatingLabelText={floatingLabelText(props.twitter.length)}
     />
     <Divider />
