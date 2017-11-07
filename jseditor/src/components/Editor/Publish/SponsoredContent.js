@@ -45,8 +45,6 @@ export class SponsoredContent extends PureComponent {
           <Col sm={12}>
             <Label label="Contenido Patrocinado" />
           </Col>
-        </Row>
-        <Row>
           <Col sm>
             <TextField
               value={this.props.sponsor.name}

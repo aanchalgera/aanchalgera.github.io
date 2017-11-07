@@ -16,7 +16,7 @@ const isViewPermitted = (
   const componentViewPermissions = viewPermissions[component];
 
   if (componentViewPermissions['types'].includes(postType)) {
-    if ('ROLE_ADMINISTRATOR' === userRole) {
+    if ('ROLE_ADMINISTRATOR' === userRole && component !== 'PublicationLabel') {
       return true;
     }
 

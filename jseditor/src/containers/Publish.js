@@ -314,20 +314,18 @@ class Publish extends React.Component {
             </Col>
           </Row>
         </Check>
-        <Row>
+        <Row className="bottom-xs">
           <Check
             userRole={this.props.userRole}
             postType={this.state.postType}
             childName="PublicationLabel"
           >
-            <Row>
-              <Col sm={12}>
-                <Label
-                  label="Detalles de publicación "
-                  hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
-                />
-              </Col>
-            </Row>
+            <Col sm={12}>
+              <Label
+                label="Detalles de publicación "
+                hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
+              />
+            </Col>
           </Check>
           <Check
             userRole={this.props.userRole}
