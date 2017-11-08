@@ -35,7 +35,10 @@ class MoveControls extends React.Component {
       />
     );
     return (
-      <div className="move-controls btn-group-vertical visible">
+      <div
+        className="move-controls btn-group-vertical visible"
+        style={{ position: 'absolute' }}
+      >
         {this.props.dataId > 1 ? moveUp : ''}
         {this.props.dataId < this.props.totalElements - 1
           ? moveResourceDown
