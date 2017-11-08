@@ -2,21 +2,14 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import ContentList from 'components/Editor/ContentList';
 import PostTitle from 'components/Editor/PostTitle';
 import CloudinaryUploader from 'components/Editor/CloudinaryUploader';
 import Metadata from 'components/Editor/Metadata/Metadata';
-import helpers from 'utils/generatehash';
 import configParams from 'config/configs.js';
 import { initialMeta, getPostType } from './lib/helpers';
-import {
-  mapPostType,
-  getUserDetails,
-  getBlogUrl,
-  getPost
-} from './lib/service';
+import { mapPostType, getPost } from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';

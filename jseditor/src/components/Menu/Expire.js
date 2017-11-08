@@ -1,16 +1,22 @@
+/*@flow*/
 import { PureComponent } from 'react';
 
+type Props = {
+  autoHideDuration: number,
+  open: boolean,
+  children: any
+};
+
+type State = {
+  open: boolean
+};
+
 class Expire extends PureComponent {
-  /*  static propTypes = {
-    autoHideDuration: PropTypes.number,
-    message: PropTypes.node.isRequired,
-    onRequestClose: PropTypes.func,
-    open: PropTypes.bool.isRequired,
-  };
-*/
-  state = {
+  state: State = {
     open: false
   };
+  props: Props;
+  timerAutoHideId: number;
 
   componentWillMount() {
     this.setState({
@@ -24,14 +30,14 @@ class Expire extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const open = nextProps.open;
     this.setState({
-      open: open !== null ? open : this.state.open
+      open: open
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevState.open !== this.state.open) {
       if (this.state.open) {
         this.setAutoHideTimer();
@@ -52,11 +58,7 @@ class Expire extends PureComponent {
     if (autoHideDuration > 0) {
       clearTimeout(this.timerAutoHideId);
       this.timerAutoHideId = setTimeout(() => {
-        if (this.props.open !== null && this.props.onRequestClose) {
-          this.props.onRequestClose('timeout');
-        } else {
-          this.setState({ open: false });
-        }
+        this.setState({ open: false });
       }, autoHideDuration);
     }
   }

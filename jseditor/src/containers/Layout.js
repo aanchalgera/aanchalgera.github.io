@@ -106,7 +106,6 @@ export default class Layout extends React.Component {
         activeTab={matches[1]}
         queryPath={search}
         showDifundir={this.state.showDifundir}
-        showPublicar={this.state.showPublicar}
         history={this.props.history}
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
