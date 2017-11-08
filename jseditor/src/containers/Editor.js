@@ -19,9 +19,6 @@ import {
 } from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
-const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
-const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
-const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
@@ -422,12 +419,6 @@ class Editor extends React.Component {
 
   handleBlur(ev) {
     let title = ev.currentTarget.value.trim();
-    if (undefined == title || '' == title || 5 >= title.length) {
-      this.setMessage(true, TITLE_MINLENGTH_WARNING);
-      return;
-    } else {
-      this.setMessage(false);
-    }
 
     if (this.state.fields.length < 2) {
       this.addResource({ type: 'content', currentIndex: 1 });
@@ -442,25 +433,6 @@ class Editor extends React.Component {
   }
 
   isValid() {
-    if (
-      undefined == this.state.value ||
-      '' == this.state.value.trim() ||
-      5 >= this.state.value.length
-    ) {
-      this.setMessage(true, TITLE_MINLENGTH_WARNING);
-      return false;
-    }
-
-    if (130 <= this.state.value.length) {
-      this.setMessage(true, TITLE_MAXLENGTH_WARNING);
-      return false;
-    }
-
-    if (this.state.fields.length < 2) {
-      this.setMessage(true, CONTENT_EMPTY_WARNING);
-      return false;
-    }
-
     if (!this.isValidFieldCaptions(this.state.fields)) {
       this.setMessage(true, CAPTION_WARNING);
       return false;

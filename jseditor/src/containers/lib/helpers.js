@@ -16,7 +16,7 @@ const TAG_FIELD_EMPTY = 'No ha asignado ninguna etiqueta al artículo';
 const INVALID_DATE = 'FECHA INVALIDA';
 const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
 const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
-const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
+const CONTENT_EMPTY_WARNING = 'Add some content to publish the post';
 
 export const getPostType = (userRole: string) => {
   let postType = 'longform';
@@ -88,19 +88,35 @@ const currentStatus = (status, publishedDate) => {
   }
 };
 
-export const validateState = state => {
+const validateTitle = (title: string) => {
   let isError = false,
     message;
-
-  const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
-
-  if (
-    undefined == state.value ||
-    '' == state.value.trim() ||
-    5 >= state.value.length
-  ) {
+  if ('' === title.trim() || 5 >= title.length) {
     isError = true;
     message = TITLE_MINLENGTH_WARNING;
+  } else if (130 <= title.length) {
+    isError = true;
+    message = TITLE_MAXLENGTH_WARNING;
+  }
+  return { isError, message };
+};
+
+const validateContent = fields => {
+  let isError = false,
+    message;
+  if (fields.length < 2) {
+    isError = true;
+    message = CONTENT_EMPTY_WARNING;
+  }
+  return { isError, message };
+};
+
+export const validateState = state => {
+  const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
+
+  let { isError, message } = validateTitle(state.title);
+  if (!isError) {
+    ({ isError, message } = validateContent(state.fields));
   }
   if (null === state.category) {
     isError = true;
