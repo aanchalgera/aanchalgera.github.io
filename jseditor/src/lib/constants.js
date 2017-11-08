@@ -27,7 +27,7 @@ export const viewPermissions = {
     types: ALL_TYPES
   },
   OtherCategories: {
-    roles: ['ROLE_EDITOR', 'ROLE_COORDINATOR'],
+    roles: ALL_COORDINATORS,
     types: ['normal', 'slideshow', 'basics', 'longform']
   },
   PostScheduler: {
