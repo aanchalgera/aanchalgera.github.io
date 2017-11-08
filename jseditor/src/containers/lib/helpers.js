@@ -14,6 +14,9 @@ const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
 const TAG_FIELD_EMPTY = 'No ha asignado ninguna etiqueta al artículo';
 const INVALID_DATE = 'FECHA INVALIDA';
+const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
+const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
+const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 
 export const getPostType = (userRole: string) => {
   let postType = 'longform';
@@ -91,6 +94,14 @@ export const validateState = state => {
 
   const imageRegex = /^https?:\/\/.*\.(?:png|jpg|gif|png|jpeg)$/i;
 
+  if (
+    undefined == state.value ||
+    '' == state.value.trim() ||
+    5 >= state.value.length
+  ) {
+    isError = true;
+    message = TITLE_MINLENGTH_WARNING;
+  }
   if (null === state.category) {
     isError = true;
     message = CATEGORY_FIELD_EMPTY;
