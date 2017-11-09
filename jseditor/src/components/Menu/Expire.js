@@ -15,8 +15,6 @@ class Expire extends PureComponent {
   state: State = {
     open: false
   };
-  props: Props;
-  timerAutoHideId: number;
 
   componentWillMount() {
     this.setState({
@@ -50,6 +48,8 @@ class Expire extends PureComponent {
   componentWillUnmount() {
     clearTimeout(this.timerAutoHideId);
   }
+  props: Props;
+  timerAutoHideId: number;
 
   // Timer that controls delay before snackbar auto hides
   setAutoHideTimer() {
