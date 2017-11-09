@@ -8,7 +8,7 @@
  },
  "rules": {
    "react/prefer-stateless-function": 2,
-   "react/sort-comp": 2,
+#   "react/sort-comp": 2,
    "react/no-unused-state":2
  }
 }
