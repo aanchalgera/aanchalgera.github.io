@@ -8,7 +8,7 @@ import ImageAltTextPopover from '../components/Editor/Escribir/ImageAltTextPopov
 
 storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
   <ImageAltTextPopover
-    openDialog={true}
+    open={true}
     imageSrc="https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg"
   />
 ));
