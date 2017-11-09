@@ -14,23 +14,31 @@ type Props = {
   imageSrc: string,
   openDialog: boolean,
   goBack: () => void,
-  handleCloseDialog: () => void,
   handleSubmit: (data: string) => void
 };
 
 export default class ImageAltTextPopover extends PureComponent {
   state = {
+    open: false,
     altText: ''
   };
+
+  componentWillMount() {
+    this.setState({ open: this.props.openDialog });
+  }
 
   onTextChange = (value: string) => {
     this.setState({ altText: value });
   };
 
+  handleCloseDialog = () => {
+    this.setState({ open: false });
+  };
+
   getTitle = () => {
     return [
-      <span key="title">Insertar imagen en el articulo</span>,
-      <IconButton key="close" onClick={this.props.handleCloseDialog}>
+      <span key="title">Insertar imagen en el artículo</span>,
+      <IconButton key="close" onClick={this.handleCloseDialog}>
         <Close color="black" />
       </IconButton>
     ];
@@ -53,14 +61,14 @@ export default class ImageAltTextPopover extends PureComponent {
   };
 
   render() {
-    const { imageSrc, openDialog } = this.props;
+    const { imageSrc } = this.props;
 
     return (
       <Dialog
         title={this.getTitle()}
         actions={this.getDialogActions()}
         modal={true}
-        open={openDialog}
+        open={this.state.open}
       >
         <Row>
           <Col sm={5}>
@@ -68,7 +76,7 @@ export default class ImageAltTextPopover extends PureComponent {
           </Col>
           <Col sm={7}>
             <TextField
-              hintText="Descripcion de lo que aparece en la imagen"
+              hintText="Descripción de lo que aparece en la imagen"
               floatingLabelText="Texto alternativo"
               floatingLabelFixed={true}
               onChange={this.onTextChange}
