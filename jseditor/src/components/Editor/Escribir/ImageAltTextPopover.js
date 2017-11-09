@@ -82,7 +82,7 @@ export default class ImageAltTextPopover extends PureComponent {
               </IconButton>
             </Col>
             <Col sm={5}>
-              <img src={imageSrc} style={{ width: '100%' }} alt="" />
+              <img src={imageSrc} alt="" />
             </Col>
             <Col sm={7}>
               <TextField
