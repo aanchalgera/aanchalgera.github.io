@@ -4,15 +4,15 @@ import { currentHour, isFuture, isValidDate } from './momentHelper';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
-const TWITTER_FIELD_EMPTY = 'Twitter text field cannot be empty';
-const FACEBOOK_FIELD_EMPTY = 'Facebook text field cannot be empty';
+const TWITTER_FIELD_EMPTY = 'El texto de Twitter es obligatorio';
+const FACEBOOK_FIELD_EMPTY = 'El texto de Facebook es obligatorio';
 const FACEBOOK_TEXT_SAME_POST_TITLE =
-  'Facebook text cannot be same as post title';
-const CATEGORY_FIELD_EMPTY = 'Category cannot be empty';
+  'El título para compartir el post en Facebook no puede ser igual que el título original del post';
+const CATEGORY_FIELD_EMPTY = 'Por favor, elige al menos una categoría';
 const WRONG_LOGO_IMAGE_ADDRESS = 'incorrecto dirección del logotipo';
 const EMPTY_COUNTRY_ARRAY = 'Por favor seleccione un país';
 const SPONSOR_NAME_EMPTY = 'nombre del cliente no puede estar vacío';
-const TAG_FIELD_EMPTY = 'El campo de etiqueta no puede estar vacío';
+const TAG_FIELD_EMPTY = 'No ha asignado ninguna etiqueta al artículo';
 const INVALID_DATE = 'FECHA INVALIDA';
 
 export const getPostType = (userRole: string) => {
