@@ -116,7 +116,12 @@ export default class RepostSiteOptions extends React.Component {
         <Row>
           <Col sm>
             <RaisedButton
-              disabled={this.props.repostBlogs.length === 0}
+              disabled={
+                !this.initalRepostedBlogs ||
+                this.props.repostBlogs.length -
+                  this.initalRepostedBlogs.length ===
+                  0
+              }
               label="Enviar Crosspost"
               onClick={this.submitRepostedBlogs}
               secondary={true}
