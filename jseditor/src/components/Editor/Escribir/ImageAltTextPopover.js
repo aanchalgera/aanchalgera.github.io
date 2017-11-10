@@ -22,7 +22,7 @@ export default class ImageAltTextPopover extends PureComponent {
     this.setState({ open: this.props.open });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     this.setState({ open: nextProps.open });
   }
 
@@ -71,7 +71,7 @@ export default class ImageAltTextPopover extends PureComponent {
       >
         <Row>
           <Col sm={11} className="start-sm">
-            <h3>Insertar imagen en el artículo</h3>
+            <h3 className="type-title-dark">Insertar imagen en el artículo</h3>
           </Col>
           <Col sm={1} className="end-sm">
             <IconButton onClick={this.handleCloseDialog}>
