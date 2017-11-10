@@ -82,7 +82,7 @@ export default class ImageAltTextPopover extends PureComponent {
         <Row>
           <Col sm={5}>
             <div className="img-container">
-              <img src={imageSrc} alt="" />
+              <img src={imageSrc} />
             </div>
           </Col>
           <Col sm={7}>
