@@ -30,7 +30,6 @@ import {
   validateState,
   findByName
 } from './lib/helpers.js';
-import { isFuture, isValidDate } from './lib/momentHelper';
 import { Check } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
@@ -79,6 +78,7 @@ class Publish extends React.Component {
           postId: result.id,
           postHash: result.post_hash,
           status: 'publish',
+          currentStatus: 'future',
           publishedDate: date,
           message: '',
           snackbarOpen: true,
@@ -217,6 +217,7 @@ class Publish extends React.Component {
       this.setState(
         {
           status: 'draft',
+          currentStatus: 'draft',
           snackbarOpen: true,
           SnackbarMessage: DRAFT_MESSAGE
         },
@@ -258,11 +259,7 @@ class Publish extends React.Component {
 
   render() {
     let showCalendar = true;
-    if (
-      this.state.status === 'publish' &&
-      isValidDate(this.state.publishedDate) &&
-      !isFuture(this.state.publishedDate)
-    ) {
+    if (this.state.currentStatus === 'publish') {
       showCalendar = false;
     }
     return (
