@@ -1,15 +1,17 @@
 //@flow
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Dialog, RaisedButton, IconButton } from 'material-ui';
-import Close from 'material-ui/svg-icons/navigation/close';
+import { Dialog, RaisedButton } from 'material-ui';
 import FileUpload from 'material-ui/svg-icons/file/file-upload';
+
+import { InputEvent } from 'lib/flowTypes';
+import { CloseButton, Thumbnail, Label } from '.';
 
 type Props = {
   open: boolean,
   images: Array<string>,
   handleSelection: (data: string) => void,
-  openCloudinaryUploader: () => void
+  openImageUploader: () => void
 };
 
 export default class ImagePanel extends PureComponent {
@@ -35,10 +37,11 @@ export default class ImagePanel extends PureComponent {
 
   uploadMoreImages = () => {
     this.handleCloseDialog();
-    this.props.openCloudinaryUploader();
+    this.props.openImageUploader();
   };
 
-  onSelection = (imageSrc: string) => {
+  onSelection = (e: InputEvent) => {
+    const imageSrc = e.currentTarget.dataset.src;
     this.props.handleSelection(imageSrc);
     this.handleCloseDialog();
   };
@@ -64,26 +67,18 @@ export default class ImagePanel extends PureComponent {
       >
         <Row>
           <Col sm={11} className="start-sm">
-            <h3 className="type-title-dark">
-              Elige la imagen que quieres insertar
-            </h3>
+            <Label label="Elige la imagen que quieres insertar" />
           </Col>
           <Col sm={1} className="end-sm">
-            <IconButton onClick={this.handleCloseDialog}>
-              <Close className="btn-close" color="black" />
-            </IconButton>
+            <CloseButton handleClose={this.handleCloseDialog} />
           </Col>
         </Row>
         <Row>
           {this.props.images.map((imageSrc: string, index: number) => {
             return (
               <Col key={index} sm={2}>
-                <div className="img-container">
-                  <img
-                    src={imageSrc}
-                    style={{ width: '100%' }}
-                    onClick={() => this.onSelection(imageSrc)}
-                  />
+                <div className="panel-img-container">
+                  <Thumbnail src={imageSrc} handleClick={this.onSelection} />
                 </div>
               </Col>
             );
