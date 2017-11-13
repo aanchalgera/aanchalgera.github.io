@@ -4,8 +4,9 @@ import { Row, Col } from 'react-flexbox-grid';
 
 import RepostSiteOptions from 'components/Editor/Difundir/RepostSiteOptions';
 import { SchedulePost } from 'components/Editor/Publish/SchedulePost';
-import { Label } from '../components/Editor/Publish';
+import { Label } from 'components/Editor/Publish';
 import { currentHour, isFuture } from './lib/momentHelper';
+import { validateDate } from './lib/helpers';
 import {
   getPost,
   updatePost,
@@ -132,6 +133,7 @@ class Difundir extends React.Component {
   };
 
   render() {
+    const isValid = validateDate(this.state.publishedDate, 'future');
     return (
       <div className="grid-wrapper grid-l">
         <Snackbar
@@ -163,6 +165,7 @@ class Difundir extends React.Component {
                 onClick={this.onRepublishSchedule}
                 secondary={true}
                 className="btn-align"
+                disabled={!isValid}
               />
             </Col>
             <Col sm={2} />
@@ -171,6 +174,7 @@ class Difundir extends React.Component {
                 label="PASAR POR PORTADA AHORA MISMO!"
                 primary={true}
                 onClick={this.onRepublishNow}
+                disabled={!isValid}
               />
             </Col>
           </Row>
