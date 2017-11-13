@@ -45,7 +45,7 @@
     "eject": "react-scripts eject",
     "flow": "flow",
     "precommit": "lint-staged",
-    "storybook": "start-storybook -p 9009 -s public",
+    "storybook": "NODE_PATH=./src start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {

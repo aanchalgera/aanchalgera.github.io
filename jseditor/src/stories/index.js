@@ -1,18 +1,11 @@
 import React from 'react';
 
-import { storiesOf, addDecorator } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import { MuiThemeProvider } from 'material-ui/styles';
-import { customTheme } from '../containers/styles/customTheme';
 
 import ImageAltTextPopover from '../components/Editor/Escribir/ImageAltTextPopover';
 import ImagePanel from '../components/Editor/Escribir/ImagePanel';
-
-const muiDecorator = storyFn => (
-  <MuiThemeProvider muiTheme={customTheme}>{storyFn()}</MuiThemeProvider>
-);
-addDecorator(muiDecorator);
 
 storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
   <ImageAltTextPopover
