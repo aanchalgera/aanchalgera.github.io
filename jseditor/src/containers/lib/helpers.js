@@ -27,7 +27,7 @@ export const getPostType = (userRole: string) => {
   return postType;
 };
 
-export const validateDate = (date: string) => {
+export const validateDate = (date: string, currentStatus: string) => {
   if (null === date) {
     return false;
   }
@@ -35,7 +35,7 @@ export const validateDate = (date: string) => {
   if (!isValidDate(date)) {
     return false;
   }
-  if (!isFuture(date)) {
+  if (currentStatus !== 'publish' && !isFuture(date)) {
     return false;
   }
   return true;
@@ -70,8 +70,19 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     postCategories: data.postCategories || [],
     crop: data.crop || initialCrop,
     ampVisibility: data.ampVisibility || false,
-    iaVisibility: data.iaVisibility || false
+    iaVisibility: data.iaVisibility || false,
+    currentStatus: currentStatus(data.status, data.publishData.postDate)
   };
+};
+
+const currentStatus = (status, publishedDate) => {
+  if (status === 'draft') {
+    return status;
+  } else if (isFuture(publishedDate)) {
+    return 'future';
+  } else {
+    return 'publish';
+  }
 };
 
 export const validateState = state => {
@@ -117,7 +128,7 @@ export const validateState = state => {
     }
   }
 
-  if (!validateDate(state.publishedDate)) {
+  if (!validateDate(state.publishedDate, state.currentStatus)) {
     isError = true;
     message = INVALID_DATE;
   }
