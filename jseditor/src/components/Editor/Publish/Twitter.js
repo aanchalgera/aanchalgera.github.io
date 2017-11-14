@@ -2,7 +2,7 @@
 import React from 'react';
 import { TextField, Divider } from 'material-ui';
 
-const TWITTER_CHAR_LIMIT = 116;
+const TWITTER_CHAR_LIMIT = 256;
 
 type Props = {
   twitter: string,
