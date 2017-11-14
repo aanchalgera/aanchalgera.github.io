@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import ImageAltTextPopover from '../components/Editor/Escribir/ImageAltTextPopover';
 import Title from '../components/Editor/Escribir/Title';
@@ -16,13 +15,7 @@ storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
 ));
 
 storiesOf('Title', module)
-  .add('default', () => (
-    <MuiThemeProvider>
-      <Title title="" />
-    </MuiThemeProvider>
-  ))
+  .add('default', () => <Title title="" />)
   .add('with data', () => (
-    <MuiThemeProvider>
-      <Title title="Samsung Galaxy S8+, analysis: el major telefono del mercado es imperfecto, pero irresistible" />
-    </MuiThemeProvider>
+    <Title title="Samsung Galaxy S8+, analysis: el major telefono del mercado es imperfecto, pero irresistible" />
   ));

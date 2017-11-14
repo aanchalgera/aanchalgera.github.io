@@ -4,8 +4,7 @@ import TextField from 'material-ui/TextField';
 import { InputEvent } from '../../../lib/flowTypes';
 
 type Props = {
-  title: string,
-  updateParent: (data: Object) => void
+  title: string
 };
 
 const styles = {
@@ -25,9 +24,7 @@ const styles = {
 export default class Title extends Component {
   props: Props;
 
-  handleChange = (e: InputEvent, newValue: string) => {
-    this.props.updateParent({ title: newValue });
-  };
+  handleChange = (e: InputEvent, newValue: string) => {};
 
   render() {
     return (
