@@ -77,9 +77,7 @@ export default class ImagePanel extends PureComponent {
           {this.props.images.map((imageSrc: string, index: number) => {
             return (
               <Col key={index} sm={2}>
-                <div className="panel-img-container">
-                  <Thumbnail src={imageSrc} handleClick={this.onSelection} />
-                </div>
+                <Thumbnail src={imageSrc} handleClick={this.onSelection} />
               </Col>
             );
           })}

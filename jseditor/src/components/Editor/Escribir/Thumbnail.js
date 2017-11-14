@@ -13,6 +13,10 @@ export class Thumbnail extends PureComponent {
   render() {
     const { src, handleClick } = this.props;
 
-    return <img src={src} data-src={src} alt="" onClick={handleClick} />;
+    return (
+      <div className="panel-img-container">
+        <img src={src} data-src={src} alt="" onClick={handleClick} />
+      </div>
+    );
   }
 }
