@@ -71,7 +71,7 @@ export class SchedulePost extends React.PureComponent {
         disabled={!this.props.showCalendar}
         key="1"
       />,
-      this.props.showCalendar || this.state.focussed ? (
+      this.props.showCalendar ? (
         <RaisedButton
           label={this.state.schedulerOpened ? 'CERRAR' : 'ELEGIR HUECO'}
           icon={<Apps />}
