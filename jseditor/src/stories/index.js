@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 
 import ImageAltTextPopover from '../components/Editor/Escribir/ImageAltTextPopover';
+import Title from '../components/Editor/Escribir/Title';
 import ImagePanel from '../components/Editor/Escribir/ImagePanel';
 
 storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
@@ -13,6 +12,12 @@ storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
     imageSrc="https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg"
   />
 ));
+
+storiesOf('Title', module)
+  .add('default', () => <Title title="" />)
+  .add('with data', () => (
+    <Title title="Samsung Galaxy S8+, analysis: el major telefono del mercado es imperfecto, pero irresistible" />
+  ));
 
 storiesOf('ImagePanel', module).add('ImagePanel', () => (
   <ImagePanel
@@ -24,3 +29,4 @@ storiesOf('ImagePanel', module).add('ImagePanel', () => (
     ]}
   />
 ));
+
