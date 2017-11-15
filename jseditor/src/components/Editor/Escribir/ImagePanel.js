@@ -74,10 +74,10 @@ export default class ImagePanel extends PureComponent {
           </Col>
         </Row>
         <Row>
-          {this.props.images.map((imageSrc: string, index: number) => {
+          {this.props.images.map((image, index: number) => {
             return (
               <Col key={index} sm={1}>
-                <Thumbnail src={imageSrc} handleClick={this.onSelection} />
+                <Thumbnail image={image} handleClick={this.onSelection} />
               </Col>
             );
           })}

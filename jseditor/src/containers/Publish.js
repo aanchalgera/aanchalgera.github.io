@@ -1,6 +1,7 @@
 import React from 'react';
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
+import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
 
 import {
   AdvancedOptions,
@@ -264,6 +265,7 @@ class Publish extends React.Component {
     }
     return (
       <div className="grid-wrapper grid-l">
+        process.env.REACT_APP_ENV === 'development' ? <ImageUploader /> : '';
         <span style={{ color: 'red' }}>{this.state.message}</span>
         <Snackbar
           open={this.state.snackbarOpen}
