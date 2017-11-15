@@ -62,8 +62,8 @@ export default class ImagePanel extends PureComponent {
         actions={this.getDialogActions()}
         modal={true}
         open={this.state.open}
-        contentClassName="modal-content"
         actionsContainerClassName="modal-actions"
+        contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
         <Row>
           <Col sm={11} className="start-sm">
@@ -76,7 +76,7 @@ export default class ImagePanel extends PureComponent {
         <Row>
           {this.props.images.map((imageSrc: string, index: number) => {
             return (
-              <Col key={index} sm={2}>
+              <Col key={index} sm={1}>
                 <Thumbnail src={imageSrc} handleClick={this.onSelection} />
               </Col>
             );

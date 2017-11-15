@@ -39,7 +39,7 @@ export default class ImageAltTextPopover extends PureComponent {
 
   getDialogActions = () => {
     return (
-      <div className="modal-footer">
+      <div className="modal-actions">
         <Row>
           <Col sm={6} className="start-sm">
             <RaisedButton
@@ -69,8 +69,7 @@ export default class ImageAltTextPopover extends PureComponent {
         actions={this.getDialogActions()}
         modal={true}
         open={this.state.open}
-        contentClassName="modal-content"
-        actionsContainerClassName="modal-actions"
+        contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
         <Row>
           <Col sm={11} className="start-sm">
@@ -81,18 +80,18 @@ export default class ImageAltTextPopover extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col sm={5}>
+          <Col sm={4}>
             <div className="img-container">
               <img src={imageSrc} alt="" />
             </div>
           </Col>
-          <Col sm={7}>
+          <Col sm={8}>
             <TextField
-              className="text-container"
               hintText="Descripción de lo que aparece en la imagen"
               floatingLabelText="Texto alternativo"
               floatingLabelFixed={true}
               onChange={this.onTextChange}
+              style={{ width: '95%', paddingLeft: '24px' }}
             />
           </Col>
         </Row>
