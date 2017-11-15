@@ -2,31 +2,25 @@
 import React from 'react';
 import jquery from 'jquery';
 import moment from 'moment-timezone';
-import TopNavigation from './TopNavigation';
-import ContentList from './ContentList';
-import PostTitle from './PostTitle';
-import CloudinaryUploader from './CloudinaryUploader';
-import Metadata from './Metadata/Metadata';
-import helpers from '../../utils/generatehash';
-import configParams from '../../config/configs.js';
-import { initialMeta, getPostType } from '../../containers/lib/helpers';
-import {
-  mapPostType,
-  getUserDetails,
-  getBlogUrl
-} from '../../containers/lib/service';
+
+import ContentList from 'components/Editor/ContentList';
+import PostTitle from 'components/Editor/PostTitle';
+import CloudinaryUploader from 'components/Editor/CloudinaryUploader';
+import Metadata from 'components/Editor/Metadata/Metadata';
+import configParams from 'config/configs.js';
+import { initialMeta, getPostType } from './lib/helpers';
+import { mapPostType, getPost } from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
-const TITLE_MINLENGTH_WARNING = 'The title should be more than 5 characters';
-const TITLE_MAXLENGTH_WARNING = 'The title can be 130 characters long';
-const CONTENT_EMPTY_WARNING = 'Add some content to save the post';
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
 const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
+const UPDATED_MESSAGE = 'Todo guardado';
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
+    this.props.onRef(this);
     this.state = {
       maxId: 0,
       value: '',
@@ -64,12 +58,6 @@ class Editor extends React.Component {
     };
     this.addImages = this.addImages.bind(this);
     this.addResource = this.addResource.bind(this);
-    this.updateSocialFacebookText = this.updateSocialFacebookText.bind(this);
-    this.updateSocialTwitterText = this.updateSocialTwitterText.bind(this);
-    this.toggleSocialShareVisibility = this.toggleSocialShareVisibility.bind(
-      this
-    );
-    this.toggleDateVisibility = this.toggleDateVisibility.bind(this);
     this.toggleFooter = this.toggleFooter.bind(this);
     this.toggleSummarySocialShareButtons = this.toggleSummarySocialShareButtons.bind(
       this
@@ -77,81 +65,27 @@ class Editor extends React.Component {
   }
 
   async init() {
-    const {
-      match: { params: { postname } },
-      location: { search },
-      history
-    } = this.props;
-
-    const query = new URLSearchParams(search);
-
-    this.blogName = query.get('blog');
-
-    if (this.blogName == undefined) {
-      history.replace('/invalidBlog');
+    const postname = this.props.match.params.postname;
+    const data = await getPost(postname, this.props.base);
+    if (data.hasOwnProperty('id')) {
+      this.setState({
+        id: data.id,
+        userId: data.user_id,
+        postType: data.postType || getPostType(this.state.userRole),
+        fields: data.sections || [],
+        value: data.title || '',
+        maxId: data.maxId || 0,
+        status: data.status || this.state.status,
+        publishData: data.publishData || this.state.regions,
+        meta: data.meta,
+        isSynced: true
+      });
     } else {
-      try {
-        const siteUrl = await getBlogUrl(this.blogName, this.props.base);
-        const user = await getUserDetails(siteUrl);
-        (this.userId = user.id),
-          this.setState({
-            blogName: this.blogName,
-            blogUrl: siteUrl,
-            userRole: user.role
-          });
-      } catch (error) {
-        console.log(error.message);
-        if (error.message === 'NOT_LOGGED_IN') {
-          history.push('/invalidUser');
-        } else {
-          history.push('/invalidBlog');
-        }
-      }
-    }
-    if (undefined != postname) {
-      try {
-        this.props.base.fetch('posts/' + postname, {
-          context: this,
-          then(data) {
-            if (data.hasOwnProperty('id')) {
-              this.setState({
-                id: data.id,
-                userId: data.user_id,
-                postId: data.publishData.postId || '',
-                postHash: data.publishData.postHash || '',
-                postType: data.postType || getPostType(this.state.userRole),
-                fields: data.sections || [],
-                value: data.title,
-                maxId: data.maxId,
-                status: data.status || this.state.status,
-                publishData: data.publishData || this.state.regions,
-                meta: data.meta,
-                isSynced: true
-              });
-            } else {
-              console.log('Should never be here');
-              this.setState({
-                id: postname,
-                meta: initialMeta
-              });
-            }
-          }
-        });
-      } catch (e) {
-        //      Rollbar.critical('Error occured while fetching post data from Firebase', e);
-      }
-    } else {
-      let hashId = helpers.generatePushID();
-      let postEditUrl = '/edit/post/' + hashId + '?blog=' + this.blogName;
-      this.setState(
-        {
-          id: hashId,
-          meta: initialMeta,
-          userId: this.userId,
-          postType: query.get('type') || getPostType(this.state.userRole)
-        },
-        history.push(postEditUrl)
-      );
+      console.log('Should never be here');
+      this.setState({
+        id: postname,
+        meta: initialMeta
+      });
     }
   }
 
@@ -478,12 +412,6 @@ class Editor extends React.Component {
 
   handleBlur(ev) {
     let title = ev.currentTarget.value.trim();
-    if (undefined == title || '' == title || 5 >= title.length) {
-      this.setMessage(true, TITLE_MINLENGTH_WARNING);
-      return;
-    } else {
-      this.setMessage(false);
-    }
 
     if (this.state.fields.length < 2) {
       this.addResource({ type: 'content', currentIndex: 1 });
@@ -498,25 +426,6 @@ class Editor extends React.Component {
   }
 
   isValid() {
-    if (
-      undefined == this.state.value ||
-      '' == this.state.value.trim() ||
-      5 >= this.state.value.length
-    ) {
-      this.setMessage(true, TITLE_MINLENGTH_WARNING);
-      return false;
-    }
-
-    if (130 <= this.state.value.length) {
-      this.setMessage(true, TITLE_MAXLENGTH_WARNING);
-      return false;
-    }
-
-    if (this.state.fields.length < 2) {
-      this.setMessage(true, CONTENT_EMPTY_WARNING);
-      return false;
-    }
-
     if (!this.isValidFieldCaptions(this.state.fields)) {
       this.setMessage(true, CAPTION_WARNING);
       return false;
@@ -554,11 +463,12 @@ class Editor extends React.Component {
     return !/\<(?=(a[\s\>]))[\w\d]+[^\>]*\>/.test(caption);
   }
 
-  saveData() {
+  saveData = () => {
     if (!this.isValid()) {
       return;
     }
 
+    this.blogName = this.props.blogName;
     let userStatus =
       this.blogName + '_' + this.state.userId + '_' + this.state.status;
     let data = {
@@ -601,17 +511,10 @@ class Editor extends React.Component {
       this.props.base.update('posts/' + this.state.id, {
         data: data,
         then() {
-          let successField = document.getElementById('successField');
-          if (null != successField) {
-            document.getElementById('successField').style.display = 'block';
-            setTimeout(
-              () =>
-                (document.getElementById('successField').style.display =
-                  'none'),
-              4000
-            );
-          }
-          _this.setState({ isSynced: true });
+          _this.setState({
+            isSynced: true
+          });
+          _this.props.handleStatus(UPDATED_MESSAGE);
         }
       });
     } catch (e) {
@@ -619,7 +522,7 @@ class Editor extends React.Component {
       let errorMessage = e.message.substring(0, 100);
       this.setMessage(true, errorMessage);
     }
-  }
+  };
 
   setMessage(isError = false, message) {
     this.setState({
@@ -781,10 +684,10 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  toggleOrderMode(event) {
+  toggleOrderMode = event => {
     event.preventDefault();
     this.setState({ orderMode: !this.state.orderMode });
-  }
+  };
 
   setAutoPlaySlider(event, value) {
     event.preventDefault();
@@ -802,11 +705,6 @@ class Editor extends React.Component {
 
   updateFooterCredits(event) {
     this.state.meta.footer.content = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateHomepageContent(value) {
-    this.state.meta.homepage.content = value;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -835,57 +733,13 @@ class Editor extends React.Component {
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  toggleAuthorInfo(event) {
-    let author = this.state.meta.author || {};
-    author.showAuthorInfo = event.target.checked;
-    this.state.meta.author = author;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  editAuthorInfo(id) {
-    this.setState({ userId: id }, this.saveData());
-  }
-
   deleteHomepageImage() {
     this.state.meta.homepage.image = null;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
-  updateSeoTitle(event) {
-    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
-    this.state.meta.seo.title = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateSeoDescription(event) {
-    this.state.meta.seo = this.state.meta.seo ? this.state.meta.seo : {};
-    this.state.meta.seo.description = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
   updateCssSkinName(event) {
     this.state.meta.css.skinName = event.target.value.trim();
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateSocialFacebookText(event) {
-    this.state.meta.social.facebook = event.target.value.trim();
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  updateSocialTwitterText(event) {
-    this.state.meta.social.twitter = event.target.value;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  toggleSocialShareVisibility() {
-    this.state.meta.showSocialShareButtons = !this.state.meta
-      .showSocialShareButtons;
-    this.setState({ meta: this.state.meta }, this.saveData());
-  }
-
-  toggleDateVisibility() {
-    this.state.meta.showDate = !this.state.meta.showDate;
     this.setState({ meta: this.state.meta }, this.saveData());
   }
 
@@ -917,7 +771,7 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateOnBackend(e) {
+  updateOnBackend = e => {
     e.preventDefault();
     if (!this.isValid()) {
       return;
@@ -964,7 +818,7 @@ class Editor extends React.Component {
       .done(() => {
         this.setMessage(true, 'Post Updated');
       });
-  }
+  };
 
   isEmptyfield(fields) {
     let isEmpty = true;
@@ -999,7 +853,8 @@ class Editor extends React.Component {
     });
     return isEmpty;
   }
-  enablePublish(e) {
+
+  enablePublish() {
     let isError = false;
     let message = '';
 
@@ -1013,13 +868,7 @@ class Editor extends React.Component {
 
     if (message != '') {
       isError = true;
-      e.preventDefault();
     }
-
-    this.setState({
-      isError: isError,
-      message: message
-    });
 
     return !isError;
   }
@@ -1052,6 +901,10 @@ class Editor extends React.Component {
     });
   }
 
+  handleRequestClose = () => {
+    this.setState({ snackbarOpen: false });
+  };
+
   render() {
     let errorField = '';
     if (this.state.isError) {
@@ -1064,27 +917,13 @@ class Editor extends React.Component {
       );
     }
 
-    let successField = (
-      <div
-        id="successField"
-        className="alert alert-info auto-saved"
-        style={{ display: 'none' }}
-      >
-        <span className="glyphicon glyphicon-floppy-save" aria-hidden="true" />
-        <strong> Post saved </strong>
-      </div>
-    );
-
     let metadata = (
       <Metadata
         meta={this.state.meta}
         userId={this.state.userId}
         blogUrl={this.state.blogUrl}
         updateIndexMetadata={this.updateIndexMetadata.bind(this)}
-        updateSeoTitle={this.updateSeoTitle.bind(this)}
-        updateSeoDescription={this.updateSeoDescription.bind(this)}
         updateFooterCredits={this.updateFooterCredits.bind(this)}
-        updateHomepageContent={this.updateHomepageContent.bind(this)}
         updateCssSkinName={this.updateCssSkinName.bind(this)}
         deleteHomepageImage={this.deleteHomepageImage.bind(this)}
         openResourcePanel={this.openResourcePanel.bind(this)}
@@ -1094,12 +933,6 @@ class Editor extends React.Component {
         toggleWSLLogo={this.toggleWSLLogo.bind(this)}
         toggleSocialSharing={this.toggleSocialSharing.bind(this)}
         deleteImage={this.deleteImage.bind(this)}
-        toggleAuthorInfo={this.toggleAuthorInfo.bind(this)}
-        editAuthorInfo={this.editAuthorInfo.bind(this)}
-        updateSocialFacebookText={this.updateSocialFacebookText}
-        updateSocialTwitterText={this.updateSocialTwitterText}
-        toggleSocialShareVisibility={this.toggleSocialShareVisibility}
-        toggleDateVisibility={this.toggleDateVisibility}
         toggleFooter={this.toggleFooter}
         userRole={this.state.userRole}
         postType={this.state.postType}
@@ -1123,22 +956,12 @@ class Editor extends React.Component {
     }
     return (
       <div className={this.state.orderMode ? 'bgbody' : ''}>
-        <TopNavigation
-          id={this.state.id}
-          blogName={this.state.blogName}
-          blogUrl={this.state.blogUrl}
-          status={this.state.status}
-          publishData={this.state.publishData}
-          isSynced={this.state.isSynced}
-          isConnected={this.state.isConnected}
-          updateOnBackend={this.updateOnBackend.bind(this)}
-          enablePublish={this.enablePublish.bind(this)}
-          toggleOrderMode={this.toggleOrderMode.bind(this)}
-          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
-          userRole={this.state.userRole}
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
         />
         {errorField}
-        {successField}
         <div className="form-group">
           <PostTitle
             data={this.state.fields[0]}

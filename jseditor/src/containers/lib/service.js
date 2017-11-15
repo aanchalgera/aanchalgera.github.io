@@ -3,6 +3,12 @@ import isoFetch from 'isomorphic-fetch';
 
 import { convertTo1DArray } from './helpers';
 
+export const saveInitialPost = (initialData, base) => {
+  base.post('posts/' + initialData.id, {
+    data: initialData
+  });
+};
+
 export const getBlogUrl = async (blogName, base) => {
   try {
     const data = await base.fetch('config', {

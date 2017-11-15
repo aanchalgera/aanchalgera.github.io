@@ -3,10 +3,12 @@ import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
+import Save from 'material-ui/svg-icons/content/save';
+import Shuffle from 'material-ui/svg-icons/av/shuffle';
+
+import Expire from './Expire';
 
 const styles = {
-  previewButton: {},
-  publishButton: {},
   title: {
     color: 'white',
     textTransform: 'capitalize'
@@ -16,14 +18,15 @@ const styles = {
   }
 };
 
+const ESCRIBIR = 'edit/post';
+
 export default class TitleBar extends React.Component {
   handleChange = route => {
     const { history, postName, queryPath } = this.props;
-    const url = 'escribir' === route ? 'edit/post' : route;
-    history.push(`/${url}/${postName}${queryPath}`);
+    history.push(`/${route}/${postName}${queryPath}`);
   };
 
-  render() {
+  getStatusElement() {
     let statusMsgElement = null;
 
     if (this.props.showPostStatusMsg) {
@@ -31,8 +34,19 @@ export default class TitleBar extends React.Component {
         <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
+    if (this.props.activeTab === ESCRIBIR) {
+      statusMsgElement = (
+        <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
+          {statusMsgElement}
+        </Expire>
+      );
+    }
+    return statusMsgElement;
+  }
 
+  render() {
     const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
+
     return (
       <Toolbar className="header">
         <div className="brand-logo">
@@ -45,7 +59,7 @@ export default class TitleBar extends React.Component {
               onChange={this.handleChange}
               style={styles.tabs}
             >
-              <Tab label="ESCRIBIR" value="escribir" />
+              <Tab label="ESCRIBIR" value="edit/post" />
               <Tab label="PUBLICAR" value="publicar" />
               {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
             </Tabs>
@@ -53,19 +67,24 @@ export default class TitleBar extends React.Component {
         </div>
         <div className="nav-icon">
           <ToolbarGroup>
-            {statusMsgElement}
-            <ul className="nav-list">
-              <li className="nav-list-item">
-                <IconButton
-                  target="_blank"
-                  href={blogUrl + '/preview-longform/' + postName}
-                  style={styles.previewButton}
-                  disabled={activeTab === 'difundir'}
-                >
-                  <Visibility />
-                </IconButton>
-              </li>
-            </ul>
+            {this.getStatusElement()}
+            {activeTab === ESCRIBIR && (
+              <IconButton onClick={this.props.saveData}>
+                <Save />
+              </IconButton>
+            )}{' '}
+            {activeTab === ESCRIBIR && (
+              <IconButton onClick={this.props.toggleOrderMode}>
+                <Shuffle />
+              </IconButton>
+            )}
+            <IconButton
+              target="_blank"
+              href={blogUrl + '/preview-longform/' + postName}
+              disabled={activeTab === 'difundir'}
+            >
+              <Visibility />
+            </IconButton>
           </ToolbarGroup>
         </div>
       </Toolbar>

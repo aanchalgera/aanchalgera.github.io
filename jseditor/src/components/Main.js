@@ -5,9 +5,8 @@ import firebase from 'firebase';
 import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './Menu/TopBar';
-import Editor from '../components/Editor/Editor';
-import Layout from '../containers/Layout';
-import Config from '../components/Config/Config';
+import Layout from 'containers/Layout';
+import Config from 'components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
@@ -24,7 +23,9 @@ class Main extends React.Component {
     const { match: { url }, location: { pathname } } = this.props;
     if (
       pathname.indexOf('/publicar/') > -1 ||
-      pathname.indexOf('/difundir/') > -1
+      pathname.indexOf('/difundir/') > -1 ||
+      pathname.indexOf('/edit/') > -1 ||
+      pathname.indexOf('/post/new') > -1
     ) {
       return <Layout {...this.props} base={base} />;
     }
@@ -54,14 +55,6 @@ class Main extends React.Component {
                 <Route
                   path={`${url}config/:configId`}
                   render={props => <Config {...props} base={base} />}
-                />
-                <Route
-                  path={`${url}edit/post/:postname`}
-                  render={props => <Editor {...props} base={base} />}
-                />
-                <Route
-                  path={`${url}post/new`}
-                  render={props => <Editor {...props} base={base} />}
                 />
                 <Route component={NotFoundPage} />
               </Switch>

@@ -36,7 +36,11 @@
   },
   "lint-staged": {
     "gitDir": "../",
-    "*.{js,jsx,json,css}": ["prettier --single-quote --write", "git add"]
+    "*.{js,jsx,css}": [
+      "prettier --single-quote --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "scripts": {
     "start": "NODE_PATH=./src react-scripts start",
@@ -51,6 +55,8 @@
   "devDependencies": {
     "@storybook/react": "^3.2.14",
     "@storybook/addon-actions": "^3.2.14",
-    "@storybook/addon-links": "^3.2.14"
+    "@storybook/addon-links": "^3.2.14",
+    "eslint": "^4.10.0",
+    "eslint-plugin-react": "^7.4.0"
   }
 }

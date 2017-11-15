@@ -4,10 +4,12 @@ import { Switch, Route } from 'react-router-dom';
 
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
-import { getBlogUrl, getUserDetails } from './lib/service';
+import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import Publicar from './Publish';
 import Difundir from './Difundir';
+import Editor from './Editor';
+import helpers from 'utils/generatehash';
 
 type Props = {
   match: { params: Object },
@@ -21,6 +23,7 @@ export default class Layout extends React.Component {
   state = {
     blogUrl: null,
     showDifundir: false,
+    showPublicar: false,
     showPostStatusMsg: false,
     statusMsg: ''
   };
@@ -30,23 +33,31 @@ export default class Layout extends React.Component {
   }
 
   init = async () => {
-    const {
-      match: { params: { postname } },
-      location: { search },
-      history
-    } = this.props;
+    const { location: { search }, history } = this.props;
     const query = new URLSearchParams(search);
     const blogName = query.get('blog');
-
+    const pathName = this.props.location.pathname;
     try {
       const blogUrl = await getBlogUrl(blogName, this.props.base);
       const userData = await getUserDetails(blogUrl);
-      this.setState({
-        blogUrl: blogUrl,
-        postname: postname,
-        userRole: userData['roles'][0],
-        blogName: blogName
-      });
+
+      if ('post/new' !== pathName) {
+        this.setState({
+          blogUrl: blogUrl,
+          userRole: userData['roles'][0],
+          blogName: blogName
+        });
+      } else {
+        const hashId = helpers.generatePushID();
+        const postEditUrl = '/edit/post/' + hashId + '?blog=' + blogName;
+        const initialData = {
+          id: hashId,
+          user_id: userData.id,
+          postType: query.get('type')
+        };
+        saveInitialPost(initialData, this.props.base);
+        history.push(postEditUrl);
+      }
     } catch (error) {
       console.log(error.message);
       if (error.message === 'NOT_LOGGED_IN') {
@@ -55,6 +66,13 @@ export default class Layout extends React.Component {
         history.push('/invalidBlog');
       }
     }
+  };
+
+  handleStatus = (statusMsg: string) => {
+    this.setState({
+      showPostStatusMsg: true,
+      statusMsg: statusMsg
+    });
   };
 
   handleDifundir = (status: string, publishedDate: string) => {
@@ -92,6 +110,8 @@ export default class Layout extends React.Component {
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
         statusMsg={this.state.statusMsg}
+        saveData={this.editor && this.editor.saveData}
+        toggleOrderMode={this.editor && this.editor.toggleOrderMode}
       />
     );
   };
@@ -126,6 +146,20 @@ export default class Layout extends React.Component {
                   {...rest}
                   base={base}
                   handleDifundir={this.handleDifundir}
+                />
+              )}
+            />
+            <Route
+              path={'/edit/post/:postname'}
+              render={props => (
+                <Editor
+                  onRef={ref => {
+                    this.editor = ref;
+                  }}
+                  {...props}
+                  {...rest}
+                  base={base}
+                  handleStatus={this.handleStatus}
                 />
               )}
             />

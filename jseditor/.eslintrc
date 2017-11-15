@@ -1,0 +1,14 @@
+{
+ "extends": ["react-app","plugin:react/recommended"],
+ "plugins": [
+   "react"
+ ],
+ "settings": {
+   "propWrapperFunctions": [ "forbidExtraProps" ] // The names of any functions used to wrap the propTypes object, such as `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+ },
+ "rules": {
+   "react/prefer-stateless-function": 2,
+#   "react/sort-comp": 2,
+   "react/no-unused-state":2
+ }
+}
