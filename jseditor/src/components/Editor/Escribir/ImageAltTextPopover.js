@@ -69,7 +69,6 @@ export default class ImageAltTextPopover extends PureComponent {
         actions={this.getDialogActions()}
         modal={true}
         open={this.state.open}
-        contentClassName="modal-content"
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
         <Row>

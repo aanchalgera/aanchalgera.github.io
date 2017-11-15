@@ -62,7 +62,6 @@ export default class ImagePanel extends PureComponent {
         actions={this.getDialogActions()}
         modal={true}
         open={this.state.open}
-        contentClassName="modal-content"
         actionsContainerClassName="modal-actions"
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
