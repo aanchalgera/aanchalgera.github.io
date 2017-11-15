@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import ImagesReducer from 'components/Editor/ImageUploader/reducer/Images';
+import ImagesReducer from 'components/Editor/ImageUploader/reducer';
 import Configs from './Configs';
 
 const rootReducer = combineReducers({
