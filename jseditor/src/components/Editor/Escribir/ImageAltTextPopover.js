@@ -91,7 +91,7 @@ export default class ImageAltTextPopover extends PureComponent {
               floatingLabelText="Texto alternativo"
               floatingLabelFixed={true}
               onChange={this.onTextChange}
-              style={{ width: '95%', paddingLeft: '24px' }}
+              fullWidth={true}
             />
           </Col>
         </Row>

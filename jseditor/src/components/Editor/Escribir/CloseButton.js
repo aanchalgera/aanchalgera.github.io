@@ -11,8 +11,11 @@ export class CloseButton extends PureComponent {
 
   render() {
     return (
-      <IconButton onClick={this.props.handleClose}>
-        <Close className="btn-close" color="black" />
+      <IconButton
+        onClick={this.props.handleClose}
+        iconStyle={{ height: '20px', width: '20px' }}
+      >
+        <Close className="btn-close" color="gray" />
       </IconButton>
     );
   }
