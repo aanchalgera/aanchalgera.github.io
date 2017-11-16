@@ -23,7 +23,6 @@ export default class Layout extends React.Component {
   state = {
     blogUrl: null,
     showDifundir: false,
-    showPublicar: false,
     showPostStatusMsg: false,
     statusMsg: ''
   };
@@ -40,23 +39,23 @@ export default class Layout extends React.Component {
     try {
       const blogUrl = await getBlogUrl(blogName, this.props.base);
       const userData = await getUserDetails(blogUrl);
+      this.setState({
+        blogUrl: blogUrl,
+        userRole: userData['roles'][0],
+        blogName: blogName
+      });
 
-      if ('post/new' !== pathName) {
-        this.setState({
-          blogUrl: blogUrl,
-          userRole: userData['roles'][0],
-          blogName: blogName
-        });
-      } else {
+      if ('/post/new' === pathName) {
         const hashId = helpers.generatePushID();
         const postEditUrl = '/edit/post/' + hashId + '?blog=' + blogName;
+        history.push(postEditUrl);
         const initialData = {
           id: hashId,
           user_id: userData.id,
-          postType: query.get('type')
+          postType: query.get('type'),
+          blogName: blogName
         };
         saveInitialPost(initialData, this.props.base);
-        history.push(postEditUrl);
       }
     } catch (error) {
       console.log(error.message);
@@ -152,15 +151,17 @@ export default class Layout extends React.Component {
             <Route
               path={'/edit/post/:postname'}
               render={props => (
-                <Editor
-                  onRef={ref => {
-                    this.editor = ref;
-                  }}
-                  {...props}
-                  {...rest}
-                  base={base}
-                  handleStatus={this.handleStatus}
-                />
+                <div className="grid-wrapper grid-l">
+                  <Editor
+                    onRef={ref => {
+                      this.editor = ref;
+                    }}
+                    {...props}
+                    {...rest}
+                    base={base}
+                    handleStatus={this.handleStatus}
+                  />
+                </div>
               )}
             />
           </Switch>

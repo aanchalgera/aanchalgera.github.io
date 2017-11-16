@@ -1,6 +1,7 @@
 [ignore]
 .*/node_modules/draft-js/.
 .*/node_modules/react-event-listener/src/index.js
+.*/node_modules/radium/.
 [include]
 
 [libs]
