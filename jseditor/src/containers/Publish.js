@@ -45,6 +45,7 @@ type Props = {
   match: { params: Object },
   blogUrl: string,
   blogName: string,
+  userRole: string,
   handleDifundir: (status: string, date: string) => void
 };
 
@@ -265,7 +266,7 @@ class Publish extends React.Component {
     }
     return (
       <div className="grid-wrapper grid-l">
-        process.env.REACT_APP_ENV === 'development' ? <ImageUploader /> : '';
+        {process.env.REACT_APP_ENV === 'development' ? <ImageUploader /> : ''}
         <span style={{ color: 'red' }}>{this.state.message}</span>
         <Snackbar
           open={this.state.snackbarOpen}

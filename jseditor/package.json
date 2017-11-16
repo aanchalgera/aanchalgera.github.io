@@ -9,8 +9,7 @@
     "draft-js-import-html": "^1.2.0",
     "draft-js-inline-toolbar-plugin": "^2.0.0-rc8",
     "draft-js-plugins-editor": "^2.0.0-beta1",
-    "draft-js-anchor-plugin":
-      "git://github.com/dagopert/draft-js-anchor-plugin",
+    "draft-js-anchor-plugin": "git://github.com/dagopert/draft-js-anchor-plugin",
     "flow-bin": "^0.52.0",
     "husky": "^0.14.3",
     "idx": "^2.1.0",
@@ -37,7 +36,7 @@
   "lint-staged": {
     "gitDir": "../",
     "*.{js,jsx,css}": [
-      "prettier --single-quote --write",
+      "prettier --parser-flow --single-quote --write",
       "eslint --fix",
       "git add"
     ]
@@ -56,9 +55,9 @@
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.14",
     "@storybook/addon-links": "^3.2.14",
-    "eslint": "^4.10.0",
-    "eslint-plugin-react": "^7.4.0",
     "@storybook/react": "^3.2.14",
-    "@storybook/storybook-deployer": "^2.0.0"
+    "@storybook/storybook-deployer": "^2.0.0",
+    "eslint": "^4.10.0",
+    "eslint-plugin-react": "^7.4.0"
   }
 }
