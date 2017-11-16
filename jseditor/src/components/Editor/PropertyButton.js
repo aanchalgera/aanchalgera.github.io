@@ -72,7 +72,6 @@ class PropertyButton extends React.Component {
       case 'infogram':
       case 'datawrapper':
       case 'table':
-      case 'sectionModule':
         sizeProperties = (
           <PropertyButtonSizes
             dataId={this.props.dataId}
@@ -83,25 +82,18 @@ class PropertyButton extends React.Component {
         );
         break;
     }
-    switch (this.props.data.type) {
-      case 'sectionModule':
-        var bgProperties = '';
-        break;
-      default:
-        var bgProperties = (
-          <PropertyButtonContent
-            addBackgroundOptionToResource={
-              this.props.addBackgroundOptionToResource
-            }
-            data={this.props.data}
-            openResourcePanel={this.props.openResourcePanel}
-            dataId={this.props.dataId}
-            toggleSummarySocialShareButtons={
-              this.props.toggleSummarySocialShareButtons
-            }
-          />
-        );
-    }
+
+    var bgProperties = (
+      <PropertyButtonContent
+        addBackgroundOptionToResource={this.props.addBackgroundOptionToResource}
+        data={this.props.data}
+        openResourcePanel={this.props.openResourcePanel}
+        dataId={this.props.dataId}
+        toggleSummarySocialShareButtons={
+          this.props.toggleSummarySocialShareButtons
+        }
+      />
+    );
 
     var bgOptionsAllowedForGroupedTypes = {
       content: true,
