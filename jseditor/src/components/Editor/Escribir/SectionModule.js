@@ -6,7 +6,25 @@ import Category from './Category';
 import Sites from './Sites';
 import { InputEvent } from 'lib/flowTypes';
 
+type Props = {
+  data: {
+    type: string,
+    title: string,
+    site: string,
+    selected: string,
+    category: number,
+    tag: string,
+    layout: string
+  },
+  updateResource: (dataId: number, sectionModule: Array) => void,
+  siteUrl: string,
+  dataId: number,
+  postType: string
+};
+
 export class SectionModule extends React.PureComponent {
+  props: Props;
+
   focus() {
     const field = this.refs.field;
     if (field) {
@@ -28,7 +46,7 @@ export class SectionModule extends React.PureComponent {
     return (
       <div className={'asset-size-' + this.props.data.layout}>
         <label className="ptitle">
-          Título <span className="hint">(Límite: 15 caracteres)</span>
+          Título <span className="hint">(Límite: 20 caracteres)</span>
         </label>
         <input
           type="text"
@@ -37,7 +55,7 @@ export class SectionModule extends React.PureComponent {
           data-key="title"
           defaultValue={this.props.data.title}
           onBlur={this.updateSection}
-          maxLength={15}
+          maxLength={20}
         />
         <label className="ptitle">Sitio</label>
         <Sites site={this.props.data.site} updateParent={this.updateParent} />
