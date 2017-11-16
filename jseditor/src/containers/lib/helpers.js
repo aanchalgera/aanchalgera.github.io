@@ -61,8 +61,6 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
-    postId: idx(data, _ => _.publishData.postId) || '',
-    postHash: idx(data, _ => _.publishData.postHash) || '',
     buttonDisabled: false,
     userId: data.user_id,
     category: data.category || null,
@@ -77,7 +75,12 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     currentStatus: currentStatus(data.status, data.publishData.postDate)
   };
 };
-
+export const loadPublishData = (data: {}) => {
+  return {
+    postId: idx(data, _ => _.publishData.postId) || '',
+    postHash: idx(data, _ => _.publishData.postHash) || ''
+  };
+};
 const currentStatus = (status, publishedDate) => {
   if (status === 'draft') {
     return status;

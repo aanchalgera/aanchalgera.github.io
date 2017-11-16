@@ -28,6 +28,7 @@ import {
 import {
   initialState,
   loadStatefromData,
+  loadPublishData,
   validateState,
   findByName
 } from './lib/helpers.js';
@@ -52,6 +53,7 @@ type Props = {
 class Publish extends React.Component {
   state = initialState;
   props: Props;
+  publishData: [];
 
   componentDidMount() {
     this.init();
@@ -61,6 +63,7 @@ class Publish extends React.Component {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname, this.props.base);
     this.setState(loadStatefromData(post, this.props.userRole));
+    this.publishData = loadPublishData(post);
     if ('brandedLongform' === post.postType && !this.state.category) {
       this.setBrandedLongformCategory();
     } else {
@@ -75,10 +78,12 @@ class Publish extends React.Component {
     state.status = 'publish';
     try {
       const result = await submitPostToBackend(state, this.props.blogUrl);
+      this.publishData = {
+        postId: result.id,
+        postHash: result.post_hash
+      };
       this.setState(
         {
-          postId: result.id,
-          postHash: result.post_hash,
           status: 'publish',
           currentStatus: 'future',
           publishedDate: date,
@@ -180,7 +185,7 @@ class Publish extends React.Component {
   };
 
   savePostData = () => {
-    savePost(this.state, this.props.base);
+    savePost([...this.state, ...this.publishData], this.props.base);
   };
 
   onCropChange = (shape, crop) => {
