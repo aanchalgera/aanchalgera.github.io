@@ -38,6 +38,7 @@ class Content extends React.Component {
       case 'table':
       case 'fichaReview':
       case 'ficha':
+      case 'sectionModule':
         document
           .querySelector('#div-' + this.props.index)
           .setAttribute('style', this.props.getStyleText(this.props.data));
