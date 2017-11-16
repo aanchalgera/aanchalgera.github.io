@@ -77,7 +77,7 @@ class Editor extends React.Component {
         maxId: data.maxId || 0,
         status: data.status || this.state.status,
         publishData: data.publishData || this.state.regions,
-        meta: data.meta,
+        meta: data.meta || initialMeta,
         isSynced: true
       });
     } else {
@@ -806,7 +806,7 @@ class Editor extends React.Component {
 
     jquery
       .ajax({
-        url: this.state.blogUrl + '/admin/posts/' + this.state.postId + '.json',
+        url: this.props.blogUrl + '/admin/posts/' + this.state.postId + '.json',
         type: 'PUT',
         dataType: 'json',
         data: backendData,
@@ -920,8 +920,6 @@ class Editor extends React.Component {
     let metadata = (
       <Metadata
         meta={this.state.meta}
-        userId={this.state.userId}
-        blogUrl={this.state.blogUrl}
         updateIndexMetadata={this.updateIndexMetadata.bind(this)}
         updateFooterCredits={this.updateFooterCredits.bind(this)}
         updateCssSkinName={this.updateCssSkinName.bind(this)}
@@ -1008,7 +1006,7 @@ class Editor extends React.Component {
               this.toggleSummarySocialShareButtons
             }
             base={this.props.base}
-            siteUrl={this.state.blogUrl}
+            siteUrl={this.props.blogUrl}
             postType={this.state.postType}
           />
         </div>
