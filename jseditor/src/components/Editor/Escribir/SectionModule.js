@@ -26,9 +26,8 @@ export class SectionModule extends React.PureComponent {
   props: Props;
 
   focus() {
-    const field = this.refs.field;
-    if (field) {
-      field.focus();
+    if (this.field) {
+      this.field.focus();
     }
   }
 
@@ -50,7 +49,9 @@ export class SectionModule extends React.PureComponent {
         </label>
         <input
           type="text"
-          ref="field"
+          ref={component => {
+            this.field = component;
+          }}
           className="form-control"
           data-key="title"
           defaultValue={this.props.data.title}
