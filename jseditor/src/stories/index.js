@@ -2,9 +2,9 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import ImageAltTextPopover from '../components/Editor/Escribir/ImageAltTextPopover';
+import ImageAltTextPopover from '../components/Editor/ImageUploader/ImageAltTextPopover';
 import Title from '../components/Editor/Escribir/Title';
-import ImagePanel from '../components/Editor/Escribir/ImagePanel';
+import ImagePanel from '../components/Editor/ImageUploader/ImagePanel';
 
 storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
   <ImageAltTextPopover

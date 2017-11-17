@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { ImagePanel } from '../Escribir';
+import { ImagePanel } from '.';
 
 class ImageUploader extends PureComponent {
   componentWillMount() {
