@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { getImages } from './lib/imageUploadService'
+import { getImages } from './lib/imageUploadService';
 import { SET_IMAGES } from './actions';
 import { ImagePanel } from '.';
 
@@ -22,9 +22,9 @@ class ImageUploader extends PureComponent {
   }
 
   render() {
-    const { isOpen, imageUrls } = this.props;
+    const { imageUrls } = this.props;
 
-    return <ImagePanel open={isOpen} images={imageUrls} />;
+    return <ImagePanel open={true} images={imageUrls} />;
   }
 }
 

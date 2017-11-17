@@ -1,7 +1,6 @@
 import { SET_IMAGES } from './actions';
 
 const initialState = {
-  isOpen: false,
   imageUrls: []
 };
 
