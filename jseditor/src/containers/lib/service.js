@@ -74,7 +74,7 @@ export const savePostsList = (state, base, blogName) => {
   let blogStatus = blogName + '_' + state.status;
   let listData = {
     id: state.id,
-    title: state.title,
+    title: state.title || 'Título...',
     status: state.status,
     user_id: state.userId,
     blog_name: blogName,

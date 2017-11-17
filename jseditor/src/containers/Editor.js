@@ -9,7 +9,7 @@ import CloudinaryUploader from 'components/Editor/CloudinaryUploader';
 import Metadata from 'components/Editor/Metadata/Metadata';
 import configParams from 'config/configs.js';
 import { initialMeta, getPostType } from './lib/helpers';
-import { mapPostType, getPost } from './lib/service';
+import { savePostsList, getPost } from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
@@ -77,8 +77,7 @@ class Editor extends React.Component {
         maxId: data.maxId || 0,
         status: data.status || this.state.status,
         publishData: data.publishData || this.state.regions,
-        meta: data.meta || initialMeta,
-        isSynced: true
+        meta: data.meta || initialMeta
       });
     } else {
       console.log('Should never be here');
@@ -469,8 +468,6 @@ class Editor extends React.Component {
     }
 
     this.blogName = this.props.blogName;
-    let userStatus =
-      this.blogName + '_' + this.state.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
       user_id: this.state.userId,
@@ -490,22 +487,7 @@ class Editor extends React.Component {
       data.publishData.postId = this.state.postId;
       data.publishData.postHash = this.state.postHash;
     }
-    let blogStatus = this.blogName + '_' + this.state.status;
-    let listData = {
-      id: this.state.id,
-      title: this.state.value,
-      status: this.state.status,
-      user_id: this.state.userId,
-      user_status: userStatus,
-      blog_status: blogStatus,
-      blog_name: this.blogName,
-      blog_post_type: blogStatus + '_' + mapPostType(this.state.postType)
-    };
-
-    this.props.base.post('posts_list/' + this.state.id, {
-      data: listData,
-      then() {}
-    });
+    savePostsList(this.state, this.props.base, this.props.blogName);
     try {
       const _this = this;
       this.props.base.update('posts/' + this.state.id, {
