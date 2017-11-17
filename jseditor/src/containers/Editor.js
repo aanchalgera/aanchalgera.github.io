@@ -23,7 +23,7 @@ class Editor extends React.Component {
     this.props.onRef(this);
     this.state = {
       maxId: 0,
-      value: '',
+      title: '',
       isError: false,
       isSubmit: false,
       message: '',
@@ -73,7 +73,7 @@ class Editor extends React.Component {
         userId: data.user_id,
         postType: data.postType || getPostType(this.state.userRole),
         fields: data.sections || [],
-        value: data.title || '',
+        title: data.title || '',
         maxId: data.maxId || 0,
         status: data.status || this.state.status,
         publishData: data.publishData || this.state.regions,
@@ -405,7 +405,7 @@ class Editor extends React.Component {
 
   handleChange(ev) {
     this.setState({
-      value: ev.currentTarget.value
+      title: ev.currentTarget.value
     });
   }
 
@@ -418,7 +418,7 @@ class Editor extends React.Component {
 
     this.setState(
       {
-        value: title
+        title: title
       },
       this.saveData()
     );
@@ -476,7 +476,7 @@ class Editor extends React.Component {
       user_status: userStatus,
       blog_status: this.blogName + '_' + this.state.status,
       blogName: this.blogName,
-      title: this.state.value,
+      title: this.state.title,
       sections: this.state.fields,
       maxId: this.state.maxId,
       status: this.state.status || '',
@@ -770,7 +770,7 @@ class Editor extends React.Component {
       postform: {
         categoryId: '-1',
         user_id: this.state.userId,
-        post_title: this.state.value,
+        post_title: this.state.title,
         comment_status: this.state.commentStatus,
         post_type: 'normal',
         post_content: JSON.stringify(this.state.fields),
@@ -931,10 +931,10 @@ class Editor extends React.Component {
         layout: 'big',
         backgroundClass: 'module-bg-color-neutral-light',
         foregroundColor: null,
-        text: this.state.value
+        text: this.state.title
       });
     } else {
-      this.state.fields[0].text = this.state.value;
+      this.state.fields[0].text = this.state.title;
     }
     return (
       <div className={this.state.orderMode ? 'bgbody' : ''}>
@@ -947,7 +947,7 @@ class Editor extends React.Component {
         <div className="form-group">
           <PostTitle
             data={this.state.fields[0]}
-            value={this.state.value}
+            value={this.state.title}
             handleBlur={this.handleBlur.bind(this)}
             handleChange={this.handleChange.bind(this)}
             openResourcePanel={this.openResourcePanel.bind(this)}
