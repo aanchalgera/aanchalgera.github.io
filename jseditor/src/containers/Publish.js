@@ -62,8 +62,9 @@ class Publish extends React.Component {
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname, this.props.base);
-    this.setState(loadStatefromData(post, this.props.userRole));
     this.publishData = loadPublishData(post);
+    this.setState(loadStatefromData(post, this.props.userRole));
+
     if ('brandedLongform' === post.postType && !this.state.category) {
       this.setBrandedLongformCategory();
     } else {
@@ -185,7 +186,7 @@ class Publish extends React.Component {
   };
 
   savePostData = () => {
-    savePost([...this.state, ...this.publishData], this.props.base);
+    savePost({ ...this.state, ...this.publishData }, this.props.base);
   };
 
   onCropChange = (shape, crop) => {
