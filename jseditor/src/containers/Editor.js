@@ -468,6 +468,8 @@ class Editor extends React.Component {
     }
 
     this.blogName = this.props.blogName;
+    let userStatus =
+      this.blogName + '_' + this.state.userId + '_' + this.state.status;
     let data = {
       id: this.state.id,
       user_id: this.state.userId,
