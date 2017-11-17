@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
-  src: string,
+  image: Object,
   handleClick: (e: InputEvent) => void
 };
 
