@@ -9,7 +9,11 @@ import CloudinaryUploader from 'components/Editor/CloudinaryUploader';
 import Metadata from 'components/Editor/Metadata/Metadata';
 import configParams from 'config/configs.js';
 import { initialMeta, getPostType } from './lib/helpers';
-import { savePostsList, getPost } from './lib/service';
+import {
+  savePostsList,
+  getPost,
+  savePostFromEscribirPage
+} from './lib/service';
 
 moment.tz.setDefault(configParams.timezone);
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
@@ -34,26 +38,6 @@ class Editor extends React.Component {
       orderMode: false,
       fields: [],
       meta: null,
-      regions: {
-        publishRegion: [
-          'ES',
-          'US',
-          'MX',
-          'PE',
-          'AR',
-          'CL',
-          'EC',
-          'CR',
-          'CO',
-          'CEA',
-          'ROW'
-        ]
-      },
-      postId: '',
-      postHash: '',
-      isConnected: true,
-      status: 'draft',
-      isSynced: false,
       isCloudinaryUploaderOpen: false
     };
     this.addImages = this.addImages.bind(this);
@@ -70,13 +54,12 @@ class Editor extends React.Component {
     if (data.hasOwnProperty('id')) {
       this.setState({
         id: data.id,
-        userId: data.user_id,
         postType: data.postType || getPostType(this.state.userRole),
         fields: data.sections || [],
         title: data.title || '',
         maxId: data.maxId || 0,
-        status: data.status || this.state.status,
-        publishData: data.publishData || this.state.regions,
+        status: data.status || 'draft',
+        userId: data.user_id,
         meta: data.meta || initialMeta
       });
     } else {
@@ -466,41 +449,10 @@ class Editor extends React.Component {
     if (!this.isValid()) {
       return;
     }
-
-    this.blogName = this.props.blogName;
-    let userStatus =
-      this.blogName + '_' + this.state.userId + '_' + this.state.status;
-    let data = {
-      id: this.state.id,
-      user_id: this.state.userId,
-      user_status: userStatus,
-      blog_status: this.blogName + '_' + this.state.status,
-      blogName: this.blogName,
-      title: this.state.title,
-      sections: this.state.fields,
-      maxId: this.state.maxId,
-      status: this.state.status || '',
-      publishData: this.state.publishData || this.state.regions,
-      meta: this.state.meta || initialMeta,
-      postType: this.state.postType
-    };
-
-    if (this.state.postId != undefined && this.state.postId != '') {
-      data.publishData.postId = this.state.postId;
-      data.publishData.postHash = this.state.postHash;
-    }
-    savePostsList(this.state, this.props.base, this.props.blogName);
     try {
-      const _this = this;
-      this.props.base.update('posts/' + this.state.id, {
-        data: data,
-        then() {
-          _this.setState({
-            isSynced: true
-          });
-          _this.props.handleStatus(UPDATED_MESSAGE);
-        }
-      });
+      savePostsList(this.state, this.props.base, this.props.blogName);
+      savePostFromEscribirPage(this.state, this.props.base);
+      this.props.handleStatus(UPDATED_MESSAGE);
     } catch (e) {
       //      Rollbar.critical('Error occured on saving data to Firebase', e);
       let errorMessage = e.message.substring(0, 100);
@@ -755,55 +707,6 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  updateOnBackend = e => {
-    e.preventDefault();
-    if (!this.isValid()) {
-      return;
-    }
-
-    if (!this.state.meta.homepage.image) {
-      this.setMessage(true, MAIN_IMAGE_WARNING);
-      return false;
-    }
-
-    let backendData = {
-      postform: {
-        categoryId: '-1',
-        user_id: this.state.userId,
-        post_title: this.state.title,
-        comment_status: this.state.commentStatus,
-        post_type: 'normal',
-        post_content: JSON.stringify(this.state.fields),
-        postExcerpt: JSON.stringify({ meta: this.state.meta }),
-        post_abstract: '',
-        post_extended_title: '',
-        post_visibility: 0,
-        posts_galleries: '',
-        post_subtype: 13,
-        postDate: this.state.publishData.postDate,
-        'publish-region': this.state.publishData.publishRegion,
-        page: 'publish',
-        firebase_id: this.state.id,
-        primary_image: this.state.meta.homepage.image.url
-      }
-    };
-
-    jquery
-      .ajax({
-        url: this.props.blogUrl + '/admin/posts/' + this.state.postId + '.json',
-        type: 'PUT',
-        dataType: 'json',
-        data: backendData,
-        xhrFields: {
-          withCredentials: true
-        },
-        crossDomain: true
-      })
-      .done(() => {
-        this.setMessage(true, 'Post Updated');
-      });
-  };
-
   isEmptyfield(fields) {
     let isEmpty = true;
     fields.forEach(field => {
@@ -836,25 +739,6 @@ class Editor extends React.Component {
       }
     });
     return isEmpty;
-  }
-
-  enablePublish() {
-    let isError = false;
-    let message = '';
-
-    if (this.state.fields.length > 1 && this.isEmptyfield(this.state.fields)) {
-      message = FIELD_EMPTY_WARNING;
-    }
-
-    if (!this.state.meta || !this.state.meta.homepage.image) {
-      message = MAIN_IMAGE_WARNING;
-    }
-
-    if (message != '') {
-      isError = true;
-    }
-
-    return !isError;
   }
 
   moveImage({ sectionIndex, imageIndex, direction }, event) {

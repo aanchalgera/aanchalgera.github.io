@@ -42,7 +42,8 @@ export default class Layout extends React.Component {
       this.setState({
         blogUrl: blogUrl,
         userRole: userData['roles'][0],
-        blogName: blogName
+        blogName: blogName,
+        status: 'draft'
       });
 
       if ('/post/new' === pathName) {
@@ -95,17 +96,11 @@ export default class Layout extends React.Component {
   };
 
   getTitleBar = () => {
-    const pathName = this.props.location.pathname;
-    const search = this.props.location.search;
-    const matches = pathName.match('/(.+)/(.+)');
     return (
       <TitleBar
-        postName={matches[2]}
+        {...this.props}
         blogUrl={this.state.blogUrl}
-        activeTab={matches[1]}
-        queryPath={search}
         showDifundir={this.state.showDifundir}
-        history={this.props.history}
         blogName={this.state.blogName}
         showPostStatusMsg={this.state.showPostStatusMsg}
         statusMsg={this.state.statusMsg}
