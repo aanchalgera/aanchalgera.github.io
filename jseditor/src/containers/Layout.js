@@ -27,7 +27,7 @@ export default class Layout extends React.Component {
     statusMsg: ''
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.init();
   }
 
@@ -151,7 +151,10 @@ export default class Layout extends React.Component {
             <Route
               path={'/edit/post/:postname'}
               render={props => (
-                <div className="grid-wrapper grid-l">
+                <div
+                  className="container-fluid"
+                  style={{ paddingTop: '112px' }}
+                >
                   <Editor
                     onRef={ref => {
                       this.editor = ref;
