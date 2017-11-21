@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { TextField, RaisedButton } from 'material-ui';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 
@@ -14,7 +14,13 @@ type Props = {
   date: string
 };
 
-export class SchedulePost extends React.PureComponent {
+type State = {
+  schedulerOpened: boolean,
+  anchorEl: any,
+  focussed: boolean
+}
+
+export class SchedulePost extends React.PureComponent<Props, State> {
   state = {
     schedulerOpened: false,
     anchorEl: null,
@@ -23,7 +29,6 @@ export class SchedulePost extends React.PureComponent {
   static defaultProps = {
     showCalendar: true
   };
-  props: Props;
 
   onChange = (e: InputEvent) => {
     const dateString = e.currentTarget.value;

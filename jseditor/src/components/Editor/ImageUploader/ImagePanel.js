@@ -14,7 +14,11 @@ type Props = {
   openImageUploader: () => void
 };
 
-export default class ImagePanel extends PureComponent {
+type State = {
+  open: boolean
+}
+
+export default class ImagePanel extends PureComponent<Props, State> {
   state = {
     open: false
   };

@@ -1,5 +1,5 @@
 /*@flow*/
-import React from 'react';
+import * as React from 'react';
 import { TextField, Divider } from 'material-ui';
 
 const TWITTER_CHAR_LIMIT = 256;

@@ -1,15 +1,15 @@
 //@flow
-import React from 'react';
+import * as React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { Category } from 'lib/flowTypes';
+import { CategoryType } from 'lib/flowTypes';
 
 type Props = {
   blogUrl: string,
-  postCategories: Array<Category>,
+  postCategories: Array<CategoryType>,
   updateParent: (data: Object) => void,
-  allCategories: Array<Category>
+  allCategories: Array<CategoryType>
 };
 
 export const OtherCategories = ({

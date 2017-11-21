@@ -1,5 +1,5 @@
 /*@flow*/
-import React from 'react';
+import * as React from 'react';
 import CropWidget from './CropWidget';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -10,14 +10,12 @@ type Props = {
   onCropValidate: (shape: string, validate: boolean) => void
 };
 
-export class ImageCropper extends React.Component {
+export class ImageCropper extends React.Component<Props> {
   style = {
     img: {
       width: '100%'
     }
   };
-
-  props: Props;
 
   render() {
     const { crop, ...props } = this.props;

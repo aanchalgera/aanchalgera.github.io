@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Checkbox, AutoComplete } from 'material-ui';
 
 import { loadUsers } from './lib/publishService';
@@ -23,9 +23,12 @@ type Props = {
   iaVisibility: boolean
 };
 
-export class AdvancedOptions extends React.Component {
-  props: Props;
+type State = {
+  userList: Array<User>,
+  currentUser: string
+};
 
+export class AdvancedOptions extends React.Component<Props, State> {
   state = {
     userList: [],
     currentUser: ''

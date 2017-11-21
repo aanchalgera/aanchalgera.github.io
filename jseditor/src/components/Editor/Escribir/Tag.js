@@ -14,9 +14,7 @@ type Props = {
   siteName: string
 };
 
-export default class Tag extends PureComponent {
-  props: Props;
-
+export default class Tag extends PureComponent<Props> {
   getTags = async (input: string): {} => {
     if ('' === input) {
       return null;

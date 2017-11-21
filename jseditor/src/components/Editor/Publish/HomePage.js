@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import * as React from 'react';
 import DraftJSEditor from './DraftJSEditor';
 import Divider from 'material-ui/Divider';
 
@@ -8,8 +8,11 @@ type Props = {
   updateHomepageContent: Function
 };
 
-export default class Homepage extends React.Component {
-  props: Props;
+type State = {
+  length?: number,
+};
+
+export default class Homepage extends React.Component<Props, State> {
   state = {};
 
   updateLength = (length: number) => {

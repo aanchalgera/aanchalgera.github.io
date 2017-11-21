@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Checkbox, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -60,8 +60,7 @@ let formatedBlogs = {
   }
 };
 
-export default class RepostSiteOptions extends React.Component {
-  props: Props;
+export default class RepostSiteOptions extends React.Component<Props> {
   initalRepostedBlogs = null;
 
   componentWillReceiveProps(nextProps: Props) {
