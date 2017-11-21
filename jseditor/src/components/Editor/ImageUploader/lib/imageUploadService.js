@@ -1,5 +1,5 @@
-export const getImages = (base, slug) => {
-  return base.fetch('images/' + slug, {
+export const getImages = (base, id) => {
+  return base.fetch('images/' + id, {
     context: this,
     asArray: true,
     then(data) {

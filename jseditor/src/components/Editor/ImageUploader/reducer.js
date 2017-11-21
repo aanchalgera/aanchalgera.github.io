@@ -1,4 +1,4 @@
-import { SET_IMAGES } from './actions';
+import { REQUEST_IMAGES } from './actions';
 
 const initialState = {
   imageUrls: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SET_IMAGES:
+    case REQUEST_IMAGES:
       const imageUrls = action.images.map((image, index) => ({
         id: index,
         url: image.url

@@ -2,23 +2,30 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { Image } from 'lib/flowTypes';
 import { getImages } from './lib/imageUploadService';
-import { SET_IMAGES } from './actions';
+import { REQUEST_IMAGES } from './actions';
 import { ImagePanel } from '.';
 
+type Props = {
+  imageUrls: Array<Image>
+};
+
 class ImageUploader extends PureComponent {
+  props: Props;
+
   async componentWillMount() {
-    const { slug, base, dispatch } = this.props;
-    let setImagesAction = {
-      type: SET_IMAGES,
+    const { id, base, dispatch } = this.props;
+    let requestImagesAction = {
+      type: REQUEST_IMAGES,
       images: []
     };
 
-    if (slug !== undefined && slug !== '') {
-      setImagesAction.images = await getImages(base, slug);
+    if (id !== undefined && id !== '') {
+      requestImagesAction.images = await getImages(base, id);
     }
 
-    dispatch(setImagesAction);
+    dispatch(requestImagesAction);
   }
 
   render() {

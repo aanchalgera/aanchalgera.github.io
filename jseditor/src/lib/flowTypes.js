@@ -12,4 +12,9 @@ export type Category = {
   label: string
 };
 
+export type Image = {
+  id: number,
+  url: string
+};
+
 export type InputEvent = Event & { target: HTMLInputElement };
