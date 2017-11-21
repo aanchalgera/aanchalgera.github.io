@@ -55,6 +55,7 @@ class Editor extends React.Component {
       this.setState({
         id: data.id,
         postType: data.postType || getPostType(this.state.userRole),
+        postType: data.postType || getPostType(this.props.userRole),
         fields: data.sections || [],
         title: data.title || '',
         maxId: data.maxId || 0,
@@ -800,7 +801,7 @@ class Editor extends React.Component {
         toggleSocialSharing={this.toggleSocialSharing.bind(this)}
         deleteImage={this.deleteImage.bind(this)}
         toggleFooter={this.toggleFooter}
-        userRole={this.state.userRole}
+        userRole={this.props.userRole}
         postType={this.state.postType}
       />
     );
