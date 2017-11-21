@@ -155,7 +155,6 @@ class PropertyButtonContent extends React.Component {
       case 'infogram':
       case 'datawrapper':
       case 'ficha':
-      case 'sectionModule':
         textColour = '';
         break;
       case 'summary':
