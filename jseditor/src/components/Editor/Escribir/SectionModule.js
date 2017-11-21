@@ -16,7 +16,7 @@ type Props = {
     tag: string,
     layout: string
   },
-  updateResource: (dataId: number, sectionModule: Array<>) => void,
+  updateResource: (dataId: number, sectionModule: {}) => void,
   siteUrl: string,
   dataId: number,
   postType: string
@@ -32,7 +32,7 @@ export class SectionModule extends React.PureComponent<Props> {
   }
 
   updateSection = (e: InputEvent) => {
-    let sectionModule = [];
+    let sectionModule = {};
     sectionModule[e.currentTarget.dataset.key] = e.currentTarget.value;
     this.props.updateResource(this.props.dataId, sectionModule);
   };
