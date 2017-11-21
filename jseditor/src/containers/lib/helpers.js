@@ -47,6 +47,19 @@ export const validateDate = (date: string, currentStatus: string) => {
 export const loadStatefromData = (data: {}, userRole: string) => {
   const initialDate =
     data.status === 'draft' ? currentHour() : data.publishData.postDate;
+  const initialPublishRegions = [
+    'ES',
+    'US',
+    'MX',
+    'PE',
+    'AR',
+    'CL',
+    'EC',
+    'CR',
+    'CO',
+    'CEA',
+    'ROW'
+  ];
   return {
     id: data.id,
     blogName: data.blogName,
@@ -61,7 +74,8 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     publishedDate: initialDate,
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
-    publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
+    publishRegion:
+      idx(data, _ => _.publishData.publishRegion) || initialPublishRegions,
     buttonDisabled: false,
     userId: data.user_id,
     category: data.category || null,

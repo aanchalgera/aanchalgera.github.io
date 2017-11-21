@@ -16,7 +16,7 @@ type Props = {
     tag: string,
     moreText: string
   },
-  updateResource: (dataId: number, sectionModule: {}) => void,
+  updateResource: (dataId: number, attributes: {}) => void,
   siteUrl: string,
   dataId: number,
   postType: string
@@ -101,7 +101,7 @@ export class SectionModule extends React.PureComponent<Props> {
           ]
         )}
         <br />
-        <label className="ptitle">More Button Text</label>
+        <label className="ptitle">Texto del botón</label>
         <input
           type="text"
           className="form-control"
