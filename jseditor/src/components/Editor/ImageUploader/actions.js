@@ -1,0 +1,1 @@
+export const REQUEST_IMAGES = 'REQUEST_IMAGES';
