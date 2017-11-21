@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import * as React from 'react';
 import { Checkbox } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import { toggleItem } from 'lib/helpers';
@@ -25,8 +25,7 @@ type Props = {
   publishRegions: Array<string>
 };
 
-export class CountriesFormOptions extends React.Component {
-  props: Props;
+export class CountriesFormOptions extends React.Component<Props> {
   onCheck = (e: InputEvent) => {
     const region = e.currentTarget.value;
     let publishRegions = this.props.publishRegions;

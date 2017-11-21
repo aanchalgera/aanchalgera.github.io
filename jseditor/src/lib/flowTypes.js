@@ -7,7 +7,7 @@ export type Tag = {
   tag_count: string
 };
 
-export type Category = {
+export type CategoryType = {
   id: number,
   label: string
 };

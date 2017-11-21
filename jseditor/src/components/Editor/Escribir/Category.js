@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 
 import { loadAllCategories } from 'lib/service.js';
 import { filterCategories } from 'lib/helpers.js';
+import { CategoryType } from 'lib/flowTypes';
 
 type Props = {
   siteUrl: string,
@@ -14,7 +15,11 @@ type Props = {
   siteName: string
 };
 
-export default class Category extends PureComponent {
+type State = {
+  categories: Array<CategoryType>
+}
+
+export default class Category extends PureComponent<Props, State> {
   constructor(props: Props) {
     super();
     this.props = props;

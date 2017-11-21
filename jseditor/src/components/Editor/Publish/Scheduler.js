@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import Popover from 'material-ui/Popover';
 import moment from 'moment-timezone';
 import 'moment/locale/es';
@@ -26,6 +26,10 @@ type Props = {
   onPickSlot: (x: number, y: number, e: InputEvent) => void
 };
 
+type State = {
+  scheduledPosts: any
+}
+
 moment.locale('es');
 
 const styles = {
@@ -39,11 +43,10 @@ const HINT =
 const timeStamp = moment().format('X');
 const currentMonth = moment().format('MMMM');
 
-export default class Scheduler extends React.Component {
+export default class Scheduler extends React.Component<Props, State> {
   state = {
     scheduledPosts: {}
   };
-  props: Props;
   tablehead = null;
 
   componentDidMount() {

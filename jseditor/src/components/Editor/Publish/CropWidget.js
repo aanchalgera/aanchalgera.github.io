@@ -1,5 +1,5 @@
 /*@flow*/
-import React from 'react';
+import * as React from 'react';
 import ReactCrop from 'react-image-crop';
 import RaisedButton from 'material-ui/RaisedButton';
 import 'react-image-crop/dist/ReactCrop.css';

@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 
 import Tag from './Tag';
 import Category from './Category';
@@ -16,14 +16,14 @@ type Props = {
     tag: string,
     layout: string
   },
-  updateResource: (dataId: number, sectionModule: Array) => void,
+  updateResource: (dataId: number, sectionModule: Array<>) => void,
   siteUrl: string,
   dataId: number,
   postType: string
 };
 
-export class SectionModule extends React.PureComponent {
-  props: Props;
+export class SectionModule extends React.PureComponent<Props> {
+  field: ?HTMLInputElement;
 
   focus() {
     if (this.field) {

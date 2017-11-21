@@ -13,9 +13,12 @@ type Props = {
   handleSubmit: (data: string) => void
 };
 
-export default class ImageAltTextPopover extends PureComponent {
-  props: Props;
+type State = {
+  open: boolean,
+  altText: string
+}
 
+export default class ImageAltTextPopover extends PureComponent<Props, State> {
   state = {
     open: false,
     altText: ''

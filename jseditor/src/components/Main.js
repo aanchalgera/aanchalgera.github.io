@@ -1,5 +1,5 @@
 //@flow
-import React from 'react';
+import * as React from 'react';
 import Rebase from 're-base';
 import firebase from 'firebase';
 import { Switch, Route } from 'react-router-dom';
