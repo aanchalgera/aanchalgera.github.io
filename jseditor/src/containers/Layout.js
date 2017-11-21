@@ -42,8 +42,7 @@ export default class Layout extends React.Component {
       this.setState({
         blogUrl: blogUrl,
         userRole: userData['roles'][0],
-        blogName: blogName,
-        status: 'draft'
+        blogName: blogName
       });
 
       if ('/post/new' === pathName) {
@@ -54,7 +53,8 @@ export default class Layout extends React.Component {
           id: hashId,
           user_id: userData.id,
           postType: query.get('type'),
-          blogName: blogName
+          blogName: blogName,
+          status: 'draft'
         };
         saveInitialPost(initialData, this.props.base);
       }

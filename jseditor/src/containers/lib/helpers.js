@@ -45,6 +45,8 @@ export const validateDate = (date: string, currentStatus: string) => {
 };
 
 export const loadStatefromData = (data: {}, userRole: string) => {
+  const initialDate =
+    data.status === 'draft' ? currentHour() : data.publishData.postDate;
   return {
     id: data.id,
     blogName: data.blogName,
@@ -56,8 +58,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     meta: data.meta,
     maxId: data.maxId,
     status: data.status || 'draft',
-    publishedDate:
-      data.status === 'draft' ? currentHour() : data.publishData.postDate,
+    publishedDate: initialDate,
     postRepostBlogNames:
       idx(data, _ => _.publishData.postRepostBlogNames) || [],
     publishRegion: idx(data, _ => _.publishData.publishRegion) || [],
@@ -72,7 +73,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     crop: data.crop || initialCrop,
     ampVisibility: data.ampVisibility || false,
     iaVisibility: data.iaVisibility || false,
-    currentStatus: currentStatus(data.status, data.publishData.postDate)
+    currentStatus: currentStatus(data.status, initialDate)
   };
 };
 export const loadPublishData = (data: {}) => {
