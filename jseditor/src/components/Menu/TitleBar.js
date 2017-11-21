@@ -20,13 +20,28 @@ const styles = {
 
 const ESCRIBIR = 'edit/post';
 
+type Props = {
+  match: { params: Object },
+  location: { search: string, pathname: string },
+  history: Object,
+  showPostStatusMsg: boolean,
+  statusMsg: string,
+  blogUrl: string,
+  showDifundir: boolean,
+  blogName: string,
+  saveData: () => void,
+  toggleOrderMode: () => void
+};
+
 export default class TitleBar extends React.Component {
-  handleChange = route => {
-    const { history, postName, queryPath } = this.props;
-    history.push(`/${route}/${postName}${queryPath}`);
+  props: Props;
+
+  handleChange = (route: string) => {
+    const queryPath = this.props.location.search;
+    this.props.history.push(`/${route}/${this.postName}${queryPath}`);
   };
 
-  getStatusElement() {
+  getStatusElement(activeTab) {
     let statusMsgElement = null;
 
     if (this.props.showPostStatusMsg) {
@@ -34,7 +49,7 @@ export default class TitleBar extends React.Component {
         <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
-    if (this.props.activeTab === ESCRIBIR) {
+    if (activeTab === ESCRIBIR) {
       statusMsgElement = (
         <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
           {statusMsgElement}
@@ -45,7 +60,11 @@ export default class TitleBar extends React.Component {
   }
 
   render() {
-    const { postName, blogUrl, activeTab, showDifundir, blogName } = this.props;
+    const { blogUrl, showDifundir, blogName } = this.props;
+    const pathName = this.props.location.pathname;
+    const matches = pathName.match('/(.+)/(.+)');
+    const activeTab = matches[1];
+    this.postName = matches[2];
 
     return (
       <Toolbar className="header">
@@ -67,7 +86,7 @@ export default class TitleBar extends React.Component {
         </div>
         <div className="nav-icon">
           <ToolbarGroup>
-            {this.getStatusElement()}
+            {this.getStatusElement(activeTab)}
             {activeTab === ESCRIBIR && (
               <IconButton onClick={this.props.saveData}>
                 <Save />
@@ -80,7 +99,7 @@ export default class TitleBar extends React.Component {
             )}
             <IconButton
               target="_blank"
-              href={blogUrl + '/preview-longform/' + postName}
+              href={blogUrl + '/preview-longform/' + this.postName}
               disabled={activeTab === 'difundir'}
             >
               <Visibility />

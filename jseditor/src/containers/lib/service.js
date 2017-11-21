@@ -37,6 +37,21 @@ export const updatePost = async (postname, base, publishData) => {
   });
 };
 
+export const savePostFromEscribirPage = (state, base) => {
+  let firebaseData = {
+    id: state.id,
+    title: state.title,
+    sections: state.fields,
+    maxId: state.maxId,
+    meta: state.meta,
+    postType: state.postType
+  };
+
+  base.update('posts/' + state.id, {
+    data: firebaseData
+  });
+};
+
 export const savePost = (state, base) => {
   let firebaseData = {
     id: state.id,
