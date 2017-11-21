@@ -14,7 +14,7 @@ type Props = {
     selected: string,
     category: number,
     tag: string,
-    layout: string
+    moreText: string
   },
   updateResource: (dataId: number, sectionModule: Array) => void,
   siteUrl: string,
@@ -43,7 +43,7 @@ export class SectionModule extends React.PureComponent {
 
   render() {
     return (
-      <div className={'asset-size-' + this.props.data.layout}>
+      <div className="asset-size-normal">
         <label className="ptitle">
           Título <span className="hint">(Límite: 20 caracteres)</span>
         </label>
@@ -100,6 +100,16 @@ export class SectionModule extends React.PureComponent {
             </span>
           ]
         )}
+        <br />
+        <label className="ptitle">More Button Text</label>
+        <input
+          type="text"
+          className="form-control"
+          data-key="moreText"
+          defaultValue={this.props.data.moreText}
+          onBlur={this.updateSection}
+          maxLength={20}
+        />
       </div>
     );
   }
