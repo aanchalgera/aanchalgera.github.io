@@ -16,6 +16,7 @@ type Props = {
   imageUrls: Array<Image>,
   id: string,
   base: {},
+  open: true,
   dispatch: (action: RequestImagesAction) => void
 };
 
@@ -42,8 +43,7 @@ class ImageUploader extends React.PureComponent<Props, State> {
 
   render() {
     const { imageUrls } = this.props;
-
-    return <ImagePanel open={true} images={imageUrls} />;
+    return <ImagePanel open={this.props.open} images={imageUrls} />;
   }
 }
 
