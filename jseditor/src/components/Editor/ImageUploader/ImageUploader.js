@@ -1,5 +1,5 @@
 //@flow
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Image } from 'lib/flowTypes';
@@ -7,14 +7,22 @@ import { getImages } from './lib/imageUploadService';
 import { REQUEST_IMAGES } from './actions';
 import { ImagePanel } from '.';
 
-type Props = {
-  imageUrls: Array<Image>
+type RequestImagesAction = {
+  type: string,
+  images: Array<Image>
 };
 
-class ImageUploader extends PureComponent {
-  props: Props;
+type Props = {
+  imageUrls: Array<Image>,
+  id: string,
+  base: {},
+  dispatch: (action: RequestImagesAction) => void
+};
 
-  async componentWillMount() {
+type State = {};
+
+class ImageUploader extends React.PureComponent<Props, State> {
+  async init() {
     const { id, base, dispatch } = this.props;
     let requestImagesAction = {
       type: REQUEST_IMAGES,
@@ -26,6 +34,10 @@ class ImageUploader extends PureComponent {
     }
 
     dispatch(requestImagesAction);
+  }
+
+  componentWillMount() {
+    this.init();
   }
 
   render() {
