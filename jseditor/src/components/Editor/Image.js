@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from 'react';
 import ImageCaption from './ImageCaption';
 
@@ -14,8 +15,6 @@ class Image extends React.Component {
           id={'img' + this.props.data.id}
           data-id={this.props.dataId}
           src={this.props.data.url}
-          height={this.props.data.height}
-          width={this.props.data.width}
           alt={this.props.data.alt}
         />
         <ImageCaption

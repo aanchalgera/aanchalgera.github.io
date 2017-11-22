@@ -172,7 +172,7 @@ class Editor extends React.Component {
       let field = this.getField(currentIndex);
       field.altered.backgroundImage = image.url;
       field.altered.backgroundImageName = image.original_filename;
-      field.altered.backgroundImageHeight = image.height;
+      //  field.altered.backgroundImageHeight = image.height;
       this.state.fields.splice(field.indexes[0], 0, field.original);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -180,8 +180,6 @@ class Editor extends React.Component {
         id: this.state.maxId,
         type: 'image',
         url: image.url,
-        height: image.height || '',
-        width: image.width || '',
         alt: image.alt || '',
         banner: false,
         parallax: false,
@@ -880,6 +878,7 @@ class Editor extends React.Component {
               base={this.props.base}
               id={this.state.id}
               open={this.state.openImagePanel}
+              addImage={this.props.addImage}
             />,
             <div id="resourcePanel" />
           ]
