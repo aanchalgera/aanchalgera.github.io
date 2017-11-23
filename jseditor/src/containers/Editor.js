@@ -894,7 +894,7 @@ class Editor extends React.Component {
             slug={this.state.id}
             addImageModule={this.state.addImageModule}
             imageFunction={this.state.imageFunction}
-            isCloudinaryUploaderOpen={false}
+            isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
             toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
             ref="resourcePanel"
           />

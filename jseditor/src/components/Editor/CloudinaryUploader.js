@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ResourcePanel from './ResourcePanel';
+import { base } from 'lib/firebase';
 
 class CloudinaryUploader extends React.Component {
   static propTypes = {
