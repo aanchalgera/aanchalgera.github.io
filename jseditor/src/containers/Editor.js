@@ -881,7 +881,7 @@ class Editor extends React.Component {
                 addImage={this.props.addImage}
               />
             ),
-            <div key="1" id="resourcePanel" />
+            <div key="2" id="resourcePanel" />
           ]
         ) : (
           <CloudinaryUploader

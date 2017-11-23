@@ -198,7 +198,7 @@ class CloudinaryUploader extends React.Component {
         if (error || !result || result.length === 0) {
           return;
         }
-        self.props.base.post('images/' + self.props.slug, {
+        base.post('images/' + self.props.slug, {
           data: self.state.imageList.concat(result),
           then() {
             self.init();
@@ -218,7 +218,6 @@ class CloudinaryUploader extends React.Component {
         addImage={this.props.addImage}
         addImages={this.props.addImages}
         editImages={this.props.editImages.bind(this)}
-        base={base}
         images={this.state.imageList}
         slug={this.props.slug}
         handleClick={this.props.toggleCloudinaryUploader}
