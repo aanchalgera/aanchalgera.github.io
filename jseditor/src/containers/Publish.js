@@ -31,7 +31,7 @@ import {
   validateState,
   findByName
 } from './lib/helpers.js';
-import { Check } from 'lib/check';
+import { Check, init as initCheck } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
 
@@ -69,6 +69,7 @@ class Publish extends React.Component {
       this.setAllCategories(post.postType);
     }
     this.props.handleDifundir(post.status, this.state.publishedDate);
+    initCheck(post.postType, this.props.userRole);
   }
 
   submitPost = async () => {
@@ -277,11 +278,7 @@ class Publish extends React.Component {
           autoHideDuration={5000}
           onRequestClose={this.handleRequestClose}
         />
-        <Check
-          userRole={this.props.userRole}
-          postType={this.state.postType}
-          childName="PostScheduler"
-        >
+        <Check childName="PostScheduler">
           <Row className="bottom-xs">
             <Col sm={6}>
               <SchedulePost
@@ -317,11 +314,7 @@ class Publish extends React.Component {
           </Row>
         </Check>
         <Row className="bottom-xs">
-          <Check
-            userRole={this.props.userRole}
-            postType={this.state.postType}
-            childName="PublicationLabel"
-          >
+          <Check childName="PublicationLabel">
             <Col sm={12}>
               <Label
                 label="Detalles de publicación "
@@ -329,11 +322,7 @@ class Publish extends React.Component {
               />
             </Col>
           </Check>
-          <Check
-            userRole={this.props.userRole}
-            postType={this.state.postType}
-            childName="Categories"
-          >
+          <Check childName="Categories">
             <Col sm={3}>
               <Categories
                 category={this.state.category}
@@ -342,11 +331,7 @@ class Publish extends React.Component {
               />
             </Col>
           </Check>
-          <Check
-            userRole={this.props.userRole}
-            postType={this.state.postType}
-            childName="OtherCategories"
-          >
+          <Check childName="OtherCategories">
             <Col sm={3}>
               <OtherCategories
                 postCategories={this.state.postCategories}
@@ -397,11 +382,7 @@ class Publish extends React.Component {
             crop={this.state.crop}
           />
         )}
-        <Check
-          userRole={this.props.userRole}
-          postType={this.state.postType}
-          childName="SponsoredContent"
-        >
+        <Check childName="SponsoredContent">
           <SponsoredContent
             sponsor={this.state.meta.sponsor}
             setPostMeta={this.setPostMeta}
@@ -415,11 +396,7 @@ class Publish extends React.Component {
             />
           </Col>
           <Col sm>
-            <Check
-              userRole={this.props.userRole}
-              postType={this.state.postType}
-              childName="CountriesFormOptions"
-            >
+            <Check childName="CountriesFormOptions">
               <CountriesFormOptions
                 updateParent={this.updateParent}
                 publishRegions={this.state.publishRegion}
@@ -427,11 +404,7 @@ class Publish extends React.Component {
             </Check>
           </Col>
           <Col sm>
-            <Check
-              userRole={this.props.userRole}
-              postType={this.state.postType}
-              childName="AdvancedOptions"
-            >
+            <Check childName="AdvancedOptions">
               <AdvancedOptions
                 blogUrl={this.props.blogUrl}
                 userId={this.state.userId}
@@ -440,8 +413,6 @@ class Publish extends React.Component {
                 postMeta={this.state.meta}
                 specialPost={this.state.specialPost}
                 isSensitive={this.state.isSensitive}
-                userRole={this.props.userRole}
-                postType={this.state.postType}
                 ampVisibility={this.state.ampVisibility}
                 iaVisibility={this.state.iaVisibility}
                 commentStatus={this.state.commentStatus}

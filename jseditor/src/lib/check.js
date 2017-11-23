@@ -1,18 +1,19 @@
 /*@flow*/
 import { viewPermissions } from './constants';
 
+let postType, userRole;
+
 type PropTypes = {
   children: Object,
-  userRole: string,
-  childName: string,
-  postType: string
+  childName: string
 };
 
-const isViewPermitted = (
-  userRole: string,
-  component: string,
-  postType: string
-): boolean => {
+export const init = (type: string, role: string) => {
+  postType = type;
+  userRole = role;
+};
+
+const isViewPermitted = (component: string): boolean => {
   const componentViewPermissions = viewPermissions[component];
 
   if (componentViewPermissions['types'].includes(postType)) {
@@ -28,7 +29,7 @@ const isViewPermitted = (
 };
 
 export const Check = (props: PropTypes) => {
-  if (isViewPermitted(props.userRole, props.childName, props.postType)) {
+  if (isViewPermitted(props.childName)) {
     return props.children;
   }
   return null;
