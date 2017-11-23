@@ -8,7 +8,7 @@ type PropTypes = {
   childName: string
 };
 
-export const init = (type, role) => {
+export const init = (type: string, role: string) => {
   postType = type;
   userRole = role;
 };
