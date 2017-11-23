@@ -1,3 +1,5 @@
+import { base } from 'lib/firebase';
+
 import { RECEIVE_CONFIGS } from '../constants/ActionTypes';
 
 function receiveConfigs(configs) {
@@ -7,7 +9,7 @@ function receiveConfigs(configs) {
   };
 }
 
-export function fetchConfigs(component, base) {
+export function fetchConfigs(component) {
   return dispatch => {
     return base.listenTo('config', {
       context: component,

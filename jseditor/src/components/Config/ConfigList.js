@@ -49,8 +49,7 @@ export class ConfigList extends React.Component {
 
 ConfigList.propTypes = {
   configs: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  base: PropTypes.object.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(ConfigList);
