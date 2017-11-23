@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from 'react';
 import Index from './Index';
 import Footer from './Footer';
@@ -18,22 +19,14 @@ class Metadata extends React.Component {
     return (
       <div className="article-metadata-container">
         <h3>Article Metadata</h3>
-        <Check
-          postType={this.props.postType}
-          userRole={this.props.userRole}
-          childName="Index"
-        >
+        <Check childName="Index">
           <Index
             index={this.props.meta.index}
             updateIndexMetadata={this.props.updateIndexMetadata}
             onArticleMetaToggle={this.onArticleMetaToggle}
           />
         </Check>
-        <Check
-          postType={this.props.postType}
-          userRole={this.props.userRole}
-          childName="Footer"
-        >
+        <Check childName="Footer">
           <Footer
             footer={this.props.meta.footer}
             updateFooterCredits={this.props.updateFooterCredits}
@@ -50,11 +43,7 @@ class Metadata extends React.Component {
           toggleSocialSharing={this.props.toggleSocialSharing}
           onArticleMetaToggle={this.onArticleMetaToggle}
         />
-        <Check
-          postType={this.props.postType}
-          userRole={this.props.userRole}
-          childName="Css"
-        >
+        <Check childName="Css">
           <Css
             css={this.props.meta.css}
             updateCssSkinName={this.props.updateCssSkinName.bind(this)}

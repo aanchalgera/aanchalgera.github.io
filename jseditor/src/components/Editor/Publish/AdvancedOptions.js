@@ -17,8 +17,6 @@ type Props = {
   specialPost: boolean,
   postMeta: Object,
   commentStatus: string,
-  userRole: string,
-  postType: string,
   ampVisibility: boolean,
   iaVisibility: boolean
 };
@@ -105,11 +103,7 @@ export class AdvancedOptions extends React.Component<Props, State> {
           onCheck={this.setCommentStatus}
           className="layout-line-form"
         />
-        <Check
-          userRole={this.props.userRole}
-          postType={this.props.postType}
-          childName="ShowDate"
-        >
+        <Check childName="ShowDate">
           <Checkbox
             checked={postMeta.showDate}
             label="Mostrar fecha de publicación"
@@ -119,11 +113,7 @@ export class AdvancedOptions extends React.Component<Props, State> {
             className="layout-line-form"
           />
         </Check>
-        <Check
-          userRole={this.props.userRole}
-          postType={this.props.postType}
-          childName="ShowSocialShareButtons"
-        >
+        <Check childName="ShowSocialShareButtons">
           <Checkbox
             checked={postMeta.showSocialShareButtons}
             label="Mostrar botones de compartir en redes"
@@ -133,11 +123,7 @@ export class AdvancedOptions extends React.Component<Props, State> {
             className="layout-line-form"
           />
         </Check>
-        <Check
-          userRole={this.props.userRole}
-          postType={this.props.postType}
-          childName="FBIA"
-        >
+        <Check childName="FBIA">
           <Checkbox
             checked={iaVisibility}
             label="Publicar como Instant Article en Facebook"
@@ -147,11 +133,7 @@ export class AdvancedOptions extends React.Component<Props, State> {
             className="layout-line-form"
           />
         </Check>
-        <Check
-          userRole={this.props.userRole}
-          postType={this.props.postType}
-          childName="AMP"
-        >
+        <Check childName="AMP">
           <Checkbox
             checked={ampVisibility}
             label="Publicar versión para AMP de Google"
@@ -161,11 +143,7 @@ export class AdvancedOptions extends React.Component<Props, State> {
             className="layout-line-form"
           />
         </Check>
-        <Check
-          userRole={this.props.userRole}
-          postType={this.props.postType}
-          childName="ShowSocialShareButtons"
-        >
+        <Check childName="ShowSocialShareButtons">
           <Checkbox
             checked={postMeta.author.showAuthorInfo}
             label="Mostrar author"

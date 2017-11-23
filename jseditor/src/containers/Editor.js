@@ -13,6 +13,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
+import { init as initCheck } from 'lib/check';
 
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -57,6 +58,7 @@ class Editor extends React.Component {
         userId: data.user_id,
         meta: data.meta || initialMeta
       });
+      initCheck(data.postType, this.props.userRole);
     } else {
       console.log('Should never be here');
       this.setState({
@@ -792,8 +794,6 @@ class Editor extends React.Component {
         toggleSocialSharing={this.toggleSocialSharing.bind(this)}
         deleteImage={this.deleteImage.bind(this)}
         toggleFooter={this.toggleFooter}
-        userRole={this.props.userRole}
-        postType={this.state.postType}
       />
     );
 
