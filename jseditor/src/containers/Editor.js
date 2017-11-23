@@ -874,13 +874,16 @@ class Editor extends React.Component {
 
         {process.env.REACT_APP_ENV === 'development' ? (
           [
-            <ImageUploader
-              base={this.props.base}
-              id={this.state.id}
-              open={this.state.openImagePanel}
-              addImage={this.props.addImage}
-            />,
-            <div id="resourcePanel" />
+            this.state.id && (
+              <ImageUploader
+                key="1"
+                base={this.props.base}
+                id={this.state.id}
+                open={this.state.openImagePanel}
+                addImage={this.props.addImage}
+              />
+            ),
+            <div key="2" id="resourcePanel" />
           ]
         ) : (
           <CloudinaryUploader

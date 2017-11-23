@@ -16,7 +16,7 @@ export class Thumbnail extends PureComponent {
     return (
       <div className="panel-img-container">
         <img
-          src={image.url}
+          src={image.thumbnail_url}
           data-src={image.url}
           alt=""
           onClick={handleClick}
