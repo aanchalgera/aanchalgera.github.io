@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import Resource from './Resource';
-import MoreOptions from './MoreOptions';
+import { MoreOptions } from './Escribir';
 
 class ContentList extends React.Component {
   isGroupable(type) {

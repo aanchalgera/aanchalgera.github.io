@@ -21,7 +21,7 @@ const styles = {
   underlineStyle: {}
 };
 
-export default class Title extends Component<Props> {
+export class Title extends Component<Props> {
   handleChange = (e: InputEvent, newValue: string) => {};
 
   render() {

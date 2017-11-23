@@ -2,9 +2,11 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import ImageAltTextPopover from '../components/Editor/ImageUploader/ImageAltTextPopover';
-import Title from '../components/Editor/Escribir/Title';
-import ImagePanel from '../components/Editor/ImageUploader/ImagePanel';
+import {
+  ImageAltTextPopover,
+  ImagePanel
+} from '../components/Editor/ImageUploader';
+import { Title, MoreOptions } from '../components/Editor/Escribir';
 
 storiesOf('ImageAltTextPopover', module).add('ImageAltTextPopover', () => (
   <ImageAltTextPopover
@@ -30,3 +32,4 @@ storiesOf('ImagePanel', module).add('ImagePanel', () => (
   />
 ));
 
+storiesOf('MoreOptions', module).add('MoreOptions', () => <MoreOptions />);
