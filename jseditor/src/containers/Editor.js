@@ -1,7 +1,5 @@
-/* eslint-disable */
+/*eslint-disable */
 import React from 'react';
-import jquery from 'jquery';
-import moment from 'moment-timezone';
 
 import ContentList from 'components/Editor/ContentList';
 import PostTitle from 'components/Editor/PostTitle';
@@ -14,11 +12,9 @@ import {
   getPost,
   savePostFromEscribirPage
 } from './lib/service';
+import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
 
-moment.tz.setDefault(configParams.timezone);
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
-const FIELD_EMPTY_WARNING = 'One of the added fields should contain some value';
-const MAIN_IMAGE_WARNING = 'Add homepage image to publish this post';
 const UPDATED_MESSAGE = 'Todo guardado';
 
 class Editor extends React.Component {
@@ -31,7 +27,6 @@ class Editor extends React.Component {
       isError: false,
       isSubmit: false,
       message: '',
-      resourcePanelOpenedBy: '',
       imageFunction: '',
       addImageModule: '',
       addMoreImages: false,
@@ -55,7 +50,6 @@ class Editor extends React.Component {
       this.setState({
         id: data.id,
         postType: data.postType || getPostType(this.state.userRole),
-        postType: data.postType || getPostType(this.props.userRole),
         fields: data.sections || [],
         title: data.title || '',
         maxId: data.maxId || 0,
@@ -86,9 +80,9 @@ class Editor extends React.Component {
     if (undefined != event) {
       event.preventDefault();
     }
-
+    this.resourcePanelOpenedBy = currentIndex;
     this.setState({
-      resourcePanelOpenedBy: currentIndex,
+      openImagePanel: true,
       imageFunction: imageFunction,
       addImageModule: addImageModule,
       addMoreImages: addMoreImages
@@ -173,12 +167,12 @@ class Editor extends React.Component {
   }
 
   addImage(image) {
-    let currentIndex = this.state.resourcePanelOpenedBy;
+    let currentIndex = this.resourcePanelOpenedBy;
     if (this.state.imageFunction == 'backgroundImage') {
       let field = this.getField(currentIndex);
       field.altered.backgroundImage = image.url;
       field.altered.backgroundImageName = image.original_filename;
-      field.altered.backgroundImageHeight = image.height;
+      //  field.altered.backgroundImageHeight = image.height;
       this.state.fields.splice(field.indexes[0], 0, field.original);
     } else if (this.state.imageFunction == 'image') {
       this.state.maxId++;
@@ -186,8 +180,6 @@ class Editor extends React.Component {
         id: this.state.maxId,
         type: 'image',
         url: image.url,
-        height: image.height || '',
-        width: image.width || '',
         alt: image.alt || '',
         banner: false,
         parallax: false,
@@ -298,7 +290,7 @@ class Editor extends React.Component {
 
   addImages(images, moduleType) {
     let addMoreImages = this.state.addMoreImages;
-    let currentIndex = this.state.resourcePanelOpenedBy;
+    let currentIndex = this.resourcePanelOpenedBy;
     if (!addMoreImages) {
       this.state.maxId++;
       let attributes = {
@@ -334,9 +326,8 @@ class Editor extends React.Component {
   }
 
   editImages(images) {
-    const { resourcePanelOpenedBy } = this.state;
-    let currentIndex = resourcePanelOpenedBy.currentIndex;
-    let imageIndex = resourcePanelOpenedBy.imageIndex;
+    let currentIndex = this.resourcePanelOpenedBy.currentIndex;
+    let imageIndex = this.resourcePanelOpenedBy.imageIndex;
 
     let field = this.getField(currentIndex);
     switch (typeof imageIndex) {
@@ -880,21 +871,37 @@ class Editor extends React.Component {
           />
         </div>
         {this.state.meta ? metadata : ''}
-        <CloudinaryUploader
-          cloudName={configParams.cloudName}
-          uploadPreset={configParams.uploadPreset}
-          folder={configParams.folder}
-          addImage={this.addImage.bind(this)}
-          addImages={this.addImages}
-          editImages={this.editImages.bind(this)}
-          base={this.props.base}
-          slug={this.state.id}
-          addImageModule={this.state.addImageModule}
-          imageFunction={this.state.imageFunction}
-          isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
-          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
-          ref="resourcePanel"
-        />
+
+        {process.env.REACT_APP_ENV === 'development' ? (
+          [
+            this.state.id && (
+              <ImageUploader
+                key="1"
+                base={this.props.base}
+                id={this.state.id}
+                open={this.state.openImagePanel}
+                addImage={this.props.addImage}
+              />
+            ),
+            <div key="2" id="resourcePanel" />
+          ]
+        ) : (
+          <CloudinaryUploader
+            cloudName={configParams.cloudName}
+            uploadPreset={configParams.uploadPreset}
+            folder={configParams.folder}
+            addImage={this.addImage.bind(this)}
+            addImages={this.addImages}
+            editImages={this.editImages.bind(this)}
+            base={this.props.base}
+            slug={this.state.id}
+            addImageModule={this.state.addImageModule}
+            imageFunction={this.state.imageFunction}
+            isCloudinaryUploaderOpen={false}
+            toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
+            ref="resourcePanel"
+          />
+        )}
         <div id="preview" />
       </div>
     );
