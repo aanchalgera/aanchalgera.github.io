@@ -220,7 +220,10 @@ class Publish extends React.Component {
     let state = this.state;
     state.status = 'draft';
     try {
-      await submitPostToBackend(state, this.props.blogUrl);
+      await submitPostToBackend(
+        { ...state, ...this.publishData },
+        this.props.blogUrl
+      );
       this.setState(
         {
           status: 'draft',
@@ -241,7 +244,10 @@ class Publish extends React.Component {
   handleUpdate = async () => {
     if (this.isValid()) {
       try {
-        await submitPostToBackend(this.state, this.props.blogUrl);
+        await submitPostToBackend(
+          { ...this.state, ...this.publishData },
+          this.props.blogUrl
+        );
         this.setState({
           message: '',
           snackbarOpen: true,
