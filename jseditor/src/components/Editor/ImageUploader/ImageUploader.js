@@ -15,7 +15,6 @@ type RequestImagesAction = {
 type Props = {
   imageUrls: Array<Image>,
   id: string,
-  base: {},
   open: true,
   dispatch: (action: RequestImagesAction) => void
 };
@@ -24,14 +23,14 @@ type State = {};
 
 class ImageUploader extends React.PureComponent<Props, State> {
   async init() {
-    const { id, base, dispatch } = this.props;
+    const { id, dispatch } = this.props;
     let requestImagesAction = {
       type: REQUEST_IMAGES,
       images: []
     };
 
     if (id !== undefined && id !== '') {
-      requestImagesAction.images = await getImages(base, id);
+      requestImagesAction.images = await getImages(id);
     }
 
     dispatch(requestImagesAction);

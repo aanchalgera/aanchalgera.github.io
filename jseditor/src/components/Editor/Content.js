@@ -266,7 +266,7 @@ class Content extends React.Component {
           dataId={this.props.dataId}
           ref="field"
           updateResource={this.props.updateResource}
-          base={this.props.base}
+          base={base}
           siteUrl={this.props.siteUrl}
           postType={this.props.postType}
         />

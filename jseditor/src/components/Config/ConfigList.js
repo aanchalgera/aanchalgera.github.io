@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 
 export class ConfigList extends React.Component {
   componentDidMount() {
-    const { dispatch, base } = this.props;
-    dispatch(fetchConfigs(this, base));
+    const { dispatch } = this.props;
+    dispatch(fetchConfigs(this));
   }
 
   render() {

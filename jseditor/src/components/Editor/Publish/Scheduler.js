@@ -16,7 +16,6 @@ import { getScheduledPosts } from './lib/publishService';
 import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
-  base: Object,
   date: string,
   updateParent: (data: Object) => void,
   date: string,
@@ -28,7 +27,7 @@ type Props = {
 
 type State = {
   scheduledPosts: any
-}
+};
 
 moment.locale('es');
 
@@ -54,7 +53,7 @@ export default class Scheduler extends React.Component<Props, State> {
   }
 
   async init() {
-    const data = await getScheduledPosts(this.props.base);
+    const data = await getScheduledPosts();
     let scheduledPosts = {};
     data.forEach(result => {
       let formatDate = result.publishData.postDate;

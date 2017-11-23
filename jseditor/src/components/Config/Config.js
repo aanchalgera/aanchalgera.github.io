@@ -1,7 +1,9 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import helpers from '../../utils/generatehash';
 import { Link } from 'react-router-dom';
+
+import helpers from '../../utils/generatehash';
+import { base } from 'lib/firebase';
 
 let hashId = helpers.generatePushID();
 
@@ -23,7 +25,7 @@ class Config extends Component {
     const { match: { params: { configId } }, history } = this.props;
 
     if (undefined != configId) {
-      this.props.base.fetch('config/' + configId, {
+      base.fetch('config/' + configId, {
         context: this,
         then(data) {
           if (null != data) {
@@ -125,14 +127,14 @@ class Config extends Component {
       site_url: this.refs.site_url.value
     };
 
-    this.props.base.post('config/' + this.state.id, {
+    base.post('config/' + this.state.id, {
       data: data,
       then() {}
     });
   }
 
   checkDuplicateSiteUrl() {
-    this.props.base.fetch('config', {
+    base.fetch('config', {
       context: this,
       state: 'config',
       asArray: true,
@@ -157,7 +159,7 @@ class Config extends Component {
   }
 
   checkDuplicateSiteName() {
-    this.props.base.fetch('config', {
+    base.fetch('config', {
       context: this,
       state: 'config',
       asArray: true,

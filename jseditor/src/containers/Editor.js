@@ -45,7 +45,7 @@ class Editor extends React.Component {
 
   async init() {
     const postname = this.props.match.params.postname;
-    const data = await getPost(postname, this.props.base);
+    const data = await getPost(postname);
     if (data.hasOwnProperty('id')) {
       this.setState({
         id: data.id,
@@ -442,8 +442,8 @@ class Editor extends React.Component {
       return;
     }
     try {
-      savePostsList(this.state, this.props.base, this.props.blogName);
-      savePostFromEscribirPage(this.state, this.props.base);
+      savePostsList(this.state, this.props.blogName);
+      savePostFromEscribirPage(this.state);
       this.props.handleStatus(UPDATED_MESSAGE);
     } catch (e) {
       //      Rollbar.critical('Error occured on saving data to Firebase', e);
@@ -865,7 +865,6 @@ class Editor extends React.Component {
             toggleSummarySocialShareButtons={
               this.toggleSummarySocialShareButtons
             }
-            base={this.props.base}
             siteUrl={this.props.blogUrl}
             postType={this.state.postType}
           />
@@ -877,13 +876,12 @@ class Editor extends React.Component {
             this.state.id && (
               <ImageUploader
                 key="1"
-                base={this.props.base}
                 id={this.state.id}
                 open={this.state.openImagePanel}
                 addImage={this.props.addImage}
               />
             ),
-            <div key="2" id="resourcePanel" />
+            <div key="1" id="resourcePanel" />
           ]
         ) : (
           <CloudinaryUploader
@@ -893,7 +891,6 @@ class Editor extends React.Component {
             addImage={this.addImage.bind(this)}
             addImages={this.addImages}
             editImages={this.editImages.bind(this)}
-            base={this.props.base}
             slug={this.state.id}
             addImageModule={this.state.addImageModule}
             imageFunction={this.state.imageFunction}

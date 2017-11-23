@@ -2,14 +2,15 @@ import jquery from 'jquery';
 import isoFetch from 'isomorphic-fetch';
 
 import { convertTo1DArray } from './helpers';
+import { base } from 'lib/firebase';
 
-export const saveInitialPost = (initialData, base) => {
+export const saveInitialPost = initialData => {
   base.post('posts/' + initialData.id, {
     data: initialData
   });
 };
 
-export const getBlogUrl = async (blogName, base) => {
+export const getBlogUrl = async blogName => {
   try {
     const data = await base.fetch('config', {
       context: this,
@@ -25,19 +26,19 @@ export const getBlogUrl = async (blogName, base) => {
   }
 };
 
-export const getPost = (postname, base) => {
+export const getPost = postname => {
   return base.fetch('posts/' + postname, {
     context: this
   });
 };
 
-export const updatePost = async (postname, base, publishData) => {
+export const updatePost = async (postname, publishData) => {
   return await base.update('posts/' + postname, {
     data: { publishData }
   });
 };
 
-export const savePostFromEscribirPage = (state, base) => {
+export const savePostFromEscribirPage = state => {
   let firebaseData = {
     id: state.id,
     title: state.title,
@@ -52,7 +53,7 @@ export const savePostFromEscribirPage = (state, base) => {
   });
 };
 
-export const savePost = (state, base) => {
+export const savePost = state => {
   let firebaseData = {
     id: state.id,
     title: state.title,
@@ -85,7 +86,7 @@ export const savePost = (state, base) => {
   });
 };
 
-export const savePostsList = (state, base, blogName) => {
+export const savePostsList = (state, blogName) => {
   let blogStatus = blogName + '_' + state.status;
   let listData = {
     id: state.id,
