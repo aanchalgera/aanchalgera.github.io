@@ -23,7 +23,6 @@ const REPUBLISHED = 'Post successfully scheduled to republish at  ';
 const CROSSPOST_SUCCESS = 'Crosspost enviado';
 
 type Props = {
-  base: Object,
   match: { params: Object },
   blogUrl: string,
   blogName: string,
@@ -48,7 +47,7 @@ class Difundir extends React.Component {
 
   async init() {
     const postname = this.props.match.params.postname;
-    const data = await getPost(postname, this.props.base);
+    const data = await getPost(postname);
     this.setState({
       id: data.id,
       postRepostBlogNames: data.publishData.postRepostBlogNames || [],
@@ -84,7 +83,7 @@ class Difundir extends React.Component {
 
     try {
       await submitRepostedBlogsToBackend(backendData, this.props.blogUrl);
-      await updatePost(this.state.id, this.props.base, publishData);
+      await updatePost(this.state.id, publishData);
       this.showSnackbarMsg(CROSSPOST_SUCCESS);
     } catch (err) {
       this.showSnackbarMsg('Something Went Wrong.');
@@ -156,7 +155,6 @@ class Difundir extends React.Component {
             <Col sm={6}>
               <SchedulePost
                 date={this.state.publishedDate}
-                base={this.props.base}
                 onSchedule={this.onRepublishSchedule}
                 updateParent={this.updateParent}
               />

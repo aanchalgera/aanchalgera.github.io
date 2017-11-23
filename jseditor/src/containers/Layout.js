@@ -14,8 +14,7 @@ import helpers from 'utils/generatehash';
 type Props = {
   match: { params: Object },
   location: { search: string, pathname: string },
-  history: Object,
-  base: Object
+  history: Object
 };
 
 export default class Layout extends React.Component {
@@ -37,7 +36,7 @@ export default class Layout extends React.Component {
     const blogName = query.get('blog');
     const pathName = this.props.location.pathname;
     try {
-      const blogUrl = await getBlogUrl(blogName, this.props.base);
+      const blogUrl = await getBlogUrl(blogName);
       const userData = await getUserDetails(blogUrl);
       this.setState({
         blogUrl: blogUrl,
@@ -56,7 +55,7 @@ export default class Layout extends React.Component {
           blogName: blogName,
           status: 'draft'
         };
-        saveInitialPost(initialData, this.props.base);
+        saveInitialPost(initialData);
       }
     } catch (error) {
       console.log(error.message);
@@ -111,7 +110,6 @@ export default class Layout extends React.Component {
   };
 
   render() {
-    const { base } = this.props;
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
@@ -127,7 +125,6 @@ export default class Layout extends React.Component {
                 <Publicar
                   {...props}
                   {...rest}
-                  base={base}
                   handleDifundir={this.handleDifundir}
                 />
               )}
@@ -138,7 +135,6 @@ export default class Layout extends React.Component {
                 <Difundir
                   {...props}
                   {...rest}
-                  base={base}
                   handleDifundir={this.handleDifundir}
                 />
               )}
@@ -156,7 +152,6 @@ export default class Layout extends React.Component {
                     }}
                     {...props}
                     {...rest}
-                    base={base}
                     handleStatus={this.handleStatus}
                   />
                 </div>

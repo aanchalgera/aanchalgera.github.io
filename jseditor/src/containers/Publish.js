@@ -41,7 +41,6 @@ const DRAFT_MESSAGE = 'El post se ha pasado a borrador correctamente';
 const UPDATED_MESSAGE = 'Guardado correctamente';
 
 type Props = {
-  base: Object,
   match: { params: Object },
   blogUrl: string,
   blogName: string,
@@ -60,7 +59,7 @@ class Publish extends React.Component {
 
   async init() {
     const postname = this.props.match.params.postname;
-    const post = await getPost(postname, this.props.base);
+    const post = await getPost(postname);
     this.publishData = loadPublishData(post);
     this.setState(loadStatefromData(post, this.props.userRole));
 
@@ -94,7 +93,7 @@ class Publish extends React.Component {
         this.savePostData
       );
       this.props.handleDifundir('publish', date);
-      savePostsList(this.state, this.props.base, this.props.blogName);
+      savePostsList(this.state, this.props.blogName);
       this.enableButton();
     } catch (error) {
       this.setMessage(true, SAVING_DATA_ERROR_WARNING);
@@ -185,7 +184,7 @@ class Publish extends React.Component {
   };
 
   savePostData = () => {
-    savePost({ ...this.state, ...this.publishData }, this.props.base);
+    savePost({ ...this.state, ...this.publishData });
   };
 
   onCropChange = (shape, crop) => {
@@ -230,7 +229,7 @@ class Publish extends React.Component {
         },
         this.savePostData
       );
-      savePostsList(state, this.props.base, this.props.blogName);
+      savePostsList(state, this.props.blogName);
       this.props.handleDifundir('draft', this.state.publishedDate);
     } catch (err) {
       console.log(err);
@@ -287,7 +286,6 @@ class Publish extends React.Component {
             <Col sm={6}>
               <SchedulePost
                 date={this.state.publishedDate}
-                base={this.props.base}
                 updateParent={this.updateParent}
                 showCalendar={showCalendar}
               />

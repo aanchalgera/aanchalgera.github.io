@@ -1,7 +1,5 @@
 //@flow
 import * as React from 'react';
-import Rebase from 're-base';
-import firebase from 'firebase';
 import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './Menu/TopBar';
@@ -10,13 +8,6 @@ import Config from 'components/Config/Config';
 import ConfigList from './Config/ConfigList';
 import NotFoundPage from '../components/NotFoundPage';
 import Home from '../components/Home';
-import configParams from '../config/configs.js';
-
-const app = firebase.initializeApp({
-  apiKey: configParams.apiKey,
-  databaseURL: configParams.firebaseUrl
-});
-const base = Rebase.createClass(app.database());
 
 type Props = {
   location: { search: string, pathname: string }
@@ -30,7 +21,7 @@ const Main = (props: Props) => {
     pathname.indexOf('/edit/') > -1 ||
     pathname.indexOf('/post/new') > -1
   ) {
-    return <Layout {...props} base={base} />;
+    return <Layout {...props} />;
   }
 
   return (
@@ -43,17 +34,11 @@ const Main = (props: Props) => {
       <TopBar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route
-          path="/configs"
-          render={props => <ConfigList {...props} base={base} />}
-        />
-        <Route
-          path="/config/new"
-          render={props => <Config {...props} base={base} />}
-        />
+        <Route path="/configs" render={props => <ConfigList {...props} />} />
+        <Route path="/config/new" render={props => <Config {...props} />} />
         <Route
           path="/config/:configId"
-          render={props => <Config {...props} base={base} />}
+          render={props => <Config {...props} />}
         />
         <Route component={NotFoundPage} />
       </Switch>

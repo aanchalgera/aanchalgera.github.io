@@ -1,4 +1,5 @@
 import jquery from 'jquery';
+import { base } from 'lib/firebase';
 
 export const loadUsers = async blogUrl => {
   const data = await jquery.ajax({
@@ -12,7 +13,7 @@ export const loadUsers = async blogUrl => {
   return data.users;
 };
 
-export const getScheduledPosts = async base => {
+export const getScheduledPosts = async () => {
   return await base.fetch('posts', {
     context: this,
     asArray: true,
