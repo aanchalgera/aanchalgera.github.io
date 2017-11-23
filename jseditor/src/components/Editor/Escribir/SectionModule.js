@@ -26,7 +26,7 @@ export class SectionModule extends React.PureComponent<Props> {
   field: ?HTMLInputElement;
 
   focus() {
-    if (this.field) {
+    if (this.field && !this.props.data.title) {
       this.field.focus();
     }
   }
