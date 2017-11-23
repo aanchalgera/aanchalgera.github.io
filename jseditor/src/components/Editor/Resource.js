@@ -3,7 +3,7 @@ import React from 'react';
 import Content from './Content';
 import ContentGrouped from './ContentGrouped';
 import MoveControls from './MoveControls';
-import MoreOptions from './MoreOptions';
+import { MoreOptions } from './Escribir';
 
 export default class Resource extends React.Component {
   constructor(props) {
