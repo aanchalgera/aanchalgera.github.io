@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React from 'react';
-import MoreOptions from './MoreOptions';
 import DraftJSEditor from './DraftJSEditor/DraftJSEditor';
 import Image from './Image';
 import Video from './Video';
@@ -10,6 +9,8 @@ import Gallery from './Gallery';
 import Slider from './Slider';
 import Giphy from './Giphy';
 import Chart from './Chart';
+
+import { MoreOptions } from './Escribir';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -179,13 +180,7 @@ export default class Table extends React.Component {
                 openResourcePanel={this.props.openResourcePanel}
                 show2column={false}
                 show3column={false}
-                showTableButton={false}
-                showReviewButton={false}
-                showTechnicaButton={false}
-                showGalleryButton={false}
-                showSliderButton={false}
-                showGifButton={false}
-                showInfogramButton={false}
+                showExtras={false}
               />
             </td>
           );
