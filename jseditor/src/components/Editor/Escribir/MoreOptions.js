@@ -87,8 +87,8 @@ export class MoreOptions extends PureComponent<Props, State> {
 
     return (
       <div>
-        <IconButton onClick={this.toggleShowOptions}>
-          {showOptions ? <ContentClear /> : <ContentAdd />}
+        <IconButton className="btn-option" onClick={this.toggleShowOptions}>
+          {showOptions ? <ContentClear color="black" /> : <ContentAdd color="black" />}
         </IconButton>
 
         {showOptions && (
