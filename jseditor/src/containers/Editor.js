@@ -51,7 +51,7 @@ class Editor extends React.Component {
     if (data.hasOwnProperty('id')) {
       this.setState({
         id: data.id,
-        postType: data.postType || getPostType(this.state.userRole),
+        postType: data.postType || getPostType(this.props.userRole),
         fields: data.sections || [],
         title: data.title || '',
         maxId: data.maxId || 0,
@@ -876,6 +876,7 @@ class Editor extends React.Component {
             }
             siteUrl={this.props.blogUrl}
             postType={this.state.postType}
+            userRole={this.props.userRole}
           />
         </div>
         {this.state.meta ? metadata : ''}

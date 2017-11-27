@@ -73,5 +73,15 @@ export const viewPermissions = {
   PublicationLabel: {
     roles: ['ROLE_BRANDED_COLLABORATOR'],
     types: ['brandedLongform', 'club']
-  }
+  },
+  MoreOptions: {
+    roles: ALL_COORDINATORS,
+    types: [
+      'slideshow',
+      'club',
+      'basics',
+      'brandedLongform',
+      'longform'
+    ]
+  },
 };
