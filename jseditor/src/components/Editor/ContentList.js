@@ -64,6 +64,8 @@ class ContentList extends React.Component {
           groupSections={this.props.groupSections}
           show2column={false}
           show3column={false}
+          postType={this.props.postType}
+          userRole={this.props.userRole}
         />
       </div>
     );

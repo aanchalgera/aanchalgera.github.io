@@ -56,6 +56,8 @@ export default class Resource extends React.Component {
         show2column={field.show2column}
         show3column={field.show3column}
         dataId={i}
+        postType={this.props.postType}
+        userRole={this.props.userRole}
       />
     );
 
