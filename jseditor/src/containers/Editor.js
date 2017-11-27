@@ -14,6 +14,7 @@ import {
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
 import { init as initCheck } from 'lib/check';
+import { Title } from 'components/Editor/Escribir';
 
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -72,13 +73,13 @@ class Editor extends React.Component {
     this.init();
   }
 
-  openResourcePanel(
+  openResourcePanel = (
     imageFunction,
     currentIndex,
     addImageModule = '',
     addMoreImages = false,
     event
-  ) {
+  ) => {
     if (undefined != event) {
       event.preventDefault();
     }
@@ -91,7 +92,7 @@ class Editor extends React.Component {
     });
     document.getElementById('resourcePanel').style.display = 'block';
     document.getElementById('resourcePanel').classList.add('in');
-  }
+  };
 
   getField(currentIndex) {
     currentIndex = currentIndex.toString();
@@ -380,13 +381,13 @@ class Editor extends React.Component {
     }
   }
 
-  handleChange(ev) {
+  handleChange = ev => {
     this.setState({
       title: ev.currentTarget.value
     });
-  }
+  };
 
-  handleBlur(ev) {
+  handleBlur = ev => {
     let title = ev.currentTarget.value.trim();
 
     if (this.state.fields.length < 2) {
@@ -399,7 +400,7 @@ class Editor extends React.Component {
       },
       this.saveData()
     );
-  }
+  };
 
   isValid() {
     if (!this.isValidFieldCaptions(this.state.fields)) {
@@ -461,7 +462,7 @@ class Editor extends React.Component {
     });
   }
 
-  addBackgroundOptionToResource(property, value, event) {
+  addBackgroundOptionToResource = (property, value, event) => {
     event.preventDefault();
     let currentIndex = this.parentDiv(event.target).dataset.id;
     let field = this.getField(currentIndex);
@@ -501,7 +502,7 @@ class Editor extends React.Component {
     }
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
-  }
+  };
 
   deleteResource(event) {
     event.preventDefault();
@@ -582,7 +583,7 @@ class Editor extends React.Component {
     this.setState({ fields: this.state.fields }, this.saveData());
   }
 
-  addLayoutToResource(event) {
+  addLayoutToResource = event => {
     event.preventDefault();
     let currentIndex = this.parentDiv(event.target).dataset.id;
     let value = event.target.dataset.layout;
@@ -590,7 +591,7 @@ class Editor extends React.Component {
     field.altered.layout = value;
     this.state.fields.splice(field.indexes[0], 0, field.original);
     this.setState({ fields: this.state.fields }, this.saveData());
-  }
+  };
 
   addGroupToResource(event) {
     event.preventDefault();
@@ -786,7 +787,7 @@ class Editor extends React.Component {
         updateFooterCredits={this.updateFooterCredits.bind(this)}
         updateCssSkinName={this.updateCssSkinName.bind(this)}
         deleteHomepageImage={this.deleteHomepageImage.bind(this)}
-        openResourcePanel={this.openResourcePanel.bind(this)}
+        openResourcePanel={this.openResourcePanel}
         updateMicrositeName={this.updateMicrositeName.bind(this)}
         updateMicrositeGASnippet={this.updateMicrositeGASnippet.bind(this)}
         updateMicrositeCookiePage={this.updateMicrositeCookiePage.bind(this)}
@@ -821,30 +822,38 @@ class Editor extends React.Component {
         />
         {errorField}
         <div className="form-group">
-          <PostTitle
-            data={this.state.fields[0]}
-            value={this.state.title}
-            handleBlur={this.handleBlur.bind(this)}
-            handleChange={this.handleChange.bind(this)}
-            openResourcePanel={this.openResourcePanel.bind(this)}
-            addLayoutToResource={this.addLayoutToResource.bind(this)}
-            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(
-              this
-            )}
-          />
+          {process.env.REACT_APP_ENV === 'development' ? (
+            <Title
+              data={this.state.fields[0]}
+              title={this.state.title}
+              handleBlur={this.handleBlur}
+              handleChange={this.handleChange}
+              openResourcePanel={this.openResourcePanel}
+              addLayoutToResource={this.addLayoutToResource}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource}
+            />
+          ) : (
+            <PostTitle
+              data={this.state.fields[0]}
+              value={this.state.title}
+              handleBlur={this.handleBlur}
+              handleChange={this.handleChange}
+              openResourcePanel={this.openResourcePanel}
+              addLayoutToResource={this.addLayoutToResource}
+              addBackgroundOptionToResource={this.addBackgroundOptionToResource}
+            />
+          )}
           <ContentList
             fields={this.state.fields}
-            addBackgroundOptionToResource={this.addBackgroundOptionToResource.bind(
-              this
-            )}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource}
             updateText={this.updateText.bind(this)}
             updateRichContent={this.updateRichContent.bind(this)}
             updateResource={this.updateResource.bind(this)}
-            openResourcePanel={this.openResourcePanel.bind(this)}
+            openResourcePanel={this.openResourcePanel}
             addResource={this.addResource}
             addTable={this.addTable.bind(this)}
             deleteResource={this.deleteResource.bind(this)}
-            addLayoutToResource={this.addLayoutToResource.bind(this)}
+            addLayoutToResource={this.addLayoutToResource}
             addGroupToResource={this.addGroupToResource.bind(this)}
             groupSections={this.groupSections.bind(this)}
             ungroupSections={this.ungroupSections.bind(this)}
