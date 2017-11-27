@@ -178,6 +178,8 @@ export default class Table extends React.Component {
                 addResource={this.props.addResource}
                 dataId={dataId}
                 openResourcePanel={this.props.openResourcePanel}
+                postType={this.props.postType}
+                userRole={this.props.userRole}
                 show2column={false}
                 show3column={false}
                 showExtras={false}
