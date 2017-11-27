@@ -100,7 +100,6 @@ export default class TitleBar extends React.Component {
             <IconButton
               target="_blank"
               href={blogUrl + '/preview-longform/' + this.postName}
-              disabled={activeTab === 'difundir'}
             >
               <Visibility />
             </IconButton>
