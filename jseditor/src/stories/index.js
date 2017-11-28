@@ -4,7 +4,8 @@ import { storiesOf } from '@storybook/react';
 
 import {
   ImageAltTextPopover,
-  ImagePanel
+  ImagePanel,
+  S3Uploader,
 } from '../components/Editor/ImageUploader';
 import { Title, MoreOptions } from '../components/Editor/Escribir';
 
@@ -33,3 +34,5 @@ storiesOf('ImagePanel', module).add('ImagePanel', () => (
 ));
 
 storiesOf('MoreOptions', module).add('MoreOptions', () => <MoreOptions />);
+storiesOf('S3Uploader', module)
+  .add('S3Uploader', () => <S3Uploader open={true} />);
