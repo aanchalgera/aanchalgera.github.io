@@ -11,6 +11,6 @@ export function receivePost(post) {
 export function changeTitle(title) {
   return {
     type: CHANGE_TITLE,
-    tile: title
+    title: title
   };
 }

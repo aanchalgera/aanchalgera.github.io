@@ -5,8 +5,8 @@ import { InputEvent } from 'lib/flowTypes';
 
 type Props = {
   title: string,
-  handleBlur: (ev: InputEvent) => void,
-  handleChange: (ev: InputEvent) => void
+  saveData: () => void,
+  changeTitle: (title: string) => void
 };
 
 const styles = {
@@ -24,18 +24,15 @@ const styles = {
   underlineStyle: {}
 };
 
-
-
 export const Title = (props: Props) => {
-
   const handleBlur = () => {
     props.saveData();
-  }
+  };
 
-  const handleChange = (event) => {
+  const handleChange = (event: InputEvent) => {
     const title = event.currentTarget.value;
     props.changeTitle(title);
-  }
+  };
 
   return (
     <div className="col-sm-12">

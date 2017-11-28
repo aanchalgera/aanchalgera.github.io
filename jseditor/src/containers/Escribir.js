@@ -7,7 +7,6 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
-import { init as initCheck } from 'lib/check';
 import { Title, MoreOptions } from 'components/Editor/Escribir';
 import { receivePost, changeTitle } from 'actions/post';
 
@@ -19,11 +18,14 @@ type Props = {
   blogName: string,
   userRole: string,
   handleStatus: (status: string, date: string) => void,
-  dispatch: (action: RequestImagesAction) => void
+  dispatch: (action: Object) => void,
+  onRef: Function,
+  title: string,
+  id: string
 };
 
-class Escribir extends React.Component {
-  constructor(props: Props) {
+class Escribir extends React.PureComponent<Props> {
+  constructor(props) {
     super(props);
     this.props.onRef(this);
     this.state = {
@@ -35,7 +37,7 @@ class Escribir extends React.Component {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
     this.props.dispatch(receivePost(post));
-    initCheck(this.props.postType, this.props.userRole);
+    this.maxId = post.maxId || 1;
   }
 
   componentDidMount() {
@@ -55,49 +57,47 @@ class Escribir extends React.Component {
     });
   };
 
-  addResource({ type, currentIndex }) {
-    this.maxId++;
-  }
+  addImage(image) {}
 
-  addImage(image) {
-
-  }
-
-  changeTitle = (title) => {
+  changeTitle = title => {
     this.props.dispatch(changeTitle(title));
   };
 
   saveData = () => {
+    let data = {
+      ...this.props,
+      maxId: this.maxId
+    };
     savePostsList(this.props, this.props.blogName);
-    savePostFromEscribirPage(this.props);
+    savePostFromEscribirPage(data);
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
   render() {
     console.log(this.props);
-    if(this.props.id) {
-    return (
-      <div className="container-fluid" style={{ paddingTop: '112px' }}>
-        <Title
-          title={this.props.title}
-          saveData={this.saveData}
-          changeTitle={this.changeTitle}
-        />
-        <MoreOptions openResourcePanel={this.openResourcePanel} />
+    if (this.props.id) {
+      return (
+        <div className="container-fluid" style={{ paddingTop: '112px' }}>
+          <Title
+            title={this.props.title}
+            saveData={this.saveData}
+            changeTitle={this.changeTitle}
+          />
+          <MoreOptions openResourcePanel={this.openResourcePanel} />
 
           <ImageUploader
             id={this.props.id}
             open={this.state.openImagePanel}
             addImage={this.addImage}
           />
-
-      </div>
-    ); }  else return 'Loading';
+        </div>
+      );
+    } else return 'Loading';
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return state.post;
-}
+};
 
 export default connect(mapStateToProps)(Escribir);

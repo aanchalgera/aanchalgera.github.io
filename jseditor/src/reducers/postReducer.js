@@ -1,29 +1,27 @@
 import { RECEIVE_POST, CHANGE_TITLE } from 'actions/post';
 
-const initialState = {
-  post: []
-};
+const initialState = {};
 
 const sections = (sections, action) => {
   switch (action.type) {
-  case CHANGE_TITLE:
-    if (!sections[0]) {
-      sections[0] = {
-      //id:
-      type: 'title'
-    }
-      sections[0].text = action.title;
-    }
-    return sections;
-  default:
-  return sections;
-}
-}
+    case CHANGE_TITLE:
+      if (!sections[0]) {
+        sections[0] = {
+          id: 0,
+          type: 'title'
+        };
+        sections[0].text = action.title;
+      }
+      return sections;
+    default:
+      return sections;
+  }
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_POST:
-      const {post} = action;
+      const { post } = action;
       return Object.assign({}, state, {
         id: post.id,
         postType: post.postType,
@@ -36,7 +34,7 @@ export default function(state = initialState, action) {
     case CHANGE_TITLE:
       return Object.assign({}, state, {
         title: action.title,
-        sections: sections(state.fields, action)
+        fields: sections(state.fields, action)
       });
     default:
       return state;
