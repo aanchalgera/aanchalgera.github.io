@@ -74,7 +74,6 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   render() {
-    console.log(this.props);
     if (this.props.id) {
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
