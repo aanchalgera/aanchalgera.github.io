@@ -12,9 +12,7 @@ import {
   getPost,
   savePostFromEscribirPage
 } from './lib/service';
-import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
 import { init as initCheck } from 'lib/check';
-import { Title } from 'components/Editor/Escribir';
 
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -85,7 +83,6 @@ class Editor extends React.Component {
     }
     this.resourcePanelOpenedBy = currentIndex;
     this.setState({
-      openImagePanel: true,
       imageFunction: imageFunction,
       addImageModule: addImageModule,
       addMoreImages: addMoreImages
@@ -403,6 +400,9 @@ class Editor extends React.Component {
   };
 
   isValid() {
+    if (!this.state.title) {
+      return false;
+    }
     if (!this.isValidFieldCaptions(this.state.fields)) {
       this.setMessage(true, CAPTION_WARNING);
       return false;
@@ -822,27 +822,16 @@ class Editor extends React.Component {
         />
         {errorField}
         <div className="form-group">
-          {process.env.REACT_APP_ENV === 'development' ? (
-            <Title
-              data={this.state.fields[0]}
-              title={this.state.title}
-              handleBlur={this.handleBlur}
-              handleChange={this.handleChange}
-              openResourcePanel={this.openResourcePanel}
-              addLayoutToResource={this.addLayoutToResource}
-              addBackgroundOptionToResource={this.addBackgroundOptionToResource}
-            />
-          ) : (
-            <PostTitle
-              data={this.state.fields[0]}
-              value={this.state.title}
-              handleBlur={this.handleBlur}
-              handleChange={this.handleChange}
-              openResourcePanel={this.openResourcePanel}
-              addLayoutToResource={this.addLayoutToResource}
-              addBackgroundOptionToResource={this.addBackgroundOptionToResource}
-            />
-          )}
+          <PostTitle
+            data={this.state.fields[0]}
+            value={this.state.title}
+            handleBlur={this.handleBlur}
+            handleChange={this.handleChange}
+            openResourcePanel={this.openResourcePanel}
+            addLayoutToResource={this.addLayoutToResource}
+            addBackgroundOptionToResource={this.addBackgroundOptionToResource}
+          />
+
           <ContentList
             fields={this.state.fields}
             addBackgroundOptionToResource={this.addBackgroundOptionToResource}
@@ -879,35 +868,21 @@ class Editor extends React.Component {
           />
         </div>
         {this.state.meta ? metadata : ''}
-
-        {process.env.REACT_APP_ENV === 'development' ? (
-          [
-            this.state.id && (
-              <ImageUploader
-                key="1"
-                id={this.state.id}
-                open={this.state.openImagePanel}
-                addImage={this.props.addImage}
-              />
-            ),
-            <div key="2" id="resourcePanel" />
-          ]
-        ) : (
-          <CloudinaryUploader
-            cloudName={configParams.cloudName}
-            uploadPreset={configParams.uploadPreset}
-            folder={configParams.folder}
-            addImage={this.addImage.bind(this)}
-            addImages={this.addImages}
-            editImages={this.editImages.bind(this)}
-            slug={this.state.id}
-            addImageModule={this.state.addImageModule}
-            imageFunction={this.state.imageFunction}
-            isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
-            toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
-            ref="resourcePanel"
-          />
-        )}
+        <CloudinaryUploader
+          cloudName={configParams.cloudName}
+          uploadPreset={configParams.uploadPreset}
+          folder={configParams.folder}
+          addImage={this.addImage.bind(this)}
+          addImages={this.addImages}
+          editImages={this.editImages.bind(this)}
+          slug={this.state.id}
+          addImageModule={this.state.addImageModule}
+          imageFunction={this.state.imageFunction}
+          isCloudinaryUploaderOpen={this.state.isCloudinaryUploaderOpen}
+          toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
+          ref="resourcePanel"
+        />
+        )
         <div id="preview" />
       </div>
     );
