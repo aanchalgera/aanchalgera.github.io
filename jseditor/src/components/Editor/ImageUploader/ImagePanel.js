@@ -5,43 +5,29 @@ import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
 import { InputEvent } from 'lib/flowTypes';
+import { UPLOADER_OPEN, DIALOG_CLOSE } from './actions';
 import { CloseButton, Thumbnail, Label } from '.';
 
 type Props = {
   open: boolean,
-  images: Array<string>,
-  handleSelection: (data: string) => void,
-  openImageUploader: () => void
+  images: Array<string>
 };
 
-type State = {
-  open: boolean
-}
-
-export default class ImagePanel extends PureComponent<Props, State> {
-  state = {
-    open: false
-  };
-
-  componentWillMount() {
-    this.setState({
-      open: this.props.open
-    });
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    this.setState({
-      open: nextProps.open
-    });
-  }
-
+export class ImagePanel extends PureComponent<Props> {
   handleCloseDialog = () => {
-    this.setState({ open: false });
+    const closeDialogAction = {
+      type: DIALOG_CLOSE
+    };
+
+    this.props.dispatch(closeDialogAction);
   };
 
   uploadMoreImages = () => {
-    this.handleCloseDialog();
-    this.props.openImageUploader();
+    const openUploaderAction = {
+      type: UPLOADER_OPEN
+    };
+
+    this.props.dispatch(openUploaderAction);
   };
 
   onSelection = (e: InputEvent) => {
@@ -61,11 +47,13 @@ export default class ImagePanel extends PureComponent<Props, State> {
   };
 
   render() {
+    const { open, images } = this.props;
+
     return (
       <Dialog
         actions={this.getDialogActions()}
         modal={true}
-        open={this.state.open}
+        open={open}
         actionsContainerClassName="modal-actions"
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
@@ -78,7 +66,7 @@ export default class ImagePanel extends PureComponent<Props, State> {
           </Col>
         </Row>
         <Row>
-          {this.props.images.map((image, index: number) => {
+          {images.map((image, index: number) => {
             return (
               <Col key={index} sm={1}>
                 <Thumbnail image={image} handleClick={this.onSelection} />
