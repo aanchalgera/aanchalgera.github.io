@@ -3,7 +3,7 @@ import React from 'react';
 import Content from './Content';
 import ContentGrouped from './ContentGrouped';
 import MoveControls from './MoveControls';
-import { MoreOptions } from './Escribir';
+import MoreOptions from './MoreOptions';
 
 export default class Resource extends React.Component {
   constructor(props) {
@@ -56,8 +56,6 @@ export default class Resource extends React.Component {
         show2column={field.show2column}
         show3column={field.show3column}
         dataId={i}
-        postType={this.props.postType}
-        userRole={this.props.userRole}
       />
     );
 
