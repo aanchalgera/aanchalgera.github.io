@@ -8,6 +8,7 @@ import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import Publicar from './Publish';
 import Difundir from './Difundir';
+import Escribir from './Escribir';
 import Editor from './Editor';
 import helpers from 'utils/generatehash';
 
@@ -46,14 +47,18 @@ export default class Layout extends React.Component {
 
       if ('/post/new' === pathName) {
         const hashId = helpers.generatePushID();
-        const postEditUrl = '/edit/post/' + hashId + '?blog=' + blogName;
+        const postType = query.get('type');
+        const editUrl = postType === 'normal' ? '/escribir/' : '/edit/post/';
+        const postEditUrl = editUrl + hashId + '?blog=' + blogName;
         history.push(postEditUrl);
         const initialData = {
           id: hashId,
           user_id: userData.id,
-          postType: query.get('type'),
+          postType: postType,
           blogName: blogName,
-          status: 'draft'
+          status: 'draft',
+          title: '',
+          sections: []
         };
         saveInitialPost(initialData);
       }
@@ -136,6 +141,19 @@ export default class Layout extends React.Component {
                   {...props}
                   {...rest}
                   handleDifundir={this.handleDifundir}
+                />
+              )}
+            />
+            <Route
+              path="/escribir/:postname"
+              render={props => (
+                <Escribir
+                  onRef={ref => {
+                    this.editor = ref;
+                  }}
+                  {...props}
+                  {...rest}
+                  handleStatus={this.handleStatus}
                 />
               )}
             />

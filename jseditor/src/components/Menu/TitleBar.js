@@ -49,7 +49,7 @@ export default class TitleBar extends React.Component {
         <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
-    if (activeTab === ESCRIBIR) {
+    if (activeTab === ESCRIBIR || activeTab === 'escribir') {
       statusMsgElement = (
         <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
           {statusMsgElement}
