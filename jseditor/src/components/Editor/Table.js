@@ -9,8 +9,7 @@ import Gallery from './Gallery';
 import Slider from './Slider';
 import Giphy from './Giphy';
 import Chart from './Chart';
-
-import { MoreOptions } from './Escribir';
+import MoreOptions from './MoreOptions';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -178,11 +177,15 @@ export default class Table extends React.Component {
                 addResource={this.props.addResource}
                 dataId={dataId}
                 openResourcePanel={this.props.openResourcePanel}
-                postType={this.props.postType}
-                userRole={this.props.userRole}
                 show2column={false}
                 show3column={false}
-                showExtras={false}
+                showTableButton={false}
+                showReviewButton={false}
+                showTechnicaButton={false}
+                showGalleryButton={false}
+                showSliderButton={false}
+                showGifButton={false}
+                showInfogramButton={false}
               />
             </td>
           );

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import Resource from './Resource';
-import { MoreOptions } from './Escribir';
+import MoreOptions from './MoreOptions';
 
 class ContentList extends React.Component {
   isGroupable(type) {
@@ -64,8 +64,6 @@ class ContentList extends React.Component {
           groupSections={this.props.groupSections}
           show2column={false}
           show3column={false}
-          postType={this.props.postType}
-          userRole={this.props.userRole}
         />
       </div>
     );
