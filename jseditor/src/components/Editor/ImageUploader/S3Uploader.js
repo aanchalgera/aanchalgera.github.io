@@ -8,36 +8,25 @@ import { InputEvent } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
+import { IMAGEPANEL_OPEN, DIALOG_CLOSE } from './actions';
 import { CloseButton, Label } from '.';
+
+type ImagePanelAction = {
+  type: string,
+};
 
 type Props = {
   open: boolean,
-  openImagePanel: () => void
+  dispatch: (action: ImagePanelAction) => void
 };
 
-type State = {
-  open: boolean
-};
-
-export class S3Uploader extends PureComponent<Props, State> {
-  state = {
-    open: false,
-  };
-
-  componentWillMount() {
-    this.setState({
-      open: this.props.open
-    });
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    this.setState({
-      open: nextProps.open
-    });
-  }
-
+export class S3Uploader extends PureComponent<Props> {
   handleCloseDialog = () => {
-    this.setState({ open: false });
+    const closeDialogAction = {
+      type: DIALOG_CLOSE
+    };
+
+    this.props.dispatch(closeDialogAction);
   };
 
   uploadToFirebase = () => {
@@ -50,7 +39,12 @@ export class S3Uploader extends PureComponent<Props, State> {
     //   file: e.target.files[0]
     // });
     // await this.uploadToFirebase();
-    // this.props.openImagePanel();
+
+    const openImagePanelAction = {
+      type: IMAGEPANEL_OPEN
+    };
+
+    this.props.dispatch(openImagePanelAction);
   };
 
   render () {
