@@ -1,7 +1,9 @@
 //@flow
 import React from 'react';
+import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import { InputEvent } from 'lib/flowTypes';
+import { changeTitle } from 'actions/post';
 
 type Props = {
   title: string,
@@ -24,7 +26,7 @@ const styles = {
   underlineStyle: {}
 };
 
-export const Title = (props: Props) => {
+const Title = (props: Props) => {
   const handleBlur = () => {
     props.saveData();
   };
@@ -51,3 +53,17 @@ export const Title = (props: Props) => {
     </div>
   );
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeTitle: title => {
+      dispatch(changeTitle(title));
+    }
+  };
+};
+
+const mapStateToProps = state => {
+  return { title: state.post.title };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Title);

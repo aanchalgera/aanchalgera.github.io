@@ -10,8 +10,8 @@ const sections = (sections, action) => {
           id: 0,
           type: 'title'
         };
-        sections[0].text = action.title;
       }
+      sections[0].text = action.title;
       return sections;
     default:
       return sections;
@@ -29,7 +29,8 @@ export default function(state = initialState, action) {
         title: post.title,
         status: post.status,
         userId: post.user_id,
-        meta: post.meta || null
+        meta: post.meta || null,
+        maxId: post.maxId || 1
       });
     case CHANGE_TITLE:
       return Object.assign({}, state, {

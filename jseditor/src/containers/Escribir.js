@@ -7,8 +7,9 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
-import { Title, MoreOptions } from 'components/Editor/Escribir';
-import { receivePost, changeTitle } from 'actions/post';
+import { MoreOptions, Title } from 'components/Editor/Escribir';
+import { receivePost } from 'actions/post';
+import { Action } from 'lib/flowTypes';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
@@ -18,10 +19,10 @@ type Props = {
   blogName: string,
   userRole: string,
   handleStatus: (status: string, date: string) => void,
-  dispatch: (action: Object) => void,
+  dispatch: (action: Action) => void,
   onRef: Function,
-  title: string,
-  id: string
+  id: string,
+  receivePost: (post: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -36,8 +37,7 @@ class Escribir extends React.PureComponent<Props> {
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
-    this.props.dispatch(receivePost(post));
-    this.maxId = post.maxId || 1;
+    this.props.receivePost(post);
   }
 
   componentDidMount() {
@@ -59,17 +59,9 @@ class Escribir extends React.PureComponent<Props> {
 
   addImage(image) {}
 
-  changeTitle = title => {
-    this.props.dispatch(changeTitle(title));
-  };
-
   saveData = () => {
-    let data = {
-      ...this.props,
-      maxId: this.maxId
-    };
     savePostsList(this.props, this.props.blogName);
-    savePostFromEscribirPage(data);
+    savePostFromEscribirPage(this.props);
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
@@ -77,13 +69,8 @@ class Escribir extends React.PureComponent<Props> {
     if (this.props.id) {
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
-          <Title
-            title={this.props.title}
-            saveData={this.saveData}
-            changeTitle={this.changeTitle}
-          />
+          <Title saveData={this.saveData} />
           <MoreOptions openResourcePanel={this.openResourcePanel} />
-
           <ImageUploader
             id={this.props.id}
             open={this.state.openImagePanel}
@@ -95,8 +82,16 @@ class Escribir extends React.PureComponent<Props> {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    receivePost: post => {
+      dispatch(receivePost(post));
+    }
+  };
+};
+
 const mapStateToProps = state => {
   return state.post;
 };
 
-export default connect(mapStateToProps)(Escribir);
+export default connect(mapStateToProps, mapDispatchToProps)(Escribir);

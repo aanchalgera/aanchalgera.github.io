@@ -24,7 +24,8 @@ describe('reducer', () => {
       title: '',
       status: 'draft',
       userId: 1,
-      meta: null
+      meta: null,
+      maxId: 1
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
