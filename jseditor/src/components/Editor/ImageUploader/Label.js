@@ -1,13 +1,16 @@
-import React, { PureComponent } from 'react';
+//@flow
+import React from 'react';
 
 type Props = {
-  label: string
+  label: string,
+  hint?: string
 };
 
-export class Label extends PureComponent {
-  props: Props;
-
-  render() {
-    return <h2 className="type-title-dark">{this.props.label}</h2>;
-  }
-}
+export const Label = ({ label, hint }: Props) => (
+  <h2 className="type-title-dark">
+    {label}
+    <small className="caption-default">
+      {hint}
+    </small>
+  </h2>
+);

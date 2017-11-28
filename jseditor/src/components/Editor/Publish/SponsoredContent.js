@@ -47,7 +47,7 @@ export class SponsoredContent extends PureComponent<Props> {
             <TextField
               value={this.props.sponsor.name}
               hintText="Socialmedia SL"
-              floatingLabelText="Nombre del Cliente (se usa con 'Offrecido por' portada)"
+              floatingLabelText="Nombre del Cliente (se usa con 'Ofrecido por' portada)"
               floatingLabelFixed={true}
               onChange={this.updateName}
               fullWidth={true}

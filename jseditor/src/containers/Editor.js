@@ -876,7 +876,6 @@ class Editor extends React.Component {
             }
             siteUrl={this.props.blogUrl}
             postType={this.state.postType}
-            userRole={this.props.userRole}
           />
         </div>
         {this.state.meta ? metadata : ''}

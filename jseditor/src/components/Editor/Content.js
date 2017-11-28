@@ -235,8 +235,6 @@ class Content extends React.Component {
           update={content =>
             this.props.updateResource(this.props.dataId, content)}
           updateResource={this.updateResource}
-          postType={this.props.postType}
-          userRole={this.props.userRole}
         />
       );
     } else if ('fichaReview' == this.props.data.type) {
