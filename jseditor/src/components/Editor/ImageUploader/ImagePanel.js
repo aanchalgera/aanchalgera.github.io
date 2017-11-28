@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
-import FileUpload from 'material-ui/svg-icons/file/file-upload';
+import { FileFileUpload } from 'material-ui/svg-icons';
 
 import { InputEvent } from 'lib/flowTypes';
 import { CloseButton, Thumbnail, Label } from '.';
@@ -54,7 +54,7 @@ export default class ImagePanel extends PureComponent<Props, State> {
     return (
       <RaisedButton
         label="Subir más imágenes"
-        icon={<FileUpload className="btn-upload-icon" />}
+        icon={<FileFileUpload className="btn-upload-icon" />}
         onClick={this.uploadMoreImages}
       />
     );
