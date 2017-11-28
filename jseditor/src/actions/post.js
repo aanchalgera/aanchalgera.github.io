@@ -1,5 +1,5 @@
 export const RECEIVE_POST = 'RECEIVE_POST';
-export const RECEIVE_TITLE = 'RECEIVE_TITLE';
+export const CHANGE_TITLE = 'CHANGE_TITLE';
 
 export function receivePost(post) {
   return {
@@ -8,9 +8,9 @@ export function receivePost(post) {
   };
 }
 
-export function receiveTitle(title) {
+export function changeTitle(title) {
   return {
-    type: RECEIVE_TITLE,
+    type: CHANGE_TITLE,
     tile: title
   };
 }

@@ -24,15 +24,25 @@ const styles = {
   underlineStyle: {}
 };
 
+
+
 export const Title = (props: Props) => {
-  const { handleChange, title, handleBlur } = props;
+
+  const handleBlur = () => {
+    props.saveData();
+  }
+
+  const handleChange = (event) => {
+    const title = event.currentTarget.value;
+    props.changeTitle(title);
+  }
 
   return (
     <div className="col-sm-12">
       <TextField
         hintText="Título..."
         fullWidth={true}
-        value={title}
+        value={props.title}
         onChange={handleChange}
         onBlur={handleBlur}
         style={styles.containerStyle}
