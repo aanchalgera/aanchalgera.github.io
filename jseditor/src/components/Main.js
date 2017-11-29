@@ -19,6 +19,7 @@ const Main = (props: Props) => {
     pathname.indexOf('/publicar/') > -1 ||
     pathname.indexOf('/difundir/') > -1 ||
     pathname.indexOf('/edit/') > -1 ||
+    pathname.indexOf('/escribir/') > -1 ||
     pathname.indexOf('/post/new') > -1
   ) {
     return <Layout {...props} />;

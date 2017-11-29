@@ -49,7 +49,7 @@ export default class TitleBar extends React.Component {
         <span className="caption-inverted">{this.props.statusMsg}</span>
       );
     }
-    if (activeTab === ESCRIBIR) {
+    if (activeTab === ESCRIBIR || activeTab === 'escribir') {
       statusMsgElement = (
         <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
           {statusMsgElement}
@@ -87,12 +87,12 @@ export default class TitleBar extends React.Component {
         <div className="nav-icon">
           <ToolbarGroup>
             {this.getStatusElement(activeTab)}
-            {activeTab === ESCRIBIR && (
+            {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
               <IconButton onClick={this.props.saveData}>
                 <Save />
               </IconButton>
             )}{' '}
-            {activeTab === ESCRIBIR && (
+            {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
               <IconButton onClick={this.props.toggleOrderMode}>
                 <Shuffle />
               </IconButton>

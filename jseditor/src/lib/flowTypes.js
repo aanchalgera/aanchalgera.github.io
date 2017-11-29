@@ -18,3 +18,5 @@ export type Image = {
 };
 
 export type InputEvent = Event & { target: HTMLInputElement };
+
+export type Action = { type: string, payload: Object };

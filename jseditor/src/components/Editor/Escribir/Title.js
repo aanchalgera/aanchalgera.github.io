@@ -1,36 +1,14 @@
 //@flow
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import { InputEvent } from 'lib/flowTypes';
-import PropertyButton from '../PropertyButton';
+import { changeTitle } from 'actions/post';
 
 type Props = {
   title: string,
-  handleBlur: (ev: InputEvent) => void,
-  handleChange: (ev: InputEvent) => void,
-  addBackgroundOptionToResource: (
-    property: string,
-    value: string,
-    ev: InputEvent
-  ) => void,
-  addLayoutToResource: (ev: InputEvent) => void,
-  data: {
-    backgroundClass: string,
-    foregroundColor: string,
-    id: number,
-    layout: string,
-    show2column: boolean,
-    show3column: boolean,
-    text: string,
-    type: string
-  },
-  openResourcePanel: (
-    imageFunction: any,
-    currentIndex: number,
-    addImageModule: string,
-    addMoreImages: boolean,
-    event: InputEvent
-  ) => void
+  saveData: () => void,
+  changeTitle: (title: string) => void
 };
 
 const styles = {
@@ -48,41 +26,44 @@ const styles = {
   underlineStyle: {}
 };
 
-export class Title extends Component<Props> {
-  render() {
-    const {
-      data,
-      handleChange,
-      title,
-      handleBlur,
-      addLayoutToResource,
-      addBackgroundOptionToResource,
-      openResourcePanel
-    } = this.props;
+const Title = (props: Props) => {
+  const handleBlur = () => {
+    props.saveData();
+  };
 
-    return (
-      <div className="col-sm-12">
-        <PropertyButton
-          data={data}
-          layout={data.layout}
-          dataId="0"
-          openResourcePanel={openResourcePanel}
-          addLayoutToResource={addLayoutToResource}
-          addBackgroundOptionToResource={addBackgroundOptionToResource}
-        />
-        <TextField
-          hintText="Título..."
-          fullWidth={true}
-          value={title}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          style={styles.containerStyle}
-          textareaStyle={styles.textareaStyle}
-          hintStyle={styles.hintStyle}
-          multiLine={true}
-          underlineStyle={styles.underlineStyle}
-        />
-      </div>
-    );
-  }
-}
+  const handleChange = (event: InputEvent) => {
+    const title = event.currentTarget.value;
+    props.changeTitle(title);
+  };
+
+  return (
+    <div className="col-sm-12">
+      <TextField
+        hintText="Título..."
+        fullWidth={true}
+        value={props.title}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        style={styles.containerStyle}
+        textareaStyle={styles.textareaStyle}
+        hintStyle={styles.hintStyle}
+        multiLine={true}
+        underlineStyle={styles.underlineStyle}
+      />
+    </div>
+  );
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeTitle: title => {
+      dispatch(changeTitle(title));
+    }
+  };
+};
+
+const mapStateToProps = state => {
+  return { title: state.post.title };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Title);
