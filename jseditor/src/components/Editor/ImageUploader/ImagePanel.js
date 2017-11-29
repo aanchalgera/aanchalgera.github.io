@@ -4,30 +4,23 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent } from 'lib/flowTypes';
-import { UPLOADER_OPEN, DIALOG_CLOSE } from './actions';
+import { InputEvent, Action } from 'lib/flowTypes';
+import { openUploader, closeDialog } from './actions';
 import { CloseButton, Thumbnail, Label } from '.';
 
 type Props = {
   open: boolean,
-  images: Array<string>
+  images: Array<string>,
+  dispatch: (action: Action) => void
 };
 
 export class ImagePanel extends PureComponent<Props> {
   handleCloseDialog = () => {
-    const closeDialogAction = {
-      type: DIALOG_CLOSE
-    };
-
-    this.props.dispatch(closeDialogAction);
+    this.props.dispatch(closeDialog());
   };
 
   uploadMoreImages = () => {
-    const openUploaderAction = {
-      type: UPLOADER_OPEN
-    };
-
-    this.props.dispatch(openUploaderAction);
+    this.props.dispatch(openUploader());
   };
 
   onSelection = (e: InputEvent) => {

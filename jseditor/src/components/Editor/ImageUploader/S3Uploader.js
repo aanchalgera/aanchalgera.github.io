@@ -4,29 +4,21 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent } from 'lib/flowTypes';
+import { InputEvent, Action } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
-import { IMAGEPANEL_OPEN, DIALOG_CLOSE } from './actions';
+import { openImagePanel, closeDialog } from './actions';
 import { CloseButton, Label } from '.';
-
-type ImagePanelAction = {
-  type: string,
-};
 
 type Props = {
   open: boolean,
-  dispatch: (action: ImagePanelAction) => void
+  dispatch: (action: Action) => void
 };
 
 export class S3Uploader extends PureComponent<Props> {
   handleCloseDialog = () => {
-    const closeDialogAction = {
-      type: DIALOG_CLOSE
-    };
-
-    this.props.dispatch(closeDialogAction);
+    this.props.dispatch(closeDialog());
   };
 
   uploadToFirebase = () => {
@@ -40,11 +32,7 @@ export class S3Uploader extends PureComponent<Props> {
     // });
     // await this.uploadToFirebase();
 
-    const openImagePanelAction = {
-      type: IMAGEPANEL_OPEN
-    };
-
-    this.props.dispatch(openImagePanelAction);
+    this.props.dispatch(openImagePanel());
   };
 
   render () {

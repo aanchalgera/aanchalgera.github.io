@@ -1,4 +1,4 @@
-import { IMAGES_RECEIVE, IMAGEPANEL_OPEN, UPLOADER_OPEN, DIALOG_CLOSE } from './actions';
+import { RECEIVE_IMAGES, OPEN_IMAGEPANEL, OPEN_UPLOADER, CLOSE_DIALOG } from './actions';
 
 const initialState = {
   imageUrls: [],
@@ -10,30 +10,31 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case IMAGES_RECEIVE:
+    case RECEIVE_IMAGES:
       const imageUrls = action.images.map((image, index) => ({
         url: image.url,
         thumbnail_url: image.thumbnail_url
       }));
 
-      return Object.assign({}, state, { imageUrls });
+      return ({ ...state, imageUrls });
 
-    case UPLOADER_OPEN:
-      return Object.assign({}, state, {
+    case OPEN_UPLOADER:
+      return ({
+        ...state,
         openUploader: true,
-        openImagePanel: false,
-        openAltTextPanel: false
+        openImagePanel: false
       });
 
-    case IMAGEPANEL_OPEN:
-      return Object.assign({}, state, {
+    case OPEN_IMAGEPANEL:
+      return ({
+        ...state,
         openImagePanel: true,
-        openUploader: false,
-        openAltTextPanel: false
+        openUploader: false
       });
 
-    case DIALOG_CLOSE:
-      return Object.assign({}, state, {
+    case CLOSE_DIALOG:
+      return ({
+        ...state,
         openImagePanel: false,
         openUploader: false,
         openAltTextPanel: false
