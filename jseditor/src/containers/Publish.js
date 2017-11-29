@@ -77,7 +77,10 @@ class Publish extends React.Component {
     let state = this.state;
     state.status = 'publish';
     try {
-      const result = await submitPostToBackend(state, this.props.blogUrl);
+      const result = await submitPostToBackend(
+        { ...state, ...this.publishData },
+        this.props.blogUrl
+      );
       this.publishData = {
         postId: result.id,
         postHash: result.post_hash
