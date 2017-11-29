@@ -18,7 +18,7 @@ type Props = {
   history: Object
 };
 
-export default class Layout extends React.Component {
+export default class Layout extends React.PureComponent {
   props: Props;
   state = {
     blogUrl: null,
@@ -118,7 +118,7 @@ export default class Layout extends React.Component {
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
-    const { showDifundir, statusMsg, ...rest } = this.state;
+    const { showDifundir, statusMsg, showPostStatusMsg, ...rest } = this.state;
     return (
       <MuiThemeProvider muiTheme={customTheme}>
         <div>
