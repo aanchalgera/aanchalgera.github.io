@@ -22,7 +22,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_POST:
       const { post } = action;
-      return Object.assign({}, state, {
+      return {
+        ...state,
         id: post.id,
         postType: post.postType,
         fields: post.sections || [],
@@ -31,12 +32,13 @@ export default function(state = initialState, action) {
         userId: post.user_id,
         meta: post.meta || null,
         maxId: post.maxId || 1
-      });
+      };
     case CHANGE_TITLE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         title: action.title,
         fields: sections(state.fields, action)
-      });
+      };
     default:
       return state;
   }
