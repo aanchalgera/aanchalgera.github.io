@@ -2,21 +2,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { Image } from 'lib/flowTypes';
+import { Image, Action } from 'lib/flowTypes';
 import { getImages } from './lib/imageUploadService';
-import { REQUEST_IMAGES } from './actions';
-import { ImagePanel } from '.';
-
-type RequestImagesAction = {
-  type: string,
-  images: Array<Image>
-};
+import { receiveImages } from './actions';
+import { ImagePanel, S3Uploader } from '.';
 
 type Props = {
   imageUrls: Array<Image>,
   id: string,
   open: true,
-  dispatch: (action: RequestImagesAction) => void
+  dispatch: (action: Action) => void
 };
 
 type State = {};
@@ -24,16 +19,9 @@ type State = {};
 class ImageUploader extends React.PureComponent<Props, State> {
   async init() {
     const { id, dispatch } = this.props;
-    let requestImagesAction = {
-      type: REQUEST_IMAGES,
-      images: []
-    };
+    const images = await getImages(id);
 
-    if (id !== undefined && id !== '') {
-      requestImagesAction.images = await getImages(id);
-    }
-
-    dispatch(requestImagesAction);
+    dispatch(receiveImages(images));
   }
 
   componentWillMount() {
@@ -41,8 +29,14 @@ class ImageUploader extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { imageUrls } = this.props;
-    return <ImagePanel open={this.props.open} images={imageUrls} />;
+    const { openImagePanel, openUploader, imageUrls, dispatch } = this.props;
+
+    return (
+      <div>
+        <ImagePanel open={openImagePanel} images={imageUrls} dispatch={dispatch} />
+        <S3Uploader open={openUploader} dispatch={dispatch} />
+      </div>
+    );
   }
 }
 

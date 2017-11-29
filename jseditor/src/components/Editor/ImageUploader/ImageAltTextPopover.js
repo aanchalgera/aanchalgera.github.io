@@ -16,9 +16,9 @@ type Props = {
 type State = {
   open: boolean,
   altText: string
-}
+};
 
-export default class ImageAltTextPopover extends PureComponent<Props, State> {
+export class ImageAltTextPopover extends PureComponent<Props, State> {
   state = {
     open: false,
     altText: ''
