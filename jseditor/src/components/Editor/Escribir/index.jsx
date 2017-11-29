@@ -1,5 +1,6 @@
+import Title from './Title';
 export { SectionModule } from './SectionModule';
-export { Title } from './Title';
+export { Title };
 export { MoreOptions } from './MoreOptions';
 export { OptionButton } from './OptionButton';
 export { ExtraOptions } from './ExtraOptions';

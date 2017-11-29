@@ -87,12 +87,12 @@ export default class TitleBar extends React.Component {
         <div className="nav-icon">
           <ToolbarGroup>
             {this.getStatusElement(activeTab)}
-            {activeTab === ESCRIBIR && (
+            {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
               <IconButton onClick={this.props.saveData}>
                 <Save />
               </IconButton>
             )}{' '}
-            {activeTab === ESCRIBIR && (
+            {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
               <IconButton onClick={this.props.toggleOrderMode}>
                 <Shuffle />
               </IconButton>
