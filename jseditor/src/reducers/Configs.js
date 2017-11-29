@@ -1,4 +1,4 @@
-import {RECEIVE_CONFIGS} from '../constants/ActionTypes';
+import { RECEIVE_CONFIGS } from '../constants/ActionTypes';
 
 const initialState = {
   configs: [],
@@ -8,10 +8,11 @@ const initialState = {
 const configs = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CONFIGS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         configs: action.data,
         loading: false
-      });
+      };
     default:
       return state;
   }
