@@ -29,7 +29,7 @@ type Props = {
   handleDifundir: (status: string, date: string) => void
 };
 
-class Difundir extends React.PureComponent {
+class Difundir extends React.Component {
   state = {
     id: '',
     postId: '',
