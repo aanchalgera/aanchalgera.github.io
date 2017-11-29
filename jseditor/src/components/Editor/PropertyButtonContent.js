@@ -46,67 +46,104 @@ class PropertyButtonContent extends React.Component {
           </span>
         </span>
       );
-      backgroundImageOptions = (
-        <li>
-          <label> Effects </label>
-          <button
-            type="button"
-            onClick={this.props.addBackgroundOptionToResource.bind(
-              this,
-              'parallax',
-              null
-            )}
-            className={
-              'btn btn-default ' + (this.props.data.parallax ? 'active' : '')
-            }
-          >
-            Parallax
-          </button>
-          <button
-            type="button"
-            onClick={this.props.addBackgroundOptionToResource.bind(
-              this,
-              'backgroundFade',
-              null
-            )}
-            className={
-              'btn btn-default ' +
-              (this.props.data.backgroundFade ? 'active' : '')
-            }
-          >
-            Fade
-          </button>
-          <button
-            type="button"
-            onClick={this.props.addBackgroundOptionToResource.bind(
-              this,
-              'backgroundRepeat',
-              null
-            )}
-            className={
-              'btn btn-default ' +
-              (this.props.data.backgroundRepeat ? 'active' : '')
-            }
-          >
-            Repeat
-          </button>
-          <span className="hint">you can select multiple effects</span>
-          <button
-            type="button"
-            onClick={this.props.addBackgroundOptionToResource.bind(
-              this,
-              'backgroundFullscreen',
-              null
-            )}
-            className={
-              'btn btn-default ' +
-              (this.props.data.backgroundFullscreen ? 'active' : '')
-            }
-          >
-            Fullscreen background
-          </button>
-        </li>
-      );
+      if ('sectionModule' === this.props.data.type) {
+        backgroundImageOptions = backgroundImageOptions = (
+          <li>
+            <label> Effects </label>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'backgroundFade',
+                null
+              )}
+              className={
+                'btn btn-default ' +
+                (this.props.data.backgroundFade ? 'active' : '')
+              }
+            >
+              Fade
+            </button>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'backgroundRepeat',
+                null
+              )}
+              className={
+                'btn btn-default ' +
+                (this.props.data.backgroundRepeat ? 'active' : '')
+              }
+            >
+              Repeat
+            </button>
+            <span className="hint">you can select multiple effects</span>
+          </li>
+        );
+      } else {
+        backgroundImageOptions = (
+          <li>
+            <label> Effects </label>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'parallax',
+                null
+              )}
+              className={
+                'btn btn-default ' + (this.props.data.parallax ? 'active' : '')
+              }
+            >
+              Parallax
+            </button>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'backgroundFade',
+                null
+              )}
+              className={
+                'btn btn-default ' +
+                (this.props.data.backgroundFade ? 'active' : '')
+              }
+            >
+              Fade
+            </button>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'backgroundRepeat',
+                null
+              )}
+              className={
+                'btn btn-default ' +
+                (this.props.data.backgroundRepeat ? 'active' : '')
+              }
+            >
+              Repeat
+            </button>
+            <span className="hint">you can select multiple effects</span>
+            <button
+              type="button"
+              onClick={this.props.addBackgroundOptionToResource.bind(
+                this,
+                'backgroundFullscreen',
+                null
+              )}
+              className={
+                'btn btn-default ' +
+                (this.props.data.backgroundFullscreen ? 'active' : '')
+              }
+            >
+              Fullscreen background
+            </button>
+          </li>
+        );
+      }
     } else {
       backgroundImage = (
         <div className="input-group">
