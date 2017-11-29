@@ -118,7 +118,7 @@ export default class Layout extends React.Component {
     if (this.state.blogUrl == null) {
       return <div> Loading... </div>;
     }
-    const { showDifundir, ...rest } = this.state;
+    const { showDifundir, statusMsg, ...rest } = this.state;
     return (
       <MuiThemeProvider muiTheme={customTheme}>
         <div>

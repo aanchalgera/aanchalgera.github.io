@@ -882,7 +882,6 @@ class Editor extends React.Component {
           toggleCloudinaryUploader={this.toggleCloudinaryUploader.bind(this)}
           ref="resourcePanel"
         />
-        )
         <div id="preview" />
       </div>
     );
