@@ -5,7 +5,7 @@ import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
 import configParams from 'config/configs';
-import { InputEvent, Action, Image, S3ImageLocation } from 'lib/flowTypes';
+import { InputEvent, Action, S3ImageLocation } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
@@ -19,7 +19,6 @@ type Props = {
   id: string,
   open: boolean,
   site: string,
-  images: Array<Image>,
   dispatch: (action: Action) => void
 };
 
@@ -28,23 +27,11 @@ export class S3Uploader extends PureComponent<Props> {
     this.props.dispatch(closeDialog());
   };
 
-  getNewImageData = ({ location, extension }: S3ImageLocation) => {
-    const baseUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
+  uploadToFirebase = ({ location, extension }: S3ImageLocation) => {
+    const { id, dispatch } = this.props;
+    const imageUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
 
-    return {
-      custom_url: baseUrl,
-      url: baseUrl.replace('image_dimension', 'original'),
-      thumbnail_url: baseUrl.replace('image_dimension', '75_75')
-    };
-  };
-
-  uploadToFirebase = (imageLocation: S3ImageLocation) => {
-    const { id, images, dispatch } = this.props;
-
-    postImagesToFirebase(
-      id,
-      [...images, this.getNewImageData(imageLocation)]
-    );
+    postImagesToFirebase(id, { custom_url: imageUrl });
     dispatch(openImagePanel());
   };
 

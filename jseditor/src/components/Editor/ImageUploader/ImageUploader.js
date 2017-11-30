@@ -35,7 +35,7 @@ class ImageUploader extends React.PureComponent<Props, State> {
     return (
       <div>
         <ImagePanel open={openImagePanel} images={imageUrls} dispatch={dispatch} />
-        <S3Uploader open={openUploader} dispatch={dispatch} id={id} images={imageUrls} />
+        <S3Uploader open={openUploader} dispatch={dispatch} id={id} />
       </div>
     );
   }

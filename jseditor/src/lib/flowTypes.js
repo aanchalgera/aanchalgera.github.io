@@ -13,9 +13,7 @@ export type CategoryType = {
 };
 
 export type Image = {
-  url: string,
-  thumbnail_url: string,
-  customUrl?: string
+  customUrl: string
 };
 
 export type InputEvent = Event & { target: HTMLInputElement };

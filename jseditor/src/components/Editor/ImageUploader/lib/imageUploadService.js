@@ -12,8 +12,6 @@ export const getImages = (id: string) => {
   });
 };
 
-export const postImages = (id: string, data: Array<Image>) => {
-  return base.post('images/' + id, {
-    data,
-  });
+export const postImages = (id: string, data: Image) => {
+  return base.push('images/' + id, { data });
 };
