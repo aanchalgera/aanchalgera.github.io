@@ -769,6 +769,9 @@ class Editor extends React.Component {
   };
 
   render() {
+    if (!this.state.id) {
+      return 'Loading...';
+    }
     let errorField = '';
     if (this.state.isError) {
       errorField = (
