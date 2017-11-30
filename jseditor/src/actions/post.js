@@ -16,10 +16,9 @@ export function changeTitle(title) {
   };
 }
 
-export function addImage(id, image) {
-  image.id = id;
+export function addImage(image) {
   return {
     type: ADD_IMAGE,
-    image
+    image: image
   };
 }

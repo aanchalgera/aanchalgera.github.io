@@ -15,10 +15,11 @@ const sections = (sections, action) => {
       sections[0].text = action.title;
       return sections;
     case ADD_IMAGE:
+      const { index } = action.image;
       return [
-        ...sections.slice(0, action.index),
+        ...sections.slice(0, index),
         addImage(action),
-        ...sections.slice(action.index)
+        ...sections.slice(index)
       ];
     default:
       return sections;
@@ -26,11 +27,12 @@ const sections = (sections, action) => {
 };
 
 const addImage = action => {
+  const { id, url, alt } = action.image;
   return {
-    id: action.image.id,
+    id,
+    url,
     type: 'image',
-    url: action.image.url,
-    alt: action.image.alt || '',
+    alt: alt || '',
     banner: false,
     parallax: false,
     align: '',
@@ -60,8 +62,10 @@ export default function(state = initialState, action) {
         fields: sections(state.fields, action)
       };
     case ADD_IMAGE:
+      action.image['id'] = state.maxId + 1;
       return {
         ...state,
+        maxId: state.maxId + 1,
         fields: sections(state.fields, action)
       };
     default:
