@@ -11,13 +11,13 @@ export class Thumbnail extends PureComponent {
   props: Props;
 
   render() {
-    const { image: { custom_url }, handleClick } = this.props;
+    const { image: { url }, handleClick } = this.props;
 
     return (
       <div className="panel-img-container">
         <img
-          src={custom_url.replace('image_dimension', '75_75')}
-          data-src={custom_url.replace('image_dimension', 'original')}
+          src={url.replace('image_dimension', '75_75')}
+          data-src={url.replace('image_dimension', 'original')}
           alt=""
           onClick={handleClick}
         />

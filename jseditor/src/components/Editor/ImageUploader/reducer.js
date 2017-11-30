@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_IMAGES:
       const imageUrls = action.images.map(image => ({
-        custom_url: image.custom_url
+        url: image.url
       }));
 
       return ({ ...state, imageUrls });

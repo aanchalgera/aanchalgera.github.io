@@ -31,7 +31,7 @@ export class S3Uploader extends PureComponent<Props> {
     const { id, dispatch } = this.props;
     const imageUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
 
-    postImagesToFirebase(id, { custom_url: imageUrl });
+    postImagesToFirebase(id, { url: imageUrl });
     dispatch(openImagePanel());
   };
 
