@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 
-import { InputEvent } from 'lib/flowTypes';
+import { InputEvent, Image } from 'lib/flowTypes';
 
 type Props = {
-  image: Object,
+  image: Image,
   handleClick: (e: InputEvent) => void
 };
 
@@ -11,13 +11,13 @@ export class Thumbnail extends PureComponent {
   props: Props;
 
   render() {
-    const { image, handleClick } = this.props;
+    const { image: { url }, handleClick } = this.props;
 
     return (
       <div className="panel-img-container">
         <img
-          src={image.thumbnail_url}
-          data-src={image.url}
+          src={url.replace('image_dimension', '75_75')}
+          data-src={url.replace('image_dimension', 'original')}
           alt=""
           onClick={handleClick}
         />

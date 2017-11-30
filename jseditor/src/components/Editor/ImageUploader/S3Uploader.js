@@ -4,15 +4,21 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent, Action } from 'lib/flowTypes';
+import configParams from 'config/configs';
+import { InputEvent, Action, S3ImageLocation } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
+import {
+  postImages as postImagesToFirebase
+} from './lib/imageUploadService';
 import { openImagePanel, closeDialog } from './actions';
 import { CloseButton, Label } from '.';
 
 type Props = {
+  id: string,
   open: boolean,
+  site: string,
   dispatch: (action: Action) => void
 };
 
@@ -21,18 +27,25 @@ export class S3Uploader extends PureComponent<Props> {
     this.props.dispatch(closeDialog());
   };
 
-  uploadToFirebase = () => {
-    // To be added
+  uploadToFirebase = ({ location, extension }: S3ImageLocation) => {
+    const { id, dispatch } = this.props;
+    const imageUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
+
+    postImagesToFirebase(id, { url: imageUrl });
+    dispatch(openImagePanel());
   };
 
   selectImages = async (e: InputEvent) => {
-    // const imageUrl = await postImagesToS3({
-    //   site: this.props.site,
-    //   file: e.target.files[0]
-    // });
-    // await this.uploadToFirebase();
+    const file = e.target.files[0];
+    let data = new FormData();
 
-    this.props.dispatch(openImagePanel());
+    data.append('site', this.props.site);
+    data.append('file', file);
+
+    const image = await postImagesToS3(data);
+    if (image.location) {
+      this.uploadToFirebase(image);
+    }
   };
 
   render () {
