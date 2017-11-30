@@ -3,7 +3,7 @@ import { base } from 'lib/firebase';
 import { Image } from 'lib/flowTypes';
 
 export const getImages = (id: string) => {
-  return base.fetch('images/' + id, {
+  return base.fetch('s3images/' + id, {
     context: this,
     asArray: true,
     then(data) {
@@ -13,5 +13,5 @@ export const getImages = (id: string) => {
 };
 
 export const postImages = (id: string, data: Image) => {
-  return base.push('images/' + id, { data });
+  return base.push('s3images/' + id, { data });
 };
