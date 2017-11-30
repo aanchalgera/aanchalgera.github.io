@@ -1,4 +1,5 @@
-import { RECEIVE_POST, CHANGE_TITLE } from 'actions/post';
+import { RECEIVE_POST, CHANGE_TITLE, ADD_IMAGE } from 'actions/post';
+import { access } from 'fs';
 
 const initialState = {};
 
@@ -13,8 +14,32 @@ const sections = (sections, action) => {
       }
       sections[0].text = action.title;
       return sections;
+    case ADD_IMAGE:
+      return [
+        ...sections.slice(0, action.index),
+        ...addImage(sections[action.index], action),
+        ...sections.slice(action.index)
+      ];
     default:
       return sections;
+  }
+};
+
+const addImage = (image = {}, action) => {
+  switch (action.type) {
+    case ADD_IMAGE:
+      return {
+        id: action.image.id,
+        type: 'image',
+        url: action.image.url,
+        alt: action.image.alt || '',
+        banner: false,
+        parallax: false,
+        align: '',
+        layout: 'normal'
+      };
+    default:
+      return image;
   }
 };
 
@@ -37,6 +62,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         title: action.title,
+        fields: sections(state.fields, action)
+      };
+    case ADD_IMAGE:
+      return {
+        ...state,
         fields: sections(state.fields, action)
       };
     default:
