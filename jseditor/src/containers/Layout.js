@@ -18,8 +18,7 @@ type Props = {
   history: Object
 };
 
-export default class Layout extends React.PureComponent {
-  props: Props;
+export default class Layout extends React.PureComponent<Props> {
   state = {
     blogUrl: null,
     showDifundir: false,
@@ -79,6 +78,12 @@ export default class Layout extends React.PureComponent {
     });
   };
 
+  hideStatus = () => {
+    this.setState({
+      showPostStatusMsg: false
+    });
+  };
+
   handleDifundir = (status: string, publishedDate: string) => {
     let showDifundir = false;
     let showPostStatusMsg = false;
@@ -110,6 +115,7 @@ export default class Layout extends React.PureComponent {
         statusMsg={this.state.statusMsg}
         saveData={this.editor && this.editor.saveData}
         toggleOrderMode={this.editor && this.editor.toggleOrderMode}
+        hideStatus={this.hideStatus}
       />
     );
   };
