@@ -25,7 +25,7 @@ type Props = {
   publishRegions: Array<string>
 };
 
-export class CountriesFormOptions extends React.Component<Props> {
+export class CountriesFormOptions extends React.PureComponent<Props> {
   onCheck = (e: InputEvent) => {
     const region = e.currentTarget.value;
     this.props.updateParent({

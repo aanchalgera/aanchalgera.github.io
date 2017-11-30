@@ -11,9 +11,10 @@ export const findByName = (name: string, list: Array<User>) =>
 
 export const toggleItem = (item: string, list: Array<string>) => {
   const index = list.indexOf(item);
+  console.log(index);
   return -1 === index
     ? [...list, item]
-    : [...list.slice(0, index), ...list.slice(index, 1)];
+    : [...list.slice(0, index), ...list.slice(index + 1)];
 };
 
 export const filterTags = (tags: Array<Tag>): Array<UpdatedTag> => {

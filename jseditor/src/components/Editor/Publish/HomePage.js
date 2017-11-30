@@ -9,10 +9,10 @@ type Props = {
 };
 
 type State = {
-  length?: number,
+  length?: number
 };
 
-export default class Homepage extends React.Component<Props, State> {
+export default class Homepage extends React.PureComponent<Props, State> {
   state = {};
 
   updateLength = (length: number) => {
@@ -29,7 +29,6 @@ export default class Homepage extends React.Component<Props, State> {
           Texto para portada (opcional) <span>{this.state.length}</span>
         </label>
         <DraftJSEditor
-          ref="homepageContent"
           value={this.props.homepage.content}
           updateResource={this.props.updateHomepageContent}
           updateLength={this.updateLength}
