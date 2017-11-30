@@ -4,15 +4,22 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent, Action } from 'lib/flowTypes';
+import configParams from 'config/configs';
+import { InputEvent, Action, Image, S3ImageLocation } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
+import {
+  postImages as postImagesToFirebase
+} from './lib/imageUploadService';
 import { openImagePanel, closeDialog } from './actions';
 import { CloseButton, Label } from '.';
 
 type Props = {
+  id: string,
   open: boolean,
+  site: string,
+  images: Array<Image>,
   dispatch: (action: Action) => void
 };
 
@@ -21,18 +28,37 @@ export class S3Uploader extends PureComponent<Props> {
     this.props.dispatch(closeDialog());
   };
 
-  uploadToFirebase = () => {
-    // To be added
+  getNewImageData = ({ location, extension }: S3ImageLocation) => {
+    const baseUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
+
+    return {
+      custom_url: baseUrl,
+      url: baseUrl.replace('image_dimension', 'original'),
+      thumbnail_url: baseUrl.replace('image_dimension', '75_75')
+    };
+  };
+
+  uploadToFirebase = (imageLocation: S3ImageLocation) => {
+    const { id, images, dispatch } = this.props;
+
+    postImagesToFirebase(
+      id,
+      [...images, this.getNewImageData(imageLocation)]
+    );
+    dispatch(openImagePanel());
   };
 
   selectImages = async (e: InputEvent) => {
-    // const imageUrl = await postImagesToS3({
-    //   site: this.props.site,
-    //   file: e.target.files[0]
-    // });
-    // await this.uploadToFirebase();
+    const file = e.target.files[0];
+    let data = new FormData();
 
-    this.props.dispatch(openImagePanel());
+    data.append('site', this.props.site);
+    data.append('file', file);
+
+    const image = await postImagesToS3(data);
+    if (image.location) {
+      this.uploadToFirebase(image);
+    }
   };
 
   render () {

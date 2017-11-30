@@ -10,7 +10,8 @@ import { ImagePanel, S3Uploader } from '.';
 type Props = {
   imageUrls: Array<Image>,
   id: string,
-  open: true,
+  openImagePanel: boolean,
+  openUploader: boolean,
   dispatch: (action: Action) => void
 };
 
@@ -29,12 +30,12 @@ class ImageUploader extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { openImagePanel, openUploader, imageUrls, dispatch } = this.props;
+    const { openImagePanel, openUploader, imageUrls, id, dispatch } = this.props;
 
     return (
       <div>
         <ImagePanel open={openImagePanel} images={imageUrls} dispatch={dispatch} />
-        <S3Uploader open={openUploader} dispatch={dispatch} />
+        <S3Uploader open={openUploader} dispatch={dispatch} id={id} images={imageUrls} />
       </div>
     );
   }

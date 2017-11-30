@@ -13,10 +13,13 @@ export type CategoryType = {
 };
 
 export type Image = {
-  id: number,
-  url: string
+  url: string,
+  thumbnail_url: string,
+  customUrl?: string
 };
 
 export type InputEvent = Event & { target: HTMLInputElement };
 
 export type Action = { type: string } | { type: string, payload: Object };
+
+export type S3ImageLocation = { location: string, extension: string };

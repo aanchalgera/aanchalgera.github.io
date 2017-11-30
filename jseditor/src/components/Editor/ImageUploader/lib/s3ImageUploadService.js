@@ -1,11 +1,15 @@
+//@flow
 import configParams from 'config/configs';
+import isoFetch from 'isomorphic-fetch';
 
-export const postImages = (params) => {
-  return fetch(`${configParams.s3ApiDomain}/images/`, {
+export const postImages = async (params: Object) => {
+  const res = await isoFetch(`${configParams.s3ApiDomain}/images`, {
     method: 'post',
     headers: {
-      Authorization: `API_KEY ${configParams.s3ApiKey}`,
+      Authorization: `${configParams.s3ApiKey}`
     },
     body: params
   });
+
+  return res.json();
 };

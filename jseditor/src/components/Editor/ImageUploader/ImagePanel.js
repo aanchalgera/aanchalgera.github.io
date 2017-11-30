@@ -25,7 +25,6 @@ export class ImagePanel extends PureComponent<Props> {
 
   onSelection = (e: InputEvent) => {
     const imageSrc = e.currentTarget.dataset.src;
-    this.props.handleSelection(imageSrc);
     this.handleCloseDialog();
   };
 

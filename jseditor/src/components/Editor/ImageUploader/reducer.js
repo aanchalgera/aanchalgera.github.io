@@ -11,9 +11,10 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_IMAGES:
-      const imageUrls = action.images.map((image, index) => ({
+      const imageUrls = action.images.map(image => ({
         url: image.url,
-        thumbnail_url: image.thumbnail_url
+        thumbnail_url: image.thumbnail_url,
+        custom_url: image.custom_url || ''
       }));
 
       return ({ ...state, imageUrls });
