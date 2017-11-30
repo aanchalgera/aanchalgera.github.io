@@ -29,7 +29,7 @@ type Props = {
   handleDifundir: (status: string, date: string) => void
 };
 
-class Difundir extends React.Component {
+class Difundir extends React.PureComponent {
   state = {
     id: '',
     postId: '',
@@ -60,9 +60,9 @@ class Difundir extends React.Component {
   }
 
   setRepostBlogs = (blogName: string, isChecked: boolean) => {
-    let postRepostBlogNames = this.state.postRepostBlogNames;
-    toggleItem(blogName, postRepostBlogNames);
-    this.setState({ postRepostBlogNames });
+    this.setState(prevState => ({
+      postRepostBlogNames: toggleItem(blogName, prevState.postRepostBlogNames)
+    }));
   };
 
   submitRepostedBlogs = async () => {

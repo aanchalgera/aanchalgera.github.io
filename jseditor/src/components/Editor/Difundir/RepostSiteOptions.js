@@ -60,7 +60,7 @@ let formatedBlogs = {
   }
 };
 
-export default class RepostSiteOptions extends React.Component<Props> {
+export default class RepostSiteOptions extends React.PureComponent<Props> {
   initalRepostedBlogs = null;
 
   componentWillReceiveProps(nextProps: Props) {
@@ -74,7 +74,8 @@ export default class RepostSiteOptions extends React.Component<Props> {
   };
 
   submitRepostedBlogs = () => {
-    this.initalRepostedBlogs = this.props.repostBlogs.slice();
+    this.initalRepostedBlogs = [...this.props.repostBlogs];
+    this.forceUpdate();
     this.props.submitRepostedBlogs();
   };
 

@@ -26,7 +26,7 @@ type State = {
   currentUser: string
 };
 
-export class AdvancedOptions extends React.Component<Props, State> {
+export class AdvancedOptions extends React.PureComponent<Props, State> {
   state = {
     userList: [],
     currentUser: ''
