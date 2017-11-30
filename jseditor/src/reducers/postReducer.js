@@ -17,7 +17,7 @@ const sections = (sections, action) => {
     case ADD_IMAGE:
       return [
         ...sections.slice(0, action.index),
-        ...addImage(sections[action.index], action),
+        addImage(action),
         ...sections.slice(action.index)
       ];
     default:
@@ -25,22 +25,17 @@ const sections = (sections, action) => {
   }
 };
 
-const addImage = (image = {}, action) => {
-  switch (action.type) {
-    case ADD_IMAGE:
-      return {
-        id: action.image.id,
-        type: 'image',
-        url: action.image.url,
-        alt: action.image.alt || '',
-        banner: false,
-        parallax: false,
-        align: '',
-        layout: 'normal'
-      };
-    default:
-      return image;
-  }
+const addImage = action => {
+  return {
+    id: action.image.id,
+    type: 'image',
+    url: action.image.url,
+    alt: action.image.alt || '',
+    banner: false,
+    parallax: false,
+    align: '',
+    layout: 'normal'
+  };
 };
 
 export default function(state = initialState, action) {
