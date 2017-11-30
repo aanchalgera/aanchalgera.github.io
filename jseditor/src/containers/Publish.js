@@ -282,6 +282,9 @@ class Publish extends React.Component {
   };
 
   render() {
+    if (!this.state.id) {
+      return 'Loading...';
+    }
     let showCalendar = true;
     if (this.state.currentStatus === 'publish') {
       showCalendar = false;
@@ -371,12 +374,10 @@ class Publish extends React.Component {
             <Label label="Portada y redes sociales" />
           </Col>
           <Col sm={6}>
-            {this.state.id && (
-              <HomePage
-                homepage={this.state.meta.homepage}
-                updateHomepageContent={this.updateHomepageContent}
-              />
-            )}
+            <HomePage
+              homepage={this.state.meta.homepage}
+              updateHomepageContent={this.updateHomepageContent}
+            />
           </Col>
           <Col sm={3}>
             <Twitter
@@ -421,22 +422,20 @@ class Publish extends React.Component {
             </Check>
           </Col>
           <Col sm>
-            {this.state.id && (
-              <Check childName="AdvancedOptions">
-                <AdvancedOptions
-                  blogUrl={this.props.blogUrl}
-                  userId={this.state.userId}
-                  setPostMeta={this.setPostMeta}
-                  updateParent={this.updateParent}
-                  postMeta={this.state.meta}
-                  specialPost={this.state.specialPost}
-                  isSensitive={this.state.isSensitive}
-                  ampVisibility={this.state.ampVisibility}
-                  iaVisibility={this.state.iaVisibility}
-                  commentStatus={this.state.commentStatus}
-                />
-              </Check>
-            )}
+            <Check childName="AdvancedOptions">
+              <AdvancedOptions
+                blogUrl={this.props.blogUrl}
+                userId={this.state.userId}
+                setPostMeta={this.setPostMeta}
+                updateParent={this.updateParent}
+                postMeta={this.state.meta}
+                specialPost={this.state.specialPost}
+                isSensitive={this.state.isSensitive}
+                ampVisibility={this.state.ampVisibility}
+                iaVisibility={this.state.iaVisibility}
+                commentStatus={this.state.commentStatus}
+              />
+            </Check>
           </Col>
         </Row>
       </div>

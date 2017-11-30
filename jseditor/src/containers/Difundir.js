@@ -132,6 +132,9 @@ class Difundir extends React.PureComponent {
   };
 
   render() {
+    if (!this.state.id) {
+      return 'Loading...';
+    }
     const isValid = validateDate(this.state.publishedDate, 'future');
     return (
       <div className="grid-wrapper grid-l">
