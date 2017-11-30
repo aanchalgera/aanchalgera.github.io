@@ -1,5 +1,4 @@
 import { RECEIVE_POST, CHANGE_TITLE, ADD_IMAGE } from 'actions/post';
-import { access } from 'fs';
 
 const initialState = {};
 
