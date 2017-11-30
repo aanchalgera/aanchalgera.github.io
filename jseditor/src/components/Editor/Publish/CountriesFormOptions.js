@@ -28,9 +28,9 @@ type Props = {
 export class CountriesFormOptions extends React.Component<Props> {
   onCheck = (e: InputEvent) => {
     const region = e.currentTarget.value;
-    let publishRegions = this.props.publishRegions;
-    toggleItem(region, publishRegions);
-    this.props.updateParent({ publishRegion: publishRegions });
+    this.props.updateParent({
+      publishRegion: toggleItem(region, this.props.publishRegions)
+    });
   };
 
   render() {

@@ -53,6 +53,10 @@ class Publish extends React.Component {
   props: Props;
   publishData: [];
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.id ? 'true' : false;
+  }
+
   componentDidMount() {
     this.init();
   }
@@ -413,20 +417,22 @@ class Publish extends React.Component {
             </Check>
           </Col>
           <Col sm>
-            <Check childName="AdvancedOptions">
-              <AdvancedOptions
-                blogUrl={this.props.blogUrl}
-                userId={this.state.userId}
-                setPostMeta={this.setPostMeta}
-                updateParent={this.updateParent}
-                postMeta={this.state.meta}
-                specialPost={this.state.specialPost}
-                isSensitive={this.state.isSensitive}
-                ampVisibility={this.state.ampVisibility}
-                iaVisibility={this.state.iaVisibility}
-                commentStatus={this.state.commentStatus}
-              />
-            </Check>
+            {this.state.id && (
+              <Check childName="AdvancedOptions">
+                <AdvancedOptions
+                  blogUrl={this.props.blogUrl}
+                  userId={this.state.userId}
+                  setPostMeta={this.setPostMeta}
+                  updateParent={this.updateParent}
+                  postMeta={this.state.meta}
+                  specialPost={this.state.specialPost}
+                  isSensitive={this.state.isSensitive}
+                  ampVisibility={this.state.ampVisibility}
+                  iaVisibility={this.state.iaVisibility}
+                  commentStatus={this.state.commentStatus}
+                />
+              </Check>
+            )}
           </Col>
         </Row>
       </div>

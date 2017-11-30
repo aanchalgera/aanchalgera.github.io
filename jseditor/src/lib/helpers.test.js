@@ -21,13 +21,11 @@ test('findByName should return the expected item from an array', () => {
 test('toggleItem should add the item in an array', () => {
   const countries = ['ES', 'IN'];
   const expected = ['ES', 'IN', 'US'];
-  toggleItem('US', countries);
-  expect(countries).toEqual(expected);
+  expect(toggleItem('US', countries)).toEqual(expected);
 });
 
 test('toggleItem should remove the item in an array if it exists', () => {
   const countries = ['ES', 'IN'];
   const expected = ['ES'];
-  toggleItem('IN', countries);
-  expect(countries).toEqual(expected);
+  expect(toggleItem('IN', countries)).toEqual(expected);
 });
