@@ -1,4 +1,4 @@
-import { RECEIVE_POST, CHANGE_TITLE } from 'actions/post';
+import { RECEIVE_POST, CHANGE_TITLE, ADD_IMAGE } from 'actions/post';
 
 const initialState = {};
 
@@ -13,6 +13,18 @@ const sections = (sections, action) => {
       }
       sections[0].text = action.title;
       return sections;
+    case ADD_IMAGE:
+      const { id, url, alt, index } = action.image;
+      return [
+        ...sections.slice(0, index),
+        {
+          id,
+          url,
+          alt,
+          type: 'image'
+        },
+        ...sections.slice(index)
+      ];
     default:
       return sections;
   }
@@ -37,6 +49,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         title: action.title,
+        fields: sections(state.fields, action)
+      };
+    case ADD_IMAGE:
+      action.image['id'] = state.maxId + 1;
+      return {
+        ...state,
+        maxId: state.maxId + 1,
         fields: sections(state.fields, action)
       };
     default:
