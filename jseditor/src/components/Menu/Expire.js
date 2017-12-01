@@ -4,40 +4,22 @@ import { PureComponent } from 'react';
 type Props = {
   autoHideDuration: number,
   open: boolean,
-  children: any
+  children: any,
+  onRequestHide: Function
 };
 
-type State = {
-  open: boolean
-};
+type State = {};
 
 class Expire extends PureComponent<Props, State> {
-  state: State = {
-    open: false
-  };
-
-  componentWillMount() {
-    this.setState({
-      open: this.props.open
-    });
-  }
-
   componentDidMount() {
-    if (this.state.open) {
+    if (this.props.open) {
       this.setAutoHideTimer();
     }
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const open = nextProps.open;
-    this.setState({
-      open: open
-    });
-  }
-
   componentDidUpdate(prevProps: Props, prevState: State) {
-    if (prevState.open !== this.state.open) {
-      if (this.state.open) {
+    if (prevProps.open !== this.props.open) {
+      if (this.props.open) {
         this.setAutoHideTimer();
       } else {
         clearTimeout(this.timerAutoHideId);
@@ -57,13 +39,13 @@ class Expire extends PureComponent<Props, State> {
     if (autoHideDuration > 0) {
       clearTimeout(this.timerAutoHideId);
       this.timerAutoHideId = setTimeout(() => {
-        this.setState({ open: false });
+        this.props.onRequestHide();
       }, autoHideDuration);
     }
   }
 
   render() {
-    return this.state.open ? this.props.children : '';
+    return this.props.open ? this.props.children : '';
   }
 }
 

@@ -30,7 +30,8 @@ type Props = {
   showDifundir: boolean,
   blogName: string,
   saveData: () => void,
-  toggleOrderMode: () => void
+  toggleOrderMode: () => void,
+  hideStatus: () => void
 };
 
 export default class TitleBar extends React.Component {
@@ -51,7 +52,11 @@ export default class TitleBar extends React.Component {
     }
     if (activeTab === ESCRIBIR || activeTab === 'escribir') {
       statusMsgElement = (
-        <Expire open={this.props.showPostStatusMsg} autoHideDuration={2000}>
+        <Expire
+          open={this.props.showPostStatusMsg}
+          autoHideDuration={2000}
+          onRequestHide={this.props.hideStatus}
+        >
           {statusMsgElement}
         </Expire>
       );
