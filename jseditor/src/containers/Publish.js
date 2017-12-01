@@ -48,18 +48,17 @@ type Props = {
   handleDifundir: (status: string, date: string) => void
 };
 
-class Publish extends React.Component {
+class Publish extends React.Component<Props> {
   state = initialState;
-  props: Props;
-  publishData: [];
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.id ? 'true' : false;
-  }
 
   componentDidMount() {
     this.init();
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.id ? 'true' : false;
+  }
+  publishData: [];
 
   async init() {
     const postname = this.props.match.params.postname;
@@ -110,10 +109,8 @@ class Publish extends React.Component {
 
   setPostMeta = (key: string, value: Object) => {
     this.setState(prevState => {
-      const meta = { ...prevState['meta'] };
-      meta[key] = value;
       return {
-        meta: meta
+        meta: { ...prevState['meta'], [key]: value }
       };
     }, this.savePostData);
   };
