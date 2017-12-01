@@ -6,7 +6,7 @@ import { InputEvent } from 'lib/flowTypes';
 import { changeTitle } from 'actions/post';
 
 type Props = {
-  title: string,
+  text: string,
   saveData: () => void,
   changeTitle: (title: string) => void
 };
@@ -27,6 +27,7 @@ const styles = {
 };
 
 const Title = (props: Props) => {
+  console.log(props);
   const handleBlur = () => {
     props.saveData();
   };
@@ -41,7 +42,7 @@ const Title = (props: Props) => {
       <TextField
         hintText="Título..."
         fullWidth={true}
-        value={props.title}
+        value={props.text}
         onChange={handleChange}
         onBlur={handleBlur}
         style={styles.containerStyle}
@@ -63,7 +64,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  return { title: state.post.title };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Title);

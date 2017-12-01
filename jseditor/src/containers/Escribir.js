@@ -7,9 +7,9 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
-import { MoreOptions, Title } from 'components/Editor/Escribir';
-import { receivePost } from 'actions/post';
+import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
+import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
@@ -22,6 +22,7 @@ type Props = {
   dispatch: (action: Action) => void,
   onRef: Function,
   id: string,
+  maxId: number,
   receivePost: (post: Object) => void
 };
 
@@ -34,14 +35,14 @@ class Escribir extends React.PureComponent<Props> {
     };
   }
 
+  componentDidMount() {
+    this.init();
+  }
+
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
     this.props.receivePost(post);
-  }
-
-  componentDidMount() {
-    this.init();
   }
 
   openResourcePanel = (
@@ -67,10 +68,20 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     if (this.props.id) {
+      var nodes = [];
+      for (let i = 0; i <= this.props.maxId; i++) {
+        nodes.push(
+          <Node
+            index={i}
+            saveData={this.saveData}
+            key={i}
+            openResourcePanel={this.openResourcePanel}
+          />
+        );
+      }
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
-          <Title saveData={this.saveData} />
-          <MoreOptions openResourcePanel={this.openResourcePanel} />
+          {nodes}
           <ImageUploader
             id={this.props.id}
             open={this.state.openImagePanel}
@@ -82,16 +93,8 @@ class Escribir extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    receivePost: post => {
-      dispatch(receivePost(post));
-    }
-  };
-};
-
 const mapStateToProps = state => {
   return state.post;
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Escribir);
+export default connect(mapStateToProps, actions)(Escribir);
