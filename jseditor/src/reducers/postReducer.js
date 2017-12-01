@@ -14,25 +14,20 @@ const sections = (sections, action) => {
       sections[0].text = action.title;
       return sections;
     case ADD_IMAGE:
-      const { index } = action.image;
+      const { id, url, alt, index } = action.image;
       return [
         ...sections.slice(0, index),
-        addImage(action),
+        {
+          id,
+          url,
+          alt,
+          type: 'image'
+        },
         ...sections.slice(index)
       ];
     default:
       return sections;
   }
-};
-
-const addImage = action => {
-  const { id, url, alt } = action.image;
-  return {
-    id,
-    url,
-    type: 'image',
-    alt: alt || ''
-  };
 };
 
 export default function(state = initialState, action) {
