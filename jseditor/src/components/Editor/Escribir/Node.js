@@ -27,7 +27,7 @@ class Node extends React.PureComponent<Props> {
     return (
       <div>
         {section}
-        <MoreOptions openResourcePanel />
+        <MoreOptions openResourcePanel={openResourcePanel} />
       </div>
     );
   }

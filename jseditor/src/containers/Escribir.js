@@ -8,8 +8,8 @@ import {
 } from './lib/service';
 import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
 import { Node } from 'components/Editor/Escribir';
-import { receivePost } from 'actions/post';
 import { Action } from 'lib/flowTypes';
+import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
@@ -82,7 +82,6 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
           {nodes}
-
           <ImageUploader
             id={this.props.id}
             open={this.state.openImagePanel}
@@ -94,16 +93,8 @@ class Escribir extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    receivePost: post => {
-      dispatch(receivePost(post));
-    }
-  };
-};
-
 const mapStateToProps = state => {
   return state.post;
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Escribir);
+export default connect(mapStateToProps, actions)(Escribir);
