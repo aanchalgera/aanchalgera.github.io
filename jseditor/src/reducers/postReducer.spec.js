@@ -102,11 +102,7 @@ describe('reducer', () => {
           id: 24,
           type: 'image',
           url: 'https://i.blogs.com/id/original.jpg',
-          alt: 'Truth can only be found in one place: the code',
-          banner: false,
-          parallax: false,
-          align: '',
-          layout: 'normal'
+          alt: 'Truth can only be found in one place: the code'
         },
         {
           type: 'hyperlink',

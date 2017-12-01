@@ -31,11 +31,7 @@ const addImage = action => {
     id,
     url,
     type: 'image',
-    alt: alt || '',
-    banner: false,
-    parallax: false,
-    align: '',
-    layout: 'normal'
+    alt: alt || ''
   };
 };
 
