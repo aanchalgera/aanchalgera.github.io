@@ -7,6 +7,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
+import { openImagePanel } from 'components/Editor/ImageUploader/actions';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
@@ -30,9 +31,6 @@ class Escribir extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
     this.props.onRef(this);
-    this.state = {
-      openImagePanel: false
-    };
   }
 
   componentDidMount() {
@@ -52,10 +50,10 @@ class Escribir extends React.PureComponent<Props> {
     addMoreImages = false,
     event
   ) => {
+    const { openImagePanel } = this.props;
+
     this.resourcePanelOpenedBy = currentIndex;
-    this.setState({
-      openImagePanel: true
-    });
+    openImagePanel();
   };
 
   addImage(image) {}
@@ -85,7 +83,6 @@ class Escribir extends React.PureComponent<Props> {
           <ImageUploader
             id={this.props.id}
             site={this.props.blogName}
-            open={this.state.openImagePanel}
             addImage={this.addImage}
           />
         </div>
@@ -98,4 +95,4 @@ const mapStateToProps = state => {
   return { ...state.post, fields: state.sections };
 };
 
-export default connect(mapStateToProps, actions)(Escribir);
+export default connect(mapStateToProps, {...actions, openImagePanel})(Escribir);
