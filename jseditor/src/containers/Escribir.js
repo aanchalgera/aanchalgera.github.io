@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getPost } from './lib/service';
+import {
+  getPost,
+  savePostsList,
+  savePostFromEscribirPage
+} from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
@@ -57,8 +61,8 @@ class Escribir extends React.PureComponent<Props> {
   addImage(image) {}
 
   saveData = () => {
-    //  savePostsList(this.props, this.props.blogName);
-    //  savePostFromEscribirPage(this.props);
+    savePostsList(this.props, this.props.blogName);
+    savePostFromEscribirPage(this.props);
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
@@ -91,7 +95,7 @@ class Escribir extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => {
-  return state.post;
+  return { ...state.post, fields: state.sections };
 };
 
 export default connect(mapStateToProps, actions)(Escribir);
