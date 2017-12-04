@@ -116,7 +116,7 @@ class TitleBar extends React.Component<Props> {
 }
 
 const mapStateToProps = state => {
-  return state.post;
+  return { postType: state.post.postType };
 };
 
 export default connect(mapStateToProps)(TitleBar);
