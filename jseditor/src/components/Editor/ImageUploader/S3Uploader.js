@@ -5,34 +5,30 @@ import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
 import configParams from 'config/configs';
-import { InputEvent, Action, S3ImageLocation } from 'lib/flowTypes';
+import { InputEvent, S3ImageLocation } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
 import {
   postImages as postImagesToFirebase
 } from './lib/imageUploadService';
-import { openImagePanel, closeDialog } from './actions';
 import { CloseButton, Label } from '.';
 
 type Props = {
   id: string,
   open: boolean,
   site: string,
-  dispatch: (action: Action) => void
+  openImagePanel: () => void,
+  closeDialog: () => void
 };
 
 export class S3Uploader extends PureComponent<Props> {
-  handleCloseDialog = () => {
-    this.props.dispatch(closeDialog());
-  };
-
   uploadToFirebase = ({ location, extension }: S3ImageLocation) => {
-    const { id, dispatch } = this.props;
+    const { id, openImagePanel } = this.props;
     const imageUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
 
     postImagesToFirebase(id, { url: imageUrl });
-    dispatch(openImagePanel());
+    openImagePanel();
   };
 
   selectImages = async (e: InputEvent) => {
@@ -49,6 +45,8 @@ export class S3Uploader extends PureComponent<Props> {
   };
 
   render () {
+    const { closeDialog } = this.props;
+
     return (
       <Dialog
         open={this.props.open}
@@ -63,7 +61,7 @@ export class S3Uploader extends PureComponent<Props> {
             />
           </Col>
           <Col sm={1} className="end-sm">
-            <CloseButton handleClose={this.handleCloseDialog} />
+            <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
         <div className="div-uploader">

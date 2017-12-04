@@ -2,27 +2,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { Image, Action } from 'lib/flowTypes';
+import { Image } from 'lib/flowTypes';
 import { getImages } from './lib/imageUploadService';
-import { receiveImages } from './actions';
+import * as actions from './actions';
 import { ImagePanel, S3Uploader } from '.';
 
 type Props = {
   imageUrls: Array<Image>,
   id: string,
-  openImagePanel: boolean,
-  openUploader: boolean,
-  dispatch: (action: Action) => void
+  site: string,
+  isImagePanelOpen: boolean,
+  isUploaderOpen: boolean,
+  openImagePanel: () => void,
+  openUploader: () => void,
+  closeDialog: () => void,
+  receiveImages: (images: Array<Image>) => void,
 };
 
-type State = {};
-
-class ImageUploader extends React.PureComponent<Props, State> {
+class ImageUploader extends React.PureComponent<Props> {
   async init() {
-    const { id, dispatch } = this.props;
+    const { id, receiveImages } = this.props;
     const images = await getImages(id);
 
-    dispatch(receiveImages(images));
+    receiveImages(images);
   }
 
   componentWillMount() {
@@ -30,12 +32,12 @@ class ImageUploader extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { openImagePanel, openUploader, imageUrls, id, dispatch } = this.props;
+    const { openImagePanel, openUploader, closeDialog, imageUrls, id, site, isUploaderOpen, isImagePanelOpen } = this.props;
 
     return (
       <div>
-        <ImagePanel open={openImagePanel} images={imageUrls} dispatch={dispatch} />
-        <S3Uploader open={openUploader} dispatch={dispatch} id={id} />
+        <ImagePanel open={isImagePanelOpen} images={imageUrls} openUploader={openUploader} closeDialog={closeDialog} />
+        <S3Uploader open={isUploaderOpen} id={id} openImagePanel={openImagePanel} closeDialog={closeDialog} site={site} />
       </div>
     );
   }
@@ -45,4 +47,4 @@ function mapStateToProps(state) {
   return state.images;
 }
 
-export default connect(mapStateToProps)(ImageUploader);
+export default connect(mapStateToProps, actions)(ImageUploader);

@@ -4,28 +4,20 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent, Action } from 'lib/flowTypes';
-import { openUploader, closeDialog } from './actions';
+import { InputEvent } from 'lib/flowTypes';
 import { CloseButton, Thumbnail, Label } from '.';
 
 type Props = {
   open: boolean,
   images: Array<string>,
-  dispatch: (action: Action) => void
+  openUploader: () => void,
+  closeDialog: () => void
 };
 
 export class ImagePanel extends PureComponent<Props> {
-  handleCloseDialog = () => {
-    this.props.dispatch(closeDialog());
-  };
-
-  uploadMoreImages = () => {
-    this.props.dispatch(openUploader());
-  };
-
   onSelection = (e: InputEvent) => {
     const imageSrc = e.currentTarget.dataset.src;
-    this.handleCloseDialog();
+    this.props.closeDialog();
   };
 
   getDialogActions = () => {
@@ -33,13 +25,13 @@ export class ImagePanel extends PureComponent<Props> {
       <RaisedButton
         label="Subir más imágenes"
         icon={<FileFileUpload className="btn-upload-icon" />}
-        onClick={this.uploadMoreImages}
+        onClick={this.props.openUploader}
       />
     );
   };
 
   render() {
-    const { open, images } = this.props;
+    const { open, images, closeDialog } = this.props;
 
     return (
       <Dialog
@@ -54,7 +46,7 @@ export class ImagePanel extends PureComponent<Props> {
             <Label label="Elige la imagen que quieres insertar" />
           </Col>
           <Col sm={1} className="end-sm">
-            <CloseButton handleClose={this.handleCloseDialog} />
+            <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
         <Row>
