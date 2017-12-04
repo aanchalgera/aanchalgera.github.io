@@ -32,12 +32,12 @@ class ImageUploader extends React.PureComponent<Props> {
   }
 
   render() {
-    const { openImagePanel, openUploader, closeDialog, imageUrls, id, isUploaderOpen, isImagePanelOpen } = this.props;
+    const { openImagePanel, openUploader, closeDialog, imageUrls, id, site, isUploaderOpen, isImagePanelOpen } = this.props;
 
     return (
       <div>
         <ImagePanel open={isImagePanelOpen} images={imageUrls} openUploader={openUploader} closeDialog={closeDialog} />
-        <S3Uploader open={isUploaderOpen} id={id} openImagePanel={openImagePanel} closeDialog={closeDialog} site={this.props.site} />
+        <S3Uploader open={isUploaderOpen} id={id} openImagePanel={openImagePanel} closeDialog={closeDialog} site={site} />
       </div>
     );
   }
