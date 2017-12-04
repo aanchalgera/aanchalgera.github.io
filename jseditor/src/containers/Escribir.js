@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getPost } from './lib/service';
-import ImageUploader from 'components/Editor/ImageUploader/ImageUploader';
+import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
@@ -80,6 +80,7 @@ class Escribir extends React.PureComponent<Props> {
           {nodes}
           <ImageUploader
             id={this.props.id}
+            site={this.props.blogName}
             open={this.state.openImagePanel}
             addImage={this.addImage}
           />
