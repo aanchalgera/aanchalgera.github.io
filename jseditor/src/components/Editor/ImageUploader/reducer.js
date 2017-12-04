@@ -2,9 +2,9 @@ import { RECEIVE_IMAGES, OPEN_IMAGEPANEL, OPEN_UPLOADER, CLOSE_DIALOG } from './
 
 const initialState = {
   imageUrls: [],
-  openImagePanel: false,
-  openAltTextPanel: false,
-  openUploader: false,
+  isImagePanelOpen: false,
+  isAltPanelOpen: false,
+  isUploaderOpen: false,
   selectedImage: {}
 };
 
@@ -20,23 +20,23 @@ export default function(state = initialState, action) {
     case OPEN_UPLOADER:
       return ({
         ...state,
-        openUploader: true,
-        openImagePanel: false
+        isUploaderOpen: true,
+        isImagePanelOpen: false
       });
 
     case OPEN_IMAGEPANEL:
       return ({
         ...state,
-        openImagePanel: true,
-        openUploader: false
+        isImagePanelOpen: true,
+        isUploaderOpen: false
       });
 
     case CLOSE_DIALOG:
       return ({
         ...state,
-        openImagePanel: false,
-        openUploader: false,
-        openAltTextPanel: false
+        isImagePanelOpen: false,
+        isUploaderOpen: false,
+        isAltPanelOpen: false
       });
 
     default:
