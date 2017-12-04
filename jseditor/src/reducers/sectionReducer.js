@@ -1,18 +1,26 @@
-import { CHANGE_TITLE, ADD_IMAGE } from 'actions/post';
+import { CHANGE_TITLE, ADD_IMAGE, RECEIVE_POST } from 'actions/post';
 
-const initialState = [];
+const initialState = [
+  {
+    id: 0,
+    type: 'title'
+  }
+];
 
 const sections = (sections = initialState, action) => {
   switch (action.type) {
+    case RECEIVE_POST:
+      const { post } = action;
+      return post.sections || initialState;
     case CHANGE_TITLE:
-      if (!sections[0]) {
-        sections[0] = {
+      return [
+        {
           id: 0,
-          type: 'title'
-        };
-      }
-      sections[0].text = action.title;
-      return sections;
+          type: 'title',
+          text: action.title
+        },
+        ...sections.slice(1)
+      ];
     case ADD_IMAGE:
       const { id, url, alt, index } = action.image;
       return [
