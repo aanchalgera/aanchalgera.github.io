@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import ImagesReducer from 'components/Editor/ImageUploader/reducer';
-import Configs from './Configs';
+import images from 'components/Editor/ImageUploader/reducer';
+import configs from './Configs';
 import post from './postReducer';
+import sections from './sectionReducer';
 
 const rootReducer = combineReducers({
-  images: ImagesReducer,
-  configs: Configs,
-  post: post
+  images,
+  configs,
+  post,
+  sections
 });
 
 export default rootReducer;

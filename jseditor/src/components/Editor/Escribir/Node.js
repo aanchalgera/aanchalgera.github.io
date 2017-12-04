@@ -19,22 +19,22 @@ class Node extends React.PureComponent<Props> {
   };
 
   render() {
-    if (!this.props.id) {
+    if (undefined === this.props.id) {
       return '';
     }
     const { id, type, openResourcePanel, ...props } = this.props;
     const section = this.getSection(type, props);
     return (
-      <div>
+      <React.Fragment>
         {section}
         <MoreOptions openResourcePanel={openResourcePanel} />
-      </div>
+      </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { ...state.post.fields[ownProps.index] } || {};
+  return { ...state.sections[ownProps.index] } || {};
 };
 
 export default connect(mapStateToProps)(Node);
