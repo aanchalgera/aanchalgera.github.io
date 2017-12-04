@@ -1,4 +1,4 @@
-import { RECEIVE_POST, CHANGE_TITLE, ADD_IMAGE } from 'actions/post';
+import { RECEIVE_POST } from 'actions/post';
 
 const initialState = {};
 
