@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { IconButton } from 'material-ui';
 import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -29,14 +30,13 @@ type Props = {
   blogUrl: string,
   showDifundir: boolean,
   blogName: string,
+  postType: string,
   saveData: () => void,
   toggleOrderMode: () => void,
   hideStatus: () => void
 };
 
-export default class TitleBar extends React.Component {
-  props: Props;
-
+class TitleBar extends React.Component<Props> {
   handleChange = (route: string) => {
     const queryPath = this.props.location.search;
     this.props.history.push(`/${route}/${this.postName}${queryPath}`);
@@ -65,12 +65,12 @@ export default class TitleBar extends React.Component {
   }
 
   render() {
-    const { blogUrl, showDifundir, blogName } = this.props;
+    const { blogUrl, showDifundir, blogName, postType } = this.props;
     const pathName = this.props.location.pathname;
     const matches = pathName.match('/(.+)/(.+)');
     const activeTab = matches[1];
     this.postName = matches[2];
-
+    const editTab = postType === 'normal' ? 'escribir' : 'edit/post';
     return (
       <Toolbar className="header">
         <div className="brand-logo">
@@ -83,7 +83,7 @@ export default class TitleBar extends React.Component {
               onChange={this.handleChange}
               style={styles.tabs}
             >
-              <Tab label="ESCRIBIR" value="edit/post" />
+              <Tab label="ESCRIBIR" value={editTab} />
               <Tab label="PUBLICAR" value="publicar" />
               {showDifundir && <Tab label="DIFUNDIR" value="difundir" />}
             </Tabs>
@@ -114,3 +114,9 @@ export default class TitleBar extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return state.post;
+};
+
+export default connect(mapStateToProps)(TitleBar);
