@@ -1,11 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-  getPost,
-  savePostsList,
-  savePostFromEscribirPage
-} from './lib/service';
+import { getPost } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
@@ -23,14 +19,16 @@ type Props = {
   onRef: Function,
   id: string,
   maxId: number,
-  receivePost: (post: Object) => void,
-  addImage: (image: Object) => void
+  receivePost: (post: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
     this.props.onRef(this);
+    this.state = {
+      openImagePanel: false
+    };
   }
 
   componentDidMount() {
@@ -43,26 +41,31 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  openResourcePanel = (currentIndex: number) => {
+  openResourcePanel = (
+    imageFunction,
+    currentIndex,
+    addImageModule = '',
+    addMoreImages = false,
+    event
+  ) => {
     this.resourcePanelOpenedBy = currentIndex;
-    this.props.openImagePanel();
+    this.setState({
+      openImagePanel: true
+    });
   };
 
-  addImage = image => {
-    image.id = this.props.maxId;
-    this.props.addImage(image);
-  };
+  addImage(image) {}
 
   saveData = () => {
-    savePostsList(this.props, this.props.blogName);
-    savePostFromEscribirPage(this.props);
+    //  savePostsList(this.props, this.props.blogName);
+    //  savePostFromEscribirPage(this.props);
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
   render() {
     if (this.props.id) {
       var nodes = [];
-      for (let i = 0; i <= this.props.maxId; i++) {
+      for (let i = 0; i <= 7; i++) {
         nodes.push(
           <Node
             index={i}
@@ -78,6 +81,7 @@ class Escribir extends React.PureComponent<Props> {
           <ImageUploader
             id={this.props.id}
             site={this.props.blogName}
+            open={this.state.openImagePanel}
             addImage={this.addImage}
           />
         </div>
@@ -87,7 +91,7 @@ class Escribir extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => {
-  return { ...state.post, fields: state.sections };
+  return state.post;
 };
 
 export default connect(mapStateToProps, actions)(Escribir);
