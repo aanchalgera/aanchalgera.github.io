@@ -55,8 +55,6 @@ class Escribir extends React.PureComponent<Props> {
     });
   };
 
-  addImage(image) {}
-
   saveData = () => {
     //  savePostsList(this.props, this.props.blogName);
     //  savePostFromEscribirPage(this.props);
@@ -64,7 +62,6 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   render() {
-    console.log();
     if (this.props.id) {
       var nodes = [];
       for (let i = 0; i <= this.props.maxId; i++) {
