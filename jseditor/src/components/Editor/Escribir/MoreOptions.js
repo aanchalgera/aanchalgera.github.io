@@ -7,7 +7,6 @@ import {
   ImagePhoto,
 } from 'material-ui/svg-icons';
 
-import { InputEvent } from 'lib/flowTypes';
 import { OptionButton } from '.';
 
 type State = {
@@ -16,13 +15,7 @@ type State = {
 
 type Props = {
   dataId: number,
-  openResourcePanel: (
-    imageFunction: string,
-    currentIndex: number,
-    addImageModule?: string,
-    addMoreImages?: boolean,
-    event?: InputEvent
-  ) => void
+  openResourcePanel: (currentIndex: number) => void
 };
 
 export class MoreOptions extends PureComponent<Props, State> {
@@ -34,10 +27,6 @@ export class MoreOptions extends PureComponent<Props, State> {
     this.setState(prevState => ({
       showOptions: !prevState.showOptions
     }));
-  };
-
-  openResourcePanel = (type: string) => {
-    this.props.openResourcePanel(this.props.dataId);
   };
 
   render() {
@@ -53,7 +42,7 @@ export class MoreOptions extends PureComponent<Props, State> {
             <OptionButton
               title="Insertar imagen"
               Icon={ImagePhoto}
-              handleClick={() => this.openResourcePanel('')}
+              handleClick={() => this.props.openResourcePanel(this.props.dataId)}
             />
             {/* <span>
               <OptionButton
