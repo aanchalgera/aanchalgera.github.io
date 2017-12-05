@@ -27,7 +27,6 @@ const styles = {
 };
 
 const Title = (props: Props) => {
-  console.log(props);
   const handleBlur = () => {
     props.saveData();
   };

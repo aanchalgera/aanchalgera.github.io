@@ -19,7 +19,8 @@ type Props = {
   onRef: Function,
   id: string,
   maxId: number,
-  receivePost: (post: Object) => void
+  receivePost: (post: Object) => void,
+  addImage: (image: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -63,6 +64,7 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   render() {
+    console.log();
     if (this.props.id) {
       var nodes = [];
       for (let i = 0; i <= this.props.maxId; i++) {
@@ -82,7 +84,8 @@ class Escribir extends React.PureComponent<Props> {
             id={this.props.id}
             site={this.props.blogName}
             open={this.state.openImagePanel}
-            addImage={this.addImage}
+            addImage={this.props.addImage}
+            maxId={this.props.maxId}
           />
         </div>
       );

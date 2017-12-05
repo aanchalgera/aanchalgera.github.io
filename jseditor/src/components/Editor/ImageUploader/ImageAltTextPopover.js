@@ -10,7 +10,11 @@ type Props = {
   imageSrc: string,
   open: boolean,
   goBack: () => void,
-  handleSubmit: (data: string) => void
+  imageToEmbed: string,
+  addImage: () => void,
+  maxId: number,
+  closeDialog: () => void,
+  index: number
 };
 
 type State = {
@@ -40,6 +44,17 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     this.setState({ open: false });
   };
 
+  handleSubmit = () => {
+    this.props.closeDialog();
+    const image = {
+      id: this.props.maxId,
+      alt: this.state.altText,
+      url: this.props.imageToEmbed,
+      index: this.props.index
+    };
+    this.props.addImage(image);
+  };
+
   getDialogActions = () => {
     return (
       <div className="modal-actions">
@@ -56,7 +71,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               label="Insertar imagen"
               primary={true}
               disabled={'' === this.state.altText}
-              onClick={() => this.props.handleSubmit(this.state.altText)}
+              onClick={() => this.handleSubmit()}
             />
           </Col>
         </Row>
@@ -65,8 +80,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   };
 
   render() {
-    const { imageSrc } = this.props;
-
+    const { imageToEmbed } = this.props;
     return (
       <Dialog
         actions={this.getDialogActions()}
@@ -85,7 +99,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
         <Row>
           <Col sm={4}>
             <div className="img-container">
-              <img src={imageSrc} alt="" />
+              <img src={imageToEmbed} alt="" />
             </div>
           </Col>
           <Col sm={8}>
