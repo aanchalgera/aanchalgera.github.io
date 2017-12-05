@@ -1,5 +1,5 @@
 import reducer from './postReducer';
-import { receivePost } from 'actions/post';
+import { receivePost, addImage } from 'actions/post';
 
 describe('reducer', () => {
   it('should provide the initial state', () => {
@@ -26,6 +26,34 @@ describe('reducer', () => {
       meta: null,
       maxId: 1
     };
+
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('should handle addImage action', () => {
+    const stateBefore = {
+      id: 1,
+      postType: 'normal',
+      title: '',
+      status: 'draft',
+      maxId: 22
+    };
+
+    const stateAfter = {
+      id: 1,
+      postType: 'normal',
+      title: '',
+      status: 'draft',
+      maxId: 23
+    };
+
+    const image = {
+      id: 22,
+      url: 'i.blogs.es/927bfp/original.jpeg',
+      alt: 'Talk is cheap. Show me the code.'
+    };
+
+    const action = addImage(image);
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });

@@ -1,4 +1,4 @@
-import { RECEIVE_POST } from 'actions/post';
+import { RECEIVE_POST, ADD_IMAGE } from 'actions/post';
 
 const initialState = {};
 
@@ -15,6 +15,11 @@ export default function(state = initialState, action) {
         userId: post.user_id,
         meta: post.meta || null,
         maxId: post.maxId || 1
+      };
+    case ADD_IMAGE:
+      return {
+        ...state,
+        maxId: ++state.maxId
       };
     default:
       return state;
