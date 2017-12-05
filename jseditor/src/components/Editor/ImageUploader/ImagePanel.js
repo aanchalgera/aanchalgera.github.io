@@ -11,13 +11,14 @@ type Props = {
   open: boolean,
   images: Array<string>,
   openUploader: () => void,
-  closeDialog: () => void
+  closeDialog: () => void,
+  openAltPanel: (image: string) => Action
 };
 
 export class ImagePanel extends PureComponent<Props> {
   onSelection = (e: InputEvent) => {
     const imageSrc = e.currentTarget.dataset.src;
-    this.props.closeDialog();
+    this.props.openAltPanel(imageSrc);
   };
 
   getDialogActions = () => {

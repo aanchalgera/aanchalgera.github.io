@@ -23,7 +23,8 @@ type Props = {
   onRef: Function,
   id: string,
   maxId: number,
-  receivePost: (post: Object) => void
+  receivePost: (post: Object) => void,
+  addImage: (image: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -47,7 +48,10 @@ class Escribir extends React.PureComponent<Props> {
     this.props.openImagePanel();
   };
 
-  addImage(image) {}
+  addImage = image => {
+    image.id = this.props.maxId;
+    this.props.addImage(image);
+  };
 
   saveData = () => {
     savePostsList(this.props, this.props.blogName);
