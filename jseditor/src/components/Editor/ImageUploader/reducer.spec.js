@@ -126,53 +126,13 @@ describe('reducer', () => {
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
-  it('should close the image panel', () => {
+  it('should close the open dialog', () => {
     const action = actions.closeDialog();
     const stateBefore = {
       imageUrls: [],
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
-    };
-    const stateAfter = {
-      imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
-      imageToEmbed: ''
-    };
-
-    expect(reducer(stateBefore, action)).toEqual(stateAfter);
-  });
-
-  it('should close the alt panel', () => {
-    const action = actions.closeDialog();
-    const stateBefore = {
-      imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: true,
-      isUploaderOpen: false,
-      imageToEmbed: ''
-    };
-    const stateAfter = {
-      imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
-      imageToEmbed: ''
-    };
-
-    expect(reducer(stateBefore, action)).toEqual(stateAfter);
-  });
-
-  it('should close the image uploader', () => {
-    const action = actions.closeDialog();
-    const stateBefore = {
-      imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: true,
       imageToEmbed: ''
     };
     const stateAfter = {
