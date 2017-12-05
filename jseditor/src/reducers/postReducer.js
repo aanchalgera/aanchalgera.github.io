@@ -19,7 +19,7 @@ export default function(state = initialState, action) {
     case ADD_IMAGE:
       return {
         ...state,
-        maxId: ++state.maxId
+        maxId: state.maxId + 1
       };
     default:
       return state;
