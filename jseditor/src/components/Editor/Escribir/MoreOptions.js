@@ -37,7 +37,7 @@ export class MoreOptions extends PureComponent<Props, State> {
   };
 
   openResourcePanel = (type: string) => {
-    this.props.openResourcePanel('image', this.props.dataId, type, false);
+    this.props.openResourcePanel(this.props.dataId);
   };
 
   render() {

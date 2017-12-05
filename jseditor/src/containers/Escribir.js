@@ -7,7 +7,6 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { openImagePanel } from 'components/Editor/ImageUploader/actions';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
@@ -43,17 +42,9 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  openResourcePanel = (
-    imageFunction,
-    currentIndex,
-    addImageModule = '',
-    addMoreImages = false,
-    event
-  ) => {
-    const { openImagePanel } = this.props;
-
+  openResourcePanel = (currentIndex: number) => {
     this.resourcePanelOpenedBy = currentIndex;
-    openImagePanel();
+    this.props.openImagePanel();
   };
 
   addImage(image) {}
@@ -95,4 +86,4 @@ const mapStateToProps = state => {
   return { ...state.post, fields: state.sections };
 };
 
-export default connect(mapStateToProps, {...actions, openImagePanel})(Escribir);
+export default connect(mapStateToProps, actions)(Escribir);
