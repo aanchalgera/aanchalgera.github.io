@@ -30,9 +30,6 @@ class Escribir extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
     this.props.onRef(this);
-    this.state = {
-      openImagePanel: false
-    };
   }
 
   componentDidMount() {
@@ -45,17 +42,9 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  openResourcePanel = (
-    imageFunction,
-    currentIndex,
-    addImageModule = '',
-    addMoreImages = false,
-    event
-  ) => {
+  openResourcePanel = (currentIndex: number) => {
     this.resourcePanelOpenedBy = currentIndex;
-    this.setState({
-      openImagePanel: true
-    });
+    this.props.openImagePanel();
   };
 
   addImage(image) {}
@@ -85,7 +74,6 @@ class Escribir extends React.PureComponent<Props> {
           <ImageUploader
             id={this.props.id}
             site={this.props.blogName}
-            open={this.state.openImagePanel}
             addImage={this.addImage}
           />
         </div>
