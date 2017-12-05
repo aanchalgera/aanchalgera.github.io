@@ -1,4 +1,9 @@
-import { CHANGE_TITLE, ADD_IMAGE, RECEIVE_POST } from 'actions/post';
+import {
+  CHANGE_TITLE,
+  ADD_IMAGE,
+  RECEIVE_POST,
+  CHANGE_CONTENT
+} from 'actions/post';
 
 const initialState = [
   {
@@ -21,14 +26,23 @@ const sections = (sections = initialState, action) => {
         },
         ...sections.slice(1)
       ];
+    case CHANGE_CONTENT:
+      const { content } = action;
+      const section = sections.slice(content.index, content.index + 1)[0];
+      return [
+        ...sections.slice(0, content.index),
+        {
+          ...section,
+          text: content.text
+        },
+        ...sections.slice(content.index + 1)
+      ];
     case ADD_IMAGE:
-      const { id, url, alt, index } = action.image;
+      const { index, ...attributes } = action.image;
       return [
         ...sections.slice(0, index),
         {
-          id,
-          url,
-          alt,
+          ...attributes,
           type: 'image'
         },
         ...sections.slice(index)

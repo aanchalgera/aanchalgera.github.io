@@ -54,16 +54,8 @@ const Title = (props: Props) => {
   );
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeTitle: title => {
-      dispatch(changeTitle(title));
-    }
-  };
-};
-
 const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Title);
+export default connect(mapStateToProps, { changeTitle })(Title);
