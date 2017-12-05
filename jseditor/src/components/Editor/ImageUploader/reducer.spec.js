@@ -1,14 +1,6 @@
 import reducer from './reducer';
 import * as actions from './actions';
 
-const initialState = {
-  imageUrls: [],
-  isImagePanelOpen: false,
-  isAltPanelOpen: false,
-  isUploaderOpen: false,
-  imageToEmbed: ''
-};
-
 describe('actions', () => {
   it('should create an action to receive images', () => {
     const images = [
@@ -37,6 +29,14 @@ describe('actions', () => {
 
 describe('reducer', () => {
   it('should return the initial state', () => {
+    const initialState = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
+
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
@@ -46,61 +46,143 @@ describe('reducer', () => {
       { url: 'https://ti.blogs.es/5281c5/emo/image_dimension.gif' },
       { url: 'https://ti.blogs.es/34589a/wallfon/image_dimension.jpg' }
     ];
-    const action = {
-      type: actions.RECEIVE_IMAGES,
-      images
+    const action = actions.receiveImages(images);
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
     };
-    const expectedState = { ...initialState, imageUrls: images };
+    const stateAfter = {
+      imageUrls: images,
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: '' 
+    };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should open image uploader', () => {
-    const state = { ...initialState, isImagePanelOpen: true };
-    const expectedState = { ...initialState, isUploaderOpen: true };
+    const action = actions.openUploader();
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: true,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: true,
+      imageToEmbed: '',
+    };
 
-    expect(reducer(state, { type: actions.OPEN_UPLOADER })).toEqual(expectedState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should open image panel', () => {
-    const state = { ...initialState, isUploaderOpen: true };
-    const expectedState = { ...initialState, isImagePanelOpen: true };
+    const action = actions.openImagePanel();
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: true,
+      imageToEmbed: ''
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: true,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
 
-    expect(reducer(state, { type: actions.OPEN_IMAGEPANEL })).toEqual(expectedState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should open alt panel', () => {
     const image = 'https://ti.blogs.es/dfa277/block-size/original.jpg';
-    const action = {
-      type: actions.OPEN_ALT_PANEL,
-      image
+    const action = actions.openAltPanel(image);
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: true,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
     };
-    const state = { ...initialState, isImagePanelOpen: true };
-    const expectedState = {
-      ...initialState,
+    const stateAfter = {
+      imageUrls: [],
       isImagePanelOpen: false,
       isAltPanelOpen: true,
+      isUploaderOpen: false,
       imageToEmbed: image
     };
 
-    expect(reducer(state, action)).toEqual(expectedState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should close the image panel', () => {
-    const state = { ...initialState, isImagePanelOpen: true };
+    const action = actions.closeDialog();
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: true,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
 
-    expect(reducer(state, { type: actions.CLOSE_DIALOG })).toEqual(initialState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should close the alt panel', () => {
-    const state = { ...initialState, isAltPanelOpen: true };
+    const action = actions.closeDialog();
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: true,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
 
-    expect(reducer(state, { type: actions.CLOSE_DIALOG })).toEqual(initialState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should close the image uploader', () => {
-    const state = { ...initialState, isUploaderOpen: true };
+    const action = actions.closeDialog();
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: true,
+      imageToEmbed: ''
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: ''
+    };
 
-    expect(reducer(state, { type: actions.CLOSE_DIALOG })).toEqual(initialState);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 });
