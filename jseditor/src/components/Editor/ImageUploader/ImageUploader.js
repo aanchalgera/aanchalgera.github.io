@@ -20,8 +20,7 @@ type Props = {
   receiveImages: (images: Array<Image>) => void,
   openAltPanel: () => void,
   imageToEmbed: string,
-  addImage: (image: Object) => void,
-  maxId: number
+  addImage: (image: Object) => void
 };
 
 class ImageUploader extends React.PureComponent<Props> {
@@ -49,8 +48,7 @@ class ImageUploader extends React.PureComponent<Props> {
       isAltPanelOpen,
       openAltPanel,
       imageToEmbed,
-      addImage,
-      maxId
+      addImage
     } = this.props;
 
     return (
@@ -75,7 +73,6 @@ class ImageUploader extends React.PureComponent<Props> {
           site={site}
           imageToEmbed={imageToEmbed}
           addImage={addImage}
-          maxId={maxId}
           closeDialog={closeDialog}
         />
       </div>

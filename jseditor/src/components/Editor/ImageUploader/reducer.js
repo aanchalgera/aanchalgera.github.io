@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   imageUrls: [],
-  isImagePanelOpen: true,
+  isImagePanelOpen: false,
   isAltPanelOpen: false,
   isUploaderOpen: false,
   imageToEmbed: ''

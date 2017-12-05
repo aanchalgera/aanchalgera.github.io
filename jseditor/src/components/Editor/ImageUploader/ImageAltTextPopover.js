@@ -12,7 +12,6 @@ type Props = {
   goBack: () => void,
   imageToEmbed: string,
   addImage: () => void,
-  maxId: number,
   closeDialog: () => void,
   index: number
 };
@@ -47,7 +46,6 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   handleSubmit = () => {
     this.props.closeDialog();
     const image = {
-      id: this.props.maxId,
       alt: this.state.altText,
       url: this.props.imageToEmbed,
       index: this.props.index

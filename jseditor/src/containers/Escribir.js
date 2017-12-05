@@ -55,6 +55,11 @@ class Escribir extends React.PureComponent<Props> {
     });
   };
 
+  addImage = image => {
+    image.id = this.props.maxId;
+    this.props.addImage(image);
+  };
+
   saveData = () => {
     //  savePostsList(this.props, this.props.blogName);
     //  savePostFromEscribirPage(this.props);
@@ -81,8 +86,7 @@ class Escribir extends React.PureComponent<Props> {
             id={this.props.id}
             site={this.props.blogName}
             open={this.state.openImagePanel}
-            addImage={this.props.addImage}
-            maxId={this.props.maxId}
+            addImage={this.addImage}
           />
         </div>
       );
