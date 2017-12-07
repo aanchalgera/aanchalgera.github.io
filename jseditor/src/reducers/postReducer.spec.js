@@ -44,7 +44,7 @@ describe('reducer', () => {
       postType: 'normal',
       title: '',
       status: 'draft',
-      maxId: 23
+      maxId: 24
     };
 
     const image = {

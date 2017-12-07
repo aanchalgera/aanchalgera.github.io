@@ -25,7 +25,7 @@ describe('reducer', () => {
   it('should handle add image action', () => {
     const stateBefore = [
       {
-        type: 'text',
+        type: 'content',
         id: 2
       },
       {
@@ -45,7 +45,7 @@ describe('reducer', () => {
 
     const stateAfter = [
       {
-        type: 'text',
+        type: 'content',
         id: 2
       },
       {
@@ -53,6 +53,11 @@ describe('reducer', () => {
         type: 'image',
         url: 'https://i.blogs.com/id/original.jpg',
         alt: 'Truth can only be found in one place: the code'
+      },
+      {
+        type: 'content',
+        id: 25,
+        text: ''
       },
       {
         type: 'hyperlink',
