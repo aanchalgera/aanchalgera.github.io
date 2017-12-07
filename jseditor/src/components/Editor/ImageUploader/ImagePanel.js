@@ -4,23 +4,18 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import { InputEvent } from 'lib/flowTypes';
+import { InputEvent, Image } from 'lib/flowTypes';
 import { CloseButton, Thumbnail, Label } from '.';
 
 type Props = {
   open: boolean,
-  images: Array<string>,
+  images: Array<Image>,
   openUploader: () => void,
   closeDialog: () => void,
-  openAltPanel: (image: string) => Action
+  openAltPanel: (image: Image) => Action
 };
 
 export class ImagePanel extends PureComponent<Props> {
-  onSelection = (e: InputEvent) => {
-    const imageSrc = e.currentTarget.dataset.src;
-    this.props.openAltPanel(imageSrc);
-  };
-
   getDialogActions = () => {
     return (
       <RaisedButton
@@ -32,7 +27,7 @@ export class ImagePanel extends PureComponent<Props> {
   };
 
   render() {
-    const { open, images, closeDialog } = this.props;
+    const { open, images, closeDialog, openAltPanel } = this.props;
 
     return (
       <Dialog
@@ -54,7 +49,12 @@ export class ImagePanel extends PureComponent<Props> {
           {images.map((image, index: number) => {
             return (
               <Col key={index} sm={1}>
-                <Thumbnail image={image} handleClick={this.onSelection} />
+                <Thumbnail
+                  image={image}
+                  handleClick={
+                    (e: InputEvent) => openAltPanel(e.currentTarget.dataset)
+                  }
+                />
               </Col>
             );
           })}

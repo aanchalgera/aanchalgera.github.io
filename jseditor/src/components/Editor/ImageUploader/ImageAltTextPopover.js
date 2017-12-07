@@ -4,53 +4,46 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
+import { Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
 
+const imageDimension = 'original';
+
 type Props = {
-  imageSrc: string,
   open: boolean,
-  goBack: () => void,
-  imageToEmbed: string,
+  imageToEmbed: Image,
   addImage: () => void,
   closeDialog: () => void,
   index: number
 };
 
 type State = {
-  open: boolean,
   altText: string
 };
 
 export class ImageAltTextPopover extends PureComponent<Props, State> {
   state = {
-    open: false,
     altText: ''
   };
-
-  componentWillMount() {
-    this.setState({ open: this.props.open });
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    this.setState({ open: nextProps.open });
-  }
 
   onTextChange = (value: string) => {
     this.setState({ altText: value });
   };
 
-  handleCloseDialog = () => {
-    this.setState({ open: false });
-  };
-
   handleSubmit = () => {
-    this.props.closeDialog();
+    const { imageToEmbed: { src, extension, height, width }, index, addImage, closeDialog } = this.props;
+
     const image = {
       alt: this.state.altText,
-      url: this.props.imageToEmbed,
-      index: this.props.index
+      src,
+      extension,
+      height,
+      width,
+      index
     };
-    this.props.addImage(image);
+
+    addImage(image);
+    closeDialog();
   };
 
   getDialogActions = () => {
@@ -69,7 +62,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               label="Insertar imagen"
               primary={true}
               disabled={'' === this.state.altText}
-              onClick={() => this.handleSubmit()}
+              onClick={this.handleSubmit}
             />
           </Col>
         </Row>
@@ -78,12 +71,14 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   };
 
   render() {
-    const { imageToEmbed } = this.props;
+    const { imageToEmbed: { src, extension }, open, closeDialog } = this.props;
+    const imageSrc = `${src}/${imageDimension}.${extension}`;
+
     return (
       <Dialog
         actions={this.getDialogActions()}
         modal={true}
-        open={this.state.open}
+        open={open}
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
         <Row>
@@ -91,13 +86,13 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
             <Label label="Insertar imagen en el artículo" />
           </Col>
           <Col sm={1} className="end-sm">
-            <CloseButton handleClose={this.handleCloseDialog} />
+            <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
         <Row>
           <Col sm={4}>
             <div className="img-container">
-              <img src={imageToEmbed} alt="" />
+              <img src={imageSrc} alt="" />
             </div>
           </Col>
           <Col sm={8}>

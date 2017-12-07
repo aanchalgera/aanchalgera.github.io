@@ -1,3 +1,5 @@
+import { Image } from 'lib/flowTypes';
+
 export const RECEIVE_IMAGES = 'RECEIVE_IMAGES';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const OPEN_UPLOADER = 'OPEN_UPLOADER';
@@ -21,7 +23,7 @@ export const openImagePanel = () => ({
   type: OPEN_IMAGEPANEL
 });
 
-export const openAltPanel = (image: string) => ({
+export const openAltPanel = (image: Image) => ({
   type: OPEN_ALT_PANEL,
   image
 });
