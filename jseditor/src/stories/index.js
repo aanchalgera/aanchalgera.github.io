@@ -6,6 +6,7 @@ import {
   ImageAltTextPopover,
   ImagePanel,
   S3Uploader,
+  Image
 } from '../components/Editor/ImageUploader';
 import { Title, MoreOptions } from '../components/Editor/Escribir';
 
@@ -34,5 +35,13 @@ storiesOf('ImagePanel', module).add('ImagePanel', () => (
 ));
 
 storiesOf('MoreOptions', module).add('MoreOptions', () => <MoreOptions />);
-storiesOf('S3Uploader', module)
-  .add('S3Uploader', () => <S3Uploader open={true} />);
+storiesOf('S3Uploader', module).add('S3Uploader', () => (
+  <S3Uploader open={true} />
+));
+
+storiesOf('Image', module).add('default', () => (
+  <Image
+    alt="Alt text"
+    url="http://www.azquotes.com/picture-quotes/quote-if-you-will-it-it-is-no-dream-and-if-you-do-not-will-it-a-dream-it-is-and-a-dream-it-theodor-herzl-91-83-62.jpg"
+  />
+));
