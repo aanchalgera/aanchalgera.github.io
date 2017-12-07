@@ -1,4 +1,4 @@
-import { RECEIVE_POST, ADD_IMAGE } from 'actions/post';
+import { RECEIVE_POST, ADD_SECTION } from 'actions/post';
 
 const initialState = {};
 
@@ -16,10 +16,10 @@ export default function(state = initialState, action) {
         meta: post.meta || null,
         maxId: post.maxId || 1
       };
-    case ADD_IMAGE:
+    case ADD_SECTION:
       return {
         ...state,
-        maxId: state.maxId + 1
+        maxId: state.maxId + 2
       };
     default:
       return state;

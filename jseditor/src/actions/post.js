@@ -1,6 +1,6 @@
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const CHANGE_TITLE = 'CHANGE_TITLE';
-export const ADD_IMAGE = 'ADD_IMAGE';
+export const ADD_SECTION = 'ADD_SECTION';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const CHANGE_CONTENT = 'CHANGE_CONTENT';
 
@@ -29,9 +29,10 @@ export function changeContent(index, text) {
 }
 
 export function addImage(image) {
+  image.type = 'image';
   return {
-    type: ADD_IMAGE,
-    image: image
+    type: ADD_SECTION,
+    section: image
   };
 }
 

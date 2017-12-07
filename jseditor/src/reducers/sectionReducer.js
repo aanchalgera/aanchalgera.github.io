@@ -1,6 +1,6 @@
 import {
   CHANGE_TITLE,
-  ADD_IMAGE,
+  ADD_SECTION,
   RECEIVE_POST,
   CHANGE_CONTENT
 } from 'actions/post';
@@ -37,14 +37,22 @@ const sections = (sections = initialState, action) => {
         },
         ...sections.slice(content.index + 1)
       ];
-    case ADD_IMAGE:
-      const { index, ...attributes } = action.image;
+    case ADD_SECTION:
+      const { index, ...newSection } = action.section;
+      const contentSection = {
+        id: newSection.id + 1,
+        type: 'content',
+        text: ''
+      };
+      let addSections = [];
+      if (sections[index - 1].type === 'content') {
+        addSections = [newSection, contentSection];
+      } else {
+        addSections = [contentSection, newSection];
+      }
       return [
         ...sections.slice(0, index),
-        {
-          ...attributes,
-          type: 'image'
-        },
+        ...addSections,
         ...sections.slice(index)
       ];
     default:
