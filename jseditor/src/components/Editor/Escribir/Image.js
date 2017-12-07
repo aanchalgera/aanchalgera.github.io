@@ -2,12 +2,12 @@ import * as React from 'react';
 
 type Props = {
   alt: string,
-  url: string
+  url: string,
+  src: string,
+  extension: string
 };
 
-type State = {};
-
-export class Image extends React.Component<Props, State> {
+export class Image extends React.Component<Props> {
   handleDelete = () => {};
 
   handleEdit = () => {};
@@ -15,8 +15,8 @@ export class Image extends React.Component<Props, State> {
   getToolBar = () => {};
 
   render() {
-    const { alt, url } = this.props;
-
+    const { alt, src, extension } = this.props;
+    const url = `${src}/original.${extension}`;
     return <img src={url} alt={alt} />;
   }
 }
