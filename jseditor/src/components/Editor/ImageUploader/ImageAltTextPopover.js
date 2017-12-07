@@ -6,7 +6,7 @@ import { Dialog, TextField, RaisedButton } from 'material-ui';
 import { Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
 
-const imageDimension = 'original';
+const imageDimension = '288_288';
 
 type Props = {
   open: boolean,
