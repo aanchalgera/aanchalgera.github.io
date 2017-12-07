@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
 import { Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
@@ -50,14 +49,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     return (
       <div className="modal-actions">
         <Row>
-          <Col sm={6} className="start-sm">
-            <RaisedButton
-              label="Volver a elegir"
-              icon={<ArrowBack />}
-              onClick={this.props.goBack}
-            />
-          </Col>
-          <Col sm={6} className="end-sm">
+          <Col sm={12} className="end-sm">
             <RaisedButton
               label="Insertar imagen"
               primary={true}
