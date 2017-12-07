@@ -4,8 +4,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
-import configParams from 'config/configs';
-import { InputEvent, S3ImageLocation } from 'lib/flowTypes';
+import { InputEvent, S3Image } from 'lib/flowTypes';
 import {
   postImages as postImagesToS3
 } from './lib/s3ImageUploadService';
@@ -23,23 +22,20 @@ type Props = {
 };
 
 export class S3Uploader extends PureComponent<Props> {
-  uploadToFirebase = ({ location, extension }: S3ImageLocation) => {
+  uploadToFirebase = (image: S3Image) => {
     const { id, openImagePanel } = this.props;
-    const imageUrl = `${configParams.s3ImageUrl}/${unescape(location)}/image_dimension.${extension}`;
 
-    postImagesToFirebase(id, { url: imageUrl });
+    postImagesToFirebase(id, image);
     openImagePanel();
   };
 
   selectImages = async (e: InputEvent) => {
     const file = e.target.files[0];
     let data = new FormData();
-
-    data.append('site', this.props.site);
     data.append('file', file);
 
-    const image = await postImagesToS3(data);
-    if (image.location) {
+    const image = await postImagesToS3(this.props.site, data);
+    if (image.src) {
       this.uploadToFirebase(image);
     }
   };

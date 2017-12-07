@@ -34,7 +34,7 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
 
     expect(reducer(undefined, {})).toEqual(initialState);
@@ -52,14 +52,14 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: images,
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: '' 
+      imageToEmbed: {} 
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
@@ -72,14 +72,14 @@ describe('reducer', () => {
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: true,
-      imageToEmbed: '',
+      imageToEmbed: {},
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
@@ -92,28 +92,33 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: true,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
   it('should open alt panel', () => {
-    const image = 'https://ti.blogs.es/dfa277/block-size/original.jpg';
+    const image = {
+      src: 'https://ti.blogs.es/dfa277/block-size',
+      extension: 'jpg',
+      height: 400,
+      width: 400
+    };
     const action = actions.openAltPanel(image);
     const stateBefore = {
       imageUrls: [],
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
@@ -133,14 +138,14 @@ describe('reducer', () => {
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: ''
+      imageToEmbed: {}
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);

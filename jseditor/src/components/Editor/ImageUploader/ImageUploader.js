@@ -19,7 +19,7 @@ type Props = {
   closeDialog: () => void,
   receiveImages: (images: Array<Image>) => void,
   openAltPanel: () => void,
-  imageToEmbed: string,
+  imageToEmbed: Image,
   addImage: (image: Object) => void
 };
 
@@ -69,8 +69,6 @@ class ImageUploader extends React.PureComponent<Props> {
         />
         <ImageAltTextPopover
           open={isAltPanelOpen}
-          id={id}
-          site={site}
           imageToEmbed={imageToEmbed}
           addImage={addImage}
           closeDialog={closeDialog}

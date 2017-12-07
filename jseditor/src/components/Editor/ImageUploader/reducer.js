@@ -11,17 +11,16 @@ const initialState = {
   isImagePanelOpen: false,
   isAltPanelOpen: false,
   isUploaderOpen: false,
-  imageToEmbed: ''
+  imageToEmbed: {}
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_IMAGES:
-      const imageUrls = action.images.map(image => ({
-        url: image.url
-      }));
-
-      return { ...state, imageUrls };
+      return {
+        ...state,
+        imageUrls: action.images
+      };
 
     case OPEN_UPLOADER:
       return {

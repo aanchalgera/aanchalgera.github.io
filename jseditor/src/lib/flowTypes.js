@@ -13,11 +13,14 @@ export type CategoryType = {
 };
 
 export type Image = {
-  url: string
+  src: string,
+  extension: string,
+  width: number,
+  height: number
 };
 
 export type InputEvent = Event & { target: HTMLInputElement };
 
 export type Action = { type: string } | { type: string, payload: Object };
 
-export type S3ImageLocation = { location: string, extension: string };
+export type S3Image = { src: string, extension: string, width: number, height: number };
