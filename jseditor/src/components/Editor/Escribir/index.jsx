@@ -9,3 +9,4 @@ export { OptionButton } from './OptionButton';
 export { ExtraOptions } from './ExtraOptions';
 export { Node };
 export { Content };
+export { Image } from './Image';
