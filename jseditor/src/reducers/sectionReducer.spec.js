@@ -4,7 +4,14 @@ import { changeTitle, addImage, changeContent } from 'actions/post';
 
 describe('reducer', () => {
   it('should provide the initial state', () => {
-    const initialState = [{ id: 0, type: 'title' }];
+    const initialState = [
+      { id: 0, type: 'title' },
+      {
+        id: 1,
+        type: 'content',
+        text: ''
+      }
+    ];
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 

@@ -9,6 +9,11 @@ const initialState = [
   {
     id: 0,
     type: 'title'
+  },
+  {
+    id: 1,
+    type: 'content',
+    text: ''
   }
 ];
 
