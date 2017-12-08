@@ -2,7 +2,8 @@ import {
   CHANGE_TITLE,
   ADD_SECTION,
   RECEIVE_POST,
-  CHANGE_CONTENT
+  CHANGE_CONTENT,
+  DELETE_SECTION
 } from 'actions/post';
 
 const initialState = [
@@ -54,6 +55,21 @@ const sections = (sections = initialState, action) => {
         ...sections.slice(0, index),
         ...addSections,
         ...sections.slice(index)
+      ];
+    case DELETE_SECTION:
+      if (
+        sections[action.index - 1]['type'] === 'content' &&
+        sections[action.index - 1]['text'] === '' &&
+        sections[action.index + 1]['type'] === 'content'
+      ) {
+        return [
+          ...sections.slice(0, action.index - 1),
+          ...sections.slice(action.index + 1)
+        ];
+      }
+      return [
+        ...sections.slice(0, action.index),
+        ...sections.slice(action.index + 1)
       ];
     default:
       return sections;

@@ -1,6 +1,11 @@
 import reducer from './sectionReducer';
 
-import { changeTitle, addImage, changeContent } from 'actions/post';
+import {
+  changeTitle,
+  addImage,
+  changeContent,
+  deleteSection
+} from 'actions/post';
 
 describe('reducer', () => {
   it('should provide the initial state', () => {
@@ -46,6 +51,7 @@ describe('reducer', () => {
     const stateAfter = [
       {
         type: 'content',
+        e: 'content',
         id: 2
       },
       {
@@ -67,34 +73,85 @@ describe('reducer', () => {
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
-});
 
-it('should handle change content action', () => {
-  const stateBefore = [
-    {
-      type: 'image',
-      id: 1
-    },
-    {
-      type: 'content',
-      id: 2,
-      text: 'abc'
-    }
-  ];
+  it('should handle change content action', () => {
+    const stateBefore = [
+      {
+        type: 'image',
+        id: 1
+      },
+      {
+        type: 'content',
+        id: 2,
+        text: 'abc'
+      }
+    ];
 
-  const action = changeContent(1, 'abcd');
+    const action = changeContent(1, 'abcd');
 
-  const stateAfter = [
-    {
-      type: 'image',
-      id: 1
-    },
-    {
-      type: 'content',
-      id: 2,
-      text: 'abcd'
-    }
-  ];
+    const stateAfter = [
+      {
+        type: 'image',
+        id: 1
+      },
+      {
+        type: 'content',
+        id: 2,
+        text: 'abcd'
+      }
+    ];
 
-  expect(reducer(stateBefore, action)).toEqual(stateAfter);
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('should handle delete section action', () => {
+    const stateBefore = [
+      {
+        id: 1,
+        type: 'title',
+        text: 'No if no but, only jatt'
+      },
+      {
+        id: 2,
+        type: 'image',
+        url: 'https://i.blogs.com/id/original.jpg',
+        alt: 'Truth can only be found in one place: the code'
+      },
+      {
+        id: 3,
+        type: 'content',
+        text: 'test'
+      },
+      {
+        id: 4,
+        type: 'image',
+        url: 'https://i.blogs.com/id/original.jpg',
+        alt: 'sample alt'
+      }
+    ];
+
+    const stateAfter = [
+      {
+        id: 1,
+        type: 'title',
+        text: 'No if no but, only jatt'
+      },
+      {
+        id: 2,
+        type: 'image',
+        url: 'https://i.blogs.com/id/original.jpg',
+        alt: 'Truth can only be found in one place: the code'
+      },
+      {
+        id: 3,
+        type: 'content',
+        text: 'test'
+      }
+    ];
+
+    const index = 3;
+    const action = deleteSection(index);
+
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
 });
