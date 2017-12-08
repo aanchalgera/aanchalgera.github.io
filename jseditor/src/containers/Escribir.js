@@ -73,13 +73,15 @@ class Escribir extends React.PureComponent<Props> {
         );
       }
       return (
-        <div className="container-fluid" style={{ paddingTop: '112px' }}>
-          {nodes}
-          <ImageUploader
-            id={this.props.id}
-            site={this.props.blogName}
-            addImage={this.addImage}
-          />
+        <div className="container-fluid">
+          <div className="grid-wrapper grid-l">
+            {nodes}
+            <ImageUploader
+              id={this.props.id}
+              site={this.props.blogName}
+              addImage={this.addImage}
+            />
+          </div>
         </div>
       );
     } else return 'Loading';

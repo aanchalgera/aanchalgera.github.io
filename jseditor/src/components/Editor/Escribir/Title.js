@@ -37,7 +37,7 @@ const Title = (props: Props) => {
   };
 
   return (
-    <div className="col-sm-12">
+    <div>
       <TextField
         hintText="Título..."
         fullWidth={true}
