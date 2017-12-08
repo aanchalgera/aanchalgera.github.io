@@ -2,12 +2,14 @@
 import { base } from 'lib/firebase';
 import { Image } from 'lib/flowTypes';
 
-export const getImages = (id: string) => {
-  return base.fetch('s3images/' + id, {
+type ReceiveImages = (images: Array<Image>) => void;
+
+export const getImages = (id: string, receiveImages: ReceiveImages) => {
+  return base.listenTo('s3images/' + id, {
     context: this,
     asArray: true,
     then(data) {
-      return data;
+      receiveImages(data);
     }
   });
 };

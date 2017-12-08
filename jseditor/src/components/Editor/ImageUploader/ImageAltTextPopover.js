@@ -8,10 +8,19 @@ import { CloseButton, Label } from '.';
 
 const imageDimension = '288_288';
 
+type ImageData = {
+  alt: string,
+  src: string,
+  extension: string,
+  height: number,
+  width: number,
+  index: number
+};
+
 type Props = {
   open: boolean,
   imageToEmbed: Image,
-  addImage: () => void,
+  addImage: (imageData: ImageData) => void,
   closeDialog: () => void,
   index: number
 };

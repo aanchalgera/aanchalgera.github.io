@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 import { InputEvent, Image } from 'lib/flowTypes';
 
-const thumbnailDimension = '75_75';
+const thumbnailDimension = 'original';
 
 type Props = {
   image: Image,

@@ -12,7 +12,7 @@ type Props = {
   images: Array<Image>,
   openUploader: () => void,
   closeDialog: () => void,
-  openAltPanel: (image: Image) => Action
+  openAltPanel: (image: Image) => void
 };
 
 export class ImagePanel extends PureComponent<Props> {

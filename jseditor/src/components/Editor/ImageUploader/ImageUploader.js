@@ -25,14 +25,7 @@ type Props = {
 
 class ImageUploader extends React.PureComponent<Props> {
   componentWillMount() {
-    this.init();
-  }
-
-  async init() {
-    const { id, receiveImages } = this.props;
-    const images = await getImages(id);
-
-    receiveImages(images);
+    getImages(this.props.id, this.props.receiveImages);
   }
 
   render() {
