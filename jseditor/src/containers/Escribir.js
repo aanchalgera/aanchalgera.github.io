@@ -24,7 +24,8 @@ type Props = {
   id: string,
   maxId: number,
   receivePost: (post: Object) => void,
-  addImage: (image: Object) => void
+  addImage: (image: Object) => void,
+  openImagePanel: () => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -44,11 +45,12 @@ class Escribir extends React.PureComponent<Props> {
   }
 
   openResourcePanel = (currentIndex: number) => {
-    this.resourcePanelOpenedBy = currentIndex;
+    this.currentIndex = currentIndex;
     this.props.openImagePanel();
   };
 
   addImage = image => {
+    image.index = this.currentIndex;
     image.id = this.props.maxId;
     this.props.addImage(image);
   };
