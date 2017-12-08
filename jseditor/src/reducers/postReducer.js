@@ -14,7 +14,7 @@ export default function(state = initialState, action) {
         status: post.status,
         userId: post.user_id,
         meta: post.meta || null,
-        maxId: post.maxId || 1
+        maxId: post.maxId || 2
       };
     case ADD_SECTION:
       return {
