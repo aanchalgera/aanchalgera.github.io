@@ -5,6 +5,7 @@ import { Title, MoreOptions, Content, Image } from 'components/Editor/Escribir';
 type Props = {
   id: number,
   type: string,
+  index: number,
   openResourcePanel: Function
 };
 
@@ -31,7 +32,10 @@ class Node extends React.PureComponent<Props> {
     return (
       <React.Fragment>
         {section}
-        <MoreOptions openResourcePanel={openResourcePanel} />
+        <MoreOptions
+          openResourcePanel={openResourcePanel}
+          dataId={this.props.index}
+        />
       </React.Fragment>
     );
   }
