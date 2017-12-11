@@ -59,8 +59,7 @@ const sections = (sections = initialState, action) => {
     case DELETE_SECTION:
       if (
         sections[action.index - 1]['type'] === 'content' &&
-        sections[action.index - 1]['text'] === '' &&
-        sections[action.index + 1]['type'] === 'content'
+        sections[action.index - 1]['text'] === ''
       ) {
         return [
           ...sections.slice(0, action.index - 1),
