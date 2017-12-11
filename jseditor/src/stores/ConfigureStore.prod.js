@@ -4,7 +4,6 @@ import rootReducer from '../reducers';
 
 const middlewares = [thunk];
 
-//adding redux logger for development environment
 /*
 if (process.env.NODE_ENV === 'development') {
   const createLogger = require('redux-logger');
