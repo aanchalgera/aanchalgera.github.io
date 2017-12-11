@@ -7,7 +7,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
 
-import { plugins, InlineToolbar } from '../Common/DraftJSToolbar';
+import { plugins } from '../Common/DraftJSToolbar';
 import { changeContent } from 'actions/post';
 
 type Props = {
@@ -24,6 +24,8 @@ class Content extends React.PureComponent<Props> {
       editorState: EditorState.createWithContent(contentState)
     };
   }
+  plugins = plugins();
+  InlineToolbar = this.plugins[0].InlineToolbar;
 
   focus() {
     this._editor.focus();
@@ -42,14 +44,14 @@ class Content extends React.PureComponent<Props> {
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}
-          plugins={plugins}
+          plugins={this.plugins}
           ref={element => {
             this._editor = element;
           }}
           stripPastedStyles={true}
-          placeholder="..."
+          placeholder=""
         />
-        <InlineToolbar />
+        <this.InlineToolbar />
       </div>
     );
   }

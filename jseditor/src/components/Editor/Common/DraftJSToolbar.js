@@ -13,20 +13,21 @@ import {
   BlockquoteButton
 } from 'draft-js-buttons';
 
-const linkPlugin = createLinkPlugin({
-  placeholder: 'http://…'
-});
-const inlineToolbarPlugin = createInlineToolbarPlugin({
-  structure: [
-    BoldButton,
-    ItalicButton,
-    HeadlineTwoButton,
-    HeadlineThreeButton,
-    BlockquoteButton,
-    UnorderedListButton,
-    OrderedListButton,
-    linkPlugin.LinkButton
-  ]
-});
-export const { InlineToolbar } = inlineToolbarPlugin;
-export const plugins = [inlineToolbarPlugin, linkPlugin];
+export const plugins = () => {
+  const linkPlugin = createLinkPlugin({
+    placeholder: 'http://…'
+  });
+  const inlineToolbarPlugin = createInlineToolbarPlugin({
+    structure: [
+      BoldButton,
+      ItalicButton,
+      HeadlineTwoButton,
+      HeadlineThreeButton,
+      BlockquoteButton,
+      UnorderedListButton,
+      OrderedListButton,
+      linkPlugin.LinkButton
+    ]
+  });
+  return [inlineToolbarPlugin, linkPlugin];
+};

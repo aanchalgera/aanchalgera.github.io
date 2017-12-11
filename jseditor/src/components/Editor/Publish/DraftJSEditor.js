@@ -5,7 +5,7 @@ import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
-import { plugins, InlineToolbar } from '../Common/DraftJSToolbar';
+import { plugins } from '../Common/DraftJSToolbar';
 const MAX_LENGTH = 240;
 
 type Props = {
@@ -23,6 +23,8 @@ export default class DraftJSEditor extends React.PureComponent<Props> {
     };
     this.props.updateLength(MAX_LENGTH - this.currentLength());
   }
+  plugins = plugins();
+  InlineToolbar = this.plugins[0].InlineToolbar;
 
   focus() {
     this._editor.focus();
@@ -66,14 +68,14 @@ export default class DraftJSEditor extends React.PureComponent<Props> {
           handleReturn={this._handleBeforeInput}
           handleBeforeInput={this._handleBeforeInput}
           handlePastedText={this._handlePastedText}
-          plugins={plugins}
+          plugins={this.plugins}
           ref={element => {
             this._editor = element;
           }}
           stripPastedStyles={true}
           placeholder="..."
         />
-        <InlineToolbar />
+        <this.InlineToolbar />
       </div>
     );
   }
