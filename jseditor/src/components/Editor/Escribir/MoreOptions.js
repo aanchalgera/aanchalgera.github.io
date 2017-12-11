@@ -23,6 +23,11 @@ export class MoreOptions extends PureComponent<Props, State> {
     showOptions: false
   };
 
+  openPanel = () => {
+    this.props.openResourcePanel(this.props.dataId);
+    this.toggleShowOptions();
+  };
+
   toggleShowOptions = () => {
     this.setState(prevState => ({
       showOptions: !prevState.showOptions
@@ -42,7 +47,7 @@ export class MoreOptions extends PureComponent<Props, State> {
             <OptionButton
               title="Insertar imagen"
               Icon={ImagePhoto}
-              handleClick={() => this.props.openResourcePanel(this.props.dataId)}
+              handleClick={this.openPanel}
             />
             {/* <span>
               <OptionButton
