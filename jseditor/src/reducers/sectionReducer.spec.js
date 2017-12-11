@@ -51,7 +51,6 @@ describe('reducer', () => {
     const stateAfter = [
       {
         type: 'content',
-        e: 'content',
         id: 2
       },
       {

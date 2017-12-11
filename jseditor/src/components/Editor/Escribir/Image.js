@@ -19,9 +19,6 @@ const Image = (props: Props) => {
 
   const handleEdit = () => {};
 
-  const getToolBar = () => {};
-
-  console.log('Hi...');
   const { alt, src, extension } = props;
   const url = `${src}/original.${extension}`;
   return (

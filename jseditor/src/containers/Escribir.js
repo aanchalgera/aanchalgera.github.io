@@ -10,7 +10,6 @@ import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
-import { openImagePanel } from '../actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
@@ -25,7 +24,8 @@ type Props = {
   id: string,
   maxId: number,
   receivePost: (post: Object) => void,
-  addImage: (image: Object) => void
+  addImage: (image: Object) => void,
+  openImagePanel: () => void
 };
 
 class Escribir extends React.PureComponent<Props> {

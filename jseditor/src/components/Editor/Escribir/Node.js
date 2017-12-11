@@ -10,14 +10,12 @@ type Props = {
 
 class Node extends React.PureComponent<Props> {
   getSection = (type, props) => {
-    console.log(type);
     switch (type) {
       case 'title':
         return <Title {...props} />;
       case 'content':
         return <Content {...props} />;
       case 'image':
-        console.log(Image);
         return <Image {...props} />;
       default:
         return '';
