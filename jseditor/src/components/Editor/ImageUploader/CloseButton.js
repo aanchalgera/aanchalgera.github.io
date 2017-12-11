@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { IconButton } from 'material-ui';
 import Close from 'material-ui/svg-icons/navigation/close';
 
