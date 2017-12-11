@@ -61,13 +61,12 @@ let formatedBlogs = {
 };
 
 export default class RepostSiteOptions extends React.PureComponent<Props> {
-  initalRepostedBlogs = null;
-
   componentWillReceiveProps(nextProps: Props) {
     if (this.initalRepostedBlogs === null) {
       this.initalRepostedBlogs = nextProps.repostBlogs.slice();
     }
   }
+  initalRepostedBlogs = null;
 
   handleCheck = (e: InputEvent, isChecked: boolean) => {
     this.props.setRepostBlogs(e.currentTarget.value, isChecked);
@@ -124,7 +123,7 @@ export default class RepostSiteOptions extends React.PureComponent<Props> {
               }
               label="Enviar Crosspost"
               onClick={this.submitRepostedBlogs}
-              secondary={true}
+              secondary
             />
           </Col>
         </Row>

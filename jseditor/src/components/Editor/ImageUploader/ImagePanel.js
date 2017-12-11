@@ -32,7 +32,7 @@ export class ImagePanel extends PureComponent<Props> {
     return (
       <Dialog
         actions={this.getDialogActions()}
-        modal={true}
+        modal
         open={open}
         actionsContainerClassName="modal-actions"
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
@@ -51,8 +51,8 @@ export class ImagePanel extends PureComponent<Props> {
               <Col key={index} sm={1}>
                 <Thumbnail
                   image={image}
-                  handleClick={
-                    (e: InputEvent) => openAltPanel(e.currentTarget.dataset)
+                  handleClick={(e: InputEvent) =>
+                    openAltPanel(e.currentTarget.dataset)
                   }
                 />
               </Col>

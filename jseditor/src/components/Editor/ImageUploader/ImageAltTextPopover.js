@@ -66,7 +66,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
           <Col sm={12} className="end-sm">
             <RaisedButton
               label="Insertar imagen"
-              primary={true}
+              primary
               disabled={'' === this.state.altText}
               onClick={this.handleSubmit}
             />
@@ -83,7 +83,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     return (
       <Dialog
         actions={this.getDialogActions()}
-        modal={true}
+        modal
         open={open}
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
@@ -105,9 +105,9 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
             <TextField
               hintText="Descripción de lo que aparece en la imagen"
               floatingLabelText="Texto alternativo"
-              floatingLabelFixed={true}
+              floatingLabelFixed
               onChange={this.onTextChange}
-              fullWidth={true}
+              fullWidth
             />
           </Col>
         </Row>

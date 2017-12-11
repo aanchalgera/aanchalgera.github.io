@@ -37,8 +37,8 @@ export class Tags extends PureComponent<Props> {
           placeholder="..."
           loadOptions={this.getTags}
           onChange={this.handleOnChange}
-          multi={true}
-          joinValues={true}
+          multi
+          joinValues
           value={this.props.tags}
           valueKey={'id'}
           className="module-form-select"

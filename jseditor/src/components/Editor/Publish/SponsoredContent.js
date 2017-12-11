@@ -48,9 +48,9 @@ export class SponsoredContent extends PureComponent<Props> {
               value={this.props.sponsor.name}
               hintText="Socialmedia SL"
               floatingLabelText="Nombre del Cliente (se usa con 'Ofrecido por' portada)"
-              floatingLabelFixed={true}
+              floatingLabelFixed
               onChange={this.updateName}
-              fullWidth={true}
+              fullWidth
             />
           </Col>
           <Col sm>
@@ -58,9 +58,9 @@ export class SponsoredContent extends PureComponent<Props> {
               value={this.props.sponsor.image}
               hintText="https://.."
               floatingLabelText="Direccion del logotipo"
-              floatingLabelFixed={true}
+              floatingLabelFixed
               onChange={this.updateImage}
-              fullWidth={true}
+              fullWidth
             />
           </Col>
           <Col sm>
@@ -68,9 +68,9 @@ export class SponsoredContent extends PureComponent<Props> {
               value={this.props.sponsor.tracker}
               hintText="..."
               floatingLabelText="URL Tracker"
-              floatingLabelFixed={true}
+              floatingLabelFixed
               onChange={this.updateTracker}
-              fullWidth={true}
+              fullWidth
             />
           </Col>
         </Row>

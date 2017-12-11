@@ -35,12 +35,12 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
       <Col sm={12}>
         <TextField
           hintText="..."
-          floatingLabelFixed={true}
-          multiLine={true}
+          floatingLabelFixed
+          multiLine
           rows={3}
           rowsMax={3}
           underlineShow={false}
-          fullWidth={true}
+          fullWidth
           value={seo.title}
           onChange={updateSeoTitle}
           floatingLabelText={<span>Título SEO</span>}
@@ -50,12 +50,12 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
       <Col sm={12}>
         <TextField
           hintText="..."
-          floatingLabelFixed={true}
-          multiLine={true}
+          floatingLabelFixed
+          multiLine
           rows={3}
           rowsMax={3}
           underlineShow={false}
-          fullWidth={true}
+          fullWidth
           value={seo.description}
           onChange={updateSeoDescription}
           floatingLabelText="Descripción SEO"

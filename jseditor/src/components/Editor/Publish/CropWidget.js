@@ -24,12 +24,12 @@ const CropWidget = ({
       src={imageSrc}
       crop={crop}
       disabled={crop.validate}
-      keepSelection={true}
+      keepSelection
       onChange={cropImage => onCropChange(shape, cropImage)}
     />
     {crop.validate ? (
       <div className="btn-container">
-        <RaisedButton label="GUARDADO" disabled={true} />
+        <RaisedButton label="GUARDADO" disabled />
         <RaisedButton
           label="EDITAR"
           onClick={e => {

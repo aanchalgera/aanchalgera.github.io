@@ -72,7 +72,7 @@ export default class DraftJSEditor extends React.PureComponent<Props> {
           ref={element => {
             this._editor = element;
           }}
-          stripPastedStyles={true}
+          stripPastedStyles
           placeholder="..."
         />
         <this.InlineToolbar />

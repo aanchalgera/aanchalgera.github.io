@@ -26,8 +26,8 @@ export const OtherCategories = ({
         onChange={input => {
           updateParent({ postCategories: input });
         }}
-        multi={true}
-        joinValues={true}
+        multi
+        joinValues
         value={postCategories}
         valueKey={'id'}
         className="module-form-select"

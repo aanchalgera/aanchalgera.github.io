@@ -156,7 +156,7 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
           floatingLabelText="Autor"
           dataSource={this.state.userList}
           dataSourceConfig={{ text: 'display_name', value: 'id' }}
-          openOnFocus={true}
+          openOnFocus
           onNewRequest={this.onNewRequest}
           filter={AutoComplete.caseInsensitiveFilter}
           maxSearchResults={2}
