@@ -68,7 +68,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     postType: data.postType || getPostType(userRole),
     commentStatus:
       data.commentStatus || idx(data, _ => _.meta.comment.status) || 'closed',
-    meta: data.meta,
+    meta: data.meta || initialMeta,
     maxId: data.maxId,
     status: data.status || 'draft',
     publishedDate: initialDate,
@@ -82,7 +82,6 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     isSensitive: data.isSensitive || false,
     specialPost: data.specialPost || false,
     tags: data.tags || [],
-
     postCategories: data.postCategories || [],
     crop: data.crop || initialCrop,
     ampVisibility: data.ampVisibility || false,
