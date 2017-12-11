@@ -11,11 +11,11 @@ export const Facebook = (props: Props) => (
   <div>
     <TextField
       hintText="..."
-      floatingLabelFixed={true}
-      multiLine={true}
+      floatingLabelFixed
+      multiLine
       rows={3}
       underlineShow={false}
-      fullWidth={true}
+      fullWidth
       value={props.facebook}
       onChange={props.updateSocialFacebookText.bind(this)}
       floatingLabelText="Texto para Facebook"

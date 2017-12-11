@@ -308,13 +308,13 @@ class Publish extends React.Component<Props> {
                   label="PROGRAMAR"
                   disabled={this.state.buttonDisabled}
                   onClick={this.onSchedule}
-                  secondary={true}
+                  secondary
                   className="btn-align"
                 />
               ) : (
                 <RaisedButton
                   label="PUBLICAR CAMBIOS"
-                  secondary={true}
+                  secondary
                   disabled={this.state.buttonDisabled}
                   onClick={this.handleUpdate}
                   className="btn-align"

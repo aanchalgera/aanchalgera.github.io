@@ -18,18 +18,16 @@ type State = {
   schedulerOpened: boolean,
   anchorEl: any,
   focussed: boolean
-}
+};
 
 export class SchedulePost extends React.PureComponent<Props, State> {
-  state = {
-    schedulerOpened: false,
-    anchorEl: null,
-    focussed: false
-  };
   static defaultProps = {
     showCalendar: true
   };
-
+  state = {
+    schedulerOpened: false,
+    anchorEl: null
+  };
   onChange = (e: InputEvent) => {
     const dateString = e.currentTarget.value;
     this.props.updateParent({ publishedDate: dateString });
@@ -52,18 +50,6 @@ export class SchedulePost extends React.PureComponent<Props, State> {
     });
   };
 
-  onFocus = () => {
-    this.setState({
-      focussed: true
-    });
-  };
-
-  onBlur = () => {
-    this.setState({
-      focussed: false
-    });
-  };
-
   render() {
     return [
       <TextField
@@ -71,8 +57,6 @@ export class SchedulePost extends React.PureComponent<Props, State> {
         floatingLabelText="Fecha y hora"
         value={this.props.date}
         onChange={this.onChange}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
         disabled={!this.props.showCalendar}
         key="1"
       />,

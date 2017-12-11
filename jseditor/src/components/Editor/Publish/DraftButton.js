@@ -14,7 +14,7 @@ export const DraftButton = (props: Props) => {
   return (
     <RaisedButton
       label="Pasar A Borrador"
-      primary={true}
+      primary
       onClick={props.handleStatusUpdate}
     />
   );

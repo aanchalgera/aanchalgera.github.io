@@ -29,7 +29,7 @@ type Props = {
   handleDifundir: (status: string, date: string) => void
 };
 
-class Difundir extends React.PureComponent {
+class Difundir extends React.PureComponent<Props> {
   state = {
     id: '',
     postId: '',
@@ -39,7 +39,6 @@ class Difundir extends React.PureComponent {
     snackbarOpen: false,
     snackbarMessage: ''
   };
-  props: Props;
 
   componentDidMount() {
     this.init();
@@ -164,7 +163,7 @@ class Difundir extends React.PureComponent {
               <RaisedButton
                 label="PROGRAMAR"
                 onClick={this.onRepublishSchedule}
-                secondary={true}
+                secondary
                 className="btn-align"
                 disabled={!isValid}
               />
@@ -173,7 +172,7 @@ class Difundir extends React.PureComponent {
             <Col className="end-sm" sm={4}>
               <RaisedButton
                 label="PASAR POR PORTADA AHORA MISMO!"
-                primary={true}
+                primary
                 onClick={this.onRepublishNow}
                 disabled={!isValid}
               />

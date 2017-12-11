@@ -5,12 +5,8 @@ import { Dialog, RaisedButton } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
 import { InputEvent, S3Image } from 'lib/flowTypes';
-import {
-  postImages as postImagesToS3
-} from './lib/s3ImageUploadService';
-import {
-  postImages as postImagesToFirebase
-} from './lib/imageUploadService';
+import { postImages as postImagesToS3 } from './lib/s3ImageUploadService';
+import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
 
 type Props = {
@@ -40,13 +36,13 @@ export class S3Uploader extends PureComponent<Props> {
     }
   };
 
-  render () {
+  render() {
     const { closeDialog } = this.props;
 
     return (
       <Dialog
         open={this.props.open}
-        modal={true}
+        modal
         contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
       >
         <Row>

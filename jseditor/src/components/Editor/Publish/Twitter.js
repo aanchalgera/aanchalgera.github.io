@@ -20,11 +20,11 @@ export const Twitter = (props: Props) => (
     <TextField
       className="caption-default label-editor"
       hintText="..."
-      floatingLabelFixed={true}
-      multiLine={true}
+      floatingLabelFixed
+      multiLine
       rows={3}
       underlineShow={false}
-      fullWidth={true}
+      fullWidth
       value={props.twitter}
       maxLength={TWITTER_CHAR_LIMIT}
       onChange={props.updateSocialTwitterText}

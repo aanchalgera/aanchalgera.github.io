@@ -40,14 +40,14 @@ const Title = (props: Props) => {
     <div>
       <TextField
         hintText="Título..."
-        fullWidth={true}
+        fullWidth
         value={props.text}
         onChange={handleChange}
         onBlur={handleBlur}
         style={styles.containerStyle}
         textareaStyle={styles.textareaStyle}
         hintStyle={styles.hintStyle}
-        multiLine={true}
+        multiLine
         underlineStyle={styles.underlineStyle}
       />
     </div>
