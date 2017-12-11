@@ -59,7 +59,7 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
   };
 
   setCommentStatus = (e: InputEvent, isChecked: boolean) => {
-    const commentStatus = isChecked ? 'closed' : 'open';
+    const commentStatus = isChecked ? 'open' : 'closed';
     this.props.updateParent({ commentStatus: commentStatus });
   };
 
@@ -98,7 +98,7 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
           className="layout-line-form"
         />
         <Checkbox
-          checked={commentStatus === 'closed'}
+          checked={commentStatus === 'open'}
           label="Comentarios abiertos"
           onCheck={this.setCommentStatus}
           className="layout-line-form"
