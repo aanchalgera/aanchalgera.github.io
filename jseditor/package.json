@@ -59,6 +59,9 @@
     "@storybook/react": "^3.2.17",
     "@storybook/storybook-deployer": "^2.0.0",
     "eslint": "^4.12.1",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-react": "^7.5.1",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-dock-monitor": "^1.1.2",
+    "redux-devtools-log-monitor": "^1.4.0"
   }
 }

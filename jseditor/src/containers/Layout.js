@@ -11,6 +11,7 @@ import Difundir from './Difundir';
 import Escribir from './Escribir';
 import Editor from './Editor';
 import helpers from 'utils/generatehash';
+import DevTools from 'devTools';
 
 type Props = {
   match: { params: Object },
@@ -182,6 +183,7 @@ export default class Layout extends React.PureComponent<Props> {
               )}
             />
           </Switch>
+          <DevTools />
         </div>
       </MuiThemeProvider>
     );
