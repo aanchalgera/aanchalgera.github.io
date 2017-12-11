@@ -38,9 +38,7 @@ class Escribir extends React.PureComponent<Props> {
   componentDidMount() {
     this.init();
   }
-  componentWillReceiveProps(nextProps) {
-    console.log('here');
-  }
+
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
