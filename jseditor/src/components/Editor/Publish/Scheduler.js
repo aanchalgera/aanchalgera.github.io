@@ -46,11 +46,11 @@ export default class Scheduler extends React.Component<Props, State> {
   state = {
     scheduledPosts: {}
   };
-  tablehead = null;
 
   componentDidMount() {
     this.init();
   }
+  tablehead = null;
 
   async init() {
     const data = await getScheduledPosts();
