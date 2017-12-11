@@ -24,6 +24,7 @@ class Node extends React.PureComponent<Props> {
   };
 
   render() {
+    console.log('in' + this.props.id);
     if (undefined === this.props.id) {
       return '';
     }
@@ -42,7 +43,7 @@ class Node extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { ...state.sections[ownProps.index] } || {};
+  return { ...state.sections[ownProps.index] };
 };
 
 export default connect(mapStateToProps)(Node);

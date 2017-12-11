@@ -50,15 +50,15 @@ const sections = (sections = initialState, action) => {
         text: ''
       };
       let addSections = [];
-      if (sections[index - 1].type === 'content') {
+      if (sections[index].type === 'content') {
         addSections = [newSection, contentSection];
       } else {
         addSections = [contentSection, newSection];
       }
       return [
-        ...sections.slice(0, index),
+        ...sections.slice(0, index + 1),
         ...addSections,
-        ...sections.slice(index)
+        ...sections.slice(index + 1)
       ];
     default:
       return sections;

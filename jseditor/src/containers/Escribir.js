@@ -25,7 +25,8 @@ type Props = {
   maxId: number,
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
-  openImagePanel: () => void
+  openImagePanel: () => void,
+  fields: []
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -37,7 +38,9 @@ class Escribir extends React.PureComponent<Props> {
   componentDidMount() {
     this.init();
   }
-
+  componentWillReceiveProps(nextProps) {
+    console.log('here');
+  }
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
@@ -62,28 +65,27 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   render() {
+    const sections = this.props.fields;
     if (this.props.id) {
       var nodes = [];
-      for (let i = 0; i <= this.props.maxId; i++) {
+      for (let i = 0; i <= sections.length - 1; i++) {
         nodes.push(
           <Node
             index={i}
             saveData={this.saveData}
-            key={i}
+            key={sections[i].id}
             openResourcePanel={this.openResourcePanel}
           />
         );
       }
       return (
-        <div className="container-fluid">
-          <div className="grid-wrapper grid-l">
-            {nodes}
-            <ImageUploader
-              id={this.props.id}
-              site={this.props.blogName}
-              addImage={this.addImage}
-            />
-          </div>
+        <div className="container-fluid" style={{ paddingTop: '112px' }}>
+          {nodes}
+          <ImageUploader
+            id={this.props.id}
+            site={this.props.blogName}
+            addImage={this.addImage}
+          />
         </div>
       );
     } else return 'Loading';
