@@ -129,6 +129,9 @@ describe('reducer', () => {
       }
     ];
 
+    const index = 3;
+    const action = deleteSection(index);
+
     const stateAfter = [
       {
         id: 1,
@@ -147,9 +150,6 @@ describe('reducer', () => {
         text: 'test'
       }
     ];
-
-    const index = 3;
-    const action = deleteSection(index);
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
