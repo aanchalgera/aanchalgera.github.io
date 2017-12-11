@@ -3,6 +3,7 @@ export const CHANGE_TITLE = 'CHANGE_TITLE';
 export const ADD_SECTION = 'ADD_SECTION';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const CHANGE_CONTENT = 'CHANGE_CONTENT';
+export const DELETE_SECTION = 'DELETE_SECTION';
 
 export function receivePost(post) {
   return {
@@ -39,5 +40,12 @@ export function addImage(image) {
 export function openImagePanel() {
   return {
     type: OPEN_IMAGEPANEL
+  };
+}
+
+export function deleteSection(index) {
+  return {
+    type: DELETE_SECTION,
+    index
   };
 }

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
 
-import { Image } from 'lib/flowTypes';
+import { InputEvent, Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
 
 const imageDimension = '288_288';
@@ -34,12 +34,17 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     altText: ''
   };
 
-  onTextChange = (value: string) => {
+  onTextChange = (e: InputEvent, value: string) => {
     this.setState({ altText: value });
   };
 
   handleSubmit = () => {
-    const { imageToEmbed: { src, extension, height, width }, index, addImage, closeDialog } = this.props;
+    const {
+      imageToEmbed: { src, extension, height, width },
+      index,
+      addImage,
+      closeDialog
+    } = this.props;
 
     const image = {
       alt: this.state.altText,
