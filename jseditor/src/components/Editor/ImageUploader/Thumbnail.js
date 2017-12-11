@@ -9,24 +9,20 @@ type Props = {
   handleClick: (e: InputEvent) => void
 };
 
-export class Thumbnail extends PureComponent {
-  props: Props;
+export function Thumbnail(props: Props) {
+  const { image: { src, extension, height, width }, handleClick } = props;
 
-  render() {
-    const { image: { src, extension, height, width }, handleClick } = this.props;
-
-    return (
-      <div className="panel-img-container">
-        <img
-          src={`${src}/${thumbnailDimension}.${extension}`}
-          data-src={src}
-          data-extension={extension}
-          data-height={height}
-          data-width={width}
-          alt=""
-          onClick={handleClick}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="panel-img-container">
+      <img
+        src={`${src}/${thumbnailDimension}.${extension}`}
+        data-src={src}
+        data-extension={extension}
+        data-height={height}
+        data-width={width}
+        alt=""
+        onClick={handleClick}
+      />
+    </div>
+  );
 }
