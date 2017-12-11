@@ -11,12 +11,12 @@ export const ImageToolbar = ({ handleDelete, handleEdit }: Props) => (
   <div>
     <OptionButton
       Icon={ActionDelete}
-      title="Editar"
+      title="Borrar"
       handleClick={handleDelete}
     />
     <OptionButton
       Icon={EditorModeEdit}
-      title="Borrar"
+      title="Editar"
       handleClick={handleEdit}
     />
   </div>
