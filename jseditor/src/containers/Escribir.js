@@ -50,10 +50,34 @@ class Escribir extends React.PureComponent<Props> {
     this.props.openImagePanel();
   };
 
-  addImage = image => {
+  addImage = async image => {
     image.index = this.currentIndex;
     image.id = this.props.maxId;
+    await this.saveImageSection(image);
+
+    this.props.handleStatus(UPDATED_MESSAGE);
     this.props.addImage(image);
+  };
+
+  saveImageSection = image => {
+    const contentSection = {
+      id: image.id + 1,
+      type: 'content',
+      text: ''
+    };
+    const addSections = [contentSection, image];
+    const { fields } = this.props;
+    const state = {
+      ...this.props,
+      maxId: image.id + 2,
+      fields: [
+        ...fields.slice(0, image.index + 1),
+        ...addSections,
+        ...fields.slice(image.index + 1)
+      ]
+    };
+
+    return savePostFromEscribirPage(state);
   };
 
   saveData = () => {
