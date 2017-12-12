@@ -49,7 +49,7 @@ export class S3Uploader extends PureComponent<Props> {
           <Col sm={11}>
             <Label
               label="Sube una o varias imágenes"
-              hint="Máximo 8MB cada imagen, puedes subir un archivo ZIP y se añadirán todas"
+              hint="Máximo 8MB cada imagen"
             />
           </Col>
           <Col sm={1} className="end-sm">
@@ -57,11 +57,6 @@ export class S3Uploader extends PureComponent<Props> {
           </Col>
         </Row>
         <div className="div-uploader">
-          <span>
-            Puedes arrastrar aqui las imágenes<br />
-            o un archivo ZIP para subirlas<br />
-            o<br />
-          </span>
           <RaisedButton
             className="btn-image-select"
             label="Seleccionar en tu ordenador"
