@@ -27,7 +27,9 @@ type Props = {
   addImage: (image: Object) => void,
   openImagePanel: () => void,
   fields: [],
-  currentIndex: number
+  currentIndex: number,
+  currentPosition: number,
+  currentLength: number
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -45,10 +47,6 @@ class Escribir extends React.PureComponent<Props> {
     const post = await getPost(postname);
     this.props.receivePost(post);
   }
-
-  openResourcePanel = () => {
-    this.props.openImagePanel();
-  };
 
   addImage = image => {
     image.index = this.props.currentIndex;
@@ -68,20 +66,13 @@ class Escribir extends React.PureComponent<Props> {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
         nodes.push(
-          <Node
-            index={i}
-            saveData={this.saveData}
-            key={sections[i].id}
-            openResourcePanel={this.openResourcePanel}
-          />
+          <Node index={i} saveData={this.saveData} key={sections[i].id} />
         );
       }
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
           {nodes}
-          {this.props.currentLength === 0 && (
-            <MoreOptions openResourcePanel={this.openResourcePanel} />
-          )}
+          {this.props.currentLength === 0 && <MoreOptions />}
           <ImageUploader
             id={this.props.id}
             site={this.props.blogName}

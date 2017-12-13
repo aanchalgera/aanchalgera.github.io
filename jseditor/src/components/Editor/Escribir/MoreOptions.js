@@ -1,26 +1,27 @@
 //@flow
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { IconButton } from 'material-ui';
 import { ContentAdd, ContentClear, ImagePhoto } from 'material-ui/svg-icons';
 
 import { OptionButton } from '.';
+import { openImagePanel } from 'actions/post';
 
 type State = {
   showOptions: boolean
 };
 
 type Props = {
-  dataId: number,
-  openResourcePanel: (currentIndex: number) => void
+  openImagePanel: () => void
 };
 
-export class MoreOptions extends PureComponent<Props, State> {
+class MoreOptions extends PureComponent<Props, State> {
   state = {
     showOptions: false
   };
 
   openPanel = () => {
-    this.props.openResourcePanel();
+    this.props.openImagePanel();
     this.toggleShowOptions();
   };
 
@@ -67,3 +68,9 @@ export class MoreOptions extends PureComponent<Props, State> {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(mapStateToProps, { openImagePanel })(MoreOptions);

@@ -19,7 +19,7 @@ export default function(state = initialState, action) {
     case ADD_SECTION:
       return {
         ...state,
-        maxId: state.maxId + 2
+        maxId: state.maxId + 3
       };
     case CHANGE_CONTENT:
       return {

@@ -5,8 +5,7 @@ import { Title, Content, Image } from 'components/Editor/Escribir';
 type Props = {
   id: number,
   type: string,
-  index: number,
-  openResourcePanel: Function
+  index: number
 };
 
 class Node extends React.PureComponent<Props> {
@@ -28,7 +27,7 @@ class Node extends React.PureComponent<Props> {
     if (undefined === this.props.id) {
       return '';
     }
-    const { id, type, openResourcePanel, ...props } = this.props;
+    const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
     return <React.Fragment>{section}</React.Fragment>;
   }

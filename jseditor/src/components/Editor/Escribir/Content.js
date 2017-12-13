@@ -40,10 +40,12 @@ class Content extends React.PureComponent<Props> {
       .findIndex(k => k === currentBlockKey);
     const length = currentContent.getBlocksAsArray()[currentLine].getLength();
 
+    //  if(this.state.editorState.getCurrentContent() !== editorState.getCurrentContent()) {
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(currentContent));
       this.props.changeContent(this.props.index, value, currentLine, length);
     });
+    //}
   };
 
   render() {
