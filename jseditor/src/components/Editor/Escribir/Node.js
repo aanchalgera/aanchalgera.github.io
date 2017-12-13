@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Title, MoreOptions, Content, Image } from 'components/Editor/Escribir';
+import { Col } from 'react-flexbox-grid';
+
+import { Title, Content, Image, MoreOptions } from 'components/Editor/Escribir';
 
 type Props = {
   id: number,
   type: string,
   index: number,
-  openResourcePanel: Function
+  currentLength: number,
+  currentIndex: number
 };
 
 class Node extends React.PureComponent<Props> {
@@ -28,22 +31,26 @@ class Node extends React.PureComponent<Props> {
     if (undefined === this.props.id) {
       return '';
     }
-    const { id, type, openResourcePanel, ...props } = this.props;
+    const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
     return (
       <React.Fragment>
-        {section}
-        <MoreOptions
-          openResourcePanel={openResourcePanel}
-          dataId={this.props.index}
-        />
+        <Col xs={1}>
+          {this.props.currentLength === 0 &&
+            this.props.currentIndex === this.props.index && <MoreOptions />}
+        </Col>
+        <Col xs={11}>{section}</Col>
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { ...state.sections[ownProps.index] };
+  return {
+    ...state.sections[ownProps.index],
+    currentIndex: state.post.currentIndex,
+    currentLength: state.post.currentLength
+  };
 };
 
 export default connect(mapStateToProps)(Node);

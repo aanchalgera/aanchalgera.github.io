@@ -26,7 +26,9 @@ type Props = {
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
   openImagePanel: () => void,
-  fields: []
+  fields: [],
+  currentIndex: number,
+  currentPosition: number
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -45,15 +47,10 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  openResourcePanel = (currentIndex: number) => {
-    this.currentIndex = currentIndex;
-    this.props.openImagePanel();
-  };
-
   addImage = image => {
-    image.index = this.currentIndex;
+    image.index = this.props.currentIndex;
     image.id = this.props.maxId;
-    this.props.addImage(image);
+    this.props.addImage(image, this.props.currentPosition);
   };
 
   saveData = () => {
@@ -68,12 +65,7 @@ class Escribir extends React.PureComponent<Props> {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
         nodes.push(
-          <Node
-            index={i}
-            saveData={this.saveData}
-            key={sections[i].id}
-            openResourcePanel={this.openResourcePanel}
-          />
+          <Node index={i} saveData={this.saveData} key={sections[i].id} />
         );
       }
       return (

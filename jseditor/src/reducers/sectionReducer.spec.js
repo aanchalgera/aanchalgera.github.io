@@ -38,7 +38,8 @@ describe('reducer', () => {
     const stateBefore = [
       {
         type: 'content',
-        id: 2
+        id: 2,
+        text: 'abcd \n efgh'
       },
       {
         type: 'hyperlink',
@@ -49,7 +50,7 @@ describe('reducer', () => {
     const image = {
       url: 'https://i.blogs.com/id/original.jpg',
       alt: 'Truth can only be found in one place: the code',
-      index: 1,
+      index: 0,
       id: 24
     };
 
@@ -58,7 +59,8 @@ describe('reducer', () => {
     const stateAfter = [
       {
         type: 'content',
-        id: 2
+        id: 25,
+        text: 'abcd '
       },
       {
         id: 24,
@@ -68,8 +70,8 @@ describe('reducer', () => {
       },
       {
         type: 'content',
-        id: 25,
-        text: ''
+        id: 26,
+        text: ' efgh'
       },
       {
         type: 'hyperlink',
