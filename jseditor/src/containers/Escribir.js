@@ -7,7 +7,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node, MoreOptions } from 'components/Editor/Escribir';
+import { Node } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
 
@@ -28,8 +28,7 @@ type Props = {
   openImagePanel: () => void,
   fields: [],
   currentIndex: number,
-  currentPosition: number,
-  currentLength: number
+  currentPosition: number
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -72,7 +71,6 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="container-fluid" style={{ paddingTop: '112px' }}>
           {nodes}
-          {this.props.currentLength === 0 && <MoreOptions />}
           <ImageUploader
             id={this.props.id}
             site={this.props.blogName}
