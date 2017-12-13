@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Title, MoreOptions, Content, Image } from 'components/Editor/Escribir';
+import { Title, Content, Image } from 'components/Editor/Escribir';
 
 type Props = {
   id: number,
@@ -30,15 +30,7 @@ class Node extends React.PureComponent<Props> {
     }
     const { id, type, openResourcePanel, ...props } = this.props;
     const section = this.getSection(type, props);
-    return (
-      <React.Fragment>
-        {section}
-        <MoreOptions
-          openResourcePanel={openResourcePanel}
-          dataId={this.props.index}
-        />
-      </React.Fragment>
-    );
+    return <React.Fragment>{section}</React.Fragment>;
   }
 }
 

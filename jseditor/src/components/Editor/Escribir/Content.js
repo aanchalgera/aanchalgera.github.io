@@ -32,9 +32,17 @@ class Content extends React.PureComponent<Props> {
   }
 
   onChange = editorState => {
+    const currentBlockKey = editorState.getSelection().getStartKey();
+    const currentContent = editorState.getCurrentContent();
+    const currentLine = currentContent
+      .getBlockMap()
+      .keySeq()
+      .findIndex(k => k === currentBlockKey);
+    const length = currentContent.getBlocksAsArray()[currentLine].getLength();
+
     this.setState({ editorState }, () => {
-      const value = markdown(stateToHTML(editorState.getCurrentContent()));
-      this.props.changeContent(this.props.index, value);
+      const value = markdown(stateToHTML(currentContent));
+      this.props.changeContent(this.props.index, value, currentLine, length);
     });
   };
 

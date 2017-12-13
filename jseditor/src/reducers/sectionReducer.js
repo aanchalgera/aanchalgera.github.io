@@ -34,30 +34,32 @@ const sections = (sections = initialState, action) => {
       ];
     case CHANGE_CONTENT:
       const { content } = action;
-      const section = sections.slice(content.index, content.index + 1)[0];
+      const section = sections.slice(action.index, action.index + 1)[0];
       return [
-        ...sections.slice(0, content.index),
+        ...sections.slice(0, action.index),
         {
           ...section,
           text: content.text
         },
-        ...sections.slice(content.index + 1)
+        ...sections.slice(action.index + 1)
       ];
     case ADD_SECTION:
       const { index, ...newSection } = action.section;
+      let currentSection = section[index];
+      const delimiter = '\n',
+        start = action.position,
+        tokens = currentSection.text.split(delimiter);
+      const split1 = tokens.slice(0, start + 1).join(delimiter);
+      const split2 = tokens.slice(start + 1).join(delimiter);
+      currentSection.text = split1;
       const contentSection = {
         id: newSection.id + 1,
         type: 'content',
-        text: ''
+        text: split2
       };
-      let addSections = [];
-      if (sections[index].type === 'content') {
-        addSections = [newSection, contentSection];
-      } else {
-        addSections = [contentSection, newSection];
-      }
+      const addSections = [currentSection, newSection, contentSection];
       return [
-        ...sections.slice(0, index + 1),
+        ...sections.slice(0, index),
         ...addSections,
         ...sections.slice(index + 1)
       ];

@@ -1,11 +1,7 @@
 //@flow
 import React, { PureComponent } from 'react';
 import { IconButton } from 'material-ui';
-import {
-  ContentAdd,
-  ContentClear,
-  ImagePhoto,
-} from 'material-ui/svg-icons';
+import { ContentAdd, ContentClear, ImagePhoto } from 'material-ui/svg-icons';
 
 import { OptionButton } from '.';
 
@@ -24,7 +20,7 @@ export class MoreOptions extends PureComponent<Props, State> {
   };
 
   openPanel = () => {
-    this.props.openResourcePanel(this.props.dataId);
+    this.props.openResourcePanel();
     this.toggleShowOptions();
   };
 
@@ -40,7 +36,11 @@ export class MoreOptions extends PureComponent<Props, State> {
     return (
       <div>
         <IconButton className="btn-option" onClick={this.toggleShowOptions}>
-          {showOptions ? <ContentClear color="black" /> : <ContentAdd color="black" />}
+          {showOptions ? (
+            <ContentClear color="black" />
+          ) : (
+            <ContentAdd color="black" />
+          )}
         </IconButton>
         {showOptions && (
           <span>

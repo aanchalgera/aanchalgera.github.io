@@ -1,4 +1,4 @@
-import { RECEIVE_POST, ADD_SECTION } from 'actions/post';
+import { RECEIVE_POST, ADD_SECTION, CHANGE_CONTENT } from 'actions/post';
 
 const initialState = {};
 
@@ -20,6 +20,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         maxId: state.maxId + 2
+      };
+    case CHANGE_CONTENT:
+      return {
+        ...state,
+        currentIndex: action.index,
+        currentPosition: action.position,
+        currentLength: action.length
       };
     default:
       return state;
