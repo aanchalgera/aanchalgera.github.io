@@ -39,21 +39,15 @@ class Content extends React.PureComponent<Props> {
       .keySeq()
       .findIndex(k => k === currentBlockKey);
     const length = currentContent.getBlocksAsArray()[currentLine].getLength();
-
-    //  if(this.state.editorState.getCurrentContent() !== editorState.getCurrentContent()) {
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(currentContent));
       this.props.changeContent(this.props.index, value, currentLine, length);
     });
-    //}
   };
 
   render() {
     return (
-      <div
-        onClick={() => this._editor.focus()}
-        id={'section-' + this.props.index}
-      >
+      <div onClick={() => this._editor.focus()}>
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}
