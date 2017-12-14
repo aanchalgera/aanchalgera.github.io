@@ -19,7 +19,7 @@ export function changeTitle(title) {
   };
 }
 
-export function changeContent(index, text, position, length, top) {
+export function changeContent(index, text, position, length) {
   return {
     type: CHANGE_CONTENT,
     content: {
@@ -27,16 +27,16 @@ export function changeContent(index, text, position, length, top) {
     },
     index,
     position,
-    length,
-    top
+    length
   };
 }
 
-export function addImage(image) {
+export function addImage(image, position) {
   image.type = 'image';
   return {
     type: ADD_SECTION,
-    section: image
+    section: image,
+    position
   };
 }
 
