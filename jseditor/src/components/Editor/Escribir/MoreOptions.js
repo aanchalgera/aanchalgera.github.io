@@ -17,11 +17,10 @@ type Props = {
   openImagePanel: () => void
 };
 
-DefaultProps = {
-  isAtFirstPosition: false
-};
-
-class MoreOptions extends PureComponent<Props, State, DefaultProps> {
+class MoreOptions extends PureComponent<Props, State> {
+  static defaultProps = {
+    isAtFirstPosition: false
+  };
   state = {
     showOptions: false
   };
