@@ -83,9 +83,8 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     return (
       <Dialog
         actions={this.getDialogActions()}
-        modal
         open={open}
-        contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
+        contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <Row>
           <Col sm={11} className="start-sm">
