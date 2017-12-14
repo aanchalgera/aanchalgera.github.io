@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
 import { connect } from 'react-redux';
-import { EditorState } from 'draft-js';
+import { EditorState, getVisibleSelectionRect } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
@@ -39,9 +39,16 @@ class Content extends React.PureComponent<Props> {
       .keySeq()
       .findIndex(k => k === currentBlockKey);
     const length = currentContent.getBlocksAsArray()[currentLine].getLength();
+    const position = getVisibleSelectionRect(window);
     this.setState({ editorState }, () => {
       const value = markdown(stateToHTML(currentContent));
-      this.props.changeContent(this.props.index, value, currentLine, length);
+      this.props.changeContent(
+        this.props.index,
+        value,
+        currentLine,
+        length,
+        position.top
+      );
     });
   };
 

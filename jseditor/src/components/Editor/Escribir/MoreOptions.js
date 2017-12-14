@@ -12,6 +12,7 @@ type State = {
 };
 
 type Props = {
+  currentTop: number,
   openImagePanel: () => void
 };
 
@@ -35,7 +36,7 @@ class MoreOptions extends PureComponent<Props, State> {
     const { showOptions } = this.state;
 
     return (
-      <div>
+      <div style={{ position: 'absolute', top: this.props.currentTop }}>
         <IconButton className="btn-option" onClick={this.toggleShowOptions}>
           {showOptions ? (
             <ContentClear color="black" />
@@ -70,7 +71,7 @@ class MoreOptions extends PureComponent<Props, State> {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return { currentTop: state.post.currentTop };
 };
 
 export default connect(mapStateToProps, { openImagePanel })(MoreOptions);

@@ -26,7 +26,8 @@ export default function(state = initialState, action) {
         ...state,
         currentIndex: action.index,
         currentPosition: action.position,
-        currentLength: action.length
+        currentLength: action.length,
+        currentTop: action.top
       };
     default:
       return state;

@@ -19,7 +19,7 @@ export function changeTitle(title) {
   };
 }
 
-export function changeContent(index, text, position, length) {
+export function changeContent(index, text, position, length, top) {
   return {
     type: CHANGE_CONTENT,
     content: {
@@ -27,7 +27,8 @@ export function changeContent(index, text, position, length) {
     },
     index,
     position,
-    length
+    length,
+    top
   };
 }
 
