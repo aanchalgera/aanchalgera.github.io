@@ -1,5 +1,5 @@
 import reducer from './postReducer';
-import { receivePost, addImage } from 'actions/post';
+import { receivePost, addImage, changeCurrentIndex } from 'actions/post';
 
 describe('reducer', () => {
   it('should provide the initial state', () => {
@@ -54,6 +54,33 @@ describe('reducer', () => {
     };
 
     const action = addImage(image);
+
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('should handle changeCurrentIndex action', () => {
+    const stateBefore = {
+      id: 1,
+      postType: 'normal',
+      title: '',
+      status: 'draft',
+      userId: 1,
+      meta: null,
+      maxId: 2,
+      currentIndex: 2
+    };
+    const newIndex = 3;
+    const action = changeCurrentIndex(newIndex);
+    const stateAfter = {
+      id: 1,
+      postType: 'normal',
+      title: '',
+      status: 'draft',
+      userId: 1,
+      meta: null,
+      maxId: 2,
+      currentIndex: 3
+    };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });

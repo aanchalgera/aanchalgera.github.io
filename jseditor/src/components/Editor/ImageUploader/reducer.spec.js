@@ -34,7 +34,8 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: {}
+      imageToEmbed: {},
+      mode: 'add'
     };
 
     expect(reducer(undefined, {})).toEqual(initialState);
@@ -59,7 +60,7 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: {} 
+      imageToEmbed: {}
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
@@ -79,27 +80,49 @@ describe('reducer', () => {
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: true,
-      imageToEmbed: {},
+      imageToEmbed: {}
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
-  it('should open image panel', () => {
+  it('should open image panel default case', () => {
     const action = actions.openImagePanel();
     const stateBefore = {
       imageUrls: [],
       isImagePanelOpen: false,
       isAltPanelOpen: false,
       isUploaderOpen: true,
-      imageToEmbed: {}
+      imageToEmbed: {},
+      mode: 'add'
     };
     const stateAfter = {
       imageUrls: [],
       isImagePanelOpen: true,
       isAltPanelOpen: false,
       isUploaderOpen: false,
-      imageToEmbed: {}
+      imageToEmbed: {},
+      mode: 'add'
+    };
+  });
+
+  it('should open image panel edit case', () => {
+    const action = actions.openImagePanel('edit');
+    const stateBefore = {
+      imageUrls: [],
+      isImagePanelOpen: false,
+      isAltPanelOpen: false,
+      isUploaderOpen: true,
+      imageToEmbed: {},
+      mode: 'add'
+    };
+    const stateAfter = {
+      imageUrls: [],
+      isImagePanelOpen: true,
+      isAltPanelOpen: false,
+      isUploaderOpen: false,
+      imageToEmbed: {},
+      mode: 'edit'
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);

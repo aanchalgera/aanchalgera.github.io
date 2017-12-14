@@ -19,8 +19,9 @@ export const openUploader = () => ({
   type: OPEN_UPLOADER
 });
 
-export const openImagePanel = () => ({
-  type: OPEN_IMAGEPANEL
+export const openImagePanel = (mode = 'add') => ({
+  type: OPEN_IMAGEPANEL,
+  mode
 });
 
 export const openAltPanel = (image: Image) => ({
