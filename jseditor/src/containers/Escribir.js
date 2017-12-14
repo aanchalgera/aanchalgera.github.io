@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
 import {
   getPost,
@@ -61,6 +62,12 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
+    const { postType, id, blogName } = this.props;
+
+    if ('longform' === postType || 'brandedLongform' === postType) {
+      return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
+    }
+
     if (this.props.id) {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
