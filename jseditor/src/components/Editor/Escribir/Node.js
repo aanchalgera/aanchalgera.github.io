@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'react-flexbox-grid';
+import { Col, Row } from 'react-flexbox-grid';
 
 import { Title, Content, Image, MoreOptions } from 'components/Editor/Escribir';
 
@@ -34,13 +34,16 @@ class Node extends React.PureComponent<Props> {
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
     return (
-      <React.Fragment>
+      <Row>
+        <Col xs={1} />
         <Col xs={1}>
           {this.props.currentLength === 0 &&
             this.props.currentIndex === this.props.index && <MoreOptions />}
         </Col>
-        <Col xs={11}>{section}</Col>
-      </React.Fragment>
+
+        <Col xs={8}>{section}</Col>
+        <Col xs={2} />
+      </Row>
     );
   }
 }
