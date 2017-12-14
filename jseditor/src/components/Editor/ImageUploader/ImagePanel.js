@@ -18,11 +18,13 @@ type Props = {
 export class ImagePanel extends PureComponent<Props> {
   getDialogActions = () => {
     return (
-      <RaisedButton
-        label="Subir más imágenes"
-        icon={<FileFileUpload className="btn-upload-icon" />}
-        onClick={this.props.openUploader}
-      />
+      <div className="modal-actions">
+        <RaisedButton
+          label="Subir más imágenes"
+          icon={<FileFileUpload className="btn-upload-icon" />}
+          onClick={this.props.openUploader}
+        />
+      </div>
     );
   };
 
@@ -32,10 +34,8 @@ export class ImagePanel extends PureComponent<Props> {
     return (
       <Dialog
         actions={this.getDialogActions()}
-        modal
         open={open}
-        actionsContainerClassName="modal-actions"
-        contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
+        contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <Row>
           <Col sm={11} className="start-sm">

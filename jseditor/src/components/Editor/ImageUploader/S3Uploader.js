@@ -42,8 +42,7 @@ export class S3Uploader extends PureComponent<Props> {
     return (
       <Dialog
         open={this.props.open}
-        modal
-        contentStyle={{ width: '95%', maxWidth: 'none', marginTop: '-100px' }}
+        contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <Row>
           <Col sm={11}>
