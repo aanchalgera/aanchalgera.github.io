@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ImageToolbar } from '.';
-import { deleteSection } from 'actions/post';
+import {
+  deleteSection,
+  changeCurrentIndex,
+  openImagePanel
+} from 'actions/post';
 
 type Props = {
   alt: string,
@@ -9,7 +13,9 @@ type Props = {
   src: string,
   extension: string,
   index: number,
-  deleteSection: (index: number) => void
+  deleteSection: (index: number) => void,
+  changeCurrentIndex: (index: number) => void,
+  openImagePanel: (actionName: string) => void
 };
 
 type State = {
@@ -27,6 +33,11 @@ class Image extends React.PureComponent<Props, State> {
     this.props.deleteSection(this.props.index);
   };
 
+  handleEdit = () => {
+    this.props.changeCurrentIndex(this.props.index);
+    this.props.openImagePanel('edit');
+  };
+
   openImageToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
     this.setState({ openImageToolbar: true, imageEl: event.currentTarget });
   };
@@ -42,10 +53,11 @@ class Image extends React.PureComponent<Props, State> {
       <React.Fragment>
         <img src={url} alt={alt} onClick={this.openImageToolbar} />
         <ImageToolbar
-          handleDelete={this.handleDelete}
-          open={this.state.openImageToolbar}
-          imageEl={this.state.imageEl}
           closeImageToolbar={this.closeImageToolbar}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+          imageEl={this.state.imageEl}
+          open={this.state.openImageToolbar}
         />
       </React.Fragment>
     );
@@ -56,4 +68,8 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps, { deleteSection })(Image);
+export default connect(mapStateToProps, {
+  deleteSection,
+  changeCurrentIndex,
+  openImagePanel
+})(Image);

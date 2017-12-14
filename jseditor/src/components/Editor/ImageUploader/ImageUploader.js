@@ -20,7 +20,8 @@ type Props = {
   receiveImages: (images: Array<Image>) => void,
   openAltPanel: () => void,
   imageToEmbed: Image,
-  addImage: (image: Object) => void
+  addImage: (image: Object) => void,
+  mode: string
 };
 
 class ImageUploader extends React.PureComponent<Props> {
@@ -41,7 +42,8 @@ class ImageUploader extends React.PureComponent<Props> {
       isAltPanelOpen,
       openAltPanel,
       imageToEmbed,
-      addImage
+      addImage,
+      mode
     } = this.props;
 
     return (
@@ -65,6 +67,7 @@ class ImageUploader extends React.PureComponent<Props> {
           imageToEmbed={imageToEmbed}
           addImage={addImage}
           closeDialog={closeDialog}
+          mode={mode}
         />
       </div>
     );

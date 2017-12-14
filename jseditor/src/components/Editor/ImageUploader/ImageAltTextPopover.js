@@ -22,7 +22,8 @@ type Props = {
   imageToEmbed: Image,
   addImage: (imageData: ImageData) => void,
   closeDialog: () => void,
-  index: number
+  index: number,
+  mode: string
 };
 
 type State = {
@@ -43,7 +44,8 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       imageToEmbed: { src, extension, height, width },
       index,
       addImage,
-      closeDialog
+      closeDialog,
+      mode
     } = this.props;
 
     const image = {
@@ -55,7 +57,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       index
     };
 
-    addImage(image);
+    addImage(image, mode);
     closeDialog();
   };
 

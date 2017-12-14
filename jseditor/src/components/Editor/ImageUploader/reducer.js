@@ -11,7 +11,8 @@ const initialState = {
   isImagePanelOpen: false,
   isAltPanelOpen: false,
   isUploaderOpen: false,
-  imageToEmbed: {}
+  imageToEmbed: {},
+  mode: 'add'
 };
 
 export default function(state = initialState, action) {
@@ -33,7 +34,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isImagePanelOpen: true,
-        isUploaderOpen: false
+        isUploaderOpen: false,
+        mode: action.mode
       };
 
     case CLOSE_DIALOG:

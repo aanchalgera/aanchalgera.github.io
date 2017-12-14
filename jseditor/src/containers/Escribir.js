@@ -28,7 +28,8 @@ type Props = {
   openImagePanel: () => void,
   fields: [],
   currentIndex: number,
-  currentPosition: number
+  currentPosition: number,
+  editImage: (image: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -47,10 +48,16 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  addImage = image => {
+  addImage = (image, mode) => {
     image.index = this.props.currentIndex;
-    image.id = this.props.maxId;
-    this.props.addImage(image, this.props.currentPosition);
+    console.log('mode');
+    console.log(mode);
+    if ('edit' === mode) {
+      this.props.editImage(image);
+    } else {
+      image.id = this.props.maxId;
+      this.props.addImage(image, this.props.currentPosition);
+    }
   };
 
   saveData = () => {

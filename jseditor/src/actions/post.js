@@ -4,51 +4,54 @@ export const ADD_SECTION = 'ADD_SECTION';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const CHANGE_CONTENT = 'CHANGE_CONTENT';
 export const DELETE_SECTION = 'DELETE_SECTION';
+export const EDIT_IMAGE = 'EDIT_IMAGE';
+export const CHANGE_CURRENT_INDEX = 'CHANGE_CURRENT_INDEX';
 
-export function receivePost(post) {
-  return {
-    type: RECEIVE_POST,
-    post
-  };
-}
+export const receivePost = post => ({
+  type: RECEIVE_POST,
+  post
+});
 
-export function changeTitle(title) {
-  return {
-    type: CHANGE_TITLE,
-    title
-  };
-}
+export const changeTitle = title => ({
+  type: CHANGE_TITLE,
+  title
+});
 
-export function changeContent(index, text, position, length) {
-  return {
-    type: CHANGE_CONTENT,
-    content: {
-      text
-    },
-    index,
-    position,
-    length
-  };
-}
+export const changeContent = (index, text, position, length) => ({
+  type: CHANGE_CONTENT,
+  content: {
+    text
+  },
+  index,
+  position,
+  length
+});
 
-export function addImage(image, position) {
+export const addImage = (image, position) => {
   image.type = 'image';
   return {
     type: ADD_SECTION,
     section: image,
     position
   };
-}
+};
 
-export function openImagePanel() {
-  return {
-    type: OPEN_IMAGEPANEL
-  };
-}
+export const openImagePanel = (mode = 'add') => ({
+  type: OPEN_IMAGEPANEL,
+  mode
+});
 
-export function deleteSection(index) {
-  return {
-    type: DELETE_SECTION,
-    index
-  };
-}
+export const deleteSection = index => ({
+  type: DELETE_SECTION,
+  index
+});
+
+export const editImage = image => ({
+  type: EDIT_IMAGE,
+  image
+});
+
+export const changeCurrentIndex = index => ({
+  type: CHANGE_CURRENT_INDEX,
+  index
+});

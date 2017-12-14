@@ -10,17 +10,19 @@ import {
 } from 'material-ui/svg-icons';
 
 type Props = {
-  handleDelete: () => {},
-  open: boolean,
+  closeImageToolbar: () => void,
+  handleDelete: () => void,
+  handleEdit: () => void,
   imageEl: SyntheticEvent<HTMLImageElement>,
-  closeImageToolbar: () => void
+  open: boolean
 };
 
 export const ImageToolbar = ({
-  handleDelete,
-  open,
+  closeImageToolbar,
   imageEl,
-  closeImageToolbar
+  handleEdit,
+  handleDelete,
+  open
 }: Props) => (
   <Popover
     open={open}
@@ -42,14 +44,14 @@ export const ImageToolbar = ({
         <ToolbarSeparator />
         <IconMenu
           iconButtonElement={
-            <IconButton touch>
+            <IconButton onClick={handleEdit} touch>
               <EditorModeEdit />
             </IconButton>
           }
         />
         <IconMenu
           iconButtonElement={
-            <IconButton touch>
+            <IconButton onClick={handleDelete} touch>
               <ActionDelete />
             </IconButton>
           }

@@ -27,7 +27,6 @@ class Node extends React.PureComponent<Props> {
   };
 
   render() {
-    console.log('in' + this.props.id);
     if (undefined === this.props.id) {
       return '';
     }

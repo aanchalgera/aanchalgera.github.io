@@ -3,7 +3,8 @@ import {
   ADD_SECTION,
   RECEIVE_POST,
   CHANGE_CONTENT,
-  DELETE_SECTION
+  DELETE_SECTION,
+  EDIT_IMAGE
 } from 'actions/post';
 
 const initialState = [
@@ -79,6 +80,22 @@ const sections = (sections = initialState, action) => {
       return [
         ...sections.slice(0, action.index),
         ...sections.slice(action.index + 1)
+      ];
+    case EDIT_IMAGE:
+      const { alt, src, extension, height, width } = action.image;
+
+      return [
+        ...sections.slice(0, action.image.index),
+        {
+          type: 'image',
+          id: sections[action.image.index].id,
+          alt,
+          src,
+          extension,
+          height,
+          width
+        },
+        ...sections.slice(action.image.index + 1)
       ];
     default:
       return sections;

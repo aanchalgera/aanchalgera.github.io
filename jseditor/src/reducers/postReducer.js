@@ -1,4 +1,9 @@
-import { RECEIVE_POST, ADD_SECTION, CHANGE_CONTENT } from 'actions/post';
+import {
+  RECEIVE_POST,
+  ADD_SECTION,
+  CHANGE_CONTENT,
+  CHANGE_CURRENT_INDEX
+} from 'actions/post';
 
 const initialState = {};
 
@@ -27,6 +32,11 @@ export default function(state = initialState, action) {
         currentIndex: action.index,
         currentPosition: action.position,
         currentLength: action.length
+      };
+    case CHANGE_CURRENT_INDEX:
+      return {
+        ...state,
+        currentIndex: action.index
       };
     default:
       return state;
