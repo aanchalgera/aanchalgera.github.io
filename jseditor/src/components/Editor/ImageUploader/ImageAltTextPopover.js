@@ -62,7 +62,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   getDialogActions = () => {
     return (
       <div className="modal-actions">
-        <Row>
+        <Row className="m-no-margin">
           <Col sm={12} className="end-sm">
             <RaisedButton
               label="Insertar imagen"
@@ -86,7 +86,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
         open={open}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
-        <Row>
+        <Row className="m-no-margin">
           <Col sm={11} className="start-sm">
             <Label label="Insertar imagen en el artículo" />
           </Col>
@@ -94,7 +94,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
             <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
-        <Row>
+        <Row className="m-no-margin">
           <Col sm={4}>
             <div className="img-container">
               <img src={imageSrc} alt="" />

@@ -44,7 +44,7 @@ export class S3Uploader extends PureComponent<Props> {
         open={this.props.open}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
-        <Row>
+        <Row className="m-no-margin">
           <Col sm={11}>
             <Label
               label="Sube una o varias imágenes"

@@ -9,7 +9,7 @@ type Props = {
 export const Label = ({ label, hint }: Props) => (
   <h2 className="type-title-dark">
     {label}
-    <small className="caption-default">
+    <small className="caption-default m-margin-left">
       {hint}
     </small>
   </h2>
