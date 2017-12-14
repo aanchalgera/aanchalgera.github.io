@@ -55,7 +55,7 @@ export class S3Uploader extends PureComponent<Props> {
             <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
-        <div className="div-uploader">
+        <div className="uploader">
           <RaisedButton
             className="btn-image-select"
             label="Seleccionar en tu ordenador"
