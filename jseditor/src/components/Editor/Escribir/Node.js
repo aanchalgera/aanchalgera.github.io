@@ -2,14 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Col, Row } from 'react-flexbox-grid';
 
-import { Title, Content, Image, MoreOptions } from 'components/Editor/Escribir';
+import { Title, Content, Image } from 'components/Editor/Escribir';
 
 type Props = {
   id: number,
   type: string,
-  index: number,
-  currentLength: number,
-  currentIndex: number
+  index: number
 };
 
 class Node extends React.PureComponent<Props> {
@@ -27,6 +25,7 @@ class Node extends React.PureComponent<Props> {
   };
 
   render() {
+    console.log('in' + this.props.id);
     if (undefined === this.props.id) {
       return '';
     }
@@ -36,8 +35,7 @@ class Node extends React.PureComponent<Props> {
       <Row>
         <Col xs={1} />
         <Col xs={1}>
-          {this.props.currentLength === 0 &&
-            this.props.currentIndex === this.props.index && <MoreOptions />}
+
         </Col>
 
         <Col xs={8}>{section}</Col>
@@ -49,9 +47,7 @@ class Node extends React.PureComponent<Props> {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...state.sections[ownProps.index],
-    currentIndex: state.post.currentIndex,
-    currentLength: state.post.currentLength
+    ...state.sections[ownProps.index]
   };
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 
 import {
   getPost,
@@ -8,7 +7,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node } from 'components/Editor/Escribir';
+import { Node, MoreOptions } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
 
@@ -29,8 +28,7 @@ type Props = {
   openImagePanel: () => void,
   fields: [],
   currentIndex: number,
-  currentPosition: number,
-  editImage: (image: Object) => void
+  splitPosition: number
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -49,14 +47,10 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  addImage = (image, mode) => {
+  addImage = image => {
     image.index = this.props.currentIndex;
-    if ('edit' === mode) {
-      this.props.editImage(image);
-    } else {
-      image.id = this.props.maxId;
-      this.props.addImage(image, this.props.currentPosition);
-    }
+    image.id = this.props.maxId;
+    this.props.addImage(image, this.props.splitPosition);
   };
 
   saveData = () => {
@@ -67,12 +61,6 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
-    const { postType, id, blogName } = this.props;
-
-    if ('longform' === postType || 'brandedLongform' === postType) {
-      return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
-    }
-
     if (this.props.id) {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
@@ -88,6 +76,7 @@ class Escribir extends React.PureComponent<Props> {
             site={this.props.blogName}
             addImage={this.addImage}
           />
+          <MoreOptions />
         </div>
       );
     } else return 'Loading';
