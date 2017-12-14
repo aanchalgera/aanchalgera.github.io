@@ -19,7 +19,7 @@ export const openUploader = () => ({
   type: OPEN_UPLOADER
 });
 
-export const openImagePanel = (mode: string = 'add') => ({
+export const openImagePanel = (mode = 'add') => ({
   type: OPEN_IMAGEPANEL,
   mode
 });

@@ -50,8 +50,6 @@ class Escribir extends React.PureComponent<Props> {
 
   addImage = (image, mode) => {
     image.index = this.props.currentIndex;
-    console.log('mode');
-    console.log(mode);
     if ('edit' === mode) {
       this.props.editImage(image);
     } else {

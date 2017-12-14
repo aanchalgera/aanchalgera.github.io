@@ -20,8 +20,8 @@ type Props = {
 export const ImageToolbar = ({
   closeImageToolbar,
   imageEl,
-  handleEdit,
   handleDelete,
+  handleEdit,
   open
 }: Props) => (
   <Popover
