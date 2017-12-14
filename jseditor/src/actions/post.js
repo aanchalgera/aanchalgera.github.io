@@ -32,12 +32,11 @@ export function changeContent(index, text, position, length, top) {
   };
 }
 
-export function addImage(image, position) {
+export function addImage(image) {
   image.type = 'image';
   return {
     type: ADD_SECTION,
-    section: image,
-    position
+    section: image
   };
 }
 

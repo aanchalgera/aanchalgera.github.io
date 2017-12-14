@@ -69,7 +69,7 @@ class Escribir extends React.PureComponent<Props> {
         );
       }
       return (
-        <div className="container-fluid" style={{ paddingTop: '112px' }}>
+        <div className="grid-l grid-wrapper">
           {nodes}
           <ImageUploader
             id={this.props.id}
