@@ -37,7 +37,7 @@ export class ImagePanel extends PureComponent<Props> {
         open={open}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
-        <Row>
+        <Row className="m-no-margin">
           <Col sm={11} className="start-sm">
             <Label label="Elige la imagen que quieres insertar" />
           </Col>
@@ -45,7 +45,7 @@ export class ImagePanel extends PureComponent<Props> {
             <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
-        <Row>
+        <Row className="m-no-margin">
           {images.map((image, index: number) => {
             return (
               <Col key={index} sm={1}>
