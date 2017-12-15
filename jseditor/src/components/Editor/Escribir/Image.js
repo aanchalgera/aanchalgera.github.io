@@ -1,6 +1,7 @@
+// @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ImageToolbar } from '.';
+import { PopoverToolbar, ImageToolbar } from '.';
 import {
   deleteSection,
   changeCurrentIndex,
@@ -62,12 +63,11 @@ class Image extends React.PureComponent<Props, State> {
           onClick={this.openImageToolbar}
           className={this.state.className}
         />
-        <ImageToolbar
-          closeImageToolbar={this.closeImageToolbar}
-          handleDelete={this.handleDelete}
-          handleEdit={this.handleEdit}
+        <PopoverToolbar
           imageEl={this.state.imageEl}
           open={this.state.openImageToolbar}
+          closeImageToolbar={this.closeImageToolbar}
+          toolbarIcons={<ImageToolbar />}
         />
       </React.Fragment>
     );
