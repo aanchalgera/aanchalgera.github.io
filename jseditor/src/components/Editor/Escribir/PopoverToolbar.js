@@ -6,8 +6,6 @@ import { white } from 'material-ui/styles/colors';
 
 type Props = {
   closeImageToolbar: () => void,
-  handleDelete: () => void,
-  handleEdit: () => void,
   imageEl: SyntheticEvent<HTMLImageElement>,
   open: boolean,
   toolbarIcons: Array<React.Node>
@@ -16,8 +14,6 @@ type Props = {
 export const PopoverToolbar = ({
   closeImageToolbar,
   imageEl,
-  handleDelete,
-  handleEdit,
   open,
   toolbarIcons
 }: Props) => (
