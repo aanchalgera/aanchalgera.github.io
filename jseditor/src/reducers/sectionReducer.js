@@ -36,14 +36,11 @@ const sections = (sections = initialState, action) => {
     case CHANGE_CONTENT:
       const { content } = action;
       const section = sections.slice(action.index, action.index + 1)[0];
-      return [
-        ...sections.slice(0, action.index),
-        {
-          ...section,
-          text: content.text
-        },
-        ...sections.slice(action.index + 1)
-      ];
+      sections[action.index] = {
+        ...section,
+        text: content.text
+      };
+      return sections;
     case ADD_SECTION:
       const { index, ...newSection } = action.section;
       const delimiter = '\n',

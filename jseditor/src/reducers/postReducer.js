@@ -1,7 +1,7 @@
 import {
   RECEIVE_POST,
   ADD_SECTION,
-  CHANGE_CONTENT,
+  CHANGE_POSITION,
   CHANGE_CURRENT_INDEX
 } from 'actions/post';
 
@@ -26,12 +26,13 @@ export default function(state = initialState, action) {
         ...state,
         maxId: state.maxId + 3
       };
-    case CHANGE_CONTENT:
+    case CHANGE_POSITION:
       return {
         ...state,
         currentIndex: action.index,
-        currentPosition: action.position,
-        currentLength: action.length
+        splitPosition: action.splitPosition,
+        coordinates: action.coordinates,
+        isAtFirstPosition: action.isAtFirstPosition
       };
     case CHANGE_CURRENT_INDEX:
       return {

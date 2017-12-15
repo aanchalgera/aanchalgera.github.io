@@ -3,6 +3,7 @@ export const CHANGE_TITLE = 'CHANGE_TITLE';
 export const ADD_SECTION = 'ADD_SECTION';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const CHANGE_CONTENT = 'CHANGE_CONTENT';
+export const CHANGE_POSITION = 'CHANGE_POSITION';
 export const DELETE_SECTION = 'DELETE_SECTION';
 export const EDIT_IMAGE = 'EDIT_IMAGE';
 export const CHANGE_CURRENT_INDEX = 'CHANGE_CURRENT_INDEX';
@@ -17,14 +18,25 @@ export const changeTitle = title => ({
   title
 });
 
-export const changeContent = (index, text, position, length) => ({
+export const changeContent = (index, text) => ({
   type: CHANGE_CONTENT,
   content: {
     text
   },
+  index
+});
+
+export const changePosition = (
   index,
-  position,
-  length
+  splitPosition,
+  coordinates,
+  isAtFirstPosition
+) => ({
+  type: CHANGE_POSITION,
+  index,
+  splitPosition,
+  coordinates,
+  isAtFirstPosition
 });
 
 export const addImage = (image, position) => {

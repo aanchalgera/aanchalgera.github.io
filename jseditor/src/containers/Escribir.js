@@ -8,7 +8,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node } from 'components/Editor/Escribir';
+import { Node, MoreOptions } from 'components/Editor/Escribir';
 import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
 
@@ -28,8 +28,9 @@ type Props = {
   addImage: (image: Object) => void,
   openImagePanel: () => void,
   fields: [],
+  postType: string,
   currentIndex: number,
-  currentPosition: number,
+  splitPosition: number,
   editImage: (image: Object) => void
 };
 
@@ -55,7 +56,7 @@ class Escribir extends React.PureComponent<Props> {
       this.props.editImage(image);
     } else {
       image.id = this.props.maxId;
-      this.props.addImage(image, this.props.currentPosition);
+      this.props.addImage(image, this.props.splitPosition);
     }
   };
 
@@ -88,6 +89,7 @@ class Escribir extends React.PureComponent<Props> {
             site={this.props.blogName}
             addImage={this.addImage}
           />
+          <MoreOptions />
         </div>
       );
     } else return 'Loading';

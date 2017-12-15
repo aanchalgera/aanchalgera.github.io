@@ -12,10 +12,15 @@ type State = {
 };
 
 type Props = {
+  coordinates: { top: number, left: number },
+  isAtFirstPosition: boolean,
   openImagePanel: () => void
 };
 
 class MoreOptions extends PureComponent<Props, State> {
+  static defaultProps = {
+    isAtFirstPosition: false
+  };
   state = {
     showOptions: false
   };
@@ -33,9 +38,18 @@ class MoreOptions extends PureComponent<Props, State> {
 
   render() {
     const { showOptions } = this.state;
-
+    const { coordinates } = this.props;
+    if (this.props.isAtFirstPosition === false) {
+      return null;
+    }
     return (
-      <div>
+      <div
+        style={{
+          position: 'absolute',
+          top: coordinates.top,
+          left: coordinates.left - 50
+        }}
+      >
         <IconButton className="btn-option" onClick={this.toggleShowOptions}>
           {showOptions ? (
             <ContentClear color="black" />
@@ -70,7 +84,10 @@ class MoreOptions extends PureComponent<Props, State> {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    coordinates: state.post.coordinates,
+    isAtFirstPosition: state.post.isAtFirstPosition
+  };
 };
 
 export default connect(mapStateToProps, { openImagePanel })(MoreOptions);
