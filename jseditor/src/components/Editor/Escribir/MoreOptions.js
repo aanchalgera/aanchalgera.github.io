@@ -1,7 +1,6 @@
 //@flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { IconButton } from 'material-ui';
 import { ContentAdd, ContentClear, ImagePhoto } from 'material-ui/svg-icons';
 
 import { OptionButton } from '.';
@@ -25,15 +24,21 @@ class MoreOptions extends PureComponent<Props, State> {
     showOptions: false
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (true === this.state.showOptions) {
+      this.changeOptionsState(false);
+    }
+  }
+
   openPanel = () => {
     this.props.openImagePanel();
-    this.toggleShowOptions();
+    this.changeOptionsState(false);
   };
 
-  toggleShowOptions = () => {
-    this.setState(prevState => ({
-      showOptions: !prevState.showOptions
-    }));
+  changeOptionsState = (showOptions: boolean) => {
+    this.setState({
+      showOptions
+    });
   };
 
   render() {
@@ -51,13 +56,10 @@ class MoreOptions extends PureComponent<Props, State> {
         }}
         className="btn-container"
       >
-        <IconButton className="btn-option" onClick={this.toggleShowOptions}>
-          {showOptions ? (
-            <ContentClear color="black" />
-          ) : (
-            <ContentAdd color="black" />
-          )}
-        </IconButton>
+        <OptionButton
+          Icon={showOptions ? ContentClear : ContentAdd}
+          handleClick={() => this.changeOptionsState(!showOptions)}
+        />
         {showOptions && (
           <span>
             <OptionButton
