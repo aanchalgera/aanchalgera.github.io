@@ -130,7 +130,7 @@ export const submitPostToBackend = (state, blogUrl) => {
     firebase_id: state.id,
     post_status: state.status,
     user_id: state.userId,
-    primary_image: state.meta.homepage.image.url,
+    primary_image: state.primaryImage,
     is_sensitive: state.isSensitive,
     long_post: state.specialPost,
     image_validated: state.crop,
