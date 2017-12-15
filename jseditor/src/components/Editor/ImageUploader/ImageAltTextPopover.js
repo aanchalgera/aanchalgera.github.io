@@ -6,7 +6,7 @@ import { Dialog, TextField, RaisedButton } from 'material-ui';
 import { InputEvent, Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
 
-const imageDimension = '288_288';
+const imageDimension = 'original';
 
 type ImageData = {
   alt: string,
