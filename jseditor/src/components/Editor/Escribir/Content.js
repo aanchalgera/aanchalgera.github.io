@@ -71,10 +71,7 @@ class Content extends React.PureComponent<Props> {
 
   render() {
     return (
-      <div
-        onClick={() => this._editor.focus()}
-        id={'section-' + this.props.index}
-      >
+      <div onClick={() => this._editor.focus()} className="paragraph">
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}

@@ -32,12 +32,8 @@ class Node extends React.PureComponent<Props> {
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
     return (
-      <Row>
-        <Col xs={1} />
-        <Col xs={1}>
-
-        </Col>
-
+      <Row className="m-no-margin">
+        <Col xs={2} />
         <Col xs={8}>{section}</Col>
         <Col xs={2} />
       </Row>

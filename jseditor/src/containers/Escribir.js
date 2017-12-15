@@ -9,18 +9,14 @@ import {
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions } from 'components/Editor/Escribir';
-import { Action } from 'lib/flowTypes';
 import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
 type Props = {
   match: { params: Object },
-  blogUrl: string,
   blogName: string,
-  userRole: string,
   handleStatus: (status: string, date: string) => void,
-  dispatch: (action: Action) => void,
   onRef: Function,
   id: string,
   maxId: number,
