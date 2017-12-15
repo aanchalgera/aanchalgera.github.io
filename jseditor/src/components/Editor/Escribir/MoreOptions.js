@@ -51,13 +51,15 @@ class MoreOptions extends PureComponent<Props, State> {
         }}
         className="btn-container"
       >
-        <IconButton className="btn-option" onClick={this.toggleShowOptions}>
-          {showOptions ? (
-            <ContentClear color="black" />
-          ) : (
-            <ContentAdd color="black" />
-          )}
-        </IconButton>
+        <span className="btn-option">
+          <IconButton onClick={this.toggleShowOptions}>
+            {showOptions ? (
+              <ContentClear color="black" />
+            ) : (
+              <ContentAdd color="black" />
+            )}
+          </IconButton>
+        </span>
         {showOptions && (
           <span>
             <OptionButton

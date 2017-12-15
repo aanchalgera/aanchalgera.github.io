@@ -69,9 +69,21 @@ class Content extends React.PureComponent<Props> {
     });
   };
 
+  getVariables() {
+    const placeHolder =
+      this.props.index === 1 ? 'Empieza a escribir aquí...' : '';
+    const className =
+      this.props.index === 1 && this.props.text === ''
+        ? 'first-paragraph'
+        : 'paragraph';
+
+    return { placeHolder, className };
+  }
+
   render() {
+    const { placeHolder, className } = this.getVariables();
     return (
-      <div onClick={() => this._editor.focus()} className="paragraph">
+      <div onClick={() => this._editor.focus()} className={className}>
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}
@@ -80,7 +92,7 @@ class Content extends React.PureComponent<Props> {
             this._editor = element;
           }}
           stripPastedStyles
-          placeholder=""
+          placeholder={placeHolder}
         />
         <this.InlineToolbar />
       </div>
