@@ -2,7 +2,8 @@ import {
   RECEIVE_POST,
   ADD_SECTION,
   CHANGE_POSITION,
-  CHANGE_CURRENT_INDEX
+  CHANGE_CURRENT_INDEX,
+  CHANGE_TITLE
 } from 'actions/post';
 
 const initialState = {};
@@ -20,6 +21,11 @@ export default function(state = initialState, action) {
         userId: post.user_id,
         meta: post.meta || null,
         maxId: post.maxId || 2
+      };
+    case CHANGE_TITLE:
+      return {
+        ...state,
+        title: action.title
       };
     case ADD_SECTION:
       return {

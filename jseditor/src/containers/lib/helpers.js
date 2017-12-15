@@ -206,7 +206,7 @@ export const initialMeta = {
   index: '',
   sponsor: { name: '', image: '', tracker: '' },
   css: { skinName: '' },
-  seo: {},
+  seo: { title: '', description: '' },
   showSocialShareButtons: false,
   microsite: {
     name: '',
