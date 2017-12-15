@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
 import { connect } from 'react-redux';
-import { EditorState } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
@@ -80,6 +80,15 @@ class Content extends React.PureComponent<Props> {
     return { placeHolder, className };
   }
 
+  handleKeyCommand(command, editorState) {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
   render() {
     const { placeHolder, className } = this.getVariables();
     return (
@@ -93,6 +102,7 @@ class Content extends React.PureComponent<Props> {
           }}
           stripPastedStyles
           placeholder={placeHolder}
+          handleKeyCommand={this.handleKeyCommand}
         />
         <this.InlineToolbar />
       </div>
