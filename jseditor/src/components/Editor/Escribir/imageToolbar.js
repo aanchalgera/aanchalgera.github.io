@@ -9,6 +9,8 @@ import {
   ActionViewDay
 } from 'material-ui/svg-icons';
 
+import { white, grey600, grey500, red500 } from 'material-ui/styles/colors';
+
 type Props = {
   closeImageToolbar: () => void,
   handleDelete: () => void,
@@ -28,31 +30,31 @@ export const ImageToolbar = ({
     open={open}
     anchorEl={imageEl}
     anchorOrigin={{ horizontal: 'middle', vertical: 'top' }}
-    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+    targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
     animation={PopoverAnimationVertical}
     onRequestClose={closeImageToolbar}
   >
-    <Toolbar>
+    <Toolbar style={{ backgroundColor: white }}>
       <ToolbarGroup>
         <IconMenu
           iconButtonElement={
             <IconButton touch>
-              <ActionViewDay />
+              <ActionViewDay color={grey600} />
             </IconButton>
           }
         />
-        <ToolbarSeparator />
+        <ToolbarSeparator style={{ backgroundColor: grey500 }} />
         <IconMenu
           iconButtonElement={
             <IconButton onClick={handleEdit} touch>
-              <EditorModeEdit />
+              <EditorModeEdit color={grey600} />
             </IconButton>
           }
         />
         <IconMenu
           iconButtonElement={
-            <IconButton onClick={handleDelete} touch>
-              <ActionDelete />
+            <IconButton onClick={handleDelete}>
+              <ActionDelete color={red500} />
             </IconButton>
           }
         />
