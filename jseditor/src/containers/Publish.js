@@ -286,6 +286,9 @@ class Publish extends React.Component<Props> {
     if (this.state.currentStatus === 'publish') {
       showCalendar = false;
     }
+
+    let imageSrc = this.state.meta.homepage.image || this.state.primaryImage;
+
     return (
       <div className="grid-wrapper grid-l">
         <span style={{ color: 'red' }}>{this.state.message}</span>
@@ -389,9 +392,9 @@ class Publish extends React.Component<Props> {
             />
           </Col>
         </Row>
-        {this.state.meta.homepage.image && (
+        {imageSrc && (
           <ImageCropper
-            imageSrc={this.state.meta.homepage.image.url}
+            imageSrc={imageSrc}
             onCropChange={this.onCropChange}
             onCropValidate={this.onCropValidate}
             crop={this.state.crop}
