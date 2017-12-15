@@ -4,7 +4,7 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 
 type Props = {
-  ActionIcon: () => void
+  ActionIcon: React.Node
 };
 
 export const ToolbarIcon = ({ ActionIcon }: Props) => (

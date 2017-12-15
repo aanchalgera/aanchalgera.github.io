@@ -10,7 +10,7 @@ type Props = {
   handleEdit: () => void,
   imageEl: SyntheticEvent<HTMLImageElement>,
   open: boolean,
-  toolbarIcons: Array<string>
+  toolbarIcons: Array<React.Node>
 };
 
 export const PopoverToolbar = ({
