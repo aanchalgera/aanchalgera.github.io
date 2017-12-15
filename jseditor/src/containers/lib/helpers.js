@@ -87,7 +87,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     ampVisibility: data.ampVisibility || false,
     iaVisibility: data.iaVisibility || false,
     currentStatus: currentStatus(data.status, initialDate),
-    primaryImage: getImageSrc(data.sections) || ''
+    primaryImage: getPrimaryImg(data.sections) || ''
   };
 };
 export const loadPublishData = (data: {}) => {
@@ -261,7 +261,7 @@ export const convertTo1DArray = (data: Array<{ id: number }>) => {
 export const findByName = (name: string, list: Array<User>) =>
   list.find(item => item.label === name);
 
-const getImageSrc = fields => {
+const getPrimaryImg = fields => {
   let imageSrc = null;
 
   for (let i = 0; i < fields.length; i++) {
