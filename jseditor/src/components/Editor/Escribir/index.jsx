@@ -12,4 +12,6 @@ export { ExtraOptions } from './ExtraOptions';
 export { Node };
 export { Content };
 export { Image };
-export { ImageToolbar } from './imageToolbar';
+export { PopoverToolbar } from './PopoverToolbar';
+export { ImageToolbar } from './ImageToolbar';
+export { ToolbarIcon } from './ToolbarIcon';
