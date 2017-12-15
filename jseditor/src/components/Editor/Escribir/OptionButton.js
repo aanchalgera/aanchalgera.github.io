@@ -12,8 +12,10 @@ export function OptionButton(props: Props) {
   const { Icon, title, handleClick } = props;
 
   return (
-    <IconButton className="btn-option" tooltip={title} onClick={handleClick}>
-      <Icon color="black" />
-    </IconButton>
+    <span className="btn-option">
+      <IconButton tooltip={title} onClick={handleClick}>
+        <Icon color="black" />
+      </IconButton>
+    </span>
   );
 }
