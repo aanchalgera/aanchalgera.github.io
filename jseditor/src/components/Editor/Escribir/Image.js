@@ -32,10 +32,12 @@ class Image extends React.PureComponent<Props, State> {
   };
 
   handleDelete = () => {
+    this.closeImageToolbar();
     this.props.deleteSection(this.props.index);
   };
 
   handleEdit = () => {
+    this.closeImageToolbar();
     this.props.changeCurrentIndex(this.props.index);
     this.props.openImagePanel('edit');
   };
@@ -67,7 +69,12 @@ class Image extends React.PureComponent<Props, State> {
           imageEl={this.state.imageEl}
           open={this.state.openImageToolbar}
           closeImageToolbar={this.closeImageToolbar}
-          toolbarIcons={<ImageToolbar />}
+          toolbarIcons={
+            <ImageToolbar
+              handleEdit={this.handleEdit}
+              handleDelete={this.handleDelete}
+            />
+          }
         />
       </React.Fragment>
     );
