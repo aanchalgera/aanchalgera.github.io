@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import debounce from 'lodash.debounce';
 
 import {
   getPost,
@@ -38,6 +39,12 @@ class Escribir extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.init();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.fields !== this.props.fields) {
+      debounce(this.saveData, 2000)();
+    }
   }
 
   async init() {
@@ -78,14 +85,16 @@ class Escribir extends React.PureComponent<Props> {
         );
       }
       return (
-        <div className="grid-l grid-wrapper">
-          {nodes}
-          <ImageUploader
-            id={this.props.id}
-            site={this.props.blogName}
-            addImage={this.addImage}
-          />
-          <MoreOptions />
+        <div className="outer-wrapper">
+          <div className="grid-l grid-wrapper">
+            {nodes}
+            <ImageUploader
+              id={this.props.id}
+              site={this.props.blogName}
+              addImage={this.addImage}
+            />
+            <MoreOptions />
+          </div>
         </div>
       );
     } else return 'Loading';
