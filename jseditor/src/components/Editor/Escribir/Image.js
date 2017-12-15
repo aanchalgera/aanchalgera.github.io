@@ -26,7 +26,8 @@ type State = {
 class Image extends React.PureComponent<Props, State> {
   state = {
     openImageToolbar: false,
-    imageEl: {}
+    imageEl: {},
+    className: ''
   };
 
   handleDelete = () => {
@@ -39,11 +40,15 @@ class Image extends React.PureComponent<Props, State> {
   };
 
   openImageToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
-    this.setState({ openImageToolbar: true, imageEl: event.currentTarget });
+    this.setState({
+      openImageToolbar: true,
+      imageEl: event.currentTarget,
+      className: 'img-container'
+    });
   };
 
   closeImageToolbar = () => {
-    this.setState({ openImageToolbar: false });
+    this.setState({ openImageToolbar: false, className: '' });
   };
 
   render() {
@@ -51,7 +56,12 @@ class Image extends React.PureComponent<Props, State> {
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
-        <img src={url} alt={alt} onClick={this.openImageToolbar} />
+        <img
+          src={url}
+          alt={alt}
+          onClick={this.openImageToolbar}
+          className={this.state.className}
+        />
         <ImageToolbar
           closeImageToolbar={this.closeImageToolbar}
           handleDelete={this.handleDelete}
