@@ -41,9 +41,11 @@ class Escribir extends React.PureComponent<Props> {
     this.init();
   }
 
-  componentDidUpdate() {
-    console.log('updated');
-    debounce(this.saveData, 1500);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.fields !== this.props.fields) {
+      console.log('updated');
+      debounce(this.saveData, 2000)();
+    }
   }
 
   async init() {
@@ -63,6 +65,7 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   saveData = () => {
+    console.log('saved');
     savePostsList(this.props, this.props.blogName);
     savePostFromEscribirPage(this.props);
     this.props.handleStatus(UPDATED_MESSAGE);
