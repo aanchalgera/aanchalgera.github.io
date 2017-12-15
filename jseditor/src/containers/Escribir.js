@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
 import {
   getPost,
@@ -27,8 +28,10 @@ type Props = {
   addImage: (image: Object) => void,
   openImagePanel: () => void,
   fields: [],
+  postType: string,
   currentIndex: number,
-  splitPosition: number
+  splitPosition: number,
+  editImage: (image: Object) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -47,10 +50,14 @@ class Escribir extends React.PureComponent<Props> {
     this.props.receivePost(post);
   }
 
-  addImage = image => {
+  addImage = (image, mode) => {
     image.index = this.props.currentIndex;
-    image.id = this.props.maxId;
-    this.props.addImage(image, this.props.splitPosition);
+    if ('edit' === mode) {
+      this.props.editImage(image);
+    } else {
+      image.id = this.props.maxId;
+      this.props.addImage(image, this.props.splitPosition);
+    }
   };
 
   saveData = () => {
@@ -61,6 +68,12 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
+    const { postType, id, blogName } = this.props;
+
+    if ('longform' === postType || 'brandedLongform' === postType) {
+      return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
+    }
+
     if (this.props.id) {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
