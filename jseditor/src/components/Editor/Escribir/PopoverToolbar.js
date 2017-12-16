@@ -24,6 +24,7 @@ export const PopoverToolbar = ({
     targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
     animation={PopoverAnimationVertical}
     onRequestClose={closeImageToolbar}
+    canAutoPosition={false}
   >
     <Toolbar style={{ backgroundColor: white }}>
       <ToolbarGroup>{toolbarIcons}</ToolbarGroup>
