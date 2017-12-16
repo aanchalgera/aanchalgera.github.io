@@ -198,12 +198,9 @@ export const republishSchedule = async (blogUrl, postId, date) => {
 
 export const getUserDetails = async blogUrl => {
   try {
-    const response = await isoFetch(
-      `http://dev.xataka.com/admin/users/currentUser.json`,
-      {
-        credentials: 'include'
-      }
-    );
+    const response = await isoFetch(`${blogUrl}/admin/users/currentUser.json`, {
+      credentials: 'include'
+    });
     return response.json();
   } catch (err) {
     throw new Error('NOT_LOGGED_IN');
