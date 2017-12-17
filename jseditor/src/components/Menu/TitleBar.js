@@ -97,7 +97,7 @@ class TitleBar extends React.Component<Props> {
                 <Save />
               </IconButton>
             )}{' '}
-            {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
+            {activeTab === ESCRIBIR && (
               <IconButton onClick={this.props.toggleOrderMode}>
                 <Shuffle />
               </IconButton>

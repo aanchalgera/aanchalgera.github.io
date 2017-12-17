@@ -287,7 +287,9 @@ class Publish extends React.Component<Props> {
       showCalendar = false;
     }
 
-    let imageSrc = this.state.meta.homepage.image || this.state.primaryImage;
+    let imageSrc = this.state.meta.homepage.image
+      ? this.state.meta.homepage.image.url
+      : this.state.primaryImage;
 
     return (
       <div className="grid-wrapper grid-l">
