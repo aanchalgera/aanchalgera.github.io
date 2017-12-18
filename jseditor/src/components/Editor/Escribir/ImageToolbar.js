@@ -2,11 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ToolbarSeparator } from 'material-ui/Toolbar';
-import {
-  deleteSection,
-  changeCurrentIndex,
-  openImagePanel
-} from 'actions/post';
+import { deleteSection, openImagePanel } from 'actions/post';
 import {
   ActionDelete,
   EditorModeEdit,
@@ -18,8 +14,8 @@ import { grey600, grey500, red500 } from 'material-ui/styles/colors';
 type Props = {
   handleDelete: () => void,
   handleEdit: () => void,
-  changeCurrentIndex: (index: number) => void,
   openImagePanel: (actionName: string) => void,
+  closeImageToolbar: () => void,
   index: number
 };
 
@@ -29,8 +25,8 @@ const ImageToolbar = (props: Props) => {
   };
 
   const handleEdit = () => {
-    props.changeCurrentIndex(props.index);
     props.openImagePanel('edit');
+    props.closeImageToolbar();
   };
 
   return [
@@ -53,6 +49,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   deleteSection,
-  changeCurrentIndex,
   openImagePanel
 })(ImageToolbar);

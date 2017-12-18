@@ -3,14 +3,12 @@ import images from 'components/Editor/ImageUploader/reducer';
 import configs from './Configs';
 import post from './postReducer';
 import sections from './sectionReducer';
-import modal from './modalReducer';
 
 const rootReducer = combineReducers({
   images,
   configs,
   post,
-  sections,
-  modal
+  sections
 });
 
 export default rootReducer;
