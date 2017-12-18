@@ -1,7 +1,7 @@
 //@flow
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Dialog, RaisedButton } from 'material-ui';
+import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
 
 import { InputEvent, S3Image } from 'lib/flowTypes';
@@ -17,7 +17,15 @@ type Props = {
   closeDialog: () => void
 };
 
-export class S3Uploader extends PureComponent<Props> {
+type State = {
+  showProgress: boolean
+};
+
+export class S3Uploader extends PureComponent<Props, State> {
+  state = {
+    showProgress: false
+  };
+
   uploadToFirebase = (image: S3Image) => {
     const { id, openImagePanel } = this.props;
 
@@ -26,6 +34,8 @@ export class S3Uploader extends PureComponent<Props> {
   };
 
   selectImages = async (e: InputEvent) => {
+    this.showProgressBar(true);
+
     const file = e.target.files[0];
     let data = new FormData();
     data.append('file', file);
@@ -34,9 +44,18 @@ export class S3Uploader extends PureComponent<Props> {
     if (image.src) {
       this.uploadToFirebase(image);
     }
+
+    this.showProgressBar(false);
+  };
+
+  showProgressBar = (showProgress: boolean) => {
+    this.setState({
+      showProgress
+    });
   };
 
   render() {
+    const { showProgress } = this.state;
     const { closeDialog } = this.props;
 
     return (
@@ -68,6 +87,7 @@ export class S3Uploader extends PureComponent<Props> {
               className="file-select-hidden"
             />
           </RaisedButton>
+          {showProgress && <div><CircularProgress /></div>}
         </div>
       </Dialog>
     );
