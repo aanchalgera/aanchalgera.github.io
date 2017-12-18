@@ -132,7 +132,7 @@ export const submitPostToBackend = (state, blogUrl) => {
     user_id: state.userId,
     primary_image: state.primaryImage,
     is_sensitive: state.isSensitive,
-    long_post: state.specialPost,
+    long_post: Number(state.specialPost),
     image_validated: state.crop,
     ia_visibility: Number(state.iaVisibility),
     amp_visibility: Number(state.ampVisibility)

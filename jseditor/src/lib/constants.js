@@ -77,6 +77,10 @@ export const viewPermissions = {
   MoreOptions: {
     roles: ALL_COORDINATORS,
     types: ['slideshow', 'club', 'basics', 'brandedLongform', 'longform']
+  },
+  SpecialPost: {
+    roles: ['ROLE_EDITOR', 'ROLE_COORDINATOR', 'ROLE_COLLABORATOR'],
+    types: ['normal', 'slideshow']
   }
 };
 
