@@ -180,6 +180,8 @@ class Editor extends React.Component {
         id: this.state.maxId,
         type: 'image',
         url: image.url,
+        height: image.height || '',
+        width: image.width || '',
         alt: image.alt || '',
         banner: false,
         parallax: false,
