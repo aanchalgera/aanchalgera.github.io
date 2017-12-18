@@ -79,18 +79,21 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
       commentStatus,
       updateParent,
       ampVisibility,
-      iaVisibility
+      iaVisibility,
+      specialPost
     } = this.props;
 
     return (
       <div>
         <Label label="Avanzado" />
-        {/*<Checkbox
-          checked={specialPost}
-          label="Artículo especial"
-          onCheck={this.handleSpecialPost}
-          className="layout-line-form"
-        /> */}
+        <Check childName="SpecialPost">
+          <Checkbox
+            checked={specialPost}
+            label="Artículo especial"
+            onCheck={this.handleSpecialPost}
+            className="layout-line-form"
+          />
+        </Check>
         <Checkbox
           checked={isSensitive}
           label="Tiene contenido sensible"
