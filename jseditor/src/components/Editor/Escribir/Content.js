@@ -70,9 +70,10 @@ class Content extends React.PureComponent<Props> {
   };
 
   getVariables() {
-    const { index } = this.props;
+    const { index, text } = this.props;
     const placeHolder = index === 1 ? 'Empieza a escribir aquí...' : '';
-    const className = index === 1 ? 'first-paragraph' : 'paragraph';
+    const className =
+      index === 1 && text === '<p><br></p>' ? 'first-paragraph' : 'paragraph';
 
     return { placeHolder, className };
   }

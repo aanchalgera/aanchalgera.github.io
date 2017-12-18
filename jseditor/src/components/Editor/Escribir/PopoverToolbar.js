@@ -11,6 +11,12 @@ type Props = {
   toolbarIcons: Array<React.Node>
 };
 
+const style = {
+  popover: {
+    overFlowY: 'visible'
+  }
+};
+
 export const PopoverToolbar = ({
   closeImageToolbar,
   imageEl,
@@ -25,8 +31,10 @@ export const PopoverToolbar = ({
     animation={PopoverAnimationVertical}
     onRequestClose={closeImageToolbar}
     canAutoPosition={false}
+    className="tooltip"
+    style={style.popover}
   >
-    <Toolbar style={{ backgroundColor: white }}>
+    <Toolbar className="tooltip-inner" style={{ backgroundColor: white }}>
       <ToolbarGroup>{toolbarIcons}</ToolbarGroup>
     </Toolbar>
   </Popover>
