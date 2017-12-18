@@ -64,7 +64,7 @@ export const viewPermissions = {
   },
   AMP: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
-    types: []
+    types: ['club', 'brandedLongform']
   },
   FBIA: {
     roles: ['ROLE_BRANDED_COORDINATOR'],
@@ -76,12 +76,15 @@ export const viewPermissions = {
   },
   MoreOptions: {
     roles: ALL_COORDINATORS,
-    types: [
-      'slideshow',
-      'club',
-      'basics',
-      'brandedLongform',
-      'longform'
-    ]
-  },
+    types: ['slideshow', 'club', 'basics', 'brandedLongform', 'longform']
+  }
+};
+
+export const defaultCommentStatus = {
+  normal: 'open',
+  club: 'open',
+  slideshow: 'open',
+  basics: 'open',
+  brandedLongform: 'closed',
+  longform: 'closed'
 };
