@@ -13,7 +13,7 @@ type Props = {
 
 const style = {
   popover: {
-    overFlowY: 'scroll'
+    overFlowY: 'visible'
   }
 };
 
