@@ -2,23 +2,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { PopoverToolbar, ImageToolbar } from '.';
-import {
-  deleteSection,
-  changeCurrentIndex,
-  openImagePanel
-} from 'actions/post';
+import { closeModal, openModal } from 'actions/modal';
 
+const MODAL_NAME = 'image_toolbar_';
 type Props = {
   alt: string,
   url: string,
   src: string,
   extension: string,
+  modalName: string,
   index: number,
-  deleteSection: (index: number) => void,
-  changeCurrentIndex: (index: number) => void,
-  openImagePanel: (actionName: string) => void
+  openModal: (actionName: string, index: number) => void,
+  closeModal: () => void
 };
-
 type State = {
   openImageToolbar: boolean,
   imageEl: SyntheticEvent<HTMLImageElement>
@@ -26,55 +22,44 @@ type State = {
 
 class Image extends React.PureComponent<Props, State> {
   state = {
-    openImageToolbar: false,
     imageEl: {},
     className: ''
   };
 
-  handleDelete = () => {
-    this.closeImageToolbar();
-    this.props.deleteSection(this.props.index);
+  openToolbar = () => {
+    this.props.openModal(MODAL_NAME, this.props.index);
   };
 
-  handleEdit = () => {
-    this.closeImageToolbar();
-    this.props.changeCurrentIndex(this.props.index);
-    this.props.openImagePanel('edit');
-  };
-
-  openImageToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
-    this.setState({
-      openImageToolbar: true,
-      imageEl: event.currentTarget,
-      className: 'img-container'
-    });
+  handleToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
+    this.setState(
+      {
+        imageEl: event.currentTarget,
+        className: 'img-container'
+      },
+      this.openToolbar
+    );
   };
 
   closeImageToolbar = () => {
-    this.setState({ openImageToolbar: false, className: '' });
+    this.setState({ className: '' }, this.props.closeModal);
   };
 
   render() {
-    const { alt, src, extension } = this.props;
+    const { alt, src, extension, modalName, index } = this.props;
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
         <img
           src={url}
           alt={alt}
-          onClick={this.openImageToolbar}
+          onClick={this.handleToolbar}
           className={this.state.className}
         />
         <PopoverToolbar
           imageEl={this.state.imageEl}
-          open={this.state.openImageToolbar}
+          open={modalName === MODAL_NAME + index}
           closeImageToolbar={this.closeImageToolbar}
-          toolbarIcons={
-            <ImageToolbar
-              handleEdit={this.handleEdit}
-              handleDelete={this.handleDelete}
-            />
-          }
+          toolbarIcons={<ImageToolbar index={index} />}
         />
       </React.Fragment>
     );
@@ -82,11 +67,12 @@ class Image extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    modalName: state.modal.modalName
+  };
 };
 
 export default connect(mapStateToProps, {
-  deleteSection,
-  changeCurrentIndex,
-  openImagePanel
+  openModal,
+  closeModal
 })(Image);
