@@ -1,6 +1,7 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
+import { defaultCommentStatus } from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -60,14 +61,19 @@ export const loadStatefromData = (data: {}, userRole: string) => {
     'CEA',
     'ROW'
   ];
+
+  const postType = data.postType || getPostType(userRole);
+
   return {
     id: data.id,
     blogName: data.blogName,
     fields: data.sections || [],
     title: data.title,
-    postType: data.postType || getPostType(userRole),
+    postType: postType,
     commentStatus:
-      data.commentStatus || idx(data, _ => _.meta.comment.status) || 'closed',
+      data.commentStatus ||
+      idx(data, _ => _.meta.comment.status) ||
+      defaultCommentStatus[postType],
     meta: data.meta || initialMeta,
     maxId: data.maxId,
     status: data.status || 'draft',
