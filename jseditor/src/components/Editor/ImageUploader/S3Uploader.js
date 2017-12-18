@@ -61,6 +61,7 @@ export class S3Uploader extends PureComponent<Props, State> {
     return (
       <Dialog
         open={this.props.open}
+        onRequestClose={closeDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <Row className="m-no-margin">
