@@ -25,19 +25,20 @@ class Node extends React.PureComponent<Props> {
   };
 
   render() {
-    console.log('in' + this.props.id);
     if (undefined === this.props.id) {
       return '';
     }
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
-    return (
-      <Row className="m-no-margin">
-        <Col xs={2} />
-        <Col xs={8}>{section}</Col>
-        <Col xs={2} />
-      </Row>
-    );
+    if (type === 'title') return section;
+    else
+      return (
+        <Row className="m-no-margin">
+          <Col xs={2} />
+          <Col xs={8}>{section}</Col>
+          <Col xs={2} />
+        </Row>
+      );
   }
 }
 
