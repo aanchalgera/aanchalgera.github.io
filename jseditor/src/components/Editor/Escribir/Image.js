@@ -2,11 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { PopoverToolbar, ImageToolbar } from '.';
-import {
-  deleteSection,
-  changeCurrentIndex,
-  openImagePanel
-} from 'actions/post';
+import { changeCurrentIndex } from 'actions/post';
 
 type Props = {
   alt: string,
@@ -14,11 +10,8 @@ type Props = {
   src: string,
   extension: string,
   index: number,
-  deleteSection: (index: number) => void,
-  changeCurrentIndex: (index: number) => void,
-  openImagePanel: (actionName: string) => void
+  changeCurrentIndex: (index: number) => void
 };
-
 type State = {
   openImageToolbar: boolean,
   imageEl: SyntheticEvent<HTMLImageElement>
@@ -31,38 +24,37 @@ class Image extends React.PureComponent<Props, State> {
     className: ''
   };
 
-  handleDelete = () => {
-    this.closeImageToolbar();
-    this.props.deleteSection(this.props.index);
-  };
-
-  handleEdit = () => {
-    this.closeImageToolbar();
+  changeCurrentIndex = () => {
     this.props.changeCurrentIndex(this.props.index);
-    this.props.openImagePanel('edit');
   };
 
-  openImageToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
-    this.setState({
-      openImageToolbar: true,
-      imageEl: event.currentTarget,
-      className: 'img-container'
-    });
+  handleToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
+    this.setState(
+      {
+        openImageToolbar: true,
+        imageEl: event.currentTarget,
+        className: 'img-container'
+      },
+      this.changeCurrentIndex
+    );
   };
 
   closeImageToolbar = () => {
-    this.setState({ openImageToolbar: false, className: '' });
+    this.setState({
+      openImageToolbar: false,
+      className: ''
+    });
   };
 
   render() {
-    const { alt, src, extension } = this.props;
+    const { alt, src, extension, index } = this.props;
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
         <img
           src={url}
           alt={alt}
-          onClick={this.openImageToolbar}
+          onClick={this.handleToolbar}
           className={this.state.className}
         />
         <PopoverToolbar
@@ -71,8 +63,8 @@ class Image extends React.PureComponent<Props, State> {
           closeImageToolbar={this.closeImageToolbar}
           toolbarIcons={
             <ImageToolbar
-              handleEdit={this.handleEdit}
-              handleDelete={this.handleDelete}
+              index={index}
+              closeImageToolbar={this.closeImageToolbar}
             />
           }
         />
@@ -86,7 +78,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  deleteSection,
-  changeCurrentIndex,
-  openImagePanel
+  changeCurrentIndex
 })(Image);
