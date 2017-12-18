@@ -54,7 +54,7 @@ class MoreOptions extends PureComponent<Props, State> {
           top: coordinates.top,
           left: coordinates.left - 50
         }}
-        className="btn-container"
+        className="options-container"
       >
         <OptionButton
           Icon={showOptions ? ContentClear : ContentAdd}
