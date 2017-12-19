@@ -291,7 +291,7 @@ describe('reducer', () => {
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
-  it('it should remove the align of given node', () => {
+  it('it should update the align of given node', () => {
     const stateBefore = [
       {
         id: 1,
@@ -318,8 +318,8 @@ describe('reducer', () => {
     ];
 
     const index = 1;
-    const align = '';
     const layout = 'normal';
+    const align = 'center';
     const action = changeLayout(index, layout, align);
 
     const stateAfter = [
@@ -333,7 +333,8 @@ describe('reducer', () => {
         type: 'image',
         url: 'https://i.blogs.com/id/original.jpg',
         alt: 'Truth can only be found in one place: the code',
-        layout: 'normal'
+        layout: 'normal',
+        align: 'center'
       },
       {
         id: 3,

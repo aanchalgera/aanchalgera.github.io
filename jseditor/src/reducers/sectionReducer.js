@@ -102,13 +102,9 @@ const sections = (sections = initialState, action) => {
       const { layout, align } = action;
       let modifiedNode = {
         ...sections[action.index],
-        layout
+        layout,
+        align
       };
-      if ('' === align) {
-        delete modifiedNode['align'];
-      } else {
-        modifiedNode.align = align;
-      }
       return [
         ...sections.slice(0, action.index),
         modifiedNode,

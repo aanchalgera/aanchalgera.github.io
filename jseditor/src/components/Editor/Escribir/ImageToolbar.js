@@ -28,7 +28,7 @@ const ImageToolbar = (props: Props) => {
     props.closeImageToolbar();
   };
 
-  const changeLayout = (layout, align) => {
+  const changeLayout = (layout, align = 'center') => {
     props.changeLayout(props.index, layout, align);
   };
 
@@ -54,19 +54,19 @@ const ImageToolbar = (props: Props) => {
     <ToolbarIcon
       key="normal"
       ActionIcon={<ReactSVG path="/svgs/normal.svg" />}
-      handleClick={() => changeLayout('normal', '')}
+      handleClick={() => changeLayout('normal')}
       tooltip="Normal"
     />,
     <ToolbarIcon
       key="big"
       ActionIcon={<ReactSVG path="/svgs/big.svg" />}
-      handleClick={() => changeLayout('normal', '')}
+      handleClick={() => changeLayout('normal')}
       tooltip="Grande"
     />,
     <ToolbarIcon
       key="edge"
       ActionIcon={<ReactSVG path="/svgs/edge.svg" />}
-      handleClick={() => changeLayout('large', '')}
+      handleClick={() => changeLayout('large')}
       tooltip="Anchura completa"
     />,
     <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />,

@@ -9,12 +9,7 @@ type Props = {
 };
 
 export const ToolbarIcon = ({ ActionIcon, handleClick, tooltip }: Props) => (
-  <IconButton
-    touch
-    onClick={handleClick}
-    className="media-layout"
-    tooltip={tooltip}
-  >
+  <IconButton onClick={handleClick} className="media-layout" tooltip={tooltip}>
     {ActionIcon}
   </IconButton>
 );
