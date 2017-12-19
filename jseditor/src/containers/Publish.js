@@ -34,6 +34,7 @@ import {
 import { Check, init as initCheck } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
+import { postImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
@@ -211,7 +212,47 @@ class Publish extends React.Component<Props> {
       return {
         crop: prevState['crop']
       };
-    }, this.savePostData);
+    }, this.cropValidateCallback);
+  };
+
+  cropValidateCallback = async () => {
+    if (
+      this.allImagesValidated() &&
+      'longform' !== this.state.postType &&
+      'brandedLongform' !== this.state.postType
+    ) {
+      let data = new FormData();
+      data.append('url', this.state.primaryImage);
+      data.append('validated', this.state.crop);
+      const imageWithNewPath = await postImages(this.props.blogName, data);
+      this.saveNewPathToContent(imageWithNewPath);
+      this.setState({
+        primaryImage: `${
+          imageWithNewPath['src'].split('original')[0]
+        }image_dimension.${imageWithNewPath['extension']}`
+      });
+    }
+    this.savePostData();
+  };
+
+  saveNewPathToContent = image => {
+    let fields = this.state.fields;
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i]['type'] === 'image') {
+        fields[i] = { ...fields[i], ...image };
+        this.setState({ fields });
+        break;
+      }
+    }
+  };
+
+  allImagesValidated = () => {
+    const crop = this.state.crop;
+    return (
+      crop['golden']['validate'] &&
+      crop['panoramic']['validate'] &&
+      crop['square']['validate']
+    );
   };
 
   setAllCategories = async postType => {
