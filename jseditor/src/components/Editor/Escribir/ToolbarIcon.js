@@ -1,12 +1,14 @@
 // @flow
 import * as React from 'react';
-import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 
 type Props = {
-  ActionIcon: React.Node
+  ActionIcon: React.Node,
+  handleClick: () => void
 };
 
-export const ToolbarIcon = ({ ActionIcon }: Props) => (
-  <IconMenu iconButtonElement={<IconButton touch>{ActionIcon}</IconButton>} />
+export const ToolbarIcon = ({ ActionIcon, handleClick }: Props) => (
+  <IconButton touch onClick={handleClick}>
+    {ActionIcon}
+  </IconButton>
 );

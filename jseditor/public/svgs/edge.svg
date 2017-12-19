@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="16" viewBox="0 0 35 16">
+  <defs>
+    <path id="icon-column-edge-a" d="M15,32 L33,32 L33,30.2222222 L15,30.2222222 L15,32 L15,32 Z M6,28.4455559 L41,28.4455559 L41,19.5555556 L6,19.5555556 L6,28.4455559 L6,28.4455559 Z M15,16 L15,17.7777778 L33,17.7777778 L33,16 L15,16 L15,16 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(-6 -16)">
+    <use fill="#666" xlink:href="#icon-column-edge-a"/>
+  </g>
+</svg>
