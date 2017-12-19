@@ -49,7 +49,7 @@
     "test": "NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && flow",
     "storybook": "NODE_PATH=./src start-storybook -p 9009 -s public",
     "build-storybook": "NODE_PATH=./src build-storybook -c .storybook -o .out",
     "deploy-storybook": "storybook-to-ghpages"

@@ -14,7 +14,8 @@ type Props = {
 };
 type State = {
   openImageToolbar: boolean,
-  imageEl: SyntheticEvent<HTMLImageElement>
+  imageEl: any,
+  className: string
 };
 
 class Image extends React.PureComponent<Props, State> {
