@@ -32,7 +32,7 @@ class Image extends React.PureComponent<Props, State> {
     this.setState(
       {
         openImageToolbar: true,
-        imageEl: event.currentTarget,
+        imageEl: event.currentTarget.parentNode,
         className: 'img-container'
       },
       this.changeCurrentIndex
