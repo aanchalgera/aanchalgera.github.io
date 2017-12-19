@@ -1,5 +1,5 @@
 //@flow
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
 import { FileFileUpload } from 'material-ui/svg-icons';
@@ -8,6 +8,8 @@ import { InputEvent, S3Image } from 'lib/flowTypes';
 import { postImages as postImagesToS3 } from './lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
+
+const MAX_FILE_SIZE = 8000000;
 
 type Props = {
   id: string,
@@ -18,13 +20,19 @@ type Props = {
 };
 
 type State = {
-  showProgress: boolean
+  showProgress: boolean,
+  errorMessage: string
 };
 
 export class S3Uploader extends PureComponent<Props, State> {
   state = {
-    showProgress: false
+    showProgress: false,
+    errorMessage: ''
   };
+
+  componentWillReceiveProps() {
+    this.setErrorMessage('');
+  }
 
   uploadToFirebase = (image: S3Image) => {
     const { id, openImagePanel } = this.props;
@@ -37,12 +45,17 @@ export class S3Uploader extends PureComponent<Props, State> {
     this.showProgressBar(true);
 
     const file = e.target.files[0];
-    let data = new FormData();
-    data.append('file', file);
 
-    const image = await postImagesToS3(this.props.site, data);
-    if (image.src) {
-      this.uploadToFirebase(image);
+    if (file.size > MAX_FILE_SIZE) {
+      this.setErrorMessage('Máximo 8MB cada imagen');
+    } else {
+      let data = new FormData();
+      data.append('file', file);
+
+      const image = await postImagesToS3(this.props.site, data);
+      if (image.src) {
+        this.uploadToFirebase(image);
+      }
     }
 
     this.showProgressBar(false);
@@ -54,9 +67,37 @@ export class S3Uploader extends PureComponent<Props, State> {
     });
   };
 
+  setErrorMessage = (errorMessage: string) => {
+    this.setState({
+      errorMessage
+    });
+  };
+
+  getUploadButton = () => {
+    return (
+      <Fragment>
+        <RaisedButton
+          className="btn-image-select"
+          label="Seleccionar en tu ordenador"
+          icon={<FileFileUpload />}
+          containerElement="label"
+        >
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.selectImages}
+            className="file-select-hidden"
+          />
+        </RaisedButton>
+        <div className='error'>{ this.state.errorMessage }</div>
+      </Fragment>
+    );
+  };
+
   render() {
     const { showProgress } = this.state;
     const { closeDialog } = this.props;
+    const contents = showProgress ? <CircularProgress /> : this.getUploadButton();
 
     return (
       <Dialog
@@ -75,21 +116,7 @@ export class S3Uploader extends PureComponent<Props, State> {
             <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
-        <div className="uploader">
-          <RaisedButton
-            className="btn-image-select"
-            label="Seleccionar en tu ordenador"
-            icon={<FileFileUpload />}
-            containerElement="label"
-          >
-            <input
-              type="file"
-              onChange={this.selectImages}
-              className="file-select-hidden"
-            />
-          </RaisedButton>
-          {showProgress && <div><CircularProgress /></div>}
-        </div>
+        <div className="uploader">{ contents }</div>
       </Dialog>
     );
   }
