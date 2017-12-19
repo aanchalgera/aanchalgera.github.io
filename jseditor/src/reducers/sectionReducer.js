@@ -4,7 +4,8 @@ import {
   RECEIVE_POST,
   CHANGE_CONTENT,
   DELETE_SECTION,
-  EDIT_IMAGE
+  EDIT_IMAGE,
+  CHANGE_ALIGN
 } from 'actions/post';
 
 const initialState = [
@@ -96,6 +97,17 @@ const sections = (sections = initialState, action) => {
           width
         },
         ...sections.slice(action.image.index + 1)
+      ];
+    case CHANGE_ALIGN:
+      const { align } = action;
+      const modifiedNode = {
+        ...sections[action.index],
+        align
+      };
+      return [
+        ...sections.slice(0, action.index),
+        modifiedNode,
+        ...sections.slice(action.index + 1)
       ];
     default:
       return sections;
