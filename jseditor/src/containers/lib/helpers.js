@@ -269,11 +269,12 @@ export const findByName = (name: string, list: Array<User>) =>
 
 const getPrimaryImg = fields => {
   let imageSrc = null;
-
-  for (let i = 0; i < fields.length; i++) {
-    if (fields[i]['type'] === 'image') {
-      imageSrc = `${fields[i].src}/original.${fields[i].extension}`;
-      break;
+  if (fields) {
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i]['type'] === 'image') {
+        imageSrc = `${fields[i].src}/original.${fields[i].extension}`;
+        break;
+      }
     }
   }
   return imageSrc;
