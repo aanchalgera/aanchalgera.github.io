@@ -51,12 +51,14 @@ class Image extends React.PureComponent<Props, State> {
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
-        <img
-          src={url}
-          alt={alt}
-          onClick={this.handleToolbar}
-          className={this.state.className}
-        />
+        <div className="node-wrapper">
+          <img
+            src={url}
+            alt={alt}
+            onClick={this.handleToolbar}
+            className={this.state.className}
+          />
+        </div>
         <PopoverToolbar
           imageEl={this.state.imageEl}
           open={this.state.openImageToolbar}
