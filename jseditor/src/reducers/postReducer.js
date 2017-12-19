@@ -43,7 +43,8 @@ export default function(state = initialState, action) {
     case CHANGE_CURRENT_INDEX:
       return {
         ...state,
-        currentIndex: action.index
+        currentIndex: action.index,
+        isAtFirstPosition: false
       };
     default:
       return state;
