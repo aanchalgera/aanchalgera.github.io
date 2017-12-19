@@ -223,13 +223,13 @@ class Publish extends React.Component<Props> {
     ) {
       let data = new FormData();
       data.append('url', this.state.primaryImage);
-      data.append('validated', this.state.crop);
+      data.append('validated', JSON.stringify(this.state.crop));
       const imageWithNewPath = await postImages(this.props.blogName, data);
       this.saveNewPathToContent(imageWithNewPath);
       this.setState({
-        primaryImage: `${
-          imageWithNewPath['src'].split('original')[0]
-        }image_dimension.${imageWithNewPath['extension']}`
+        primaryImage: `${imageWithNewPath['src']}/original.${
+          imageWithNewPath['extension']
+        }`
       });
     }
     this.savePostData();
