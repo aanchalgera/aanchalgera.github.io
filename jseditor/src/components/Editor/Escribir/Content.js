@@ -1,4 +1,3 @@
-/* @flow */
 import React from 'react';
 import { connect } from 'react-redux';
 import { EditorState, RichUtils } from 'draft-js';
@@ -98,6 +97,7 @@ class Content extends React.PureComponent<Props> {
           ref={element => {
             this._editor = element;
           }}
+          onUpArrow={this.handleUpArrow}
           stripPastedStyles
           placeholder={placeHolder}
           handleKeyCommand={this.handleKeyCommand}

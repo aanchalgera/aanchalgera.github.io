@@ -16,8 +16,7 @@ type Props = {
 
 type State = {
   schedulerOpened: boolean,
-  anchorEl: any,
-  focussed: boolean
+  anchorEl: any
 };
 
 export class SchedulePost extends React.PureComponent<Props, State> {

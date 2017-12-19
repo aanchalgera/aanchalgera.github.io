@@ -1,4 +1,3 @@
-/* @flow */
 import React from 'react';
 import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';

@@ -2,6 +2,7 @@
 .*/node_modules/draft-js/.
 .*/node_modules/react-event-listener/src/index.js
 .*/node_modules/radium/.
+.*/node_modules/protobufjs/src/bower.json
 [include]
 
 [libs]
