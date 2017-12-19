@@ -4,11 +4,12 @@ import IconButton from 'material-ui/IconButton';
 
 type Props = {
   ActionIcon: React.Node,
-  handleClick: () => void
+  handleClick: () => void,
+  tooltip: string
 };
 
-export const ToolbarIcon = ({ ActionIcon, handleClick }: Props) => (
-  <IconButton touch onClick={handleClick}>
+export const ToolbarIcon = ({ ActionIcon, handleClick, tooltip }: Props) => (
+  <IconButton onClick={handleClick} className="media-layout" tooltip={tooltip}>
     {ActionIcon}
   </IconButton>
 );

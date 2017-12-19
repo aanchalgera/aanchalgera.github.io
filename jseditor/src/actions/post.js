@@ -7,7 +7,7 @@ export const CHANGE_POSITION = 'CHANGE_POSITION';
 export const DELETE_SECTION = 'DELETE_SECTION';
 export const EDIT_IMAGE = 'EDIT_IMAGE';
 export const CHANGE_CURRENT_INDEX = 'CHANGE_CURRENT_INDEX';
-export const CHANGE_ALIGN = 'CHANGE_ALIGN';
+export const CHANGE_LAYOUT = 'CHANGE_LAYOUT';
 
 export const receivePost = post => ({
   type: RECEIVE_POST,
@@ -69,8 +69,9 @@ export const changeCurrentIndex = index => ({
   index
 });
 
-export const changeAlign = (index, align) => ({
-  type: CHANGE_ALIGN,
+export const changeLayout = (index, layout, align) => ({
+  type: CHANGE_LAYOUT,
   index,
+  layout,
   align
 });

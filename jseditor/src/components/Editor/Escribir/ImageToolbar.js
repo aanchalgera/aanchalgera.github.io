@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ToolbarSeparator } from 'material-ui/Toolbar';
-import { deleteSection, openImagePanel, changeAlign } from 'actions/post';
+import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
 import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
 import ReactSVG from 'react-svg';
 import { ToolbarIcon } from '.';
@@ -13,6 +13,8 @@ type Props = {
   handleEdit: () => void,
   openImagePanel: (actionName: string) => void,
   closeImageToolbar: () => void,
+  deleteSection: (index: number) => void,
+  changeLayout: (index: number, layout: string, align: string) => void,
   index: number
 };
 
@@ -26,59 +28,59 @@ const ImageToolbar = (props: Props) => {
     props.closeImageToolbar();
   };
 
-  const changeAlign = align => {
-    props.changeAlign(props.index, align);
+  const changeLayout = (layout, align = 'center') => {
+    props.changeLayout(props.index, layout, align);
   };
 
   return [
     <ToolbarIcon
       key="smallLeft"
-      className="media-layout-left"
       ActionIcon={<ReactSVG path="/svgs/smallLeft.svg" />}
-      handleClick={() => changeAlign('left')}
+      handleClick={() => changeLayout('small', 'left')}
+      tooltip="Pequeño, a la izquierda"
     />,
     <ToolbarIcon
       key="small"
-      className="media-layout-center"
       ActionIcon={<ReactSVG path="/svgs/small.svg" />}
-      handleClick={() => changeAlign('small_center')}
+      handleClick={() => changeLayout('small', 'small_center')}
+      tooltip="Pequeño, centrado"
     />,
     <ToolbarIcon
       key="smallRight"
-      className="media-layout-right"
       ActionIcon={<ReactSVG path="/svgs/smallRight.svg" />}
-      handleClick={() => changeAlign('right')}
+      handleClick={() => changeLayout('small', 'right')}
+      tooltip="Pequeño, a la derecha"
     />,
     <ToolbarIcon
       key="normal"
-      className="media-layout-boxed"
       ActionIcon={<ReactSVG path="/svgs/normal.svg" />}
-      handleClick={() => changeAlign('none')}
+      handleClick={() => changeLayout('normal')}
+      tooltip="Normal"
     />,
     <ToolbarIcon
       key="big"
-      className="media-layout-container"
       ActionIcon={<ReactSVG path="/svgs/big.svg" />}
-      handleClick={() => changeAlign('center')}
+      handleClick={() => changeLayout('normal')}
+      tooltip="Grande"
     />,
     <ToolbarIcon
       key="edge"
-      className="media-layout-fullwidth"
       ActionIcon={<ReactSVG path="/svgs/edge.svg" />}
-      handleClick={() => changeAlign('cover')}
+      handleClick={() => changeLayout('large')}
+      tooltip="Anchura completa"
     />,
     <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />,
     <ToolbarIcon
       key="edit"
-      className="media-edit"
       ActionIcon={<EditorModeEdit color={grey600} />}
       handleClick={handleEdit}
+      tooltip="Editar"
     />,
     <ToolbarIcon
       key="delete"
-      className="media-delete"
       ActionIcon={<ActionDelete color={red500} />}
       handleClick={handleDelete}
+      tooltip="Quitar"
     />
   ];
 };
@@ -90,5 +92,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   deleteSection,
   openImagePanel,
-  changeAlign
+  changeLayout
 })(ImageToolbar);

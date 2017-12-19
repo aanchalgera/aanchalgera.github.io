@@ -5,7 +5,7 @@ import {
   CHANGE_CONTENT,
   DELETE_SECTION,
   EDIT_IMAGE,
-  CHANGE_ALIGN
+  CHANGE_LAYOUT
 } from 'actions/post';
 
 const initialState = [
@@ -98,10 +98,11 @@ const sections = (sections = initialState, action) => {
         },
         ...sections.slice(action.image.index + 1)
       ];
-    case CHANGE_ALIGN:
-      const { align } = action;
-      const modifiedNode = {
+    case CHANGE_LAYOUT:
+      const { layout, align } = action;
+      let modifiedNode = {
         ...sections[action.index],
+        layout,
         align
       };
       return [

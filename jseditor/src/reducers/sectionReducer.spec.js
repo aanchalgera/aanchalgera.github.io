@@ -6,7 +6,7 @@ import {
   changeContent,
   deleteSection,
   editImage,
-  changeAlign
+  changeLayout
 } from 'actions/post';
 
 describe('reducer', () => {
@@ -231,7 +231,7 @@ describe('reducer', () => {
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
-  it('it should change the align of given node', () => {
+  it('it should change the layout of given node', () => {
     const stateBefore = [
       {
         id: 1,
@@ -259,7 +259,8 @@ describe('reducer', () => {
 
     const index = 1;
     const align = 'right';
-    const action = changeAlign(index, align);
+    const layout = 'small';
+    const action = changeLayout(index, layout, align);
 
     const stateAfter = [
       {
@@ -272,7 +273,8 @@ describe('reducer', () => {
         type: 'image',
         url: 'https://i.blogs.com/id/original.jpg',
         alt: 'Truth can only be found in one place: the code',
-        align: 'right'
+        align: 'right',
+        layout: 'small'
       },
       {
         id: 3,
