@@ -10,6 +10,8 @@ type Props = {
   src: string,
   extension: string,
   index: number,
+  layout: string,
+  align: string,
   changeCurrentIndex: (index: number) => void
 };
 type State = {
@@ -48,7 +50,7 @@ class Image extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { alt, src, extension, index } = this.props;
+    const { alt, src, extension, index, align, layout } = this.props;
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
@@ -57,7 +59,7 @@ class Image extends React.PureComponent<Props, State> {
             src={url}
             alt={alt}
             onClick={this.handleToolbar}
-            className={this.state.className}
+            className={`${layout}-${align} ${this.state.className}`}
           />
         </div>
         <PopoverToolbar
@@ -68,6 +70,7 @@ class Image extends React.PureComponent<Props, State> {
             <ImageToolbar
               index={index}
               closeImageToolbar={this.closeImageToolbar}
+              selectedKey={`${layout}-${align}`}
             />
           }
         />
