@@ -26,30 +26,34 @@ class Content extends React.PureComponent<Props> {
 
   componentDidUpdate() {
     const { editorState } = this.state;
-    const currentBlockKey = editorState.getSelection().getStartKey();
+    const selectionState = editorState.getSelection();
+    if (selectionState.getHasFocus()) {
+      const currentBlockKey = selectionState.getStartKey();
+      const currentContent = editorState.getCurrentContent();
+      const splitPosition = currentContent
+        .getBlockMap()
+        .keySeq()
+        .findIndex(k => k === currentBlockKey);
+      const length = currentContent
+        .getBlocksAsArray()
+        [splitPosition].getLength();
+      const isAtFirstPosition = length === 0 ? true : false;
 
-    const currentContent = editorState.getCurrentContent();
-    const splitPosition = currentContent
-      .getBlockMap()
-      .keySeq()
-      .findIndex(k => k === currentBlockKey);
-    const length = currentContent.getBlocksAsArray()[splitPosition].getLength();
-    const isAtFirstPosition = length === 0 ? true : false;
-
-    const caretPosition = document.querySelector(
-      'span[data-offset-key="' + currentBlockKey + '-0-0"]'
-    );
-    if (caretPosition) {
-      const coordinates = {
-        top: caretPosition.offsetTop - caretPosition.offsetHeight,
-        left: caretPosition.offsetLeft
-      };
-      this.props.changePosition(
-        this.props.index,
-        splitPosition,
-        coordinates,
-        isAtFirstPosition
+      const caretPosition = document.querySelector(
+        'span[data-offset-key="' + currentBlockKey + '-0-0"]'
       );
+      if (caretPosition) {
+        const coordinates = {
+          top: caretPosition.offsetTop - caretPosition.offsetHeight,
+          left: caretPosition.offsetLeft
+        };
+        this.props.changePosition(
+          this.props.index,
+          splitPosition,
+          coordinates,
+          isAtFirstPosition
+        );
+      }
     }
   }
 
@@ -61,11 +65,14 @@ class Content extends React.PureComponent<Props> {
   }
 
   onChange = editorState => {
-    const currentContent = editorState.getCurrentContent();
-    this.setState({ editorState }, () => {
-      const value = markdown(stateToHTML(currentContent));
+    const currentContentState = this.state.editorState.getCurrentContent();
+    const newContentState = editorState.getCurrentContent();
+
+    if (currentContentState !== newContentState) {
+      const value = markdown(stateToHTML(currentContentState));
       this.props.changeContent(this.props.index, value);
-    });
+    }
+    this.setState({ editorState });
   };
 
   getVariables() {
@@ -97,7 +104,6 @@ class Content extends React.PureComponent<Props> {
           ref={element => {
             this._editor = element;
           }}
-          onUpArrow={this.handleUpArrow}
           stripPastedStyles
           placeholder={placeHolder}
           handleKeyCommand={this.handleKeyCommand}
