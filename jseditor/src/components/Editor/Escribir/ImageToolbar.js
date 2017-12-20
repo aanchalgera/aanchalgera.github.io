@@ -13,15 +13,16 @@ type Props = {
   handleEdit: () => void,
   openImagePanel: (actionName: string) => void,
   closeImageToolbar: () => void,
-  deleteSection: (index: number) => void,
+  deleteSection: (index: number, id: number) => void,
   changeLayout: (index: number, layout: string, align: string) => void,
   index: number,
-  selectedKey: string
+  selectedKey: string,
+  maxId: number 
 };
 
 const ImageToolbar = (props: Props) => {
   const handleDelete = () => {
-    props.deleteSection(props.index);
+    props.deleteSection(props.index, props.maxId);
   };
 
   const handleEdit = () => {

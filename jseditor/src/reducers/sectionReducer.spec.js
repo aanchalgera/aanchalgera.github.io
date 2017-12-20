@@ -123,25 +123,31 @@ describe('reducer', () => {
       },
       {
         id: 2,
+        type: 'content',
+        text: 'test'
+      },
+      {
+        id: 3,
         type: 'image',
         url: 'https://i.blogs.com/id/original.jpg',
         alt: 'Truth can only be found in one place: the code'
       },
       {
-        id: 3,
+        id: 4,
         type: 'content',
         text: 'test'
       },
       {
-        id: 4,
+        id: 5,
         type: 'image',
         url: 'https://i.blogs.com/id/original.jpg',
         alt: 'sample alt'
       }
     ];
 
-    const index = 3;
-    const action = deleteSection(index);
+    const index = 2;
+    const maxId = 5;
+    const action = deleteSection(index, maxId);
 
     const stateAfter = [
       {
@@ -150,15 +156,15 @@ describe('reducer', () => {
         text: 'No if no but, only jatt'
       },
       {
-        id: 2,
-        type: 'image',
-        url: 'https://i.blogs.com/id/original.jpg',
-        alt: 'Truth can only be found in one place: the code'
+        id: 6,
+        type: 'content',
+        text: 'testtest'
       },
       {
-        id: 3,
-        type: 'content',
-        text: 'test'
+        id: 5,
+        type: 'image',
+        url: 'https://i.blogs.com/id/original.jpg',
+        alt: 'sample alt'
       }
     ];
 

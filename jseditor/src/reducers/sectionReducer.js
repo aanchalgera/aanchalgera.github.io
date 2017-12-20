@@ -69,18 +69,17 @@ const sections = (sections = initialState, action) => {
         ...sections.slice(index + 1)
       ];
     case DELETE_SECTION:
-      if (
-        sections[action.index - 1]['type'] === 'content' &&
-        sections[action.index - 1]['text'] === ''
-      ) {
-        return [
-          ...sections.slice(0, action.index - 1),
-          ...sections.slice(action.index + 1)
-        ];
-      }
+      const sectionToAdd = {
+        id: action.data.id + 1,
+        type: 'content',
+        text:
+          sections[action.data.index - 1]['text'] +
+          sections[action.data.index + 1]['text']
+      };
       return [
-        ...sections.slice(0, action.index),
-        ...sections.slice(action.index + 1)
+        ...sections.slice(0, action.data.index - 1),
+        sectionToAdd,
+        ...sections.slice(action.data.index + 2)
       ];
     case EDIT_IMAGE:
       const { alt, src, extension, height, width } = action.image;
