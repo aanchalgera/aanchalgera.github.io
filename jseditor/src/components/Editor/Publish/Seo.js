@@ -21,7 +21,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
   };
 
   const updateSeoDescription = (e: InputEvent) => {
-    if (e.currentTarget.value.length < DESCRIPTION_MAX_LENGTH) {
+    if (e.currentTarget.value.length <= DESCRIPTION_MAX_LENGTH) {
       setPostMeta('seo', {
         title: seo.title,
         description: e.currentTarget.value
