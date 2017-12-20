@@ -20,7 +20,7 @@ type ImageData = {
 type Props = {
   open: boolean,
   imageToEmbed: Image,
-  addImage: (imageData: ImageData) => void,
+  addImage: (imageData: ImageData, mode: string) => void,
   closeDialog: () => void,
   index: number,
   mode: string
