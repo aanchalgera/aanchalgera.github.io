@@ -32,11 +32,8 @@ class Content extends React.PureComponent<Props> {
       const currentContent = editorState.getCurrentContent();
       const splitPosition = currentContent
         .getBlockMap()
-        .keySeq()
-        .findIndex(k => k === currentBlockKey);
-      const length = currentContent
-        .getBlocksAsArray()
-        [splitPosition].getLength();
+        ._map.get(currentBlockKey);
+      const length = currentContent.getBlockForKey(currentBlockKey).getLength();
       const isAtFirstPosition = length === 0 ? true : false;
 
       const caretPosition = document.querySelector(
@@ -69,7 +66,7 @@ class Content extends React.PureComponent<Props> {
     const newContentState = editorState.getCurrentContent();
 
     if (currentContentState !== newContentState) {
-      const value = markdown(stateToHTML(currentContentState));
+      const value = markdown(stateToHTML(newContentState));
       this.props.changeContent(this.props.index, value);
     }
     this.setState({ editorState });
