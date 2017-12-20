@@ -64,6 +64,8 @@ export const loadStatefromData = (data: {}, userRole: string) => {
 
   const postType = data.postType || getPostType(userRole);
 
+  data.meta.social.twitter = data.meta.social.twitter || data.title;
+
   return {
     id: data.id,
     blogName: data.blogName,

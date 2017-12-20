@@ -81,6 +81,10 @@ export const viewPermissions = {
   SpecialPost: {
     roles: ['ROLE_EDITOR', 'ROLE_COORDINATOR', 'ROLE_COLLABORATOR'],
     types: ['normal', 'slideshow']
+  },
+  Tags: {
+    roles: ALL_COORDINATORS,
+    types: ['normal', 'slideshow', 'longform', 'basics', 'club']
   }
 };
 

@@ -5,6 +5,8 @@ import { TextField, Divider } from 'material-ui';
 import { InputEvent } from 'lib/flowTypes';
 import { Label } from './index';
 
+const DESCRIPTION_MAX_LENGTH = 230;
+
 type Props = {
   seo: { title: string, description: string },
   setPostMeta: (string, {}) => void
@@ -19,10 +21,12 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
   };
 
   const updateSeoDescription = (e: InputEvent) => {
-    setPostMeta('seo', {
-      title: seo.title,
-      description: e.currentTarget.value
-    });
+    if (e.currentTarget.value.length <= DESCRIPTION_MAX_LENGTH) {
+      setPostMeta('seo', {
+        title: seo.title,
+        description: e.currentTarget.value
+      });
+    }
   };
   return (
     <Row>
