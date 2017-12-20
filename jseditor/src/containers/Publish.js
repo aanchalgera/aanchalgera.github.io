@@ -404,12 +404,14 @@ class Publish extends React.Component<Props> {
             </Col>
           </Check>
           <Col sm={6}>
-            <Tags
-              siteUrl={this.props.blogUrl}
-              tags={this.state.tags}
-              updateParent={this.updateParent}
-              siteName={this.props.blogName}
-            />
+            <Check childName="Tags">
+              <Tags
+                siteUrl={this.props.blogUrl}
+                tags={this.state.tags}
+                updateParent={this.updateParent}
+                siteName={this.props.blogName}
+              />
+            </Check>
           </Col>
         </Row>
         <Row className="bottom-xs">

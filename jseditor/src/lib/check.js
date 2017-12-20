@@ -15,7 +15,6 @@ export const init = (type: string, role: string) => {
 
 const isViewPermitted = (component: string): boolean => {
   const componentViewPermissions = viewPermissions[component];
-
   if (componentViewPermissions['types'].includes(postType)) {
     if ('ROLE_ADMINISTRATOR' === userRole && component !== 'PublicationLabel') {
       return true;
