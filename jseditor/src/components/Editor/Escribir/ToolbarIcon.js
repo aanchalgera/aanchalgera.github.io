@@ -15,11 +15,7 @@ export const ToolbarIcon = ({
   className,
   tooltip
 }: Props) => (
-  <IconButton
-    onClick={handleClick}
-    className={`media-layout ${className}`}
-    tooltip={tooltip}
-  >
-    {ActionIcon}
+  <IconButton className={`media-layout ${className}`} tooltip={tooltip}>
+    <span onClick={handleClick}>{ActionIcon}</span>
   </IconButton>
 );
