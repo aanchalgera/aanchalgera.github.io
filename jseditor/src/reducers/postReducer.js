@@ -3,7 +3,8 @@ import {
   ADD_SECTION,
   CHANGE_POSITION,
   CHANGE_CURRENT_INDEX,
-  CHANGE_TITLE
+  CHANGE_TITLE,
+  DELETE_SECTION
 } from 'actions/post';
 
 const initialState = {};
@@ -30,7 +31,13 @@ export default function(state = initialState, action) {
     case ADD_SECTION:
       return {
         ...state,
-        maxId: state.maxId + 3
+        maxId: state.maxId + 3,
+        isAtFirstPosition: false
+      };
+    case DELETE_SECTION:
+      return {
+        ...state,
+        maxId: state.maxId + 1
       };
     case CHANGE_POSITION:
       return {

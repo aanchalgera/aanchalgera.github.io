@@ -81,7 +81,7 @@ class Escribir extends React.PureComponent<Props> {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
         nodes.push(
-          <Node index={i} saveData={this.saveData} key={sections[i].id} />
+          <Node index={i} saveData={this.saveData} key={sections[i].id} maxId={this.props.maxId} />
         );
       }
       return (

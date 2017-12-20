@@ -7,7 +7,8 @@ import { Title, Content, Image } from 'components/Editor/Escribir';
 type Props = {
   id: number,
   type: string,
-  index: number
+  index: number,
+  maxId: number
 };
 
 class Node extends React.PureComponent<Props> {

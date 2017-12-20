@@ -54,9 +54,9 @@ export const openImagePanel = (mode = 'add') => ({
   mode
 });
 
-export const deleteSection = index => ({
+export const deleteSection = (index, id) => ({
   type: DELETE_SECTION,
-  index
+  data: {index, id}
 });
 
 export const editImage = image => ({
