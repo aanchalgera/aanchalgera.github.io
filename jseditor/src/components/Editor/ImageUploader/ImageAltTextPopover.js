@@ -54,7 +54,9 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       extension,
       height,
       width,
-      index
+      index,
+      layout: 'normal',
+      align: 'center'
     };
 
     addImage(image, mode);
