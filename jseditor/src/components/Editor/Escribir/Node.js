@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'react-flexbox-grid';
 
 import { Content, Image } from 'components/Editor/Escribir';
 
@@ -29,8 +28,7 @@ class Node extends React.PureComponent<Props> {
     }
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
-    if (type === 'title') return section;
-    else return <Col xs={8}>{section}</Col>;
+    return { section };
   }
 }
 
