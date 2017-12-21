@@ -12,7 +12,8 @@ type Props = {
   index: number,
   layout: string,
   align: string,
-  changeCurrentIndex: (index: number) => void
+  changeCurrentIndex: (index: number) => void,
+  maxId: number
 };
 type State = {
   openImageToolbar: boolean,
@@ -50,16 +51,16 @@ class Image extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { alt, src, extension, index, align, layout } = this.props;
+    const { alt, src, extension, index, align, layout, maxId } = this.props;
     const url = `${src}/original.${extension}`;
     return (
-      <React.Fragment>
+      <div className={`${layout}-${align}`}>
         <div className="node-wrapper">
           <img
             src={url}
             alt={alt}
             onClick={this.handleToolbar}
-            className={`${layout}-${align} ${this.state.className}`}
+            className={this.state.className}
           />
         </div>
         <PopoverToolbar
@@ -71,10 +72,11 @@ class Image extends React.PureComponent<Props, State> {
               index={index}
               closeImageToolbar={this.closeImageToolbar}
               selectedKey={`${layout}-${align}`}
+              maxId={maxId}
             />
           }
         />
-      </React.Fragment>
+      </div>
     );
   }
 }
