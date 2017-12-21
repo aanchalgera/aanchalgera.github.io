@@ -62,7 +62,7 @@ export const Seo = ({ seo, setPostMeta }: Props) => {
           fullWidth
           value={seo.description}
           onChange={updateSeoDescription}
-          floatingLabelText="Descripción SEO"
+          floatingLabelText={`Descripción SEO (disponible: ${DESCRIPTION_MAX_LENGTH-seo.description.length})`}
         />
         <Divider />
       </Col>
