@@ -92,7 +92,7 @@ class Escribir extends React.PureComponent<Props> {
             <Title text={this.props.title} />
             <Row className="m-no-margin">
               <Col xs={2} />
-              {nodes}
+              <Col xs={8}>{nodes}</Col>
               <Col xs={2} />
             </Row>
             <ImageUploader
