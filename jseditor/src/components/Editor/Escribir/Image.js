@@ -12,8 +12,7 @@ type Props = {
   index: number,
   layout: string,
   align: string,
-  changeCurrentIndex: (index: number) => void,
-  maxId: number
+  changeCurrentIndex: (index: number) => void
 };
 type State = {
   openImageToolbar: boolean,
@@ -51,7 +50,7 @@ class Image extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { alt, src, extension, index, align, layout, maxId } = this.props;
+    const { alt, src, extension, index, align, layout } = this.props;
     const url = `${src}/original.${extension}`;
     return (
       <React.Fragment>
@@ -72,7 +71,6 @@ class Image extends React.PureComponent<Props, State> {
               index={index}
               closeImageToolbar={this.closeImageToolbar}
               selectedKey={`${layout}-${align}`}
-              maxId={maxId}
             />
           }
         />
