@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Col, Row } from 'react-flexbox-grid';
+import { Col } from 'react-flexbox-grid';
 
 import { Title, Content, Image } from 'components/Editor/Escribir';
 
@@ -32,14 +32,7 @@ class Node extends React.PureComponent<Props> {
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
     if (type === 'title') return section;
-    else
-      return (
-        <Row className="m-no-margin">
-          <Col xs={2} />
-          <Col xs={8}>{section}</Col>
-          <Col xs={2} />
-        </Row>
-      );
+    else return <Col xs={8}>{section}</Col>;
   }
 }
 
