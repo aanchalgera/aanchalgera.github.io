@@ -7,7 +7,6 @@ import { changeTitle } from 'actions/post';
 
 type Props = {
   text: string,
-  saveData: () => void,
   changeTitle: (title: string) => void
 };
 
@@ -27,10 +26,6 @@ const styles = {
 };
 
 const Title = (props: Props) => {
-  const handleBlur = () => {
-    props.saveData();
-  };
-
   const handleChange = (event: InputEvent) => {
     const title = event.currentTarget.value;
     props.changeTitle(title);
@@ -43,7 +38,6 @@ const Title = (props: Props) => {
         fullWidth
         value={props.text}
         onChange={handleChange}
-        onBlur={handleBlur}
         style={styles.containerStyle}
         textareaStyle={styles.textareaStyle}
         hintStyle={styles.hintStyle}
