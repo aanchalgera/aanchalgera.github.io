@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Col } from 'react-flexbox-grid';
 
-import { Title, Content, Image } from 'components/Editor/Escribir';
+import { Content, Image } from 'components/Editor/Escribir';
 
 type Props = {
   id: number,
@@ -14,8 +14,6 @@ type Props = {
 class Node extends React.PureComponent<Props> {
   getSection = (type, props) => {
     switch (type) {
-      case 'title':
-        return <Title {...props} />;
       case 'content':
         return <Content {...props} />;
       case 'image':

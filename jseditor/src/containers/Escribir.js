@@ -10,7 +10,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node, MoreOptions } from 'components/Editor/Escribir';
+import { Node, MoreOptions, Title } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -18,6 +18,7 @@ const UPDATED_MESSAGE = 'Todo guardado';
 type Props = {
   match: { params: Object },
   blogName: string,
+  title: string,
   handleStatus: (status: string, date: string) => void,
   onRef: Function,
   id: string,
@@ -80,19 +81,15 @@ class Escribir extends React.PureComponent<Props> {
 
     if (this.props.id) {
       var nodes = [];
-      for (let i = 0; i <= sections.length - 1; i++) {
+      for (let i = 1; i <= sections.length - 1; i++) {
         nodes.push(
-          <Node
-            index={i}
-            saveData={this.saveData}
-            key={sections[i].id}
-            maxId={this.props.maxId}
-          />
+          <Node index={i} key={sections[i].id} maxId={this.props.maxId} />
         );
       }
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
+            <Title text={this.props.title} />
             <Row className="m-no-margin">
               <Col xs={2} />
               {nodes}
