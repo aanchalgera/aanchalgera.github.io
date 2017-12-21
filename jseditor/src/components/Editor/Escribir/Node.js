@@ -28,7 +28,7 @@ class Node extends React.PureComponent<Props> {
     }
     const { id, type, ...props } = this.props;
     const section = this.getSection(type, props);
-    return { section };
+    return section;
   }
 }
 
