@@ -66,6 +66,9 @@ export const loadStatefromData = (data: {}, userRole: string) => {
 
   if (data.meta) {
     data.meta.social.twitter = data.meta.social.twitter || data.title;
+  } else {
+    data.meta = initialMeta;
+    data.meta.social.twitter = data.title;
   }
 
   return {
@@ -78,7 +81,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
       data.commentStatus ||
       idx(data, _ => _.meta.comment.status) ||
       defaultCommentStatus[postType],
-    meta: data.meta || initialMeta,
+    meta: data.meta,
     maxId: data.maxId,
     status: data.status || 'draft',
     publishedDate: initialDate,
