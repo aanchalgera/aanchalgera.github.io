@@ -44,7 +44,6 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       imageToEmbed: { src, extension, height, width },
       index,
       addImage,
-      closeDialog,
       mode
     } = this.props;
 
@@ -60,7 +59,12 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     };
 
     addImage(image, mode);
-    closeDialog();
+    this.handleCloseDialog();
+  };
+
+  handleCloseDialog = () => {
+    this.props.closeDialog();
+    this.setState({ altText: '' });
   };
 
   getDialogActions = () => {
@@ -81,14 +85,14 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   };
 
   render() {
-    const { imageToEmbed: { src, extension }, open, closeDialog } = this.props;
+    const { imageToEmbed: { src, extension }, open } = this.props;
     const imageSrc = `${src}/${imageDimension}.${extension}`;
 
     return (
       <Dialog
         actions={this.getDialogActions()}
         open={open}
-        onRequestClose={closeDialog}
+        onRequestClose={this.handleCloseDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <Row className="m-no-margin">
@@ -96,7 +100,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
             <Label label="Insertar imagen en el artículo" />
           </Col>
           <Col sm={1} className="end-sm">
-            <CloseButton handleClose={closeDialog} />
+            <CloseButton handleClose={this.handleCloseDialog} />
           </Col>
         </Row>
         <Row className="m-no-margin">
