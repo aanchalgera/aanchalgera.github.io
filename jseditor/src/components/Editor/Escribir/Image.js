@@ -54,13 +54,13 @@ class Image extends React.PureComponent<Props, State> {
     const { alt, src, extension, index, align, layout, maxId } = this.props;
     const url = `${src}/original.${extension}`;
     return (
-      <React.Fragment>
+      <div className={`${layout}-${align}`}>
         <div className="node-wrapper">
           <img
             src={url}
             alt={alt}
             onClick={this.handleToolbar}
-            className={`${layout}-${align} ${this.state.className}`}
+            className={this.state.className}
           />
         </div>
         <PopoverToolbar
@@ -76,7 +76,7 @@ class Image extends React.PureComponent<Props, State> {
             />
           }
         />
-      </React.Fragment>
+      </div>
     );
   }
 }
