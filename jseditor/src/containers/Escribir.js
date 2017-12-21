@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import debounce from 'lodash.debounce';
+import { Col, Row } from 'react-flexbox-grid';
 
 import {
   getPost,
@@ -81,13 +82,22 @@ class Escribir extends React.PureComponent<Props> {
       var nodes = [];
       for (let i = 0; i <= sections.length - 1; i++) {
         nodes.push(
-          <Node index={i} saveData={this.saveData} key={sections[i].id} maxId={this.props.maxId} />
+          <Node
+            index={i}
+            saveData={this.saveData}
+            key={sections[i].id}
+            maxId={this.props.maxId}
+          />
         );
       }
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            {nodes}
+            <Row className="m-no-margin">
+              <Col xs={2} />
+              {nodes}
+              <Col xs={2} />
+            </Row>
             <ImageUploader
               id={this.props.id}
               site={this.props.blogName}
