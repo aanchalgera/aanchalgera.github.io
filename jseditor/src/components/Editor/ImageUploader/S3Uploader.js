@@ -15,7 +15,8 @@ type Props = {
   id: string,
   open: boolean,
   site: string,
-  openImagePanel: () => void,
+  mode: string,
+  openImagePanel: (mode: string) => void,
   closeDialog: () => void
 };
 
@@ -35,10 +36,10 @@ export class S3Uploader extends PureComponent<Props, State> {
   }
 
   uploadToFirebase = (image: S3Image) => {
-    const { id, openImagePanel } = this.props;
+    const { id, mode, openImagePanel } = this.props;
 
     postImagesToFirebase(id, image);
-    openImagePanel();
+    openImagePanel(mode);
   };
 
   selectImages = async (e: InputEvent) => {
@@ -89,7 +90,7 @@ export class S3Uploader extends PureComponent<Props, State> {
             className="file-select-hidden"
           />
         </RaisedButton>
-        <div className='error'>{ this.state.errorMessage }</div>
+        <div className="error">{this.state.errorMessage}</div>
       </Fragment>
     );
   };
@@ -97,7 +98,11 @@ export class S3Uploader extends PureComponent<Props, State> {
   render() {
     const { showProgress } = this.state;
     const { closeDialog } = this.props;
-    const contents = showProgress ? <CircularProgress /> : this.getUploadButton();
+    const contents = showProgress ? (
+      <CircularProgress />
+    ) : (
+      this.getUploadButton()
+    );
 
     return (
       <Dialog
@@ -116,7 +121,7 @@ export class S3Uploader extends PureComponent<Props, State> {
             <CloseButton handleClose={closeDialog} />
           </Col>
         </Row>
-        <div className="uploader">{ contents }</div>
+        <div className="uploader">{contents}</div>
       </Dialog>
     );
   }

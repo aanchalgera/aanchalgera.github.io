@@ -59,6 +59,7 @@ class ImageUploader extends React.PureComponent<Props> {
           open={isUploaderOpen}
           id={id}
           openImagePanel={openImagePanel}
+          mode={mode}
           closeDialog={closeDialog}
           site={site}
         />
