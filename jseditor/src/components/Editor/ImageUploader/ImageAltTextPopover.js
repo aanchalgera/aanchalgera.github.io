@@ -36,7 +36,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   };
 
   onTextChange = (e: InputEvent, value: string) => {
-    this.setState({ altText: value });
+    this.setState({ altText: value.trim() });
   };
 
   handleSubmit = () => {
