@@ -89,6 +89,8 @@ const sections = (sections = initialState, action) => {
         {
           type: 'image',
           id: sections[action.image.index].id,
+          align: sections[action.image.index].align,
+          layout: sections[action.image.index].layout,
           alt,
           src,
           extension,
