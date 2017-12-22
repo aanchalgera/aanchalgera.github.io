@@ -41,6 +41,7 @@
     "*.{js,jsx,css}": [
       "prettier --parser-flow --single-quote --write",
       "eslint --fix",
+      "flow focus-check",
       "git add"
     ]
   },
@@ -49,8 +50,7 @@
     "build": "NODE_PATH=./src react-scripts build",
     "test": "NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow",
-    "precommit": "lint-staged && flow",
+    "precommit": "lint-staged",
     "storybook": "NODE_PATH=./src start-storybook -p 9009 -s public",
     "build-storybook": "NODE_PATH=./src build-storybook -c .storybook -o .out",
     "deploy-storybook": "storybook-to-ghpages"
