@@ -17,7 +17,7 @@ type Props = {
   changeLayout: (index: number, layout: string, align: string) => void,
   index: number,
   selectedKey: string,
-  maxId: number 
+  maxId: number
 };
 
 const ImageToolbar = (props: Props) => {
@@ -76,6 +76,7 @@ const ImageToolbar = (props: Props) => {
       <ToolbarIcon
         ActionIcon={<ReactSVG path="/svgs/edge.svg" />}
         handleClick={() => changeLayout('cover')}
+        className={getClassName('cover')}
         tooltip="Anchura completa"
       />
       <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />
