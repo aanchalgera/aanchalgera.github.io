@@ -37,7 +37,11 @@ class Content extends React.PureComponent<Props> {
       const isAtFirstPosition = length === 0 ? true : false;
 
       const caretPosition = document.querySelector(
-        'span[data-offset-key="' + currentBlockKey + '-0-0"]'
+        '#section-' +
+          this.props.index +
+          ' span[data-offset-key="' +
+          currentBlockKey +
+          '-0-0"]'
       );
       if (caretPosition) {
         const coordinates = {
@@ -93,7 +97,11 @@ class Content extends React.PureComponent<Props> {
   render() {
     const { placeHolder, className } = this.getVariables();
     return (
-      <div onClick={() => this._editor.focus()} className={className}>
+      <div
+        id={'section-' + this.props.index}
+        onClick={() => this._editor.focus()}
+        className={className}
+      >
         <Editor
           editorState={this.state.editorState}
           onChange={this.onChange}
