@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -15,6 +16,7 @@ import {
   republishSchedule
 } from './lib/service';
 import { toggleItem } from 'lib/helpers';
+import { receivePost } from 'actions/post';
 
 const POST_REPUBLISHED = 'Post successfully republished again';
 const ERROR = 'Something went wrong';
@@ -26,6 +28,7 @@ type Props = {
   match: { params: Object },
   blogUrl: string,
   blogName: string,
+  receivePost: (post: Object) => void,
   handleDifundir: (status: string, date: string) => void
 };
 
@@ -55,6 +58,7 @@ class Difundir extends React.PureComponent<Props> {
       postHash: data.publishData.postHash,
       postDate: data.publishData.postDate
     });
+    this.props.receivePost(data);
     this.props.handleDifundir(data.status, this.state.postDate);
   }
 
@@ -184,4 +188,8 @@ class Difundir extends React.PureComponent<Props> {
   }
 }
 
-export default Difundir;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(mapStateToProps, { receivePost })(Difundir);
