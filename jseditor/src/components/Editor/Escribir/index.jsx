@@ -4,6 +4,7 @@ import Content from './Content';
 import Image from './Image';
 import MoreOptions from './MoreOptions';
 import ImageToolbar from './ImageToolbar';
+import Warning from './Warning';
 
 export { SectionModule } from './SectionModule';
 export { Title };
@@ -16,3 +17,4 @@ export { Image };
 export { PopoverToolbar } from './PopoverToolbar';
 export { ImageToolbar };
 export { ToolbarIcon } from './ToolbarIcon';
+export { Warning };

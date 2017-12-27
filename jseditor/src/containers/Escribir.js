@@ -10,7 +10,7 @@ import {
   savePostFromEscribirPage
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node, MoreOptions, Title } from 'components/Editor/Escribir';
+import { Node, MoreOptions, Title, Warning } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -102,6 +102,7 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
+          <Warning />
         </div>
       );
     } else return 'Loading';
