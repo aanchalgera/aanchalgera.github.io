@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { Snackbar, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -35,6 +37,7 @@ import { Check, init as initCheck } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
 import { postImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
+import { receivePost } from 'actions/post';
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
 const SAVED_MESSAGE = 'Tu post está programado, se publicará el ';
@@ -46,7 +49,8 @@ type Props = {
   blogUrl: string,
   blogName: string,
   userRole: string,
-  handleDifundir: (status: string, date: string) => void
+  handleDifundir: (status: string, date: string) => void,
+  receivePost: (post: Object) => void
 };
 
 class Publish extends React.Component<Props> {
@@ -74,6 +78,7 @@ class Publish extends React.Component<Props> {
     }
     this.props.handleDifundir(post.status, this.state.publishedDate);
     initCheck(post.postType, this.props.userRole);
+    this.props.receivePost(post);
   }
 
   submitPost = async () => {
@@ -488,4 +493,8 @@ class Publish extends React.Component<Props> {
   }
 }
 
-export default Publish;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(mapStateToProps, { receivePost })(Publish);

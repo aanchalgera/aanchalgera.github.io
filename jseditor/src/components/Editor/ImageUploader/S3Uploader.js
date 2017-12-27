@@ -9,7 +9,7 @@ import { postImages as postImagesToS3 } from './lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
 
-const MAX_FILE_SIZE = 8000000;
+const MAX_FILE_SIZE = 8388608;
 
 type Props = {
   id: string,
