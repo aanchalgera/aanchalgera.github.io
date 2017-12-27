@@ -68,7 +68,6 @@ class Content extends React.PureComponent<Props> {
   onChange = editorState => {
     const currentContentState = this.state.editorState.getCurrentContent();
     const newContentState = editorState.getCurrentContent();
-
     if (currentContentState !== newContentState) {
       const value = markdown(stateToHTML(newContentState));
       this.props.changeContent(this.props.index, value);

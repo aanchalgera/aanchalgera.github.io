@@ -48,8 +48,14 @@ const sections = (sections = initialState, action) => {
     case ADD_SECTION:
       const { index, ...newSection } = action.section;
       const delimiter = '\n',
-        start = action.position,
         tokens = sections[index].text.split(delimiter);
+      let start = action.position;
+      const elements = ['<p><ol>', '<ol>', '</ol>', '<ul>', '</ul>'];
+      for (let i = 0; i < start; i++) {
+        if (elements.includes(tokens[i])) {
+          start++;
+        }
+      }
       const split1 = tokens.slice(0, start).join(delimiter);
       const split2 = tokens.slice(start).join(delimiter); // remove first <br />
       const contentSection1 = {
