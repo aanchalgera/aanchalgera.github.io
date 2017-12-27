@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { EditorState, RichUtils } from 'draft-js';
+import { EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import markdown from 'marked';
@@ -68,7 +68,6 @@ class Content extends React.PureComponent<Props> {
   onChange = editorState => {
     const currentContentState = this.state.editorState.getCurrentContent();
     const newContentState = editorState.getCurrentContent();
-
     if (currentContentState !== newContentState) {
       const value = markdown(stateToHTML(newContentState));
       this.props.changeContent(this.props.index, value);

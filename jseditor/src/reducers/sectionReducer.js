@@ -1,3 +1,4 @@
+import { split } from './draftJsHelper';
 import {
   CHANGE_TITLE,
   ADD_SECTION,
@@ -47,11 +48,12 @@ const sections = (sections = initialState, action) => {
       ];
     case ADD_SECTION:
       const { index, ...newSection } = action.section;
-      const delimiter = '\n',
-        start = action.position,
-        tokens = sections[index].text.split(delimiter);
-      const split1 = tokens.slice(0, start).join(delimiter);
-      const split2 = tokens.slice(start).join(delimiter); // remove first <br />
+      //  const delimiter = '\n',
+      //    start = action.position,
+      //    tokens = sections[index].text.split(delimiter);
+      //  const split1 = tokens.slice(0, start).join(delimiter);
+      //  const split2 = tokens.slice(start).join(delimiter); // remove first <br />
+      const { split1, split2 } = split(sections[index].text, action.position);
       const contentSection1 = {
         id: newSection.id + 1,
         type: 'content',
