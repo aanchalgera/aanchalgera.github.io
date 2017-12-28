@@ -73,12 +73,12 @@ const ImageToolbar = (props: Props) => {
         className={getClassName('large')}
         tooltip="Grande"
       />
-      <ToolbarIcon
+      {/*  <ToolbarIcon
         ActionIcon={<ReactSVG path="/svgs/edge.svg" />}
         handleClick={() => changeLayout('cover')}
         className={getClassName('cover')}
         tooltip="Anchura completa"
-      />
+      />*/}
       <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />
       <ToolbarIcon
         ActionIcon={<EditorModeEdit color={grey600} />}
