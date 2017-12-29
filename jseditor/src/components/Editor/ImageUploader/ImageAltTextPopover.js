@@ -94,7 +94,6 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
         open={open}
         onRequestClose={this.handleCloseDialog}
         className="dialog-wrapper"
-        contentClassName="dialog-wrapper-inner"
         autoScrollBodyContent
       >
         <Row className="m-no-margin">
