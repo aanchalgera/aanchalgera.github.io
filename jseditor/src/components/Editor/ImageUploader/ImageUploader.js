@@ -24,9 +24,18 @@ type Props = {
   mode: string
 };
 
-class ImageUploader extends React.PureComponent<Props> {
+class ImageUploader extends React.Component<Props> {
   componentWillMount() {
     getImages(this.props.id, this.props.receiveImages);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { imageUrls, isImagePanelOpen, openUploader } = nextProps;
+    if (isImagePanelOpen && 0 === imageUrls.length) {
+      openUploader();
+      return false;
+    }
+    return true;
   }
 
   render() {
