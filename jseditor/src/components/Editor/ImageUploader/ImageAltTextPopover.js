@@ -93,7 +93,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
         actions={this.getDialogActions()}
         open={open}
         onRequestClose={this.handleCloseDialog}
-        contentStyle={{ width: '95%', maxWidth: 'none' }}
+        className="dialog-wrapper"
         autoScrollBodyContent
       >
         <Row className="m-no-margin">
