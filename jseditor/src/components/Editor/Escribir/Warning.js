@@ -31,13 +31,13 @@ const Warning = (props: Props) => {
   return (
     <div>
       <Dialog
-        title="Dialog With Actions"
+        title="Warning"
         actions={actions}
         modal={false}
         open={'warningModal' === modalName}
         onRequestClose={this.closeWaning}
       >
-        The actions in this window were passed in as an array of React objects.
+        warning content goes here
       </Dialog>
     </div>
   );
