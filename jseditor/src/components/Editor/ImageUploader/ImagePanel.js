@@ -36,7 +36,7 @@ export class ImagePanel extends PureComponent<Props> {
         actions={this.getDialogActions()}
         open={open}
         onRequestClose={closeDialog}
-        className="dialog-wrapper"
+        contentStyle={{ width: '95%', maxWidth: 'none' }}
         autoScrollBodyContent
       >
         <Row className="m-no-margin">
