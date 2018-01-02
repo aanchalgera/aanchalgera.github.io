@@ -39,6 +39,14 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     this.setState({ altText: value.trim() });
   };
 
+  onKeyPress = (e: InputEvent) => {
+    const key = e.which || e.keyCode;
+
+    if ('' !== this.state.altText && 13 === key) {
+      this.handleSubmit();
+    }
+  };
+
   handleSubmit = () => {
     const {
       imageToEmbed: { src, extension, height, width },
@@ -116,7 +124,9 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               floatingLabelText="Texto alternativo"
               floatingLabelFixed
               onChange={this.onTextChange}
+              onKeyPress={this.onKeyPress}
               fullWidth
+              autoFocus
             />
           </Col>
         </Row>
