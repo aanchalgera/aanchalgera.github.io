@@ -32,13 +32,22 @@ export const getPost = postname => {
   });
 };
 
+export const listenToPost = (postname, receivePost) => {
+  return base.listenTo('posts/' + postname, {
+    context: this,
+    then(post) {
+      receivePost(post);
+    }
+  });
+};
+
 export const updatePost = async (postname, publishData) => {
   return await base.update('posts/' + postname, {
     data: { publishData }
   });
 };
 
-export const savePostFromEscribirPage = state => {
+export const savePostFromEscribirPage = (state, publishData) => {
   let firebaseData = {
     id: state.id,
     title: state.title,
@@ -47,7 +56,12 @@ export const savePostFromEscribirPage = state => {
     meta: state.meta,
     postType: state.postType
   };
-
+  if (publishData) {
+    firebaseData.publishData = {
+      postId: publishData.id,
+      postHash: publishData.post_hash
+    };
+  }
   base.update('posts/' + state.id, {
     data: firebaseData
   });

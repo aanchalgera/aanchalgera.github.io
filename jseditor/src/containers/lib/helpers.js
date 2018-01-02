@@ -1,7 +1,7 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
-import { defaultCommentStatus } from 'lib/constants';
+import { defaultCommentStatus, initialPublishRegions } from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -48,19 +48,6 @@ export const validateDate = (date: string, currentStatus: string) => {
 export const loadStatefromData = (data: {}, userRole: string) => {
   const initialDate =
     data.status === 'draft' ? currentHour() : data.publishData.postDate;
-  const initialPublishRegions = [
-    'ES',
-    'US',
-    'MX',
-    'PE',
-    'AR',
-    'CL',
-    'EC',
-    'CR',
-    'CO',
-    'CEA',
-    'ROW'
-  ];
 
   const postType = data.postType || getPostType(userRole);
 
