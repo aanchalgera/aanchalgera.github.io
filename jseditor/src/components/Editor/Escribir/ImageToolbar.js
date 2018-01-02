@@ -7,6 +7,7 @@ import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
 import ReactSVG from 'react-svg';
 import { ToolbarIcon } from '.';
 import { grey600, grey500, red500 } from 'material-ui/styles/colors';
+import SvgIcon from 'material-ui/SvgIcon';
 
 type Props = {
   handleDelete: () => void,
@@ -19,6 +20,11 @@ type Props = {
   selectedKey: string,
   maxId: number
 };
+
+// const iconStyles = {
+//   width: 28,
+//   height: 16,
+// };
 
 const ImageToolbar = (props: Props) => {
   const handleDelete = () => {
@@ -41,10 +47,18 @@ const ImageToolbar = (props: Props) => {
     return '';
   };
 
+  const smallLeftIcon = () => {
+    return (
+      <SvgIcon style={{ width: 2400, height: 16 }} viewBox="0 0 24 16">
+        <path d="M15,32 L33,32 L33,30.2222222 L15,30.2222222 L15,32 L15,32 Z M22,20 L22,21.7777778 L38,21.7777778 L38,20 L22,20 L22,20 Z M22,23 L22,24.7777778 L38,24.7777778 L38,23 L22,23 L22,23 Z M22,26 L22,27.7777778 L38,27.7777778 L38,26 L22,26 L22,26 Z M10,28.4455559 L20,28.4455559 L20,19.5555556 L10,19.5555556 L10,28.4455559 L10,28.4455559 Z M15,16 L15,17.7777778 L33,17.7777778 L33,16 L15,16 L15,16 Z" />
+      </SvgIcon>
+    );
+  };
+
   return (
     <React.Fragment>
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/smallLeft.svg" />}
+        ActionIcon={smallLeftIcon()}
         handleClick={() => changeLayout('small', 'left')}
         className={getClassName('small', 'left')}
         tooltip="Pequeño, a la izquierda"
