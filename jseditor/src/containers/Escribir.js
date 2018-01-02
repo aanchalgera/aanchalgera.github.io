@@ -5,9 +5,10 @@ import debounce from 'lodash.debounce';
 import { Col, Row } from 'react-flexbox-grid';
 
 import {
-  getPost,
-  savePostsList,
-  savePostFromEscribirPage
+  listenToPost,
+  submitPostToBackend,
+  savePostFromEscribirPage,
+  updatePost
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions, Title } from 'components/Editor/Escribir';
@@ -18,10 +19,12 @@ const UPDATED_MESSAGE = 'Todo guardado';
 type Props = {
   match: { params: Object },
   blogName: string,
+  blogUrl: string,
   title: string,
   handleStatus: (status: string, date: string) => void,
   onRef: Function,
   id: string,
+  postId: number,
   maxId: number,
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
@@ -49,10 +52,9 @@ class Escribir extends React.PureComponent<Props> {
     }
   }
 
-  async init() {
+  init() {
     const postname = this.props.match.params.postname;
-    const post = await getPost(postname);
-    this.props.receivePost(post);
+    listenToPost(postname, this.props.receivePost);
   }
 
   addImage = (image, mode) => {
@@ -65,8 +67,21 @@ class Escribir extends React.PureComponent<Props> {
     }
   };
 
+  savePostToBackend = async () => {
+    if (5 < this.props.title.length) {
+      const result = await submitPostToBackend(
+        { ...this.props },
+        this.props.blogUrl
+      );
+      const publishData = {
+        postId: result.id,
+        postHash: result.post_hash
+      };
+      updatePost(this.props.id, publishData);
+    }
+  };
+
   saveData = () => {
-    savePostsList(this.props, this.props.blogName);
     savePostFromEscribirPage(this.props);
     this.props.handleStatus(UPDATED_MESSAGE);
   };
@@ -89,7 +104,10 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            <Title text={this.props.title} />
+            <Title
+              text={this.props.title}
+              handleBlur={this.savePostToBackend}
+            />
             <Row className="m-no-margin">
               <Col xs={2} />
               <Col xs={8}>{nodes}</Col>

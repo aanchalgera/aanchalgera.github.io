@@ -1,3 +1,7 @@
+import idx from 'idx';
+
+import { currentHour } from 'containers/lib/momentHelper';
+import { defaultCommentStatus, initialPublishRegions } from 'lib/constants';
 import {
   RECEIVE_POST,
   ADD_SECTION,
@@ -21,6 +25,18 @@ export default function(state = initialState, action) {
         status: post.status,
         userId: post.user_id,
         meta: post.meta || null,
+        postCategories: post.postCategories || [],
+        category: post.category || -1,
+        tags: post.tags || [],
+        publishedDate:
+          post.status === 'draft' ? currentHour() : post.publishData.postDate,
+        isSensitive: post.isSensitive || false,
+        commentStatus:
+          post.commentStatus || defaultCommentStatus[post.postType],
+        postId: idx(post, _ => _.publishData.postId) || '',
+        primaryImage: '',
+        publishRegion:
+          idx(post, _ => _.publishData.publishRegion) || initialPublishRegions,
         maxId: post.maxId || 2
       };
     case CHANGE_TITLE:
