@@ -7,7 +7,8 @@ import { Col, Row } from 'react-flexbox-grid';
 import {
   listenToPost,
   submitPostToBackend,
-  savePostFromEscribirPage
+  savePostFromEscribirPage,
+  updatePost
 } from './lib/service';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions, Title } from 'components/Editor/Escribir';
@@ -68,11 +69,15 @@ class Escribir extends React.PureComponent<Props> {
 
   savePostToBackend = async () => {
     if (5 < this.props.title.length) {
-      const publishData = await submitPostToBackend(
+      const result = await submitPostToBackend(
         { ...this.props },
         this.props.blogUrl
       );
-      savePostFromEscribirPage(this.props, publishData);
+      const publishData = {
+        postId: result.id,
+        postHash: result.post_hash
+      };
+      updatePost(this.props.id, publishData);
     }
   };
 

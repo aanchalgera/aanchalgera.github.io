@@ -42,8 +42,8 @@ export const listenToPost = (postname, receivePost) => {
 };
 
 export const updatePost = async (postname, publishData) => {
-  return await base.update('posts/' + postname, {
-    data: { publishData }
+  return await base.update('posts/' + postname + '/publishData', {
+    data: { ...publishData }
   });
 };
 
