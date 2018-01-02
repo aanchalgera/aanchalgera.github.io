@@ -1,7 +1,7 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
-import { defaultCommentStatus } from 'lib/constants';
+import { defaultCommentStatus, initialMeta } from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -65,7 +65,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
   const postType = data.postType || getPostType(userRole);
 
   if (data.meta) {
-    data.meta.social.twitter = data.title;
+    data.meta.social.twitter = data.meta.social.twitter || data.title;
   } else {
     data.meta = initialMeta;
     data.meta.social.twitter = data.title;
@@ -213,27 +213,6 @@ const initialCrop = {
     width: 100,
     validate: false
   }
-};
-export const initialMeta = {
-  homepage: { content: '' },
-  index: '',
-  sponsor: { name: '', image: '', tracker: '' },
-  css: { skinName: '' },
-  seo: { title: '', description: '' },
-  showSocialShareButtons: false,
-  microsite: {
-    name: '',
-    gaSnippet: '',
-    showWSLLogo: true,
-    showSocialButtons: true
-  },
-  author: { showAuthorInfo: false },
-  social: {
-    twitter: '',
-    facebook: ''
-  },
-  footer: { hideFooter: false, content: '' },
-  showDate: false
 };
 
 export const initialState = {

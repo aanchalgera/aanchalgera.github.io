@@ -96,3 +96,25 @@ export const defaultCommentStatus = {
   brandedLongform: 'closed',
   longform: 'closed'
 };
+
+export const initialMeta = {
+  homepage: { content: '' },
+  index: '',
+  sponsor: { name: '', image: '', tracker: '' },
+  css: { skinName: '' },
+  seo: { title: '', description: '' },
+  showSocialShareButtons: false,
+  microsite: {
+    name: '',
+    gaSnippet: '',
+    showWSLLogo: true,
+    showSocialButtons: true
+  },
+  author: { showAuthorInfo: false },
+  social: {
+    twitter: '',
+    facebook: ''
+  },
+  footer: { hideFooter: false, content: '' },
+  showDate: false
+};

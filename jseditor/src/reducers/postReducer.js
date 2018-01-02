@@ -7,6 +7,8 @@ import {
   DELETE_SECTION
 } from 'actions/post';
 
+import { initialMeta } from 'lib/constants';
+
 const initialState = {};
 
 export default function(state = initialState, action) {
@@ -20,13 +22,20 @@ export default function(state = initialState, action) {
         title: post.title,
         status: post.status,
         userId: post.user_id,
-        meta: post.meta || null,
+        meta: post.meta || initialMeta,
         maxId: post.maxId || 2
       };
     case CHANGE_TITLE:
+      let social = state.meta.social;
+
+      if (state.title === social.twitter) {
+        social = { ...social, twitter: action.title };
+      }
+
       return {
         ...state,
-        title: action.title
+        title: action.title,
+        meta: { ...state.meta, social }
       };
     case ADD_SECTION:
       return {
