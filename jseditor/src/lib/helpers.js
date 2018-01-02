@@ -50,3 +50,9 @@ export const mapPostType = (postType: string) => {
   const normalTypes = ['normal', 'longform'];
   return normalTypes.includes(postType) ? 'normal' : 'club';
 };
+
+export const submitWithEnter = (key: number, callback: Function) => {
+  if (13 === key) {
+    callback();
+  }
+};

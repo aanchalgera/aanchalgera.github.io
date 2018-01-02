@@ -4,6 +4,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
 
 import { InputEvent, Image } from 'lib/flowTypes';
+import { submitWithEnter } from 'lib/helpers';
 import { CloseButton, Label } from '.';
 
 const imageDimension = 'original';
@@ -37,6 +38,14 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
 
   onTextChange = (e: InputEvent, value: string) => {
     this.setState({ altText: value.trim() });
+  };
+
+  onKeyPress = (e: InputEvent) => {
+    const key = e.which || e.keyCode;
+
+    if ('' !== this.state.altText) {
+      submitWithEnter(key, this.handleSubmit);
+    }
   };
 
   handleSubmit = () => {
@@ -116,7 +125,9 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               floatingLabelText="Texto alternativo"
               floatingLabelFixed
               onChange={this.onTextChange}
+              onKeyPress={this.onKeyPress}
               fullWidth
+              autoFocus
             />
           </Col>
         </Row>
