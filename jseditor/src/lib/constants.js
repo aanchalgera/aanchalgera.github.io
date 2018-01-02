@@ -118,3 +118,18 @@ export const initialMeta = {
   footer: { hideFooter: false, content: '' },
   showDate: false
 };
+
+export const initialPublishRegions = [
+  'ES',
+  'US',
+  'MX',
+  'PE',
+  'AR',
+  'CL',
+  'EC',
+  'CR',
+  'CO',
+  'CEA',
+  'ROW'
+];
+
