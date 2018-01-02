@@ -4,7 +4,6 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
 
 import { InputEvent, Image } from 'lib/flowTypes';
-import { submitWithEnter } from 'lib/helpers';
 import { CloseButton, Label } from '.';
 
 const imageDimension = 'original';
@@ -43,8 +42,8 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
   onKeyPress = (e: InputEvent) => {
     const key = e.which || e.keyCode;
 
-    if ('' !== this.state.altText) {
-      submitWithEnter(key, this.handleSubmit);
+    if ('' !== this.state.altText && 13 === key) {
+      this.handleSubmit();
     }
   };
 
