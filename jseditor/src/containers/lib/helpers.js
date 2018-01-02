@@ -65,7 +65,7 @@ export const loadStatefromData = (data: {}, userRole: string) => {
   const postType = data.postType || getPostType(userRole);
 
   if (data.meta) {
-    data.meta.social.twitter = data.meta.social.twitter || data.title;
+    data.meta.social.twitter = data.title;
   } else {
     data.meta = initialMeta;
     data.meta.social.twitter = data.title;
@@ -164,7 +164,7 @@ export const validateState = state => {
   } else if (0 === state.publishRegion.length) {
     isError = true;
     message = EMPTY_COUNTRY_ARRAY;
-  } else if (0 === state.tags.length) {
+  } else if (0 === state.tags.length && 'brandedLongform' !== state.postType) {
     isError = true;
     message = TAG_FIELD_EMPTY;
   }

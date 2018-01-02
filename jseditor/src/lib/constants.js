@@ -84,7 +84,7 @@ export const viewPermissions = {
   },
   Tags: {
     roles: ALL_COORDINATORS,
-    types: ['normal', 'slideshow', 'longform', 'basics', 'club']
+    types: ALL_TYPES
   }
 };
 
