@@ -1,7 +1,11 @@
 import idx from 'idx';
 
 import { currentHour } from 'containers/lib/momentHelper';
-import { defaultCommentStatus, initialPublishRegions } from 'lib/constants';
+import {
+  defaultCommentStatus,
+  initialPublishRegions,
+  initialMeta
+} from 'lib/constants';
 import {
   RECEIVE_POST,
   ADD_SECTION,
@@ -10,8 +14,6 @@ import {
   CHANGE_TITLE,
   DELETE_SECTION
 } from 'actions/post';
-
-import { initialMeta } from 'lib/constants';
 
 const initialState = {};
 

@@ -1,5 +1,12 @@
 import reducer from './postReducer';
-import { receivePost, addImage, changeCurrentIndex, deleteSection } from 'actions/post';
+import {
+  receivePost,
+  addImage,
+  changeCurrentIndex,
+  deleteSection,
+  changeTitle
+} from 'actions/post';
+import { initialPublishRegions, initialMeta } from 'lib/constants';
 
 describe('reducer', () => {
   it('should provide the initial state', () => {
@@ -23,8 +30,17 @@ describe('reducer', () => {
       title: '',
       status: 'draft',
       userId: 1,
-      meta: null,
-      maxId: 2
+      meta: initialMeta,
+      maxId: 2,
+      category: -1,
+      publishRegion: initialPublishRegions,
+      commentStatus: 'open',
+      isSensitive: false,
+      postCategories: [],
+      postId: '',
+      primaryImage: '',
+      publishedDate: '03/01/2018 8:00',
+      tags: []
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
@@ -44,7 +60,8 @@ describe('reducer', () => {
       postType: 'normal',
       title: '',
       status: 'draft',
-      maxId: 25
+      maxId: 25,
+      isAtFirstPosition: false
     };
 
     const image = {
@@ -79,13 +96,14 @@ describe('reducer', () => {
       userId: 1,
       meta: null,
       maxId: 2,
-      currentIndex: 3
+      currentIndex: 3,
+      isAtFirstPosition: false
     };
 
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 
-  it('should habdle delete section action', () => {
+  it('should handle delete section action', () => {
     const stateBefore = {
       id: 1,
       postType: 'normal',
@@ -109,6 +127,45 @@ describe('reducer', () => {
       userId: 1,
       meta: null,
       maxId: 3,
+      currentIndex: 2
+    };
+
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('should handle change title action', () => {
+    const stateBefore = {
+      id: 1,
+      postType: 'normal',
+      title: 'test title',
+      status: 'draft',
+      userId: 1,
+      meta: {
+        social: {
+          twitter: 'test title',
+          facebook: ''
+        }
+      },
+      maxId: 2,
+      currentIndex: 2
+    };
+
+    const newTitle = 'New title';
+    const action = changeTitle(newTitle);
+
+    const stateAfter = {
+      id: 1,
+      postType: 'normal',
+      title: 'New title',
+      status: 'draft',
+      userId: 1,
+      meta: {
+        social: {
+          twitter: 'New title',
+          facebook: ''
+        }
+      },
+      maxId: 2,
       currentIndex: 2
     };
 
