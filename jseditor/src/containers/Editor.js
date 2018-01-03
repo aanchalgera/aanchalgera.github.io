@@ -6,7 +6,8 @@ import PostTitle from 'components/Editor/PostTitle';
 import CloudinaryUploader from 'components/Editor/CloudinaryUploader';
 import Metadata from 'components/Editor/Metadata/Metadata';
 import configParams from 'config/configs.js';
-import { initialMeta, getPostType } from './lib/helpers';
+import { getPostType } from './lib/helpers';
+import { initialMeta } from 'lib/constants';
 import {
   savePostsList,
   getPost,

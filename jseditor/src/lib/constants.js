@@ -84,7 +84,7 @@ export const viewPermissions = {
   },
   Tags: {
     roles: ALL_COORDINATORS,
-    types: ['normal', 'slideshow', 'longform', 'basics', 'club']
+    types: ALL_TYPES
   }
 };
 
@@ -95,6 +95,28 @@ export const defaultCommentStatus = {
   basics: 'open',
   brandedLongform: 'closed',
   longform: 'closed'
+};
+
+export const initialMeta = {
+  homepage: { content: '' },
+  index: '',
+  sponsor: { name: '', image: '', tracker: '' },
+  css: { skinName: '' },
+  seo: { title: '', description: '' },
+  showSocialShareButtons: false,
+  microsite: {
+    name: '',
+    gaSnippet: '',
+    showWSLLogo: true,
+    showSocialButtons: true
+  },
+  author: { showAuthorInfo: false },
+  social: {
+    twitter: '',
+    facebook: ''
+  },
+  footer: { hideFooter: false, content: '' },
+  showDate: false
 };
 
 export const initialPublishRegions = [
@@ -110,3 +132,4 @@ export const initialPublishRegions = [
   'CEA',
   'ROW'
 ];
+

@@ -1,7 +1,7 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
-import { defaultCommentStatus, initialPublishRegions } from 'lib/constants';
+import { defaultCommentStatus, initialPublishRegions, initialMeta } from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -151,7 +151,7 @@ export const validateState = state => {
   } else if (0 === state.publishRegion.length) {
     isError = true;
     message = EMPTY_COUNTRY_ARRAY;
-  } else if (0 === state.tags.length) {
+  } else if (0 === state.tags.length && 'brandedLongform' !== state.postType) {
     isError = true;
     message = TAG_FIELD_EMPTY;
   }
@@ -200,27 +200,6 @@ const initialCrop = {
     width: 100,
     validate: false
   }
-};
-export const initialMeta = {
-  homepage: { content: '' },
-  index: '',
-  sponsor: { name: '', image: '', tracker: '' },
-  css: { skinName: '' },
-  seo: { title: '', description: '' },
-  showSocialShareButtons: false,
-  microsite: {
-    name: '',
-    gaSnippet: '',
-    showWSLLogo: true,
-    showSocialButtons: true
-  },
-  author: { showAuthorInfo: false },
-  social: {
-    twitter: '',
-    facebook: ''
-  },
-  footer: { hideFooter: false, content: '' },
-  showDate: false
 };
 
 export const initialState = {
