@@ -10,21 +10,21 @@ type Props = {
   updateParent: (data: Object) => void
 };
 
-export default class Sites extends React.PureComponent<Props> {
-  render() {
-    return (
-      <Select
-        options={sitesConfig}
-        onChange={input => {
-          this.props.updateParent({
-            site: input ? input.title : '',
-            category: null,
-            tag: null
-          });
-        }}
-        value={this.props.site}
-        valueKey={'title'}
-      />
-    );
-  }
-}
+const Sites = (props: Props) => {
+  return (
+    <Select
+      options={sitesConfig}
+      onChange={input => {
+        props.updateParent({
+          site: input ? input.title : '',
+          category: null,
+          tag: null
+        });
+      }}
+      value={props.site}
+      valueKey={'title'}
+    />
+  );
+};
+
+export default Sites;
