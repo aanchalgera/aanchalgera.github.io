@@ -1,6 +1,6 @@
 import idx from 'idx';
 
-import { currentHour } from 'containers/lib/momentHelper';
+import { currentTime } from 'containers/lib/momentHelper';
 import {
   defaultCommentStatus,
   initialPublishRegions,
@@ -33,7 +33,7 @@ export default function(state = initialState, action) {
         category: post.category || -1,
         tags: post.tags || [],
         publishedDate:
-          post.status === 'draft' ? currentHour() : post.publishData.postDate,
+          post.status === 'draft' ? currentTime() : post.publishData.postDate,
         isSensitive: post.isSensitive || false,
         commentStatus:
           post.commentStatus || defaultCommentStatus[post.postType],
