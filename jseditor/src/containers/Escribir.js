@@ -120,7 +120,7 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
-          <Warning />
+          {/*  <Warning /> */}
         </div>
       );
     } else return 'Loading';
