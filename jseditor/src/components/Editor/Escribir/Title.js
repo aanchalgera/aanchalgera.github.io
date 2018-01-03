@@ -16,10 +16,9 @@ const styles = {
     lineHeight: '40px',
     height: '200px'
   },
-  hintStyle: { fontSize: '33px' },
+  hintStyle: { fontSize: '33px', color: 'rgba(0,0,0,0.3)' },
   textareaStyle: {
     fontWeight: 'bold',
-    fontFamily: '"Roboto", sans-serif',
     fontSize: '33px',
     overflowY: 'hidden'
   },
