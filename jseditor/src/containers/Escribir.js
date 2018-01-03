@@ -21,6 +21,7 @@ type Props = {
   blogName: string,
   blogUrl: string,
   title: string,
+  status: string,
   handleStatus: (status: string, date: string) => void,
   onRef: Function,
   id: string,
@@ -68,7 +69,7 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   savePostToBackend = async () => {
-    if (5 < this.props.title.length) {
+    if (this.props.status === 'draft') {
       const result = await submitPostToBackend(
         { ...this.props },
         this.props.blogUrl
