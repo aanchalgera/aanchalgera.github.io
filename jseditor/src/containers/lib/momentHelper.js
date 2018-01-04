@@ -10,12 +10,12 @@ export const currentHour = () => {
     .format('DD/MM/YYYY H:00');
 };
 
-const currentTime = () => {
-  return moment();
+export const currentTime = () => {
+  return moment().format('DD/MM/YYYY H:00');
 };
 
 export const isFuture = (date: string) => {
-  return moment(date, 'DD/MM/YYYY H:mm') >= currentTime();
+  return moment(date, 'DD/MM/YYYY H:mm') >= moment();
 };
 
 export const isValidDate = (date: string) => {
