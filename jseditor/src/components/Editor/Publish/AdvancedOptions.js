@@ -71,6 +71,11 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
     this.props.updateParent({ specialPost: specialPost });
   };
 
+  handleBlur = () => {
+    const user: User | void = findById(this.props.userId, this.state.userList);
+    this.setState({ currentUser: user ? user.display_name : '' });
+  };
+
   render() {
     const {
       setPostMeta,
@@ -166,6 +171,7 @@ export class AdvancedOptions extends React.PureComponent<Props, State> {
           onUpdateInput={searchText => {
             this.setState({ currentUser: searchText });
           }}
+          onBlur={this.handleBlur}
         />
       </div>
     );
