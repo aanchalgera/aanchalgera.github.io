@@ -69,7 +69,8 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   savePostToBackend = async () => {
-    if (this.props.status === 'draft' && this.props.title.trim() > 1) {
+    console.log('abcd');
+    if (this.props.status === 'draft' && this.props.title.trim().length > 1) {
       const result = await submitPostToBackend(
         { ...this.props },
         this.props.blogUrl
