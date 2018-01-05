@@ -6,7 +6,7 @@ import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
 import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
 import ReactSVG from 'react-svg';
 import { ToolbarIcon } from '.';
-import { grey600, grey500, red500 } from 'material-ui/styles/colors';
+import { grey600, grey500, red500, grey700 } from 'material-ui/styles/colors';
 import SvgIcon from 'material-ui/SvgIcon';
 
 type Props = {
@@ -47,10 +47,61 @@ const ImageToolbar = (props: Props) => {
     return '';
   };
 
+  const smallCenterIcon = () => {
+    return (
+      <SvgIcon viewBox="0 0 18 16" color={grey700}>
+        <path
+          d="m0.000034,16.000038l18,0l0,-1.77778l-18,0l0,1.77778l0,0zm4,-3.55444l10,0l0,-8.89l-10,0l0,8.89l0,0zm-4,-12.44556l0,1.77778l18,0l0,-1.77778l-18,0l0,0z"
+          id="icon-column-small-a"
+        />
+      </SvgIcon>
+    );
+  };
+
   const smallLeftIcon = () => {
     return (
-      <SvgIcon style={{ width: 2400, height: 16 }} viewBox="0 0 24 16">
-        <path d="M15,32 L33,32 L33,30.2222222 L15,30.2222222 L15,32 L15,32 Z M22,20 L22,21.7777778 L38,21.7777778 L38,20 L22,20 L22,20 Z M22,23 L22,24.7777778 L38,24.7777778 L38,23 L22,23 L22,23 Z M22,26 L22,27.7777778 L38,27.7777778 L38,26 L22,26 L22,26 Z M10,28.4455559 L20,28.4455559 L20,19.5555556 L10,19.5555556 L10,28.4455559 L10,28.4455559 Z M15,16 L15,17.7777778 L33,17.7777778 L33,16 L15,16 L15,16 Z" />
+      <SvgIcon viewBox="0 0 28 16" color={grey700}>
+        <path
+          d="m5.000023,16.000037l18,0l0,-1.77778l-18,0l0,1.77778l0,0zm7,-12l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm0,3l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm0,3l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm-12,2.44556l10,0l0,-8.89l-10,0l0,8.89l0,0zm5,-12.44556l0,1.77778l18,0l0,-1.77778l-18,0l0,0z"
+          id="icon-column-small-left-a"
+        />
+      </SvgIcon>
+    );
+  };
+
+  const smallRightIcon = () => {
+    return (
+      <SvgIcon viewBox="0 0 24 16" color={grey700}>
+        <path
+          d="m5.000023,16.000037l18,0l0,-1.77778l-18,0l0,1.77778l0,0zm7,-12l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm0,3l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm0,3l0,1.77778l16,0l0,-1.77778l-16,0l0,0zm-12,2.44556l10,0l0,-8.89l-10,0l0,8.89l0,0zm5,-12.44556l0,1.77778l18,0l0,-1.77778l-18,0l0,0z"
+          id="icon-column-small-left-a"
+        />
+      </SvgIcon>
+    );
+  };
+
+  const normalIcon = () => {
+    return (
+      <SvgIcon
+        viewBox="0 0 18 16"
+        color={grey700}
+        style={{ height: '18px', width: '16px' }}
+      >
+        <path
+          d="m0,16.000002l18,0l0,-1.77778l-18,0l0,1.77778l0,0zm0,-3.55444l18,0l0,-8.89l-18,0l0,8.89l0,0zm0,-12.44556l0,1.77778l18,0l0,-1.77778l-18,0l0,0z"
+          id="icon-column-normal-a"
+        />
+      </SvgIcon>
+    );
+  };
+
+  const bigIcon = () => {
+    return (
+      <SvgIcon viewBox="0 0 35 16" color={grey700}>
+        <path
+          d="m9.000003,16l18,0l0,-1.77778l-18,0l0,1.77778l0,0zm-9,-3.55444l35,0l0,-8.89l-35,0l0,8.89l0,0zm9,-12.44556l0,1.77778l18,0l0,-1.77778l-18,0l0,0z"
+          id="icon-column-edge-a"
+        />
       </SvgIcon>
     );
   };
@@ -64,7 +115,7 @@ const ImageToolbar = (props: Props) => {
         tooltip="Pequeño, a la izquierda"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/small.svg" />}
+        ActionIcon={smallCenterIcon()}
         handleClick={() => changeLayout('small', 'small_center')}
         className={getClassName('small', 'small_center')}
         tooltip="Pequeño, centrado"
@@ -76,13 +127,13 @@ const ImageToolbar = (props: Props) => {
         tooltip="Pequeño, a la derecha"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/normal.svg" />}
+        ActionIcon={normalIcon()}
         handleClick={() => changeLayout('normal')}
         className={getClassName('normal')}
         tooltip="Normal"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/big.svg" />}
+        ActionIcon={bigIcon()}
         handleClick={() => changeLayout('large')}
         className={getClassName('large')}
         tooltip="Grande"
