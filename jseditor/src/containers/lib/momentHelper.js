@@ -11,7 +11,7 @@ export const currentHour = () => {
 };
 
 export const currentTime = () => {
-  return moment().format('DD/MM/YYYY H:00');
+  return moment().format('DD/MM/YYYY H:mm');
 };
 
 export const isFuture = (date: string) => {
