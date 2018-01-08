@@ -19,23 +19,36 @@ export default class Controller {
     res.send("done");
   }
 
+  static updateStatus(post, req){
+    var user_status = post.blogName+'_'+ post.user_id + '_' + req.query.status;
+    var blog_status = post.blogName+'_'+req.query.status;
+
+    firebaseApp.database().ref('posts/'+ req.params.id).update({
+      'status': req.query.status,
+      'user_status' : user_status,
+      'blog_status' : blog_status,
+    });
+    if (post.postType === 'longform' || post.postType === 'brandedLongform') {
+    firebaseApp.database().ref('posts_list/'+ req.params.id).update({
+      'status' : req.query.status,
+      'user_status' : user_status,
+      'blog_status' : blog_status
+    });
+    }
+  }
+
   static updatePost(req, res, next) {
     firebaseApp.database().ref('posts/'+ req.params.id).once('value', function(snap) {
-      if (snap.val()) {
-        var user_status = snap.val().blogName+'_'+ snap.val().user_id + '_' + req.query.status;
-        var blog_status = snap.val().blogName+'_'+req.query.status;
+      const post = snap.val();
+      if (post) {
+          if(req.query.status) {
+            Contorller.updateStatus(post, req);
+          } else if(req.query.post_date) {
+            firebaseApp.database().ref('posts/'+ req.params.id + '/publishData').update({
+              'postDate': req.query.post_date,
+            });
+          }
 
-        firebaseApp.database().ref('posts/'+ req.params.id).update({
-          'status': req.query.status,
-          'user_status' : user_status,
-          'blog_status' : blog_status,
-        });
-
-        firebaseApp.database().ref('posts_list/'+ req.params.id).update({
-          'status' : req.query.status,
-          'user_status' : user_status,
-          'blog_status' : blog_status
-        });
         res.send("done");
       } else {
         res.send("No such post");

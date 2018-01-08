@@ -6,6 +6,7 @@ let Router = module.exports = ExpressRouter();
 Router
   .route('/post/:id')
   .post(PostController.updatePost)
+  .put(PostController.updatePost)
   .get(PostController.getPost)
   .delete(PostController.deletePost)
 ;
