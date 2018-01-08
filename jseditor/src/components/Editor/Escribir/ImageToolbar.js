@@ -4,9 +4,15 @@ import { connect } from 'react-redux';
 import { ToolbarSeparator } from 'material-ui/Toolbar';
 import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
 import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
-import ReactSVG from 'react-svg';
 import { ToolbarIcon } from '.';
 import { grey600, grey500, red500 } from 'material-ui/styles/colors';
+import {
+  SmallLeftIcon,
+  SmallCenterIcon,
+  SmallRightIcon,
+  NormalIcon,
+  BigIcon
+} from './lib/svgIcons';
 
 type Props = {
   handleDelete: () => void,
@@ -44,41 +50,35 @@ const ImageToolbar = (props: Props) => {
   return (
     <React.Fragment>
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/smallLeft.svg" />}
+        ActionIcon={SmallLeftIcon}
         handleClick={() => changeLayout('small', 'left')}
         className={getClassName('small', 'left')}
         tooltip="Pequeño, a la izquierda"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/small.svg" />}
+        ActionIcon={SmallCenterIcon}
         handleClick={() => changeLayout('small', 'small_center')}
         className={getClassName('small', 'small_center')}
         tooltip="Pequeño, centrado"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/smallRight.svg" />}
+        ActionIcon={SmallRightIcon}
         handleClick={() => changeLayout('small', 'right')}
         className={getClassName('small', 'right')}
         tooltip="Pequeño, a la derecha"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/normal.svg" />}
+        ActionIcon={NormalIcon}
         handleClick={() => changeLayout('normal')}
         className={getClassName('normal')}
         tooltip="Normal"
       />
       <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/big.svg" />}
+        ActionIcon={BigIcon}
         handleClick={() => changeLayout('large')}
         className={getClassName('large')}
         tooltip="Grande"
       />
-      {/*  <ToolbarIcon
-        ActionIcon={<ReactSVG path="/svgs/edge.svg" />}
-        handleClick={() => changeLayout('cover')}
-        className={getClassName('cover')}
-        tooltip="Anchura completa"
-      />*/}
       <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />
       <ToolbarIcon
         ActionIcon={<EditorModeEdit color={grey600} />}
