@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { EditorState, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
-import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
 import { plugins } from '../Common/DraftJSToolbar';
 import { changeContent, changePosition } from 'actions/post';
@@ -19,7 +18,7 @@ type Props = {
 class Content extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
-    const contentState = stateFromHTML(markdown(this.props.text));
+    const contentState = stateFromHTML(this.props.text);
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
@@ -70,7 +69,7 @@ class Content extends React.PureComponent<Props> {
     const currentContentState = this.state.editorState.getCurrentContent();
     const newContentState = editorState.getCurrentContent();
     if (currentContentState !== newContentState) {
-      const value = markdown(stateToHTML(newContentState));
+      const value = stateToHTML(newContentState);
       this.props.changeContent(this.props.index, value);
     }
     this.setState({ editorState });
@@ -111,7 +110,6 @@ class Content extends React.PureComponent<Props> {
           ref={element => {
             this._editor = element;
           }}
-          stripPastedStyles
           placeholder={placeHolder}
           handleKeyCommand={this.handleKeyCommand}
         />

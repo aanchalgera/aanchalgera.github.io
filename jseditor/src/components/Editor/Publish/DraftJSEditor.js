@@ -2,7 +2,6 @@ import React from 'react';
 import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
-import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
 import { plugins } from '../Common/DraftJSToolbar';
 const MAX_LENGTH = 240;
@@ -16,7 +15,7 @@ type Props = {
 export default class DraftJSEditor extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
-    const contentState = stateFromHTML(markdown(this.props.value));
+    const contentState = stateFromHTML(this.props.value);
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
@@ -31,7 +30,7 @@ export default class DraftJSEditor extends React.PureComponent<Props> {
 
   onChange = editorState => {
     this.setState({ editorState }, () => {
-      const value = markdown(stateToHTML(editorState.getCurrentContent()));
+      const value = stateToHTML(editorState.getCurrentContent());
       this.props.updateResource(value);
       this.props.updateLength(MAX_LENGTH - this.currentLength());
     });
