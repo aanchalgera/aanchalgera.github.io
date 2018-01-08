@@ -109,7 +109,6 @@ class Content extends React.PureComponent<Props> {
           ref={element => {
             this._editor = element;
           }}
-          stripPastedStyles
           placeholder={placeHolder}
           handleKeyCommand={this.handleKeyCommand}
         />
