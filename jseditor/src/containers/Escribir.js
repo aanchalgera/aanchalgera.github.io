@@ -10,6 +10,7 @@ import {
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
+import { Check } from 'lib/check';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions, Title, Warning } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
@@ -121,7 +122,9 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
-          {/*  <Warning /> */}
+          <Check childName="WarningModal">
+            <Warning />
+          </Check>
         </div>
       );
     } else return 'Loading';

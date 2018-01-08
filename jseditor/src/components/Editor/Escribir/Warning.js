@@ -10,23 +10,22 @@ type Props = {
   closeModal: () => void
 };
 
-const Warning = (props: Props) => {
+const Warning = ({ modalName, closeModal }: Props) => {
   const actions = [
     <FlatButton
-      key="cancel"
-      label="Cancel"
+      key="oldEditor"
+      label="Volver al editor clásico"
       primary
-      onClick={props.closeModal}
+      onClick={() => window.close()}
     />,
     <FlatButton
-      label="Submit"
+      label="Seguir en alfa"
       primary
       keyboardFocused
-      onClick={props.closeModal}
-      key="submit"
+      onClick={closeModal}
+      key="newEditor"
     />
   ];
-  const { modalName } = props;
 
   return (
     <div>
@@ -35,7 +34,7 @@ const Warning = (props: Props) => {
         actions={actions}
         modal={false}
         open={'warningModal' === modalName}
-        onRequestClose={this.closeWaning}
+        onRequestClose={closeModal}
       >
         warning content goes here
       </Dialog>

@@ -82,6 +82,10 @@ export const viewPermissions = {
     roles: ['ROLE_EDITOR', 'ROLE_COORDINATOR', 'ROLE_COLLABORATOR'],
     types: ['normal', 'slideshow']
   },
+  WarningModal: {
+    roles: ['ROLE_COORDINATOR', 'ROLE_COLLABORATOR'],
+    types: ['normal']
+  },
   Tags: {
     roles: ALL_COORDINATORS,
     types: ALL_TYPES
