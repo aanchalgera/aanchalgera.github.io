@@ -7,11 +7,11 @@ import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
 import { ToolbarIcon } from '.';
 import { grey600, grey500, red500 } from 'material-ui/styles/colors';
 import {
-  smallLeftIcon,
-  smallCenterIcon,
-  smallRightIcon,
-  normalIcon,
-  bigIcon
+  SmallLeftIcon,
+  SmallCenterIcon,
+  SmallRightIcon,
+  NormalIcon,
+  BigIcon
 } from './lib/svgIcons';
 
 type Props = {
@@ -50,31 +50,31 @@ const ImageToolbar = (props: Props) => {
   return (
     <React.Fragment>
       <ToolbarIcon
-        ActionIcon={smallLeftIcon()}
+        ActionIcon={SmallLeftIcon}
         handleClick={() => changeLayout('small', 'left')}
         className={getClassName('small', 'left')}
         tooltip="Pequeño, a la izquierda"
       />
       <ToolbarIcon
-        ActionIcon={smallCenterIcon()}
+        ActionIcon={SmallCenterIcon}
         handleClick={() => changeLayout('small', 'small_center')}
         className={getClassName('small', 'small_center')}
         tooltip="Pequeño, centrado"
       />
       <ToolbarIcon
-        ActionIcon={smallRightIcon()}
+        ActionIcon={SmallRightIcon}
         handleClick={() => changeLayout('small', 'right')}
         className={getClassName('small', 'right')}
         tooltip="Pequeño, a la derecha"
       />
       <ToolbarIcon
-        ActionIcon={normalIcon()}
+        ActionIcon={NormalIcon}
         handleClick={() => changeLayout('normal')}
         className={getClassName('normal')}
         tooltip="Normal"
       />
       <ToolbarIcon
-        ActionIcon={bigIcon()}
+        ActionIcon={BigIcon}
         handleClick={() => changeLayout('large')}
         className={getClassName('large')}
         tooltip="Grande"
