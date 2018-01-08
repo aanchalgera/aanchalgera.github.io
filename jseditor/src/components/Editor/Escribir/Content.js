@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { EditorState, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
-import markdown from 'marked';
 import Editor from 'draft-js-plugins-editor';
 import { plugins } from '../Common/DraftJSToolbar';
 import { changeContent, changePosition } from 'actions/post';
 
 type Props = {
   text: string,
-  id: number,
   index: number,
   changeContent: Function,
   changePosition: Function
@@ -19,7 +17,7 @@ type Props = {
 class Content extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
-    const contentState = stateFromHTML(markdown(this.props.text));
+    const contentState = stateFromHTML(this.props.text);
     this.state = {
       editorState: EditorState.createWithContent(contentState)
     };
@@ -70,17 +68,17 @@ class Content extends React.PureComponent<Props> {
     const currentContentState = this.state.editorState.getCurrentContent();
     const newContentState = editorState.getCurrentContent();
     if (currentContentState !== newContentState) {
-      const value = markdown(stateToHTML(newContentState));
+      const value = stateToHTML(newContentState);
       this.props.changeContent(this.props.index, value);
     }
     this.setState({ editorState });
   };
 
   getVariables() {
-    const { id, text } = this.props;
-    const placeHolder = id === 1 ? 'Empieza a escribir aquí...' : '';
+    const { index, text } = this.props;
+    const placeHolder = index === 1 ? 'Empieza a escribir aquí...' : '';
     const className =
-      id === 1 && (text === '<p><br></p>' || text === '')
+      index === 1 && (text === '<p><br></p>' || text === '')
         ? 'first-paragraph'
         : 'paragraph';
 
