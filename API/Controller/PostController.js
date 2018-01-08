@@ -12,7 +12,7 @@ export default class Controller {
       }
     });
   }
-
+ 
   static deletePost(req, res, next) {
     firebaseApp.database().ref('posts/'+ req.params.id).remove();
     firebaseApp.database().ref('posts_list/'+ req.params.id).remove();
