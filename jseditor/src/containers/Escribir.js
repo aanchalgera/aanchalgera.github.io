@@ -90,7 +90,7 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
-    const { postType, id, blogName, postId, blogUrl } = this.props;
+    const { postType, id, blogName } = this.props;
 
     if ('longform' === postType || 'brandedLongform' === postType) {
       return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
@@ -123,7 +123,7 @@ class Escribir extends React.PureComponent<Props> {
             <MoreOptions />
           </div>
           <Check childName="WarningModal">
-            <Warning postId={postId} blogUrl={blogUrl} />
+            <Warning />
           </Check>
         </div>
       );

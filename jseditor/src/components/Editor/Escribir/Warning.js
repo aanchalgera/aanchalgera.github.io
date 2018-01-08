@@ -6,20 +6,17 @@ import FlatButton from 'material-ui/FlatButton';
 import { closeModal } from 'actions/modal';
 
 type Props = {
-  postId: number,
-  blogUrl: string,
   modalName: string,
   closeModal: () => void
 };
 
-const Warning = ({ postId, blogUrl, modalName, closeModal }: Props) => {
-  const editUrl = postId || 'new';
+const Warning = ({ modalName, closeModal }: Props) => {
   const actions = [
     <FlatButton
       key="oldEditor"
       label="Volver al editor clásico"
       primary
-      href={`${blogUrl}/admin/newposts/${editUrl}`}
+      onClick={() => window.close()}
     />,
     <FlatButton
       label="Seguir en alfa"
