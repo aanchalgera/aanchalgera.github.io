@@ -10,6 +10,7 @@ import {
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
+import { Check } from 'lib/check';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions, Title, Warning } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
@@ -89,7 +90,7 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
-    const { postType, id, blogName } = this.props;
+    const { postType, id, blogName, postId, blogUrl } = this.props;
 
     if ('longform' === postType || 'brandedLongform' === postType) {
       return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
@@ -121,7 +122,9 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
-          {/*  <Warning /> */}
+          <Check childName="WarningModal">
+            <Warning postId={postId} blogUrl={blogUrl} />
+          </Check>
         </div>
       );
     } else return 'Loading';

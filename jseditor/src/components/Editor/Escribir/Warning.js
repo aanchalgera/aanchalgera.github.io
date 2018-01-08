@@ -6,27 +6,29 @@ import FlatButton from 'material-ui/FlatButton';
 import { closeModal } from 'actions/modal';
 
 type Props = {
+  postId: number,
+  blogUrl: string,
   modalName: string,
   closeModal: () => void
 };
 
-const Warning = (props: Props) => {
+const Warning = ({ postId, blogUrl, modalName, closeModal }: Props) => {
+  const editUrl = postId || 'new';
   const actions = [
     <FlatButton
-      key="cancel"
-      label="Cancel"
+      key="oldEditor"
+      label="Volver al editor clásico"
       primary
-      onClick={props.closeModal}
+      href={`${blogUrl}/admin/newposts/${editUrl}`}
     />,
     <FlatButton
-      label="Submit"
+      label="Seguir en alfa"
       primary
       keyboardFocused
-      onClick={props.closeModal}
-      key="submit"
+      onClick={closeModal}
+      key="newEditor"
     />
   ];
-  const { modalName } = props;
 
   return (
     <div>
@@ -35,7 +37,7 @@ const Warning = (props: Props) => {
         actions={actions}
         modal={false}
         open={'warningModal' === modalName}
-        onRequestClose={this.closeWaning}
+        onRequestClose={closeModal}
       >
         warning content goes here
       </Dialog>
