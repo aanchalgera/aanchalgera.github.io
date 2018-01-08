@@ -9,6 +9,7 @@ import { changeContent, changePosition } from 'actions/post';
 
 type Props = {
   text: string,
+  id: number,
   index: number,
   changeContent: Function,
   changePosition: Function
@@ -75,10 +76,10 @@ class Content extends React.PureComponent<Props> {
   };
 
   getVariables() {
-    const { index, text } = this.props;
-    const placeHolder = index === 1 ? 'Empieza a escribir aquí...' : '';
+    const { id, text } = this.props;
+    const placeHolder = id === 1 ? 'Empieza a escribir aquí...' : '';
     const className =
-      index === 1 && (text === '<p><br></p>' || text === '')
+      id === 1 && (text === '<p><br></p>' || text === '')
         ? 'first-paragraph'
         : 'paragraph';
 
