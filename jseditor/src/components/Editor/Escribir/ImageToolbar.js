@@ -49,15 +49,15 @@ class ImageToolbar extends React.PureComponent<Props> {
     }
   };
 
-  handleDelete() {
+  handleDelete = () => {
     const { deleteSection, index, maxId } = this.props;
     deleteSection(index, maxId);
-  }
+  };
 
-  handleEdit() {
+  handleEdit = () => {
     this.props.openImagePanel('edit');
     this.props.closeImageToolbar();
-  }
+  };
 
   changeLayout(layout, align = 'center') {
     const { index, changeLayout } = this.props;
