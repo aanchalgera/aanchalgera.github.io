@@ -42,7 +42,7 @@ export default class Controller {
       const post = snap.val();
       if (post) {
           if(req.query.status) {
-            Contorller.updateStatus(post, req);
+            Controller.updateStatus(post, req);
           } else if(req.body.post_date) {
             firebaseApp.database().ref('posts/'+ req.params.id + '/publishData').update({
               'postDate': req.body.post_date,

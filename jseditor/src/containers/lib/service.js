@@ -101,21 +101,23 @@ export const savePost = state => {
 };
 
 export const savePostsList = (state, blogName) => {
-  let blogStatus = blogName + '_' + state.status;
-  let listData = {
-    id: state.id,
-    title: state.title || 'Título...',
-    status: state.status,
-    user_id: state.userId,
-    blog_name: blogName,
-    user_status: blogName + '_' + state.userId + '_' + state.status,
-    blog_status: blogStatus,
-    blog_post_type: blogStatus + '_' + mapPostType(state.postType)
-  };
+  if (state.postType === 'longform' || state.postType === 'brandedLongform') {
+    let blogStatus = blogName + '_' + state.status;
+    let listData = {
+      id: state.id,
+      title: state.title || 'Título...',
+      status: state.status,
+      user_id: state.userId,
+      blog_name: blogName,
+      user_status: blogName + '_' + state.userId + '_' + state.status,
+      blog_status: blogStatus,
+      blog_post_type: blogStatus + '_' + mapPostType(state.postType)
+    };
 
-  base.post('posts_list/' + state.id, {
-    data: listData
-  });
+    base.post('posts_list/' + state.id, {
+      data: listData
+    });
+  }
 };
 
 export const mapPostType = postType => {
