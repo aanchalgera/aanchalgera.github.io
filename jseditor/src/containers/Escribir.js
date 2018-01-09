@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import debounce from 'lodash.debounce';
 import { Col, Row } from 'react-flexbox-grid';
 
@@ -10,7 +9,7 @@ import {
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
-import { Check } from 'lib/check';
+import { Check, init as initCheck } from 'lib/check';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import { Node, MoreOptions, Title, Warning } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
@@ -46,6 +45,12 @@ class Escribir extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.init();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.postType !== this.props.postType) {
+      initCheck(nextProps.postType, this.props.userRole);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -90,11 +95,6 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
-    const { postType, id, blogName } = this.props;
-
-    if ('longform' === postType || 'brandedLongform' === postType) {
-      return <Redirect to={'/edit/post/' + id + '?blog=' + blogName} />;
-    }
 
     if (this.props.id) {
       var nodes = [];
