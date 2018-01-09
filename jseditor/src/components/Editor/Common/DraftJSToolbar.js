@@ -1,5 +1,5 @@
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
-import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import createMarkdownPlugin from 'draft-js-markdown-plugin';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js-anchor-plugin/lib/plugin.css';
 
@@ -30,6 +30,6 @@ export const plugins = () => {
       linkPlugin.LinkButton
     ]
   });
-  const mdPlugin = createMarkdownShortcutsPlugin();
-  return [inlineToolbarPlugin, linkPlugin, mdPlugin];
+  const mdPlugin = createMarkdownPlugin();
+  return [mdPlugin, inlineToolbarPlugin, linkPlugin];
 };

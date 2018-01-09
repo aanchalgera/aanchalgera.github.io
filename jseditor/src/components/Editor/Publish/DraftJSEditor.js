@@ -22,7 +22,7 @@ export default class DraftJSEditor extends React.PureComponent<Props> {
     this.props.updateLength(MAX_LENGTH - this.currentLength());
   }
   plugins = plugins();
-  InlineToolbar = this.plugins[0].InlineToolbar;
+  InlineToolbar = this.plugins[1].InlineToolbar;
 
   focus() {
     this._editor.focus();
