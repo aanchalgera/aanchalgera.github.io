@@ -59,7 +59,7 @@ class Content extends React.PureComponent<Props> {
   }
 
   plugins = plugins();
-  InlineToolbar = this.plugins[0].InlineToolbar;
+  InlineToolbar = this.plugins[1].InlineToolbar;
 
   focus() {
     this._editor.focus();
