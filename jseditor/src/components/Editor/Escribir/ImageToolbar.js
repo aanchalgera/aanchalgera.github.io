@@ -14,6 +14,9 @@ import {
   BigIcon
 } from './lib/svgIcons';
 
+const DELETE_KEY_CODE = 46;
+const ESC_KEY_CODE = 27;
+
 type Props = {
   handleDelete: () => void,
   handleEdit: () => void,
@@ -26,75 +29,98 @@ type Props = {
   maxId: number
 };
 
-const ImageToolbar = (props: Props) => {
-  const handleDelete = () => {
-    props.deleteSection(props.index, props.maxId);
+class ImageToolbar extends React.PureComponent<Props> {
+  componentDidMount() {
+    document.addEventListener('keydown', this.keydownHandler);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.keydownHandler);
+  }
+
+  keydownHandler = (e: KeyboardEvent) => {
+    if (DELETE_KEY_CODE === e.keyCode) {
+      this.handleDelete();
+      return;
+    }
+    if (ESC_KEY_CODE === e.keyCode) {
+      this.props.closeImageToolbar();
+      return;
+    }
   };
 
-  const handleEdit = () => {
-    props.openImagePanel('edit');
-    props.closeImageToolbar();
-  };
+  handleDelete() {
+    const { deleteSection, index, maxId } = this.props;
+    deleteSection(index, maxId);
+  }
 
-  const changeLayout = (layout, align = 'center') => {
-    props.changeLayout(props.index, layout, align);
-  };
+  handleEdit() {
+    this.props.openImagePanel('edit');
+    this.props.closeImageToolbar();
+  }
 
-  const getClassName = (layout, align = 'center') => {
-    if (props.selectedKey === `${layout}-${align}`) {
+  changeLayout(layout, align = 'center') {
+    const { index, changeLayout } = this.props;
+    changeLayout(index, layout, align);
+  }
+
+  getClassName(layout, align = 'center') {
+    if (this.props.selectedKey === `${layout}-${align}`) {
       return 'active';
     }
     return '';
-  };
+  }
 
-  return (
-    <React.Fragment>
-      <ToolbarIcon
-        ActionIcon={SmallLeftIcon}
-        handleClick={() => changeLayout('small', 'left')}
-        className={getClassName('small', 'left')}
-        tooltip="Pequeño, a la izquierda"
-      />
-      <ToolbarIcon
-        ActionIcon={SmallCenterIcon}
-        handleClick={() => changeLayout('small', 'small_center')}
-        className={getClassName('small', 'small_center')}
-        tooltip="Pequeño, centrado"
-      />
-      <ToolbarIcon
-        ActionIcon={SmallRightIcon}
-        handleClick={() => changeLayout('small', 'right')}
-        className={getClassName('small', 'right')}
-        tooltip="Pequeño, a la derecha"
-      />
-      <ToolbarIcon
-        ActionIcon={NormalIcon}
-        handleClick={() => changeLayout('normal')}
-        className={getClassName('normal')}
-        tooltip="Normal"
-      />
-      <ToolbarIcon
-        ActionIcon={BigIcon}
-        handleClick={() => changeLayout('large')}
-        className={getClassName('large')}
-        tooltip="Grande"
-      />
-      <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />
-      <ToolbarIcon
-        ActionIcon={<EditorModeEdit color={grey600} />}
-        handleClick={handleEdit}
-        className=""
-        tooltip="Editar"
-      />
-      <ToolbarIcon
-        ActionIcon={<ActionDelete color={red500} />}
-        handleClick={handleDelete}
-        className=""
-        tooltip="Quitar"
-      />
-    </React.Fragment>
-  );
-};
+  render() {
+    return (
+      <React.Fragment>
+        <ToolbarIcon
+          ActionIcon={SmallLeftIcon}
+          handleClick={() => this.changeLayout('small', 'left')}
+          className={this.getClassName('small', 'left')}
+          tooltip="Pequeño, a la izquierda"
+        />
+        <ToolbarIcon
+          ActionIcon={SmallCenterIcon}
+          handleClick={() => this.changeLayout('small', 'small_center')}
+          className={this.getClassName('small', 'small_center')}
+          tooltip="Pequeño, centrado"
+        />
+        <ToolbarIcon
+          ActionIcon={SmallRightIcon}
+          handleClick={() => this.changeLayout('small', 'right')}
+          className={this.getClassName('small', 'right')}
+          tooltip="Pequeño, a la derecha"
+        />
+        <ToolbarIcon
+          ActionIcon={NormalIcon}
+          handleClick={() => this.changeLayout('normal')}
+          className={this.getClassName('normal')}
+          tooltip="Normal"
+        />
+        <ToolbarIcon
+          ActionIcon={BigIcon}
+          handleClick={() => this.changeLayout('large')}
+          className={this.getClassName('large')}
+          tooltip="Grande"
+        />
+        <ToolbarSeparator style={{ backgroundColor: grey500 }} key="seprator" />
+        <ToolbarIcon
+          ActionIcon={<EditorModeEdit color={grey600} />}
+          handleClick={this.handleEdit}
+          className=""
+          tooltip="Editar"
+        />
+        <ToolbarIcon
+          ActionIcon={<ActionDelete color={red500} />}
+          handleClick={this.handleDelete}
+          className=""
+          tooltip="Quitar"
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {};
