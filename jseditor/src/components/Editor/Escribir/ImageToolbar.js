@@ -47,7 +47,6 @@ class ImageToolbar extends React.PureComponent<Props> {
       this.props.closeImageToolbar();
       return;
     }
-    return;
   };
 
   handleDelete() {
