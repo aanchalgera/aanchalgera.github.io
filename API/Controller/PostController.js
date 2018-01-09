@@ -43,9 +43,9 @@ export default class Controller {
       if (post) {
           if(req.query.status) {
             Contorller.updateStatus(post, req);
-          } else if(req.query.post_date) {
+          } else if(req.body.post_date) {
             firebaseApp.database().ref('posts/'+ req.params.id + '/publishData').update({
-              'postDate': req.query.post_date,
+              'postDate': req.body.post_date,
             });
           }
 
