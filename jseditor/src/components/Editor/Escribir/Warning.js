@@ -61,18 +61,22 @@ const Warning = ({ modalName, closeModal }: Props) => {
             <CloseButton handleClose={closeModal} />
           </Col>
         </Row>
-        <Row className="m-no-margin modal-content m-modal-bg">
-          <div className="paragraph">Seguimos trabajando en este editor, asi que echarás de menos algunas cosas. Por ahora puedes usar:</div>
-          <div className="modal-icon-list">
-            <div className="modal-icon-list-item"><EditorFormatItalic className="modal-icon" color="gray" />Texto con formato</div>
-            <div className="modal-icon-list-item"><ImagePhoto className="modal-icon" color="gray" />Imágenes estáticas</div>
-          </div>
-          <div className="paragraph">Si no es suficiente para el post que tienes en mente, puedes <a href="" onClick={() => window.close()}>volver al editor clasico</a>.</div>
-          <div className="paragraph">
-            <span className="modal-warning">¡Cuidado! </span>
-            Los borradores y posts que hagas en Alfa <b>no se podrán editar después desde el editor clásico</b>, aunque se pueden publicar y difundir desde aquí sin problema.
-          </div>
-        </Row>
+        <div className="modal-content m-modal-bg">
+          <Row className="m-no-margin">
+            <Col sm={8} smOffset={2}>
+              <div className="paragraph">Seguimos trabajando en este editor, asi que echarás de menos algunas cosas. Por ahora puedes usar:</div>
+              <div className="modal-icon-list">
+                <div className="modal-icon-list-item"><EditorFormatItalic className="modal-icon" color="gray" />Texto con formato</div>
+                <div className="modal-icon-list-item"><ImagePhoto className="modal-icon" color="gray" />Imágenes estáticas</div>
+              </div>
+              <div className="paragraph">Si no es suficiente para el post que tienes en mente, puedes <a href="" onClick={() => window.close()}>volver al editor clasico</a>.</div>
+              <div className="paragraph">
+                <span className="modal-warning">¡Cuidado! </span>
+                Los borradores y posts que hagas en Alfa <b>no se podrán editar después desde el editor clásico</b>, aunque se pueden publicar y difundir desde aquí sin problema.
+              </div>
+            </Col>
+          </Row>
+        </div>
       </Dialog>
     </div>
   );
