@@ -15,25 +15,27 @@ type Props = {
 
 const Warning = ({ modalName, closeModal }: Props) => {
   const actions = (
-    <Row className="m-no-margin modal-actions">
-      <Col sm={6} className="start-sm">
-        <RaisedButton
-          icon={<NavigationArrowBack />}
-          key="oldEditor"
-          label="Volver al editor clásico"
-          onClick={() => window.close()}
-        />
-      </Col>
-      <Col sm={6} className="end-sm">
-        <RaisedButton
-          label="Seguir en alfa"
-          primary
-          keyboardFocused
-          onClick={closeModal}
-          key="newEditor"
-        />
-      </Col>
-    </Row>
+    <div className="modal-actions">
+      <Row className="m-no-margin">
+        <Col sm={6} className="start-sm">
+          <RaisedButton
+            icon={<NavigationArrowBack />}
+            key="oldEditor"
+            label="Volver al editor clásico"
+            onClick={() => window.close()}
+          />
+        </Col>
+        <Col sm={6} className="end-sm">
+          <RaisedButton
+            label="Seguir en alfa"
+            primary
+            keyboardFocused
+            onClick={closeModal}
+            key="newEditor"
+          />
+        </Col>
+      </Row>
+    </div>
   );
 
   return (
@@ -60,16 +62,16 @@ const Warning = ({ modalName, closeModal }: Props) => {
           </Col>
         </Row>
         <Row className="m-no-margin modal-content m-modal-bg">
-          <Col sm={12}>Seguimos trabajando en este editor, asi que echarás de menos algunas cosas. Por ahora puedes usar:</Col>
-          <Col sm={12} className="modal-icon-list">
-            <EditorFormatItalic className="modal-icon" color="gray" />Texto con formato
-            <ImagePhoto className="modal-icon" color="gray" />Imágenes estáticas
-          </Col>
-          <Col sm={12}>Si no es suficiente para el post que tienes en mente, puedes <a href="" onClick={() => window.close()}>volver al editor clasico</a>.</Col>
-          <Col sm={12}>
+          <div className="paragraph">Seguimos trabajando en este editor, asi que echarás de menos algunas cosas. Por ahora puedes usar:</div>
+          <div className="modal-icon-list">
+            <div className="modal-icon-list-item"><EditorFormatItalic className="modal-icon" color="gray" />Texto con formato</div>
+            <div className="modal-icon-list-item"><ImagePhoto className="modal-icon" color="gray" />Imágenes estáticas</div>
+          </div>
+          <div className="paragraph">Si no es suficiente para el post que tienes en mente, puedes <a href="" onClick={() => window.close()}>volver al editor clasico</a>.</div>
+          <div className="paragraph">
             <span className="modal-warning">¡Cuidado! </span>
             Los borradores y posts que hagas en Alfa <b>no se podrán editar después desde el editor clásico</b>, aunque se pueden publicar y difundir desde aquí sin problema.
-          </Col>
+          </div>
         </Row>
       </Dialog>
     </div>
