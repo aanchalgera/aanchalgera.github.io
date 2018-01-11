@@ -5,6 +5,8 @@ import Image from './Image';
 import MoreOptions from './MoreOptions';
 import ImageToolbar from './ImageToolbar';
 import Warning from './Warning';
+import SnackbarPopover from './SnackbarPopover';
+import News from './News';
 
 export { SectionModule } from './SectionModule';
 export { Title };
@@ -18,3 +20,5 @@ export { PopoverToolbar } from './PopoverToolbar';
 export { ImageToolbar };
 export { ToolbarIcon } from './ToolbarIcon';
 export { Warning };
+export { SnackbarPopover };
+export { News };

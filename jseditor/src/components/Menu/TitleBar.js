@@ -6,8 +6,9 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import Save from 'material-ui/svg-icons/content/save';
 import Shuffle from 'material-ui/svg-icons/av/shuffle';
-
+import Info from 'material-ui/svg-icons/action/info';
 import Expire from './Expire';
+import { openModal } from '../../actions/modal';
 
 const styles = {
   title: {
@@ -33,13 +34,18 @@ type Props = {
   postType: string,
   saveData: () => void,
   toggleOrderMode: () => void,
-  hideStatus: () => void
+  hideStatus: () => void,
+  openModal: (modalName: string) => void
 };
 
 class TitleBar extends React.Component<Props> {
   handleChange = (route: string) => {
     const queryPath = this.props.location.search;
     this.props.history.push(`/${route}/${this.postName}${queryPath}`);
+  };
+
+  openNews = () => {
+    this.props.openModal('snackbarPopover');
   };
 
   getStatusElement(activeTab) {
@@ -75,6 +81,9 @@ class TitleBar extends React.Component<Props> {
       <Toolbar className="header">
         <div className="brand-logo">
           <ToolbarTitle text={blogName} style={styles.title} />
+          <IconButton onClick={this.openNews}>
+            <Info />
+          </IconButton>
         </div>
         <div className="nav-btn">
           <ToolbarGroup>
@@ -119,4 +128,4 @@ const mapStateToProps = state => {
   return { postType: state.post.postType };
 };
 
-export default connect(mapStateToProps)(TitleBar);
+export default connect(mapStateToProps, { openModal })(TitleBar);
