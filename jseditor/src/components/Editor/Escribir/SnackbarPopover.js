@@ -2,28 +2,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
-import { closeModal, openModal } from 'actions/modal';
+import { openModal } from 'actions/modal';
 import { base } from 'lib/firebase';
 import configParams from 'config/configs';
-import { currentTime } from 'containers/lib/momentHelper';
 
 type Props = {
   modalName: string,
-  closeModal: () => void,
   openModal: (modalName: string) => void,
   userId: number
 };
 
-const SnackbarPopover = ({
-  modalName,
-  closeModal,
-  openModal,
-  userId
-}: Props) => {
+const SnackbarPopover = ({ modalName, openModal, userId }: Props) => {
   const openNewsModal = async () => {
     await base.update('releases/' + configParams.version + '/' + userId, {
       data: {
-        viewed_on: currentTime()
+        viewed: true
       }
     });
     openModal('newsModal');
@@ -31,12 +24,13 @@ const SnackbarPopover = ({
 
   return (
     <Snackbar
+      className="newsPopover"
       open={'snackbarPopover' === modalName}
       message="ya puedes usar galerías de fotos"
-      autoHideDuration={4000}
+      autoHideDuration={3600000}
       action="saber más"
       onActionClick={openNewsModal}
-      onRequestClose={closeModal}
+      onRequestClose={() => {}}
     />
   );
 };
@@ -48,6 +42,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { closeModal, openModal })(
-  SnackbarPopover
-);
+export default connect(mapStateToProps, { openModal })(SnackbarPopover);

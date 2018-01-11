@@ -27,7 +27,7 @@ const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
       'releases/' + configParams.version + '/' + userId,
       { context: this }
     );
-    if (data.viewed_on) {
+    if (data.viewed) {
       closeModal();
     } else {
       openModal('snackbarPopover');

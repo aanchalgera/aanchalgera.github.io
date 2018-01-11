@@ -22,13 +22,7 @@ const customContentStyle = {
   width: '90%',
   maxWidth: 'none'
 };
-const pages = [
-  'https://i.blogs.es/75200d/2749225765_817835bac6_b/original.jpg',
-  'https://i.blogs.es/deaf38/nuevos-ordenadores-asus/original.jpg',
-  'https://i.blogs.es/7e7a6a/moto-mod-lenovo-vital/original.jpg',
-  'https://i.blogs.es/1c6631/lenovo-mirage/original.jpg',
-  'https://i.blogs.es/65d6c9/bitpay/original.jpg'
-];
+const pages = ['https://ti.blogs.es/d316f2/page1/original.png'];
 const firstPage = pages.length - configParams.version;
 
 class News extends React.PureComponent<Props, State> {
@@ -56,9 +50,7 @@ class News extends React.PureComponent<Props, State> {
     return (
       <span className="news-footer-text">
         Si tienes sugerencias o comentarios sobre este editor, cuéntanos en
-        Slack &nbsp;<a href="https://weblogs.slack.com/messages/C8PFG2J4R/">
-          #alfa-editor
-        </a>
+        Slack #alfa-editor
       </span>
     );
   };
