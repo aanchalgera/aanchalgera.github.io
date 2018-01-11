@@ -11,7 +11,14 @@ import {
 } from './lib/service';
 import { Check, init as initCheck } from 'lib/check';
 import { ImageUploader } from 'components/Editor/ImageUploader';
-import { Node, MoreOptions, Title, Warning } from 'components/Editor/Escribir';
+import {
+  Node,
+  MoreOptions,
+  Title,
+  Warning,
+  SnackbarPopover,
+  News
+} from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -34,7 +41,8 @@ type Props = {
   postType: string,
   currentIndex: number,
   splitPosition: number,
-  editImage: (image: Object) => void
+  editImage: (image: Object) => void,
+  userRole: string
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -125,6 +133,8 @@ class Escribir extends React.PureComponent<Props> {
           <Check childName="WarningModal">
             <Warning />
           </Check>
+          <SnackbarPopover />
+          <News />
         </div>
       );
     } else return 'Loading';

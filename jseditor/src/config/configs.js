@@ -12,7 +12,8 @@ const configs = {
     cssPath:
       'https://img.weblogssl.com/css/applesfera/admin-contenfoundry/main.css',
     s3ApiKey: '',
-    s3ApiDomain: ''
+    s3ApiDomain: '',
+    version: '1'
   },
   testing: {
     apiKey:
@@ -26,8 +27,10 @@ const configs = {
     timezone: 'Europe/Madrid',
     cssPath:
       'https://img.weblogssl.com/css/applesfera/admin-contenfoundry/main.css',
-    s3ApiKey: '3Nfs@snk#2K17$AJ&$AK-baa15-4FKH&R5%KCH78.01ab52-5a3e-4e3b-59115d32f',
-    s3ApiDomain: 'https://testapi.weblogssl.com'
+    s3ApiKey:
+      '3Nfs@snk#2K17$AJ&$AK-baa15-4FKH&R5%KCH78.01ab52-5a3e-4e3b-59115d32f',
+    s3ApiDomain: 'https://testapi.weblogssl.com',
+    version: '1'
   },
   development: {
     apiKey:
@@ -41,8 +44,10 @@ const configs = {
     timezone: 'Europe/Madrid',
     cssPath:
       'https://img.weblogssl.com/css/applesfera/admin-contenfoundry/main.css',
-    s3ApiKey: '3Nfs@snk#2K17$AJ&$AK-baa15-4FKH&R5%KCH78.01ab52-5a3e-4e3b-59115d32f',
-    s3ApiDomain: 'https://testapi.weblogssl.com'
+    s3ApiKey:
+      '3Nfs@snk#2K17$AJ&$AK-baa15-4FKH&R5%KCH78.01ab52-5a3e-4e3b-59115d32f',
+    s3ApiDomain: 'https://testapi.weblogssl.com',
+    version: '1'
   }
 };
 
