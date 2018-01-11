@@ -81,9 +81,11 @@ class TitleBar extends React.Component<Props> {
       <Toolbar className="header">
         <div className="brand-logo">
           <ToolbarTitle text={blogName} style={styles.title} />
-          <IconButton onClick={this.openNews}>
-            <Info />
-          </IconButton>
+          {activeTab === 'escribir' && (
+            <IconButton onClick={this.openNews}>
+              <Info />
+            </IconButton>
+          )}
         </div>
         <div className="nav-btn">
           <ToolbarGroup>
