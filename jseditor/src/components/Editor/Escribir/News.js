@@ -6,7 +6,8 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton } from 'material-ui';
 import { CloseButton } from 'components/Editor/ImageUploader';
 
-import configParams from 'config/configs.js';
+import configParams from 'config/configs';
+import { newsPages } from './lib/newsPages';
 
 type Props = {
   modalName: string,
@@ -15,20 +16,19 @@ type Props = {
 
 type State = {
   currentPageNo: number,
-  pages: Array<string>
+  newsPages: Array<React.Node>
 };
 
 const customContentStyle = {
   width: '90%',
   maxWidth: 'none'
 };
-const pages = ['https://ti.blogs.es/d316f2/page1/original.png'];
-const firstPage = pages.length - configParams.version;
+const firstPage = newsPages.length - configParams.version;
 
 class News extends React.PureComponent<Props, State> {
   state = {
     currentPageNo: firstPage,
-    pages
+    newsPages
   };
 
   nextPage = () => {
@@ -57,7 +57,7 @@ class News extends React.PureComponent<Props, State> {
 
   getRightButton = () => {
     const { currentPageNo } = this.state;
-    if (pages[currentPageNo + 1]) {
+    if (newsPages[currentPageNo + 1]) {
       return (
         <RaisedButton
           label="novedades anteriores"
@@ -109,8 +109,11 @@ class News extends React.PureComponent<Props, State> {
         actions={actions}
         open={'newsModal' === modalName}
         contentStyle={customContentStyle}
+        autoScrollBodyContent
       >
-        <img src={this.state.pages[this.state.currentPageNo]} alt="" />
+        <div className="modal-content">
+          {this.state.newsPages[this.state.currentPageNo]}
+        </div>
       </Dialog>
     );
   }
