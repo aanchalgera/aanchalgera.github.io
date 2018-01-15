@@ -17,9 +17,11 @@ import {
   Title,
   Warning,
   SnackbarPopover,
-  News
+  News,
+  Warning2
 } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
+import { openModal } from 'actions/modal';
 
 const UPDATED_MESSAGE = 'Todo guardado';
 
@@ -42,7 +44,11 @@ type Props = {
   currentIndex: number,
   splitPosition: number,
   editImage: (image: Object) => void,
-  userRole: string
+  userRole: string,
+  userId: number,
+  status: string,
+  currentUser: number,
+  openModal: (modalName: string) => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -58,6 +64,9 @@ class Escribir extends React.PureComponent<Props> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.postType !== this.props.postType) {
       initCheck(nextProps.postType, this.props.userRole);
+    }
+    if (nextProps.userId !== this.props.userId) {
+      this.openModal(nextProps.currentUser, nextProps.userId, nextProps.status);
     }
   }
 
@@ -101,6 +110,12 @@ class Escribir extends React.PureComponent<Props> {
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
+  openModal = (currentUser, userId, status) => {
+    if (currentUser != userId && 'draft' === status) {
+      this.props.openModal('warningModal2');
+    }
+  };
+
   render() {
     const sections = this.props.fields;
 
@@ -133,6 +148,10 @@ class Escribir extends React.PureComponent<Props> {
           <Check childName="WarningModal">
             <Warning />
           </Check>
+          {this.props.userId != this.props.currentUser &&
+          'draft' === this.props.status ? (
+            <Warning2 />
+          ) : null}
           <SnackbarPopover />
           <News />
         </div>
@@ -145,4 +164,4 @@ const mapStateToProps = state => {
   return { ...state.post, fields: state.sections };
 };
 
-export default connect(mapStateToProps, actions)(Escribir);
+export default connect(mapStateToProps, { ...actions, openModal })(Escribir);

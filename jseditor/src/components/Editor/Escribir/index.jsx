@@ -7,6 +7,7 @@ import ImageToolbar from './ImageToolbar';
 import Warning from './Warning';
 import SnackbarPopover from './SnackbarPopover';
 import News from './News';
+import Warning2 from './Warning2';
 
 export { SectionModule } from './SectionModule';
 export { Title };
@@ -22,3 +23,4 @@ export { ToolbarIcon } from './ToolbarIcon';
 export { Warning };
 export { SnackbarPopover };
 export { News };
+export { Warning2 };

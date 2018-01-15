@@ -42,7 +42,8 @@ export default class Layout extends React.PureComponent<Props> {
       this.setState({
         blogUrl: blogUrl,
         userRole: userData['roles'][0],
-        blogName: blogName
+        blogName: blogName,
+        currentUser: userData['id']
       });
 
       if ('/post/new' === pathName) {
