@@ -7,7 +7,7 @@ import { base } from 'lib/firebase';
 
 import configParams from 'config/configs';
 import { closeModal, openModal } from 'actions/modal';
-import { CloseButton } from 'components/Editor/ImageUploader';
+import { CloseButton, Label } from 'components/Editor/ImageUploader';
 import {
   EditorFormatItalic,
   ImagePhoto,
@@ -34,6 +34,21 @@ const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
     }
   };
 
+  const title = (
+    <div className="modal-title">
+      <Row className="m-no-margin">
+        <Col sm={11}>
+          <Label
+            label="Bienvenido a Alfa"
+            hint="Si tienes sugerencias o comentarios sobre este editor, cuéntanos en Slack #alfa-editor"
+          />
+        </Col>
+        <Col sm={1} className="end-sm">
+          <CloseButton handleClose={closeModal} />
+        </Col>
+      </Row>
+    </div>
+  );
   const actions = (
     <div className="modal-actions">
       <Row className="m-no-margin">
@@ -62,29 +77,13 @@ const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
     <div>
       <Dialog
         actions={actions}
+        title={title}
         modal
         open={'warningModal' === modalName}
         onRequestClose={closeModal}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
         autoScrollBodyContent
       >
-        <Row className="m-no-margin">
-          <Col sm={11}>
-            <h2 className="type-title-dark">
-              Bienvenido a Alfa
-              <small className="caption-default m-margin-left">
-                Si tienes sugerencias o comentarios sobre este editor, cuéntanos
-                en Slack{' '}
-                <a href="https://weblogs.slack.com/messages/C8PFG2J4R/">
-                  #alfa-editor
-                </a>
-              </small>
-            </h2>
-          </Col>
-          <Col sm={1} className="end-sm">
-            <CloseButton handleClose={closeModal} />
-          </Col>
-        </Row>
         <div className="modal-content m-modal-bg">
           <Row className="m-no-margin">
             <Col sm={8} smOffset={2}>
