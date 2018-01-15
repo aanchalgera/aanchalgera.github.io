@@ -61,6 +61,10 @@ let formatedBlogs = {
 };
 
 export default class RepostSiteOptions extends React.PureComponent<Props> {
+  componentWillMount() {
+    this.initalRepostedBlogs = this.props.repostBlogs.slice();
+  }
+
   componentWillReceiveProps(nextProps: Props) {
     if (this.initalRepostedBlogs === null) {
       this.initalRepostedBlogs = nextProps.repostBlogs.slice();

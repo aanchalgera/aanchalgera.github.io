@@ -108,7 +108,7 @@ class Publish extends React.Component<Props> {
       this.props.handleDifundir('publish', date);
       if (
         this.state.postType === 'longform' ||
-        this.state.postType === 'brandedLongformlongform'
+        this.state.postType === 'brandedLongform'
       ) {
         savePostsList(this.state, this.props.blogName);
       }
