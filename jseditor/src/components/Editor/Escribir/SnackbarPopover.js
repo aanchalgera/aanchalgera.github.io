@@ -12,6 +12,14 @@ type Props = {
   userId: number
 };
 
+const styles = {
+  snackbar: {
+    top: '55px',
+    left: '20px',
+    transform: 'translate(0,0)'
+  }
+};
+
 const SnackbarPopover = ({ modalName, openModal, userId }: Props) => {
   const openNewsModal = async () => {
     await base.update('releases/' + configParams.version + '/' + userId, {
@@ -31,6 +39,7 @@ const SnackbarPopover = ({ modalName, openModal, userId }: Props) => {
       action="saber más"
       onActionClick={openNewsModal}
       onRequestClose={() => {}}
+      style={styles.snackbar}
     />
   );
 };
