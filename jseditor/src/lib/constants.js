@@ -89,6 +89,10 @@ export const viewPermissions = {
   Tags: {
     roles: ALL_COORDINATORS,
     types: ALL_TYPES
+  },
+  EditWarning: {
+    roles: ['ROLE_COORDINATOR', 'ROLE_COLLABORATOR', 'ROLE_EDITOR'],
+    types: ['normal', 'slideshow', 'basics', 'longform']
   }
 };
 
@@ -136,4 +140,3 @@ export const initialPublishRegions = [
   'CEA',
   'ROW'
 ];
-
