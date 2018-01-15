@@ -18,7 +18,7 @@ import {
   Warning,
   SnackbarPopover,
   News,
-  Warning2
+  EditWarning
 } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 import { openModal } from 'actions/modal';
@@ -66,7 +66,7 @@ class Escribir extends React.PureComponent<Props> {
       initCheck(nextProps.postType, this.props.userRole);
     }
     if (nextProps.userId !== this.props.userId) {
-      this.openModal(nextProps.currentUser, nextProps.userId, nextProps.status);
+      this.openModal(nextProps.currentUser, nextProps.userId);
     }
   }
 
@@ -110,9 +110,9 @@ class Escribir extends React.PureComponent<Props> {
     this.props.handleStatus(UPDATED_MESSAGE);
   };
 
-  openModal = (currentUser, userId, status) => {
-    if (currentUser != userId && 'draft' === status) {
-      this.props.openModal('warningModal2');
+  openModal = (currentUser, userId) => {
+    if (currentUser != userId) {
+      this.props.openModal('EditWarning');
     }
   };
 
@@ -148,10 +148,11 @@ class Escribir extends React.PureComponent<Props> {
           <Check childName="WarningModal">
             <Warning />
           </Check>
-          {this.props.userId != this.props.currentUser &&
-          'draft' === this.props.status ? (
-            <Warning2 />
-          ) : null}
+          <Check childName="EditWarning">
+            {this.props.userId != this.props.currentUser ? (
+              <EditWarning />
+            ) : null}
+          </Check>
           <SnackbarPopover />
           <News />
         </div>

@@ -32,7 +32,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
       <Dialog
         actions={action}
         modal
-        open={'warningModal2' === modalName}
+        open={'EditWarning' === modalName}
         onRequestClose={closeModal}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
         autoScrollBodyContent
@@ -65,10 +65,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
               </div>
               <div className="paragraph">
                 Si tienes alguna duda sobre su funcionamiento, puedes preguntar
-                en Slack{' '}
-                <a href="https://weblogs.slack.com/messages/C8PFG2J4R">
-                  #alfa-editor
-                </a>
+                en Slack <a href="#">#alfa-editor</a>
               </div>
             </Col>
           </Row>
