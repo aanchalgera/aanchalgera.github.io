@@ -52,6 +52,7 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
+        isAtFirstPosition: false,
         title: action.title,
         meta: { ...state.meta, social }
       };
