@@ -111,7 +111,7 @@ class Escribir extends React.PureComponent<Props> {
   };
 
   openModal = (currentUser, userId) => {
-    if (currentUser != userId) {
+    if (currentUser !== userId) {
       this.props.openModal('EditWarning');
     }
   };
@@ -149,7 +149,7 @@ class Escribir extends React.PureComponent<Props> {
             <Warning />
           </Check>
           <Check childName="EditWarning">
-            {this.props.userId != this.props.currentUser ? (
+            {this.props.userId !== this.props.currentUser ? (
               <EditWarning />
             ) : null}
           </Check>
