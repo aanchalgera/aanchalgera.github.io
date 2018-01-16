@@ -52,7 +52,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
                 <strong>Esto es un poco diferente, ¿verdad?</strong>
               </div>
               <div className="paragraph">
-                este artículo se ha creado con el nuevo editor{' '}
+                Este artículo se ha creado con el nuevo editor{' '}
                 <strong>Alfa</strong>, y sólo puede editarse con él. Te animamos
                 a
               </div>
