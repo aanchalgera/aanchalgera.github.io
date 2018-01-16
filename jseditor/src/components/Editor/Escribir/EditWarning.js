@@ -49,7 +49,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
           <Row className="m-no-margin">
             <Col sm={8} smOffset={2}>
               <div className="paragraph">
-                <strong>Esto es un poco diferente, verdad?</strong>
+                <strong>Esto es un poco diferente, ¿verdad?</strong>
               </div>
               <div className="paragraph">
                 este artículo se ha creado con el nuevo editor{' '}
@@ -59,7 +59,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
               <div className="paragraph">
                 probarlo para tus propios artículos, puedes encontrarlo en{' '}
                 <strong>
-                  <quote>Escribir en Alfa\</quote>
+                  <q>Escribir en Alfa</q>
                 </strong>{' '}
                 en el menú &#8801;
               </div>
