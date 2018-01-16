@@ -52,7 +52,7 @@ class MoreOptions extends PureComponent<Props, State> {
         style={{
           position: 'absolute',
           top: coordinates.top,
-          left: coordinates.left
+          left: coordinates.left - 80
         }}
         className="options-container"
       >
