@@ -16,7 +16,11 @@ const styles = {
     lineHeight: '40px',
     height: '200px'
   },
-  hintStyle: { fontSize: '33px', color: 'rgba(0,0,0,0.3)', fontFamily: "'Noto Serif', serif" },
+  hintStyle: {
+    fontSize: '33px',
+    color: 'rgba(0,0,0,0.38)',
+    fontFamily: "'Noto Serif', serif"
+  },
   textareaStyle: {
     fontWeight: 'bold',
     fontSize: '33px',
