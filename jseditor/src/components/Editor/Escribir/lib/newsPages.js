@@ -8,73 +8,48 @@ const page1 = (
       <Col sm={2} smOffset={2}>
         Lo nuevo en Alfa (7)
       </Col>
-      <Col sm={5}>
-        <div className="paragraph">
-          <h2>Galerías de fotos para tus artículos</h2>
+      <Col sm={6}>
+        <span className="paragraph">
+          <h2>Lo esencial: texto e imágenes</h2>
           <p>
-            Con las galerías puedes incluir en tu artítulo colecciones de fotos
-            con un diseńo compacto, y tus lectores podrán ver cada foto a tamańo
-            grande haciendo click en ella. También puedes:
+            En Alfa la principal novedad es que nos quitamos de en medio el
+            código visible. A partir de ahora el formato que des a los textos e
+            imágenes se aplicará directamente sobre ellos.
           </p>
+          <p>
+            No obstante, no es una preview 100% real, para eso times el{' '}
+            {'"ojo"'} en la esquina superior derecha
+          </p>
+          <h4>Texto con formato</h4>
           <ul>
-            <li>- Usar pie de foto para cada imagen</li>
-            <li>- Hacer galerías de GIFs animados</li>
-            <li>- Elegir el tamańo de las miniaturas</li>
+            <li>- Abre el editor y escribe directamente.</li>
+            <li>
+              - Para dar formato al texto que acabas de escribir, resáltalo y
+              las opciones aparecerán en pantalla.
+            </li>
+            <li>- También funcionan los atajos de Markdown.</li>
           </ul>
-          <p>Asf se verá una galería de fotos en tu articulo:</p>
-        </div>
-      </Col>
-      <Col sm={2}>
-        <img src="/images/galleryButton.jpg" alt="" />
+          <img src="/images/texto-con-formato.gif" alt="" />
+          <h4>Imágenes estáticas</h4>
+          <p>
+            Al pulsar intro aparece un botón (+) para insertar varios tipos de
+            objetos en el texto.
+          </p>
+          <img src="/images/subir-imagen.gif" alt="" />
+          <p>
+            Lo primero que hemos añadido son imágenes. Con su botón puedes subig
+            seleccionar y añadir el testo ahemativo. Una vez añadida a tu texto,
+            puedes cambiar su tamaño y alineación haciendo click en ella.
+          </p>
+        </span>
       </Col>
     </Row>
     <Row className="m-no-margin">
-      <Col sm={10} smOffset={1}>
-        <img src="/images/gallery.jpg" alt="" />
+      <Col sm={9} smOffset={2}>
+        <img src="/images/editing.gif" alt="" />
       </Col>
     </Row>
   </span>
 );
 
-const page2 = (
-  <span className="newspage">
-    <Row className="m-no-margin">
-      <Col sm={2} smOffset={2}>
-        Lo nuevo en Alfa (6)
-      </Col>
-      <Col sm={5}>
-        <div className="paragraph">
-          <h2>Gráficos de datos</h2>
-          <p>
-            Con gráficos puedes facilitar al lector comprender la informaci6n
-            basada en gran cantidad de datos. Con esta herramienta puedes
-            incluir en to artículo diagramas creados con:
-          </p>
-          <ul>
-            <li>- Info.gram</li>
-            <li>- CARTO</li>
-          </ul>
-          <p>
-            Puedes pedir los datos de acceso de Weblogs SL para estos servicios
-            en accesos@weblogssl.com
-          </p>
-          <p>
-            Si tienes dudas de qué tipo de gráfico to conviene más usar para
-            contar lo que quieres, puedes consulter esta guia breve de
-            visualización de datos
-          </p>
-        </div>
-      </Col>
-      <Col sm={2}>
-        <img src="/images/galleryButton.jpg" alt="" />
-      </Col>
-    </Row>
-    <Row className="m-no-margin">
-      <Col sm={10} smOffset={1}>
-        <img src="/images/graph.jpg" alt="" />
-      </Col>
-    </Row>
-  </span>
-);
-
-export const newsPages = [page1, page2];
+export const newsPages = [page1];
