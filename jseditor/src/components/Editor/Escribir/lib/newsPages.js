@@ -29,13 +29,13 @@ const page1 = (
             </li>
             <li>- También funcionan los atajos de Markdown.</li>
           </ul>
-          <img src="/images/texto-con-formato.gif" alt="" />
+          <img src="https://i.blogs.es/news/texto-con-formato.gif" alt="" />
           <h4>Imágenes estáticas</h4>
           <p>
             Al pulsar intro aparece un botón (+) para insertar varios tipos de
             objetos en el texto.
           </p>
-          <img src="/images/subir-imagen.gif" alt="" />
+          <img src="https://i.blogs.es/news/subir-imagen.gif" alt="" />
           <p>
             Lo primero que hemos añadido son imágenes. Con su botón puedes subig
             seleccionar y añadir el testo ahemativo. Una vez añadida a tu texto,
@@ -46,7 +46,7 @@ const page1 = (
     </Row>
     <Row className="m-no-margin">
       <Col sm={9} smOffset={2}>
-        <img src="/images/editing.gif" alt="" />
+        <img src="https://i.blogs.es/news/image-editing.gif" alt="" />
       </Col>
     </Row>
   </span>
