@@ -65,7 +65,7 @@ const Warning = ({ modalName, closeModal }: Props) => {
               </div>
               <div className="paragraph">
                 Si tienes alguna duda sobre su funcionamiento, puedes preguntar
-                en Slack <a href="#">#alfa-editor</a>
+                en Slack #alfa-editor
               </div>
             </Col>
           </Row>

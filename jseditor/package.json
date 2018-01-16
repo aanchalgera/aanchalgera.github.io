@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "add": "^2.0.6",
     "draft-js": "^0.10.4",
     "draft-js-anchor-plugin": "^2.0.1",
     "draft-js-buttons": "^2.0.1",
@@ -28,6 +29,7 @@
     "react-dom": "^16.2.0",
     "react-flexbox-grid": "^2.0.0",
     "react-image-crop": "^2.0.8",
+    "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

@@ -1,15 +1,13 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Switch, Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
-import Publicar from './Publish';
 import Difundir from './Difundir';
-import Escribir from './Escribir';
-import Editor from './Editor';
 import helpers from 'utils/generatehash';
 import DevTools from 'devTools';
 
@@ -18,6 +16,27 @@ type Props = {
   location: { search: string, pathname: string },
   history: Object
 };
+
+const LoadablePublish = Loadable({
+  loader: () => import('./Publish'),
+  loading() {
+    return <div>Loading...</div>;
+  }
+});
+
+const LoadableEscribir = Loadable({
+  loader: () => import('./Escribir'),
+  loading() {
+    return <div>Loading...</div>;
+  }
+});
+
+const LoadableEditor = Loadable({
+  loader: () => import('./Editor'),
+  loading() {
+    return <div>Loading...</div>;
+  }
+});
 
 export default class Layout extends React.PureComponent<Props> {
   state = {
@@ -135,7 +154,7 @@ export default class Layout extends React.PureComponent<Props> {
             <Route
               path="/publicar/:postname"
               render={props => (
-                <Publicar
+                <LoadablePublish
                   {...props}
                   {...rest}
                   handleDifundir={this.handleDifundir}
@@ -155,7 +174,7 @@ export default class Layout extends React.PureComponent<Props> {
             <Route
               path="/escribir/:postname"
               render={props => (
-                <Escribir
+                <LoadableEscribir
                   onRef={ref => {
                     this.editor = ref;
                   }}
@@ -172,7 +191,7 @@ export default class Layout extends React.PureComponent<Props> {
                   className="container-fluid"
                   style={{ paddingTop: '112px' }}
                 >
-                  <Editor
+                  <LoadableEditor
                     onRef={ref => {
                       this.editor = ref;
                     }}
