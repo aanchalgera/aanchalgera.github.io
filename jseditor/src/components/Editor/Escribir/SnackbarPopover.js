@@ -16,7 +16,8 @@ const styles = {
   snackbar: {
     top: '55px',
     left: '20px',
-    transform: 'translate(0,0)'
+    transform: 'translate(0,0)',
+    zIndex: '1300'
   }
 };
 
@@ -34,7 +35,7 @@ const SnackbarPopover = ({ modalName, openModal, userId }: Props) => {
     <Snackbar
       className="newsPopover"
       open={'snackbarPopover' === modalName}
-      message="ya puedes usar galerías de fotos"
+      message="Puedes añadir texto e imágenes"
       autoHideDuration={3600000}
       action="saber más"
       onActionClick={openNewsModal}
