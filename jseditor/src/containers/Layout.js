@@ -7,7 +7,6 @@ import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';
 import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
-import Difundir from './Difundir';
 import helpers from 'utils/generatehash';
 import DevTools from 'devTools';
 
@@ -26,6 +25,13 @@ const LoadablePublish = Loadable({
 
 const LoadableEscribir = Loadable({
   loader: () => import('./Escribir'),
+  loading() {
+    return <div>Loading...</div>;
+  }
+});
+
+const LoadableDifundir = Loadable({
+  loader: () => import('./Difundir'),
   loading() {
     return <div>Loading...</div>;
   }
@@ -164,7 +170,7 @@ export default class Layout extends React.PureComponent<Props> {
             <Route
               path="/difundir/:postname"
               render={props => (
-                <Difundir
+                <LoadableDifundir
                   {...props}
                   {...rest}
                   handleDifundir={this.handleDifundir}
