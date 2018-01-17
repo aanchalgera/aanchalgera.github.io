@@ -61,7 +61,6 @@ class News extends React.PureComponent<Props, State> {
       return (
         <RaisedButton
           label="novedades anteriores"
-          keyboardFocused
           onClick={this.nextPage}
         />
       );

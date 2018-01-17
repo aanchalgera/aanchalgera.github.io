@@ -65,7 +65,6 @@ const Warning = ({ modalName, closeModal, openModal, userId, blogUrl }: Props) =
           <RaisedButton
             label="Seguir en alfa"
             primary
-            keyboardFocused
             onClick={closeWarningModal}
             key="newEditor"
           />

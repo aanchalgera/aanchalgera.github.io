@@ -19,7 +19,6 @@ const Warning = ({ modalName, closeModal }: Props) => {
         <RaisedButton
           label="Editor Este Artículo en Alfa"
           primary
-          keyboardFocused
           onClick={closeModal}
           key="newEditor"
         />
