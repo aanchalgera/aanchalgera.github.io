@@ -1,7 +1,11 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
-import { defaultCommentStatus, initialPublishRegions, initialMeta } from 'lib/constants';
+import {
+  defaultCommentStatus,
+  initialPublishRegions,
+  initialMeta
+} from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -112,7 +116,7 @@ const validateTitle = (title: string) => {
   if ('' === title.trim() || 5 >= title.length) {
     isError = true;
     message = TITLE_MINLENGTH_WARNING;
-  } else if (130 <= title.length) {
+  } else if (130 < title.length) {
     isError = true;
     message = TITLE_MAXLENGTH_WARNING;
   }
