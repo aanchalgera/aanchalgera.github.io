@@ -104,7 +104,7 @@ class TitleBar extends React.Component<Props> {
           <ToolbarGroup>
             {this.getStatusElement(activeTab)}
             {(activeTab === ESCRIBIR || activeTab === 'escribir') && (
-              <IconButton onClick={this.props.saveData}>
+              <IconButton tooltip="Guardar" onClick={this.props.saveData}>
                 <Save />
               </IconButton>
             )}{' '}
@@ -115,6 +115,7 @@ class TitleBar extends React.Component<Props> {
             )}
             <IconButton
               target="_blank"
+              tooltip={'Ver en ' + blogUrl}
               href={blogUrl + '/preview-longform/' + this.postName}
             >
               <Visibility />

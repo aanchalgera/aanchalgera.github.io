@@ -129,14 +129,17 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            <Title
-              text={this.props.title}
-              handleBlur={this.savePostToBackend}
-            />
             <Row className="m-no-margin">
-              <Col xs={2} />
-              <Col xs={8}>{nodes}</Col>
-              <Col xs={2} />
+              <Col sm={10} smOffset={1}>
+                <Title
+                  text={this.props.title}
+                  handleBlur={this.savePostToBackend}
+                />
+              </Col>
+            </Row>
+            <Row className="m-no-margin">
+              <Col sm={3} />
+              <Col sm={6}>{nodes}</Col>
             </Row>
             <ImageUploader
               id={this.props.id}
