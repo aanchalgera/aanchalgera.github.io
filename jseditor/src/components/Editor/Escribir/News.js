@@ -76,14 +76,16 @@ class News extends React.PureComponent<Props, State> {
 
   getTitleContent = () => {
     return (
-      <Row className="m-no-margin">
-        <Col sm={11}>
-          <h2 className="type-title-dark">Novedades en Alfa</h2>
-        </Col>
-        <Col sm={1} className="end-sm">
-          <CloseButton handleClose={this.closeNews} />
-        </Col>
-      </Row>
+      <div className="modal-title">
+        <Row className="m-no-margin">
+          <Col sm={11}>
+            <h2 className="type-title-dark">Novedades en Alfa</h2>
+          </Col>
+          <Col sm={1} className="end-sm">
+            <CloseButton handleClose={this.closeNews} />
+          </Col>
+        </Row>
+      </div>
     );
   };
 
