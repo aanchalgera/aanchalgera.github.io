@@ -130,8 +130,8 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            <Row className="m-no-margin">
-              <Col sm={10} smOffset={1}>
+            <Row className="m-no-margin" center="sm">
+              <Col sm={8}>
                 <Title
                   text={this.props.title}
                   handleBlur={this.savePostToBackend}
