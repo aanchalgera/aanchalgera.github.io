@@ -145,9 +145,7 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
-          <Check childName="WarningModal">
-            <Warning />
-          </Check>
+          <Warning />
           <Check childName="EditWarning">
             {this.props.userId !== this.props.currentUser ? (
               <EditWarning />

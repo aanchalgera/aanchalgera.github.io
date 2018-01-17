@@ -74,6 +74,22 @@ export class S3Uploader extends PureComponent<Props, State> {
     });
   };
 
+  getTitle = () => (
+    <div className="modal-title">
+      <Row className="m-no-margin">
+        <Col sm={11}>
+          <Label
+            label="Sube una o varias imágenes"
+            hint="Máximo 8MB cada imagen"
+          />
+        </Col>
+        <Col sm={1} className="end-sm">
+          <CloseButton handleClose={this.props.closeDialog} />
+        </Col>
+      </Row>
+    </div>
+  );
+
   getUploadButton = () => {
     return (
       <Fragment>
@@ -107,20 +123,10 @@ export class S3Uploader extends PureComponent<Props, State> {
     return (
       <Dialog
         open={this.props.open}
+        title={this.getTitle()}
         onRequestClose={closeDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
-        <Row className="m-no-margin">
-          <Col sm={11}>
-            <Label
-              label="Sube una o varias imágenes"
-              hint="Máximo 8MB cada imagen"
-            />
-          </Col>
-          <Col sm={1} className="end-sm">
-            <CloseButton handleClose={closeDialog} />
-          </Col>
-        </Row>
         <div className="uploader">{contents}</div>
       </Dialog>
     );

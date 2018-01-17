@@ -16,6 +16,19 @@ type Props = {
 };
 
 export class ImagePanel extends PureComponent<Props> {
+  getTitle = () => (
+    <div className="modal-title">
+      <Row className="m-no-margin">
+        <Col sm={11} className="start-sm">
+          <Label label="Elige la imagen que quieres insertar" />
+        </Col>
+        <Col sm={1} className="end-sm">
+          <CloseButton handleClose={this.props.closeDialog} />
+        </Col>
+      </Row>
+    </div>
+  );
+
   getDialogActions = () => {
     return (
       <div className="modal-actions">
@@ -34,19 +47,12 @@ export class ImagePanel extends PureComponent<Props> {
     return (
       <Dialog
         actions={this.getDialogActions()}
+        title={this.getTitle()}
         open={open}
         onRequestClose={closeDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
         autoScrollBodyContent
       >
-        <Row className="m-no-margin">
-          <Col sm={11} className="start-sm">
-            <Label label="Elige la imagen que quieres insertar" />
-          </Col>
-          <Col sm={1} className="end-sm">
-            <CloseButton handleClose={closeDialog} />
-          </Col>
-        </Row>
         <Row className="m-no-margin">
           {images.map((image, index: number) => {
             return (

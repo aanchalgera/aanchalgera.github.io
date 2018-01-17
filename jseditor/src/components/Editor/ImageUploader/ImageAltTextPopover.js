@@ -75,6 +75,19 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     this.setState({ altText: '' });
   };
 
+  getTitle = () => (
+    <div className="modal-title">
+      <Row className="m-no-margin">
+        <Col sm={11} className="start-sm">
+          <Label label="Insertar imagen en el artículo" />
+        </Col>
+        <Col sm={1} className="end-sm">
+          <CloseButton handleClose={this.handleCloseDialog} />
+        </Col>
+      </Row>
+    </div>
+  );
+
   getDialogActions = () => {
     return (
       <div className="modal-actions">
@@ -100,18 +113,11 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       <Dialog
         actions={this.getDialogActions()}
         open={open}
+        title={this.getTitle()}
         onRequestClose={this.handleCloseDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
         autoScrollBodyContent
       >
-        <Row className="m-no-margin">
-          <Col sm={11} className="start-sm">
-            <Label label="Insertar imagen en el artículo" />
-          </Col>
-          <Col sm={1} className="end-sm">
-            <CloseButton handleClose={this.handleCloseDialog} />
-          </Col>
-        </Row>
         <Row className="m-no-margin">
           <Col sm={4}>
             <div className="img-container">
