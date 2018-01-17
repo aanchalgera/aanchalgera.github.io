@@ -18,10 +18,11 @@ type Props = {
   modalName: string,
   closeModal: () => void,
   userId: number,
+  blogUrl: string,
   openModal: (modalName: string) => void
 };
 
-const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
+const Warning = ({ modalName, closeModal, openModal, userId, blogUrl }: Props) => {
   const closeWarningModal = async () => {
     const data = await base.fetch(
       'releases/' + configParams.version + '/' + userId,
@@ -57,7 +58,7 @@ const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
             icon={<NavigationArrowBack />}
             key="oldEditor"
             label="Volver al editor clásico"
-            onClick={() => window.close()}
+            onClick={window.close}
           />
         </Col>
         <Col sm={6} className="end-sm">
@@ -93,17 +94,17 @@ const Warning = ({ modalName, closeModal, openModal, userId }: Props) => {
               </div>
               <div className="modal-icon-list">
                 <div className="modal-icon-list-item">
-                  <EditorFormatItalic className="modal-icon" color="gray" />Texto
+                  <EditorFormatItalic className="modal-icon" />Texto
                   con formato
                 </div>
                 <div className="modal-icon-list-item">
-                  <ImagePhoto className="modal-icon" color="gray" />Imágenes
+                  <ImagePhoto className="modal-icon" />Imágenes
                   estáticas
                 </div>
               </div>
               <div className="paragraph">
                 Si no es suficiente para el post que tienes en mente, puedes{' '}
-                <a href="" onClick={() => window.close()}>
+                <a href={`${blogUrl}/admin`} onClick={window.close}>
                   volver al editor clasico
                 </a>.
               </div>

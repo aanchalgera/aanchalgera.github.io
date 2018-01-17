@@ -118,6 +118,7 @@ class Escribir extends React.PureComponent<Props> {
 
   render() {
     const sections = this.props.fields;
+    const { blogUrl } = this.props;
 
     if (this.props.id) {
       var nodes = [];
@@ -145,7 +146,7 @@ class Escribir extends React.PureComponent<Props> {
             />
             <MoreOptions />
           </div>
-          <Warning />
+          <Warning blogUrl={blogUrl} />
           <Check childName="EditWarning">
             {this.props.userId !== this.props.currentUser ? (
               <EditWarning />
