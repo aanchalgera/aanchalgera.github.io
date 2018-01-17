@@ -9,7 +9,7 @@ import {
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
-import { Check, init as initCheck } from 'lib/check';
+import { Check, init as initCheck, isValidUser } from 'lib/check';
 import { ImageUploader } from 'components/Editor/ImageUploader';
 import {
   Node,
@@ -48,7 +48,8 @@ type Props = {
   userId: number,
   status: string,
   currentUser: number,
-  openModal: (modalName: string) => void
+  openModal: (modalName: string) => void,
+  history: () => void
 };
 
 class Escribir extends React.PureComponent<Props> {
@@ -64,6 +65,9 @@ class Escribir extends React.PureComponent<Props> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.postType !== this.props.postType) {
       initCheck(nextProps.postType, this.props.userRole);
+      if (!isValidUser()) {
+        this.props.history.push('/invalidUser');
+      }
     }
     if (nextProps.userId !== this.props.userId) {
       this.openModal(nextProps.currentUser, nextProps.userId);

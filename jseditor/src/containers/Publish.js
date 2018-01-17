@@ -33,7 +33,7 @@ import {
   validateState,
   findByName
 } from './lib/helpers.js';
-import { Check, init as initCheck } from 'lib/check';
+import { Check, init as initCheck, isValidUser } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
 import { postImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
@@ -50,7 +50,8 @@ type Props = {
   blogName: string,
   userRole: string,
   handleDifundir: (status: string, date: string) => void,
-  receivePost: (post: Object) => void
+  receivePost: (post: Object) => void,
+  history: () => void
 };
 
 class Publish extends React.Component<Props> {
@@ -78,6 +79,9 @@ class Publish extends React.Component<Props> {
     }
     this.props.handleDifundir(post.status, this.state.publishedDate);
     initCheck(post.postType, this.props.userRole);
+    if (!isValidUser()) {
+      this.props.history.push('/invalidUser');
+    }
     this.props.receivePost(post);
   }
 

@@ -9,6 +9,7 @@ import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import helpers from 'utils/generatehash';
 import DevTools from 'devTools';
+import { init as initChecker, isValidUser } from 'lib/check';
 
 type Props = {
   match: { params: Object },
@@ -64,24 +65,30 @@ export default class Layout extends React.PureComponent<Props> {
     try {
       const blogUrl = await getBlogUrl(blogName);
       const userData = await getUserDetails(blogUrl);
+      const userRole = userData['roles'][0];
       this.setState({
-        blogUrl: blogUrl,
-        userRole: userData['roles'][0],
-        blogName: blogName,
+        blogUrl,
+        userRole,
+        blogName,
         currentUser: userData['id']
       });
 
       if ('/post/new' === pathName) {
-        const hashId = helpers.generatePushID();
         const postType = query.get('type');
+        initChecker(postType, userRole);
+        if (!isValidUser()) {
+          throw new Error('INVALID_USER');
+        }
+
+        const hashId = helpers.generatePushID();
         const editUrl = postType === 'normal' ? '/escribir/' : '/edit/post/';
         const postEditUrl = editUrl + hashId + '?blog=' + blogName;
         history.push(postEditUrl);
         const initialData = {
           id: hashId,
           user_id: userData.id,
-          postType: postType,
-          blogName: blogName,
+          postType,
+          blogName,
           status: 'draft',
           title: '',
           sections: []
@@ -89,8 +96,7 @@ export default class Layout extends React.PureComponent<Props> {
         saveInitialPost(initialData);
       }
     } catch (error) {
-      console.log(error.message);
-      if (error.message === 'NOT_LOGGED_IN') {
+      if (['NOT_LOGGED_IN', 'INVALID_USER'].includes(error.message)) {
         history.push('/invalidUser');
       } else {
         history.push('/invalidBlog');
