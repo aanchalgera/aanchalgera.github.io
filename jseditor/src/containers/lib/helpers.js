@@ -116,7 +116,7 @@ const validateTitle = (title: string) => {
   if ('' === title.trim() || 5 >= title.length) {
     isError = true;
     message = TITLE_MINLENGTH_WARNING;
-  } else if (130 < title.length) {
+  } else if (130 <= title.length) {
     isError = true;
     message = TITLE_MAXLENGTH_WARNING;
   }
