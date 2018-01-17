@@ -1,7 +1,5 @@
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import createMarkdownPlugin from 'draft-js-markdown-plugin';
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
-import 'draft-js-anchor-plugin/lib/plugin.css';
 
 import createLinkPlugin from 'draft-js-anchor-plugin';
 import {
