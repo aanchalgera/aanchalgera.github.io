@@ -18,32 +18,28 @@ type Props = {
   history: Object
 };
 
+const loading = () => {
+  return <div className="grid-wrapper">Loading...</div>;
+};
+
 const LoadablePublish = Loadable({
   loader: () => import('./Publish'),
-  loading() {
-    return <div>Loading...</div>;
-  }
+  loading
 });
 
 const LoadableEscribir = Loadable({
   loader: () => import('./Escribir'),
-  loading() {
-    return <div>Loading...</div>;
-  }
+  loading
 });
 
 const LoadableDifundir = Loadable({
   loader: () => import('./Difundir'),
-  loading() {
-    return <div>Loading...</div>;
-  }
+  loading
 });
 
 const LoadableEditor = Loadable({
   loader: () => import('./Editor'),
-  loading() {
-    return <div>Loading...</div>;
-  }
+  loading
 });
 
 export default class Layout extends React.PureComponent<Props> {
