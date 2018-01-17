@@ -2,6 +2,8 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Switch, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
+import 'draft-js-anchor-plugin/lib/plugin.css';
 
 import TitleBar from 'components/Menu/TitleBar';
 import { customTheme } from './styles/customTheme';

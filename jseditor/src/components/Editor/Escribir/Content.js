@@ -77,12 +77,15 @@ class Content extends React.PureComponent<Props> {
 
   getVariables() {
     const { id, text } = this.props;
-    const placeHolder = id === 1 ? 'Empieza a escribir aquí...' : '';
-    const className =
-      id === 1 && (text === '<p><br></p>' || text === '')
-        ? 'first-paragraph'
-        : 'paragraph';
-
+    let placeHolder = '';
+    let className = 'paragraph';
+    if (id === 1) {
+      placeHolder = 'Empieza a escribir aquí...';
+      className =
+        text === '<p><br></p>' || text === ''
+          ? 'first-paragraph'
+          : 'm-first-paragraph paragraph';
+    }
     return { placeHolder, className };
   }
 
