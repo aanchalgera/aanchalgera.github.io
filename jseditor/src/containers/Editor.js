@@ -64,7 +64,6 @@ class Editor extends React.Component {
         userId: data.user_id,
         meta: data.meta || initialMeta
       });
-      initCheck(data.postType, this.props.userRole);
     } else {
       console.log('Should never be here');
       this.setState({
