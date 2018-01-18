@@ -11,6 +11,7 @@ import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import helpers from 'utils/generatehash';
 import DevTools from 'devTools';
+import { init as initCheck, isValidUser } from 'lib/check';
 
 type Props = {
   match: { params: Object },
@@ -52,6 +53,11 @@ export default class Layout extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.init();
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   init = async () => {
@@ -62,24 +68,30 @@ export default class Layout extends React.PureComponent<Props> {
     try {
       const blogUrl = await getBlogUrl(blogName);
       const userData = await getUserDetails(blogUrl);
+      const userRole = userData['roles'][0];
       this.setState({
-        blogUrl: blogUrl,
-        userRole: userData['roles'][0],
-        blogName: blogName,
+        blogUrl,
+        userRole,
+        blogName,
         currentUser: userData['id']
       });
 
       if ('/post/new' === pathName) {
-        const hashId = helpers.generatePushID();
         const postType = query.get('type');
+        initCheck(postType, userRole);
+        if (!isValidUser()) {
+          throw new Error('NOT_AUTHORIZED');
+        }
+
+        const hashId = helpers.generatePushID();
         const editUrl = postType === 'normal' ? '/escribir/' : '/edit/post/';
         const postEditUrl = editUrl + hashId + '?blog=' + blogName;
         history.push(postEditUrl);
         const initialData = {
           id: hashId,
           user_id: userData.id,
-          postType: postType,
-          blogName: blogName,
+          postType,
+          blogName,
           status: 'draft',
           title: '',
           sections: []
@@ -87,20 +99,25 @@ export default class Layout extends React.PureComponent<Props> {
         saveInitialPost(initialData);
       }
     } catch (error) {
-      console.log(error.message);
-      if (error.message === 'NOT_LOGGED_IN') {
-        history.push('/invalidUser');
-      } else {
-        history.push('/invalidBlog');
+      switch (error.message) {
+        case 'NOT_LOGGED_IN':
+          history.push('/invalidUser');
+          break;
+        case 'NOT_AUTHORIZED':
+          history.push('/notAuthorized');
+          break;
+        default:
+          history.push('/invalidBlog');
       }
     }
   };
 
   handleStatus = (statusMsg: string) => {
-    this.setState({
-      showPostStatusMsg: true,
-      statusMsg: statusMsg
-    });
+    this._isMounted &&
+      this.setState({
+        showPostStatusMsg: true,
+        statusMsg: statusMsg
+      });
   };
 
   hideStatus = () => {
@@ -122,11 +139,12 @@ export default class Layout extends React.PureComponent<Props> {
 
     let statusMsg = isFuture(publishedDate) ? 'Programado' : 'Publicado';
 
-    this.setState({
-      showDifundir: showDifundir,
-      showPostStatusMsg: showPostStatusMsg,
-      statusMsg: statusMsg
-    });
+    this._isMounted &&
+      this.setState({
+        showDifundir: showDifundir,
+        showPostStatusMsg: showPostStatusMsg,
+        statusMsg: statusMsg
+      });
   };
 
   getTitleBar = () => {

@@ -1,5 +1,5 @@
 /*@flow*/
-import { viewPermissions } from './constants';
+import { viewPermissions, postTypePermissions } from './constants';
 
 let postType, userRole;
 
@@ -33,4 +33,16 @@ export const Check = (props: PropTypes) => {
     return props.children;
   }
   return null;
+};
+
+export const isValidUser = () => {
+  if ('ROLE_ADMINISTRATOR' === userRole) {
+    return true;
+  }
+
+  if (postTypePermissions[postType]['roles'].includes(userRole)) {
+    return true;
+  }
+
+  return false;
 };

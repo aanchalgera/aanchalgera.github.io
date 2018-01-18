@@ -6,11 +6,24 @@ const ALL_TYPES = [
   'brandedLongform',
   'longform'
 ];
+
 const ALL_COORDINATORS = [
   'ROLE_EDITOR',
   'ROLE_BRANDED_COORDINATOR',
   'ROLE_COORDINATOR',
   'ROLE_COLLABORATOR'
+];
+
+const ALL_NON_BRANDED_ROLES = [
+  'ROLE_EDITOR',
+  'ROLE_COLLABORATOR',
+  'ROLE_COORDINATOR',
+  'ROLE_DIRECTOR'
+];
+
+const ALL_BRANDED_ROLES = [
+  'ROLE_BRANDED_COORDINATOR',
+  'ROLE_BRANDED_COLLABORATOR'
 ];
 
 export const viewPermissions = {
@@ -136,3 +149,15 @@ export const initialPublishRegions = [
   'CEA',
   'ROW'
 ];
+
+export const postTypePermissions = {
+  normal: {
+    roles: ALL_NON_BRANDED_ROLES
+  },
+  longform: {
+    roles: ALL_NON_BRANDED_ROLES
+  },
+  brandedLongform: {
+    roles: ALL_BRANDED_ROLES
+  }
+};

@@ -13,7 +13,7 @@ import {
   getPost,
   savePostFromEscribirPage
 } from './lib/service';
-import { init as initCheck } from 'lib/check';
+import { init as initCheck, isValidUser } from 'lib/check';
 
 const CAPTION_WARNING = 'Anchor tag is not allowed in image captions';
 const UPDATED_MESSAGE = 'Todo guardado';
@@ -48,6 +48,12 @@ class Editor extends React.Component {
     const postname = this.props.match.params.postname;
     const data = await getPost(postname);
     if (data.hasOwnProperty('id')) {
+      initCheck(data.postType, this.props.userRole);
+      if (!isValidUser()) {
+        this.props.history.push('/notAuthorized');
+        return;
+      }
+
       this.setState({
         id: data.id,
         postType: data.postType || getPostType(this.props.userRole),
