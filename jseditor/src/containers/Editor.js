@@ -50,7 +50,7 @@ class Editor extends React.Component {
     if (data.hasOwnProperty('id')) {
       initCheck(data.postType, this.props.userRole);
       if (!isValidUser()) {
-        this.props.history.push('/notauthorized');
+        this.props.history.push('/notAuthorized');
         return;
       }
 

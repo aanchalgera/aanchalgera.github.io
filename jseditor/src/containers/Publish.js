@@ -71,7 +71,7 @@ class Publish extends React.Component<Props> {
     const post = await getPost(postname);
     initCheck(post.postType, this.props.userRole);
     if (!isValidUser()) {
-      this.props.history.push('/notauthorized');
+      this.props.history.push('/notAuthorized');
       return;
     }
 

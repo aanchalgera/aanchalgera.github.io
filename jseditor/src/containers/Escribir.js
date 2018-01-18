@@ -66,7 +66,7 @@ class Escribir extends React.PureComponent<Props> {
     if (nextProps.postType !== this.props.postType) {
       initCheck(nextProps.postType, this.props.userRole);
       if (!isValidUser()) {
-        this.props.history.push('/notauthorized');
+        this.props.history.push('/notAuthorized');
       }
     }
     if (nextProps.userId !== this.props.userId) {

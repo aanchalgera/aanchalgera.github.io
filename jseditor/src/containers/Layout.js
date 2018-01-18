@@ -106,7 +106,7 @@ export default class Layout extends React.PureComponent<Props> {
           history.push('/invalidUser');
           break;
         case 'NOT_AUTHORIZED':
-          history.push('/notauthorized');
+          history.push('/notAuthorized');
           break;
         default:
           history.push('/invalidBlog');
