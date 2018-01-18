@@ -1,6 +1,8 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Switch, Route } from 'react-router-dom';
+// eslint-disable-next-line
+import { Grid } from 'react-flexbox-grid'; // added to include flexboxgrid.css before main.css
 import Loadable from 'react-loadable';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js-anchor-plugin/lib/plugin.css';
