@@ -69,6 +69,12 @@ class Publish extends React.Component<Props> {
   async init() {
     const postname = this.props.match.params.postname;
     const post = await getPost(postname);
+    initCheck(post.postType, this.props.userRole);
+    if (!isValidUser()) {
+      this.props.history.push('/notauthorized');
+      return;
+    }
+
     this.publishData = loadPublishData(post);
     this.setState(loadStatefromData(post, this.props.userRole));
 
@@ -78,10 +84,6 @@ class Publish extends React.Component<Props> {
       this.setAllCategories(post.postType);
     }
     this.props.handleDifundir(post.status, this.state.publishedDate);
-    initCheck(post.postType, this.props.userRole);
-    if (!isValidUser()) {
-      this.props.history.push('/invalidUser');
-    }
     this.props.receivePost(post);
   }
 

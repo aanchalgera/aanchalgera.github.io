@@ -9,7 +9,7 @@ import { getBlogUrl, getUserDetails, saveInitialPost } from './lib/service';
 import { isFuture } from './lib/momentHelper';
 import helpers from 'utils/generatehash';
 import DevTools from 'devTools';
-import { init as initChecker, isValidUser } from 'lib/check';
+import { init as initCheck, isValidUser } from 'lib/check';
 
 type Props = {
   match: { params: Object },
@@ -55,6 +55,11 @@ export default class Layout extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.init();
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   init = async () => {
@@ -75,9 +80,9 @@ export default class Layout extends React.PureComponent<Props> {
 
       if ('/post/new' === pathName) {
         const postType = query.get('type');
-        initChecker(postType, userRole);
+        initCheck(postType, userRole);
         if (!isValidUser()) {
-          throw new Error('INVALID_USER');
+          throw new Error('NOT_AUTHORIZED');
         }
 
         const hashId = helpers.generatePushID();
@@ -96,19 +101,25 @@ export default class Layout extends React.PureComponent<Props> {
         saveInitialPost(initialData);
       }
     } catch (error) {
-      if (['NOT_LOGGED_IN', 'INVALID_USER'].includes(error.message)) {
-        history.push('/invalidUser');
-      } else {
-        history.push('/invalidBlog');
+      switch (error.message) {
+        case 'NOT_LOGGED_IN':
+          history.push('/invalidUser');
+          break;
+        case 'NOT_AUTHORIZED':
+          history.push('/notauthorized');
+          break;
+        default:
+          history.push('/invalidBlog');
       }
     }
   };
 
   handleStatus = (statusMsg: string) => {
-    this.setState({
-      showPostStatusMsg: true,
-      statusMsg: statusMsg
-    });
+    this._isMounted &&
+      this.setState({
+        showPostStatusMsg: true,
+        statusMsg: statusMsg
+      });
   };
 
   hideStatus = () => {
@@ -130,11 +141,12 @@ export default class Layout extends React.PureComponent<Props> {
 
     let statusMsg = isFuture(publishedDate) ? 'Programado' : 'Publicado';
 
-    this.setState({
-      showDifundir: showDifundir,
-      showPostStatusMsg: showPostStatusMsg,
-      statusMsg: statusMsg
-    });
+    this._isMounted &&
+      this.setState({
+        showDifundir: showDifundir,
+        showPostStatusMsg: showPostStatusMsg,
+        statusMsg: statusMsg
+      });
   };
 
   getTitleBar = () => {

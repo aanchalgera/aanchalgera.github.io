@@ -7,6 +7,7 @@ import Config from './Config';
 import ConfigList from './ConfigList';
 import NotFoundPage from 'components/NotFoundPage';
 import Home from 'components/Home';
+import NotAuthorized from 'components/NotAuthorized';
 
 type Props = {
   location: { search: string, pathname: string }
@@ -28,6 +29,7 @@ const ConfigContainer = (props: Props) => {
           path="/config/:configId"
           render={props => <Config {...props} />}
         />
+        <Route path="/notAuthorized" component={NotAuthorized} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
