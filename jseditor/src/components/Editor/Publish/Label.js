@@ -11,9 +11,7 @@ export const Label = (props: Props) => {
     <div className="u-h-separator">
       <h2 className="type-title-dark">
         {props.label}
-        <small className="caption-default">
-          {props.hint}
-        </small>
+        <small className="caption-default"> {props.hint}</small>
       </h2>
     </div>
   );

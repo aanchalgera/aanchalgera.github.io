@@ -18,7 +18,8 @@ import {
   Seo,
   SponsoredContent,
   Tags,
-  Twitter
+  Twitter,
+  ASIN
 } from 'components/Editor/Publish';
 import {
   getPost,
@@ -390,7 +391,7 @@ class Publish extends React.Component<Props> {
           <Check childName="PublicationLabel">
             <Col sm={12}>
               <Label
-                label="Detalles de publicación "
+                label="Detalles de publicación"
                 hint="Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo"
               />
             </Col>
@@ -455,6 +456,16 @@ class Publish extends React.Component<Props> {
             crop={this.state.crop}
           />
         )}
+        {/* <Label
+          label="Afiliados"
+          hint="Busca productos de Amazon poniendo el codigo ASIN o el nombre del producto"
+        />
+        <ASIN
+          updateParent={this.updateParent}
+          products={this.state.products}
+          blogUrl={this.props.blogUrl}
+          postId={this.publishData.postId}
+        /> */}
         <Check childName="SponsoredContent">
           <SponsoredContent
             sponsor={this.state.meta.sponsor}

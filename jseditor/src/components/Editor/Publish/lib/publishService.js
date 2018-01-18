@@ -1,5 +1,6 @@
 import jquery from 'jquery';
 import { base } from 'lib/firebase';
+import isoFetch from 'isomorphic-fetch';
 
 export const loadUsers = async blogUrl => {
   const data = await jquery.ajax({
@@ -25,18 +26,20 @@ export const getScheduledPosts = async () => {
 };
 
 export const searchProducts = async (searchValue, searchCriteria, blogUrl) => {
-  const searchCriteriaMap = { 
+  const searchCriteriaMap = {
     0: 'asin',
     1: 'keywords'
-  }
+  };
 
-  const url = `${blogUrl}/admin/amazon/products?criteria=${searchCriteriaMap[searchCriteria]}&searchValue=${searchValue}`;
+  const url = `${blogUrl}/admin/amazon/products?criteria=${
+    searchCriteriaMap[searchCriteria]
+  }&searchValue=${searchValue}`;
   let response = await isoFetch(url, {
     credentials: 'include'
   });
 
   return response.json();
-}
+};
 
 export const addProductToBackend = async (product, blogUrl, postId) => {
   let data = {
@@ -47,35 +50,29 @@ export const addProductToBackend = async (product, blogUrl, postId) => {
     price: product.price
   };
 
-  let response = {};
+  return jquery.ajax({
+    url: `${blogUrl}/admin/amazon/product`,
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true
+  });
+};
 
-  try {
-    let result = await jquery.ajax({
-      url: `${blogUrl}/admin/amazon/product`,
-      type: 'POST',
-      dataType: 'json',
-      data: data,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-    });
-
-    response['ecommerceId'] = result['ecommerceId'];
-    return response;
-  } catch () {
-    response['error'] = 'something went wrong';
-    return response;
-  }
-}
-
-export const removeProductFromBackend = async (blogUrl, ecommerceId, postId) => {
+export const removeProductFromBackend = async (
+  blogUrl,
+  ecommerceId,
+  postId
+) => {
   let data = {
     post_id: postId,
     ecommerce_id: ecommerceId
-  }
+  };
 
-  await jquery.ajax({
+  return jquery.ajax({
     url: `${blogUrl}/admin/amazon/product`,
     type: 'DELETE',
     dataType: 'json',
@@ -83,6 +80,6 @@ export const removeProductFromBackend = async (blogUrl, ecommerceId, postId) => 
     xhrFields: {
       withCredentials: true
     },
-    crossDomain: true,
+    crossDomain: true
   });
-}
+};

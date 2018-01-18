@@ -7,8 +7,8 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Row, Col } from 'react-flexbox-grid';
-import React, { Component } from 'react';
-import type { Product } from './lib/flowTypes';
+import * as React from 'react';
+import type { InputEvent, Product } from './lib/flowTypes';
 
 type Props = {
   products: Array<Product>,
@@ -17,9 +17,14 @@ type Props = {
   postId: number
 };
 
-export class ASIN extends Component {
-  props: Props;
+type State = {
+  searchCriteria: number,
+  searchValue: string,
+  searchedProducts: Array<Product>,
+  error: string
+};
 
+export class ASIN extends React.Component<Props, State> {
   state = {
     searchCriteria: 0,
     searchValue: '',
@@ -27,30 +32,34 @@ export class ASIN extends Component {
     error: ''
   };
 
-  handleCriteriaSelection = (e: SyntheticEvent, value: number) => {
-    this.setState({searchCriteria: value});
-  }
+  handleCriteriaSelection = (e: InputEvent, value: number) => {
+    this.setState({ searchCriteria: value });
+  };
 
   handleSearchClick = async () => {
-    let products = await searchProducts(this.state.searchValue, this.state.searchCriteria, this.props.blogUrl);
+    let products = await searchProducts(
+      this.state.searchValue,
+      this.state.searchCriteria,
+      this.props.blogUrl
+    );
     if (products) {
-      this.setState({searchedProducts: products});
+      this.setState({ searchedProducts: products });
     }
-  }
+  };
 
-  handleTextFieldChange = (e: SyntheticEvent, value: string) => {
-    this.setState({searchValue: value});
-  }
+  handleTextFieldChange = (e: InputEvent, value: string) => {
+    this.setState({ searchValue: value });
+  };
 
   updateSearchedProducts = (products: Array<Product>) => {
-    this.setState({searchedProducts: products});
-  }
+    this.setState({ searchedProducts: products });
+  };
 
   updateError = (error: string) => {
-    this.setState({error: error});
-  }
+    this.setState({ error: error });
+  };
 
-  render () {
+  render() {
     return (
       <div>
         <Row>
@@ -89,6 +98,6 @@ export class ASIN extends Component {
           updateError={this.updateError}
         />
       </div>
-    )
+    );
   }
 }
