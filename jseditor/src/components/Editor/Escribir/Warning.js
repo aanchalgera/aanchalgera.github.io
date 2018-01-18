@@ -56,9 +56,10 @@ const Warning = ({ modalName, closeModal, openModal, userId, blogUrl }: Props) =
         <Col sm={6} className="start-sm">
           <RaisedButton
             icon={<NavigationArrowBack />}
+            href={`${blogUrl}/admin`}
             key="oldEditor"
             label="Volver al editor clásico"
-            onClick={window.close}
+            onClick={() => window.close()}
           />
         </Col>
         <Col sm={6} className="end-sm">
