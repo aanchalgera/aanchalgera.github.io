@@ -183,6 +183,8 @@ export const republishSchedule = async (blogUrl, postId, date) => {
     republish_interval: 0
   };
   const url = `${blogUrl}/admin/republish/schedule/${postId}`;
+
+  return submitRequest(url, backendData);
 };
 
 export const getUserDetails = async blogUrl => {
@@ -196,14 +198,18 @@ export const getUserDetails = async blogUrl => {
   }
 };
 
-const submitRequest = (url, backendData = {}, method = 'post') => {
-  return isoFetch(url, {
+const submitRequest = (url, backendData = {}, method = 'POST') => {
+  const params = {
     credentials: 'include',
     method: method,
     headers: {
       Accept: 'application/json, text/javascript, */*',
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    },
-    body: queryBuilder(backendData)
-  });
+    }
+  };
+  if (Object.keys(backendData).length > 0) {
+    params.body = queryBuilder(backendData);
+  }
+
+  return isoFetch(url, params);
 };
