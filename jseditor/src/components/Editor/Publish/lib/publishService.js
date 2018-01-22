@@ -1,15 +1,11 @@
-import jquery from 'jquery';
 import { base } from 'lib/firebase';
+import isoFetch from 'isomorphic-fetch';
 
 export const loadUsers = async blogUrl => {
-  const data = await jquery.ajax({
-    url: blogUrl + '/admin/users',
-    crossDomain: true,
-    dataType: 'json',
-    xhrFields: {
-      withCredentials: true
-    }
-  });
+  const data = await isoFetch(`${blogUrl}/admin/users`, {
+    credentials: 'include'
+  }).then(res => res.json());
+
   return data.users;
 };
 
