@@ -198,14 +198,14 @@ export const getUserDetails = async blogUrl => {
   }
 };
 
-const submitRequest = (url, backendData={}, method='post') => {
+const submitRequest = (url, backendData = {}, method = 'post') => {
   return isoFetch(url, {
     credentials: 'include',
     method: method,
     headers: {
-      'Accept': 'application/json, text/javascript, */*',
+      Accept: 'application/json, text/javascript, */*',
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
     },
     body: queryBuilder(backendData)
   });
-}
+};

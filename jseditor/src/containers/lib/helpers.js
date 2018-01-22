@@ -1,7 +1,11 @@
 import idx from 'idx';
 
 import { currentHour, isFuture, isValidDate } from './momentHelper';
-import { defaultCommentStatus, initialPublishRegions, initialMeta } from 'lib/constants';
+import {
+  defaultCommentStatus,
+  initialPublishRegions,
+  initialMeta
+} from 'lib/constants';
 
 const IMAGE_CROP_WARNING =
   'Es necesario validar los recortes de las imágenes para poder publicar';
@@ -244,9 +248,7 @@ export const queryBuilder = (obj, prefix = '') => {
   if ('string' === typeof obj) {
     return obj;
   }
-
-  return Object
-    .keys(obj)
+  return Object.keys(obj)
     .reduce((accumulator, key) => {
       const child = obj[key];
       const childKey = '' === prefix ? key : `${prefix}[${key}]`;
@@ -257,9 +259,8 @@ export const queryBuilder = (obj, prefix = '') => {
       }
       return accumulator;
     }, [])
-    .join('&')
-    ;
-}
+    .join('&');
+};
 
 const getPrimaryImg = fields => {
   let imageSrc = null;
