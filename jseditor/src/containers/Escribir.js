@@ -23,7 +23,7 @@ import {
 import * as actions from 'actions/post';
 import { openModal } from 'actions/modal';
 
-const UPDATED_MESSAGE = 'Todo guardado';
+const UPDATED_MESSAGE = 'Guardando...';
 
 type Props = {
   match: { params: Object },
