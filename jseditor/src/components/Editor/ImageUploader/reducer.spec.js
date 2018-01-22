@@ -31,9 +31,7 @@ describe('reducer', () => {
   it('should return the initial state', () => {
     const initialState = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: '',
       imageToEmbed: {},
       mode: 'add'
     };
@@ -50,16 +48,12 @@ describe('reducer', () => {
     const action = actions.receiveImages(images);
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: '',
       imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: images,
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: '',
       imageToEmbed: {}
     };
 
@@ -70,16 +64,12 @@ describe('reducer', () => {
     const action = actions.openUploader();
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: true,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: '',
       imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: true,
+      modelOpen: 'imageUploader',
       imageToEmbed: {}
     };
 
@@ -90,17 +80,13 @@ describe('reducer', () => {
     const action = actions.openImagePanel();
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: true,
+      modelOpen: 'imageUploader',
       imageToEmbed: {},
       mode: 'add'
     };
     const stateAfter = {
       imageUrls: [],
-      isImagePanelOpen: true,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: 'imagePanel',
       imageToEmbed: {},
       mode: 'add'
     };
@@ -110,17 +96,13 @@ describe('reducer', () => {
     const action = actions.openImagePanel('edit');
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: true,
+      modelOpen: 'imageUploader',
       imageToEmbed: {},
       mode: 'add'
     };
     const stateAfter = {
       imageUrls: [],
-      isImagePanelOpen: true,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: 'imagePanel',
       imageToEmbed: {},
       mode: 'edit'
     };
@@ -138,16 +120,12 @@ describe('reducer', () => {
     const action = actions.openAltPanel(image);
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: true,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: 'imagePanel',
       imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: true,
-      isUploaderOpen: false,
+      modelOpen: 'imageAltDialog',
       imageToEmbed: image
     };
 
@@ -158,16 +136,12 @@ describe('reducer', () => {
     const action = actions.closeDialog();
     const stateBefore = {
       imageUrls: [],
-      isImagePanelOpen: true,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: 'imagePanel',
       imageToEmbed: {}
     };
     const stateAfter = {
       imageUrls: [],
-      isImagePanelOpen: false,
-      isAltPanelOpen: false,
-      isUploaderOpen: false,
+      modelOpen: '',
       imageToEmbed: {}
     };
 
