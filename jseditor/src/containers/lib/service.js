@@ -161,20 +161,14 @@ export const submitPostToBackend = (state, blogUrl) => {
     postUrl = 'postpage/' + state.postId;
   }
   const url = `${blogUrl}/admin/${postUrl}`;
-
-  return submitRequest(url, backendData, method);
 };
 
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
   const url = `${blogUrl}/admin/postsrepostings.json`;
-
-  return submitRequest(url, backendData);
 };
 
 export const republishPostNow = async (blogUrl, postId) => {
   const url = `${blogUrl}/admin/overlay/republish/${postId}`;
-
-  return submitRequest(url);
 };
 
 export const republishSchedule = async (blogUrl, postId, date) => {
@@ -183,8 +177,6 @@ export const republishSchedule = async (blogUrl, postId, date) => {
     republish_interval: 0
   };
   const url = `${blogUrl}/admin/republish/schedule/${postId}`;
-
-  return submitRequest(url, backendData);
 };
 
 export const getUserDetails = async blogUrl => {
