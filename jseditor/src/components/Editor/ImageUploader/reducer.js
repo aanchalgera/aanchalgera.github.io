@@ -8,9 +8,7 @@ import {
 
 const initialState = {
   imageUrls: [],
-  isImagePanelOpen: false,
-  isAltPanelOpen: false,
-  isUploaderOpen: false,
+  modelOpen: '',
   imageToEmbed: {},
   mode: 'add'
 };
@@ -26,31 +24,26 @@ export default function(state = initialState, action) {
     case OPEN_UPLOADER:
       return {
         ...state,
-        isUploaderOpen: true,
-        isImagePanelOpen: false
+        modelOpen: 'imageUploader'
       };
 
     case OPEN_IMAGEPANEL:
       return {
         ...state,
-        isImagePanelOpen: true,
-        isUploaderOpen: false,
+        modelOpen: 'imagePanel',
         mode: action.mode
       };
 
     case CLOSE_DIALOG:
       return {
         ...state,
-        isImagePanelOpen: false,
-        isUploaderOpen: false,
-        isAltPanelOpen: false
+        modelOpen: ''
       };
 
     case OPEN_ALT_PANEL:
       return {
         ...state,
-        isImagePanelOpen: false,
-        isAltPanelOpen: true,
+        modelOpen: 'imageAltDialog',
         imageToEmbed: action.image
       };
 

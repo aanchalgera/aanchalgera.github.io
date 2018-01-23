@@ -11,9 +11,7 @@ type Props = {
   imageUrls: Array<Image>,
   id: string,
   site: string,
-  isImagePanelOpen: boolean,
-  isUploaderOpen: boolean,
-  isAltPanelOpen: boolean,
+  modelOpen: string,
   openImagePanel: () => void,
   openUploader: () => void,
   closeDialog: () => void,
@@ -30,8 +28,8 @@ class ImageUploader extends React.Component<Props> {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { imageUrls, isImagePanelOpen, openUploader } = nextProps;
-    if (isImagePanelOpen && 0 === imageUrls.length) {
+    const { imageUrls, modelOpen, openUploader } = nextProps;
+    if ('imagePanel' === modelOpen && 0 === imageUrls.length) {
       openUploader();
       return false;
     }
@@ -46,9 +44,7 @@ class ImageUploader extends React.Component<Props> {
       imageUrls,
       id,
       site,
-      isUploaderOpen,
-      isImagePanelOpen,
-      isAltPanelOpen,
+      modelOpen,
       openAltPanel,
       imageToEmbed,
       addImage,
@@ -58,14 +54,14 @@ class ImageUploader extends React.Component<Props> {
     return (
       <div>
         <ImagePanel
-          open={isImagePanelOpen}
+          open={'imagePanel' === modelOpen}
           images={imageUrls}
           openUploader={openUploader}
           closeDialog={closeDialog}
           openAltPanel={openAltPanel}
         />
         <S3Uploader
-          open={isUploaderOpen}
+          open={'imageUploader' === modelOpen}
           id={id}
           openImagePanel={openImagePanel}
           mode={mode}
@@ -73,7 +69,7 @@ class ImageUploader extends React.Component<Props> {
           site={site}
         />
         <ImageAltTextPopover
-          open={isAltPanelOpen}
+          open={'imageAltDialog' === modelOpen}
           imageToEmbed={imageToEmbed}
           addImage={addImage}
           closeDialog={closeDialog}
