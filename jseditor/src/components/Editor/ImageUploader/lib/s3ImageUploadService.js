@@ -13,3 +13,15 @@ export const postImages = async (site: string, params: FormData) => {
 
   return res.json();
 };
+
+export const putImages = async (site: string, params: FormData) => {
+  const res = await isoFetch(`${configParams.s3ApiDomain}/v1/${site}/images`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `${configParams.s3ApiKey}`
+    },
+    body: JSON.stringify(params)
+  });
+
+  return res.json();
+};
