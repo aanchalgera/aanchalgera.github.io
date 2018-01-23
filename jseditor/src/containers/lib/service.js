@@ -1,8 +1,7 @@
-import jquery from 'jquery';
+import { base } from 'lib/firebase';
 import isoFetch from 'isomorphic-fetch';
 
-import { convertTo1DArray } from './helpers';
-import { base } from 'lib/firebase';
+import { convertTo1DArray, queryBuilder } from './helpers';
 
 export const saveInitialPost = initialData => {
   base.post('posts/' + initialData.id, {
@@ -155,63 +154,37 @@ export const submitPostToBackend = (state, blogUrl) => {
     seo_description: state.meta.seo.description,
     seo_title: state.meta.seo.title
   };
-  let postType = 'POST';
+  let method = 'POST';
   let postUrl = 'postpage';
   if (state.postId !== undefined && state.postId !== '') {
-    postType = 'PUT';
+    method = 'PUT';
     postUrl = 'postpage/' + state.postId;
   }
-  return jquery.ajax({
-    url: blogUrl + '/admin/' + postUrl,
-    type: postType,
-    dataType: 'json',
-    data: backendData,
-    xhrFields: {
-      withCredentials: true
-    },
-    crossDomain: true
-  });
+  const url = `${blogUrl}/admin/${postUrl}`;
+
+  return submitRequest(url, backendData, method);
 };
 
 export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
-  return jquery.ajax({
-    url: blogUrl + '/admin/postsrepostings.json',
-    type: 'post',
-    dataType: 'json',
-    data: backendData,
-    xhrFields: {
-      withCredentials: true
-    },
-    crossDomain: true
-  });
+  const url = `${blogUrl}/admin/postsrepostings.json`;
+
+  return submitRequest(url, backendData);
 };
 
 export const republishPostNow = async (blogUrl, postId) => {
-  return await jquery.ajax({
-    url: `${blogUrl}/admin/overlay/republish/${postId}`,
-    type: 'POST',
-    xhrFields: {
-      withCredentials: true
-    },
-    crossDomain: true
-  });
+  const url = `${blogUrl}/admin/overlay/republish/${postId}`;
+
+  return submitRequest(url);
 };
 
 export const republishSchedule = async (blogUrl, postId, date) => {
-  const republishInterval = 0;
-  return await jquery.ajax({
-    url: `${blogUrl}/admin/republish/schedule/${postId}`,
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      date: date,
-      republish_interval: republishInterval
-    },
-    xhrFields: {
-      withCredentials: true
-    },
-    crossDomain: true
-  });
+  const backendData = {
+    date: date,
+    republish_interval: 0
+  };
+  const url = `${blogUrl}/admin/republish/schedule/${postId}`;
+
+  return submitRequest(url, backendData);
 };
 
 export const getUserDetails = async blogUrl => {
@@ -223,4 +196,20 @@ export const getUserDetails = async blogUrl => {
   } catch (err) {
     throw new Error('NOT_LOGGED_IN');
   }
+};
+
+const submitRequest = (url, backendData = {}, method = 'POST') => {
+  const params = {
+    credentials: 'include',
+    method: method,
+    headers: {
+      Accept: 'application/json, text/javascript, */*',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+    }
+  };
+  if (Object.keys(backendData).length > 0) {
+    params.body = queryBuilder(backendData);
+  }
+
+  return isoFetch(url, params);
 };
