@@ -57,15 +57,19 @@ class TitleBar extends React.Component<Props> {
       );
     }
     if (activeTab === ESCRIBIR || activeTab === 'escribir') {
-      statusMsgElement = (
-        <Expire
-          open={this.props.showPostStatusMsg}
-          autoHideDuration={2000}
-          onRequestHide={this.props.hideStatus}
-        >
-          {statusMsgElement}
-        </Expire>
-      );
+      if (this.props.showPostStatusMsg) {
+        statusMsgElement = (
+          <Expire
+            open
+            autoHideDuration={2000}
+            onRequestHide={this.props.hideStatus}
+          >
+            {statusMsgElement}
+          </Expire>
+        );
+      } else {
+        statusMsgElement = <span className="caption-inverted">Guardado</span>;
+      }
     }
     return statusMsgElement;
   }
