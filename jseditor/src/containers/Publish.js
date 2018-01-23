@@ -36,7 +36,7 @@ import {
 import { Check, init as initCheck, isValidUser } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
-import { postImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
+import { putImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
 import { receivePost } from 'actions/post';
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
@@ -237,10 +237,11 @@ class Publish extends React.Component<Props> {
       'longform' !== this.state.postType &&
       'brandedLongform' !== this.state.postType
     ) {
-      let data = new FormData();
-      data.append('url', this.state.primaryImage);
-      data.append('validated', JSON.stringify(this.state.crop));
-      const imageWithNewPath = await postImages(this.props.blogName, data);
+      const data = {
+        url: this.state.primaryImage,
+        meta_data: JSON.stringify(this.state.crop)
+      };
+      const imageWithNewPath = await putImages(this.props.blogName, data);
       this.saveNewPathToContent(imageWithNewPath);
       this.setState({
         primaryImage: `${imageWithNewPath['src']}/original.${
