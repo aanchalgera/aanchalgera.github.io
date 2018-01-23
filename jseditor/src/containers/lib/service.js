@@ -165,19 +165,19 @@ export const submitPostToBackend = (state, blogUrl) => {
   return submitRequest(url, backendData, method);
 };
 
-export const submitRepostedBlogsToBackend = async (backendData, blogUrl) => {
+export const submitRepostedBlogsToBackend = (backendData, blogUrl) => {
   const url = `${blogUrl}/admin/postsrepostings.json`;
 
   return submitRequest(url, backendData);
 };
 
-export const republishPostNow = async (blogUrl, postId) => {
+export const republishPostNow = (blogUrl, postId) => {
   const url = `${blogUrl}/admin/overlay/republish/${postId}`;
 
   return submitRequest(url);
 };
 
-export const republishSchedule = async (blogUrl, postId, date) => {
+export const republishSchedule = (blogUrl, postId, date) => {
   const backendData = {
     date: date,
     republish_interval: 0
@@ -198,7 +198,7 @@ export const getUserDetails = async blogUrl => {
   }
 };
 
-const submitRequest = (url, backendData = {}, method = 'POST') => {
+const submitRequest = async (url, backendData = {}, method = 'POST') => {
   const params = {
     credentials: 'include',
     method: method,
@@ -211,5 +211,5 @@ const submitRequest = (url, backendData = {}, method = 'POST') => {
     params.body = queryBuilder(backendData);
   }
 
-  return isoFetch(url, params);
+  return await isoFetch(url, params).then(res => res.json());
 };
