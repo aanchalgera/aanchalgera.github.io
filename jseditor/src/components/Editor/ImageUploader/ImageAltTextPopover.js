@@ -2,9 +2,11 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, TextField, RaisedButton } from 'material-ui';
+import { NavigationArrowBack } from 'material-ui/svg-icons';
 
 import { InputEvent, Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
+import configParams from 'config/configs';
 
 const imageDimension = 'original';
 
@@ -22,8 +24,9 @@ type Props = {
   imageToEmbed: Image,
   addImage: (imageData: ImageData, mode: string) => void,
   closeDialog: () => void,
+  openImagePanel: () => void,
   index: number,
-  mode: string
+  mode: string,
 };
 
 type State = {
@@ -92,7 +95,16 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     return (
       <div className="modal-actions">
         <Row className="m-no-margin">
-          <Col sm={12} className="end-sm">
+          {configParams.version > 1 &&
+            <Col sm className="start-sm">
+              <RaisedButton
+                label="Volver a elegir"
+                icon={<NavigationArrowBack />}
+                onClick={this.props.openImagePanel}
+              />
+            </Col>
+          }
+          <Col sm className="end-sm">
             <RaisedButton
               label="Insertar imagen"
               primary

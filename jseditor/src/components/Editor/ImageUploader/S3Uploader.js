@@ -2,12 +2,13 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
-import { FileFileUpload } from 'material-ui/svg-icons';
+import { FileFileUpload, NavigationArrowBack } from 'material-ui/svg-icons';
 
 import { InputEvent, S3Image } from 'lib/flowTypes';
 import { postImages as postImagesToS3 } from './lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
+import configParams from 'config/configs';
 
 const MAX_FILE_SIZE = 8388608;
 
@@ -16,6 +17,7 @@ type Props = {
   open: boolean,
   site: string,
   mode: string,
+  noOfImages: number,
   openImagePanel: (mode: string) => void,
   closeDialog: () => void
 };
@@ -111,6 +113,26 @@ export class S3Uploader extends PureComponent<Props, State> {
     );
   };
 
+  getDialogActions = () => {
+    const { noOfImages, openImagePanel } = this.props;
+
+    if (noOfImages !== 0) {
+      return (
+        <div className="modal-actions">
+          <Row className="m-no-margin">
+            <Col sm className="start-sm">
+              <RaisedButton
+                label="Volver a elegir"
+                icon={<NavigationArrowBack />}
+                onClick={openImagePanel}
+              />
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+  };
+
   render() {
     const { showProgress } = this.state;
     const { closeDialog } = this.props;
@@ -128,6 +150,7 @@ export class S3Uploader extends PureComponent<Props, State> {
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <div className="uploader">{contents}</div>
+        {configParams.version > 1 && this.getDialogActions()}
       </Dialog>
     );
   }

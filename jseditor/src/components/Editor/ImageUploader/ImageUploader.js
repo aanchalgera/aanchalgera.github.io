@@ -67,6 +67,7 @@ class ImageUploader extends React.Component<Props> {
           mode={mode}
           closeDialog={closeDialog}
           site={site}
+          noOfImages={imageUrls.length}
         />
         <ImageAltTextPopover
           open={'imageAltDialog' === modelOpen}
@@ -74,6 +75,7 @@ class ImageUploader extends React.Component<Props> {
           addImage={addImage}
           closeDialog={closeDialog}
           mode={mode}
+          openImagePanel={openImagePanel}
         />
       </div>
     );
