@@ -67,7 +67,7 @@ class ImageUploader extends React.Component<Props> {
           mode={mode}
           closeDialog={closeDialog}
           site={site}
-          noOfImages={imageUrls.length}
+          totalImages={imageUrls.length}
         />
         <ImageAltTextPopover
           open={'imageAltDialog' === modelOpen}

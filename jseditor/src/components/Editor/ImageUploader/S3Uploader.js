@@ -17,7 +17,7 @@ type Props = {
   open: boolean,
   site: string,
   mode: string,
-  noOfImages: number,
+  totalImages: number,
   openImagePanel: (mode: string) => void,
   closeDialog: () => void
 };
@@ -114,9 +114,9 @@ export class S3Uploader extends PureComponent<Props, State> {
   };
 
   getDialogActions = () => {
-    const { noOfImages, openImagePanel } = this.props;
+    const { totalImages, openImagePanel } = this.props;
 
-    if (noOfImages !== 0) {
+    if (totalImages !== 0) {
       return (
         <div className="modal-actions">
           <Row className="m-no-margin">
