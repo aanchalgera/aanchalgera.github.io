@@ -143,8 +143,7 @@ class Escribir extends React.PureComponent<Props> {
               </Col>
             </Row>
             <Row className="m-no-margin">
-              <Col sm={3} />
-              <Col sm={6}>{nodes}</Col>
+              <div className="module-container">{nodes}</div>
             </Row>
             <ImageUploader
               id={this.props.id}
