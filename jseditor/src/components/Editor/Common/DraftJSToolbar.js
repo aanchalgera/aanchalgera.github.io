@@ -12,11 +12,14 @@ import {
   BlockquoteButton
 } from 'draft-js-buttons';
 
+import configParams from 'config/configs';
+import StrikeThrough from './StrikeButton';
+
 export const plugins = () => {
   const linkPlugin = createLinkPlugin({
     placeholder: 'http://…'
   });
-  const inlineToolbarPlugin = createInlineToolbarPlugin({
+  let inlineToolbarPlugin = createInlineToolbarPlugin({
     structure: [
       BoldButton,
       ItalicButton,
@@ -28,6 +31,21 @@ export const plugins = () => {
       linkPlugin.LinkButton
     ]
   });
+  if (configParams.version > 1) {
+    inlineToolbarPlugin = createInlineToolbarPlugin({
+      structure: [
+        BoldButton,
+        ItalicButton,
+        StrikeThrough,
+        HeadlineTwoButton,
+        HeadlineThreeButton,
+        BlockquoteButton,
+        UnorderedListButton,
+        OrderedListButton,
+        linkPlugin.LinkButton
+      ]
+    });
+  }
   const mdPlugin = createMarkdownPlugin();
   return [mdPlugin, inlineToolbarPlugin, linkPlugin];
 };
