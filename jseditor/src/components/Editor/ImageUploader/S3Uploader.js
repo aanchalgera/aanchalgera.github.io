@@ -5,7 +5,7 @@ import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
 import { FileFileUpload, NavigationArrowBack } from 'material-ui/svg-icons';
 
 import { InputEvent, S3Image } from 'lib/flowTypes';
-import { postImage as postImageToS3 } from 'containers/lib/s3ImageUploadService';
+import { postImage as postImageToS3 } from 'lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
 import configParams from 'config/configs';

@@ -36,7 +36,7 @@ import {
 import { Check, init as initCheck, isValidUser } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
-import { putImage } from 'containers/lib/s3ImageUploadService';
+import { putImage } from 'lib/s3ImageUploadService';
 import { receivePost } from 'actions/post';
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
