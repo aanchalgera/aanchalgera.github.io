@@ -1,19 +1,24 @@
 import React from 'react';
 import { createInlineStyleButton } from 'draft-js-buttons';
 
-console.log(createInlineStyleButton);
-
 export default createInlineStyleButton({
   style: 'STRIKETHROUGH',
   children: (
     <svg
-      height="24"
-      viewBox="0 0 24 24"
-      width="24"
       xmlns="http://www.w3.org/2000/svg"
+      width="17"
+      height="14"
+      viewBox="0 0 17 14"
     >
-      <path d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z" />
+      <defs>
+        <path
+          id="toolbar-strike-a"
+          d="M22.5333333,31 L26.2666667,31 L26.2666667,28.2 L22.5333333,28.2 L22.5333333,31 L22.5333333,31 Z M17.8666667,17 L17.8666667,19.8 L22.5333333,19.8 L22.5333333,22.6 L26.2666667,22.6 L26.2666667,19.8 L30.9333333,19.8 L30.9333333,17 L17.8666667,17 L17.8666667,17 Z M16,26.3333333 L32.8,26.3333333 L32.8,24.4666667 L16,24.4666667 L16,26.3333333 L16,26.3333333 Z"
+        />
+      </defs>
+      <g transform="translate(-16 -17)">
+        <use xlinkHref="#toolbar-strike-a" />
+      </g>
     </svg>
   )
 });
