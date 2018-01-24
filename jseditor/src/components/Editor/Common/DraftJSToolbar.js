@@ -23,7 +23,6 @@ export const plugins = () => {
     structure: [
       BoldButton,
       ItalicButton,
-      StrikeThrough,
       HeadlineTwoButton,
       HeadlineThreeButton,
       BlockquoteButton,
