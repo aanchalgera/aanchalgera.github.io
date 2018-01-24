@@ -5,7 +5,7 @@ import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
 import { FileFileUpload, NavigationArrowBack } from 'material-ui/svg-icons';
 
 import { InputEvent, S3Image } from 'lib/flowTypes';
-import { postImages as postImagesToS3 } from './lib/s3ImageUploadService';
+import { postImage as postImageToS3 } from 'containers/lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
 import configParams from 'config/configs';
@@ -54,8 +54,7 @@ export class S3Uploader extends PureComponent<Props, State> {
     } else {
       let data = new FormData();
       data.append('file', file);
-
-      const image = await postImagesToS3(this.props.site, data);
+      const image = await postImageToS3(this.props.site, data);
       if (image.src) {
         this.uploadToFirebase(image);
       }
