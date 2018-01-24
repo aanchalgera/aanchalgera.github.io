@@ -2,7 +2,7 @@
 import configParams from 'config/configs';
 import isoFetch from 'isomorphic-fetch';
 
-export const postImages = async (site: string, params: FormData) => {
+export const postImage = async (site: string, params: FormData) => {
   const res = await isoFetch(`${configParams.s3ApiDomain}/v1/${site}/images`, {
     method: 'post',
     headers: {
@@ -14,7 +14,7 @@ export const postImages = async (site: string, params: FormData) => {
   return res.json();
 };
 
-export const putImages = async (site: string, params: FormData) => {
+export const putImage = async (site: string, params: { url: string }) => {
   const res = await isoFetch(`${configParams.s3ApiDomain}/v1/${site}/images`, {
     method: 'PUT',
     headers: {

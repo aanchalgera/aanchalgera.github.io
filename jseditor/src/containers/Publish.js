@@ -36,7 +36,7 @@ import {
 import { Check, init as initCheck, isValidUser } from 'lib/check';
 import { filterCategories } from 'lib/helpers';
 import { loadAllCategories } from 'lib/service';
-import { putImages } from 'components/Editor/ImageUploader/lib/s3ImageUploadService';
+import { putImage } from 'lib/s3ImageUploadService';
 import { receivePost } from 'actions/post';
 
 const SAVING_DATA_ERROR_WARNING = 'Error occured while saving data';
@@ -241,7 +241,7 @@ class Publish extends React.Component<Props> {
         url: this.state.primaryImage,
         meta_data: JSON.stringify(this.state.crop)
       };
-      const imageWithNewPath = await putImages(this.props.blogName, data);
+      const imageWithNewPath = await putImage(this.props.blogName, data);
       this.saveNewPathToContent(imageWithNewPath);
       this.setState({
         primaryImage: `${imageWithNewPath['src']}/original.${
