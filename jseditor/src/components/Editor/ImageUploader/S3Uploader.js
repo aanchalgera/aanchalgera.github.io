@@ -145,11 +145,11 @@ export class S3Uploader extends PureComponent<Props, State> {
       <Dialog
         open={this.props.open}
         title={this.getTitle()}
+        actions={this.getDialogActions()}
         onRequestClose={closeDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
       >
         <div className="uploader">{contents}</div>
-        {configParams.version > 1 && this.getDialogActions()}
       </Dialog>
     );
   }
