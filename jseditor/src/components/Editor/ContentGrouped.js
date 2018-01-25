@@ -9,9 +9,11 @@ class ContentGrouped extends React.Component {
     document
       .querySelector(element)
       .setAttribute('style', this.props.getStyleText(this.props.data));
-    document
-      .querySelector(element)
-      .classList.add(this.props.data.backgroundClass);
+    if (this.props.data.backgroundClass) {
+      document
+        .querySelector(element)
+        .classList.add(this.props.data.backgroundClass);
+    }
   }
 
   componentDidUpdate() {
@@ -19,9 +21,11 @@ class ContentGrouped extends React.Component {
     document
       .querySelector(element)
       .setAttribute('style', this.props.getStyleText(this.props.data));
-    document
-      .querySelector(element)
-      .classList.add(this.props.data.backgroundClass);
+    if (this.props.data.backgroundClass) {
+      document
+        .querySelector(element)
+        .classList.add(this.props.data.backgroundClass);
+    }
   }
 
   render() {
