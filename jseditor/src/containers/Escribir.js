@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
-import { Col, Row } from 'react-flexbox-grid';
+import { Row } from 'react-flexbox-grid';
 
 import {
   listenToPost,
@@ -134,13 +134,13 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            <Row className="m-no-margin" center="sm">
-              <Col sm={8}>
+            <Row className="m-no-margin">
+              <div className="module-title-container">
                 <Title
                   text={this.props.title}
                   handleBlur={this.savePostToBackend}
                 />
-              </Col>
+              </div>
             </Row>
             <Row className="m-no-margin">
               <div className="module-container">{nodes}</div>
