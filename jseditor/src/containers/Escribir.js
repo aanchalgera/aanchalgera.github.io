@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
-import { Col, Row } from 'react-flexbox-grid';
-
 import {
   listenToPost,
   submitPostToBackend,
@@ -134,17 +132,13 @@ class Escribir extends React.PureComponent<Props> {
       return (
         <div className="outer-wrapper">
           <div className="grid-l grid-wrapper">
-            <Row className="m-no-margin" center="sm">
-              <Col sm={8}>
-                <Title
-                  text={this.props.title}
-                  handleBlur={this.savePostToBackend}
-                />
-              </Col>
-            </Row>
-            <Row className="m-no-margin">
-              <div className="module-container">{nodes}</div>
-            </Row>
+            <div className="module-title-container">
+              <Title
+                text={this.props.title}
+                handleBlur={this.savePostToBackend}
+              />
+            </div>
+            <div className="module-container">{nodes}</div>
             <ImageUploader
               id={this.props.id}
               site={this.props.blogName}
