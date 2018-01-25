@@ -78,6 +78,8 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     this.setState({ altText: '' });
   };
 
+  goBack = () => this.props.openImagePanel(this.props.mode);
+
   getTitle = () => (
     <div className="modal-title">
       <Row className="m-no-margin">
@@ -100,7 +102,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               <RaisedButton
                 label="Volver a elegir"
                 icon={<NavigationArrowBack />}
-                onClick={() => this.props.openImagePanel(this.props.mode)}
+                onClick={this.goBack}
               />
             </Col>
           }
