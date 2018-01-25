@@ -24,7 +24,7 @@ type Props = {
   imageToEmbed: Image,
   addImage: (imageData: ImageData, mode: string) => void,
   closeDialog: () => void,
-  openImagePanel: () => void,
+  openImagePanel: (mode?: string) => void,
   index: number,
   mode: string,
 };
@@ -100,7 +100,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
               <RaisedButton
                 label="Volver a elegir"
                 icon={<NavigationArrowBack />}
-                onClick={this.props.openImagePanel}
+                onClick={() => this.props.openImagePanel(this.props.mode)}
               />
             </Col>
           }
