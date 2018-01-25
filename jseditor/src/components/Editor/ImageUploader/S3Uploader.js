@@ -8,7 +8,6 @@ import { InputEvent, S3Image } from 'lib/flowTypes';
 import { postImage as postImageToS3 } from 'lib/s3ImageUploadService';
 import { postImages as postImagesToFirebase } from './lib/imageUploadService';
 import { CloseButton, Label } from '.';
-import configParams from 'config/configs';
 
 const MAX_FILE_SIZE = 8388608;
 
@@ -18,7 +17,7 @@ type Props = {
   site: string,
   mode: string,
   totalImages: number,
-  openImagePanel: (mode: string) => void,
+  openImagePanel: (mode?: string) => void,
   closeDialog: () => void
 };
 
@@ -75,6 +74,8 @@ export class S3Uploader extends PureComponent<Props, State> {
     });
   };
 
+  goBack = () => this.props.openImagePanel(this.props.mode);
+
   getTitle = () => (
     <div className="modal-title">
       <Row className="m-no-margin">
@@ -113,7 +114,7 @@ export class S3Uploader extends PureComponent<Props, State> {
   };
 
   getDialogActions = () => {
-    const { totalImages, openImagePanel } = this.props;
+    const { totalImages } = this.props;
 
     if (totalImages !== 0) {
       return (
@@ -123,7 +124,7 @@ export class S3Uploader extends PureComponent<Props, State> {
               <RaisedButton
                 label="Volver a elegir"
                 icon={<NavigationArrowBack />}
-                onClick={openImagePanel}
+                onClick={this.goBack}
               />
             </Col>
           </Row>
