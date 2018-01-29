@@ -1,9 +1,16 @@
 //@flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { ContentAdd, ContentClear, ImagePhoto } from 'material-ui/svg-icons';
+import {
+  ContentAdd,
+  ContentClear,
+  ImagePhoto,
+  EditorFormatIndentIncrease
+} from 'material-ui/svg-icons';
+import { openModal } from 'actions/modal';
 
 import { OptionButton } from '.';
+import configParams from 'config/configs';
 import { openImagePanel } from 'actions/post';
 
 type State = {
@@ -13,7 +20,8 @@ type State = {
 type Props = {
   coordinates: { top: number, left: number },
   isAtFirstPosition: boolean,
-  openImagePanel: () => void
+  openImagePanel: () => void,
+  openModal: (modalName: string) => void
 };
 
 class MoreOptions extends PureComponent<Props, State> {
@@ -39,6 +47,11 @@ class MoreOptions extends PureComponent<Props, State> {
     this.setState({
       showOptions
     });
+  };
+
+  openSummaryPanel = () => {
+    this.props.openModal('summaryModal');
+    this.changeOptionsState(false);
   };
 
   render() {
@@ -67,6 +80,13 @@ class MoreOptions extends PureComponent<Props, State> {
               Icon={ImagePhoto}
               handleClick={this.openPanel}
             />
+            {configParams.version > 1 && (
+              <OptionButton
+                title="Insertar imagen"
+                Icon={EditorFormatIndentIncrease}
+                handleClick={this.openSummaryPanel}
+              />
+            )}
             {/* <span>
               <OptionButton
                 title="Añadir vídeo"
@@ -93,4 +113,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { openImagePanel })(MoreOptions);
+export default connect(mapStateToProps, { openImagePanel, openModal })(
+  MoreOptions
+);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { Content, Image } from 'components/Editor/Escribir';
+import { Content, Image, Summary } from 'components/Editor/Escribir';
 
 type Props = {
   id: number,
@@ -16,6 +16,8 @@ class Node extends React.PureComponent<Props> {
         return <Content {...props} />;
       case 'image':
         return <Image {...props} />;
+      case 'summary':
+        return <Summary {...props} />;
       default:
         return '';
     }

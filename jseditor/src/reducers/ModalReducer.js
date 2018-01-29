@@ -1,4 +1,5 @@
 import { OPEN_MODAL, CLOSE_MODAL } from 'actions/modal';
+import { ADD_SECTION } from 'actions/post';
 
 const initialState = {
   modalName: 'warningModal'
@@ -12,6 +13,7 @@ export default function(state = initialState, action) {
         ...state,
         modalName
       };
+    case ADD_SECTION:
     case CLOSE_MODAL:
       return {
         ...state,

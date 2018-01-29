@@ -49,6 +49,14 @@ export const addImage = (image, position) => {
   };
 };
 
+export const addSection = (section, position) => {
+  return {
+    type: ADD_SECTION,
+    section,
+    position
+  };
+};
+
 export const openImagePanel = (mode = 'add') => ({
   type: OPEN_IMAGEPANEL,
   mode
@@ -56,7 +64,7 @@ export const openImagePanel = (mode = 'add') => ({
 
 export const deleteSection = (index, id) => ({
   type: DELETE_SECTION,
-  data: {index, id}
+  data: { index, id }
 });
 
 export const editImage = image => ({

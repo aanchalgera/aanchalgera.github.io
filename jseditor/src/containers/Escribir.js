@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
+import { Check, init as initCheck, isValidUser } from 'lib/check';
+import { ImageUploader } from 'components/Editor/ImageUploader';
+
 import {
   listenToPost,
   submitPostToBackend,
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
-import { Check, init as initCheck, isValidUser } from 'lib/check';
-import { ImageUploader } from 'components/Editor/ImageUploader';
 import {
   Node,
   MoreOptions,
@@ -16,7 +17,8 @@ import {
   Warning,
   SnackbarPopover,
   News,
-  EditWarning
+  EditWarning,
+  SummaryModal
 } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 import { openModal } from 'actions/modal';
@@ -36,6 +38,7 @@ type Props = {
   maxId: number,
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
+  addSection: (section: Object, position: number) => void,
   openImagePanel: () => void,
   fields: [],
   postType: string,
@@ -91,6 +94,13 @@ class Escribir extends React.PureComponent<Props> {
       image.id = this.props.maxId;
       this.props.addImage(image, this.props.splitPosition);
     }
+  };
+
+  addSection = section => {
+    const { currentIndex, maxId, addSection, splitPosition } = this.props;
+    section.index = currentIndex;
+    section.id = maxId;
+    addSection(section, splitPosition);
   };
 
   savePostToBackend = async () => {
@@ -154,6 +164,7 @@ class Escribir extends React.PureComponent<Props> {
           </Check>
           <SnackbarPopover />
           <News />
+          <SummaryModal addSection={this.addSection} />
         </div>
       );
     } else return 'Loading';
