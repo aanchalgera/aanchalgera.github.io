@@ -17,7 +17,6 @@ class Node extends React.PureComponent<Props> {
       case 'image':
         return <Image {...props} />;
       case 'summary':
-        console.log(...props);
         return <Summary {...props} />;
       default:
         return '';
