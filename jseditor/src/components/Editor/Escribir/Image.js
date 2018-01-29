@@ -33,9 +33,13 @@ class Image extends React.PureComponent<Props, State> {
   state = {
     openImageToolbar: false,
     imageEl: {},
-    description: '',
+    description: this.props.description,
     className: ''
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ description: nextProps.description });
+  }
 
   changeCurrentIndex = () => {
     this.props.changeCurrentIndex(this.props.index);
@@ -96,7 +100,6 @@ class Image extends React.PureComponent<Props, State> {
       align,
       layout,
       maxId,
-      description
     } = this.props;
     const url = `${src}/original.${extension}`;
 
@@ -112,7 +115,7 @@ class Image extends React.PureComponent<Props, State> {
           {configParams.version > 1 && <TextField
             name="imageDescription"
             hintText="Pie de foto(opcional)"
-            defaultValue={description}
+            value={this.state.description}
             onChange={this.onDescriptionChange}
             onBlur={() => this.submitDescription()}
             fullWidth
