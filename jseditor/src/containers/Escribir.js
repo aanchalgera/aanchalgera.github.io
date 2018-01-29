@@ -16,7 +16,8 @@ import {
   Warning,
   SnackbarPopover,
   News,
-  EditWarning
+  EditWarning,
+  SummaryModal
 } from 'components/Editor/Escribir';
 import * as actions from 'actions/post';
 import { openModal } from 'actions/modal';
@@ -36,6 +37,7 @@ type Props = {
   maxId: number,
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
+  addSection: (section: Object, position: number) => void,
   openImagePanel: () => void,
   fields: [],
   postType: string,
@@ -91,6 +93,13 @@ class Escribir extends React.PureComponent<Props> {
       image.id = this.props.maxId;
       this.props.addImage(image, this.props.splitPosition);
     }
+  };
+
+  addSection = section => {
+    const { currentIndex, maxId, addSection, splitPosition } = this.props;
+    section.index = currentIndex;
+    section.id = maxId;
+    addSection(section, splitPosition);
   };
 
   savePostToBackend = async () => {
@@ -154,6 +163,7 @@ class Escribir extends React.PureComponent<Props> {
           </Check>
           <SnackbarPopover />
           <News />
+          <SummaryModal addSection={this.addSection} />
         </div>
       );
     } else return 'Loading';

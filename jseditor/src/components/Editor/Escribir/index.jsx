@@ -8,6 +8,7 @@ import Warning from './Warning';
 import SnackbarPopover from './SnackbarPopover';
 import News from './News';
 import EditWarning from './EditWarning';
+import SummaryModal from './SummaryModal';
 
 export { SectionModule } from './SectionModule';
 export { Title };
@@ -24,3 +25,5 @@ export { Warning };
 export { SnackbarPopover };
 export { News };
 export { EditWarning };
+export { SummaryModal };
+export { Summary } from './Summary';
