@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import { TextField } from 'material-ui';
 
 import { PopoverToolbar, ImageToolbar } from '.';
-import { changeCurrentIndex, editImage } from 'actions/post';
-import { InputEvent } from 'lib/flowTypes';
-import configParams from 'config/configs';
+import {
+  changeLayout,
+  deleteSection,
+  changeCurrentIndex,
+  openImagePanel
+} from 'actions/post';
 
 type Props = {
   alt: string,
@@ -20,6 +23,9 @@ type Props = {
   description: string,
   editImage: (image: any) => void,
   changeCurrentIndex: (index: number) => void,
+  openImagePanel: (actionName: string) => void,
+  deleteSection: (index: number, maxId: number) => void,
+  changeLayout: (index: number, layout: string, align: string) => void,
   maxId: number
 };
 type State = {
@@ -72,6 +78,16 @@ class Image extends React.PureComponent<Props, State> {
       index,
       description: this.state.description,
     });
+  }
+
+  handleDelete = () => {
+    const { deleteSection, index, maxId } = this.props;
+    deleteSection(index, maxId);
+  };
+
+  changeLayout = (layout, align) => {
+    const { index, changeLayout } = this.props;
+    changeLayout(index, layout, align);
   };
 
   render() {
@@ -83,6 +99,7 @@ class Image extends React.PureComponent<Props, State> {
       align,
       layout,
       maxId,
+      openImagePanel
     } = this.props;
     const url = `${src}/original.${extension}`;
 
@@ -111,9 +128,12 @@ class Image extends React.PureComponent<Props, State> {
           toolbarIcons={
             <ImageToolbar
               index={index}
-              closeImageToolbar={this.closeImageToolbar}
+              closeToolbar={this.closeImageToolbar}
               selectedKey={`${layout}-${align}`}
               maxId={maxId}
+              handleDelete={this.handleDelete}
+              changeLayout={this.changeLayout}
+              openImagePanel={openImagePanel}
             />
           }
         />
@@ -129,4 +149,8 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   changeCurrentIndex,
   editImage
+  changeLayout,
+  deleteSection,
+  changeCurrentIndex,
+  openImagePanel
 })(Image);
