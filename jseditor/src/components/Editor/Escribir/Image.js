@@ -66,27 +66,10 @@ class Image extends React.PureComponent<Props, State> {
   onDescriptionChange = (e: InputEvent, description: string) => this.setState({ description });
 
   submitDescription = () => {
-    const {
-      alt,
-      src,
-      extension,
-      index,
-      layout,
-      align,
-      height,
-      width,
-      editImage
-    } = this.props;
+    const { index, editImage } = this.props;
 
     editImage({
-      alt,
-      src,
-      extension,
       index,
-      layout,
-      align,
-      height,
-      width,
       description: this.state.description,
     });
   };

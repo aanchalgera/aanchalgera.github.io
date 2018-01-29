@@ -88,16 +88,14 @@ const sections = (sections = initialState, action) => {
         ...sections.slice(action.data.index + 2)
       ];
     case EDIT_IMAGE:
-      const { index: imageIndex, ...otherImgAttributes } = action.image;
+      const { index: imageIndex, ...changedImgAttributes } = action.image;
+      const imgAttributes = sections[imageIndex];
 
       return [
         ...sections.slice(0, imageIndex),
         {
-          ...otherImgAttributes,
-          type: 'image',
-          id: sections[imageIndex].id,
-          align: sections[imageIndex].align,
-          layout: sections[imageIndex].layout,
+          ...imgAttributes,
+          ...changedImgAttributes,
         },
         ...sections.slice(imageIndex + 1)
       ];

@@ -41,7 +41,6 @@ export const changePosition = (
 });
 
 export const addImage = (image, position) => {
-  image.type = 'image';
   return {
     type: ADD_SECTION,
     section: image,
