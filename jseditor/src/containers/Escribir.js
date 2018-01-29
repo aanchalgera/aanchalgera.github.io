@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
+import { Check, init as initCheck, isValidUser } from 'lib/check';
+import { ImageUploader } from 'components/Editor/ImageUploader';
+
 import {
   listenToPost,
   submitPostToBackend,
   savePostFromEscribirPage,
   updatePost
 } from './lib/service';
-import { Check, init as initCheck, isValidUser } from 'lib/check';
-import { ImageUploader } from 'components/Editor/ImageUploader';
 import {
   Node,
   MoreOptions,

@@ -2,10 +2,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { InputEvent } from 'lib/flowTypes';
-import { closeModal } from 'actions/modal';
 import { Dialog, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
+
+import { closeModal } from 'actions/modal';
 import { CloseButton, Label } from 'components/Editor/ImageUploader';
 
 type Props = {
