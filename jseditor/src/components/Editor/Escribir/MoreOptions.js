@@ -7,11 +7,11 @@ import {
   ImagePhoto,
   EditorFormatIndentIncrease
 } from 'material-ui/svg-icons';
+import { openModal } from 'actions/modal';
 
 import { OptionButton } from '.';
 import configParams from 'config/configs';
 import { openImagePanel } from 'actions/post';
-import { openModal } from 'actions/modal';
 
 type State = {
   showOptions: boolean
