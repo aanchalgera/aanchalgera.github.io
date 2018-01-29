@@ -6,7 +6,6 @@ import { NavigationArrowBack } from 'material-ui/svg-icons';
 
 import { InputEvent, Image } from 'lib/flowTypes';
 import { CloseButton, Label } from '.';
-import configParams from 'config/configs';
 
 const imageDimension = 'original';
 
@@ -90,15 +89,13 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     return (
       <div className="modal-actions">
         <Row className="m-no-margin">
-          {configParams.version > 1 &&
-            <Col sm className="start-sm">
-              <RaisedButton
-                label="Volver a elegir"
-                icon={<NavigationArrowBack />}
-                onClick={this.goBack}
-              />
-            </Col>
-          }
+          <Col sm className="start-sm">
+            <RaisedButton
+              label="Volver a elegir"
+              icon={<NavigationArrowBack />}
+              onClick={this.goBack}
+            />
+          </Col>
           <Col sm className="end-sm">
             <RaisedButton
               label="Insertar imagen"
