@@ -16,7 +16,10 @@ type ImageData = {
   extension: string,
   height: number,
   width: number,
-  index: number
+  index: number,
+  description: string,
+  layout: string,
+  align: string
 };
 
 type Props = {
@@ -65,6 +68,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       height,
       width,
       index,
+      description: '',
       layout: 'normal',
       align: 'center'
     };

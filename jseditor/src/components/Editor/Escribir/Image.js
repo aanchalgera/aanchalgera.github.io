@@ -1,23 +1,31 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { TextField } from 'material-ui';
+
 import { PopoverToolbar, ImageToolbar } from '.';
-import { changeCurrentIndex } from 'actions/post';
+import { changeCurrentIndex, editImage } from 'actions/post';
+import { InputEvent } from 'lib/flowTypes';
+import configParams from 'config/configs';
 
 type Props = {
   alt: string,
-  url: string,
   src: string,
   extension: string,
   index: number,
   layout: string,
   align: string,
+  height: number,
+  width: number,
+  description: string,
+  editImage: (image: any) => void,
   changeCurrentIndex: (index: number) => void,
   maxId: number
 };
 type State = {
   openImageToolbar: boolean,
   imageEl: any,
+  description: string,
   className: string
 };
 
@@ -25,6 +33,7 @@ class Image extends React.PureComponent<Props, State> {
   state = {
     openImageToolbar: false,
     imageEl: {},
+    description: '',
     className: ''
   };
 
@@ -50,9 +59,47 @@ class Image extends React.PureComponent<Props, State> {
     });
   };
 
+  onDescriptionChange = (e: InputEvent, description: string) => this.setState({ description });
+
+  submitDescription = () => {
+    const {
+      alt,
+      src,
+      extension,
+      index,
+      layout,
+      align,
+      height,
+      width,
+      editImage
+    } = this.props;
+
+    editImage({
+      alt,
+      src,
+      extension,
+      index,
+      layout,
+      align,
+      height,
+      width,
+      description: this.state.description,
+    });
+  };
+
   render() {
-    const { alt, src, extension, index, align, layout, maxId } = this.props;
+    const {
+      alt,
+      src,
+      extension,
+      index,
+      align,
+      layout,
+      maxId,
+      description
+    } = this.props;
     const url = `${src}/original.${extension}`;
+
     return (
       <div className={`${layout}-${align}`}>
         <div className="node-wrapper">
@@ -62,6 +109,14 @@ class Image extends React.PureComponent<Props, State> {
             onClick={this.handleToolbar}
             className={this.state.className}
           />
+          {configParams.version > 1 && <TextField
+            name="imageDescription"
+            hintText="Pie de foto(opcional)"
+            defaultValue={description}
+            onChange={this.onDescriptionChange}
+            onBlur={() => this.submitDescription()}
+            fullWidth
+          />}
         </div>
         <PopoverToolbar
           imageEl={this.state.imageEl}
@@ -86,5 +141,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  changeCurrentIndex
+  changeCurrentIndex,
+  editImage
 })(Image);
