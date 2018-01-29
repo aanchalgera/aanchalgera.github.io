@@ -49,7 +49,7 @@ class MoreOptions extends PureComponent<Props, State> {
     });
   };
 
-  openSummaryPannel = () => {
+  openSummaryPanel = () => {
     this.props.openModal('summaryModal');
     this.changeOptionsState(false);
   };
@@ -84,7 +84,7 @@ class MoreOptions extends PureComponent<Props, State> {
               <OptionButton
                 title="Insertar imagen"
                 Icon={EditorFormatIndentIncrease}
-                handleClick={this.openSummaryPannel}
+                handleClick={this.openSummaryPanel}
               />
             )}
             {/* <span>
