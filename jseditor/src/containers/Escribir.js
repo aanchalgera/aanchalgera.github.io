@@ -88,11 +88,19 @@ class Escribir extends React.PureComponent<Props> {
 
   addImage = (image, mode) => {
     image.index = this.props.currentIndex;
+
     if ('edit' === mode) {
       this.props.editImage(image);
     } else {
-      image.id = this.props.maxId;
-      this.props.addImage(image, this.props.splitPosition);
+      const imgAttributes = {
+        ...image,
+        id: this.props.maxId,
+        type: 'image',
+        layout: 'normal',
+        align: 'center',
+      };
+
+      this.props.addImage(imgAttributes, this.props.splitPosition);
     }
   };
 

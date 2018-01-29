@@ -2,10 +2,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ToolbarSeparator } from 'material-ui/Toolbar';
-import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
 import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
-import { ToolbarIcon } from '.';
 import { grey600, grey500, red500 } from 'material-ui/styles/colors';
+
+import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
+import { ToolbarIcon } from '.';
 import {
   SmallLeftIcon,
   SmallCenterIcon,
