@@ -9,11 +9,8 @@ type Props = {
   selectedKey: string
 };
 
-export function WithKeyHandler(WrappedComponent) {
-  const wrappedComponentName =
-    WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  const className = `WithKeyHandler(${wrappedComponentName})`;
-  class className extends React.PureComponent<Props> {
+export function withKeyHandler(WrappedComponent) {
+  return class Enhance extends React.PureComponent<Props> {
     componentDidMount() {
       document.addEventListener('keydown', this.keydownHandler);
     }
@@ -46,5 +43,5 @@ export function WithKeyHandler(WrappedComponent) {
         <WrappedComponent getClassName={this.getClassName} {...this.props} />
       );
     }
-  }
+  };
 }

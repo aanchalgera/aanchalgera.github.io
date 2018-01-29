@@ -6,7 +6,7 @@ import { grey600, grey500, red500 } from 'material-ui/styles/colors';
 import { SmallLeftIcon, SmallCenterIcon, SmallRightIcon } from './lib/svgIcons';
 
 import { ToolbarIcon } from '.';
-import { WithKeyHandler } from './WithKeyHandler';
+import { withKeyHandler } from './WithKeyHandler';
 
 type Props = {
   handleDelete: () => void,
@@ -64,4 +64,4 @@ const SummaryToolbar = (props: Props) => {
   );
 };
 
-export default WithKeyHandler(SummaryToolbar);
+export default withKeyHandler(SummaryToolbar);

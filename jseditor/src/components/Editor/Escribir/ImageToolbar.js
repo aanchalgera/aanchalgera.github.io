@@ -15,7 +15,7 @@ import {
 } from './lib/svgIcons';
 
 import { ToolbarIcon } from '.';
-import { WithKeyHandler } from './WithKeyHandler';
+import { withKeyHandler } from './WithKeyHandler';
 
 type Props = {
   handleDelete: () => void,
@@ -84,4 +84,4 @@ const ImageToolbar = (props: Props) => {
   );
 };
 
-export default WithKeyHandler(ImageToolbar);
+export default withKeyHandler(ImageToolbar);
