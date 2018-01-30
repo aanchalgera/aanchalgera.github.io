@@ -36,27 +36,13 @@ export class UrlUploader extends PureComponent<Props, State> {
     this.resetUrl();
   }
 
-  showProgressBar = (showProgress: boolean) => {
-    this.setState({
-      showProgress
-    });
-  };
+  showProgressBar = (showProgress: boolean) => this.setState({ showProgress });
 
-  setErrorMessage = (errorMessage: string) => {
-    this.setState({
-      errorMessage
-    });
-  };
+  setErrorMessage = (errorMessage: string) => this.setState({ errorMessage });
 
-  onUrlChange = (e: InputEvent, url: string) => {
-    this.setState({
-      url
-    });
-  };
+  onUrlChange = (e: InputEvent, url: string) => this.setState({ url });
 
-  resetUrl = () => {
-    this.setState({ url: '' });
-  };
+  resetUrl = () => this.setState({ url: '' });
 
   getTitle = () => (
     <div className="modal-title">
@@ -92,14 +78,12 @@ export class UrlUploader extends PureComponent<Props, State> {
     this.showProgressBar(false);
   };
 
-  goBack = () => {
-    this.props.openUploader();
-  }
+  goBack = () => this.props.openUploader();
 
   getDialogActions = () => (
     <div className="modal-actions">
       <Row className="m-no-margin">
-        <Col sm>
+        <Col sm className="start-sm">
           <RaisedButton
             label="Volver a elegir"
             icon={<NavigationArrowBack />}

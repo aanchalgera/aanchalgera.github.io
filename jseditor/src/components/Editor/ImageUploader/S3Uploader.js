@@ -37,9 +37,7 @@ export class S3Uploader extends PureComponent<Props, State> {
     this.setErrorMessage('');
   }
 
-  validateImage = (file: Object) => {
-    return file.size < MAX_FILE_SIZE;
-  };
+  validateImage = (size: number) => size < MAX_FILE_SIZE;
 
   selectImages = async (e: InputEvent) => {
     const { id, mode, site, openImagePanel } = this.props;
@@ -47,7 +45,7 @@ export class S3Uploader extends PureComponent<Props, State> {
 
     this.showProgressBar(true);
 
-    if (this.validateImage(file)) {
+    if (this.validateImage(file.size)) {
       let data = new FormData();
       data.append('file', file);
       const response = await uploadImage({ id, site, data });
@@ -64,17 +62,9 @@ export class S3Uploader extends PureComponent<Props, State> {
     this.showProgressBar(false);
   };
 
-  showProgressBar = (showProgress: boolean) => {
-    this.setState({
-      showProgress
-    });
-  };
+  showProgressBar = (showProgress: boolean) => this.setState({ showProgress });
 
-  setErrorMessage = (errorMessage: string) => {
-    this.setState({
-      errorMessage
-    });
-  };
+  setErrorMessage = (errorMessage: string) => this.setState({ errorMessage });
 
   goBack = () => this.props.openImagePanel(this.props.mode);
 
