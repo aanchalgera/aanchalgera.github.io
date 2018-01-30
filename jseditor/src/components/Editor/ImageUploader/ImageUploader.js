@@ -3,9 +3,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Image } from 'lib/flowTypes';
+import configParams from 'config/configs';
 import { getImages } from './lib/imageUploadService';
 import * as actions from './actions';
-import { ImagePanel, S3Uploader, ImageAltTextPopover } from '.';
+import { ImagePanel, S3Uploader, ImageAltTextPopover, UrlUploader } from '.';
 
 type Props = {
   imageUrls: Array<Image>,
@@ -14,6 +15,7 @@ type Props = {
   modelOpen: string,
   openImagePanel: () => void,
   openUploader: () => void,
+  openUploaderWithUrl: () => void,
   closeDialog: () => void,
   receiveImages: (images: Array<Image>) => void,
   openAltPanel: () => void,
@@ -40,6 +42,7 @@ class ImageUploader extends React.Component<Props> {
     const {
       openImagePanel,
       openUploader,
+      openUploaderWithUrl,
       closeDialog,
       imageUrls,
       id,
@@ -68,7 +71,17 @@ class ImageUploader extends React.Component<Props> {
           closeDialog={closeDialog}
           site={site}
           totalImages={imageUrls.length}
+          openUploaderWithUrl={openUploaderWithUrl}
         />
+        {configParams.version > 1 && <UrlUploader
+          open={'uploaderWithUrl' === modelOpen}
+          id={id}
+          openImagePanel={openImagePanel}
+          mode={mode}
+          closeDialog={closeDialog}
+          site={site}
+          openUploader={openUploader}
+        />}
         <ImageAltTextPopover
           open={'imageAltDialog' === modelOpen}
           imageToEmbed={imageToEmbed}

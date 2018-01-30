@@ -2,6 +2,7 @@ import {
   RECEIVE_IMAGES,
   OPEN_IMAGEPANEL,
   OPEN_UPLOADER,
+  OPEN_UPLOADER_WITH_URL,
   CLOSE_DIALOG,
   OPEN_ALT_PANEL
 } from './actions';
@@ -25,6 +26,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         modelOpen: 'imageUploader'
+      };
+
+    case OPEN_UPLOADER_WITH_URL:
+      return {
+        ...state,
+        modelOpen: 'uploaderWithUrl'
       };
 
     case OPEN_IMAGEPANEL:
