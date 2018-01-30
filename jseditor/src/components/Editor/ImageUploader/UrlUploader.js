@@ -44,24 +44,13 @@ export class UrlUploader extends PureComponent<Props, State> {
 
   resetUrl = () => this.setState({ url: '' });
 
-  getTitle = () => (
-    <div className="modal-title">
-      <Row className="m-no-margin">
-        <Col sm={11}>
-          <Label
-            label="Sube una o varias imágenes"
-            hint="Máximo 8MB cada imagen"
-          />
-        </Col>
-        <Col sm={1} className="end-sm">
-          <CloseButton handleClose={this.props.closeDialog} />
-        </Col>
-      </Row>
-    </div>
-  );
-
   selectImage = async () => {
     const { id, mode, site, openImagePanel } = this.props;
+
+    if ('' === this.state.url) {
+      this.setErrorMessage('Please enter a valid url.');
+      return;
+    }
 
     this.showProgressBar(true);
 
@@ -109,6 +98,22 @@ export class UrlUploader extends PureComponent<Props, State> {
       />
       <div className="error">{this.state.errorMessage}</div>
     </Fragment>
+  );
+
+  getTitle = () => (
+    <div className="modal-title">
+      <Row className="m-no-margin">
+        <Col sm={11}>
+          <Label
+            label="Sube una o varias imágenes"
+            hint="Máximo 8MB cada imagen"
+          />
+        </Col>
+        <Col sm={1} className="end-sm">
+          <CloseButton handleClose={this.props.closeDialog} />
+        </Col>
+      </Row>
+    </div>
   );
 
   render() {

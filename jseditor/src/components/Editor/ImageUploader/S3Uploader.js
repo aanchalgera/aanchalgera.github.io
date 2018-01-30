@@ -43,6 +43,11 @@ export class S3Uploader extends PureComponent<Props, State> {
     const { id, mode, site, openImagePanel } = this.props;
     const file = e.target.files[0];
 
+    if (!file) {
+      this.setErrorMessage('');
+      return;
+    }
+
     this.showProgressBar(true);
 
     if (this.validateImage(file.size)) {
