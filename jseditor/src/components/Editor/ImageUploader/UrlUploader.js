@@ -4,68 +4,50 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton, CircularProgress, TextField } from 'material-ui';
 import { NavigationArrowBack } from 'material-ui/svg-icons';
 
-import { uploadImage } from './lib/helpers';
 import { InputEvent } from 'lib/flowTypes';
-import { CloseButton, Label } from '.';
+import { withUploadHandler } from './WithUploadHandler';
 
 type Props = {
   id: string,
   open: boolean,
   site: string,
   mode: string,
+  title: string,
+  showProgress: boolean,
+  errorMessage: string,
   openImagePanel: (mode?: string) => void,
   closeDialog: () => void,
-  openUploader: () => void
+  openUploader: () => void,
+  setErrorMessage: (errorMessage: string) => void,
+  uploadImageToDb: (data: FormData) => void,
 };
 
 type State = {
   url: string,
-  showProgress: boolean,
-  errorMessage: string
 };
 
-export class UrlUploader extends PureComponent<Props, State> {
+class UrlUploader extends PureComponent<Props, State> {
   state = {
     url: '',
-    showProgress: false,
-    errorMessage: ''
   };
 
   componentWillReceiveProps() {
-    this.setErrorMessage('');
-    this.resetUrl();
+    this.setState({
+      url: '',
+    });
   }
 
-  showProgressBar = (showProgress: boolean) => this.setState({ showProgress });
-
-  setErrorMessage = (errorMessage: string) => this.setState({ errorMessage });
-
-  onUrlChange = (e: InputEvent, url: string) => this.setState({ url });
-
-  resetUrl = () => this.setState({ url: '' });
-
-  selectImage = async () => {
-    const { id, mode, site, openImagePanel } = this.props;
-
-    if ('' === this.state.url) {
-      this.setErrorMessage('Please enter a valid url.');
+  selectImage = () => {
+    if (!this.state.url) {
       return;
     }
 
-    this.showProgressBar(true);
-
     let data = new FormData();
     data.append('url', this.state.url);
-    const response = await uploadImage({ id, site, data });
-
-    if (response.status === 200) {
-      openImagePanel(mode);
-    } else {
-      this.setErrorMessage('Something went wrong.');
-    }
-
-    this.showProgressBar(false);
+    this.props.uploadImageToDb(data);
   };
+
+  onUrlChange = (e: InputEvent, url: string) => this.setState({ url });
 
   goBack = () => this.props.openUploader();
 
@@ -96,29 +78,13 @@ export class UrlUploader extends PureComponent<Props, State> {
         onClick={this.selectImage}
         primary
       />
-      <div className="error">{this.state.errorMessage}</div>
+      <div className="error">{this.props.errorMessage}</div>
     </Fragment>
   );
 
-  getTitle = () => (
-    <div className="modal-title">
-      <Row className="m-no-margin">
-        <Col sm={11}>
-          <Label
-            label="Sube una o varias imágenes"
-            hint="Máximo 8MB cada imagen"
-          />
-        </Col>
-        <Col sm={1} className="end-sm">
-          <CloseButton handleClose={this.props.closeDialog} />
-        </Col>
-      </Row>
-    </div>
-  );
-
   render() {
-    const { open, closeDialog } = this.props;
-    const contents = this.state.showProgress ? (
+    const { open, title, showProgress, closeDialog } = this.props;
+    const contents = showProgress ? (
       <CircularProgress />
     ) : (
       this.getUrlField()
@@ -127,7 +93,7 @@ export class UrlUploader extends PureComponent<Props, State> {
     return (
       <Dialog
         open={open}
-        title={this.getTitle()}
+        title={title}
         actions={this.getDialogActions()}
         onRequestClose={closeDialog}
         contentStyle={{ width: '95%', maxWidth: 'none' }}
@@ -137,3 +103,5 @@ export class UrlUploader extends PureComponent<Props, State> {
     );
   }
 }
+
+export default withUploadHandler(UrlUploader);
