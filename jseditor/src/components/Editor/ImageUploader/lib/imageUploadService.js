@@ -14,6 +14,6 @@ export const getImages = (id: string, receiveImages: ReceiveImages) => {
   });
 };
 
-export const postImages = (id: string, data: Image) => {
+export const postImage = (id: string, data: Image) => {
   return base.push('s3images/' + id, { data });
 };

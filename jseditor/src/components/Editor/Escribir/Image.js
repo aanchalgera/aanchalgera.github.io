@@ -100,7 +100,7 @@ class Image extends React.PureComponent<Props, State> {
             hintText="Pie de foto(opcional)"
             value={this.state.description}
             onChange={this.onDescriptionChange}
-            onBlur={() => this.submitDescription()}
+            onBlur={this.submitDescription}
             fullWidth
           />}
         </div>

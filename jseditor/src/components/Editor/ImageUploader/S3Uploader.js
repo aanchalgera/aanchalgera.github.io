@@ -2,11 +2,11 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
-import { FileFileUpload, NavigationArrowBack } from 'material-ui/svg-icons';
+import { FileFileUpload, NavigationArrowBack, FileAttachment } from 'material-ui/svg-icons';
 
-import { InputEvent, S3Image } from 'lib/flowTypes';
-import { postImage as postImageToS3 } from 'lib/s3ImageUploadService';
-import { postImages as postImagesToFirebase } from './lib/imageUploadService';
+import configParams from 'config/configs';
+import { InputEvent } from 'lib/flowTypes';
+import { uploadImage } from './lib/helpers';
 import { CloseButton, Label } from '.';
 
 const MAX_FILE_SIZE = 8388608;
@@ -18,6 +18,7 @@ type Props = {
   mode: string,
   totalImages: number,
   openImagePanel: (mode?: string) => void,
+  openUploaderWithUrl: () => void,
   closeDialog: () => void
 };
 
@@ -36,43 +37,39 @@ export class S3Uploader extends PureComponent<Props, State> {
     this.setErrorMessage('');
   }
 
-  uploadToFirebase = (image: S3Image) => {
-    const { id, mode, openImagePanel } = this.props;
-
-    postImagesToFirebase(id, image);
-    openImagePanel(mode);
-  };
+  validateImage = (size: number) => size < MAX_FILE_SIZE;
 
   selectImages = async (e: InputEvent) => {
-    this.showProgressBar(true);
-
+    const { id, mode, site, openImagePanel } = this.props;
     const file = e.target.files[0];
 
-    if (file.size > MAX_FILE_SIZE) {
-      this.setErrorMessage('Máximo 8MB cada imagen');
-    } else {
+    if (!file) {
+      this.setErrorMessage('');
+      return;
+    }
+
+    this.showProgressBar(true);
+
+    if (this.validateImage(file.size)) {
       let data = new FormData();
       data.append('file', file);
-      const image = await postImageToS3(this.props.site, data);
-      if (image.src) {
-        this.uploadToFirebase(image);
+      const response = await uploadImage({ id, site, data });
+
+      if (response.status === 200) {
+        openImagePanel(mode);
+      } else {
+        this.setErrorMessage('Something went wrong.');
       }
+    } else {
+      this.setErrorMessage('Máximo 8MB cada imagen');
     }
 
     this.showProgressBar(false);
   };
 
-  showProgressBar = (showProgress: boolean) => {
-    this.setState({
-      showProgress
-    });
-  };
+  showProgressBar = (showProgress: boolean) => this.setState({ showProgress });
 
-  setErrorMessage = (errorMessage: string) => {
-    this.setState({
-      errorMessage
-    });
-  };
+  setErrorMessage = (errorMessage: string) => this.setState({ errorMessage });
 
   goBack = () => this.props.openImagePanel(this.props.mode);
 
@@ -114,12 +111,12 @@ export class S3Uploader extends PureComponent<Props, State> {
   };
 
   getDialogActions = () => {
-    const { totalImages } = this.props;
+    const { totalImages, openUploaderWithUrl } = this.props;
 
-    if (totalImages !== 0) {
-      return (
-        <div className="modal-actions">
-          <Row className="m-no-margin">
+    return (
+      <div className="modal-actions">
+        <Row className="m-no-margin">
+          {totalImages !== 0 &&
             <Col sm className="start-sm">
               <RaisedButton
                 label="Volver a elegir"
@@ -127,10 +124,17 @@ export class S3Uploader extends PureComponent<Props, State> {
                 onClick={this.goBack}
               />
             </Col>
-          </Row>
-        </div>
-      );
-    }
+          }
+          {configParams.version > 1 && <Col sm className="end-sm">
+            <RaisedButton
+              label="Subir desde url"
+              icon={<FileAttachment />}
+              onClick={openUploaderWithUrl}
+            />
+          </Col>}
+        </Row>
+      </div>
+    );
   };
 
   render() {
