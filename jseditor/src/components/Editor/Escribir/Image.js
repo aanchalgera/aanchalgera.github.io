@@ -106,6 +106,7 @@ class Image extends React.PureComponent<Props, State> {
       openImagePanel
     } = this.props;
     const url = `${src}/original.${extension}`;
+    const showCaption = configParams.version > 1 && ['normal', 'large'].includes(layout);
 
     return (
       <div className={`${layout}-${align}`}>
@@ -116,7 +117,7 @@ class Image extends React.PureComponent<Props, State> {
             onClick={this.handleToolbar}
             className={this.state.className}
           />
-          {configParams.version > 1 && (
+          {showCaption && (
             <TextField
               name="imageDescription"
               hintText="Pie de foto(opcional)"
