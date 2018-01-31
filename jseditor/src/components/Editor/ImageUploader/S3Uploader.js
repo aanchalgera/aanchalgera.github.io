@@ -2,12 +2,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Dialog, RaisedButton, CircularProgress } from 'material-ui';
-import { FileFileUpload, NavigationArrowBack, FileAttachment } from 'material-ui/svg-icons';
+import {
+  FileFileUpload,
+  NavigationArrowBack,
+  FileAttachment
+} from 'material-ui/svg-icons';
 
 import configParams from 'config/configs';
 import { InputEvent } from 'lib/flowTypes';
-import { uploadImage } from './lib/helpers';
-import { CloseButton, Label } from '.';
+import { withUploadHandler } from './WithUploadHandler';
 
 const MAX_FILE_SIZE = 8388608;
 
@@ -17,145 +20,115 @@ type Props = {
   site: string,
   mode: string,
   totalImages: number,
+  title: string,
+  showProgress: boolean,
+  errorMessage: string,
   openImagePanel: (mode?: string) => void,
   openUploaderWithUrl: () => void,
-  closeDialog: () => void
+  closeDialog: () => void,
+  setErrorMessage: (errorMessage: string) => void,
+  uploadImageToDb: (data: FormData) => void,
 };
 
-type State = {
-  showProgress: boolean,
-  errorMessage: string
-};
+const S3Uploader = ({
+  open,
+  mode,
+  totalImages,
+  title,
+  showProgress,
+  errorMessage,
+  openImagePanel,
+  openUploaderWithUrl,
+  closeDialog,
+  setErrorMessage,
+  uploadImageToDb,
+}: Props) => {
+  const validateImage = (file: Object) => {
+    if (!file) {
+      return false;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setErrorMessage('Máximo 8MB cada imagen');
+      return false;
+    }
 
-export class S3Uploader extends PureComponent<Props, State> {
-  state = {
-    showProgress: false,
-    errorMessage: ''
+    return true;
   };
 
-  componentWillReceiveProps() {
-    this.setErrorMessage('');
-  }
-
-  validateImage = (size: number) => size < MAX_FILE_SIZE;
-
-  selectImages = async (e: InputEvent) => {
-    const { id, mode, site, openImagePanel } = this.props;
+  const selectImages = (e: InputEvent) => {
     const file = e.target.files[0];
 
-    if (!file) {
-      this.setErrorMessage('');
+    if (!validateImage(file)) {
       return;
     }
 
-    this.showProgressBar(true);
+    let data = new FormData();
+    data.append('file', file);
 
-    if (this.validateImage(file.size)) {
-      let data = new FormData();
-      data.append('file', file);
-      const response = await uploadImage({ id, site, data });
-
-      if (response.status === 200) {
-        openImagePanel(mode);
-      } else {
-        this.setErrorMessage('Something went wrong.');
-      }
-    } else {
-      this.setErrorMessage('Máximo 8MB cada imagen');
-    }
-
-    this.showProgressBar(false);
+    uploadImageToDb(data);
   };
 
-  showProgressBar = (showProgress: boolean) => this.setState({ showProgress });
+  const goBack = () => openImagePanel(mode);
 
-  setErrorMessage = (errorMessage: string) => this.setState({ errorMessage });
+  const getUploadButton = () => (
+    <Fragment>
+      <RaisedButton
+        className="btn-image-select"
+        label="Seleccionar en tu ordenador"
+        icon={<FileFileUpload />}
+        containerElement="label"
+      >
+        <input
+          type="file"
+          accept="image/*"
+          onChange={selectImages}
+          className="file-select-hidden"
+        />
+      </RaisedButton>
+      <div className="error">{errorMessage}</div>
+    </Fragment>
+  );
 
-  goBack = () => this.props.openImagePanel(this.props.mode);
-
-  getTitle = () => (
-    <div className="modal-title">
+  const getDialogActions = () => (
+    <div className="modal-actions">
       <Row className="m-no-margin">
-        <Col sm={11}>
-          <Label
-            label="Sube una o varias imágenes"
-            hint="Máximo 8MB cada imagen"
+        {totalImages !== 0 &&
+          <Col sm className="start-sm">
+            <RaisedButton
+              label="Volver a elegir"
+              icon={<NavigationArrowBack />}
+              onClick={goBack}
+            />
+          </Col>
+        }
+        {configParams.version > 1 && <Col sm className="end-sm">
+          <RaisedButton
+            label="Subir desde url"
+            icon={<FileAttachment />}
+            onClick={openUploaderWithUrl}
           />
-        </Col>
-        <Col sm={1} className="end-sm">
-          <CloseButton handleClose={this.props.closeDialog} />
-        </Col>
+        </Col>}
       </Row>
     </div>
   );
 
-  getUploadButton = () => {
-    return (
-      <Fragment>
-        <RaisedButton
-          className="btn-image-select"
-          label="Seleccionar en tu ordenador"
-          icon={<FileFileUpload />}
-          containerElement="label"
-        >
-          <input
-            type="file"
-            accept="image/*"
-            onChange={this.selectImages}
-            className="file-select-hidden"
-          />
-        </RaisedButton>
-        <div className="error">{this.state.errorMessage}</div>
-      </Fragment>
-    );
-  };
+  const contents = showProgress ? (
+    <CircularProgress />
+  ) : (
+    getUploadButton()
+  );
 
-  getDialogActions = () => {
-    const { totalImages, openUploaderWithUrl } = this.props;
-
-    return (
-      <div className="modal-actions">
-        <Row className="m-no-margin">
-          {totalImages !== 0 &&
-            <Col sm className="start-sm">
-              <RaisedButton
-                label="Volver a elegir"
-                icon={<NavigationArrowBack />}
-                onClick={this.goBack}
-              />
-            </Col>
-          }
-          {configParams.version > 1 && <Col sm className="end-sm">
-            <RaisedButton
-              label="Subir desde url"
-              icon={<FileAttachment />}
-              onClick={openUploaderWithUrl}
-            />
-          </Col>}
-        </Row>
-      </div>
-    );
-  };
-
-  render() {
-    const { showProgress } = this.state;
-    const { closeDialog } = this.props;
-    const contents = showProgress ? (
-      <CircularProgress />
-    ) : (
-      this.getUploadButton()
-    );
-
-    return (
-      <Dialog
-        open={this.props.open}
-        title={this.getTitle()}
-        actions={this.getDialogActions()}
-        onRequestClose={closeDialog}
-        contentStyle={{ width: '95%', maxWidth: 'none' }}
-      >
-        <div className="uploader">{contents}</div>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog
+      open={open}
+      title={title}
+      actions={getDialogActions()}
+      onRequestClose={closeDialog}
+      contentStyle={{ width: '95%', maxWidth: 'none' }}
+    >
+      <div className="uploader">{contents}</div>
+    </Dialog>
+  );
 }
+
+export default withUploadHandler(S3Uploader);
