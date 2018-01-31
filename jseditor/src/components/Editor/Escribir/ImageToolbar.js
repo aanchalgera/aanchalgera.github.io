@@ -4,8 +4,6 @@ import { ToolbarSeparator } from 'material-ui/Toolbar';
 import { ActionDelete, EditorModeEdit } from 'material-ui/svg-icons';
 import { grey600, grey500, red500 } from 'material-ui/styles/colors';
 
-import { deleteSection, openImagePanel, changeLayout } from 'actions/post';
-import { ToolbarIcon } from '.';
 import {
   SmallLeftIcon,
   SmallCenterIcon,
@@ -13,7 +11,6 @@ import {
   NormalIcon,
   BigIcon
 } from './lib/svgIcons';
-
 import { ToolbarIcon } from '.';
 import { withKeyHandler } from './WithKeyHandler';
 

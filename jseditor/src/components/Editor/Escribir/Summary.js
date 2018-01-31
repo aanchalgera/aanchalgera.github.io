@@ -50,7 +50,7 @@ class Summary extends React.PureComponent<Props, State> {
     );
   };
 
-  closeImageToolbar = () => {
+  closeToolbar = () => {
     this.setState({
       openToolbar: false,
       className: ''
@@ -73,11 +73,11 @@ class Summary extends React.PureComponent<Props, State> {
         <PopoverToolbar
           imageEl={this.state.el}
           open={this.state.openToolbar}
-          closeImageToolbar={this.closeImageToolbar}
+          closeToolbar={this.closeToolbar}
           toolbarIcons={
             <SummaryToolbar
               index={index}
-              closeToolbar={this.closeImageToolbar}
+              closeToolbar={this.closeToolbar}
               selectedKey={`${layout}-${align}`}
               maxId={maxId}
               handleDelete={this.handleDelete}
