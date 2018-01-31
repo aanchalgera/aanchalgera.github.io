@@ -12,6 +12,7 @@ type Props = {
   layout: string,
   align: string,
   changeCurrentIndex: (index: number) => void,
+  openModal: (modalName: string, mode: string) => void,
   deleteSection: (index: number, maxId: number) => void,
   changeLayout: (index: number, layout: string, align: string) => void,
   maxId: number
@@ -63,7 +64,7 @@ class Summary extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { text, index, align, layout, maxId } = this.props;
+    const { text, index, align, layout, maxId, openModal } = this.props;
 
     return (
       <div className={`${layout}-${align}`}>
@@ -82,6 +83,7 @@ class Summary extends React.PureComponent<Props, State> {
               maxId={maxId}
               handleDelete={this.handleDelete}
               changeLayout={this.changeLayout}
+              openModal={openModal}
             />
           }
         />

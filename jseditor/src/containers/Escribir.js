@@ -39,6 +39,7 @@ type Props = {
   receivePost: (post: Object) => void,
   addImage: (image: Object) => void,
   addSection: (section: Object, position: number) => void,
+  editSection: (section: Object) => void,
   openImagePanel: () => void,
   fields: [],
   postType: string,
@@ -97,18 +98,28 @@ class Escribir extends React.PureComponent<Props> {
         id: this.props.maxId,
         type: 'image',
         layout: 'normal',
-        align: 'center',
+        align: 'center'
       };
 
       this.props.addImage(imgAttributes, this.props.splitPosition);
     }
   };
 
-  addSection = section => {
-    const { currentIndex, maxId, addSection, splitPosition } = this.props;
+  addSection = (section, mode) => {
+    const {
+      currentIndex,
+      maxId,
+      addSection,
+      editSection,
+      splitPosition
+    } = this.props;
     section.index = currentIndex;
-    section.id = maxId;
-    addSection(section, splitPosition);
+    if ('edit' === mode) {
+      editSection(section);
+    } else {
+      section.id = maxId;
+      addSection(section, splitPosition);
+    }
   };
 
   savePostToBackend = async () => {

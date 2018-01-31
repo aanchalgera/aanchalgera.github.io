@@ -11,8 +11,10 @@ import { CloseButton, Label } from 'components/Editor/ImageUploader';
 
 type Props = {
   modalName: string,
-  addSection: (params: { type: string, text: string }) => void,
-  closeModal: () => void
+  addSection: (params: { type: string, text: string }, mode: string) => void,
+  closeModal: () => void,
+  summary: string,
+  mode: string
 };
 
 type State = {
@@ -31,12 +33,19 @@ class SummaryModal extends PureComponent<Props, State> {
     summary: ''
   };
 
+  componentWillReceiveProps(nextProps: Props) {
+    if ('edit' === nextProps.mode) {
+      this.setState({ summary: nextProps.summary });
+    }
+  }
+
   addSummary = () => {
     const params = {
       type: 'summary',
       text: this.state.summary
     };
-    this.props.addSection(params);
+    const { mode } = this.props;
+    this.props.addSection(params, mode);
   };
 
   onTextChange = (e: InputEvent, value: string) => {
@@ -80,6 +89,7 @@ class SummaryModal extends PureComponent<Props, State> {
             hintText="Texto del sumario"
             fullWidth
             onChange={this.onTextChange}
+            defaultValue={this.state.summary}
           />
         </div>
       </Dialog>
@@ -87,10 +97,10 @@ class SummaryModal extends PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ...state.modal
-  };
-};
+const mapStateToProps = ({ modal, sections, post: { currentIndex } }) => ({
+  ...modal,
+  summary:
+    sections[currentIndex] !== undefined ? sections[currentIndex].text : ''
+});
 
 export default connect(mapStateToProps, { closeModal })(SummaryModal);

@@ -1,6 +1,7 @@
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const CHANGE_TITLE = 'CHANGE_TITLE';
 export const ADD_SECTION = 'ADD_SECTION';
+export const EDIT_SECTION = 'EDIT_SECTION';
 export const OPEN_IMAGEPANEL = 'OPEN_IMAGEPANEL';
 export const CHANGE_CONTENT = 'CHANGE_CONTENT';
 export const CHANGE_POSITION = 'CHANGE_POSITION';
@@ -53,6 +54,13 @@ export const addSection = (section, position) => {
     type: ADD_SECTION,
     section,
     position
+  };
+};
+
+export const editSection = section => {
+  return {
+    type: EDIT_SECTION,
+    section
   };
 };
 

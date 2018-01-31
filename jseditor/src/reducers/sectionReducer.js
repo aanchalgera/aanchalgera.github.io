@@ -1,6 +1,7 @@
 import {
   CHANGE_TITLE,
   ADD_SECTION,
+  EDIT_SECTION,
   RECEIVE_POST,
   CHANGE_CONTENT,
   DELETE_SECTION,
@@ -22,9 +23,10 @@ const initialState = [
 
 const sections = (sections = initialState, action) => {
   switch (action.type) {
-    case RECEIVE_POST:
+    case RECEIVE_POST: {
       const { post } = action;
       return post.sections || initialState;
+    }
     case CHANGE_TITLE:
       return [
         {
@@ -34,7 +36,7 @@ const sections = (sections = initialState, action) => {
         },
         ...sections.slice(1)
       ];
-    case CHANGE_CONTENT:
+    case CHANGE_CONTENT: {
       const { content } = action;
       const section = sections.slice(action.index, action.index + 1)[0];
       return [
@@ -45,8 +47,9 @@ const sections = (sections = initialState, action) => {
         },
         ...sections.slice(action.index + 1)
       ];
-    case ADD_SECTION:
-      const { index, ...newSection } = action.section;
+    }
+    case ADD_SECTION: {
+      let { index, ...newSection } = action.section;
       const delimiter = '\n',
         tokens = sections[index].text.split(delimiter);
       let start = action.position;
@@ -74,7 +77,8 @@ const sections = (sections = initialState, action) => {
         ...addSections,
         ...sections.slice(index + 1)
       ];
-    case DELETE_SECTION:
+    }
+    case DELETE_SECTION: {
       const sectionToAdd = {
         id: action.data.id + 1,
         type: 'content',
@@ -87,19 +91,34 @@ const sections = (sections = initialState, action) => {
         sectionToAdd,
         ...sections.slice(action.data.index + 2)
       ];
-    case EDIT_IMAGE:
-      const { index: imageIndex, ...changedImgAttributes } = action.image;
+    }
+    case EDIT_SECTION: {
+      let { index, ...modifiedAttributes } = action.section;
+      const sectionAttributes = sections[index];
+
+      return [
+        ...sections.slice(0, index),
+        {
+          ...sectionAttributes,
+          ...modifiedAttributes
+        },
+        ...sections.slice(index + 1)
+      ];
+    }
+    case EDIT_IMAGE: {
+      let { index: imageIndex, ...changedImgAttributes } = action.image;
       const imgAttributes = sections[imageIndex];
 
       return [
         ...sections.slice(0, imageIndex),
         {
           ...imgAttributes,
-          ...changedImgAttributes,
+          ...changedImgAttributes
         },
         ...sections.slice(imageIndex + 1)
       ];
-    case CHANGE_LAYOUT:
+    }
+    case CHANGE_LAYOUT: {
       const { layout, align } = action;
       let modifiedNode = {
         ...sections[action.index],
@@ -111,6 +130,7 @@ const sections = (sections = initialState, action) => {
         modifiedNode,
         ...sections.slice(action.index + 1)
       ];
+    }
     default:
       return sections;
   }
