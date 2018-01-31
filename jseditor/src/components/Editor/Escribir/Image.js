@@ -3,10 +3,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { TextField } from 'material-ui';
 
-import { PopoverToolbar, ImageToolbar } from '.';
-import { changeCurrentIndex, editImage } from 'actions/post';
 import { InputEvent } from 'lib/flowTypes';
 import configParams from 'config/configs';
+import { PopoverToolbar, ImageToolbar } from '.';
+import {
+  changeLayout,
+  deleteSection,
+  changeCurrentIndex,
+  openImagePanel,
+  editImage
+} from 'actions/post';
 
 type Props = {
   alt: string,
@@ -20,10 +26,13 @@ type Props = {
   description: string,
   editImage: (image: any) => void,
   changeCurrentIndex: (index: number) => void,
+  openImagePanel: (actionName: string) => void,
+  deleteSection: (index: number, maxId: number) => void,
+  changeLayout: (index: number, layout: string, align: string) => void,
   maxId: number
 };
 type State = {
-  openImageToolbar: boolean,
+  openToolbar: boolean,
   imageEl: any,
   description: string,
   className: string
@@ -31,7 +40,7 @@ type State = {
 
 class Image extends React.PureComponent<Props, State> {
   state = {
-    openImageToolbar: false,
+    openToolbar: false,
     imageEl: {},
     description: this.props.description,
     className: ''
@@ -48,7 +57,7 @@ class Image extends React.PureComponent<Props, State> {
   handleToolbar = (event: SyntheticEvent<HTMLImageElement>) => {
     this.setState(
       {
-        openImageToolbar: true,
+        openToolbar: true,
         imageEl: event.currentTarget.parentNode,
         className: 'img-container'
       },
@@ -56,22 +65,33 @@ class Image extends React.PureComponent<Props, State> {
     );
   };
 
-  closeImageToolbar = () => {
+  closeToolbar = () => {
     this.setState({
-      openImageToolbar: false,
+      openToolbar: false,
       className: ''
     });
   };
 
-  onDescriptionChange = (e: InputEvent, description: string) => this.setState({ description });
+  onDescriptionChange = (e: InputEvent, description: string) =>
+    this.setState({ description });
 
   submitDescription = () => {
     const { index, editImage } = this.props;
 
     editImage({
       index,
-      description: this.state.description,
+      description: this.state.description
     });
+  };
+
+  handleDelete = () => {
+    const { deleteSection, index, maxId } = this.props;
+    deleteSection(index, maxId);
+  };
+
+  changeLayout = (layout, align) => {
+    const { index, changeLayout } = this.props;
+    changeLayout(index, layout, align);
   };
 
   render() {
@@ -83,6 +103,7 @@ class Image extends React.PureComponent<Props, State> {
       align,
       layout,
       maxId,
+      openImagePanel
     } = this.props;
     const url = `${src}/original.${extension}`;
 
@@ -95,25 +116,30 @@ class Image extends React.PureComponent<Props, State> {
             onClick={this.handleToolbar}
             className={this.state.className}
           />
-          {configParams.version > 1 && <TextField
-            name="imageDescription"
-            hintText="Pie de foto(opcional)"
-            value={this.state.description}
-            onChange={this.onDescriptionChange}
-            onBlur={this.submitDescription}
-            fullWidth
-          />}
+          {configParams.version > 1 && (
+            <TextField
+              name="imageDescription"
+              hintText="Pie de foto(opcional)"
+              value={this.state.description}
+              onChange={this.onDescriptionChange}
+              onBlur={this.submitDescription}
+              fullWidth
+            />
+          )}
         </div>
         <PopoverToolbar
           imageEl={this.state.imageEl}
-          open={this.state.openImageToolbar}
-          closeImageToolbar={this.closeImageToolbar}
+          open={this.state.openToolbar}
+          closeToolbar={this.closeToolbar}
           toolbarIcons={
             <ImageToolbar
               index={index}
-              closeImageToolbar={this.closeImageToolbar}
+              closeToolbar={this.closeToolbar}
               selectedKey={`${layout}-${align}`}
               maxId={maxId}
+              handleDelete={this.handleDelete}
+              changeLayout={this.changeLayout}
+              openImagePanel={openImagePanel}
             />
           }
         />
@@ -127,6 +153,9 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  editImage,
+  changeLayout,
+  deleteSection,
   changeCurrentIndex,
-  editImage
+  openImagePanel
 })(Image);

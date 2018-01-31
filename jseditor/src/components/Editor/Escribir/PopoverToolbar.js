@@ -5,7 +5,7 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 
 type Props = {
-  closeImageToolbar: () => void,
+  closeToolbar: () => void,
   imageEl: SyntheticEvent<HTMLImageElement>,
   open: boolean,
   toolbarIcons: Array<React.Node>
@@ -18,7 +18,7 @@ const style = {
 };
 
 export const PopoverToolbar = ({
-  closeImageToolbar,
+  closeToolbar,
   imageEl,
   open,
   toolbarIcons
@@ -29,7 +29,7 @@ export const PopoverToolbar = ({
     anchorOrigin={{ horizontal: 'middle', vertical: 'top' }}
     targetOrigin={{ horizontal: 'middle', vertical: 'bottom' }}
     animation={PopoverAnimationVertical}
-    onRequestClose={closeImageToolbar}
+    onRequestClose={closeToolbar}
     canAutoPosition={false}
     className="tooltip"
     style={style.popover}
