@@ -5,59 +5,13 @@ import { Row, Col } from 'react-flexbox-grid';
 
 import { Label } from '../Publish';
 import { InputEvent } from 'lib/flowTypes';
+import { blogs, formattedBlogs } from 'constants/SitesConfig';
 
 type Props = {
   repostBlogs: Array<string>,
   setRepostBlogs: (key: string, value: boolean) => void,
   blogName: string,
   submitRepostedBlogs: () => Promise<any>
-};
-
-let formatedBlogs = {
-  tecnologiaColA: {
-    sites: [
-      'xataka',
-      'xatakamovil',
-      'xatakafoto',
-      'xatakandroid',
-      'xatakahome',
-      'xatakawindows',
-      'xatakaciencia',
-      'xatakamagnet',
-      'xatakamexico',
-      'xatakacolombia'
-    ]
-  },
-  tecnologiaColB: {
-    sites: ['applesfera', 'vidaextra', 'genbeta', 'genbetadev', 'compradiccion']
-  },
-  estilodevida: {
-    sites: [
-      'trendencias',
-      'trendenciasbelleza',
-      'trendenciashombre',
-      'directoalpaladar',
-      'bebesymas',
-      'vitonica',
-      'decoesfera',
-      'poprosa',
-      'directoalpaladarmexico'
-    ]
-  },
-  motor: {
-    sites: [
-      'motorpasion',
-      'motorpasionmoto',
-      'motorpasionfuturo',
-      'motorpasionmexico'
-    ]
-  },
-  economia: {
-    sites: ['elblogsalmon', 'pymesyautonomos']
-  },
-  ocio: {
-    sites: ['espinof', 'papelenblanco', 'diariodelviajero']
-  }
 };
 
 export default class RepostSiteOptions extends React.PureComponent<Props> {
@@ -72,9 +26,8 @@ export default class RepostSiteOptions extends React.PureComponent<Props> {
   }
   initalRepostedBlogs = null;
 
-  handleCheck = (e: InputEvent, isChecked: boolean) => {
+  handleCheck = (e: InputEvent, isChecked: boolean) =>
     this.props.setRepostBlogs(e.currentTarget.value, isChecked);
-  };
 
   submitRepostedBlogs = () => {
     this.initalRepostedBlogs = [...this.props.repostBlogs];
@@ -104,15 +57,29 @@ export default class RepostSiteOptions extends React.PureComponent<Props> {
   };
 
   render() {
+    const { repostBlogs, blogName } = this.props;
+    const otherBlogs = blogs.filter(blog => blog !== blogName);
+    const isSelectAllChecked = repostBlogs.join() === otherBlogs.join();
+
     return (
       <div>
         <Row>
           <Col sm={12}>
             <Label label="Crosspost a otros medios" />
           </Col>
-          {Object.keys(formatedBlogs).map(key => (
+          <Col sm={12}>
+            <Checkbox
+              checked={isSelectAllChecked}
+              key="selectAll"
+              label="Select All"
+              value={otherBlogs}
+              onCheck={this.handleCheck}
+              className="layout-line-form"
+            />
+          </Col>
+          {Object.keys(formattedBlogs).map(key => (
             <Col sm key={key}>
-              {this.getSitesListing(formatedBlogs[key].sites)}
+              {this.getSitesListing(formattedBlogs[key].sites)}
             </Col>
           ))}
         </Row>
