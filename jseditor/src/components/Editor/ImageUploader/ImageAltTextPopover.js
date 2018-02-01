@@ -15,6 +15,7 @@ type ImageData = {
   extension: string,
   height: number,
   width: number,
+  caption: string,
   caption_text: string,
 };
 
@@ -59,6 +60,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
       ...imageToEmbed,
       alt: this.state.altText,
       caption_text: '',
+      caption: '',
     };
 
     addImage(image, mode);

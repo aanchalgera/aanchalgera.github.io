@@ -14,6 +14,8 @@ import {
   editImage
 } from 'actions/post';
 
+const normalCaption = 'caption-img';
+
 type Props = {
   alt: string,
   src: string,
@@ -23,6 +25,7 @@ type Props = {
   align: string,
   height: number,
   width: number,
+  caption: string,
   caption_text: string,
   editImage: (image: any) => void,
   changeCurrentIndex: (index: number) => void,
@@ -80,6 +83,7 @@ class Image extends React.PureComponent<Props, State> {
 
     editImage({
       index,
+      caption: normalCaption,
       caption_text: this.state.captionText
     });
   };
