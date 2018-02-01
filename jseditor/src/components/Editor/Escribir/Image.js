@@ -72,10 +72,10 @@ class Image extends React.PureComponent<Props, State> {
     });
   };
 
-  onDescriptionChange = (e: InputEvent, captionText: string) =>
+  onCaptionChange = (e: InputEvent, captionText: string) =>
     this.setState({ captionText });
 
-  submitDescription = () => {
+  submitCaption = () => {
     const { index, editImage } = this.props;
 
     editImage({
@@ -119,11 +119,11 @@ class Image extends React.PureComponent<Props, State> {
           />
           {showCaption && (
             <TextField
-              name="imageDescription"
+              name="imageCaption"
               hintText="Pie de foto(opcional)"
               value={this.state.captionText}
-              onChange={this.onDescriptionChange}
-              onBlur={this.submitDescription}
+              onChange={this.onCaptionChange}
+              onBlur={this.submitCaption}
               fullWidth
             />
           )}
