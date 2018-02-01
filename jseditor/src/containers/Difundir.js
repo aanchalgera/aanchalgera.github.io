@@ -63,17 +63,16 @@ class Difundir extends React.PureComponent<Props> {
   }
 
   setRepostBlogs = (blogNames: string, isChecked: boolean) => {
+    let postRepostBlogNames;
     const blogs = blogNames.split(',');
 
     if (blogs.length > 1) {
-      const postRepostBlogNames = isChecked ? blogs : [];
-
-      this.setState({ postRepostBlogNames });
+      postRepostBlogNames = isChecked ? blogs : [];
     } else {
-      this.setState(prevState => ({
-        postRepostBlogNames: toggleItem(blogs[0], prevState.postRepostBlogNames)
-      }));
+      postRepostBlogNames = toggleItem(blogs[0], this.state.postRepostBlogNames);
     }
+
+    this.setState({ postRepostBlogNames });
   };
 
   submitRepostedBlogs = async () => {
