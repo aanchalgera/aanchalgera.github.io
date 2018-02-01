@@ -14,6 +14,7 @@ type Props = {
   closeToolbar: () => void,
   changeLayout: (layout: string, align: string) => void,
   getClassName: (layout: string, align: string) => void,
+  openModal: (modalName: string, mode: string) => void,
   index: number,
   selectedKey: string,
   maxId: number
@@ -21,8 +22,8 @@ type Props = {
 
 const SummaryToolbar = (props: Props) => {
   const handleEdit = () => {
-    // open summary panel
-    // close toolbar
+    props.openModal('summaryModal', 'edit');
+    props.closeToolbar();
   };
 
   const { handleDelete, changeLayout, getClassName } = props;

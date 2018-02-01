@@ -6,7 +6,8 @@ import {
   changeContent,
   deleteSection,
   editImage,
-  changeLayout
+  changeLayout,
+  editSection
 } from 'actions/post';
 
 describe('reducer', () => {
@@ -294,6 +295,72 @@ describe('reducer', () => {
         alt: 'sample alt'
       }
     ];
+    expect(reducer(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('should handle edit section action', () => {
+    const stateBefore = [
+      {
+        type: 'content',
+        id: 2
+      },
+      {
+        id: 24,
+        type: 'image',
+        src: 'https://i.blogs.com/id222',
+        alt: 'Test Text',
+        extension: '.jpg',
+        height: '200',
+        width: '300'
+      },
+      {
+        type: 'content',
+        id: 25,
+        text: ''
+      },
+      {
+        type: 'hyperlink',
+        id: 2
+      }
+    ];
+
+    const image = {
+      src: 'https://i.blogs.com/id',
+      extension: '.jpg',
+      height: '200',
+      width: '300',
+      alt: 'Truth can only be found in one place: the code',
+      index: 1,
+      id: 24
+    };
+
+    const action = editSection(image);
+
+    const stateAfter = [
+      {
+        type: 'content',
+        id: 2
+      },
+      {
+        id: 24,
+        type: 'image',
+        src: 'https://i.blogs.com/id',
+        alt: 'Truth can only be found in one place: the code',
+        extension: '.jpg',
+        height: '200',
+        width: '300'
+      },
+      {
+        type: 'content',
+        id: 25,
+        text: ''
+      },
+      {
+        type: 'hyperlink',
+        id: 2
+      }
+    ];
+
     expect(reducer(stateBefore, action)).toEqual(stateAfter);
   });
 });
