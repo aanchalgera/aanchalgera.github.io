@@ -36,15 +36,25 @@ class SummaryModal extends PureComponent<Props, State> {
   componentWillReceiveProps(nextProps: Props) {
     if ('edit' === nextProps.mode) {
       this.setState({ summary: nextProps.summary });
+    } else {
+      this.setState({ summary: '' });
     }
   }
 
   addSummary = () => {
-    const params = {
+    let params = {
       type: 'summary',
       text: this.state.summary
     };
     const { mode } = this.props;
+    if ('add' === mode) {
+      params = {
+        ...params,
+        align: 'center',
+        layout: 'small'
+      };
+    }
+
     this.props.addSection(params, mode);
   };
 
@@ -97,10 +107,17 @@ class SummaryModal extends PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = ({ modal, sections, post: { currentIndex } }) => ({
-  ...modal,
+const mapStateToProps = ({
+  modal: { modalName, mode },
+  sections,
+  post: { currentIndex }
+}) => ({
+  modalName,
+  mode,
   summary:
-    sections[currentIndex] !== undefined ? sections[currentIndex].text : ''
+    'summaryModal' === modalName && sections[currentIndex] !== undefined
+      ? sections[currentIndex].text
+      : ''
 });
 
 export default connect(mapStateToProps, { closeModal })(SummaryModal);
