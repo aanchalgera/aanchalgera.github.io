@@ -23,7 +23,7 @@ type Props = {
   align: string,
   height: number,
   width: number,
-  description: string,
+  caption_text: string,
   editImage: (image: any) => void,
   changeCurrentIndex: (index: number) => void,
   openImagePanel: (actionName: string) => void,
@@ -34,7 +34,7 @@ type Props = {
 type State = {
   openToolbar: boolean,
   imageEl: any,
-  description: string,
+  captionText: string,
   className: string
 };
 
@@ -42,12 +42,12 @@ class Image extends React.PureComponent<Props, State> {
   state = {
     openToolbar: false,
     imageEl: {},
-    description: this.props.description,
+    captionText: this.props.caption_text,
     className: ''
   };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ description: nextProps.description });
+    this.setState({ captionText: nextProps.caption_text });
   }
 
   changeCurrentIndex = () => {
@@ -72,15 +72,15 @@ class Image extends React.PureComponent<Props, State> {
     });
   };
 
-  onDescriptionChange = (e: InputEvent, description: string) =>
-    this.setState({ description });
+  onCaptionChange = (e: InputEvent, captionText: string) =>
+    this.setState({ captionText });
 
-  submitDescription = () => {
+  submitCaption = () => {
     const { index, editImage } = this.props;
 
     editImage({
       index,
-      description: this.state.description
+      caption_text: this.state.captionText
     });
   };
 
@@ -119,11 +119,11 @@ class Image extends React.PureComponent<Props, State> {
           />
           {showCaption && (
             <TextField
-              name="imageDescription"
+              name="imageCaption"
               hintText="Pie de foto(opcional)"
-              value={this.state.description}
-              onChange={this.onDescriptionChange}
-              onBlur={this.submitDescription}
+              value={this.state.captionText}
+              onChange={this.onCaptionChange}
+              onBlur={this.submitCaption}
               fullWidth
             />
           )}
