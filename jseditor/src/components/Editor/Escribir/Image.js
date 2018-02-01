@@ -80,10 +80,11 @@ class Image extends React.PureComponent<Props, State> {
 
   submitCaption = () => {
     const { index, editImage } = this.props;
+    const caption = '' === this.state.captionText ? '' : normalCaption;
 
     editImage({
       index,
-      caption: normalCaption,
+      caption,
       caption_text: this.state.captionText
     });
   };
