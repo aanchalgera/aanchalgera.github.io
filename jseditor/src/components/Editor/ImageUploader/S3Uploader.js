@@ -30,6 +30,13 @@ type Props = {
   uploadImageToDb: (data: FormData) => void,
 };
 
+const styles = {
+  dialog: {
+    width: '95%',
+    maxWidth: 'none'
+  }
+};
+
 const S3Uploader = ({
   open,
   mode,
@@ -124,7 +131,7 @@ const S3Uploader = ({
       title={title}
       actions={getDialogActions()}
       onRequestClose={closeDialog}
-      contentStyle={{ width: '95%', maxWidth: 'none' }}
+      contentStyle={styles.dialog}
     >
       <div className="uploader">{contents}</div>
     </Dialog>
