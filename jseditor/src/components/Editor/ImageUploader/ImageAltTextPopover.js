@@ -15,7 +15,7 @@ type ImageData = {
   extension: string,
   height: number,
   width: number,
-  description: string,
+  caption_text: string,
 };
 
 type Props = {
@@ -58,7 +58,7 @@ export class ImageAltTextPopover extends PureComponent<Props, State> {
     const image = {
       ...imageToEmbed,
       alt: this.state.altText,
-      description: '',
+      caption_text: '',
     };
 
     addImage(image, mode);
